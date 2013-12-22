@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset='UTF-8'/>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+  <meta name="viewport" content="width=device-width" />
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/aight/1.1.1/aight.min.js"></script>
+  <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/sizzle/1.10.9/sizzle.min.js"></script>
+  <![endif]-->
+  <script src='js/lib/jquery-2.0.3.js'></script>
+  <script src='js/lib/locale.js'></script>
+  <script src='data/locale.js'></script>
+  <script src='js/lib/leaflet-0.6.2.js'></script>
+  <script src='js/lib/lodash.modern-2.4.1.js'></script>
+  <script src='js/lib/backbone.js'></script>
+  <script src='js/app/app.js'></script>
+  <script src='js/app/visit.js'></script>
+  <script src='js/app/visits.js'></script>
+  <script src='js/app/iconView.js'></script>
+  <script src='js/app/appView.js'></script>
+  <script src='js/app/mapView.js'></script>
+  <script src='js/app/popupView.js'></script>
+  <script src='js/app/filterView.js'></script>
+  <script src='js/app/attrFilterView.js'></script>
+  <script src='js/app/dateFilterView.js'></script>
+  <script src='js/app/checkboxView.js'></script>
+  <link href='css/bootstrap.css' rel='stylesheet' />
+  <link href='css/leaflet.css' rel='stylesheet' />
+  <link href='css/core.css' rel='stylesheet' />
+
+</head>
+
+<body>
+
+<div id="app">
+  <div id="map">
+  </div>
+</div>
+
+<script type="text/html" id="template-popup">
+<button type="button" class="close pull-right" aria-hidden="true">&times;</button>
+<h3>
+  <%= getPlacename() || t(get("myarea")) %><br>
+  <small><%= getWhat() || "" %></small>
+</h3>
+<div class="image-wrapper">
+  <img src="<%= getImgUrl() %>">
+</div>
+<table class="table">
+<tr>
+  <th>Where:</th>
+  <td><%= getLocation() || t('message.nodata')  %></td>
+</tr>
+<tr>
+  <th>Impacts:</th>
+  <td><%= getImpacts()  || t('message.nodata') %></td>
+</tr>
+<% if (attributes.other_info) { %>
+<tr>
+  <th>Notes:</th>
+  <td><%= attributes.other_info %></td>
+</tr>
+<% } %>
+<tr>
+  <th>Visited&nbsp;by:</th>
+  <td><%= getWho() %></td>
+</tr>
+<tr>
+  <th>Visit&nbsp;date:</th>
+  <td><%= getWhen() %></td>
+</tr>
+</table>
+</script>
+
+<script type="text/html" id="template-filter">
+<h3><%= title %></h3>
+<div class="select">
+  <a href="#" class="select_all">Select All</a> | 
+  <a href="#" class="select_none">Select None</a>
+</div>
+</script>
+
+<script type="text/html" id="template-filter-date">
+<h3>Dates</h3>
+<div class="form-group">
+  <label for="date-start">From</label>
+  <input id="date-start" class="form-control" type="date"/>
+</div>
+<div class="form-group">
+  <label for="date-end">To</label>
+  <input id="date-end" class="form-control" type="date"/>
+</div>
+</script>
+
+<script type="text/html" id="template-checkbox">
+<label>
+  <input type="checkbox" value="<%= value %>" checked>
+  <span class="<%= labelClass %>"><%= text %></span>
+</label>
+</script>
+
+
+<script src='js/app/setup.js'></script>
+
+</body>
+
+</html>
