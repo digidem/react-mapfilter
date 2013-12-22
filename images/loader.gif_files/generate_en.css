@@ -1,0 +1,18 @@
+.generate_button{background:url(../images/generate_bg_en.png) left top;}.generate_button,.generate_button:hover,.send_message_button,.send_message_button:hover{height:35px;width:194px;border:1px solid #0996d4;
+	-moz-border-radius: 5px;
+	-khtml-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	
+    -webkit-box-shadow:0 1px 3px rgba(0, 0, 0, .4);
+    -moz-box-shadow:0 1px 3px rgba(0, 0, 0, .4);
+    box-shadow:0 1px 3px rgba(0, 0, 0, .4);}.generate_button,.generate_button:hover,.send_message_button,.send_message_button:hover,.download_button,.download_button:hover,.submit_button,.submit_button:hover{display:block}.generate_button,.send_message_button{cursor:pointer}.generate_button:hover{background:url(../images/generate_bg_en.png) left bottom}.send_message_button{background:url(../images/send_message_en.png) top left}.send_message_button:hover{background:url(../images/send_message_en.png) bottom left}.download_button,.download_button:hover,.submit_button,.submit_button:hover{height:28px;width:104px;
+	border:1px solid #0996d4;
+	-moz-border-radius: 3px;
+	-khtml-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	
+    -webkit-box-shadow:0 1px 3px rgba(0, 0, 0, .4);
+    -moz-box-shadow:0 1px 3px rgba(0, 0, 0, .4);
+    box-shadow:0 1px 3px rgba(0, 0, 0, .4);}.download_button{background:url(../images/download_en.png) top left}.download_button:hover{background:url(../images/download_en.png) bottom left}.submit_button{background:url(../images/submit_en.png) top left}.submit_button:hover{background:url(../images/submit_en.png) bottom left}
