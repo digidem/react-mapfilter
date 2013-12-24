@@ -5,7 +5,8 @@ App.AttrFilterView = Backbone.View.extend({
 
     events: {
         "click .select_all": "selectAll",
-        "click .select_none": "selectNone"
+        "click .select_none": "selectNone",
+        "click .select_one": "selectOne"
     },
 
     className: "filter",
@@ -34,5 +35,11 @@ App.AttrFilterView = Backbone.View.extend({
 
     selectAll: function() {
         this.$("input").prop("checked", true);
+    },
+
+    selectOne: function(e) {
+        this.$("input").prop("checked", false);
+        $(e.target).parents(".checkbox").find("input").prop("checked", true);
     }
+
 });
