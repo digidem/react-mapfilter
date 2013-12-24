@@ -20,6 +20,9 @@ body {
     z-index: 1;
 }
 
+#legend > div {
+    margin-bottom: 2em;
+}
 
 #filter-info {
     background: url(../images/D9EDF7-0.9.png);
@@ -31,17 +34,25 @@ body {
 .leaflet-top.leaflet-left {
     position: relative;
 }
+
+.checkbox .select {
+    visibility: hidden;
+}
+
+.checkbox:hover .select {
+    visibility: visible;
+}
+
 #popup th {
     text-align: right;
 }
 .blank {
     color: grey;
 }
+
 .select {
-    margin-top: -0.5em;
-}
-.select a {
-    font-size: 0.75em;
+    font-size: 12px;
+    font-weight: normal;
 }
 
 #popup .close {
