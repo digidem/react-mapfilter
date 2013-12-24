@@ -97,6 +97,18 @@ body {
     stroke-opacity: 1;
 }
 
+.marker .marker-text {
+    position: absolute;
+    font-size: 12px;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    color: white;
+    text-align: center;
+    margin-top: 4px;
+}
+
 .marker.mining {
     fill:rgb(166, 206, 227)
 }
