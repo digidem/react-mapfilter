@@ -20,6 +20,17 @@ body {
     z-index: 1;
 }
 
+
+#filter-info {
+    background: url(../images/D9EDF7-0.9.png);
+    color: #3a87ad;
+    padding: 0.5em;
+    position: relative;
+}
+
+.leaflet-top.leaflet-left {
+    position: relative;
+}
 #popup th {
     text-align: right;
 }

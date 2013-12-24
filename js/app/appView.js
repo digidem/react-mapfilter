@@ -17,9 +17,12 @@ App.AppView = Backbone.View.extend({
             filters: ["happening", "people"],
         });
 
+        this.filterInfoView = new App.FilterInfoView({});
+
         this.popupView = new App.PopupView({ appView: this });
 
         this.$el.append(this.filterView.render().el);
         this.$el.append(this.popupView.$el.hide());
+        this.mapView.$(".leaflet-control-container").prepend(this.filterInfoView.render().el);
     }
 });
