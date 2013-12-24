@@ -4,6 +4,8 @@
   "description": "An app for viewing monitoring data",
   "license": "MIT",
   "devDependencies": {
-    "js-yaml": "~2.0.3"
+    "js-yaml": "~2.0.3",
+    "d3": "3",
+    "smash": "0.0"
   }
 }
