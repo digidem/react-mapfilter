@@ -23,7 +23,8 @@ App.IconView = Backbone.View.extend({
         html: '<svg><g transform="translate(4,4.5)">' +
             '<path class="outline" d="M 17,8 C 17,13 11,21 8.5,23.5 C 6,21 0,13 0,8 C 0,4 4,-0.5 8.5,-0.5 C 13,-0.5 17,4 17,8 z"/>' +
             '<path class="fill" d="M 17,8 C 17,13 11,21 8.5,23.5 C 6,21 0,13 0,8 C 0,4 4,-0.5 8.5,-0.5 C 13,-0.5 17,4 17,8 z"/>' +
-            '</g></svg>',
+            '</g></svg>' +
+            '<div class="marker-text"/>',
           // detect and use retina markers, which are x2 resolution
           //((L.Browser.retina) ? '@2x' : '') + '.png',
         iconSize: [25, 34],
@@ -33,6 +34,7 @@ App.IconView = Backbone.View.extend({
 
 	render: function() {
         var that = this;
+        $(".marker-text", this.marker._icon).html("A");
 		this.marker.update();
 		// this.marker.bindPopup(this.template(this.model));
   //       this.marker.on('popupopen', function(e) {
