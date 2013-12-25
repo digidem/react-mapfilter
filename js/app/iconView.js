@@ -12,7 +12,8 @@ App.IconView = Backbone.View.extend({
 		if (!loc[0] || !loc[1]) loc = [0,0];
 
 		this.marker = L.marker(loc, { icon: this.icon }).addTo(options.map);
-        L.DomUtil.addClass(this.marker._icon, this.model.get("happening"));
+        if (typeof this.model.get("happening") !== "undefined")
+            L.DomUtil.addClass(this.marker._icon, this.model.get("happening"));
         this.setElement(this.marker._icon);
 		this.render();
         this.listenTo(this.model, "filtered", this.setOpacity);
