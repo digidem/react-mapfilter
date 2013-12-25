@@ -1,7 +1,6 @@
 App.MapView = Backbone.View.extend({
 
-	initialize: function(options) {
-        this.appView = options.appView;
+	initialize: function() {
 		this.map = L.map(this.el, {
 			center: [2.6362, -59.4801],
 			zoom: 10
@@ -12,7 +11,7 @@ App.MapView = Backbone.View.extend({
 	},
 
 	addOne: function(visit) {
-      return new App.IconView({ model: visit, map: this.map, appView: this.appView });
+      return new App.IconView({ model: visit, map: this.map });
     },
 
     addAll: function() {

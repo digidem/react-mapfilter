@@ -7,7 +7,6 @@ App.IconView = Backbone.View.extend({
     },
 
 	initialize: function(options) {
-        this.appView = options.appView;
 		var loc = this.model.get("_geolocation");
 
 		if (!loc[0] || !loc[1]) loc = [0,0];
@@ -45,20 +44,20 @@ App.IconView = Backbone.View.extend({
     onMouseOver: function(e) {
         e.stopPropagation();
         this.$el.addClass("hover");
-        this.appView.popupView.show({
+        app.popupView.show({
             model: this.model
         });
     },
 
     onMouseOut: function() {
         this.$el.removeClass("hover");
-        this.appView.popupView.hide();
+        app.popupView.hide();
     },
 
     onClick: function(e) {
         e.stopPropagation();
         this.$el.toggleClass("clicked");
-        this.appView.popupView.toggle({
+        app.popupView.toggle({
             model: this.model,
             sticky: true,
             iconView: this

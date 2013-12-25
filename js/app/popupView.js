@@ -6,8 +6,8 @@ App.PopupView = Backbone.View.extend({
         "click .close": "_close"
     },
 
-    initialize: function(options) {
-        this.filterView = options.appView.filterView;
+    initialize: function() {
+        this.filterView = app.filterView;
         this.template = _.template($("#template-popup").html());
     },
 
