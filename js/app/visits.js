@@ -4,6 +4,8 @@ App.Visits = Backbone.Collection.extend({
 
 	url: 'data/formhub.json',
 
+    comparator: 'start',
+
     getUnique: function(attr) {
         var keys = this.map(function(d) { 
             if (!d.attributes[attr]) return "";
