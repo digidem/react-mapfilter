@@ -1,4 +1,8 @@
-App.FilterInfoView = Backbone.View.extend({
+/**
+ * Shows a readable description of the current filters in place
+ * TODO: Finish this
+ */
+MapFilter.CurrentViewInfo = Backbone.View.extend({
 
     id: "filter-info",
 

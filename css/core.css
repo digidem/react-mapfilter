@@ -22,7 +22,7 @@ body {
     height: 100%;
     background-color: #f0e5d1;
 }
-#legend, #popup {
+#filter-pane form, #info-pane {
     position: absolute;
     background: #fff;
     overflow-y: auto;
@@ -34,11 +34,11 @@ body {
     z-index: 1;
 }
 
-#legend > div {
+#filter-pane form > div {
     margin-bottom: 2em;
 }
 
-#date-filter-graph {
+#graph-pane {
     position: absolute;
     width: 100%;
     height: 150px;
@@ -48,7 +48,7 @@ body {
     box-shadow: 0 0 10px grey;
 }
 
-#date-filter-graph .close {
+#graph-pane .close {
     font-size: 30px;
     margin-right: 0.5em;
 }
@@ -72,7 +72,7 @@ body {
     visibility: visible;
 }
 
-#popup th {
+#info-pane th {
     text-align: right;
 }
 .blank {
@@ -84,18 +84,18 @@ body {
     font-weight: normal;
 }
 
-#popup .close {
+#info-pane .close {
     display: none;
     font-size: 36px;
     margin-top: -0.5em;
     margin-right: -0.2em;
 }
 
-#popup.sticky .close {
+#info-pane.sticky .close {
     display: block;
 }
 
-#popup img {
+#info-pane img {
     width: 100%;
     min-height: 150px;
     display: block;
@@ -185,6 +185,14 @@ body {
 }
 .marker.grazing {
     fill:rgb(247, 129, 191)
+}
+
+#happening .label {
+    background-color: #000;
+}
+
+.filter .not_recorded label {
+    font-style: italic;
 }
 
 #happening .mining .label {

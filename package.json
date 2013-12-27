@@ -4,8 +4,10 @@
   "description": "An app for viewing monitoring data",
   "license": "MIT",
   "devDependencies": {
+    "uglify-js": "~2.2.5",
     "js-yaml": "~2.0.3",
     "d3": "3",
-    "smash": "0.0"
+    "smash": "0.0",
+    "clean-css": "2"
   }
 }

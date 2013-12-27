@@ -10,37 +10,46 @@
   <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/sizzle/1.10.9/sizzle.min.js"></script>
   <![endif]-->
   <script src='js/lib/jquery-2.0.3.js'></script>
+  <script src='js/lib/d3.v3.js'></script>
   <script src='js/lib/locale.js'></script>
   <script src='data/locale.js'></script>
   <script src='js/lib/leaflet-0.7.1.js'></script>
   <script src='js/lib/lodash.modern-2.4.1.js'></script>
   <script src='js/lib/backbone.js'></script>
-  <script src='js/app/app.js'></script>
-  <script src='js/app/visit.js'></script>
-  <script src='js/app/visits.js'></script>
-  <script src='js/app/iconView.js'></script>
-  <script src='js/app/appView.js'></script>
-  <script src='js/app/mapView.js'></script>
-  <script src='js/app/popupView.js'></script>
-  <script src='js/app/filterView.js'></script>
-  <script src='js/app/filterInfoView.js'></script>
-  <script src='js/app/attrFilterView.js'></script>
-  <script src='js/app/dateFilterView.js'></script>
-  <script src='js/app/checkboxView.js'></script>
+  <script src='js/lib/crossfilter.v1.js'></script>
+
+  <script src='js/monitoring_point.js'></script>
+
+  <script src='js/mapfilter/mapfilter.js'></script>
+
+  <script src='js/mapfilter/collection.js'></script>
+
+  <script src='js/mapfilter/map_pane/map_pane.js'></script>
+  <script src='js/mapfilter/map_pane/marker_view.js'></script>
+  <script src='js/mapfilter/map_pane/current_view_info.js'></script>
+
+  <script src='js/mapfilter/info_pane/info_pane.js'></script>
+
+  <script src='js/mapfilter/filter_pane/filter_pane.js'></script>
+  <script src='js/mapfilter/filter_pane/discrete_filter_view.js'></script>
+  <script src='js/mapfilter/filter_pane/continuous_filter_view.js'></script>
+  <script src='js/mapfilter/filter_pane/graph_pane.js'></script>
+  <script src='js/mapfilter/filter_pane/bar_chart.js'></script>
+
   <link href='css/bootstrap.css' rel='stylesheet' />
   <link href='css/leaflet.css' rel='stylesheet' />
   <link href='css/core.css' rel='stylesheet' />
+  <link href='css/chart.css' rel='stylesheet' />
 
 </head>
 
 <body>
 
 <div id="app">
-  <div id="map">
-  </div>
+
 </div>
 
-<script type="text/html" id="template-popup">
+<script type="text/html" id="template-info-pane">
 <button type="button" class="close pull-right" aria-hidden="true">&times;</button>
 <h3>
   <%= getPlacename() || t(get("myarea")) %><br>
@@ -75,29 +84,35 @@
 </table>
 </script>
 
-<script type="text/html" id="template-filter">
+<script type="text/html" id="template-discrete-filter">
 <h4><%= title %> &nbsp;<small><a href="#" class="select select_all"><%= t("ui.select_all")%></a></small></h4>
-
+<div>
+  <% checkboxes.forEach(function(checkbox) { %>
+    <%= checkbox %>
+  <% }); %>
+</div>
 </script>
 
-<script type="text/html" id="template-filter-date">
+<script type="text/html" id="template-continuous-filter">
 <h4>Dates &nbsp;<small><a href="javascript:void(0);" class="select select_all"><%= t("ui.select_all") %></a></small></h4>
-<div>
-12 Dec 2012 &mdash; 6 Jul 2013
-<br><small><a href="javascript:void(0);" class="select select_date"><%= t("ui.select_dates") %></a></small>
+<div class="filter_range">
+<%= filterRange %>
+<br><small><a href="javascript:void(0);" class="select select_range"><%= t("ui.select_dates") %></a></small>
 </div>
 </script>
 
 <script type="text/html" id="template-checkbox">
-<label>
-  <input type="checkbox" value="<%= value %>" checked>
-  <span class="<%= labelClass %>"><%= text %></span> 
-  &nbsp;<small><a class="select select_one" href="javascript:void(0);"><%= t("ui.select_one") %></a></small>
-</label>
+<div class="<%= className %>">
+  <label>
+    <input type="checkbox" value="<%= key %>" checked>
+    <span class="<%= labelClass %>"><%= text %></span> 
+    &nbsp;<small><a class="select select_one" href="javascript:void(0);"><%= t("ui.select_one") %></a></small>
+  </label>
+</div>
 </script>
 
 
-<script src='js/app/setup.js'></script>
+<script src='js/setup.js'></script>
 
 </body>
 
