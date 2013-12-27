@@ -2038,6 +2038,34 @@ function d3_time_parseLiteralPercent(date, string, i) {
   var n = d3_time_percentRe.exec(string.substring(i, i + 1));
   return n ? i + n[0].length : -1;
 }
+d3.bisector = function(f) {
+  return {
+    left: function(a, x, lo, hi) {
+      if (arguments.length < 3) lo = 0;
+      if (arguments.length < 4) hi = a.length;
+      while (lo < hi) {
+        var mid = lo + hi >>> 1;
+        if (f.call(a, a[mid], mid) < x) lo = mid + 1;
+        else hi = mid;
+      }
+      return lo;
+    },
+    right: function(a, x, lo, hi) {
+      if (arguments.length < 3) lo = 0;
+      if (arguments.length < 4) hi = a.length;
+      while (lo < hi) {
+        var mid = lo + hi >>> 1;
+        if (x < f.call(a, a[mid], mid)) hi = mid;
+        else lo = mid + 1;
+      }
+      return lo;
+    }
+  };
+};
+
+var d3_bisector = d3.bisector(function(d) { return d; });
+d3.bisectLeft = d3_bisector.left;
+d3.bisect = d3.bisectRight = d3_bisector.right;
 
 d3.range = function(start, stop, step) {
   if (arguments.length < 3) {
@@ -2062,6 +2090,12 @@ function d3_range_integerScale(x) {
   var k = 1;
   while (x * k % 1) k *= 10;
   return k;
+}
+function d3_identity(d) {
+  return d;
+}
+function d3_true() {
+  return true;
 }
 function d3_Color() {}
 
@@ -2765,9 +2799,6 @@ function d3_uninterpolateClamp(a, b) {
   b = b - (a = +a) ? 1 / (b - a) : 0;
   return function(x) { return Math.max(0, Math.min(1, (x - a) * b)); };
 }
-function d3_identity(d) {
-  return d;
-}
 var d3_format_decimalPoint = ".",
     d3_format_thousandsSeparator = ",",
     d3_format_grouping = [3, 3],
@@ -2973,34 +3004,6 @@ var d3_scale_niceIdentity = {
   floor: d3_identity,
   ceil: d3_identity
 };
-d3.bisector = function(f) {
-  return {
-    left: function(a, x, lo, hi) {
-      if (arguments.length < 3) lo = 0;
-      if (arguments.length < 4) hi = a.length;
-      while (lo < hi) {
-        var mid = lo + hi >>> 1;
-        if (f.call(a, a[mid], mid) < x) lo = mid + 1;
-        else hi = mid;
-      }
-      return lo;
-    },
-    right: function(a, x, lo, hi) {
-      if (arguments.length < 3) lo = 0;
-      if (arguments.length < 4) hi = a.length;
-      while (lo < hi) {
-        var mid = lo + hi >>> 1;
-        if (x < f.call(a, a[mid], mid)) hi = mid;
-        else lo = mid + 1;
-      }
-      return lo;
-    }
-  };
-};
-
-var d3_bisector = d3.bisector(function(d) { return d; });
-d3.bisectLeft = d3_bisector.left;
-d3.bisect = d3.bisectRight = d3_bisector.right;
 
 function d3_scale_polylinear(domain, range, uninterpolate, interpolate) {
   var u = [],
@@ -3156,9 +3159,205 @@ function d3_scale_linearFormatPrecision(type, range) {
       ? Math.abs(p - d3_scale_linearPrecision(Math.max(Math.abs(range[0]), Math.abs(range[1])))) + +(type !== "e")
       : p - (type === "%") * 2;
 }
-function d3_true() {
-  return true;
+
+d3_time.hour = d3_time_interval(function(date) {
+  var timezone = date.getTimezoneOffset() / 60;
+  return new d3_date((Math.floor(date / 36e5 - timezone) + timezone) * 36e5);
+}, function(date, offset) {
+  date.setTime(date.getTime() + Math.floor(offset) * 36e5); // DST breaks setHours
+}, function(date) {
+  return date.getHours();
+});
+
+d3_time.hours = d3_time.hour.range;
+d3_time.hours.utc = d3_time.hour.utc.range;
+
+d3_time.minute = d3_time_interval(function(date) {
+  return new d3_date(Math.floor(date / 6e4) * 6e4);
+}, function(date, offset) {
+  date.setTime(date.getTime() + Math.floor(offset) * 6e4); // DST breaks setMinutes
+}, function(date) {
+  return date.getMinutes();
+});
+
+d3_time.minutes = d3_time.minute.range;
+d3_time.minutes.utc = d3_time.minute.utc.range;
+
+d3_time.month = d3_time_interval(function(date) {
+  date = d3_time.day(date);
+  date.setDate(1);
+  return date;
+}, function(date, offset) {
+  date.setMonth(date.getMonth() + offset);
+}, function(date) {
+  return date.getMonth();
+});
+
+d3_time.months = d3_time.month.range;
+d3_time.months.utc = d3_time.month.utc.range;
+
+d3_time.second = d3_time_interval(function(date) {
+  return new d3_date(Math.floor(date / 1e3) * 1e3);
+}, function(date, offset) {
+  date.setTime(date.getTime() + Math.floor(offset) * 1e3); // DST breaks setSeconds
+}, function(date) {
+  return date.getSeconds();
+});
+
+d3_time.seconds = d3_time.second.range;
+d3_time.seconds.utc = d3_time.second.utc.range;
+
+function d3_time_scale(linear, methods, format) {
+
+  function scale(x) {
+    return linear(x);
+  }
+
+  scale.invert = function(x) {
+    return d3_time_scaleDate(linear.invert(x));
+  };
+
+  scale.domain = function(x) {
+    if (!arguments.length) return linear.domain().map(d3_time_scaleDate);
+    linear.domain(x);
+    return scale;
+  };
+
+  function tickMethod(extent, count) {
+    var span = extent[1] - extent[0],
+        target = span / count,
+        i = d3.bisect(d3_time_scaleSteps, target);
+    return i == d3_time_scaleSteps.length ? [methods.year, d3_scale_linearTickRange(extent.map(function(d) { return d / 31536e6; }), count)[2]]
+        : !i ? [d3_time_scaleMilliseconds, d3_scale_linearTickRange(extent, count)[2]]
+        : methods[target / d3_time_scaleSteps[i - 1] < d3_time_scaleSteps[i] / target ? i - 1 : i];
+  }
+
+  scale.nice = function(interval, skip) {
+    var domain = scale.domain(),
+        extent = d3_scaleExtent(domain),
+        method = interval == null ? tickMethod(extent, 10)
+          : typeof interval === "number" && tickMethod(extent, interval);
+
+    if (method) interval = method[0], skip = method[1];
+
+    function skipped(date) {
+      return !isNaN(date) && !interval.range(date, d3_time_scaleDate(+date + 1), skip).length;
+    }
+
+    return scale.domain(d3_scale_nice(domain, skip > 1 ? {
+      floor: function(date) {
+        while (skipped(date = interval.floor(date))) date = d3_time_scaleDate(date - 1);
+        return date;
+      },
+      ceil: function(date) {
+        while (skipped(date = interval.ceil(date))) date = d3_time_scaleDate(+date + 1);
+        return date;
+      }
+    } : interval));
+  };
+
+  scale.ticks = function(interval, skip) {
+    var extent = d3_scaleExtent(scale.domain()),
+        method = interval == null ? tickMethod(extent, 10)
+          : typeof interval === "number" ? tickMethod(extent, interval)
+          : !interval.range && [{range: interval}, skip]; // assume deprecated range function
+
+    if (method) interval = method[0], skip = method[1];
+
+    return interval.range(extent[0], d3_time_scaleDate(+extent[1] + 1), skip < 1 ? 1 : skip); // inclusive upper bound
+  };
+
+  scale.tickFormat = function() {
+    return format;
+  };
+
+  scale.copy = function() {
+    return d3_time_scale(linear.copy(), methods, format);
+  };
+
+  return d3_scale_linearRebind(scale, linear);
 }
+
+function d3_time_scaleDate(t) {
+  return new Date(t);
+}
+
+function d3_time_scaleFormat(formats) {
+  return function(date) {
+    var i = formats.length - 1, f = formats[i];
+    while (!f[1](date)) f = formats[--i];
+    return f[0](date);
+  };
+}
+
+var d3_time_scaleSteps = [
+  1e3,    // 1-second
+  5e3,    // 5-second
+  15e3,   // 15-second
+  3e4,    // 30-second
+  6e4,    // 1-minute
+  3e5,    // 5-minute
+  9e5,    // 15-minute
+  18e5,   // 30-minute
+  36e5,   // 1-hour
+  108e5,  // 3-hour
+  216e5,  // 6-hour
+  432e5,  // 12-hour
+  864e5,  // 1-day
+  1728e5, // 2-day
+  6048e5, // 1-week
+  2592e6, // 1-month
+  7776e6, // 3-month
+  31536e6 // 1-year
+];
+
+var d3_time_scaleLocalMethods = [
+  [d3_time.second, 1],
+  [d3_time.second, 5],
+  [d3_time.second, 15],
+  [d3_time.second, 30],
+  [d3_time.minute, 1],
+  [d3_time.minute, 5],
+  [d3_time.minute, 15],
+  [d3_time.minute, 30],
+  [d3_time.hour, 1],
+  [d3_time.hour, 3],
+  [d3_time.hour, 6],
+  [d3_time.hour, 12],
+  [d3_time.day, 1],
+  [d3_time.day, 2],
+  [d3_time.week, 1],
+  [d3_time.month, 1],
+  [d3_time.month, 3],
+  [d3_time.year, 1]
+];
+
+var d3_time_scaleLocalFormats = [
+  [d3_time_format("%Y"), d3_true],
+  [d3_time_format("%B"), function(d) { return d.getMonth(); }],
+  [d3_time_format("%b %d"), function(d) { return d.getDate() != 1; }],
+  [d3_time_format("%a %d"), function(d) { return d.getDay() && d.getDate() != 1; }],
+  [d3_time_format("%I %p"), function(d) { return d.getHours(); }],
+  [d3_time_format("%I:%M"), function(d) { return d.getMinutes(); }],
+  [d3_time_format(":%S"), function(d) { return d.getSeconds(); }],
+  [d3_time_format(".%L"), function(d) { return d.getMilliseconds(); }]
+];
+
+var d3_time_scaleLocalFormat = d3_time_scaleFormat(d3_time_scaleLocalFormats);
+
+d3_time_scaleLocalMethods.year = d3_time.year;
+
+d3_time.scale = function() {
+  return d3_time_scale(d3.scale.linear(), d3_time_scaleLocalMethods, d3_time_scaleLocalFormat);
+};
+
+var d3_time_scaleMilliseconds = {
+  range: function(start, stop, step) {
+    return d3.range(+start, +stop, step).map(d3_time_scaleDate);
+  },
+  floor: d3_identity,
+  ceil: d3_identity
+};
 
 var d3_timer_queueHead,
     d3_timer_queueTail,

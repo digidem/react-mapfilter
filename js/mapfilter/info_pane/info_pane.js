@@ -1,16 +1,22 @@
-App.PopupView = Backbone.View.extend({
+// MapFilter.InfoPane
+// ------------------
 
-    id: "popup",
+// The InfoPane manages the display of the attributes and media associated
+// with a point. It appears on mouseover/hover of a point, but if you click
+// the point then it will "stick" open.
+MapFilter.InfoPane = Backbone.View.extend({
+
+    id: "info-pane",
 
     events: {
-        "click .close": "_close"
+        "click .close": "close"
     },
 
     initialize: function() {
-        this.filterView = app.filterView;
-        this.template = _.template($("#template-popup").html());
+        this.template = _.template($("#template-info-pane").html());
     },
 
+    // Populates the infopane contents with the data from the selected point
     render: function() {
         this.$el.html(this.template(this.model));
     },
@@ -22,7 +28,6 @@ App.PopupView = Backbone.View.extend({
         this.iconView = options.iconView;
         this.render();
         this.sticky(options.sticky);
-        this.filterView.$el.hide();
         this.$el.show();
     },
 
@@ -47,7 +52,7 @@ App.PopupView = Backbone.View.extend({
         this._sticky = sticky;
     },
 
-    _close: function() {
+    close: function() {
         this.sticky(false);
         if (this.iconView) this.iconView.$el.removeClass("hover clicked");
         this.hide();
@@ -56,6 +61,5 @@ App.PopupView = Backbone.View.extend({
     hide: function() {
         if (this.sticky()) return;
         this.$el.hide();
-        this.filterView.$el.show();
     }
 });
