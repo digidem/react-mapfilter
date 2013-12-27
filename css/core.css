@@ -2,6 +2,19 @@ body {
     padding: 0;
     margin: 0;
 }
+#app {
+    position: absolute;
+    right: 0;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    -webkit-transition: -webkit-transform 600ms;
+}
+
+#app.show-date-filter {
+    -webkit-transform: translateY(150px);
+}
+
 #map {
     position: absolute;
     right: 0;
@@ -11,6 +24,7 @@ body {
 }
 #legend, #popup {
     position: absolute;
+    background: #fff;
     overflow-y: auto;
     padding: 1em;
     left: 0;
@@ -22,6 +36,21 @@ body {
 
 #legend > div {
     margin-bottom: 2em;
+}
+
+#date-filter-graph {
+    position: absolute;
+    width: 100%;
+    height: 150px;
+    bottom: 100%;
+    z-index: 2;
+    background-color: #fff;
+    box-shadow: 0 0 10px grey;
+}
+
+#date-filter-graph .close {
+    font-size: 30px;
+    margin-right: 0.5em;
 }
 
 #filter-info {
@@ -89,6 +118,10 @@ body {
     -moz-user-select:none;
     -ms-user-select:none;
     user-select:none;
+}
+
+.marker {
+    -webkit-transition: opacity 100ms;
 }
 
 .marker .outline {
