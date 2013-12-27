@@ -33,6 +33,11 @@ window.locale.en = {
         "happening": "Activities",
         "people": "People"
     },
+    "ui": {
+        "select_one": "only",
+        "select_all": "Show All",
+        "select_dates": "Select Dates"
+    },
     "message": {
         "nodata": "<em class=\"blank\">Not Reported</em>"
     }
