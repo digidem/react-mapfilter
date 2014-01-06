@@ -30,6 +30,10 @@ MapFilter.FilterPane = Backbone.View.extend({
             this.addFilter(filter);
         }, this);
 
+        this.$filters.append("<div>" +
+            '<button type="button" class="btn btn-primary">Print</button> ' +
+            '<button type="button" class="btn btn-default">Print Preview</button>' +
+            '</div>');
     },
 
     // Add a filter on a field to the filter pane.
