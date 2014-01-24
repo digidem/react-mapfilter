@@ -15,7 +15,10 @@ MonitoringPoint = Backbone.Model.extend({
 
     // Should return a [lat, lon] array for the point
     coordinates: function() {
-		return this.get("_geolocation");
+		var coords = this.get("_geolocation");
+		coords[0] = parseFloat(coords[0]);
+		coords[1] = parseFloat(coords[1]);
+		return coords;
     },
 
 	getWhat: function() {
@@ -23,7 +26,7 @@ MonitoringPoint = Backbone.Model.extend({
 	},
 
 	getImpacts: function() {
-		return this._getMultiOther("impacts", "impacts_other");
+		return this._getOther("impacts", "impacts_other");
 	},
 
 	// Creates a formatted, readable string for the location
@@ -43,11 +46,12 @@ MonitoringPoint = Backbone.Model.extend({
 
 	getPlacename: function() {
 		var placename = this.get("placename");
+		if (placename === "not_recorded") placename = this.get("myarea");
 		return this._toSentenceCase(placename);
 	},
 
 	getWho: function() {
-		return this._getMultiOther("people", "people_other");
+		return this._getOther("people", "people_other");
 	},
 
 	getWhen: function() {
@@ -60,28 +64,23 @@ MonitoringPoint = Backbone.Model.extend({
 	},
 
 	getImgUrl: function() {
+		if (this.get("_attachments").length === 0) return;
 		return 'https://formhub.org/attachment/?media_file=' + this.get("_attachments")[0];
-	},
-
-	// If the attribute value is 'other' then use the value from the `attr_other`.
-	_getOther: function(attr, attr_other) {
-		var value = this.get(attr);
-		if (value === "other") {
-			return this._toSentenceCase(this.get(attr_other));
-		} else {
-			return t(attr + "." + value);
-		}
 	},
 
 	// Takes a field that is a space-separated list of values, which may include "other"
 	// and formats that field together with the "other" field into a comma-separated 
 	// list of readable text.
-	_getMultiOther: function(attr, attr_other) {
+	_getOther: function(attr, attr_other) {
 		var value = this.get(attr);
 		var output = [];
 
 		value.split(" ").forEach(function(v, i) {
-			output[i] = this._getOther(v, attr_other);
+			if (v === "other") {
+				output[i] = this._toSentenceCase(this.get(attr_other));
+			} else {
+				output[i] =  t(attr + "." + v);
+			}
 		}, this);
 
 		return output.join(", ");

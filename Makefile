@@ -60,3 +60,9 @@ D3_FILES = \
 
 js/lib/d3.v3.js: $(D3_FILES)
 	node_modules/.bin/smash $(D3_FILES) > $@
+
+js/lib/bing_layer.js:
+	curl https://raw.github.com/shramov/leaflet-plugins/master/layer/tile/Bing.js -o $@
+
+js/lib/leaflet_providers.js:
+	curl https://raw.github.com/leaflet-extras/leaflet-providers/master/leaflet-providers.js -o $@
