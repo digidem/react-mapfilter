@@ -19,9 +19,10 @@ MapFilter.GraphPane = Backbone.View.extend({
             .round(d3.time.day.round)
           .x(d3.time.scale()
             .domain([new Date(2013, 9, 1), new Date(2013, 11, 20)])
-            .rangeRound([0, 1400]))
+            .range([0, 1400]))
             .on("brush", function() {
-                self.collection.trigger("filtered");
+                if (!d3.event.target.empty())
+                    self.collection.trigger("filtered");
             });
         this.listenTo(this.collection, "filtered", this.render);
     },

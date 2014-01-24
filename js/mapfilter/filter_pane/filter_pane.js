@@ -10,7 +10,9 @@
 // - `expanded` sets whether the filter view is expanded or collapsed by default    
 MapFilter.FilterPane = Backbone.View.extend({
 
-    id: "filter-pane",
+    events: {
+        "click .print-preview": "showPrintPreview"
+    },
 
     initialize: function(options) {
         var filters = options.filters || [];
@@ -30,9 +32,10 @@ MapFilter.FilterPane = Backbone.View.extend({
             this.addFilter(filter);
         }, this);
 
-        this.$filters.append("<div>" +
-            '<button type="button" class="btn btn-primary">Print</button> ' +
-            '<button type="button" class="btn btn-default">Print Preview</button>' +
+        this.$filters.append(
+            '<div>' +
+            '<button type="button" class="btn btn-primary print">Print</button> ' +
+            '<button type="button" class="btn btn-default print-preview">Print Preview</button>' +
             '</div>');
     },
 
@@ -64,5 +67,14 @@ MapFilter.FilterPane = Backbone.View.extend({
         }
 
         this.$filters.append(filterView.render().el);
+    },
+
+    // When the page loads the print css is loaded with media="print"
+    // This removes that media attribute, so that the page appears as it 
+    // would appear when printed, effectively showing a print preview.
+    // Check the `print.css` for how certain elements are only shown in preview,
+    // and overridden with an @media rule within the CSS.
+    showPrintPreview: function() {
+        $("#print-style-sheet").attr("media", "");
     }
 });
