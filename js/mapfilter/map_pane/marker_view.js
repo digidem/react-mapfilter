@@ -36,6 +36,10 @@ MapFilter.MarkerView = Backbone.View.extend({
 
         // Store a reference the icon div from this view's `el`
         this.setElement(this.marker._icon);
+        this.$markerText = this.$(".marker-text");
+
+        // Store a reference to the marker icon on the model - used for info view when printing
+        this.model.icon = this.el;
 
         // Add className from the model's "happening" field
         // **TODO** remove this dependency and color markers from array of colors
@@ -87,14 +91,19 @@ MapFilter.MarkerView = Backbone.View.extend({
     // Shows or 'hides' a marker (hiding actually just reduces opacity
     // and send the marker behind shown markers)
     // `shown` is a boolean for whether the marker should be shown
-    show: function(shown) {
-        this.marker.setOpacity(shown ? 1 : 0.15);
+    show: function(shown, i) {
         if (shown) {
+            this.$el.removeClass("filtered");
             this.marker.setZIndexOffset(this._lastZIndex);
+            if (typeof i !== "undefined") {
+                this.$markerText.html(String.fromCharCode(65 + i));
+            }
         } else {
+            this.$el.addClass("filtered");
             // Move 'hidden' markers behind the others
             this._lastZIndex = this.marker.options.zIndexOffset;
             this.marker.setZIndexOffset(-99999);
+            this.$markerText.html("");
         }
     }
 });
