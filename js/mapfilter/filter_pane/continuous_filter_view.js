@@ -8,7 +8,8 @@
 MapFilter.ContinuousFilterView = Backbone.View.extend({
 
     events: {
-        "click .select_range": "showGraphPane"
+        "click .select_range": "showGraphPane",
+        "click .select_all": "selectAll"
     },
 
     className: 'filter',
@@ -43,5 +44,10 @@ MapFilter.ContinuousFilterView = Backbone.View.extend({
     showGraphPane: function(e) {
         e.stopPropagation();
         this.graphPane.open();
+    },
+
+    selectAll: function() {
+        // window.reset();
+        // this.collection.trigger("filtered")''
     }
 });

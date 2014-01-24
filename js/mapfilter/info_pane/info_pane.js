@@ -6,19 +6,20 @@
 // the point then it will "stick" open.
 MapFilter.InfoPane = Backbone.View.extend({
 
-    id: "info-pane",
-
     events: {
         "click .close": "close"
     },
 
-    initialize: function() {
+    initialize: function(options) {
+        options = options || {};
+        if (options.id) this.$el.attr("id", options.id);
         this.template = _.template($("#template-info-pane").html());
     },
 
     // Populates the infopane contents with the data from the selected point
     render: function() {
         this.$el.html(this.template(this.model));
+        return this;
     },
 
     show: function(options) {
