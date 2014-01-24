@@ -34,9 +34,16 @@ window.locale.en = {
         "people": "People"
     },
     "ui": {
-        "select_one": "only",
-        "select_all": "Show All",
-        "select_dates": "Select Dates"
+        "filter_view": {
+            "select_one": "only",
+            "select_all": "Show All",
+            "select_dates": "Select Dates"
+        },
+        "print_view": {
+            "print_view_description": "You can just print the map, or just print the list of info for each point, by selecting the options below. You can drag and zoom the map below to choose the region to print.",
+            "show_large_map": "Show first page with overview map",
+            "show_info_list": "Show info for each point"
+        }
     },
     "message": {
         "nodata": "<em class=\"blank\">Not Reported</em>"

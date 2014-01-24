@@ -14,24 +14,27 @@ MapFilter.MapPane = Backbone.View.extend({
         this.map = L.map(this.el, {
             center: options.center,
             zoom: options.zoom,
+            scrollWheelZoom: options.scrollWheelZoom || true
         });
 
         // Add the background tile layer to the map
-        this.tiles = L.tileLayer(options.tileUrl).addTo(this.map);
+        this.wapichanaLayer = L.tileLayer(options.tileUrl).addTo(this.map);
+
+        // Create a layer with Bing satellite imagery
+        this.bingLayer = L.bingLayer(options.bingKey);
+
+        // this.cloudMadeLayer = L.tileLayer.provider('CloudMade', {
+        //     apiKey: options.cloudMadeKey,
+        //     styleID: '123'
+        // });
+
+        L.control.layers({
+            "Bush & Mountains": this.wapichanaLayer,
+            "Bing Satellite": this.bingLayer
+        }).addTo(this.map);
 
         // Object to hold a reference to any markers added to the map
         this.markersById = {};
-
-        // Crossfilter dimension based on model cid (Backbone's internal id
-        // assigned to new models)
-        this.dimension = this.collection.dimension(function(d) {
-            return d.cid;
-        });
-
-        // This will group models by cid, which is unique, which means that
-        // each group will have a count of 0 or 1 depending on whether
-        // the model matches the filters set on the other crossfilter dimensions
-        this.group = this.dimension.group();
 
         // When a new model is created, add a new marker to the map
         this.listenTo(this.collection, 'add', this.addOne);
@@ -78,12 +81,12 @@ MapFilter.MapPane = Backbone.View.extend({
         }, this);
     },
 
-    // `this.group.all()` is an array of every model in the collection by `cid`. 
+    // `this.collection.groupByCid.all()` is an array of every model in the collection by `cid`. 
     // The value will be 0 for filtered models, 1 for models that are unfiltered.
     // This loops through `this.group.all()` and calls `MapFilter.MarkerView.show()`
     filter: function() {
         var i = 0;
-        this.group.all().forEach(function(d) {
+        this.collection.groupByCid.all().forEach(function(d) {
             this.markersById[d.key].show(d.value, i);
             i += d.value;
         }, this);
