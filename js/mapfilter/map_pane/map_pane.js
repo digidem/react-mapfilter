@@ -82,8 +82,10 @@ MapFilter.MapPane = Backbone.View.extend({
     // The value will be 0 for filtered models, 1 for models that are unfiltered.
     // This loops through `this.group.all()` and calls `MapFilter.MarkerView.show()`
     filter: function() {
+        var i = 0;
         this.group.all().forEach(function(d) {
-            this.markersById[d.key].show(d.value);
+            this.markersById[d.key].show(d.value, i);
+            i += d.value;
         }, this);
     }
 });

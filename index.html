@@ -36,9 +36,13 @@
   <script src='js/mapfilter/filter_pane/graph_pane.js'></script>
   <script src='js/mapfilter/filter_pane/bar_chart.js'></script>
 
+  <script src='js/mapfilter/print_pane/print_pane.js'></script>
+  <script src='js/mapfilter/print_pane/info_print_view.js'></script>
+
   <link href='css/bootstrap.css' rel='stylesheet' />
   <link href='css/leaflet.css' rel='stylesheet' />
   <link href='css/core.css' rel='stylesheet' />
+  <link href='css/print.css' rel='stylesheet' id="print-style-sheet" media="print" />
   <link href='css/chart.css' rel='stylesheet' />
 
 </head>
@@ -51,21 +55,26 @@
 
 <script type="text/html" id="template-info-pane">
 <button type="button" class="close pull-right" aria-hidden="true">&times;</button>
+<div class="map-icon">
+</div>
 <h3>
-  <%= getPlacename() || t(get("myarea")) %><br>
-  <small><%= getWhat() || "" %></small>
+  <%= t(getPlacename()) %><br>
+  <small><%= getWhat() === "Not Recorded" ? "Other" : getWhat() %></small>
 </h3>
 <div class="image-wrapper">
-  <img src="<%= getImgUrl() %>">
+  <% if (getImgUrl()) { %>
+    <img src="<%= getImgUrl() %>">
+    <div class="caption"><strong>Caption:</strong> <%= t(get("caption")) %></div>
+  <% } %>
 </div>
 <table class="table">
 <tr>
   <th>Where:</th>
-  <td><%= getLocation() || t('message.nodata')  %></td>
+  <td><%= t(getLocation()) %></td>
 </tr>
 <tr>
   <th>Impacts:</th>
-  <td><%= getImpacts()  || t('message.nodata') %></td>
+  <td><%= t(getImpacts()) %></td>
 </tr>
 <% if (attributes.other_info) { %>
 <tr>
@@ -94,10 +103,10 @@
 </script>
 
 <script type="text/html" id="template-continuous-filter">
-<h4>Dates &nbsp;<small><a href="javascript:void(0);" class="select select_all"><%= t("ui.select_all") %></a></small></h4>
+<h4>Dates &nbsp;<small><a href="javascript:void(0);" class="select select_all"><%= t("ui.filter_view.select_all") %></a></small></h4>
 <div class="filter_range">
 <%= filterRange %>
-<br><small><a href="javascript:void(0);" class="select select_range"><%= t("ui.select_dates") %></a></small>
+<br><small><a href="javascript:void(0);" class="select select_range"><%= t("ui.filter_view.select_dates") %></a></small>
 </div>
 </script>
 
@@ -106,11 +115,45 @@
   <label>
     <input type="checkbox" value="<%= key %>" checked>
     <span class="<%= labelClass %>"><%= text %></span> 
-    &nbsp;<small><a class="select select_one" href="javascript:void(0);"><%= t("ui.select_one") %></a></small>
+    &nbsp;<small><a class="select select_one" href="javascript:void(0);"><%= t("ui.filter_view.select_one") %></a></small>
   </label>
 </div>
 </script>
 
+<script type="text/html" id="template-print-pane">
+<div id="print-header">
+  <form class="print-options">
+    <p><%= t("ui.print_view.print_view_description") %></p>
+    <div class="checkbox">
+      <label>
+        <input type="checkbox" value="show-large-map" checked>
+        <%= t("ui.print_view.show_large_map") %>
+      </label>
+    </div>
+    <div class="checkbox">
+      <label>
+        <input type="checkbox" value="show-info" checked>
+        <%= t("ui.print_view.show_info_list") %>
+      </label>
+    </div>
+    <div class="btn-group">
+      <button type="button" class="btn btn-default cancel">Cancel</button>
+      <button type="button" class="btn btn-primary print">Print</button>
+    </div>
+  </form>
+</div>
+<div id="print-pages">
+  <div class="first-page">
+    <h1>Monitoring Report</h1>
+    <div id="map-print"/>
+  </div>
+  <div id="info-panes-print">
+  <% infoPanes.forEach(function(infoPane) { %>
+    <%= infoPane.$el.html() %>
+  <% }); %>
+  </div>
+</div>
+</script>
 
 <script src='js/setup.js'></script>
 
