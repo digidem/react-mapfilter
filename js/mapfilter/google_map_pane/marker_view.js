@@ -11,17 +11,14 @@ MapFilter.MarkerView = Backbone.View.extend({
         "click": "onClick"
     },
 
-    // The default icon is an svg icon wrapped in a div
-    icon: L.divIcon({
-        html: '<svg><g transform="translate(4,4.5)">' + 
-              '<path class="outline" d="M 17,8 C 17,13 11,21 8.5,23.5 C 6,21 0,13 0,8 C 0,4 4,-0.5 8.5,-0.5 C 13,-0.5 17,4 17,8 z"/>' + 
-              '<path class="fill" d="M 17,8 C 17,13 11,21 8.5,23.5 C 6,21 0,13 0,8 C 0,4 4,-0.5 8.5,-0.5 C 13,-0.5 17,4 17,8 z"/>' + 
-              '</g></svg>' + 
-              '<div class="marker-text"/>',
-        iconSize: [25, 34],
-        iconAnchor: [25 / 2, 30],
-        className: "marker"
-    }),
+    // default symbol as svg path
+    symbol: {
+        path: 'M 17,8 C 17,13 11,21 8.5,23.5 C 6,21 0,13 0,8 C 0,4 4,-0.5 8.5,-0.5 C 13,-0.5 17,4 17,8 z',
+        fillOpacity: 0.8,
+        scale: 1,
+        // size: [25, 34],
+        // anchor: [25 / 2, 30],
+    },
 
     initialize: function(options) {
         var loc = this.model.coordinates();
@@ -30,12 +27,17 @@ MapFilter.MarkerView = Backbone.View.extend({
         if (!loc[0] || !loc[1]) loc = [0, 0];
 
         // Create a new marker with the default icon and add to the map
-        this.marker = L.marker(loc, {
-            icon: this.icon
-        }).addTo(options.map);
+        this.marker = new google.maps.Marker({
+            position: new google.maps.LatLng(loc[0], loc[1]),
+            icon: {
+                path: this.symbol.path,
+                fillOpacity: this.symbol.fillOpacity,
+                fillColor: markerColors[this.model.get("happening")],
+            },
+            map: options.map
+        });
 
         // Store a reference the icon div from this view's `el`
-        console.log(this.marker);
         this.setElement(this.marker._icon);
         this.$markerText = this.$(".marker-text");
 
@@ -45,11 +47,10 @@ MapFilter.MarkerView = Backbone.View.extend({
         // Add className from the model's "happening" field
         // **TODO** remove this dependency and color markers from array of colors
         this.$el.addClass(this.model.get("happening"));
-        console.log(this.model.get("happening"));
 
         // Reference the marker's current z-index (we change the z-index later
         // when the markers are filtered, so unfiltered markers appear on top)
-        this._lastZIndex = this.marker.options.zIndexOffset;
+        // this._lastZIndex = this.marker.options.zIndexOffset;
     },
 
     // TODO: remove/update this 
@@ -60,7 +61,7 @@ MapFilter.MarkerView = Backbone.View.extend({
 
     // Removes this marker from the map 
     remove: function() {
-        this.marker._map.removeLayer(this.marker);
+        this.marker.map.removeLayer(this.marker);
     },
 
     // When the mouse is over the marker, show the info pane 
@@ -96,15 +97,15 @@ MapFilter.MarkerView = Backbone.View.extend({
     show: function(shown, i) {
         if (shown) {
             this.$el.removeClass("filtered");
-            this.marker.setZIndexOffset(this._lastZIndex);
+            // this.marker.setZIndexOffset(this._lastZIndex);
             if (typeof i !== "undefined") {
                 this.$markerText.html(String.fromCharCode(65 + i));
             }
         } else {
             this.$el.addClass("filtered");
             // Move 'hidden' markers behind the others
-            this._lastZIndex = this.marker.options.zIndexOffset;
-            this.marker.setZIndexOffset(-99999);
+            // this._lastZIndex = this.marker.options.zIndexOffset;
+            // this.marker.setZIndexOffset(-99999);
             this.$markerText.html("");
         }
     }

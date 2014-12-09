@@ -33,7 +33,7 @@ MapFilter.PrintPane = Backbone.View.extend({
     },
 
     render: function() {
-        this.mapPane.map.invalidateSize();
+        //this.mapPane.map.invalidateSize();
         // Change map bounds if any records are currently filtered
         if (this.collection.dimensionByCid.groupAll().value())
             this.mapPane.map.fitBounds(this.collection.filteredBounds());

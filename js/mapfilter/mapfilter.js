@@ -52,9 +52,9 @@ MapFilter = Backbone.View.extend({
             filters: options.filters
         });
 
-        this.currentViewInfo = new MapFilter.CurrentViewInfo({
-            id: 'filter-info'
-        });
+        // this.currentViewInfo = new MapFilter.CurrentViewInfo({
+        //     id: 'filter-info'
+        // });
 
         this.infoPane = new MapFilter.InfoPane({
             id: 'info-pane'
@@ -67,12 +67,12 @@ MapFilter = Backbone.View.extend({
         this.$el.append(this.printPane.el);
         this.$el.append(this.filterPane.render().el);
         this.$el.append(this.infoPane.$el.hide());
-        this.mapPane.$(".leaflet-control-container").prepend(this.currentViewInfo.render().el);
+        // this.mapPane.$(".leaflet-control-container").prepend(this.currentViewInfo.render().el);
 
         // When the Leaflet Map is first initialized, it is not attached to the DOM
         // and does not have a width. We need to reset the size here now it is attached.
-        this.printPane.mapPane.map.invalidateSize();
-        this.mapPane.map.invalidateSize();
+        // this.printPane.mapPane.map.invalidateSize();
+        // this.mapPane.map.invalidateSize();
     },
 
     openGraphPane: function() {
