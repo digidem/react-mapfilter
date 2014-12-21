@@ -13,21 +13,6 @@ templateURL = function (str, data) {
     });
 };
 
-// lookup map of 'happening' to colors
-markerColors = {
-    mining: 'rgb(166, 206, 227)',
-    logging: 'rgb(31, 120, 180)',
-    crossing: 'rgb(178, 223, 138)',
-    rustling: 'rgb(51, 160, 44)',
-    hunting: 'rgb(251, 154, 153)',
-    fishing: 'rgb(227, 26, 28)',
-    trapping: 'rgb(253, 191, 111)',
-    tourism: 'rgb(255, 127, 0)',
-    artefacts: 'rgb(202, 178, 214)',
-    other: 'rgb(106, 61, 154)',
-    grazing: 'rgb(247, 129, 191)',
-};
-
 /*
 // Bing / MSVirtualEarth helpers, from mapsofall.com
 getMsveDirection = function(x, y) {

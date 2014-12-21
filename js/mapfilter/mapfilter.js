@@ -52,9 +52,9 @@ MapFilter = Backbone.View.extend({
             filters: options.filters
         });
 
-        // this.currentViewInfo = new MapFilter.CurrentViewInfo({
-        //     id: 'filter-info'
-        // });
+        this.currentViewInfo = new MapFilter.CurrentViewInfo({
+             id: 'filter-info'
+        });
 
         this.infoPane = new MapFilter.InfoPane({
             id: 'info-pane'

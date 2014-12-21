@@ -22,9 +22,6 @@ MapFilter.MapPane = Backbone.View.extend({
         });
         // google.maps.event.addDomListener(window, 'load', initialize);
 
-        // Set default layer to satellite imagery
-        this.map.setMapTypeId(google.maps.MapTypeId.SATELLITE);
-
         // Add the custom tile layer to the map
         this.map.mapTypes.set("Bush & Mountains", new google.maps.ImageMapType({
             getTileUrl: function(coord, zoom) {
@@ -36,18 +33,23 @@ MapFilter.MapPane = Backbone.View.extend({
             maxZoom: 18
         }));
 
+        // Set default layer to custom imagery
+        this.map.setMapTypeId('Bush & Mountains');
+
         // Create a layer with Bing satellite imagery
-        // this.map.mapTypes.set("Bing Satellite", new google.maps.ImageMapType({
-        //     getTileUrl: function(coord, zoom) {
-        //         var z = 17 - zoom;
-        //         var s=getMsveString(coord.x,coord.y,z);
-        //         var v=getMsveServer(coord.x,coord.y,z);
-        //         return 'http://r'+v+'.ortho.tiles.virtualearth.net/tiles/h'+s+'.jpeg?g=80';
-        //     },
-        //     tileSize: new google.maps.Size(256, 256),
-        //     name: "Satellite",
-        //     maxZoom: 18
-        // }));
+/*
+        this.map.mapTypes.set("Bing Satellite", new google.maps.ImageMapType({
+            getTileUrl: function(coord, zoom) {
+                var z = 17 - zoom;
+                var s=getMsveString(coord.x,coord.y,z);
+                var v=getMsveServer(coord.x,coord.y,z);
+                return 'http://r'+v+'.ortho.tiles.virtualearth.net/tiles/h'+s+'.jpeg?g=80';
+            },
+            tileSize: new google.maps.Size(256, 256),
+            name: "Satellite",
+            maxZoom: 18
+        }));
+*/
 
         // Object to hold a reference to any markers added to the map
         this.markersById = {};

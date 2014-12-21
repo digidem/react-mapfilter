@@ -16,7 +16,7 @@ MapFilter.MarkerView = Backbone.View.extend({
         path: 'M 17,8 C 17,13 11,21 8.5,23.5 C 6,21 0,13 0,8 C 0,4 4,-0.5 8.5,-0.5 C 13,-0.5 17,4 17,8 z',
         fillOpacity: 0.8,
         scale: 1,
-        // size: [25, 34],
+        size: [25, 34],
         // anchor: [25 / 2, 30],
     },
 
@@ -27,26 +27,22 @@ MapFilter.MarkerView = Backbone.View.extend({
         if (!loc[0] || !loc[1]) loc = [0, 0];
 
         // Create a new marker with the default icon and add to the map
-        this.marker = new google.maps.Marker({
+        this.marker = new CustomMarker({
             position: new google.maps.LatLng(loc[0], loc[1]),
             icon: {
                 path: this.symbol.path,
-                fillOpacity: this.symbol.fillOpacity,
-                fillColor: markerColors[this.model.get("happening")],
+                size: this.symbol.size
             },
+            className: this.model.get("happening"),
             map: options.map
         });
 
         // Store a reference the icon div from this view's `el`
-        this.setElement(this.marker._icon);
+        this.setElement(this.marker.div_);
         this.$markerText = this.$(".marker-text");
 
         // Store a reference to the marker icon on the model - used for info view when printing
-        this.model.icon = this.el;
-
-        // Add className from the model's "happening" field
-        // **TODO** remove this dependency and color markers from array of colors
-        this.$el.addClass(this.model.get("happening"));
+        this.model.icon = this.$el;
 
         // Reference the marker's current z-index (we change the z-index later
         // when the markers are filtered, so unfiltered markers appear on top)
@@ -67,7 +63,7 @@ MapFilter.MarkerView = Backbone.View.extend({
     // When the mouse is over the marker, show the info pane 
     onMouseOver: function(e) {
         e.stopPropagation();
-        this.$el.addClass("hover");
+        this.$el.addClass("hover",this.model);
         app.infoPane.show({
             model: this.model
         });
