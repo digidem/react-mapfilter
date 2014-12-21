@@ -3,10 +3,11 @@
 
 // modified to use options hash
 function CustomMarker(options, parent) {
+     this.options = options;
+
      this.latlng_ = options.position;
      this.path = options.icon.path;
      this.size = options.icon.size;
-     this.fillOpacity = options.icon.fillOpacity;
      this.className = options.className;
      this.cid = options.cid;
      this.div_ = null;
@@ -33,7 +34,6 @@ function CustomMarker(options, parent) {
               '</g></svg>' +
               '<div class="marker-text"/>';
        div.className = "marker " + this.className;
-       div.style.opacity = this.fillOpacity;
        div.style.position = 'absolute';
        div.style.paddingLeft = '0px';
        div.style.cursor = 'pointer';
@@ -69,4 +69,10 @@ function CustomMarker(options, parent) {
 
    CustomMarker.prototype.getPosition = function() {
     return this.latlng_;
+   };
+
+   CustomMarker.prototype.setZIndexOffset = function(z) {
+    if (this.div_) {
+      this.div_.style.zIndex = z;
+    }
    };

@@ -14,7 +14,6 @@ MapFilter.MarkerView = Backbone.View.extend({
     // default symbol as svg path
     symbol: {
         path: 'M 17,8 C 17,13 11,21 8.5,23.5 C 6,21 0,13 0,8 C 0,4 4,-0.5 8.5,-0.5 C 13,-0.5 17,4 17,8 z',
-        fillOpacity: 0.8,
         scale: 1,
         size: [25, 34],
         // anchor: [25 / 2, 30],
@@ -33,11 +32,12 @@ MapFilter.MarkerView = Backbone.View.extend({
             className: this.model.get("happening"),
             cid: this.model.cid,
             map: options.map,
+            zIndexOffset: 0,
         }, this);
 
         // Reference the marker's current z-index (we change the z-index later
         // when the markers are filtered, so unfiltered markers appear on top)
-        // this._lastZIndex = this.marker.options.zIndexOffset;
+        this._lastZIndex = this.marker.options.zIndexOffset;
 
         // After marker is added to the map, finish setup    
         google.maps.event.addDomListener(this, "addMarker", this.onAdd);
@@ -46,7 +46,7 @@ MapFilter.MarkerView = Backbone.View.extend({
     onAdd: function() {
         // Store a reference the icon div from this view's `el`
         this.setElement(this.marker.div_);
-        this.$el = $(this.marker.div_);
+        this.$markerText = this.$(".marker-text");
 
         // Store a reference to the marker icon on the model - used for info view when printing
         this.model.icon = this.$el;
@@ -101,15 +101,15 @@ MapFilter.MarkerView = Backbone.View.extend({
     show: function(shown, i) {
         if (shown) {
             this.$el.removeClass("filtered");
-            // this.marker.setZIndexOffset(this._lastZIndex);
+            this.marker.setZIndexOffset(this._lastZIndex);
             if (typeof i !== "undefined") {
                 this.$markerText.html(String.fromCharCode(65 + i));
             }
         } else {
             this.$el.addClass("filtered");
             // Move 'hidden' markers behind the others
-            // this._lastZIndex = this.marker.options.zIndexOffset;
-            // this.marker.setZIndexOffset(-99999);
+            this._lastZIndex = this.marker.options.zIndexOffset;
+            this.marker.setZIndexOffset(-99999);
             this.$markerText.html("");
         }
     }
