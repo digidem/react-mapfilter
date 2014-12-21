@@ -29,24 +29,32 @@ MapFilter.MarkerView = Backbone.View.extend({
         // Create a new marker with the default icon and add to the map
         this.marker = new CustomMarker({
             position: new google.maps.LatLng(loc[0], loc[1]),
-            icon: {
-                path: this.symbol.path,
-                size: this.symbol.size
-            },
+            icon: this.symbol,
             className: this.model.get("happening"),
-            map: options.map
-        });
-
-        // Store a reference the icon div from this view's `el`
-        this.setElement(this.marker.div_);
-        this.$markerText = this.$(".marker-text");
-
-        // Store a reference to the marker icon on the model - used for info view when printing
-        this.model.icon = this.$el;
+            cid: this.model.cid,
+            map: options.map,
+        }, this);
 
         // Reference the marker's current z-index (we change the z-index later
         // when the markers are filtered, so unfiltered markers appear on top)
         // this._lastZIndex = this.marker.options.zIndexOffset;
+
+        // After marker is added to the map, finish setup    
+        google.maps.event.addDomListener(this, "addMarker", this.onAdd);
+    },
+
+    onAdd: function() {
+        // Store a reference the icon div from this view's `el`
+        this.setElement(this.marker.div_);
+        this.$el = $(this.marker.div_);
+
+        // Store a reference to the marker icon on the model - used for info view when printing
+        this.model.icon = this.$el;
+
+        // bind google maps api events to el, because they aren't regular dom events
+        google.maps.event.addDomListener(this.$el, "mouseover", this.onMouseOver);
+        google.maps.event.addDomListener(this.$el, "mouseout", this.onMouseOut);
+        google.maps.event.addDomListener(this.$el, "click", this.onClick);
     },
 
     // TODO: remove/update this 
