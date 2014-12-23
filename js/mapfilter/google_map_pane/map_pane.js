@@ -61,6 +61,12 @@ MapFilter.MapPane = Backbone.View.extend({
         gfw_overlay.loadCartoDB(extent, this.map);
         this.map.mapTypes.set('Forest Watch', gfw_overlay);
 
+        // Mouseover handler for Data debugging
+        google.maps.event.addListener(this.map.data, 'mouseover', function(d) {
+            var f = d.feature;
+            console.log('FORMA', f.getId(), f.getProperty('iso'), f.getProperty('gadm2'), f.getProperty('date'));
+        });
+
         // Object to hold a reference to any markers added to the map
         this.markersById = {};
 

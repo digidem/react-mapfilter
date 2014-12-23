@@ -22,6 +22,7 @@ function GFWOverlay(options) {
     format: "&version=v2&format=geojson"
   };
   this.options = $.extend(defaults, options);
+  this.map = undefined; //set in load
 }
 GFWOverlay.prototype = new google.maps.StyledMapType();
 GFWOverlay.prototype.loadCartoDB = function(bounds, map) {
@@ -44,36 +45,24 @@ GFWOverlay.prototype.loadCartoDB = function(bounds, map) {
   var query_string = '?q=' + encodeURIComponent(query).replace(/%20/g, "+"); //weird encoding required by CartoDB
   var url = this.options.api + query_string + this.options.format;
   
+  // getJSON directly, instead of using google.maps.loadGeoJson, for better visibility into process
+  // from http://zevross.com/blog/2014/04/01/google-maps-api-adds-geojson-support-here-is-an-example/
   var promise = $.getJSON(url);
   promise.then(function(data){
     map.data.addGeoJson(data,{idPropertyName: "cartodb_id"}); // call the underlying gmaps function
   });
-    
+
+  // simple styles
+  var featureStyle = {
+    icon: {
+      strokeColor: 'red',
+      path: google.maps.SymbolPath.CIRCLE,
+      scale: 2 }
+  };
+  map.data.setStyle(featureStyle);
+  this.map = map;
 };
+
 GFWOverlay.prototype.onRemove = function() {
-  this.div_.parentNode.removeChild(this.div_);
-};
-
-// Set the visibility to 'hidden' or 'visible'.
-GFWOverlay.prototype.hide = function() {
-  if (this.div_) {
-    // The visibility property must be a string enclosed in quotes.
-    this.div_.style.visibility = 'hidden';
-  }
-};
-
-GFWOverlay.prototype.show = function() {
-  if (this.div_) {
-    this.div_.style.visibility = 'visible';
-  }
-};
-
-GFWOverlay.prototype.toggle = function() {
-  if (this.div_) {
-    if (this.div_.style.visibility == 'hidden') {
-      this.show();
-    } else {
-      this.hide();
-    }
-  }
+  this.map.data.setMap(null);
 };
