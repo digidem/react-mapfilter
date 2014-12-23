@@ -17,7 +17,8 @@ MapFilter.MapPane = Backbone.View.extend({
             scrollwheel: options.scrollWheelZoom || true,
             streetViewControl: false,
             mapTypeControlOptions: {
-              mapTypeIds: ['Bush & Mountains', google.maps.MapTypeId.SATELLITE/*, 'Bing Satellite'*/]
+              mapTypeIds: [ 'Bush & Mountains', google.maps.MapTypeId.SATELLITE/*, 'Bing Satellite'*/,
+                            'Forest Watch' ]
           },
         });
         // google.maps.event.addDomListener(window, 'load', initialize);
@@ -50,6 +51,15 @@ MapFilter.MapPane = Backbone.View.extend({
             maxZoom: 18
         }));
 */
+
+        // Add GlobalForestWatch layer
+        var gfw_overlay = new GFWOverlay();
+        
+        // this.map.getBounds() isn't available yet, cheat with predetermined extent
+        var extent = new google.maps.LatLngBounds( new google.maps.LatLng(2.097645,-60.154386),
+                                                  new google.maps.LatLng(3.174522,-58.805814));
+        gfw_overlay.loadCartoDB(extent, this.map);
+        this.map.mapTypes.set('Forest Watch', gfw_overlay);
 
         // Object to hold a reference to any markers added to the map
         this.markersById = {};
