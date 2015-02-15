@@ -7,15 +7,15 @@ var source = require('vinyl-source-stream')
 var buffer = require('vinyl-buffer')
 var watchify = require('watchify')
 var browserify = require('browserify')
-var HtmlInline = require('html-inline')
 var del = require('del')
 var runSequence = require('gulp-run-sequence')
 var connect = require('gulp-connect')
 var sass = require('gulp-sass')
 var concatCss = require('gulp-concat-css')
-var addsrc = require('gulp-add-src')
+var compileTemplates = require('gulp-template-compile')
+var concat = require('gulp-concat')
 var ChromeExtension = require('crx')
-var CONFIG = require('./config.json')
+var deployGh = require('gulp-gh-pages')
 
 
 // primary
@@ -47,6 +47,19 @@ gulp.task('img', function img() {
     .pipe(connect.reload())
 })
 
+gulp.task('templates', function () {
+  return gulp.src('./app/html/*.jst')
+      .pipe(compileTemplates({
+        name: function (file) {
+          // rename template w/o extension
+          var extension = '.jst'
+          return file.relative.slice(0, -extension.length)
+        }
+      }))
+      .pipe(concat('templates.js'))
+      .pipe(gulp.dest('dist'))
+      .pipe(connect.reload())
+})
 
 // development
 
@@ -54,12 +67,13 @@ gulp.task('live-dev', ['dev', 'dev-server'], function() {
   gulp.watch('./app/css/**', ['css'])
   gulp.watch('./app/images/**', ['img'])
   gulp.watch('./app/js/**', ['live-js'])
+  gulp.watch('./app/html/**', ['templates'])
   gulp.watch('./**/*.html', ['dev-html'])
   gutil.log(gutil.colors.bgGreen('Watching for changes...'))
 })
 
 gulp.task('dev', function(callback){
-  runSequence('clean', ['live-js', 'css', 'img', 'dev-html'], callback)
+  runSequence('clean', ['live-js', 'templates', 'css', 'img', 'dev-html'], callback)
 })
 
 gulp.task('dev-server', function startServer() {
@@ -88,7 +102,7 @@ gulp.task('live-js', function devJs() {
 })
 
 gulp.task('dev-html', function devHtml() {
-  return gulp.src('./containers/dev/index.html')
+  return gulp.src('./app/index.html')
     .pipe(gulp.dest('./dist/'))
     .pipe(connect.reload())
 })
@@ -96,8 +110,19 @@ gulp.task('dev-html', function devHtml() {
 
 // chrome packaged app
 
+// not optimized but it works
+// still need to hit refresh on extensions page
+gulp.task('live-chrome', ['build-chrome', 'dev-server'], function liveChrome() {
+  gulp.watch('./app/css/**', ['chrome-package'])
+  gulp.watch('./app/images/**', ['chrome-package'])
+  gulp.watch('./app/js/**', ['chrome-package'])
+  gulp.watch('./app/html/**', ['chrome-package'])
+  gulp.watch('./containers/chrome/*', ['chrome-package'])
+  gutil.log(gutil.colors.bgGreen('Watching for changes...'))
+})
+
 gulp.task('build-chrome', function(callback){
-  runSequence('clean', ['chrome-meta', 'chrome-js', 'css', 'img', 'chrome-html', 'chrome-package'], callback)
+  runSequence('clean', ['chrome-package'], callback)
 })
 
 gulp.task('chrome-meta', function buildChromeMeta() {
@@ -115,16 +140,8 @@ gulp.task('chrome-js', function buildChromeJs() {
     .pipe(gulp.dest('./dist/'))
 })
 
-gulp.task('chrome-html', ['chrome-js', 'css', 'img'], function buildChromeHtml() {
-  var inliner = HtmlInline({
-    basedir: './dist/',
-    ignoreScripts: false,
-    ignoreImages: false,
-    ignoreStyles: false,
-  })
-  inliner.on('error', gutil.log.bind(gutil, 'HtmlInline Error'))
-  return fs.createReadStream('./containers/chrome/index.html')
-    .pipe(inliner)
+gulp.task('chrome-html', ['templates', 'chrome-js', 'css', 'img'], function buildChromeHtml() {
+  return fs.createReadStream('./app/index.html')
     // name it, build it
     .pipe(source('index.html'))
     .pipe(gulp.dest('./dist/'))
@@ -137,26 +154,22 @@ gulp.task('chrome-package', ['chrome-meta', 'chrome-html'], function buildChrome
 
   var crx = new ChromeExtension({
     rootDirectory: packagePath,
-    // codebase: 'http://localhost:8000/myFirstExtension.crx',
     privateKey: fs.readFileSync(keyPath),
   })
 
   crx.pack().then(function(crxBuffer){
-    // var updateXML = crx.generateUpdateXML()
-    // fs.writeFile(join(destPath, 'update.xml'), updateXML)
     fs.writeFile(join(destPath, 'map-filter.crx'), crxBuffer, callback)
   }).catch(function(err){
     callback(err)
   })
 })
 
-// deploy
 
-var deploy = require('gulp-gh-pages')
+// deploy
 
 gulp.task('deploy', function () {
   return gulp.src('./dist/**/*')
-    .pipe(deploy({
+    .pipe(deployGh({
       remote: 'origin',
       branch: 'gh-pages',
     }))
