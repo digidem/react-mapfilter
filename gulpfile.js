@@ -47,7 +47,7 @@ gulp.task('img', function img() {
 })
 
 gulp.task('templates', function () {
-  return gulp.src('./app/html/*.jst')
+  return gulp.src('./app/templates/*.jst')
       .pipe(compileTemplates({
         name: function (file) {
           // rename template w/o extension
