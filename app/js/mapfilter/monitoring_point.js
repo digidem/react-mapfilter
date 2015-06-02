@@ -14,15 +14,12 @@ module.exports = require('backbone').Model.extend({
 	// Override the default Backbone `get()` so that `undefined`
 	// attributes are returned as 'not_recorded'
 	get: function(attr) {
-      return this.attributes[attr] || "not_recorded";
+      return this.attributes.properties[attr] || "not_recorded";
     },
 
-    // Should return a [lat, lon] array for the point
-    coordinates: function() {
-		var coords = this.get("_geolocation");
-		coords[0] = parseFloat(coords[0]);
-		coords[1] = parseFloat(coords[1]);
-		return coords;
+  // Should return a [lat, lon] array for the point
+  coordinates: function() {
+		return this.geometry && this.geometry.coordinates;
     },
 
 	getWhat: function() {
