@@ -19,7 +19,7 @@ module.exports = require('backbone').Model.extend({
 
   // Should return a [lat, lon] array for the point
   coordinates: function() {
-		return this.geometry && this.geometry.coordinates;
+		return this.attributes.geometry && this.attributes.geometry.coordinates;
     },
 
 	getWhat: function() {
@@ -65,8 +65,8 @@ module.exports = require('backbone').Model.extend({
 	},
 
 	getImgUrl: function() {
-		if (this.get("_attachments").length === 0) return;
-		return 'https://formhub.org/attachment/?media_file=' + this.get("_attachments")[0];
+		var picture = this.get("picture");
+		return picture && picture.url;
 	},
 
 	// Takes a field that is a space-separated list of values, which may include "other"

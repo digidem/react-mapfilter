@@ -1,7 +1,7 @@
 // MapFilter.MarkerView
 // --------------------
 
-// MapFilter MarkerView manages the markers displayed on the map. It should be 
+// MapFilter MarkerView manages the markers displayed on the map. It should be
 // initialized with a reference to the model and to the map in the options hash
 'use strict';
 
@@ -26,7 +26,7 @@ module.exports = require('backbone').View.extend({
     }),
 
     initialize: function(options) {
-        var loc = this.model.coordinates();
+        var loc = [this.model.coordinates()[1], this.model.coordinates()[0]];
 
         // Sometimes models (monitoring reports) do not have coordinates
         if (!loc[0] || !loc[1]) loc = [0, 0];
@@ -54,18 +54,18 @@ module.exports = require('backbone').View.extend({
         this._lastZIndex = this.marker.options.zIndexOffset;
     },
 
-    // TODO: remove/update this 
+    // TODO: remove/update this
     render: function() {
         $(".marker-text", this.el).html("");
         this.marker.update();
     },
 
-    // Removes this marker from the map 
+    // Removes this marker from the map
     remove: function() {
         this.marker._map.removeLayer(this.marker);
     },
 
-    // When the mouse is over the marker, show the info pane 
+    // When the mouse is over the marker, show the info pane
     onMouseOver: function(e) {
         e.stopPropagation();
         this.$el.addClass("hover");
@@ -74,14 +74,14 @@ module.exports = require('backbone').View.extend({
         });
     },
 
-    // Hide the infopane when the mouse leaves the marker 
+    // Hide the infopane when the mouse leaves the marker
     onMouseOut: function() {
         this.$el.removeClass("hover");
         this.appView.infoPane.hide();
     },
 
     // When you click the marker, make the infoPane "stick" open
-    // until you click on another marker 
+    // until you click on another marker
     onClick: function(e) {
         e.stopPropagation();
         this.$el.toggleClass("clicked");
@@ -100,7 +100,7 @@ module.exports = require('backbone').View.extend({
             this.$el.removeClass("filtered");
             this.marker.setZIndexOffset(this._lastZIndex);
             if (typeof i !== "undefined") {
-                this.$markerText.html(String.fromCharCode(65 + i));
+                //this.$markerText.html(String.fromCharCode(65 + i));
             }
         } else {
             this.$el.addClass("filtered");

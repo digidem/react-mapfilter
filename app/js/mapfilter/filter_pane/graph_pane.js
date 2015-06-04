@@ -14,7 +14,7 @@ module.exports = require('backbone').View.extend({
     initialize: function(options) {
         var self = this;
         this.$el.append('<button type="button" class="close" aria-hidden="true">&times;</button>');
-        var date = this.collection.dimension(function(d) { return new Date(d.attributes.today); }),
+        var date = this.collection.dimension(function(d) { return new Date(d.get('today')); }),
             dates = date.group(d3.time.day);
 
         this.barChart = BarChart()
