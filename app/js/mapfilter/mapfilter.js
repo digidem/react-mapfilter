@@ -13,7 +13,8 @@ module.exports = function(options) {
         collection: new Collection(void 0, {
                         model: MonitoringPoint,
                         url: options.url,
-                        comparator: 'start'
+                        comparator: 'start',
+                        githubToken: options.githubToken
                     }),
 
         filters: options.filters,

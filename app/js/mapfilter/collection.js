@@ -10,8 +10,7 @@ var Backbone = require('backbone');
 Backbone.$ = $;
 var crossfilter = require('crossfilter');
 
-var config = require('../../../config.json');
-var sync = require('backbone-github')({ githubToken: config.githubToken });
+var sync = require('backbone-github');
 
 module.exports = Backbone.Collection.extend({
 
@@ -31,6 +30,8 @@ module.exports = Backbone.Collection.extend({
             return d.cid;
         });
 
+        this.sync = sync({ githubToken: options.githubToken });
+
         // This will group models by cid, which is unique, which means that
         // each group will have a count of 0 or 1 depending on whether
         // the model matches the filters set on the other crossfilter dimensions
@@ -39,10 +40,6 @@ module.exports = Backbone.Collection.extend({
         this.resetFilter();
         this.on("change remove reset", this.resetFilter);
         this.on("add firstfetch", this.addToFilter);
-    },
-
-    sync: function() {
-        return sync.apply(this, arguments);
     },
 
     // A wrapper for `crossfilter().dimension` which stores a reference

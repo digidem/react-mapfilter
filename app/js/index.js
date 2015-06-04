@@ -13,7 +13,6 @@ window._ = lodash
 
 // app
 require('../../data/locale.js')
-var config = require('../../config.json')
 var mapFilter = require('./mapfilter/mapfilter.js')
 
 
@@ -29,7 +28,7 @@ process.nextTick(function(){
 
   var app = window.app = mapFilter({
     // target for github database
-    url: 'https://github.com/digidem/wapichan-data/tree/master/monitoring_form_v1',
+    url: 'https://github.com/digidem/wapichanao-data/tree/master/submissions/monitoring.geojson',
 
     // app container
     el: $("#app"),
@@ -52,12 +51,22 @@ process.nextTick(function(){
       expanded: true
     }],
 
+    githubToken: (function() {
+      var token = document.cookie.replace(/(?:(?:^|.*;\s*)githubToken\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+      if (token) return token
+      token = window.prompt('Please enter Github token');
+      var cookie = 'githubToken=' + token + ';max-age=2592000'
+      if (window.location.protocol === 'https:') cookie += ';secure'
+      document.cookie = cookie
+      return token
+    })(),
+
     // Template to generate maptile urls. See http://leafletjs.com/reference.html#url-template
     tileUrl: 'http://{s}.tiles.mapbox.com/v3/gmaclennan.wapichana_background/{z}/{x}/{y}.jpg',
     // tileUrl: 'http://localhost:20008/tile/wapichana_background/{z}/{x}/{y}.png',
 
     // API key for Bing Maps use
-    bingKey: config.bingToken,
+    bingKey: "AtCQswcYKiBKRMM8MHjAzncJvN6miHjgxbi2-m1oaFUHMa06gszNwt4Xe_te18FF"
   })
 
 })
