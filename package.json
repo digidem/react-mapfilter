@@ -33,14 +33,13 @@
     "dev": "budo js/index.js:bundle.js --dir dist --live -- -t [ jstify --engine lodash ]",
     "open": "npm run dev | opnr | bistre",
     "start": "npm run dev | bistre",
-    "build": "copyfiles index.html dist && npm run build:css && npm run build:js",
-    "prebuild": "rimraf dist && mkdirp dist",
+    "build:web": "copyfiles index.html dist && npm run build:css && npm run build:js",
+    "prebuild:web": "rimraf dist && mkdirp dist",
     "build:css": "postcss --use postcss-import --use autoprefixer --use postcss-url --postcss-url.url inline css/index.css > dist/bundle.css",
     "build:js": "browserify js/index.js -t [ jstify --engine lodash ] | uglifyjs -mc > dist/bundle.js",
     "deploy": "buildbranch gh-pages dist",
-    "predeploy": "npm run build",
-    "chrome": "copyup chrome/* dist && crx pack dist -o dist/mapfilter.crx",
-    "prechrome": "npm run build"
+    "predeploy": "npm run build:web",
+    "build:chrome": "copyup chrome/* dist && crx pack dist -o dist/mapfilter.crx",
   },
   "jshintConfig": {
     "globals": {

@@ -17,9 +17,10 @@ You will need to define a `githubToken` and `bingToken` in `config.json` in the 
 
 Build and watch files and fire up a local development server:
 
+`npm run build`
 `npm start`
 
-Then open `http://localhost:8080/`
+Then open `http://localhost:9966/`
 
 
 Architecture
@@ -33,7 +34,7 @@ Data is currently stored as static geojson files on Github.com.
 Build Targets / App Containers
 ----------------
 
-MapFilter is built using [Gulp](http://gulpjs.com/) and [Browserify](http://browserify.org/).
+MapFilter is built using npm run scripts and [Browserify](http://browserify.org/).
 
 MapFilter is intended to be used in a few ways and to support those varied use cases,
 there are a couple of "build targets" or "app containers", listed below.
@@ -41,20 +42,22 @@ there are a couple of "build targets" or "app containers", listed below.
 When developing, please try to be environment agnostic, perhaps by using some
 generic interface that can work via an environment-specific adapter.
 
-Run `gulp build` to build all targets into `dist/`
-
 1. Web App
 - intended to be accessed via the browser
 - navigable via a URL schema (not implemented)
 
+`npm run build:web`
+
 The web app is also used for development.
 
-You can publish the latest version of the web app with `gulp deploy`.
+You can publish the latest version of the web app with `npm run deploy`.
 It will publish to `origin#gh-pages`.
 
 2. Chrome App (not currently functional)
 - installable on chromebooks
 - access to usb devices (not implemented)
+
+`npm run build:web && npm run build:chrome`
 
 The chrome app is a very locked down environment.
 This means we need to be very explicit about communicating with the outside world
@@ -62,9 +65,6 @@ and displaying remote content (e.g. map tiles).
 
 While there are some work-arounds that would help us get the map up and running,
 offline map tile support is on our roadmap, so we might as well wait for that.
-
-Protip: you can develop for the chrome app using `gulp live-chrome`
-
 
 User Requirements
 --------------------------
