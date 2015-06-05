@@ -1,6 +1,6 @@
 'use strict';
 
-var d3 = require('d3');
+var d3 = window.d3;
 var id = 0;
 
 module.exports = function() {

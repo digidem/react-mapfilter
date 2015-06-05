@@ -5,6 +5,7 @@ require('./lib/locale.js')
 require('./lib/leaflet-0.7.1.js')
 require('./lib/bing_layer.js')
 require('./lib/leaflet_providers.js')
+require('./lib/d3.v3.js')
 
 // app
 require('../data/locale.js')

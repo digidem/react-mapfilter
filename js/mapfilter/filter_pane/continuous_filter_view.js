@@ -7,7 +7,7 @@
 // a barchart that allows a filter range to be selected.
 'use strict';
 
-var d3 = require('d3');
+var d3 = window.d3;
 var tpl = require('../../../templates/continuous-filter.tpl');
 
 module.exports = require('backbone').View.extend({
