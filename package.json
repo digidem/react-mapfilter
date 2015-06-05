@@ -39,7 +39,7 @@
     "build:js": "browserify js/index.js -t [ jstify --engine lodash ] | uglifyjs -mc > dist/bundle.js",
     "deploy": "buildbranch gh-pages dist",
     "predeploy": "npm run build:web",
-    "build:chrome": "copyup chrome/* dist && crx pack dist -o dist/mapfilter.crx",
+    "build:chrome": "copyup chrome/* dist && crx pack dist -o dist/mapfilter.crx"
   },
   "jshintConfig": {
     "globals": {
