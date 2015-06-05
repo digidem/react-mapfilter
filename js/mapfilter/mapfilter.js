@@ -1,34 +1,32 @@
-'use strict';
+'use strict'
 
-var Collection = require('./collection.js');
-var MonitoringPoint = require('./monitoring_point.js');
-var AppView = require('./appview.js');
+var Collection = require('./collection.js')
+var MonitoringPoint = require('./monitoring_point.js')
+var AppView = require('./appview.js')
 
-module.exports = function(options) {
+module.exports = function (options) {
+  var appView = new AppView({
+    el: options.el,
 
-    var appView = new AppView({
+    collection: new Collection(void 0, {
+      model: MonitoringPoint,
+      url: options.url,
+      comparator: 'start',
+      githubToken: options.githubToken
+    }),
 
-        el: options.el,
+    filters: options.filters,
 
-        collection: new Collection(void 0, {
-                        model: MonitoringPoint,
-                        url: options.url,
-                        comparator: 'start',
-                        githubToken: options.githubToken
-                    }),
+    // Initial map center point (TODO: set this & zoom based on data bounds)
+    mapCenter: [2.6362, -59.4801],
 
-        filters: options.filters,
+    // Initial map zoom
+    mapZoom: 10,
 
-        // Initial map center point (TODO: set this & zoom based on data bounds)
-        mapCenter: [2.6362, -59.4801],
+    tileUrl: options.tileUrl,
 
-        // Initial map zoom
-        mapZoom: 10,
+    bingKey: options.bingKey
+  })
 
-        tileUrl: options.tileUrl,
-
-        bingKey: options.bingKey
-    });
-
-    return appView;
-};
+  return appView
+}

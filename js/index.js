@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 
 // globally self-installing deps
 require('./lib/locale.js')
@@ -7,39 +7,41 @@ require('./lib/bing_layer.js')
 require('./lib/leaflet_providers.js')
 require('./lib/d3.v3.js')
 
+var $ = require('jquery')
+
 // app
 require('../data/locale.js')
 var mapFilter = require('./mapfilter/mapfilter.js')
 
-var app = window.app = mapFilter({
+window.app = mapFilter({
   // target for github database
   url: 'https://github.com/digidem/wapichanao-data/tree/master/submissions/monitoring.geojson',
 
   // app container
-  el: $("#app"),
+  el: $('#app'),
 
   // An array of filters to explore the data.
   // `field` is the field/attribute to filter by
   // `type` should be `discrete` for string data and `continuous` for numbers or dates
   // `expanded` sets whether the filter view is expanded or collapsed by default
   filters: [{
-    type: "continuous",
-    field: "today",
+    type: 'continuous',
+    field: 'today',
     expanded: true
   }, {
-    type: "discrete",
-    field: "happening",
+    type: 'discrete',
+    field: 'happening',
     expanded: true
   }, {
-    type: "discrete",
-    field: "people",
+    type: 'discrete',
+    field: 'people',
     expanded: true
   }],
 
-  githubToken: (function() {
-    var token = document.cookie.replace(/(?:(?:^|.*;\s*)githubToken\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+  githubToken: (function () {
+    var token = document.cookie.replace(/(?:(?:^|.*;\s*)githubToken\s*\=\s*([^;]*).*$)|^.*$/, '$1')
     if (token) return token
-    token = window.prompt('Please enter Github token');
+    token = window.prompt('Please enter Github token')
     var cookie = 'githubToken=' + token + ';max-age=2592000'
     if (window.location.protocol === 'https:') cookie += ';secure'
     document.cookie = cookie
@@ -51,5 +53,5 @@ var app = window.app = mapFilter({
   // tileUrl: 'http://localhost:20008/tile/wapichana_background/{z}/{x}/{y}.png',
 
   // API key for Bing Maps use
-  bingKey: "AtCQswcYKiBKRMM8MHjAzncJvN6miHjgxbi2-m1oaFUHMa06gszNwt4Xe_te18FF"
+  bingKey: 'AtCQswcYKiBKRMM8MHjAzncJvN6miHjgxbi2-m1oaFUHMa06gszNwt4Xe_te18FF'
 })
