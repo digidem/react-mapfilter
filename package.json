@@ -22,12 +22,12 @@
   },
   "dependencies": {
     "backbone": "^1.1.2",
-    "backbone-github": "git://github.com/digidem/backbone-github",
     "crossfilter": "^1.3.11",
     "d3": "3",
     "jquery": "^2.1.4",
     "leaflet": "^0.7.3",
-    "lodash": "^3.1.0"
+    "lodash": "^3.1.0",
+    "octokat": "^0.4.10"
   },
   "scripts": {
     "dev": "budo js/index.js:bundle.js --dir dist --live -- -t [ jstify --engine lodash ]",
@@ -37,7 +37,6 @@
     "prebuild": "rimraf dist && mkdirp dist",
     "build:css": "postcss --use postcss-import --use autoprefixer --use postcss-url --postcss-url.url inline css/index.css > dist/bundle.css",
     "build:js": "browserify js/index.js -t [ jstify --engine lodash ] | uglifyjs -mc > dist/bundle.js",
-    "prebuild:js": "jshint js/mapfilter",
     "deploy": "buildbranch gh-pages dist",
     "predeploy": "npm run build",
     "chrome": "copyup chrome/* dist && crx pack dist -o dist/mapfilter.crx",

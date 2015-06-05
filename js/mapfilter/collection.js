@@ -7,10 +7,10 @@
 'use strict';
 
 var Backbone = require('backbone');
-Backbone.$ = $;
+
 var crossfilter = require('crossfilter');
 
-var sync = require('backbone-github');
+var sync = require('./backbone-sync');
 
 module.exports = Backbone.Collection.extend({
 
