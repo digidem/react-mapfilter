@@ -1,7 +1,6 @@
 'use strict';
 
 // globally self-installing deps
-require('./lib/jquery-2.0.3.js')
 require('./lib/locale.js')
 require('./lib/leaflet-0.7.1.js')
 require('./lib/bing_layer.js')
