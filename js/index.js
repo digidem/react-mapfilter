@@ -10,7 +10,7 @@ require('./lib/d3.v3.js')
 var $ = require('jquery')
 
 // app
-require('../data/locale.js')
+window.locale.en = require('../data/en')
 var mapFilter = require('./mapfilter/mapfilter.js')
 
 window.app = mapFilter({

@@ -41,30 +41,12 @@
     "deploy": "buildbranch gh-pages dist",
     "predeploy": "npm run build:web",
     "build:chrome": "copyup chrome/* dist && crx pack dist -o dist/mapfilter.crx",
-    "test": "standard js/mapfilter/*.js"
+    "test": "standard"
   },
-  "jshintConfig": {
-    "globals": {
-      "require": false,
-      "module": false,
-      "exports": false,
-      "console": false,
-      "$": false,
-      "t": false,
-      "L": false
-    },
-    "predef": [
-      "-Map",
-      "-Worker"
-    ],
-    "newcap": false,
-    "browser": true,
-    "node": true,
-    "globalstrict": true,
-    "trailing": true,
-    "undef": true,
-    "unused": true,
-    "debug": true,
-    "esnext": true
+  "standard": {
+    "ignore": [
+      "js/lib/**",
+      "dist/**"
+    ]
   }
 }
