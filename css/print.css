@@ -75,6 +75,10 @@ h1, h2, h3 {
     display: block;
 }
 
+.marker.filtered {
+    display: none;
+}
+
 /* ------------- */
 /* CSS for print preview, overridden with @media rule below */
 /* ------------- */
