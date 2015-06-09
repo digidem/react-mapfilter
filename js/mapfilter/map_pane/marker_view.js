@@ -106,7 +106,9 @@ module.exports = require('backbone').View.extend({
       this.$el.removeClass('filtered')
       this.marker.setZIndexOffset(this._lastZIndex)
       if (typeof i !== 'undefined') {
-        // this.$markerText.html(String.fromCharCode(65 + i))
+        if (!this._interactive) {
+          this.$markerText.html(String.fromCharCode(65 + i))
+        }
       }
     } else {
       this.$el.addClass('filtered')
