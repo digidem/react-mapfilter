@@ -28,7 +28,8 @@
     "jquery": "^2.1.4",
     "leaflet": "^0.7.3",
     "lodash": "^3.1.0",
-    "octokat": "^0.4.10"
+    "octokat": "^0.4.10",
+    "shp-write": "^0.2.1"
   },
   "scripts": {
     "dev": "budo js/index.js:bundle.js --dir dist --live -- -t [ jstify --engine lodash ]",

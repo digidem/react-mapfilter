@@ -12,13 +12,16 @@
 'use strict'
 
 var $ = require('jquery')
+var _ = require('lodash')
+var shpWrite = require('shp-write')
 var GraphPane = require('./graph_pane.js')
 var ContinuousFilterView = require('./continuous_filter_view.js')
 var DiscreteFilterView = require('./discrete_filter_view.js')
 
 module.exports = require('backbone').View.extend({
   events: {
-    'click .print-preview': 'showPrintPreview'
+    'click .print-preview': 'showPrintPreview',
+    'click .download': 'download'
   },
 
   initialize: function (options) {
@@ -43,6 +46,11 @@ module.exports = require('backbone').View.extend({
       '<div>' +
       '<button type="button" class="btn btn-primary print">Print</button> ' +
       '<button type="button" class="btn btn-default print-preview">Print Preview</button>' +
+      '</div>')
+
+    this.$filters.append(
+      '<div>' +
+      '<a href="#" class="download">Download filtered points as SHP</a>' +
       '</div>')
   },
 
@@ -79,5 +87,32 @@ module.exports = require('backbone').View.extend({
   // hide elements
   showPrintPreview: function () {
     this.trigger('print-preview')
+  },
+
+  download: function () {
+    var options = {
+      folder: 'monitoring_points',
+      types: {
+        point: 'monitoring_points'
+      }
+    }
+
+    var geojson = {
+      type: 'FeatureCollection',
+      features: this.collection.dimensionByCid.top(Infinity).map(function(v) {
+        var feature = v.toJSON()
+        for (var prop in feature.properties) {
+          var value = feature.properties[prop]
+          if (typeof value === 'object') {
+            feature.properties[prop] = JSON.stringify(feature.properties[prop]).replace(/\"/g, "'");
+          }
+        }
+        return feature
+      }).filter(function(v) {
+        return v.geometry && v.geometry.coordinates
+      })
+    }
+
+    shpWrite.download(geojson, options)
   }
 })
