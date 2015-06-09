@@ -22,7 +22,7 @@
 <div id="print-pages" class="hide">
   <div class="first-page">
     <h1>Monitoring Report</h1>
-    <div id="map-print"/>
+    <div id="map-print"></div>
   </div>
   <div id="info-panes-print">
   <% infoPanes.forEach(function(infoPane) { %>
