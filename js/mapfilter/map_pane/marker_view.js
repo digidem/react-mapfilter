@@ -28,7 +28,8 @@ module.exports = require('backbone').View.extend({
   }),
 
   initialize: function (options) {
-    var loc = [this.model.coordinates()[1], this.model.coordinates()[0]]
+    this._interactive = options.interactive
+    var loc = this.model.coordinates()
 
     // Sometimes models (monitoring reports) do not have coordinates
     if (!loc[0] || !loc[1]) loc = [0, 0]
@@ -69,6 +70,7 @@ module.exports = require('backbone').View.extend({
 
   // When the mouse is over the marker, show the info pane
   onMouseOver: function (e) {
+    if (!this._interactive) return
     e.stopPropagation()
     this.$el.addClass('hover')
     this.appView.infoPane.show({
@@ -78,6 +80,7 @@ module.exports = require('backbone').View.extend({
 
   // Hide the infopane when the mouse leaves the marker
   onMouseOut: function () {
+    if (!this._interactive) return
     this.$el.removeClass('hover')
     this.appView.infoPane.hide()
   },
@@ -85,6 +88,7 @@ module.exports = require('backbone').View.extend({
   // When you click the marker, make the infoPane "stick" open
   // until you click on another marker
   onClick: function (e) {
+    if (!this._interactive) return
     e.stopPropagation()
     this.$el.toggleClass('clicked')
     this.appView.infoPane.toggle({

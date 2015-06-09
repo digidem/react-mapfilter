@@ -22,6 +22,8 @@ module.exports = require('backbone').View.extend({
       scrollWheelZoom: options.scrollWheelZoom || true
     })
 
+    this._interactive = options.interactive
+
     this.appView = options.appView
 
     // Add the background tile layer to the map
@@ -88,7 +90,8 @@ module.exports = require('backbone').View.extend({
     this.markersById[model.cid] = new MarkerView({
       model: model,
       map: this.map,
-      appView: this.appView
+      appView: this.appView,
+      interactive: this._interactive
     })
   },
 

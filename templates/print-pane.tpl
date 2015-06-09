@@ -1,4 +1,4 @@
-<div id="print-header" class="hide">
+<div id="print-header">
   <form class="print-options">
     <p><%= t("ui.print_view.print_view_description") %></p>
     <div class="checkbox">
@@ -19,7 +19,7 @@
     </div>
   </form>
 </div>
-<div id="print-pages" class="hide">
+<div id="print-pages">
   <div class="first-page">
     <h1>Monitoring Report</h1>
     <div id="map-print"></div>

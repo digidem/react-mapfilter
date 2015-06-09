@@ -40,7 +40,8 @@ module.exports = Backbone.View.extend({
       tileUrl: options.tileUrl,
       bingKey: options.bingKey,
       collection: this.collection,
-      appView: this
+      appView: this,
+      interactive: true
     })
 
     this.printPane = new PrintPane({
@@ -70,15 +71,16 @@ module.exports = Backbone.View.extend({
     this.listenTo(this.filterPane.graphPane, 'opened', this.openGraphPane)
     this.listenTo(this.filterPane.graphPane, 'closed', this.closeGraphPane)
 
+    this.listenTo(this.filterPane, 'print-preview', this.showPrintView)
+    this.listenTo(this.printPane, 'cancel', this.removePrintView)
+
     this.$el.append(this.mapPane.el)
-    this.$el.append(this.printPane.el)
     this.$el.append(this.filterPane.render().el)
     this.$el.append(this.infoPane.$el.hide())
     this.mapPane.$('.leaflet-control-container').prepend(this.currentViewInfo.render().el)
 
     // When the Leaflet Map is first initialized, it is not attached to the DOM
     // and does not have a width. We need to reset the size here now it is attached.
-    this.printPane.mapPane.map.invalidateSize()
     this.mapPane.map.invalidateSize()
   },
 
@@ -88,5 +90,22 @@ module.exports = Backbone.View.extend({
 
   closeGraphPane: function () {
     this.$el.removeClass('show-date-filter')
+  },
+
+  showPrintView: function () {
+    this.mapPane.$el.addClass('hide')
+    this.filterPane.$el.addClass('hide')
+    this.infoPane.$el.addClass('hide')
+
+    this.$el.append(this.printPane.el)
+    this.printPane.render()
+  },
+
+  removePrintView: function () {
+    this.mapPane.$el.removeClass('hide')
+    this.filterPane.$el.removeClass('hide')
+    this.infoPane.$el.removeClass('hide')
+
+    this.printPane.remove()
   }
 })

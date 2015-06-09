@@ -32,9 +32,6 @@ module.exports = require('backbone').View.extend({
       bingKey: options.bingKey,
       scrollWheelZoom: false
     })
-
-    this.listenTo(this.collection, 'firstfetch filtered', this.render)
-    // this.$el.append(this.infoPrintView.render().el)
   },
 
   render: function () {
@@ -64,6 +61,8 @@ module.exports = require('backbone').View.extend({
         this.$filterPanesEl.append(infoPane.el)
       }
     }, this)
+
+    return this
   },
 
   print: function () {
@@ -73,12 +72,7 @@ module.exports = require('backbone').View.extend({
   },
 
   cancel: function () {
-    $('#map').removeClass('hide')
-    $('#filter-pane').removeClass('hide')
-    $('#info-pane').removeClass('hide')
-
-    $('#print-header').addClass('hide')
-    $('#print-pages').addClass('hide')
+    this.trigger('cancel')
   },
 
   showMap: function () {

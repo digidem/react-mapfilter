@@ -78,11 +78,6 @@ module.exports = require('backbone').View.extend({
 
   // hide elements
   showPrintPreview: function () {
-    $('#map').addClass('hide')
-    $('#filter-pane').addClass('hide')
-    $('#info-pane').addClass('hide')
-
-    $('#print-header').removeClass('hide')
-    $('#print-pages').removeClass('hide')
+    this.trigger('print-preview')
   }
 })
