@@ -6,22 +6,24 @@ Mapfilter is an online/offline web tool for visualizing, exploring, filtering an
 Development
 --------------
 
-You will need to define a `githubToken` and `bingToken` in `config.json` in the root folder e.g.
-
-```json
-{
-    "githubToken": "asdjaksgkjakdsa",
-    "bingToken": "asdjaksgkjakdsa"
-}
-```
-
 Build and watch files and fire up a local development server:
 
-`npm run build`
+`npm run build:web`
 `npm start`
 
 Then open `http://localhost:9966/`
 
+Livereload will reload the page every time you edit a JS file.
+
+Editing CSS is not watched right now. You will need to run `npm run build:css` and then `npm start` again.
+
+Deployment
+-----------
+
+To deploy a new version to production:
+
+1. Create a new version. Use [Semantic Versioning](http://semver.org/) - bug fixes increment patch, new features increment minor. Create a tag and update package.json with `npm version v0.x.x`
+2. Deploy new version to github pages: `npm run deploy`
 
 Architecture
 ----------------
