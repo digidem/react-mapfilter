@@ -71,11 +71,11 @@ h1, h2, h3 {
     display: none;
 }*/
 
-.marker .marker-text {
+#print-pane .marker .marker-text {
     display: block;
 }
 
-.marker.filtered {
+#print-pane .marker.filtered {
     display: none;
 }
 
