@@ -39,7 +39,7 @@
     "build:css": "postcss --use postcss-import --use autoprefixer --use postcss-url --postcss-url.url inline css/index.css > dist/bundle.css",
     "build:js": "browserify js/index.js -t [ jstify --engine lodash ] | uglifyjs -mc > dist/bundle.js",
     "deploy": "buildbranch gh-pages dist",
-    "predeploy": "npm run build:web",
+    "predeploy": "npm run build:web && copyfiles CNAME dist",
     "build:chrome": "copyup chrome/* dist && crx pack dist -o dist/mapfilter.crx",
     "test": "standard"
   },
