@@ -30,12 +30,20 @@ module.exports = require('backbone').View.extend({
         }
       })
     this.listenTo(this.collection, 'filtered', this.render)
+    this.listenTo(this.collection, 'firstfetch change', this.updateDomain)
   },
 
   render: function () {
     if (!this.collection.length) return this
     d3.select(this.el).call(this.barChart)
     return this
+  },
+
+  updateDomain: function () {
+    console.log('updating comain')
+    var dimension = this.barChart.dimension()
+    this.barChart.x()
+        .domain([dimension.bottom(1)[0].getDate(), dimension.top(1)[0].getDate()])
   },
 
   open: function () {

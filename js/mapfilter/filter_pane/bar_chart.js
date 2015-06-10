@@ -21,7 +21,6 @@ module.exports = function () {
     var addDays = d3.time.day.offset,
       height = y.range()[0]
 
-    x.domain([addDays(collection.at(0).getDate(), -2), addDays(collection.at(collection.length - 1).getDate(), 1)])
     y.domain([0, group.top(1)[0].value])
 
     div.each(function () {
