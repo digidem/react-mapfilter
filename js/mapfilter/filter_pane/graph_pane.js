@@ -40,7 +40,6 @@ module.exports = require('backbone').View.extend({
   },
 
   updateDomain: function () {
-    console.log('updating comain')
     var dimension = this.barChart.dimension()
     this.barChart.x()
         .domain([dimension.bottom(1)[0].getDate(), dimension.top(1)[0].getDate()])
