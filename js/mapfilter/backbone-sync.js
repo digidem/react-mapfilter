@@ -22,11 +22,6 @@ var githubPathRe = /https:\/\/github\.com\/.+?\/.+?\/tree\/.+?\/(.*?)\/?$/
 module.exports = function (defaults) {
   defaults = defaults || {}
 
-  // ensure we have a github API token
-  if (!defaults.githubToken) {
-    throw new Error('A "githubToken" property must be specified')
-  }
-
   return function adapter (method, model, options) {
     options = options || {}
     options = _.extend({}, defaults, model && model.github || {}, options)
@@ -36,10 +31,14 @@ module.exports = function (defaults) {
     owner = (owner && owner[1]) || options.user
     repo = (repo && repo[1]) || options.repo
 
-    var octo = new Octokat({
-      token: options.githubToken,
-      auth: 'oauth'
-    })
+    if (options.githubToken) {
+      var auth = {
+        token: options.githubToken,
+        auth: 'oauth'
+      }
+    }
+
+    var octo = new Octokat(auth)
 
     syncWorker({
       method: method,

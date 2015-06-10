@@ -12,10 +12,15 @@ var $ = require('jquery')
 // app
 window.locale.en = require('../data/en')
 var mapFilter = require('./mapfilter/mapfilter.js')
+var config = require('../config.json')
+
+var hostname = window.location.hostname
+
+config = config.hostname || config['lab.digital-democracy.org']
 
 window.app = mapFilter({
   // target for github database
-  url: 'https://github.com/digidem/wapichanao-data/tree/master/submissions/monitoring.geojson',
+  url: config.dataUrl,
 
   // app container
   el: $('#app'),
@@ -39,6 +44,7 @@ window.app = mapFilter({
   }],
 
   githubToken: (function () {
+    if (!config.auth) return
     var token = document.cookie.replace(/(?:(?:^|.*;\s*)githubToken\s*\=\s*([^;]*).*$)|^.*$/, '$1')
     if (token) return token
     token = window.prompt('Please enter Github token')

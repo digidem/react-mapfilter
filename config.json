@@ -1,0 +1,10 @@
+{
+  "lab.digital-democracy.org": {
+    "dataUrl": "https://github.com/digidem/sample-monitoring-data/tree/master/submissions/monitoring.geojson",
+    "auth": false
+  },
+  "monitoring.wapichanao.org": {
+    "dataUrl": "https://github.com/digidem/wapichanao-data/tree/master/submissions/monitoring.geojson",
+    "auth": true
+  }
+}
