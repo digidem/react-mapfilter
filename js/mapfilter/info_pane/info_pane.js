@@ -6,6 +6,7 @@
 // the point then it will "stick" open.
 'use strict'
 
+var $ = require('jquery')
 var tpl = require('../../../templates/info-pane.tpl')
 
 module.exports = require('backbone').View.extend({
@@ -22,6 +23,8 @@ module.exports = require('backbone').View.extend({
   // Populates the infopane contents with the data from the selected point
   render: function () {
     this.$el.html(this.template(this.model))
+    this.$('.map-icon').html($(this.model.icon).html())
+    this.$('.map-icon').addClass($(this.model.icon).attr('class'))
     return this
   },
 
