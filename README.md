@@ -8,10 +8,15 @@ Development
 
 Build and watch files and fire up a local development server:
 
-`npm run build:web`
 `npm start`
 
 Then open `http://localhost:9966/`
+
+or just:
+
+`npm run open`
+
+Which will open `http://localhost:9966/` in your default browser.
 
 Livereload will reload the page every time you edit a JS file.
 
