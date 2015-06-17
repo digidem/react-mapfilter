@@ -140,11 +140,7 @@ module.exports = function () {
 
   brush.on('brushend.chart', function () {
     if (brush.empty()) {
-      // var div = d3.select(this.parentNode.parentNode.parentNode)
-      // div.select(".title a").style("display", "none")
-      d3.select('#clip-' + id + ' rect').attr('x', null).attr('width', '100%')
-      dimension.filterAll()
-      collection.trigger('filtered')
+      chart.reset()
     }
   })
 
@@ -184,11 +180,18 @@ module.exports = function () {
       brush.extent(_)
       dimension.filterRange(_)
     } else {
-      brush.clear()
-      dimension.filterAll()
+      chart.reset()
     }
     brushDirty = true
     return chart
+  }
+
+  chart.reset = function () {
+    d3.select('#clip-' + id + ' rect').attr('x', null).attr('width', '100%')
+    brush.clear()
+    brushDirty = true
+    dimension.filterAll()
+    collection.trigger('filtered')
   }
 
   chart.group = function (_) {

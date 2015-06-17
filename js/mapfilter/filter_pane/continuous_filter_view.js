@@ -51,7 +51,6 @@ module.exports = require('backbone').View.extend({
   },
 
   selectAll: function () {
-    // window.reset()
-    // this.collection.trigger("filtered")''
+    this.graphPane.barChart.reset()
   }
 })
