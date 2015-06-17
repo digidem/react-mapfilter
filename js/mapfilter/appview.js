@@ -15,7 +15,6 @@ var Backbone = require('backbone')
 var MapPane = require('./map_pane/map_pane.js')
 var PrintPane = require('./print_pane/print_pane.js')
 var FilterPane = require('./filter_pane/filter_pane.js')
-var CurrentViewInfo = require('./map_pane/current_view_info.js')
 var InfoPane = require('./info_pane/info_pane.js')
 
 module.exports = Backbone.View.extend({
@@ -60,10 +59,6 @@ module.exports = Backbone.View.extend({
       filters: options.filters
     })
 
-    this.currentViewInfo = new CurrentViewInfo({
-      id: 'filter-info'
-    })
-
     this.infoPane = new InfoPane({
       id: 'info-pane'
     })
@@ -77,7 +72,6 @@ module.exports = Backbone.View.extend({
     this.$el.append(this.mapPane.el)
     this.$el.append(this.filterPane.render().el)
     this.$el.append(this.infoPane.$el.hide())
-    this.mapPane.$('.leaflet-control-container').prepend(this.currentViewInfo.render().el)
 
     // When the Leaflet Map is first initialized, it is not attached to the DOM
     // and does not have a width. We need to reset the size here now it is attached.
