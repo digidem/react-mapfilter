@@ -41,8 +41,7 @@ module.exports = require('backbone').View.extend({
 
     this.$filters.append(
       '<div>' +
-      '<button type="button" class="btn btn-primary print">Print</button> ' +
-      '<button type="button" class="btn btn-default print-preview">Print Preview</button>' +
+      '<button type="button" class="btn btn-primary print-preview">Print Report</button> ' +
       '</div>')
   },
 
