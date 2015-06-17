@@ -35,6 +35,10 @@ window.t = function(s, o, loc) {
             return o['default'];
         }
 
+        if (/\s/.exec(s) || !/\./.exec(s)) {
+            return s
+        }
+
         return toTitleCase(s.split(".").pop());
     }
 
