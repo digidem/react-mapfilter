@@ -1,3 +1,10 @@
+## v0.2.1 7/16/2015
+
+### Bug Fixes
+
+- Add a space after the caption label
+- Some fields were not appearing if they contained a `.`
+
 ## v0.2.0 7/16/2015
 
 ### Enhancements
