@@ -8,13 +8,17 @@
 <div class="image-wrapper">
   <% if (getImgUrl()) { %>
     <img src="<%= getImgUrl() %>">
-    <div class="caption"><strong>Caption:</strong> <%= t(get("caption")) %></div>
+    <div class="caption"><strong>Caption: </strong> <%= t(get("caption")) %></div>
   <% } %>
 </div>
 <table class="table">
 <tr>
   <th>Where:</th>
   <td><%= t(getLocation()) %></td>
+</tr>
+<tr>
+  <th>Coordinates:</th>
+  <td><%= getFormatedCoords() %></td>
 </tr>
 <tr>
   <th>Impacts:</th>

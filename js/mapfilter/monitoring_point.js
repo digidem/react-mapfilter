@@ -20,10 +20,24 @@ module.exports = require('backbone').Model.extend({
 
   // Should return a [lat, lon] array for the point
   coordinates: function () {
-    return this.attributes.geometry && [
-        this.attributes.geometry.coordinates[1],
-        this.attributes.geometry.coordinates[0]
-    ]
+    if (!this.attributes.geometry) return
+
+    var lat = this.attributes.geometry.coordinates[1]
+    var lon = this.attributes.geometry.coordinates[0]
+
+    return [lat, lon]
+  },
+
+  getFormatedCoords: function (digits) {
+    digits = digits || 5
+
+    var lat = this.coordinates()[0].toFixed(digits)
+    var lon = this.coordinates()[1].toFixed(digits)
+
+    lat += (lat > 0) ? '&deg; N' : '&deg; S'
+    lon += (lon > 0) ? '&deg; E' : '&deg; W'
+
+    return lat + ' ' + lon
   },
 
   getWhat: function () {
