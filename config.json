@@ -6,5 +6,9 @@
   "monitoring.wapichanao.org": {
     "dataUrl": "https://github.com/digidem/wapichanao-data/tree/master/submissions/monitoring.geojson",
     "auth": true
+  },
+  "localhost": {
+    "dataUrl": "https://github.com/digidem/wapichanao-data/tree/master/submissions/monitoring.geojson",
+    "auth": true
   }
 }
