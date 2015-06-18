@@ -42,7 +42,8 @@
     "deploy": "buildbranch gh-pages dist",
     "predeploy": "npm run build:web && copyfiles CNAME dist",
     "build:chrome": "copyup chrome/* dist && crx pack dist -o dist/mapfilter.crx",
-    "test": "standard"
+    "test": "standard",
+    "patch": "npm version patch && git push --follow-tags"
   },
   "standard": {
     "ignore": [
