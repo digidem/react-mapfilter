@@ -1,3 +1,7 @@
+## v0.2.2 7/18/2015
+
+- [FIXED] Clicking Print Cancel twice did not work [#23](../../issues/23)
+
 ## v0.2.1 7/16/2015
 
 - [FIXED] Add a space after the caption label
