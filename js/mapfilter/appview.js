@@ -100,6 +100,6 @@ module.exports = Backbone.View.extend({
     this.filterPane.$el.removeClass('hide')
     this.infoPane.$el.removeClass('hide')
 
-    this.printPane.remove()
+    this.printPane.$el.detach()
   }
 })
