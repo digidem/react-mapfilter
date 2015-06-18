@@ -1,6 +1,6 @@
 {
   "name": "Monitoring-app",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "An app for viewing monitoring data",
   "license": "MIT",
   "devDependencies": {
