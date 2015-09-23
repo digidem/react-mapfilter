@@ -43,6 +43,17 @@
             "print_view_description": "You can just print the map, or just print the list of info for each point, by selecting the options below. You can drag and zoom the map below to choose the region to print.",
             "show_large_map": "Show first page with overview map",
             "show_info_list": "Show info for each point"
+        },
+        "info_pane": {
+            "not_recorded": "Not Recorded",
+            "other": "Other",
+            "caption": "Caption",
+            "where": "Where",
+            "coordinates": "Coordinates",
+            "impacts": "Impacts",
+            "notes": "Notes",
+            "visited_by": "Visited by",
+            "visit_date": "Visit date"
         }
     },
     "message": {
