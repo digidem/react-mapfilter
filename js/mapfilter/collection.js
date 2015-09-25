@@ -10,8 +10,6 @@ var Backbone = require('backbone')
 
 var crossfilter = require('crossfilter')
 
-var sync = require('./backbone-sync')
-
 module.exports = Backbone.Collection.extend({
   initialize: function (models, options) {
     // Pass the url endpoint for this collection in the options hash
@@ -28,8 +26,6 @@ module.exports = Backbone.Collection.extend({
     this.dimensionByCid = this.crossfilter.dimension(function (d) {
       return d.cid
     })
-
-    this.sync = sync({ githubToken: options.githubToken })
 
     // This will group models by cid, which is unique, which means that
     // each group will have a count of 0 or 1 depending on whether

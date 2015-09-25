@@ -1,14 +1,14 @@
 {
   "lab.digital-democracy.org": {
-    "dataUrl": "https://github.com/digidem/sample-monitoring-data/tree/master/submissions/monitoring.geojson",
+    "dataUrl": "/json/Monitoring.json",
     "auth": false
   },
   "monitoring.wapichanao.org": {
-    "dataUrl": "https://github.com/digidem/wapichanao-data/tree/master/submissions/monitoring.geojson",
-    "auth": true
+    "dataUrl": "/json/Monitoring.json",
+    "auth": false
   },
   "localhost": {
-    "dataUrl": "https://github.com/digidem/wapichanao-data/tree/master/submissions/monitoring.geojson",
-    "auth": true
+    "dataUrl": "/json/Monitoring.json",
+    "auth": false
   }
 }

@@ -7,8 +7,8 @@
 </h3>
 <div class="image-wrapper">
   <% if (getImgUrl()) { %>
-    <img src="<%= getImgUrl() %>">
-    <div class="caption"><strong>Caption:</strong> <%= t(get("caption")) %></div>
+    <img src="/monitoring-files/<%= getImgUrl() %>">
+    <div class="caption"><strong>Caption:</strong> <%= getImgCaption() %></div>
   <% } %>
 </div>
 <table class="table">
