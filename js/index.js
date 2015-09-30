@@ -11,6 +11,9 @@ var $ = require('jquery')
 
 // app
 window.locale.en = require('../data/en')
+window.locale.fr = require('../data/fr')
+window.locale.init();
+
 var mapFilter = require('./mapfilter/mapfilter.js')
 var config = require('../config.json')
 
