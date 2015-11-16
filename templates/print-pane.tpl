@@ -14,14 +14,14 @@
       </label>
     </div>
     <div class="btn-group">
-      <button type="button" class="btn btn-default cancel">Cancel</button>
-      <button type="button" class="btn btn-primary print">Print</button>
+      <button type="button" class="btn btn-default cancel"><%= t("ui.print_view.cancel") %></button>
+      <button type="button" class="btn btn-primary print"><%= t("ui.print_view.print") %></button>
     </div>
   </form>
 </div>
 <div id="print-pages">
   <div class="first-page">
-    <h1>Monitoring Report</h1>
+    <h1><%= t("ui.print_view.monitoring_report") %></h1>
     <div id="map-print"></div>
   </div>
   <div id="info-panes-print">

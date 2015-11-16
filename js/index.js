@@ -52,7 +52,7 @@ window.app = mapFilter({
     if (!config.auth) return
     var token = document.cookie.replace(/(?:(?:^|.*;\s*)githubToken\s*\=\s*([^;]*).*$)|^.*$/, '$1')
     if (token) return token
-    token = window.prompt('Please enter Github token')
+    token = window.prompt(t("error.missing_github_token"))
     var cookie = 'githubToken=' + token + ';max-age=2592000'
     if (window.location.protocol === 'https:') cookie += ';secure'
     document.cookie = cookie

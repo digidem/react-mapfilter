@@ -61,10 +61,11 @@ module.exports = require('backbone').View.extend({
     // Add the background tile layer to the map
     this.wapichanaLayer = L.tileLayer(options.tileUrl)
 
-    L.control.layers({
-      'Bing Satellite': this.bingLayer,
-      'Bush & Mountains': this.wapichanaLayer
-    }).addTo(this.map)
+    var baseMaps = {};
+    baseMaps[t("ui.map_pane.layers.bing")] = this.bingLayer;
+    baseMaps[t("ui.map_pane.layers.bush_mountains")] = this.wapichanaLayer;
+
+    L.control.layers(baseMaps).addTo(this.map)
 
     // Object to hold a reference to any markers added to the map
     this.markersById = {}
