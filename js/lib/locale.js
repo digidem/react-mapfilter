@@ -51,6 +51,10 @@ locale.init = function() {
   return locale.current(loc);
 }
 
+locale.d3 = function() {
+  return window.locale_d3[locale.current()];
+}
+
 window.t = function(s, o, loc) {
     loc = loc || locale._current;
     if (!s) return s;
