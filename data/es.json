@@ -1,62 +1,77 @@
 {
     "happening": {
         "mining": "Minería",
-        "logging": "Explotación Florestal",
+        "logging": "Tala de arboles",
         "crossing": "Cruce",
-        "rustling": "Susurro",
+        "rustling": "Robo de ganado",
         "hunting": "Caza Ilegal",
         "fishing": "Pesca Ilegal",
-        "trapping": "Ilegal Reventado",
+        "trapping": "Captura ilegal de animales",
         "grazing": "El Pastoreo Ilegal",
-        "tourism": "Violación de Turismo",
-        "artefacts": "Robar Artefactos",
+        "tourism": "Violación por turismo",
+        "artefacts": "Robo de artefactos",
         "other": "Otro"
     },
     "impacts": {
         "cultural": "La pérdida de patrimonio cultural",
-        "sensitive": "Violación del sitio sensible",
-        "farming": "El daño a terrenos agrícolas",
-        "hunting": "El agotamiento de juego",
-        "wildlife": "El daño a la vida silvestre / hábitat",
-        "conserved": "Daño al sitio de la comunidad conservada",
+        "sensitive": "Violación del lugar sagrado",
+        "farming": "Daño a tierras agrícolas",
+        "hunting": "El agotamiento de animales de caza",
+        "wildlife": "Daño ecológico y a la fauna silvestre",
+        "conserved": "Daño al sitio de conservación comunal",
         "fishing": "El agotamiento de los peces",
         "water_pollution": "La contaminación del agua",
-        "water_poison": "Envenenado agua",
-        "watershed": "El daño a la fuente de agua / cuencas",
-        "gathering": "El daño a motivos de reunión",
+        "water_poison": "Envenenamiento de agua",
+        "watershed": "Daño a la fuente de agua / cuencas",
+        "gathering": "El daño a recursos de recolección",
         "deforestation": "Deforestación",
         "social": "Daño social o abuso",
-        "fpic": "FPIC violación",
+        "fpic": "Violación del CPLI",
         "other": "Otro"
     },
     "filters": {
-        "happening": "Ocupaciones",
+        "happening": "Actividades",
         "people": "Gente"
     },
     "ui": {
         "filter_view": {
-            "select_one": "sólo",
+            "select_one": "uno",
             "select_all": "Mostrar Todo",
-            "select_dates": "Seleccionar Fechas"
+            "select_dates": "Seleccionar Fechas",
+            "dates": "Fechas",
+            "print_report": "Imprimir informe"
         },
         "print_view": {
-            "print_view_description": "Usted sólo puede imprimir el mapa, o simplemente imprima la lista de información para cada punto, mediante la selección de las opciones a continuación. Puede arrastrar y ampliar el mapa para cambiar la región para imprimir.",
-            "show_large_map": "Mostrar primera página con el mapa general",
-            "show_info_list": "Mostrar información para cada punto"
+            "print_view_description": "Usted puede imprimir solamente el mapa, o puede imprimir solamente la lista de información asociado con cada punto, mediante la selección de las opciones a continuación. Puede arrastrar y ampliar el mapa para cambiar el área que deseas imprimir.",
+            "show_large_map": "Mostrar la primera página con un mapa de síntesis",
+            "show_info_list": "Mostrar información para cada punto",
+            "cancel": "Anular",
+            "print": "Imprimir",
+            "monitoring_report": "Informe de monitoreo"
         },
         "info_pane": {
             "not_recorded": "No Registrada",
             "other": "Otro",
-            "caption": "Subtítulo",
+            "caption": "Descripción",
             "where": "Dónde",
             "coordinates": "Coordenadas",
             "impacts": "Impactos",
             "notes": "Notas",
             "visited_by": "Visitado por",
             "visit_date": "Fecha de visita"
+        },
+        "map_pane": {
+            "layers": {
+                "bing": "Imagen satelital Bing",
+                "bush_mountains": "Sabana y Cerros"
+            }
         }
     },
     "message": {
         "nodata": "<em class=\"blank\">No Reportado</em>"
+    },
+    "error": {
+        "filter_missing": "Sin filtro.",
+        "missing_github_token": "Favor de ingresar el código de Github"
     }
 }
