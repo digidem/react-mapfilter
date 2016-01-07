@@ -13,6 +13,7 @@ var $ = require('jquery')
 window.locale.en = require('../data/en')
 var mapFilter = require('./mapfilter/mapfilter.js')
 var config = require('../config.json')
+var auth = require('./mapfilter/auth.js')
 
 var hostname = window.location.hostname
 
@@ -43,16 +44,7 @@ window.app = mapFilter({
     expanded: true
   }],
 
-  githubToken: (function () {
-    if (!config.auth) return
-    var token = document.cookie.replace(/(?:(?:^|.*;\s*)githubToken\s*\=\s*([^;]*).*$)|^.*$/, '$1')
-    if (token) return token
-    token = window.prompt('Please enter Github token')
-    var cookie = 'githubToken=' + token + ';max-age=2592000'
-    if (window.location.protocol === 'https:') cookie += ';secure'
-    document.cookie = cookie
-    return token
-  })(),
+  githubToken: auth(config),
 
   // Template to generate maptile urls. See http://leafletjs.com/reference.html#url-template
   tileUrl: 'http://{s}.tiles.mapbox.com/v3/gmaclennan.wapichana_background/{z}/{x}/{y}.jpg',

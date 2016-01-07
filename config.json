@@ -9,6 +9,9 @@
   },
   "localhost": {
     "dataUrl": "https://github.com/digidem/wapichanao-data/tree/master/submissions/monitoring.geojson",
-    "auth": true
+    "auth": {
+      "clientID": "LknS1bPcwxTFpaA2Dz01svEIZ0AJJ27F",
+      "domain": "spacedog.auth0.com"
+    }
   }
 }
