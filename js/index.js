@@ -13,7 +13,6 @@ var $ = require('jquery')
 window.locale.en = require('../data/en')
 var mapFilter = require('./mapfilter/mapfilter.js')
 var config = require('../config.json')
-var auth = require('./mapfilter/auth.js')
 
 var hostname = window.location.hostname
 
@@ -42,14 +41,11 @@ window.app = mapFilter({
     type: 'discrete',
     field: 'people',
     expanded: true
-  }],
-
-  githubToken: auth(config),
-
   // Template to generate maptile urls. See http://leafletjs.com/reference.html#url-template
   tileUrl: 'http://{s}.tiles.mapbox.com/v3/gmaclennan.wapichana_background/{z}/{x}/{y}.jpg',
   // tileUrl: 'http://localhost:20008/tile/wapichana_background/{z}/{x}/{y}.png',
 
   // API key for Bing Maps use
   bingKey: 'AtCQswcYKiBKRMM8MHjAzncJvN6miHjgxbi2-m1oaFUHMa06gszNwt4Xe_te18FF'
+  }]
 })

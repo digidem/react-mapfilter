@@ -3,6 +3,10 @@
 
 function(user, context, callback) {
   user.app_metadata = user.app_metadata || { };
+  if (typeof(user.app_metadata !== "object")) {
+    // clear non-object metadata
+    user.app_metadata = { };
+  }
 
   if (configuration.githubToken) {
     user.app_metadata.githubToken = configuration.githubToken;

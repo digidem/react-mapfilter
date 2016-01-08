@@ -41,6 +41,10 @@ module.exports = Backbone.Collection.extend({
     this.on('add firstfetch', this.addToFilter)
   },
 
+  setToken: function(token) {
+    this.sync = sync({ githubToken: token })
+  },
+
   // A wrapper for `crossfilter().dimension` which stores a reference
   // to the dimension which allows for the crossfilter to be reset later
   dimension: function (value) {

@@ -12,6 +12,7 @@
 
 var Backbone = require('backbone')
 
+var Auth = require('./auth.js')
 var MapPane = require('./map_pane/map_pane.js')
 var PrintPane = require('./print_pane/print_pane.js')
 var FilterPane = require('./filter_pane/filter_pane.js')
@@ -23,13 +24,21 @@ module.exports = Backbone.View.extend({
   },
 
   initialize: function (options) {
-    // For this initial load of data do not trigger add events, but instead
-    // trigger a custom event to refresh views and filters
-    this.collection.fetch({
-      silent: true,
-      success: function (collection, resp, options) {
-        collection.trigger('firstfetch', collection, resp, options)
-      }
+    var self = this
+    this.auth = new Auth(options.auth, function (token) {
+      console.log('success!', token)
+      
+      // reset collection token
+      self.collection.setToken(token)
+
+      // For this initial load of data do not trigger add events, but instead
+      // trigger a custom event to refresh views and filters
+      self.collection.fetch({
+        silent: true,
+        success: function (collection, resp, options) {
+          collection.trigger('firstfetch', collection, resp, options)
+        }
+      })
     })
 
     this.mapPane = new MapPane({
