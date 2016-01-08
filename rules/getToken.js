@@ -5,7 +5,7 @@ function(user, context, callback) {
   user.app_metadata = user.app_metadata || { };
 
   if (configuration.githubToken) {
-    user.app_metadata = configuration.githubToken;
+    user.app_metadata.githubToken = configuration.githubToken;
     callback(null, user, context);
   } else {
     return callback(new UnauthorizedError('Unable to read Github token.'));
