@@ -19,8 +19,7 @@ var hostname = window.location.hostname
 config = config[hostname] || config['lab.digital-democracy.org']
 
 window.app = mapFilter({
-  // target for github database
-  url: config.dataUrl,
+  config: config,
 
   // app container
   el: $('#app'),
@@ -41,11 +40,5 @@ window.app = mapFilter({
     type: 'discrete',
     field: 'people',
     expanded: true
-  // Template to generate maptile urls. See http://leafletjs.com/reference.html#url-template
-  tileUrl: 'http://{s}.tiles.mapbox.com/v3/gmaclennan.wapichana_background/{z}/{x}/{y}.jpg',
-  // tileUrl: 'http://localhost:20008/tile/wapichana_background/{z}/{x}/{y}.png',
-
-  // API key for Bing Maps use
-  bingKey: 'AtCQswcYKiBKRMM8MHjAzncJvN6miHjgxbi2-m1oaFUHMa06gszNwt4Xe_te18FF'
   }]
 })
