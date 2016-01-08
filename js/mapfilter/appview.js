@@ -26,8 +26,6 @@ module.exports = Backbone.View.extend({
   initialize: function (options) {
     var self = this
     this.auth = new Auth(options.auth, function (token) {
-      console.log('success!', token)
-      
       // reset collection token
       self.collection.setToken(token)
 

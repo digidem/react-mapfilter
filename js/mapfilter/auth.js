@@ -16,6 +16,7 @@ module.exports = Backbone.View.extend({
 
     if (localStorage && localStorage.getItem('githubToken')) {
       this.method = 'localStorage'
+      this.token = localStorage.getItem('githubToken')
     }
 
     if (options.clientID && options.domain && !this.token) {
@@ -27,6 +28,10 @@ module.exports = Backbone.View.extend({
   },
 
   login: function (success) {
+    if (this.token) {
+      if (success) return success(this.token)
+    }
+
     if (this.method === 'localStorage') {
       this.token = localStorage.getItem('githubToken')
       if (success) return success(this.token)
@@ -54,7 +59,7 @@ module.exports = Backbone.View.extend({
         try {
           if (localStorage) localStorage.setItem('githubToken', githubToken)
           this.token = githubToken
-          return this.onSuccess(this.token)
+          if (this.onSuccess) return this.onSuccess(this.token)
         } catch (err) {
           console.error(err)
         }
@@ -65,7 +70,10 @@ module.exports = Backbone.View.extend({
   },
 
   logout: function () {
-    if (localStorage) localStorage.removeItem('githubToken')
+    if (this.method === 'localStorage') {
+      localStorage.removeItem('githubToken')
+      window.reload()
+    }
 
     if (this.method === 'auth0' && this.auth0Lock) {
       this.auth0Lock.logout({

@@ -41,7 +41,7 @@ module.exports = Backbone.Collection.extend({
     this.on('add firstfetch', this.addToFilter)
   },
 
-  setToken: function(token) {
+  setToken: function (token) {
     this.sync = sync({ githubToken: token })
   },
 

@@ -1,4 +1,4 @@
-/* global t */
+/* global t, app */
 // MapFilter.FilterPane
 // --------------------
 
@@ -43,7 +43,7 @@ module.exports = require('backbone').View.extend({
     this.$filters.append(
       '<div>' +
       '<button type="button" class="btn btn-primary print-preview">Print Report</button> ' +
-      '<button type="button" class="btn btn-secondary auth-logout">Log Out</button> ' +
+      '<button type="button" class="btn btn-default auth-logout">Log Out</button> ' +
       '</div>')
   },
 
