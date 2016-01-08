@@ -6,7 +6,7 @@ function(user, context, callback) {
   request.get({
     url: 'https://dl.dropboxusercontent.com/u/21665105/users.txt' // TODO, update w/ our own doc
   }, function (err, response, body) {
-    var allowedUsers = body.split('\r\n');
+    var allowedUsers = body.split(/\r?\n/g); // handle either Unix or Windows line encoding
     var allowedDomains = ['digital-democracy.org', 'spacedog.xyz'];
 
     var userHasAccess = allowedUsers.some(checkEmail) || allowedDomains.some(checkDomain);
