@@ -1,5 +1,5 @@
 // auth0 rule, runs in their sandbox on webtask.io
-// pulls github token from configuration, puts in app_metadata
+// pulls github token from configuration, puts in user.app_metadata
 
 function(user, context, callback) {
   user.app_metadata = user.app_metadata || { };

@@ -20,8 +20,11 @@ function(user, context, callback) {
   });
 
   function checkDomain(domain) {
-    var emailSplit = user.email.split('@');
-    return emailSplit[emailSplit.length - 1].toLowerCase() === domain;
+    if (user.email) {
+      var emailSplit = user.email.split('@');
+      return emailSplit[emailSplit.length - 1].toLowerCase() === domain;
+    }
+    return false;
   }
 
   function checkEmail(email) {

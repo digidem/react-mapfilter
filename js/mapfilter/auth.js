@@ -17,15 +17,17 @@ module.exports = function (config) {
 }
 
 function onLogin (err, profile, id_token) {
-  if (err) {
-    window.alert('There was an error')
-    console.error(err)
-  }
+  if (err) console.error(err)
 
   if (profile) {
     console.log('profile', profile)
     var githubToken = profile.app_metadata.githubToken
-    localStorage.setItem('githubToken', githubToken)
-    return githubToken
+    if (githubToken) {
+      console.log('got token')
+      localStorage.setItem('githubToken', githubToken)
+      return githubToken
+    } else {
+      console.error('no githubToken in profile.app_metadata')
+    }
   }
 }
