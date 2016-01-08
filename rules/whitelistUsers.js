@@ -12,7 +12,8 @@ function(user, context, callback) {
     var userHasAccess = allowedUsers.some(checkEmail) || allowedDomains.some(checkDomain);
 
     if (!userHasAccess) {
-      return callback(new UnauthorizedError('Access denied.'));
+      return callback(new UnauthorizedError('Access denied. ' +
+                      '<a href="mailto:info@digital-democracy.org">Contact us</a> for a login.'));
     }
 
     callback(null, user, context);

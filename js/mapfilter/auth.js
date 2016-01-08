@@ -8,8 +8,12 @@ module.exports = function (config) {
   var githubToken = localStorage.getItem('githubToken')
   if (githubToken) return githubToken
 
-  var lock = new Auth0Lock(config.auth.clientID, config.auth.domain)
-  lock.show(onLogin)
+  if (config.auth.clientID && config.auth.domain) {
+    var lock = new Auth0Lock(config.auth.clientID, config.auth.domain)
+    lock.show(onLogin)
+  } else {
+    return window.prompt('Please enter Github token')
+  }
 }
 
 function onLogin (err, profile, id_token) {
@@ -20,8 +24,8 @@ function onLogin (err, profile, id_token) {
 
   if (profile) {
     console.log('profile', profile)
-    var githubToken = profile.githubToken
-    localStorage.setItem('githubToken', profile.githubToken)
+    var githubToken = profile.app_metadata.githubToken
+    localStorage.setItem('githubToken', githubToken)
     return githubToken
   }
 }
