@@ -10,7 +10,10 @@ module.exports = function (config) {
 
   if (config.auth.clientID && config.auth.domain) {
     var lock = new Auth0Lock(config.auth.clientID, config.auth.domain)
-    lock.show(onLogin)
+    lock.show({
+      icon: 'images/login.png',
+      closable: false
+    }, onLogin)
   } else {
     return window.prompt('Please enter Github token')
   }
