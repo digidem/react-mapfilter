@@ -12,14 +12,13 @@ module.exports = Backbone.View.extend({
 
     if (!options) {
       this.method = null
-    }
-
-    if (localStorage && localStorage.getItem('githubToken')) {
+      return success()
+    } else if (options === true) {
+      this.method = 'prompt'
+    } else if (localStorage && localStorage.getItem('githubToken')) {
       this.method = 'localStorage'
       this.token = localStorage.getItem('githubToken')
-    }
-
-    if (options.clientID && options.domain && !this.token) {
+    } else if (options.clientID && options.domain && !this.token) {
       this.method = 'auth0'
       this.auth0Lock = new Auth0Lock(options.clientID, options.domain)
     }
@@ -30,24 +29,21 @@ module.exports = Backbone.View.extend({
   login: function (success) {
     if (this.token) {
       if (success) return success(this.token)
-    }
-
-    if (this.method === 'localStorage') {
+    } else if (this.method === 'localStorage') {
       this.token = localStorage.getItem('githubToken')
-      if (success) return success(this.token)
-    }
-
-    if (this.method === 'auth0' && this.auth0Lock) {
+    } else if (this.method === 'auth0' && this.auth0Lock) {
       this.onSuccess = success // save success function for later
       return this.auth0Lock.show({
         dict: window.locale._current,
         icon: 'images/login.png',
         closable: false
       }, _.bind(this.auth0Callback, this))
-    } else {
+    } else if (this.method === 'prompt') {
       this.token = window.prompt('Please enter Github token')
-      if (success) return success(this.token)
+      if (localStorage) localStorage.setItem('githubToken', this.token)
     }
+
+    if (success) return success(this.token)
   },
 
   auth0Callback: function (err, profile, id_token) {
@@ -70,12 +66,10 @@ module.exports = Backbone.View.extend({
   },
 
   logout: function () {
-    if (this.method === 'localStorage') {
+    if (this.method === 'localStorage' || this.method === 'prompt') {
       localStorage.removeItem('githubToken')
-      window.reload()
-    }
-
-    if (this.method === 'auth0' && this.auth0Lock) {
+      window.location.reload()
+    } else if (this.method === 'auth0' && this.auth0Lock) {
       this.auth0Lock.logout({
         returnTo: window.location.href
       })
