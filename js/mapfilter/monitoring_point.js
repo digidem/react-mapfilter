@@ -83,29 +83,8 @@ module.exports = require('backbone').Model.extend({
   },
 
   getImgUrl: function () {
-    var photos = this.get('photos')
-    if(photos && !(photos=='not_recorded')){
-      console.log("Photo: "+photos['picture']);
-      return photos['picture'];
-    } else {
-      var picture = this.get('picture');
-      if(picture && !(picture=='not_recorded')){
-        console.log("Picture: "+picture);
-        return picture;
-      } else {
-        return undefined;
-      }
-    }
-  },
-
-  getImgCaption: function () {
-    var photos = this.get('photos')
-    if(photos){
-      console.log("Caption: "+photos['caption'])
-      return photos['caption']
-    } else {
-      return "";
-    }
+    var picture = this.get('picture')
+    return picture && picture.url
   },
 
   // Takes a field that is a space-separated list of values, which may include "other"

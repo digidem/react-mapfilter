@@ -22,7 +22,6 @@ var config = require('../config.json')
 var hostname = window.location.hostname
 
 config = config[hostname] || config['lab.digital-democracy.org']
-console.log(config);
 
 window.app = mapFilter({
   // target for github database

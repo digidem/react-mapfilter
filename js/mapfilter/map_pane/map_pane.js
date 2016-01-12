@@ -26,6 +26,9 @@ module.exports = require('backbone').View.extend({
 
     this.appView = options.appView
 
+    // Add the background tile layer to the map
+    this.wapichanaLayer = L.tileLayer(options.tileUrl).addTo(this.map)
+
     L.bingLayer.initialize = function (key, options) {
       L.Util.setOptions(this, options)
 
