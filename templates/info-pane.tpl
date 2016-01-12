@@ -8,7 +8,7 @@
 <div class="image-wrapper">
   <% if (getImgUrl()) { %>
     <img src="<%= getImgUrl() %>">
-    <div class="caption"><strong><%= t("ui.info_panel.prompt.caption") %>:</strong> <%= getImgCaption() %></div>
+    <div class="caption"><strong><%= t("ui.info_panel.prompt.caption") %>:</strong> <%= t(get("caption")) %></div>
   <% } %>
 </div>
 <table class="table">
