@@ -8,34 +8,34 @@
 <div class="image-wrapper">
   <% if (getImgUrl()) { %>
     <img src="<%= getImgUrl() %>">
-    <div class="caption"><strong><%= t("ui.info_panel.prompt.caption") %>:</strong> <%= t(get("caption")) %></div>
+    <div class="caption"><strong><%= t("ui.info_pane.caption") %>:</strong> <%= t(get("caption")) %></div>
   <% } %>
 </div>
 <table class="table">
 <tr>
-  <th><%= t("ui.info_panel.prompt.location") %>:</th>
+  <th><%= t("ui.info_pane.location") %>:</th>
   <td><%= t(getLocation()) %></td>
 </tr>
 <tr>
-  <th><%= t("ui.info_panel.prompt.coordinates") %>:</th>
+  <th><%= t("ui.info_pane.coordinates") %>:</th>
   <td><%= getFormatedCoords() %></td>
 </tr>
 <tr>
-  <th><%= t("ui.info_panel.prompt.impacts") %>:</th>
+  <th><%= t("ui.info_pane.impacts") %>:</th>
   <td><%= t(getImpacts()) %></td>
 </tr>
 <% if (attributes.other_info) { %>
 <tr>
-  <th><%= t("ui.info_panel.prompt.notes") %>:</th>
+  <th><%= t("ui.info_pane.notes") %>:</th>
   <td><%= attributes.other_info %></td>
 </tr>
 <% } %>
 <tr>
-  <th><%= t("ui.info_panel.prompt.visited_by") %>:</th>
+  <th><%= t("ui.info_pane.visited_by") %>:</th>
   <td><%= getWho() %></td>
 </tr>
 <tr>
-  <th><%= t("ui.info_panel.prompt.visit_date") %>:</th>
+  <th><%= t("ui.info_pane.visit_date") %>:</th>
   <td><%= getWhen() %></td>
 </tr>
 </table>

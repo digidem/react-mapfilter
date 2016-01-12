@@ -34,14 +34,14 @@
         "people": "People"
     },
     "ui": {
-        "filter_view": {
+        "filter_pane": {
             "select_one": "only",
             "select_all": "Show All",
             "select_dates": "Select Dates",
             "dates": "Dates",
             "print_report": "Print Report"
         },
-        "print_view": {
+        "print_pane": {
             "print_view_description": "You can just print the map, or just print the list of info for each point, by selecting the options below. You can drag and zoom the map below to choose the region to print.",
             "show_large_map": "Show first page with overview map",
             "show_info_list": "Show info for each point",

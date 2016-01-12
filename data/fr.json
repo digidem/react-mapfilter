@@ -34,12 +34,12 @@
         "people": "Peuple"
     },
     "ui": {
-        "filter_view": {
+        "filter_pane": {
             "select_one": "Seulement",
             "select_all": "Montrez Tout",
             "select_dates": "Choisissez Les Dates"
         },
-        "print_view": {
+        "print_pane": {
             "print_view_description": "Vous pouvez imprimer juste la carte, ou la liste d'information pour chaque point, en sélectionnant les options au-dessous. Vous pouvez  glisser et zoomer la carte au-dessous afin de choisir la région pour imprimer.",
             "show_large_map": "Montrez la première page avec la carte générale",
             "show_info_list": "Montrez données pour chaque point"

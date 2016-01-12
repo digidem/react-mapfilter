@@ -34,14 +34,14 @@
         "people": "Gente"
     },
     "ui": {
-        "filter_view": {
+        "filter_pane": {
             "select_one": "uno",
             "select_all": "Mostrar Todo",
             "select_dates": "Seleccionar Fechas",
             "dates": "Fechas",
             "print_report": "Imprimir informe"
         },
-        "print_view": {
+        "print_pane": {
             "print_view_description": "Usted puede imprimir solamente el mapa, o puede imprimir solamente la lista de información asociado con cada punto, mediante la selección de las opciones a continuación. Puede arrastrar y ampliar el mapa para cambiar el área que deseas imprimir.",
             "show_large_map": "Mostrar la primera página con un mapa de síntesis",
             "show_info_list": "Mostrar información para cada punto",
