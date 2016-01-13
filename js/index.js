@@ -14,7 +14,7 @@ var $ = require('jquery')
 window.locale.en = require('../data/en')
 window.locale.fr = require('../data/fr')
 window.locale.es = require('../data/es')
-window.locale.init();
+window.locale.init()
 
 var mapFilter = require('./mapfilter/mapfilter.js')
 var config = require('../config.json')
@@ -52,7 +52,7 @@ window.app = mapFilter({
     if (!config.auth) return
     var token = document.cookie.replace(/(?:(?:^|.*;\s*)githubToken\s*\=\s*([^;]*).*$)|^.*$/, '$1')
     if (token) return token
-    token = window.prompt(t("error.missing_github_token"))
+    token = window.prompt(window.t('error.missing_github_token'))
     var cookie = 'githubToken=' + token + ';max-age=2592000'
     if (window.location.protocol === 'https:') cookie += ';secure'
     document.cookie = cookie
