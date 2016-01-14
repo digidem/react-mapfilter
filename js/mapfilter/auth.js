@@ -49,8 +49,9 @@ module.exports = Backbone.View.extend({
   auth0Callback: function (err, profile, id_token) {
     if (err) console.error(err)
 
-    if (profile) {
-      var githubToken = profile.app_metadata.githubToken || profile.app_metadata
+    var githubIdentity = _.findWhere(profile.identities, { connection: 'github'})
+    if (githubIdentity) {
+      var githubToken = githubIdentity.access_token
       if (githubToken) {
         try {
           if (localStorage) localStorage.setItem('githubToken', githubToken)
@@ -60,8 +61,10 @@ module.exports = Backbone.View.extend({
           console.error(err)
         }
       } else {
-        console.error('no githubToken in profile.app_metadata')
+        console.error('no github access_token in auth0 profile')
       }
+    } else {
+      window.alert('Only github logins allowed')
     }
   },
 
