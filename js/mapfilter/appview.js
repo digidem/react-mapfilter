@@ -26,17 +26,8 @@ module.exports = Backbone.View.extend({
   initialize: function (options) {
     var self = this
     this.auth = new Auth(options.auth, function (token) {
-      // reset collection token
       self.collection.setToken(token)
-
-      // For this initial load of data do not trigger add events, but instead
-      // trigger a custom event to refresh views and filters
-      self.collection.fetch({
-        silent: true,
-        success: function (collection, resp, options) {
-          collection.trigger('firstfetch', collection, resp, options)
-        }
-      })
+      return self.fetchCollectionData(token)
     })
 
     this.mapPane = new MapPane({
@@ -76,6 +67,12 @@ module.exports = Backbone.View.extend({
     this.listenTo(this.filterPane, 'print-preview', this.showPrintView)
     this.listenTo(this.printPane, 'cancel', this.removePrintView)
 
+    this.listenTo(this.collection, 'error', function (err) {
+      console.error(err)
+      window.alert('invalid github token')
+      this.auth.trigger('logout')
+    })
+
     this.$el.append(this.mapPane.el)
     this.$el.append(this.filterPane.render().el)
     this.$el.append(this.infoPane.$el.hide())
@@ -83,6 +80,16 @@ module.exports = Backbone.View.extend({
     // When the Leaflet Map is first initialized, it is not attached to the DOM
     // and does not have a width. We need to reset the size here now it is attached.
     this.mapPane.map.invalidateSize()
+  },
+
+  fetchCollectionData: function (token) {
+    // trigger collection firstfetch
+    this.collection.fetch({
+      silent: true,
+      success: function (collection, resp, options) {
+        collection.trigger('firstfetch', collection, resp, options)
+      }
+    })
   },
 
   openGraphPane: function () {
