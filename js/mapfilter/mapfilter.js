@@ -8,12 +8,13 @@ module.exports = function (options) {
   var appView = new AppView({
     el: options.el,
 
+    auth: options.config.auth,
+
     collection: new Collection(void 0, {
       model: MonitoringPoint,
       template: options.infoTemplate,
-      url: options.url,
-      comparator: 'start',
-      githubToken: options.githubToken
+      url: options.config.repository.url,
+      comparator: 'start'
     }),
 
     filters: options.filters,
@@ -24,12 +25,10 @@ module.exports = function (options) {
     // Initial map zoom
     mapZoom: 10,
 
-    // info template
-    infoTemplate: options.infoTemplate,
-
-    tileUrl: options.tileUrl,
-
-    bingKey: options.bingKey
+    // pull config options
+    infoTemplate: options.config.repository.info.file,
+    tileUrl: options.config.tileUrl,
+    bingKey: options.config.bingKey
   })
 
   return appView
