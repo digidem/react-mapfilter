@@ -8,6 +8,7 @@
 'use strict'
 
 var t = window.t
+var fixOrientation = require('fix-orientation')
 
 module.exports = require('backbone').Model.extend({
   idAttribute: '_uuid',
@@ -85,6 +86,29 @@ module.exports = require('backbone').Model.extend({
   getImgUrl: function () {
     var picture = this.get('picture')
     return picture && picture.url
+  },
+
+  getImage: function () {
+    if (this.get('picture') === 'not_recorded') {
+      return null
+    }
+
+    var pictureUrl = this.get('picture').url
+
+    // temp override
+    pictureUrl = 'http://lorempixel.com/1000/1000/'
+
+    // use image cache
+    var cache = window.app.imageCache
+
+    // TODO, check if url key exists first
+    cache.download(pictureUrl, function (err, metadata) {
+      if (err) console.error(err)
+      cache.getObjectURL(metadata.key, function (err, blob) {
+        if (err) console.error(err)
+        console.log('blob', blob)
+      })
+    })
   },
 
   // Takes a field that is a space-separated list of values, which may include "other"

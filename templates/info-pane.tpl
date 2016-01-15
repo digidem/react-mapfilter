@@ -6,8 +6,8 @@
   <small><%= getWhat() === "Not Recorded" ? "Other" : getWhat() %></small>
 </h3>
 <div class="image-wrapper">
-  <% if (getImgUrl()) { %>
-    <img src="<%= getImgUrl() %>">
+  <% if (getImage()) { %>
+    <img src="<%= getImage() %>">
     <div class="caption"><strong>Caption:</strong> <%= t(get("caption")) %></div>
   <% } %>
 </div>
