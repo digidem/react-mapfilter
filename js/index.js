@@ -5,12 +5,17 @@ require('./lib/locale.js')
 require('./lib/leaflet-0.7.1.js')
 require('./lib/bing_layer.js')
 require('./lib/leaflet_providers.js')
-require('./lib/d3.v3.js')
+require('./lib/d3.v4.js')
+require('./lib/d3-dates.v4.js')
 
 var $ = require('jquery')
 
 // app
-window.locale.en = require('../data/en')
+window.locale.en = require('../locale/en')
+window.locale.fr = require('../locale/fr')
+window.locale.es = require('../locale/es')
+window.locale.init()
+
 var mapFilter = require('./mapfilter/mapfilter.js')
 var config = require('../config.json')
 

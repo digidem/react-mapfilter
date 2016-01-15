@@ -24,7 +24,7 @@ module.exports = require('backbone').View.extend({
     this.field = options.field
     this.graphPane = options.graphPane
     this.$el.attr('id', this.field)
-    this.format = d3.time.format('%d %b %Y')
+    this.format = window.locale.d3().timeFormat('%d %b %Y')
 
     this.template = tpl
     this.dimension = this.collection.dimension(function (d) { return new Date(d.get(options.field)) })

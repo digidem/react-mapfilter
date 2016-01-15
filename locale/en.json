@@ -34,18 +34,45 @@
         "people": "People"
     },
     "ui": {
-        "filter_view": {
+        "filter_pane": {
             "select_one": "only",
             "select_all": "Show All",
-            "select_dates": "Select Dates"
+            "select_dates": "Select Dates",
+            "dates": "Dates",
+            "print_report": "Print Report",
+            "log_out": "Log Out"
         },
-        "print_view": {
+        "print_pane": {
             "print_view_description": "You can just print the map, or just print the list of info for each point, by selecting the options below. You can drag and zoom the map below to choose the region to print.",
             "show_large_map": "Show first page with overview map",
-            "show_info_list": "Show info for each point"
+            "show_info_list": "Show info for each point",
+            "cancel": "Cancel",
+            "print": "Print",
+            "monitoring_report": "Monitoring Report"
+        },
+        "info_pane": {
+            "not_recorded": "Not Recorded",
+            "other": "Other",
+            "caption": "Caption",
+            "where": "Where",
+            "coordinates": "Coordinates",
+            "impacts": "Impacts",
+            "notes": "Notes",
+            "visited_by": "Visited by",
+            "visit_date": "Visit date"
+        },
+        "map_pane": {
+            "layers": {
+                "bing": "Bing Satellite",
+                "bush_mountains": "Bush & Mountains"
+            }
         }
     },
     "message": {
         "nodata": "<em class=\"blank\">Not Reported</em>"
+    },
+    "error": {
+        "filter_missing": "Filter missing.",
+        "missing_github_token": "Please enter Github token"
     }
 }
