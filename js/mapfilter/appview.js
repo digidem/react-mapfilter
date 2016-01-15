@@ -67,10 +67,14 @@ module.exports = Backbone.View.extend({
     this.listenTo(this.filterPane, 'print-preview', this.showPrintView)
     this.listenTo(this.printPane, 'cancel', this.removePrintView)
 
-    this.listenTo(this.collection, 'error', function (err) {
-      console.error(err)
-      window.alert('invalid github token')
-      this.auth.trigger('logout')
+    this.listenTo(this.collection, 'error', function (data, response) {
+      var err = JSON.parse(response.message)
+      if (err.message === 'Bad credentials') {
+        window.alert('invalid github token')
+        self.auth.trigger('logout')
+      } else {
+        console.error(err)
+      }
     })
 
     this.$el.append(this.mapPane.el)
