@@ -42,8 +42,12 @@ module.exports = require('backbone').View.extend({
 
     this.$filters.append(
       '<div>' +
-      '<button type="button" class="btn btn-primary print-preview">Print Report</button> ' +
-      '<button type="button" class="btn btn-default auth-logout">Log Out</button> ' +
+      '<button type="button" class="btn btn-primary print-preview">' +
+      t('ui.filter_pane.print_report') +
+      '</button> ' +
+      '<button type="button" class="btn btn-default auth-logout">' +
+      t('ui.filter_pane.log_out') +
+      '</button> ' +
       '</div>')
   },
 
