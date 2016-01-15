@@ -61,7 +61,7 @@ module.exports = Backbone.View.extend({
 
     this.infoPane = new InfoPane({
       id: 'info-pane',
-      template: options.templateUrl
+      template: options.infoTemplate
     })
 
     this.listenTo(this.filterPane.graphPane, 'opened', this.openGraphPane)

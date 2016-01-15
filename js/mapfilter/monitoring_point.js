@@ -12,15 +12,15 @@ var _ = require('lodash')
 module.exports = require('backbone').Model.extend({
   idAttribute: '_uuid',
 
-  get: function (key) {
-    return this.attributes.properties[key]
+  get: function (attr) {
+    return this.attributes.properties[attr] || 'not_recorded'
   },
 
-  // returns keys of geojson properties. Omits _prefixed, meta and picture
+  // returns keys of geojson properties. Omits _prefixed, template.timestamp, and meta fields
   properties: function () {
     return _.keys(_.omit(this.attributes.properties, function (value, key, object) {
         return key[0] === '_' ||
-          _.contains(['meta', 'picture'], key)
+          _.contains(['meta', this.collection.template.image], key)
       })
     )
   },
@@ -48,7 +48,32 @@ module.exports = require('backbone').Model.extend({
   },
 
   getImage: function () {
-    var picture = this.get('picture')
+    var imageField = this.collection.template ? this.collection.template.image : 'picture'
+    var picture = this.get(imageField)
     return picture && picture.url
+  },
+
+  getDate: function () {
+    var dateField = this.collection.template ? this.collection.template.timestamp : 'today'
+    var d = this.get(dateField).split('-')
+    return new Date(d[0], d[1] - 1, d[2])
+  },
+
+  // Takes a field that is a space-separated list of values, which may include "other"
+  // and formats that field together with the "other" field into a comma-separated
+  // list of readable text.
+  _getOther: function (attr, attr_other) {
+    var value = this.get(attr)
+    var output = []
+
+    value.split(' ').forEach(function (v, i) {
+      if (v === 'other') {
+        output[i] = window.u._capitalize(this.get(attr_other))
+      } else {
+        output[i] = window.t(attr + '.' + v)
+      }
+    }, this)
+
+    return output.join(', ')
   }
 })

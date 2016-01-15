@@ -58,7 +58,7 @@ window.app = mapFilter({
   tileUrl: 'http://{s}.tiles.mapbox.com/v3/gmaclennan.wapichana_background/{z}/{x}/{y}.jpg',
   // tileUrl: 'http://localhost:20008/tile/wapichana_background/{z}/{x}/{y}.png',
 
-  templateUrl: config.templateUrl,
+  infoTemplate: config.infoTemplate,
 
   // API key for Bing Maps use
   bingKey: 'AtCQswcYKiBKRMM8MHjAzncJvN6miHjgxbi2-m1oaFUHMa06gszNwt4Xe_te18FF'

@@ -8,6 +8,7 @@
 
 var $ = require('jquery')
 var _ = require('lodash')
+window.u = require('../template_utils.js')
 
 module.exports = require('backbone').View.extend({
   events: {
@@ -19,9 +20,9 @@ module.exports = require('backbone').View.extend({
 
     if (options.id) this.$el.attr('id', options.id)
 
-    if (options.template) {
+    if (options.template && options.template.url) {
       var self = this
-      $.get(options.template).success(function (body) {
+      $.get(options.template.url).success(function (body) {
         self.template = _.template(body)
       })
     } else {

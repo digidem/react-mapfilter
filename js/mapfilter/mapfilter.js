@@ -10,6 +10,7 @@ module.exports = function (options) {
 
     collection: new Collection(void 0, {
       model: MonitoringPoint,
+      template: options.infoTemplate,
       url: options.url,
       comparator: 'start',
       githubToken: options.githubToken
@@ -24,7 +25,7 @@ module.exports = function (options) {
     mapZoom: 10,
 
     // info template
-    templateUrl: options.templateUrl,
+    infoTemplate: options.infoTemplate,
 
     tileUrl: options.tileUrl,
 

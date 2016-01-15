@@ -17,6 +17,9 @@ module.exports = Backbone.Collection.extend({
     // Pass the url endpoint for this collection in the options hash
     if (options.url) this.url = options.url
 
+    // Save template options to collection
+    if (options.template) this.template = options.template
+
     // Initialize a new [crossfilter](http://square.github.io/crossfilter/) instance
     this.crossfilter = crossfilter()
 
