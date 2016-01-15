@@ -1,14 +1,23 @@
 {
   "lab.digital-democracy.org": {
+    "auth": false,
+    "bingKey": "AtCQswcYKiBKRMM8MHjAzncJvN6miHjgxbi2-m1oaFUHMa06gszNwt4Xe_te18FF",
     "dataUrl": "https://github.com/digidem/sample-monitoring-data/tree/master/submissions/monitoring.geojson",
-    "auth": false
+    "tileUrl": "http://{s}.tiles.mapbox.com/v3/gmaclennan.wapichana_background/{z}/{x}/{y}.jpg",
   },
   "monitoring.wapichanao.org": {
+    "auth": true,
+    "bingKey": "AtCQswcYKiBKRMM8MHjAzncJvN6miHjgxbi2-m1oaFUHMa06gszNwt4Xe_te18FF",
     "dataUrl": "https://github.com/digidem/wapichanao-data/tree/master/submissions/monitoring.geojson",
-    "auth": true
+    "tileUrl": "http://{s}.tiles.mapbox.com/v3/gmaclennan.wapichana_background/{z}/{x}/{y}.jpg",
   },
   "localhost": {
+    "auth": {
+      "clientID": "LknS1bPcwxTFpaA2Dz01svEIZ0AJJ27F",
+      "domain": "spacedog.auth0.com"
+    },
+    "bingKey": "AtCQswcYKiBKRMM8MHjAzncJvN6miHjgxbi2-m1oaFUHMa06gszNwt4Xe_te18FF",
     "dataUrl": "https://github.com/digidem/wapichanao-data/tree/master/submissions/monitoring.geojson",
-    "auth": true
+    "tileUrl": "http://{s}.tiles.mapbox.com/v3/gmaclennan.wapichana_background/{z}/{x}/{y}.jpg",
   }
 }
