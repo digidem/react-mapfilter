@@ -11,9 +11,9 @@ require('./lib/d3-dates.v4.js')
 var $ = require('jquery')
 
 // app
-window.locale.en = require('../data/en')
-window.locale.fr = require('../data/fr')
-window.locale.es = require('../data/es')
+window.locale.en = require('../locale/en')
+window.locale.fr = require('../locale/fr')
+window.locale.es = require('../locale/es')
 window.locale.init()
 
 var mapFilter = require('./mapfilter/mapfilter.js')
