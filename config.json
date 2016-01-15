@@ -9,6 +9,7 @@
   },
   "localhost": {
     "dataUrl": "https://github.com/digidem/wapichanao-data/tree/master/submissions/monitoring.geojson",
+    "templateUrl": "https://github.com/digidem/wapichanao-data/tree/master/templates/info-pane.tpl",
     "auth": true
   }
 }

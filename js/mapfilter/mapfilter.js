@@ -23,6 +23,9 @@ module.exports = function (options) {
     // Initial map zoom
     mapZoom: 10,
 
+    // info template
+    templateUrl: options.templateUrl,
+
     tileUrl: options.tileUrl,
 
     bingKey: options.bingKey
