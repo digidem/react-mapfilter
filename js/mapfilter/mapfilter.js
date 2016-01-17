@@ -1,34 +1,40 @@
 'use strict'
 
+var Auth = require('./auth.js')
 var Collection = require('./collection.js')
 var MonitoringPoint = require('./monitoring_point.js')
 var AppView = require('./appview.js')
 
 module.exports = function (options) {
+  var config, collection
+
+  var auth = new Auth(options.config.options.auth, function (token) {
+    config = options.config.load()
+
+    collection = new Collection(void 0, {
+      model: MonitoringPoint,
+      template: config.info && config.info.template,
+      url: config.data,
+      comparator: 'start'
+    })
+    collection.setToken(token)
+  })
+
   var appView = new AppView({
     el: options.el,
 
-    auth: options.config.auth,
+    auth: auth,
 
-    collection: new Collection(void 0, {
-      model: MonitoringPoint,
-      template: options.infoTemplate,
-      url: options.config.repository.url,
-      comparator: 'start'
-    }),
+    // data filter and display
+    collection: collection,
+    filters: config.filters,
+    infoTemplate: config.info && config.info.template,
 
-    filters: options.filters,
-
-    // Initial map center point (TODO: set this & zoom based on data bounds)
-    mapCenter: [2.6362, -59.4801],
-
-    // Initial map zoom
-    mapZoom: 10,
-
-    // pull config options
-    infoTemplate: options.config.repository.info.file,
-    tileUrl: options.config.tileUrl,
-    bingKey: options.config.bingKey
+    // map config
+    mapCenter: config.map.center,
+    mapZoom: config.map.zoom,
+    tileUrl: config.tileUrl,
+    bingKey: config.bingKey
   })
 
   return appView
