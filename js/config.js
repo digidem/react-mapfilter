@@ -1,7 +1,12 @@
 var Hubfs = require('Hubfs.js')
+var Backbone = require('backbone')
 var _ = require('lodash')
 
-module.exports = {
+// Config Loader View, parses repo id from hash string
+// loads file from github
+// triggers 'load' event when ready
+
+module.exports = Backbone.View.extend({
   // parse window.location.hash for named params
   parse: function (hash, options) {
     this.options = options || {}
@@ -17,7 +22,7 @@ module.exports = {
       }
       if (key === 'id') {
         var parts = val.split(':')
-        this.githubOptions = this.parseGithubId(parts[1])
+        this.github = this.parseGithubId(parts[1])
       }
     }
 
@@ -34,34 +39,31 @@ module.exports = {
   },
 
   // follows github:owner/repo/blob/master/file api from geojson.io
+  // with sensible defaults
   parseGithubId: function (id) {
     var parts = id.split('/')
     return {
       owner: parts[0],
       repo: parts[1],
-      mode: parts[2],
-      branch: parts[3],
-      file: parts.slice(4).join('/')
+      mode: parts[2] || 'tree',
+      branch: parts[3] || 'master',
+      file: parts.slice(4).join('/') || 'simpleodk.json'
     }
   },
 
   // load config from github
   load: function (token) {
     var self = this
-    if (this.githubOptions) {
-      if (token) this.githubOptions.auth = { token: token}
-      var githubFs = Hubfs(this.githubOptions)
-      githubFs.readFile('config.json', {encoding: 'ascii'}, function (err, response) {
+    if (this.github) {
+      if (token) this.github.auth = {token: token}
+      var githubFs = Hubfs(this.github)
+      githubFs.readFile(this.github.file, {encoding: 'ascii'}, function (err, response) {
         if (err) throw err
+        // loaded simpleodk.json file from repo
         var data = JSON.parse(response)
-        this.options = _.defaults(self.options, data)
-
-        // use await?
-        // or signal for data ready?
+        self.options = _.defaults(self.options, data)
+        self.trigger('load', self.options)
       })
     }
-
-    // TODO, this returns before hubFs is done
-    return this.options
   }
-}
+})

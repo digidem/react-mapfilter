@@ -32,7 +32,8 @@ module.exports = Backbone.Collection.extend({
       return d.cid
     })
 
-    this.sync = sync({ githubToken: options.githubToken })
+    if (options.githubToken) this.sync = sync({ githubToken: options.githubToken })
+    else this.sync = Backbone.sync
 
     // This will group models by cid, which is unique, which means that
     // each group will have a count of 0 or 1 depending on whether
@@ -44,7 +45,8 @@ module.exports = Backbone.Collection.extend({
     this.on('add firstfetch', this.addToFilter)
   },
 
-  setToken: function (token) {
+  resetToken: function (token, url) {
+    if (url) this.url = url
     this.sync = sync({ githubToken: token })
   },
 

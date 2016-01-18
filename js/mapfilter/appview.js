@@ -66,16 +66,9 @@ module.exports = Backbone.View.extend({
     this.listenTo(this.filterPane, 'print-preview', this.showPrintView)
     this.listenTo(this.printPane, 'cancel', this.removePrintView)
 
-    // trigger initial data load
-    this.collection.fetch({
-      silent: true,
-      success: function (collection, resp, options) {
-        collection.trigger('firstfetch', collection, resp, options)
-      }
-    })
-
+    // handle github auth errors
     this.listenTo(this.collection, 'error', function (collection, response, options) {
-      if (response.status > 400 && response.status < 500) {
+      if (response.status >= 400 && response.status < 500) {
         window.alert('invalid github token')
         self.auth.trigger('logout')
       } else {

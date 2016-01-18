@@ -17,43 +17,18 @@ window.locale.es = require('../locale/es')
 window.locale.init()
 
 var mapFilter = require('./mapfilter/mapfilter.js')
+var config = new (require('./config.js'))
+var defaults = require('../defaults.json')
 
-var config = require('./config.js')
 var hash = window.location.hash
 if (hash === '') {
   // default to sample data
-  hash = '#id=github:spacedogxyz/sample-monitoring-data/blob/master/monitoring/monitoring.geojson' +
+  hash = '#id=github:spacedogxyz/sample-monitoring-data/' +
          '&map=10/2.6362/-59.4801'
-}
-var defaults = {
-  auth: {
-    domain: 'digidem.auth0.com',
-    clientID: 'b1XsBJ1mK4HFzaFYsgjQW4IGyC60VUwb'
-  },
-
-  bingKey: 'AtCQswcYKiBKRMM8MHjAzncJvN6miHjgxbi2-m1oaFUHMa06gszNwt4Xe_te18FF',
-  tileUrl: 'http://{s}.tiles.mapbox.com/v3/gmaclennan.wapichana_background/{z}/{x}/{y}.jpg',
-
-  // An array of filters to explore the data.
-  // `field` is the field/attribute to filter by
-  // `type` should be `discrete` for string data and `continuous` for numbers or dates
-  // `expanded` sets whether the filter view is expanded or collapsed by default
-  filters: [{
-    type: 'continuous',
-    field: 'today',
-    expanded: true
-  }, {
-    type: 'discrete',
-    field: 'happening',
-    expanded: true
-  }, {
-    type: 'discrete',
-    field: 'people',
-    expanded: true
-  }]
 }
 
 window.app = mapFilter({
+  // parse hash to get config details
   config: config.parse(hash, defaults),
 
   // app container
