@@ -64,7 +64,7 @@
         "map_pane": {
             "layers": {
                 "bing": "Bing Satellite",
-                "bush_mountains": "Bush & Mountains"
+                "custom": "Bush & Mountains"
             }
         }
     },
