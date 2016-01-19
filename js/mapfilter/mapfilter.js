@@ -1,5 +1,8 @@
 'use strict'
 
+var _ = require('lodash')
+window.u = require('./template_utils.js') // TODO, move these functions w/in tpl scope
+
 var Auth = require('./auth.js')
 var Collection = require('./collection.js')
 var MonitoringPoint = require('./monitoring_point.js')
@@ -30,6 +33,11 @@ module.exports = function (options) {
       ].join('/')
       collection.resetToken(token, dataUrl)
 
+      // load specified templates from github
+      for (var t in loaded.templates) {
+        config.getTemplate(loaded.templates[t].file)
+      }
+
       // load collection data
       collection.fetch({
         silent: true,
@@ -37,15 +45,22 @@ module.exports = function (options) {
           collection.trigger('firstfetch', collection, resp, options)
         }
       })
+    })
 
-      // compile info template
-      collection.template = loaded.info && loaded.info.template
+    // save template body to views
+    config.listenTo(config, 'template', function (filename, body) {
+      _.findWhere(config.options.templates, {'file': filename})
+
+      // match pane from filename
+      var paneName = filename.split('/')[1].slice(0, -4)
+      _.findWhere(appView, {'id': paneName}).template = _.template(body)
     })
   })
 
   var appView = new AppView({
     el: options.el,
     auth: auth,
+    config: config,
 
     // data filter and display
     collection: collection,

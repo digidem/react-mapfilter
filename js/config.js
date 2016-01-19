@@ -56,13 +56,24 @@ module.exports = Backbone.View.extend({
     var self = this
     if (this.github) {
       if (token) this.github.auth = {token: token}
-      var githubFs = Hubfs(this.github)
-      githubFs.readFile(this.github.file, {encoding: 'ascii'}, function (err, response) {
+      this.githubFs = Hubfs(this.github)
+      this.githubFs.readFile(this.github.file, {encoding: 'ascii'}, function (err, response) {
         if (err) throw err
         // loaded simpleodk.json file from repo
         var data = JSON.parse(response)
-        self.options = _.defaults(self.options, data)
+        self.options = _.defaults(data, self.options)
         self.trigger('load', self.options)
+      })
+    }
+  },
+
+  // download template file from github
+  getTemplate: function (file) {
+    var self = this
+    if (this.githubFs) {
+      this.githubFs.readFile(file, {encoding: 'ascii'}, function (err, response) {
+        if (err) throw err
+        self.trigger('template', file, response)
       })
     }
   }

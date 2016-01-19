@@ -16,11 +16,11 @@ module.exports = require('backbone').Model.extend({
     return this.attributes.properties[attr] || 'not_recorded'
   },
 
-  // returns keys of geojson properties. Omits _prefixed, template.timestamp, and meta fields
+  // returns keys of geojson properties. Omits _prefixed and meta fields
   properties: function () {
     return _.keys(_.omit(this.attributes.properties, function (value, key, object) {
         return key[0] === '_' ||
-          _.contains(['meta', this.collection.template.image], key)
+          _.contains(['meta', key])
       })
     )
   },

@@ -26,6 +26,7 @@ module.exports = Backbone.View.extend({
     var self = this
 
     this.auth = options.auth
+    this.config = options.config
     this.collection = options.collection
 
     this.mapPane = new MapPane({
@@ -56,8 +57,7 @@ module.exports = Backbone.View.extend({
     })
 
     this.infoPane = new InfoPane({
-      id: 'info-pane',
-      template: options.infoTemplate
+      id: 'info-pane'
     })
 
     this.listenTo(this.filterPane.graphPane, 'opened', this.openGraphPane)

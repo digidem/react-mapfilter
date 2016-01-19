@@ -7,8 +7,7 @@
 'use strict'
 
 var $ = require('jquery')
-var _ = require('lodash')
-window.u = require('../template_utils.js')
+var tpl = require('../../../templates/info-pane.tpl')
 
 module.exports = require('backbone').View.extend({
   events: {
@@ -19,16 +18,7 @@ module.exports = require('backbone').View.extend({
     options = options || {}
 
     if (options.id) this.$el.attr('id', options.id)
-
-    if (options.template && options.template.url) {
-      var self = this
-      $.get(options.template.url).success(function (body) {
-        self.template = _.template(body)
-      })
-    } else {
-      // default to included template
-      this.template = require('../../../templates/info-pane.tpl')
-    }
+    this.template = tpl
   },
 
   // Populates the infopane contents with the data from the selected point
