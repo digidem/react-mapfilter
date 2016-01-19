@@ -26,9 +26,7 @@ module.exports = require('backbone').View.extend({
 
     this.appView = options.appView
 
-    // Add the background tile layer to the map
-    this.wapichanaLayer = L.tileLayer(options.tileUrl).addTo(this.map)
-
+    // initialize satellite image caching
     L.bingLayer.initialize = function (key, options) {
       L.Util.setOptions(this, options)
 
@@ -54,15 +52,15 @@ module.exports = require('backbone').View.extend({
     }
 
     // Create a layer with Bing satellite imagery
-    this.bingLayer = L.bingLayer(options.bingKey).addTo(this.map)
+    this.bingLayer = L.bingLayer(options.bingKey)
+
+    // Add the background tile layer to the map
+    this.wapichanaLayer = L.tileLayer(options.tileUrl).addTo(this.map)
 
     // this.cloudMadeLayer = L.tileLayer.provider('CloudMade', {
     //     apiKey: options.cloudMadeKey,
     //     styleID: '123'
     // })
-
-    // Add the background tile layer to the map
-    this.wapichanaLayer = L.tileLayer(options.tileUrl)
 
     var baseMaps = {}
     baseMaps[window.t('ui.map_pane.layers.bing')] = this.bingLayer
