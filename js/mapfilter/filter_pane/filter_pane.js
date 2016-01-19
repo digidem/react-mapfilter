@@ -1,4 +1,4 @@
-/* global t */
+/* global t, app */
 // MapFilter.FilterPane
 // --------------------
 
@@ -18,7 +18,8 @@ var DiscreteFilterView = require('./discrete_filter_view.js')
 
 module.exports = require('backbone').View.extend({
   events: {
-    'click .print-preview': 'showPrintPreview'
+    'click .print-preview': 'showPrintPreview',
+    'click .auth-logout': 'authLogout'
   },
 
   initialize: function (options) {
@@ -41,7 +42,12 @@ module.exports = require('backbone').View.extend({
 
     this.$filters.append(
       '<div>' +
-      '<button type="button" class="btn btn-primary print-preview">Print Report</button> ' +
+      '<button type="button" class="btn btn-primary print-preview">' +
+      t('ui.filter_pane.print_report') +
+      '</button> ' +
+      '<button type="button" class="btn btn-default auth-logout">' +
+      t('ui.filter_pane.log_out') +
+      '</button> ' +
       '</div>')
   },
 
@@ -78,5 +84,9 @@ module.exports = require('backbone').View.extend({
   // hide elements
   showPrintPreview: function () {
     this.trigger('print-preview')
+  },
+
+  authLogout: function () {
+    app.auth.trigger('logout')
   }
 })

@@ -8,11 +8,12 @@ module.exports = function (options) {
   var appView = new AppView({
     el: options.el,
 
+    auth: options.config.auth,
+
     collection: new Collection(void 0, {
       model: MonitoringPoint,
-      url: options.url,
-      comparator: 'start',
-      githubToken: options.githubToken
+      url: options.config.dataUrl,
+      comparator: 'start'
     }),
 
     filters: options.filters,
@@ -23,9 +24,9 @@ module.exports = function (options) {
     // Initial map zoom
     mapZoom: 10,
 
-    tileUrl: options.tileUrl,
+    tileUrl: options.config.tileUrl,
 
-    bingKey: options.bingKey
+    bingKey: options.config.bingKey
   })
 
   return appView

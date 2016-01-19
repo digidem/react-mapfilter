@@ -5,9 +5,13 @@ var id = 0
 
 module.exports = function () {
   var margin = {top: 10, right: 10, bottom: 20, left: 10},
-    x,
+    x = d3.time.scale(),
     y = d3.scale.linear().range([110, 0]),
-    axis = d3.svg.axis().orient('bottom'),
+    axis = d3.svg.axis().orient('bottom')
+      .tickFormat(window.locale.d3().timeFormat.multi([
+        ['%B', function (d) { return d.getMonth() }],
+        ['%Y', function () { return true }]
+      ])),
     brush = d3.svg.brush(),
     brushDirty,
     dimension,

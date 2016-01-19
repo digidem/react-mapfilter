@@ -5,12 +5,17 @@ require('./lib/locale.js')
 require('./lib/leaflet-0.7.1.js')
 require('./lib/bing_layer.js')
 require('./lib/leaflet_providers.js')
-require('./lib/d3.v3.js')
+require('./lib/d3.v4.js')
+require('./lib/d3-dates.v4.js')
 
 var $ = require('jquery')
 
 // app
-window.locale.en = require('../data/en')
+window.locale.en = require('../locale/en')
+window.locale.fr = require('../locale/fr')
+window.locale.es = require('../locale/es')
+window.locale.init()
+
 var mapFilter = require('./mapfilter/mapfilter.js')
 var config = require('../config.json')
 
@@ -19,8 +24,7 @@ var hostname = window.location.hostname
 config = config[hostname] || config['lab.digital-democracy.org']
 
 window.app = mapFilter({
-  // target for github database
-  url: config.dataUrl,
+  config: config,
 
   // app container
   el: $('#app'),
@@ -41,23 +45,5 @@ window.app = mapFilter({
     type: 'discrete',
     field: 'people',
     expanded: true
-  }],
-
-  githubToken: (function () {
-    if (!config.auth) return
-    var token = document.cookie.replace(/(?:(?:^|.*;\s*)githubToken\s*\=\s*([^;]*).*$)|^.*$/, '$1')
-    if (token) return token
-    token = window.prompt('Please enter Github token')
-    var cookie = 'githubToken=' + token + ';max-age=2592000'
-    if (window.location.protocol === 'https:') cookie += ';secure'
-    document.cookie = cookie
-    return token
-  })(),
-
-  // Template to generate maptile urls. See http://leafletjs.com/reference.html#url-template
-  tileUrl: 'http://{s}.tiles.mapbox.com/v3/gmaclennan.wapichana_background/{z}/{x}/{y}.jpg',
-  // tileUrl: 'http://localhost:20008/tile/wapichana_background/{z}/{x}/{y}.png',
-
-  // API key for Bing Maps use
-  bingKey: 'AtCQswcYKiBKRMM8MHjAzncJvN6miHjgxbi2-m1oaFUHMa06gszNwt4Xe_te18FF'
+  }]
 })

@@ -13,6 +13,7 @@
 var Backbone = require('backbone')
 var Cache = require('cache-blob-store')
 
+var Auth = require('./auth.js')
 var MapPane = require('./map_pane/map_pane.js')
 var PrintPane = require('./print_pane/print_pane.js')
 var FilterPane = require('./filter_pane/filter_pane.js')
@@ -24,13 +25,10 @@ module.exports = Backbone.View.extend({
   },
 
   initialize: function (options) {
-    // For this initial load of data do not trigger add events, but instead
-    // trigger a custom event to refresh views and filters
-    this.collection.fetch({
-      silent: true,
-      success: function (collection, resp, options) {
-        collection.trigger('firstfetch', collection, resp, options)
-      }
+    var self = this
+    this.auth = new Auth(options.auth, function (token) {
+      self.collection.setToken(token)
+      return self.fetchCollectionData(token)
     })
 
     this.mapPane = new MapPane({
@@ -70,6 +68,15 @@ module.exports = Backbone.View.extend({
     this.listenTo(this.filterPane, 'print-preview', this.showPrintView)
     this.listenTo(this.printPane, 'cancel', this.removePrintView)
 
+    this.listenTo(this.collection, 'error', function (collection, response, options) {
+      if (response.status > 400 && response.status < 500) {
+        window.alert('invalid github token')
+        self.auth.trigger('logout')
+      } else {
+        console.error(response)
+      }
+    })
+
     this.$el.append(this.mapPane.el)
     this.$el.append(this.filterPane.render().el)
     this.$el.append(this.infoPane.$el.hide())
@@ -80,6 +87,16 @@ module.exports = Backbone.View.extend({
 
     // initialize image cache
     this.imageCache = new Cache()
+  },
+
+  fetchCollectionData: function (token) {
+    // trigger collection firstfetch
+    this.collection.fetch({
+      silent: true,
+      success: function (collection, resp, options) {
+        collection.trigger('firstfetch', collection, resp, options)
+      }
+    })
   },
 
   openGraphPane: function () {
