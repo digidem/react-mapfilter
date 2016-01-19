@@ -63,7 +63,7 @@
         "map_pane": {
             "layers": {
                 "bing": "Imagen satelital Bing",
-                "bush_mountains": "Sabana y Cerros"
+                "custom": "Sabana y Cerros"
             }
         }
     },
