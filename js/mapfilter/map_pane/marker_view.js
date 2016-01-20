@@ -32,6 +32,7 @@ module.exports = require('backbone').View.extend({
     var loc = this.model.coordinates()
 
     // Sometimes models (monitoring reports) do not have coordinates
+    if (!loc) loc = [0, 0]
     if (!loc[0] || !loc[1]) loc = [0, 0]
 
     this.appView = options.appView

@@ -5,9 +5,13 @@ var id = 0
 
 module.exports = function () {
   var margin = {top: 10, right: 10, bottom: 20, left: 10},
-    x,
+    x = d3.time.scale(),
     y = d3.scale.linear().range([110, 0]),
-    axis = d3.svg.axis().orient('bottom'),
+    axis = d3.svg.axis().orient('bottom')
+      .tickFormat(window.locale.d3().timeFormat.multi([
+        ['%B', function (d) { return d.getMonth() }],
+        ['%Y', function () { return true }]
+      ])),
     brush = d3.svg.brush(),
     brushDirty,
     dimension,
@@ -21,7 +25,6 @@ module.exports = function () {
     var addDays = d3.time.day.offset,
       height = y.range()[0]
 
-    x.domain([addDays(collection.at(0).getDate(), -2), addDays(collection.at(collection.length - 1).getDate(), 1)])
     y.domain([0, group.top(1)[0].value])
 
     div.each(function () {
@@ -141,11 +144,7 @@ module.exports = function () {
 
   brush.on('brushend.chart', function () {
     if (brush.empty()) {
-      // var div = d3.select(this.parentNode.parentNode.parentNode)
-      // div.select(".title a").style("display", "none")
-      d3.select('#clip-' + id + ' rect').attr('x', null).attr('width', '100%')
-      dimension.filterAll()
-      collection.trigger('filtered')
+      chart.reset()
     }
   })
 
@@ -185,11 +184,18 @@ module.exports = function () {
       brush.extent(_)
       dimension.filterRange(_)
     } else {
-      brush.clear()
-      dimension.filterAll()
+      chart.reset()
     }
     brushDirty = true
     return chart
+  }
+
+  chart.reset = function () {
+    d3.select('#clip-' + id + ' rect').attr('x', null).attr('width', '100%')
+    brush.clear()
+    brushDirty = true
+    dimension.filterAll()
+    collection.trigger('filtered')
   }
 
   chart.group = function (_) {
