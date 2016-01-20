@@ -97,5 +97,25 @@ module.exports = Backbone.Collection.extend({
     }, this)
 
     return bounds
+  },
+
+  toJSON: function () {
+    var geojson = {
+      type: 'FeatureCollection',
+      features: this.dimensionByCid.top(Infinity).map(function (v) {
+        var feature = v.toJSON()
+        for (var prop in feature.properties) {
+          var value = feature.properties[prop]
+          if (typeof value === 'object') {
+            feature.properties[prop] = JSON.stringify(feature.properties[prop]).replace(/\"/g, "'")
+          }
+        }
+        return feature
+      }).filter(function (v) {
+        return v.geometry && v.geometry.coordinates
+      })
+    }
+
+    return geojson
   }
 })

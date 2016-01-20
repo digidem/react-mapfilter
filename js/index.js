@@ -8,7 +8,8 @@ require('./lib/leaflet_providers.js')
 require('./lib/d3.v4.js')
 require('./lib/d3-dates.v4.js')
 
-var $ = require('jquery')
+var $ = window.jQuery = require('jquery')
+require('bootstrap')
 
 // app
 window.locale.en = require('../locale/en')

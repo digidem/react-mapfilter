@@ -1,5 +1,6 @@
 ## Unreleased 1/19/2016
 
+- [ADDED] File download (SHP, CSV)
 - [ADDED] Generic template loading [#26](../../pull/26)
 - [MERGED] Template translations from Forest Defenders [#25](../../pull/25)
 - [ADDED] Github authentication via Auth0 [#24](../../pull/24)
