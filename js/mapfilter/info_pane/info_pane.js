@@ -23,7 +23,6 @@ module.exports = require('backbone').View.extend({
     this.template = tpl
 
     this.imageCache = new ImageCache()
-    this.imageRotator = ImageRotator()
   },
 
   // Populates the infopane contents with the data from the selected point
@@ -49,7 +48,7 @@ module.exports = require('backbone').View.extend({
     if (imageUrl) {
       console.log('imageURL', imageUrl)
 
-      this.$('.image-wrapper img').css('background-image', 'url(/images/loader.gif)')
+      $('.image-wrapper img').css('background-image', 'url(/images/loader.gif)')
     }
 
     this.$el.show()
@@ -57,17 +56,19 @@ module.exports = require('backbone').View.extend({
     this.imageCache.getOrDownload(imageUrl, function (blob) {
       console.log('getOrDownload callback', blob)
       var objectUrl = window.URL.createObjectURL(blob)
-      this.$('.image-wrapper img').attr('src', objectUrl)
-      console.log('loaded', objectUrl)
+      var img = $('.image-wrapper img')
+      img.attr('src', objectUrl)
+      img.css('background-image', '')
+
+      window.URL.revokeObjectURL(objectUrl)
 
       // apply exif rotation with css
-      /*this.imageRotator(objectUrl, function (cssTransform) {
-        console.log('rotation', cssTransform)
-
-        this.$('.image-wrapper img').css('transform', cssTransform)
-
-        // release?
-      })*/
+      ImageRotator.read(blob, function (cssTransform) {
+        console.log('got rotation', cssTransform)
+        var img = $('.image-wrapper img')
+        img.css('transform', cssTransform)
+        img.css('height', img.outerWidth())
+      })
 
     })
   },

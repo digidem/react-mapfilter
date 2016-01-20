@@ -2,22 +2,33 @@
 // Does not include flipped orientations
 // based on https://gist.github.com/runeb/c11f864cd7ead969a5f0
 
-module.exports = function (buffer, callback) {
-  var rotation = {
+module.exports = {
+  rotation: {
     1: 'rotate(0deg)',
     3: 'rotate(180deg)',
     6: 'rotate(90deg)',
     8: 'rotate(270deg)'
-  }
+  },
 
-  return function (buffer, callback) {
+  read: function (blob, callback) {
+    // load blob with fileReader to get data directly
+    var self = this
+    var fileReader = new window.FileReader()
+    fileReader.onload = function () {
+      self.rotate(this.result, callback)
+    }
+  },
+
+  rotate: function (buffer, callback) {
+    console.log('rotate', buffer)
+    // create dataView to avoid endian issues
     var scanner = new DataView(buffer)
     var idx = 0
     var value = 1 // Non-rotated is the default
     if (buffer.length < 2 || scanner.getUint16(idx) !== 0xFFD8) {
       // Not a JPEG
       if (callback) {
-        callback(rotation[value])
+        callback(this.rotation[value])
       }
       return
     }
@@ -42,7 +53,7 @@ module.exports = function (buffer, callback) {
       }
     }
     if (callback) {
-      callback(rotation[value])
+      callback(this.rotation[value])
     }
   }
 }
