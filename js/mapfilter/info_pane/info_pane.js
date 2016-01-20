@@ -16,13 +16,16 @@ module.exports = require('backbone').View.extend({
 
   initialize: function (options) {
     options = options || {}
+
     if (options.id) this.$el.attr('id', options.id)
     this.template = tpl
   },
 
   // Populates the infopane contents with the data from the selected point
   render: function () {
-    this.$el.html(this.template(this.model))
+    var infoPaneTop = '<button type="button" class="close pull-right" aria-hidden="true">&times;</button>' +
+                      '<div class="map-icon"></div>'
+    this.$el.html(infoPaneTop + this.template(this.model))
     this.$('.map-icon').html($(this.model.icon).html())
     this.$('.map-icon').addClass($(this.model.icon).attr('class'))
     return this

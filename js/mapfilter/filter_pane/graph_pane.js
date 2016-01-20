@@ -41,8 +41,13 @@ module.exports = require('backbone').View.extend({
 
   updateDomain: function () {
     var dimension = this.barChart.dimension()
-    this.barChart.x()
-        .domain([dimension.bottom(1)[0].getDate(), dimension.top(1)[0].getDate()])
+    var bottom = dimension.bottom(1)
+    var top = dimension.top(1)
+
+    if (bottom & top) {
+      this.barChart.x()
+        .domain([bottom[0].getDate(), top[0].getDate()])
+    }
   },
 
   open: function () {
