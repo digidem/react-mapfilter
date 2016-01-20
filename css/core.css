@@ -126,7 +126,7 @@ svg {
     width: 100%;
     min-height: 150px;
     display: block;
-    background: url(../images/loader.gif) no-repeat 50% 50%;
+    background: url(../images/image.png) no-repeat 50% 50%;
 }
 .leaflet-div-icon {
     background: none;

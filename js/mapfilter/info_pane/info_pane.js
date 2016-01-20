@@ -6,8 +6,7 @@
 // the point then it will "stick" open.
 'use strict'
 
-var $ = require('jquery')
-var _ = require('lodash')
+var $ = window.jQuery = require('jquery')
 
 var ImageCache = require('./image_cache.js')
 var ImageRotator = require('./image_rotate.js')
@@ -45,23 +44,30 @@ module.exports = require('backbone').View.extend({
     this.iconView = options.iconView
 
     this.render()
-    this.$el.show()
 
-    var imageUrl = _.result(this.model, 'getImage')
-    console.log(imageUrl)
+    var imageUrl = this.model.getImage()
+    if (imageUrl) {
+      console.log('imageURL', imageUrl)
+
+      this.$('.image-wrapper img').css('background-image', 'url(/images/loader.gif)')
+    }
+
+    this.$el.show()
 
     this.imageCache.getOrDownload(imageUrl, function (blob) {
       console.log('getOrDownload callback', blob)
-      var objectUrl = URL.createObjectURL(blob)
-      // save objectUrl to model image
-      this.model.getImage = objectUrl
+      var objectUrl = window.URL.createObjectURL(blob)
+      this.$('.image-wrapper img').attr('src', objectUrl)
+      console.log('loaded', objectUrl)
 
       // apply exif rotation with css
-      this.imageRotator(objectUrl, function (cssTransform) {
+      /*this.imageRotator(objectUrl, function (cssTransform) {
         console.log('rotation', cssTransform)
 
-        this.$el.find('.image-wrapper img').style('transform', cssTransform)
-      })
+        this.$('.image-wrapper img').css('transform', cssTransform)
+
+        // release?
+      })*/
 
     })
   },

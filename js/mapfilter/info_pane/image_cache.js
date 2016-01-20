@@ -1,8 +1,10 @@
 var CacheBlobStore = require('cache-blob-store')
+var _ = require('lodash')
 
 module.exports = require('backbone').View.extend({
   initialize: function () {
     this.cache = new CacheBlobStore()
+    this.queue = []
   },
 
   getOrDownload: function (url, cb) {
@@ -12,27 +14,28 @@ module.exports = require('backbone').View.extend({
     // set callback to receive load events
     self.listenTo(self, 'load', cb)
 
+    console.log(this.queue)
     cache.exists(url, function (err, exists) {
-      if (err) { console.log('err in exists'); console.error(err) }
+      if (err) { console.error('cache.exists', err) }
 
-      if (exists) {
-        console.log('url exists')
+      var requested = _.contains(self.queue, url)
+      if (exists || requested) {
         cache.get(url, function (err, blob) {
-          if (err) { console.log('err in get 1'); console.error(err) }
-          console.log('got blob', blob)
-          self.trigger(self, 'load', blob)
+          if (err) { console.error('cache.get', err) }
+
+          self.trigger('load', blob)
+          return true
         })
       } else {
-        console.log('url does not exist, cache it')
+        self.queue.push(url)
         cache.download(url, function (err, metadata) {
-          console.log('url downloaded')
-          if (err) { console.log('err in download'); console.error(err) }
+          if (err) { console.error('cache.download', err) }
 
           cache.get(url, function (err, blob) {
-            console.log('retrieved blob')
-            if (err) { console.log('err in get 2'); console.error(err) }
+            if (err) { console.error('cache.get', err) }
 
-            self.trigger(self, 'load', blob)
+            self.trigger('load', blob)
+            return true
           })
         })
       }
