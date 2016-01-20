@@ -119,11 +119,11 @@ module.exports = require('backbone').View.extend({
       // omit _private, meta, picture
       var properties = _.omit(feature.properties, function (value, key, object) {
         // TODO, make image field configurable
-        return (key[0] === '_' || _.contains(key, ['meta', 'picture']))
+        return (key[0] === '_' || _.contains(['meta', 'picture'], key))
       })
 
       // flatten picture url
-      properties.pictureUrl = feature.properties.picture.url
+      properties.pictureUrl = JSON.parse(feature.properties.picture).url
 
       // flatten coordinates
       properties.latitude = feature.geometry.coordinates[0]
@@ -134,13 +134,9 @@ module.exports = require('backbone').View.extend({
     json2csv({data: flatArray}, function (err, csv) {
       if (err) console.log(err)
 
-      // trigger file download w/ hidden link
-      var downloadLink = $('<a id="download"></a>')
-      downloadLink.css({'display': 'none'})
-      downloadLink.attr('href', 'data:text/csv;charset=utf-8,' + encodeURI(csv))
-      downloadLink.attr('download', 'mapfilter.csv')
-      $('body').append(downloadLink)
-      downloadLink.click()
+      window.location.href = 'data:octet/stream;charset=utf-8,' + encodeURI(csv)
+      // TODO, this file download mechanism doesn't let us set filename
+      // replace with fileSaver.js ?
     })
   },
 

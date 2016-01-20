@@ -20,7 +20,7 @@ module.exports = require('backbone').Model.extend({
   properties: function () {
     return _.keys(_.omit(this.attributes.properties, function (value, key, object) {
         return key[0] === '_' ||
-          _.contains(key, ['meta'])
+          _.contains(['meta'], key)
       })
     )
   },

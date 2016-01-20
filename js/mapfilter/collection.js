@@ -100,14 +100,15 @@ module.exports = Backbone.Collection.extend({
   },
 
   toJSON: function () {
+    // JSON standard requires double quotes
     var geojson = {
-      type: 'FeatureCollection',
+      type: "FeatureCollection",
       features: this.dimensionByCid.top(Infinity).map(function (v) {
         var feature = v.toJSON()
         for (var prop in feature.properties) {
           var value = feature.properties[prop]
           if (typeof value === 'object') {
-            feature.properties[prop] = JSON.stringify(feature.properties[prop]).replace(/\"/g, "'")
+            feature.properties[prop] = JSON.stringify(feature.properties[prop])//.replace(/\"/g, "'")
           }
         }
         return feature
