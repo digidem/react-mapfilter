@@ -12,13 +12,20 @@
 'use strict'
 
 var $ = require('jquery')
+var _ = require('lodash')
+
 var GraphPane = require('./graph_pane.js')
 var ContinuousFilterView = require('./continuous_filter_view.js')
 var DiscreteFilterView = require('./discrete_filter_view.js')
 
+var shpWrite = require('shp-write')
+var json2csv = require('json2csv')
+
 module.exports = require('backbone').View.extend({
   events: {
     'click .print-preview': 'showPrintPreview',
+    'click .download-shp': 'downloadSHP',
+    'click .download-csv': 'downloadCSV',
     'click .auth-logout': 'authLogout'
   },
 
@@ -41,14 +48,20 @@ module.exports = require('backbone').View.extend({
     }, this)
 
     this.$filters.append(
-      '<div>' +
-      '<button type="button" class="btn btn-primary print-preview">' +
-      t('ui.filter_pane.print_report') +
-      '</button> ' +
-      '<button type="button" class="btn btn-default auth-logout">' +
-      t('ui.filter_pane.log_out') +
-      '</button> ' +
-      '</div>')
+      '<div class="btn-group">' +
+        '<button type="button" class="btn btn-default dropdown-toggle"' +
+           'data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
+          t('ui.filter_pane.actions') + '<span class="caret"></span>' +
+        '</button>' +
+        '<ul class="dropdown-menu">' +
+          '<li><a href="#" class="print-preview">' + t('ui.filter_pane.print_report') + '</a></li>' +
+          '<li><a href="#" class="download-shp">' + t('ui.filter_pane.download_shp') + '</a></li>' +
+          '<li><a href="#" class="download-csv">' + t('ui.filter_pane.download_csv') + '</a></li>' +
+          '<li role="separator" class="divider"></li>' +
+          '<li><a href="#" class="auth-logout">' + t('ui.filter_pane.log_out') + '</a></li>' +
+        '</ul>' +
+      '</div>'
+    )
   },
 
   // Add a filter on a field to the filter pane.
@@ -84,6 +97,47 @@ module.exports = require('backbone').View.extend({
   // hide elements
   showPrintPreview: function () {
     this.trigger('print-preview')
+  },
+
+  downloadSHP: function () {
+    var options = {
+      folder: 'monitoring_points',
+      types: {
+        point: 'monitoring_points'
+      }
+    }
+    var geojson = this.collection.toJSON()
+
+    shpWrite.download(geojson, options)
+  },
+
+  downloadCSV: function () {
+    var geojson = this.collection.toJSON()
+
+    // flatten properties and coordinates
+    var flatArray = _.map(geojson.features, function (feature) {
+      // omit _private, meta, picture
+      var properties = _.omit(feature.properties, function (value, key, object) {
+        // TODO, make image field configurable
+        return (key[0] === '_' || _.contains(['meta', 'picture'], key))
+      })
+
+      // flatten picture url
+      properties.pictureUrl = JSON.parse(feature.properties.picture).url
+
+      // flatten coordinates
+      properties.latitude = feature.geometry.coordinates[0]
+      properties.longitude = feature.geometry.coordinates[1]
+      return properties
+    })
+
+    json2csv({data: flatArray}, function (err, csv) {
+      if (err) console.log(err)
+
+      window.location.href = 'data:octet/stream;charset=utf-8,' + encodeURI(csv)
+      // TODO, this file download mechanism doesn't let us set filename
+      // replace with fileSaver.js ?
+    })
   },
 
   authLogout: function () {

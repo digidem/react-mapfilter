@@ -20,7 +20,7 @@ module.exports = require('backbone').Model.extend({
   properties: function () {
     return _.keys(_.omit(this.attributes.properties, function (value, key, object) {
         return key[0] === '_' ||
-          _.contains(['meta', key])
+          _.contains(['meta'], key)
       })
     )
   },
@@ -68,7 +68,7 @@ module.exports = require('backbone').Model.extend({
 
     value.split(' ').forEach(function (v, i) {
       if (v === 'other') {
-        output[i] = window.u._capitalize(this.get(attr_other))
+        output[i] = window.u.capitalize(this.get(attr_other))
       } else {
         output[i] = window.t(attr + '.' + v)
       }
