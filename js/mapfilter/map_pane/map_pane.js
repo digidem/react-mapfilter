@@ -57,6 +57,14 @@ module.exports = require('backbone').View.extend({
     // Add the background tile layer to the map, select by default
     this.customLayer = L.tileLayer(options.tileUrl).addTo(this.map)
 
+    // this.cloudMadeLayer = L.tileLayer.provider('CloudMade', {
+    //     apiKey: options.cloudMadeKey,
+    //     styleID: '123'
+    // })
+
+    // Add the background tile layer to the map, select by default
+    this.customLayer = L.tileLayer(options.tileUrl).addTo(this.map)
+
     var baseMaps = {}
     baseMaps[window.t('ui.map_pane.layers.bing')] = this.bingLayer
     baseMaps[window.t('ui.map_pane.layers.custom')] = this.customLayer
