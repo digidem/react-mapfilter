@@ -1,7 +1,7 @@
 <div class="image-wrapper">
   <% if (getImage()) { %>
-    <img src="<%= getImage() %>">
-  <% } %>
+    <img src="">
+    <div class="caption"><strong><%= t("ui.info_pane.caption") %></strong> <%= t(get("caption")) %></div>
 </div>
 
 <table class="table">

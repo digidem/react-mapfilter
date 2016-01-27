@@ -54,6 +54,9 @@ module.exports = require('backbone').View.extend({
     // Create a layer with Bing satellite imagery
     this.bingLayer = L.bingLayer(options.bingKey)
 
+    // Add the background tile layer to the map, select by default
+    this.customLayer = L.tileLayer(options.tileUrl).addTo(this.map)
+
     // this.cloudMadeLayer = L.tileLayer.provider('CloudMade', {
     //     apiKey: options.cloudMadeKey,
     //     styleID: '123'

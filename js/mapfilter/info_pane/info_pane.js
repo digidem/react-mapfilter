@@ -6,7 +6,10 @@
 // the point then it will "stick" open.
 'use strict'
 
-var $ = require('jquery')
+var $ = window.jQuery = require('jquery')
+
+var ImageCache = require('./image_cache.js')
+var ImageRotator = require('./image_rotate.js')
 var tpl = require('../../../templates/info-pane.tpl')
 
 module.exports = require('backbone').View.extend({
@@ -19,6 +22,8 @@ module.exports = require('backbone').View.extend({
 
     if (options.id) this.$el.attr('id', options.id)
     this.template = tpl
+
+    this.imageCache = new ImageCache()
   },
 
   // Populates the infopane contents with the data from the selected point
@@ -31,14 +36,44 @@ module.exports = require('backbone').View.extend({
     return this
   },
 
+  // load image from cache, and rotated based on exif headers
   show: function (options) {
     if (this.sticky()) return
     this.hide()
+    this.sticky(options.sticky)
+
     this.model = options.model
     this.iconView = options.iconView
+
     this.render()
-    this.sticky(options.sticky)
+
+    var imageUrl = this.model.getImage()
+    if (imageUrl) {
+      console.log('imageURL', imageUrl)
+
+      $('.image-wrapper img').css('background-image', 'url(/images/loader.gif)')
+    }
+
     this.$el.show()
+
+    this.imageCache.getOrDownload(imageUrl, function (blob) {
+      console.log('getOrDownload callback', blob)
+      var objectUrl = window.URL.createObjectURL(blob)
+      var img = $('.image-wrapper img')
+      img.attr('src', objectUrl)
+      img.css('background-image', '')
+
+      window.URL.revokeObjectURL(objectUrl)
+
+      // apply exif rotation with css
+      ImageRotator.read(blob, function (cssTransform) {
+        console.log('got rotation', cssTransform)
+        var img = $('.image-wrapper img')
+        img.css('transform', cssTransform)
+        img.css('height', img.outerWidth())
+      })
+
+    })
   },
 
   toggle: function (options) {
