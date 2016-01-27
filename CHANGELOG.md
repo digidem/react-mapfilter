@@ -1,3 +1,10 @@
+## Unreleased 1/19/2016
+
+- [ADDED] File download (SHP, CSV)
+- [ADDED] Generic template loading [#26](../../pull/26)
+- [MERGED] Template translations from Forest Defenders [#25](../../pull/25)
+- [ADDED] Github authentication via Auth0 [#24](../../pull/24)
+
 ## v0.2.2 7/18/2015
 
 - [FIXED] Clicking Print Cancel twice did not work [#23](../../issues/23)

@@ -17,6 +17,9 @@ module.exports = Backbone.Collection.extend({
     // Pass the url endpoint for this collection in the options hash
     if (options.url) this.url = options.url
 
+    // Save template options to collection
+    if (options.template) this.template = options.template
+
     // Initialize a new [crossfilter](http://square.github.io/crossfilter/) instance
     this.crossfilter = crossfilter()
 
@@ -29,7 +32,8 @@ module.exports = Backbone.Collection.extend({
       return d.cid
     })
 
-    this.sync = sync({ githubToken: options.githubToken })
+    if (options.githubToken) this.sync = sync({ githubToken: options.githubToken })
+    else this.sync = Backbone.sync
 
     // This will group models by cid, which is unique, which means that
     // each group will have a count of 0 or 1 depending on whether
@@ -41,7 +45,8 @@ module.exports = Backbone.Collection.extend({
     this.on('add firstfetch', this.addToFilter)
   },
 
-  setToken: function (token) {
+  resetToken: function (token, url) {
+    if (url) this.url = url
     this.sync = sync({ githubToken: token })
   },
 
@@ -92,5 +97,26 @@ module.exports = Backbone.Collection.extend({
     }, this)
 
     return bounds
+  },
+
+  toJSON: function () {
+    // JSON standard requires double quotes
+    var geojson = {
+      type: "FeatureCollection",
+      features: this.dimensionByCid.top(Infinity).map(function (v) {
+        var feature = v.toJSON()
+        for (var prop in feature.properties) {
+          var value = feature.properties[prop]
+          if (typeof value === 'object') {
+            feature.properties[prop] = JSON.stringify(feature.properties[prop])//.replace(/\"/g, "'")
+          }
+        }
+        return feature
+      }).filter(function (v) {
+        return v.geometry && v.geometry.coordinates
+      })
+    }
+
+    return geojson
   }
 })

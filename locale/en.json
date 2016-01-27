@@ -39,6 +39,9 @@
             "select_all": "Show All",
             "select_dates": "Select Dates",
             "dates": "Dates",
+            "actions": "Actions",
+            "download_csv": "Download CSV",
+            "download_shp": "Download Shapefile",
             "print_report": "Print Report",
             "log_out": "Log Out"
         },

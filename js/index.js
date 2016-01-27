@@ -8,7 +8,8 @@ require('./lib/leaflet_providers.js')
 require('./lib/d3.v4.js')
 require('./lib/d3-dates.v4.js')
 
-var $ = require('jquery')
+var $ = window.jQuery = require('jquery')
+require('bootstrap')
 
 // app
 window.locale.en = require('../locale/en')
@@ -17,33 +18,20 @@ window.locale.es = require('../locale/es')
 window.locale.init()
 
 var mapFilter = require('./mapfilter/mapfilter.js')
-var config = require('../config.json')
+var config = new (require('./config.js'))
+var defaults = require('../defaults.json')
 
-var hostname = window.location.hostname
-
-config = config[hostname] || config['lab.digital-democracy.org']
+var hash = window.location.hash
+if (hash === '') {
+  // default to sample data
+  hash = '#id=github:spacedogxyz/sample-monitoring-data/' +
+         '&map=10/2.6362/-59.4801'
+}
 
 window.app = mapFilter({
-  config: config,
+  // parse hash to get config details
+  config: config.parse(hash, defaults),
 
   // app container
-  el: $('#app'),
-
-  // An array of filters to explore the data.
-  // `field` is the field/attribute to filter by
-  // `type` should be `discrete` for string data and `continuous` for numbers or dates
-  // `expanded` sets whether the filter view is expanded or collapsed by default
-  filters: [{
-    type: 'continuous',
-    field: 'today',
-    expanded: true
-  }, {
-    type: 'discrete',
-    field: 'happening',
-    expanded: true
-  }, {
-    type: 'discrete',
-    field: 'people',
-    expanded: true
-  }]
+  el: $('#app')
 })
