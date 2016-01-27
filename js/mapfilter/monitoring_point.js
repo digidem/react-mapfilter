@@ -35,7 +35,7 @@ module.exports = require('backbone').Model.extend({
     return [lat, lon]
   },
 
-  getFormatedCoords: function (digits) {
+  getFormattedCoords: function (digits) {
     digits = digits || 5
 
     var lat = this.coordinates()[0].toFixed(digits)
