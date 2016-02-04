@@ -16,7 +16,7 @@ module.exports = function (options) {
   })
 
   var auth = new Auth(config.options.auth, function (token) {
-    config.load()
+    config.load(token)
 
     config.listenTo(config, 'load', function (loaded) {
       // simpleodk config loaded from github
