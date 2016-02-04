@@ -35,7 +35,8 @@
     },
     "ui": {
         "filter_pane": {
-            "select_one": "uno",
+            "actions": "Imprimir o Exportar&nbsp;",
+            "select_one": "Solo este",
             "select_all": "Mostrar Todo",
             "select_dates": "Seleccionar Fechas",
             "dates": "Fechas",
