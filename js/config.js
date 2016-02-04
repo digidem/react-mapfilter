@@ -1,4 +1,4 @@
-var Hubfs = require('Hubfs.js')
+var Hubfs = require('hubfs.js')
 var Backbone = require('backbone')
 var _ = require('lodash')
 
