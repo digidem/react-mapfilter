@@ -77,6 +77,13 @@ module.exports = Backbone.View.extend({
       }
     })
 
+    this.listenTo(this.config, 'load', function (loaded) {
+      if (loaded.filters && loaded.filters.length > 0) {
+        this.filterPane.filters = loaded.filters
+        this.filterPane.render()
+      }
+    })
+
     this.$el.append(this.mapPane.el)
     this.$el.append(this.filterPane.render().el)
     this.$el.append(this.infoPane.$el.hide())

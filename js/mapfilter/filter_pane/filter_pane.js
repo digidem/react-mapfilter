@@ -30,12 +30,17 @@ module.exports = require('backbone').View.extend({
   },
 
   initialize: function (options) {
-    var filters = options.filters || []
+    this.filters = options.filters || []
 
     // Initialize a graph pane to hold charts for continuous filters
     this.graphPane = new GraphPane({
       collection: this.collection
     })
+  },
+
+  render: function () {
+    var filters = this.filters
+    this.$el.html('<div/>')
 
     // Append the graph parent to this pane's parent
     this.$el.append(this.graphPane.render().el)
@@ -62,6 +67,8 @@ module.exports = require('backbone').View.extend({
         '</ul>' +
       '</div>'
     )
+
+    return this
   },
 
   // Add a filter on a field to the filter pane.

@@ -53,6 +53,8 @@ module.exports = function (options) {
 
       // match pane from filename
       var paneName = filename.split('/')[1].slice(0, -4)
+      console.log(appView)
+      console.log(paneName)
       _.findWhere(appView, {'id': paneName}).template = _.template(body)
     })
   })

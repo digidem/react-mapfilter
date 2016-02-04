@@ -49,7 +49,7 @@ module.exports = require('backbone').Model.extend({
 
   getImage: function () {
     var imageField = this.collection.template ? this.collection.template.image : 'picture'
-    var picture = this.get(imageField)
+    var picture = this.get('foto') || this.get('photo')
     return picture && picture.url
   },
 

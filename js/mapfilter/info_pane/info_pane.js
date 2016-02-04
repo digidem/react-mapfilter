@@ -8,8 +8,8 @@
 
 var $ = window.jQuery = require('jquery')
 
-var ImageCache = require('./image_cache.js')
-var ImageRotator = require('./image_rotate.js')
+// var ImageCache = require('./image_cache.js')
+// var ImageRotator = require('./image_rotate.js')
 var tpl = require('../../../templates/info-pane.tpl')
 
 module.exports = require('backbone').View.extend({
@@ -23,7 +23,7 @@ module.exports = require('backbone').View.extend({
     if (options.id) this.$el.attr('id', options.id)
     this.template = tpl
 
-    this.imageCache = new ImageCache()
+    // this.imageCache = new ImageCache()
   },
 
   // Populates the infopane contents with the data from the selected point
@@ -51,29 +51,29 @@ module.exports = require('backbone').View.extend({
     if (imageUrl) {
       console.log('imageURL', imageUrl)
 
-      $('.image-wrapper img').css('background-image', 'url(/images/loader.gif)')
+      $('.image-wrapper img').css('background-image', 'url(/images/loader.gif)').attr('src', imageUrl)
     }
 
     this.$el.show()
 
-    this.imageCache.getOrDownload(imageUrl, function (blob) {
-      console.log('getOrDownload callback', blob)
-      var objectUrl = window.URL.createObjectURL(blob)
-      var img = $('.image-wrapper img')
-      img.attr('src', objectUrl)
-      img.css('background-image', '')
+    // this.imageCache.getOrDownload(imageUrl, function (blob) {
+    //   console.log('getOrDownload callback', blob)
+    //   var objectUrl = window.URL.createObjectURL(blob)
+    //   var img = $('.image-wrapper img')
+    //   img.attr('src', objectUrl)
+    //   img.css('background-image', '')
 
-      window.URL.revokeObjectURL(objectUrl)
+    //   window.URL.revokeObjectURL(objectUrl)
 
-      // apply exif rotation with css
-      ImageRotator.read(blob, function (cssTransform) {
-        console.log('got rotation', cssTransform)
-        var img = $('.image-wrapper img')
-        img.css('transform', cssTransform)
-        img.css('height', img.outerWidth())
-      })
+    //   // apply exif rotation with css
+    //   ImageRotator.read(blob, function (cssTransform) {
+    //     console.log('got rotation', cssTransform)
+    //     var img = $('.image-wrapper img')
+    //     img.css('transform', cssTransform)
+    //     img.css('height', img.outerWidth())
+    //   })
 
-    })
+    // })
   },
 
   toggle: function (options) {
