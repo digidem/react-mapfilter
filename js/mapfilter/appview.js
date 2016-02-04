@@ -71,7 +71,7 @@ module.exports = Backbone.View.extend({
     this.listenTo(this.collection, 'error', function (collection, response, options) {
       if (response.status >= 400 && response.status < 500) {
         window.alert('invalid github token')
-        self.auth.trigger('logout')
+        //self.auth.trigger('logout')
       } else {
         console.error(response)
       }
