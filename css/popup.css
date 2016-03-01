@@ -1,0 +1,34 @@
+.mapboxgl-popup-tip {
+  border: 0;
+}
+
+.mapboxgl-popup-content {
+  padding: 0;
+  background-color: black;
+  cursor: pointer;
+  pointer-events: none;
+}
+
+.mapboxgl-popup-content img {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  display: block;
+}
+
+.mapboxgl-popup-content .title {
+  background-color: rgba(0,0,0,0.5);
+  position: absolute;
+  bottom: 0;
+  color: white;
+  width: 100%;
+}
+
+.mapboxgl-popup-content .title h1, .mapboxgl-popup-content .title h2 {
+  margin: 5px 10px;
+}
+
+.mapboxgl-popup-content .title h2 {
+  font-style: normal;
+  font-size: 14px;
+}

@@ -1,0 +1,92 @@
+{
+  "people": {
+    "values": {
+      "burch_andrews": 30,
+      "cross_kemp": 23,
+      "hancock_martinez": 20,
+      "mattie_solis": 14,
+      "crawford_hill": 17,
+      "inez_alston": 28,
+      "deanne_velazquez": 20,
+      "lillie_flores": 12,
+      "osborne_saunders": 14,
+      "dennis_moreno": 22
+    },
+    "type": "discrete"
+  },
+  "happening": {
+    "values": {
+      "fishing": 15,
+      "mining": 16,
+      "other": 16,
+      "crossing": 13,
+      "logging": 21,
+      "rustling": 15,
+      "hunting": 20,
+      "artefacts": 21,
+      "tourism": 20,
+      "trapping": 18,
+      "grazing": 25
+    },
+    "type": "discrete"
+  },
+  "impacts": {
+    "values": {
+      "Violation of sensitive site": 18,
+      "Depletion of fish": 12,
+      "Damage to water source / watershed": 26,
+      "Damage to gathering grounds": 16,
+      "Loss of cultural heritage": 13,
+      "Water pollution": 15,
+      "Damage to farming grounds": 10,
+      "FPIC violation": 14,
+      "Deforestation": 16,
+      "Water poisoned": 15,
+      "Damage to wildlife / habitat": 13,
+      "Harm to community conserved site": 13,
+      "Depletion of game": 9,
+      "Social harm or abuse": 10
+    },
+    "type": "discrete"
+  },
+  "placename": {
+    "type": "text"
+  },
+  "today": {
+    "max": "2014-12-31T00:00:00.000Z",
+    "min": "2014-01-02T00:00:00.000Z",
+    "type": "number"
+  },
+  "area": {
+    "type": "text"
+  },
+  "village": {
+    "values": {
+      "Parikowaro Naawa": 14,
+      "Potari Naawa": 18,
+      "Shii": 20,
+      "Aishara Toon": 14,
+      "Katoonarub": 10,
+      "Achawib": 17,
+      "Karaodaz Naawa": 15,
+      "Shorinab": 13,
+      "Marora Naawa": 18,
+      "Sawari Wao": 15,
+      "Soburun": 7,
+      "Zoopo Naawa": 15,
+      "Parobaz": 12,
+      "Awaru Wao Naawa": 12
+    },
+    "type": "discrete"
+  },
+  "region": {
+    "values": {
+      "South Central": 106,
+      "Deep South": 94
+    },
+    "type": "discrete"
+  },
+  "caption": {
+    "type": "text"
+  }
+}
