@@ -106,6 +106,8 @@ module.exports = require('backbone').View.extend({
   addAll: function () {
     this.removeAll()
     this.collection.each(this.addOne, this)
+    var markerBounds = this.collection.filteredBounds()
+    this.map.fitBounds(markerBounds)
   },
 
   // Remove a single marker for a given model from the map
