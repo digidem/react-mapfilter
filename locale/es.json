@@ -35,12 +35,16 @@
     },
     "ui": {
         "filter_pane": {
+            "not_recorded": "No Registrada",
             "actions": "Imprimir o Exportar&nbsp;",
             "select_one": "Solo este",
             "select_all": "Mostrar Todo",
             "select_dates": "Seleccionar Fechas",
             "dates": "Fechas",
-            "print_report": "Imprimir informe"
+            "print_report": "Imprimir informe",
+            "download_csv": "Guardar CSV",
+            "download_shp": "Guardar SHP",
+            "log_out": "Salir"
         },
         "print_pane": {
             "print_view_description": "Usted puede imprimir solamente el mapa, o puede imprimir solamente la lista de información asociado con cada punto, mediante la selección de las opciones a continuación. Puede arrastrar y ampliar el mapa para cambiar el área que deseas imprimir.",

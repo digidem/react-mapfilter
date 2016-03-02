@@ -74,17 +74,16 @@ window.t = function(s, o, loc) {
             return missing;
         }
 
-        if (loc !== 'en') {
-            missing();
-            return t(s, o, 'en');
-        }
-
         if (o && 'default' in o) {
             return o['default'];
         }
 
+        if (s.split(".").pop() === 'not_recorded') {
+          return locale[loc].ui.info_pane.not_recorded
+        }
+
         if (/\s/.exec(s) || !/\./.exec(s)) {
-            return s
+            return toTitleCase(s)
         }
 
         return toTitleCase(s.split(".").pop());

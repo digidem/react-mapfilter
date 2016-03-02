@@ -78,7 +78,7 @@ module.exports = require('backbone').View.extend({
     _.forEach(this.groupAll.value(), function (v, k) {
       checkboxes.push(this.checkboxTemplate({
         key: k,
-        text: t(this.field + '.' + k),
+        text: k === 'not_recorded' ? t('ui.filter_pane.not_recorded') : t(this.field + '.' + k),
         color: this.collection.colors[k] || 'none',
         className: 'checkbox ' + k
       }))
