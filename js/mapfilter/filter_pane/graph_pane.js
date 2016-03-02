@@ -13,7 +13,7 @@ module.exports = require('backbone').View.extend({
   initialize: function (options) {
     var self = this
     this.$el.append('<button type="button" class="close" aria-hidden="true">&times;</button>')
-    var date = this.collection.dimension(function (d) { return new Date(d.get('today')) }),
+    var date = this.collection.dimension(function (d) { return new Date(d.getDate()) }),
       dates = date.group(d3.time.day)
 
     this.barChart = BarChart()
@@ -44,7 +44,7 @@ module.exports = require('backbone').View.extend({
     var bottom = dimension.bottom(1)
     var top = dimension.top(1)
 
-    if (bottom & top) {
+    if (bottom && top) {
       this.barChart.x()
         .domain([bottom[0].getDate(), top[0].getDate()])
     }
