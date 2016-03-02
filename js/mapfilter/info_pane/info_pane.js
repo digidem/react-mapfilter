@@ -49,8 +49,6 @@ module.exports = require('backbone').View.extend({
 
     var imageUrl = this.model.getImage()
     if (imageUrl) {
-      console.log('imageURL', imageUrl)
-
       $('.image-wrapper img').css('background-image', 'url(/images/loader.gif)').attr('src', imageUrl)
     }
 
