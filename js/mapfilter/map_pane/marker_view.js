@@ -51,7 +51,7 @@ module.exports = require('backbone').View.extend({
 
     // Add className from the model's "happening" field
     // **TODO** remove this dependency and color markers from array of colors
-    this.$el.addClass(this.model.get('happening'))
+    this.$el.css('fill', this.model.getColor())
 
     // Reference the marker's current z-index (we change the z-index later
     // when the markers are filtered, so unfiltered markers appear on top)

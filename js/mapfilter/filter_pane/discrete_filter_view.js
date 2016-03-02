@@ -79,7 +79,7 @@ module.exports = require('backbone').View.extend({
       checkboxes.push(this.checkboxTemplate({
         key: k,
         text: t(this.field + '.' + k),
-        labelClass: (this.field === 'happening') ? 'label' : '',
+        color: this.collection.colors[k] || 'none',
         className: 'checkbox ' + k
       }))
     }, this)

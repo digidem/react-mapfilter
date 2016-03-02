@@ -7,7 +7,6 @@
 'use strict'
 
 var Backbone = require('backbone')
-
 var crossfilter = require('crossfilter')
 
 var sync = require('./backbone-sync')
@@ -39,6 +38,8 @@ module.exports = Backbone.Collection.extend({
     // each group will have a count of 0 or 1 depending on whether
     // the model matches the filters set on the other crossfilter dimensions
     this.groupByCid = this.dimensionByCid.group()
+
+    this.colors = {}
 
     this.resetFilter()
     this.on('change remove reset', this.resetFilter)

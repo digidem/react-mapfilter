@@ -149,6 +149,7 @@ svg {
 
 .marker {
     -webkit-transition: opacity 100ms;
+    fill: #6a3d9a;
 }
 
 .marker.filtered {
@@ -185,78 +186,6 @@ svg {
     margin-top: 4px;
 }
 
-.marker.mining {
-    fill:rgb(166, 206, 227)
-}
-.marker.logging {
-    fill:rgb(31, 120, 180)
-}
-.marker.crossing {
-    fill:rgb(178, 223, 138)
-}
-.marker.rustling {
-    fill:rgb(51, 160, 44)
-}
-.marker.hunting {
-    fill:rgb(251, 154, 153)
-}
-.marker.fishing {
-    fill:rgb(227, 26, 28)
-}
-.marker.trapping {
-    fill:rgb(253, 191, 111)
-}
-.marker.tourism {
-    fill:rgb(255, 127, 0)
-}
-.marker.artefacts {
-    fill:rgb(202, 178, 214)
-}
-.marker.other {
-    fill:rgb(106, 61, 154);
-}
-.marker.grazing {
-    fill:rgb(247, 129, 191)
-}
-
-#happening .label {
-    background-color: #000;
-}
-
 .filter .not_recorded label {
     font-style: italic;
-}
-
-#happening .mining .label {
-    background-color:rgb(166, 206, 227)
-}
-#happening .logging .label {
-    background-color:rgb(31, 120, 180)
-}
-#happening .crossing .label {
-    background-color:rgb(178, 223, 138)
-}
-#happening .rustling .label {
-    background-color:rgb(51, 160, 44)
-}
-#happening .hunting .label {
-    background-color:rgb(251, 154, 153)
-}
-#happening .fishing .label {
-    background-color:rgb(227, 26, 28)
-}
-#happening .trapping .label {
-    background-color:rgb(253, 191, 111)
-}
-#happening .tourism .label {
-    background-color:rgb(255, 127, 0)
-}
-#happening .artefacts .label {
-    background-color:rgb(202, 178, 214)
-}
-#happening .other .label {
-    background-color:rgb(106, 61, 154);
-}
-#happening .grazing .label {
-    background-color:rgb(247, 129, 191)
 }

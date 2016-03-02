@@ -11,6 +11,10 @@ var _ = require('lodash')
 
 var RESIZER_URL = 'https://resizer.digital-democracy.org/'
 
+// From http://colorbrewer2.org/?type=qualitative&scheme=Paired&n=12
+var colors = ['#a6cee3', '#1f78b4', '#b2df8a', '#33a02c', '#fb9a99', '#e31a1c', '#fdbf6f', '#ff7f00', '#cab2d6', '#6a3d9a', '#b15928']
+var colorIndex = 0
+
 module.exports = require('backbone').Model.extend({
   idAttribute: '_uuid',
 
@@ -25,6 +29,18 @@ module.exports = require('backbone').Model.extend({
           _.contains(['meta'], key)
       })
     )
+  },
+
+  getColor: function () {
+    var color
+    var colorField = this.collection.options && this.collection.options.color
+    if (this.collection.colors[this.get(colorField)]) {
+      color = this.collection.colors[this.get(colorField)]
+    } else {
+      color = this.collection.colors[this.get(colorField)] = colors[colorIndex]
+      colorIndex++
+    }
+    return color
   },
 
   // Should return a [lat, lon] array for the point
