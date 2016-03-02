@@ -75,7 +75,7 @@ module.exports = require('backbone').Model.extend({
   },
 
   getDate: function () {
-    var dateField = this.collection.template ? this.collection.template.timestamp : 'today'
+    var dateField = this.collection.options ? this.collection.options.timestamp : 'today'
     var d = this.get(dateField).split('-')
     return new Date(d[0], d[1] - 1, d[2])
   },
