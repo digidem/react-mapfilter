@@ -57,6 +57,9 @@ module.exports = function (options) {
       console.log(appView)
       console.log(paneName)
       _.findWhere(appView, {'id': paneName}).template = _.template(body)
+      if (paneName === 'info-pane') {
+        appView.collection.template = _.template(body)
+      }
     })
   })
 

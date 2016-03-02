@@ -51,7 +51,8 @@ module.exports = require('backbone').View.extend({
       if (d.value > 0) {
         var infoPane = this.infoPanesByCid[cid] || new InfoPane({
             className: 'info-print-view',
-            model: model
+            model: model,
+            collection: this.collection
           }).render()
 
         infoPane.$('.map-icon').html($(model.icon).html())
