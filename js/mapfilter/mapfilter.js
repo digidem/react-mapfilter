@@ -32,6 +32,7 @@ module.exports = function (options) {
         loaded.data
       ].join('/')
       collection.resetToken(token, dataUrl)
+      collection.options = loaded.options
 
       // load specified templates from github
       for (var t in loaded.templates) {

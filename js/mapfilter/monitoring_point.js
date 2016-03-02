@@ -9,6 +9,8 @@
 
 var _ = require('lodash')
 
+var RESIZER_URL = 'https://resizer.digital-democracy.org/'
+
 module.exports = require('backbone').Model.extend({
   idAttribute: '_uuid',
 
@@ -47,10 +49,13 @@ module.exports = require('backbone').Model.extend({
     return lat + ' ' + lon
   },
 
-  getImage: function () {
-    var imageField = this.collection.template ? this.collection.template.image : 'picture'
-    var picture = this.get('foto') || this.get('photo')
-    return picture && picture.url
+  getImage: function (x, y) {
+    x = x || 800
+    y = y || 800
+    var imageField = this.collection.options && this.collection.options.image
+    var picture = this.get(imageField) || this.get('picture') || this.get('foto') || this.get('photo')
+    var url = picture && picture.url
+    return url && RESIZER_URL + x + '/' + y + '/' + url
   },
 
   getDate: function () {
