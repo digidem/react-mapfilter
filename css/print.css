@@ -58,7 +58,6 @@ h1, h2, h3 {
 }
 
 .image-wrapper img {
-    max-height: 5in;
     width: 100%;
     border: 1px solid black;
 }
@@ -77,6 +76,15 @@ h1, h2, h3 {
 
 #print-pane .marker.filtered {
     display: none;
+}
+
+#print-pane .image-wrapper {
+    margin-bottom: 0.25in;
+}
+
+#print-pane .image-wrapper img {
+    height: 5in;
+    object-fit: contain;
 }
 
 /* ------------- */
