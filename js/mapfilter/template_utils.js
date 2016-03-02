@@ -13,6 +13,6 @@ module.exports = {
 
   parseDate: function (s) {
     var d = s.split('-')
-    return new Date(d[0], d[1] - 1, d[2])
+    return window.locale.d3().timeFormat('%d %b %Y')(new Date(d[0], d[1] - 1, d[2]))
   }
 }
