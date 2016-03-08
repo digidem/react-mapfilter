@@ -10,6 +10,7 @@
     ]
   },
   "dependencies": {
+    "deep-equal": "^1.0.1",
     "feature-filter": "^2.0.1",
     "geojsonhint": "^1.2.0",
     "get-value": "^2.0.3",
@@ -23,6 +24,7 @@
     "react-router-redux": "^4.0.0-rc.1",
     "react-tap-event-plugin": "^0.2.2",
     "redux": "^3.3.1",
+    "round-to": "^1.1.0",
     "turf-extent": "^1.0.4"
   },
   "devDependencies": {

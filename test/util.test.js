@@ -30,6 +30,9 @@ test('mergeFilterFields', function (t) {
   merged = mergeFilterFields(undefined, ['myField'])
   t.deepEqual(merged, ['myField'], 'works with undefined filter')
 
+  merged = mergeFilterFields(null, ['myField'])
+  t.deepEqual(merged, ['myField'], 'works with null filter')
+
   merged = mergeFilterFields(['in', 'myField', 'foo'], ['myField', 'otherField'])
   t.deepEqual(merged, ['myField', 'otherField'], 'merges overlapping filters and fields')
 
@@ -52,6 +55,8 @@ test('mergeFilterFields', function (t) {
 // })
 
 test('getFiltersByField', function (t) {
+  t.deepEqual(getFiltersByField(undefined), {}, 'undefined filter returns no filter')
+  t.deepEqual(getFiltersByField(null), {}, 'null filter returns no filter')
   t.deepEqual(getFiltersByField(['in', 'foo', 'bar', 'baz']), {foo: {in: ['bar', 'baz']}})
   t.deepEqual(getFiltersByField(['<=', 'foo', 3]), {foo: {'<=': 3}})
   t.deepEqual(getFiltersByField(['>=', 'foo', 1]), {foo: {'>=': 1}})

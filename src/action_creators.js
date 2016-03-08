@@ -5,6 +5,14 @@ const updateFilter = (filter) => {
   }
 }
 
+const moveMap = (payload) => {
+  return {
+    type: 'MOVE_MAP',
+    payload
+  }
+}
+
 module.exports = {
-  updateFilter
+  updateFilter,
+  moveMap
 }

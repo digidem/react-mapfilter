@@ -106,7 +106,7 @@ class Filter extends React.Component {
     const resetFilter = (
       <div>
         <p>Invalid Filter</p>
-        <a href=''>Click to reset</a>
+        <a onClick={this.props.onUpdate.bind(null, null)}>Click to reset</a>
       </div>
     )
     return (

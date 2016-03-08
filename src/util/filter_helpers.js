@@ -110,8 +110,9 @@ function analyzeFields (featureCollection, {maxTextValues = 15, maxNumberCount =
  * @param {array} filterFields Array of field names
  * @return {array} merged list of fields
  */
-function mergeFilterFields (filter = [], filterFields = []) {
+function mergeFilterFields (filter, filterFields = []) {
   const mergedFields = filterFields.slice(0)
+  if (!filter) return mergedFields
 
   function addFilteredFields (exp) {
     if (exp[1] instanceof Array) {
@@ -131,8 +132,9 @@ function mergeFilterFields (filter = [], filterFields = []) {
  * @param {array} filter Mapbox feature-filter expression
  * @return {object} filter expressions by field name
  */
-function getFiltersByField (filter = []) {
+function getFiltersByField (filter) {
   const filtersByField = {}
+  if (!filter) return filtersByField
   let compoundOp = null
 
   function addFilterExpressions (exp) {

@@ -4,6 +4,7 @@ const mapboxgl = require('mapbox-gl')
 const extent = require('turf-extent')
 const get = require('get-value')
 const lintGeoJson = require('geojsonhint').hint
+const deepEqual = require('deep-equal')
 
 const config = require('../../config.json')
 const popupTemplate = require('../../templates/popup.hbs')
@@ -60,11 +61,10 @@ function lintFeatures (features) {
   const isFeatureCollection = (features.type.toLowerCase() === 'featurecollection')
   const isPointFeature = (features.type.toLowerCase() === 'feature' && features.geometry.type.toLowerCase === 'point')
   const isMultiPointFeature = (features.type.toLowerCase() === 'feature' && features.geometry.type.toLowerCase === 'multipoint')
-  console.log(features, isFeatureCollection, isPointFeature, isMultiPointFeature)
   if (isFeatureCollection || isPointFeature || isMultiPointFeature) {
-    console.log('valid features')
     return features
   }
+  console.warn('features must be a FeatureCollection, Point or MultiPoint feature')
   return emptyFeatureCollection
 }
 
@@ -90,7 +90,6 @@ class MapView extends React.Component {
     mapStyle: 'mapbox://styles/mapbox/streets-v8',
     onMarkerClick: noop,
     onMove: noop,
-    onZoom: noop,
     fieldMapping: {
       img: 'img',
       title: 'title',
@@ -137,18 +136,16 @@ class MapView extends React.Component {
     onMarkerClick: PropTypes.func,
     /* Triggered when map is moved, called with map center [lng, lat] */
     onMove: PropTypes.func,
-    /* Triggered when map is zoomed, called with map zoom */
-    onZoom: PropTypes.func,
     /* map zoom */
     zoom: PropTypes.number
   }
 
-  handleMapMove = (e) => {
-    this.props.onMove(this.map.getCenter().toArray())
-  }
-
-  handleMapZoom = (e) => {
-    this.props.onZoom(this.map.getZoom())
+  handleMapMoveOrZoom = (e) => {
+    this.props.onMove({
+      center: this.map.getCenter().toArray(),
+      zoom: this.map.getZoom(),
+      bearing: this.map.getBearing()
+    })
   }
 
   handleMapClick = (e) => {
@@ -158,22 +155,23 @@ class MapView extends React.Component {
       layer: 'features'
     }, (err, features) => {
       if (err || !features.length) return
-      delete features[0].layer
-      this.props.onMarkerClick(features[0])
+      this.props.onMarkerClick(features[0].properties.id)
     })
   }
 
   handleMouseMove = (e) => {
     this.map.featuresAt(e.point, {
-      radius: markerSize / 2,
+      radius: 10,
       includeGeometry: true,
       layer: 'features'
     }, (err, features) => {
       this.map.getCanvas().style.cursor = (!err && features.length) ? 'pointer' : ''
       if (err || !features.length) {
         this.popup.remove()
+        this.map.setFilter('features-hover', ['==', 'id', ''])
         return
       }
+      this.map.setFilter('features-hover', ['==', 'id', features[0].properties.id])
       // Popuplate the popup and set its coordinates
       // based on the feature found.
       this.popup.setLngLat(features[0].geometry.coordinates)
@@ -218,13 +216,16 @@ class MapView extends React.Component {
       zoom: zoom || 0
     })
 
+    // Add zoom and rotation controls to the map.
+    map.addControl(new mapboxgl.Navigation())
+
     this.popup = new mapboxgl.Popup({
       closeButton: false,
       anchor: 'bottom-left'
     })
 
-    map.on('moveend', this.handleMapMove)
-    map.on('zoomend', this.handleMapZoom)
+    map.on('moveend', this.handleMapMoveOrZoom)
+    // map.on('zoomend', this.handleMapMoveOrZoom)
     map.on('click', this.handleMapClick)
     map.on('mousemove', this.handleMouseMove)
 
@@ -235,27 +236,42 @@ class MapView extends React.Component {
       map.addSource('features', featuresSource)
       // TODO: Should choose style based on whether features are point, line or polygon
       map.addLayer(pointStyleLayer)
-      map.setFilter('features', filter)
+      map.addLayer({
+        ...pointStyleLayer,
+        interactive: false,
+        id: 'features-hover',
+        filter: ['==', 'id', '']
+      })
+      if (filter) {
+        map.setFilter('features', filter)
+      }
     })
 
     // If no map center or zoom passed, set map extent to extent of marker layer
     if (!center || !zoom) {
-      map.fitBounds(getBounds(features))
+      map.fitBounds(getBounds(features), {padding: 15})
     }
   }
 
   // We always return false from this function because we don't want React to
   // handle any rendering of the map itself, we do all that via mapboxgl
   shouldComponentUpdate (nextProps) {
-    if (nextProps.center) {
-      this.map.setCenter(nextProps.center)
+    const mapPosition = {
+      center: this.map.getCenter().toArray(),
+      zoom: this.map.getZoom()
     }
-    if (nextProps.zoom) {
-      this.map.setZoom(nextProps.zoom)
+    const nextMapPosition = {
+      center: nextProps.center,
+      zoom: nextProps.zoom
+    }
+    const shouldMapMove = nextProps.center && nextProps.zoom &&
+      !deepEqual(mapPosition, nextMapPosition)
+    if (shouldMapMove) {
+      this.map.jumpTo(nextMapPosition)
     }
     // If no map center or zoom passed, set map extent to extent of marker layer
     if (!nextProps.center && !this.props.center || !nextProps.zoom && !this.props.zoom) {
-      this.map.fitBounds(getBounds(nextProps.features))
+      this.map.fitBounds(getBounds(nextProps.features), {padding: 15})
     }
     if (nextProps.features !== this.props.features) {
       const features = lintFeatures(nextProps.features)
@@ -265,10 +281,8 @@ class MapView extends React.Component {
         this.map.on('style.load', () => this.featuresSource.setData(features))
       }
     }
-    if (nextProps.filter !== this.props.filter) {
-      console.log(this.map.loaded())
+    if (nextProps.filter !== this.props.filter && nextProps.filter) {
       if (this.map.style.loaded()) {
-        console.log('updating filter', nextProps.filter)
         this.map.setFilter('features', nextProps.filter)
       } else {
         this.map.on('style.load', () => this.map.setFilter('features', nextProps.filter))

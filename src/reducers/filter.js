@@ -1,4 +1,4 @@
-const filter = (state = ['in', 'happening', 'mining', 'fishing'], action) => {
+const filter = (state = null, action) => {
   switch (action.type) {
     case 'UPDATE_FILTER':
       return action.payload
