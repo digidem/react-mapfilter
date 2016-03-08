@@ -52,7 +52,8 @@
   "scripts": {
     "dependency-check": "dependency-check ./package.json && dependency-check ./package.json --unused --no-dev",
     "lint": "standard",
-    "start": "budo src/index.js:bundle.js --live",
+    "start": "budo src/index.js:bundle.js -p ${PORT:-9966}",
+    "dev": "budo src/index.js:bundle.js --live",
     "test": "babel-node test/*.test.js",
     "build": "NODE_ENV=production browserify src/index.js --full-paths -o bundle.js"
   },
