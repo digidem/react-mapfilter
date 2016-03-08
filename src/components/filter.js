@@ -43,7 +43,7 @@ class Filter extends React.Component {
   shouldComponentUpdate = shouldPureComponentUpdate
 
   handleFilterUpdate = (filter) => {
-    const filtersByField = Object.assign({}, this.state.filtersByField, getFiltersByField(filter))
+    const filtersByField = Object.assign({}, this._cached.filtersByField, getFiltersByField(filter))
     this.props.onUpdate(buildFilter(filtersByField))
   }
 
@@ -58,51 +58,44 @@ class Filter extends React.Component {
     //   can be filtered, and metadata about each field (`values`, `type`,
     //   `min/max`)
     let filtersByField
-    let invalidFilter = false
+    let isValidFilter = true
     try {
       filtersByField = getFiltersByField(this.props.filter)
     } catch (e) {
       console.error(e)
-      invalidFilter = true
+      isValidFilter = false
     }
-    this.setState({
-      invalidFilter,
+    this._cached = {
+      isValidFilter,
       filterFieldsToShow: mergeFilterFields(this.props.filter, this.props.filterFields),
       filtersByField,
       filterableFields: analyzeFields(this.props.features)
-    })
+    }
   }
 
   componentWillReceiveProps (nextProps) {
     const {filterFields, filter, features} = this.props
+
     if (filterFields !== nextProps.filterFields || filter !== nextProps.filter) {
-      this.setState({
-        filterFieldsToShow: mergeFilterFields(nextProps.filter, nextProps.filterFields)
-      })
+      this._cached.filterFieldsToShow = mergeFilterFields(nextProps.filter, nextProps.filterFields)
     }
     if (filter !== nextProps.filter) {
-      let filtersByField
-      let invalidFilter = false
+      let isValidFilter = true
       try {
-        filtersByField = getFiltersByField(nextProps.filter)
+        this._cached.filtersByField = getFiltersByField(nextProps.filter)
       } catch (e) {
         console.error(e)
-        invalidFilter = true
+        isValidFilter = false
       }
-      this.setState({
-        invalidFilter,
-        filtersByField
-      })
+      this._cached.isValidFilter = isValidFilter
     }
     if (features !== nextProps.features) {
-      this.setState({
-        filterableFields: analyzeFields(nextProps.features)
-      })
+      this._cached.filterableFields = analyzeFields(nextProps.features)
     }
   }
 
   render () {
-    const {invalidFilter, filterFieldsToShow, filterableFields, filtersByField} = this.state
+    const {isValidFilter, filterFieldsToShow, filterableFields, filtersByField} = this._cached
     const resetFilter = (
       <div>
         <p>Invalid Filter</p>
@@ -111,7 +104,7 @@ class Filter extends React.Component {
     )
     return (
       <div style={style.outer}><div style={style.inner}>
-        {invalidFilter ? resetFilter : filterFieldsToShow
+        {!isValidFilter ? resetFilter : filterFieldsToShow
           .filter((f) => filterableFields[f])
           .map((f) => {
             switch (filterableFields[f].type) {
