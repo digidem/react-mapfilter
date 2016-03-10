@@ -224,16 +224,14 @@ class MapView extends React.Component {
       anchor: 'bottom-left'
     })
 
-    map.on('moveend', this.handleMapMoveOrZoom)
-    // map.on('zoomend', this.handleMapMoveOrZoom)
-    map.on('click', this.handleMapClick)
-    map.on('mousemove', this.handleMouseMove)
-
     map.on('style.load', () => {
-      const featuresSource = this.featuresSource = new mapboxgl.GeoJSONSource({
+      map.on('moveend', this.handleMapMoveOrZoom)
+      map.on('click', this.handleMapClick)
+      map.on('mousemove', this.handleMouseMove)
+      this.featuresSource = new mapboxgl.GeoJSONSource({
         data: lintFeatures(features)
       })
-      map.addSource('features', featuresSource)
+      map.addSource('features', this.featuresSource)
       // TODO: Should choose style based on whether features are point, line or polygon
       map.addLayer(pointStyleLayer)
       map.addLayer({
