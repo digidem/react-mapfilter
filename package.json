@@ -23,6 +23,7 @@
     "react-router": "^2.0.0",
     "react-router-redux": "^4.0.0-rc.1",
     "react-tap-event-plugin": "^0.2.2",
+    "redbox-react": "^1.2.2",
     "redux": "^3.3.1",
     "round-to": "^1.1.0",
     "turf-extent": "^1.0.4"
@@ -37,6 +38,7 @@
     "babelify": "^7.2.0",
     "browserify": "^13.0.0",
     "browserify-css": "^0.9.0",
+    "browserify-hmr": "^0.3.1",
     "budo": "^8.0.4",
     "dependency-check": "^2.5.1",
     "eslint": "^2.1.0",
@@ -53,7 +55,7 @@
     "dependency-check": "dependency-check ./package.json && dependency-check ./package.json --unused --no-dev",
     "lint": "standard",
     "start": "budo src/index.js:bundle.js -p ${PORT:-9966}",
-    "dev": "budo src/index.js:bundle.js --live",
+    "dev": "budo src/dev.js:bundle.js -- -p browserify-hmr",
     "test": "babel-node test/*.test.js",
     "build": "NODE_ENV=production browserify src/index.js --full-paths -o bundle.js"
   },

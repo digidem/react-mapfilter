@@ -1,16 +1,4 @@
 {
   "presets": ["es2015", "react"],
-  "plugins": ["transform-class-properties", "transform-object-rest-spread"],
-  "env": {
-    "development": {
-      "plugins": [
-        ["react-transform", {
-          "transforms": [{
-            "transform": "livereactload/babel-transform",
-            "imports": ["react"]
-          }]
-        }]
-      ]
-    }
-  }
+  "plugins": ["transform-class-properties", "transform-object-rest-spread"]
 }
