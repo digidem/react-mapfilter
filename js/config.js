@@ -65,11 +65,8 @@ module.exports = Backbone.View.extend({
   // download template file from github
   getTemplate: function (file) {
     var self = this
-    if (this.githubFs) {
-      this.githubFs.readFile(file, {encoding: 'ascii'}, function (err, response) {
-        if (err) throw err
-        self.trigger('template', file, response)
-      })
-    }
+    xhr('http://localhost:3210/' + file, function (err, res, body) {
+      self.trigger('template', file, body)
+    })
   }
 })
