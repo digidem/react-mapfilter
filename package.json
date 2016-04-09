@@ -42,7 +42,8 @@
   "scripts": {
     "dev": "budo js/index.js:bundle.js --dir dist --live -- -t [ jstify --engine lodash ]",
     "open": "npm run build:dev && npm run dev | opnr | garnish",
-    "start": "npm run build:dev && npm run dev | garnish",
+    "watch": "watchify js/index.js -o dist/bundle.js -t [ jstify --engine lodash ] -dv",
+    "start": "electron app.js --disable-http-cache",
     "build:dev": "copyfiles index.html dist && npm run build:css && npm run build:img",
     "build:web": "npm run build:dev && npm run build:js && npm run build:config",
     "prebuild:web": "rimraf dist && mkdirp dist",
