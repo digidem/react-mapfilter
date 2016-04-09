@@ -22,8 +22,7 @@
     "postcss-import": "^5.2.2",
     "postcss-url": "^3.2.0",
     "rimraf": "^2.3.4",
-    "standard": "^4.0.1",
-    "xhr": "^2.2.0"
+    "standard": "^4.0.1"
   },
   "dependencies": {
     "auth0-lock": "^8.1.2",

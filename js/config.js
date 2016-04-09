@@ -1,7 +1,6 @@
 var Hubfs = require('hubfs.js')
 var Backbone = require('backbone')
 var _ = require('lodash')
-var xhr = require('xhr')
 
 // Config Loader View, parses repo id from hash string
 // loads file from github
@@ -63,11 +62,9 @@ module.exports = Backbone.View.extend({
         if (err) throw err
         // loaded simpleodk.json file from repo
       */
-      xhr('http://localhost:4000/simpleodk.json', function (err, res, body) {
-        var data = JSON.parse(body)
+        var data = require('../config.json')
         self.options = _.defaults(data, self.options)
         self.trigger('load', self.options)
-      })
     //}
   },
 
