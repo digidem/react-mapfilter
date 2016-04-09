@@ -10,6 +10,7 @@
 
 // Require Underscore, if we're on the server, and it's not already present.
 var _ = require('lodash')
+var xhr = require('xhr')
 
 var Octokat = require('octokat')
 
@@ -88,12 +89,9 @@ function syncWorker (data, callback) {
   }
 
   function findAll () {
-    var path = _.result(collection, 'url').match(githubPathRe)[1]
-
-    repo.contents(path).read(function (err, data) {
-      if (err) return callback(err)
-      var models = JSON.parse(data).features
-      callback(null, models)
+    xhr('http://localhost:3210/data.geojson', function (err, res, body) {
+      var data = JSON.parse(body)
+      callback(null, data.features)
     })
   }
 

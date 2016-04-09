@@ -3,7 +3,7 @@
 var _ = require('lodash')
 window.u = require('./template_utils.js') // TODO, move these functions w/in tpl scope
 
-var Auth = require('./auth.js')
+//var Auth = require('./auth.js')
 var Collection = require('./collection.js')
 var MonitoringPoint = require('./monitoring_point.js')
 var AppView = require('./appview.js')
@@ -24,6 +24,7 @@ module.exports = function (options) {
 
       // reconstruct full url for datafile from repo local path
       // so collection backbone-sync can parse it
+      /*
       var dataUrl = [
         'https://github.com',
         config.github.owner,
@@ -32,6 +33,8 @@ module.exports = function (options) {
         config.github.branch,
         loaded.data
       ].join('/')
+      */
+      var dataUrl = 'http://localhost:3210/data.geojson'
       collection.resetToken(token, dataUrl)
       collection.options = loaded.options
 

@@ -31,8 +31,9 @@ module.exports = Backbone.Collection.extend({
       return d.cid
     })
 
-    if (options.githubToken) this.sync = sync({ githubToken: options.githubToken })
-    else this.sync = Backbone.sync
+    //if (options.githubToken) this.sync = sync({ githubToken: options.githubToken })
+    //else this.sync = Backbone.sync
+    this.sync = sync()
 
     // This will group models by cid, which is unique, which means that
     // each group will have a count of 0 or 1 depending on whether
@@ -48,7 +49,7 @@ module.exports = Backbone.Collection.extend({
 
   resetToken: function (token, url) {
     if (url) this.url = url
-    this.sync = sync({ githubToken: token })
+    //this.sync = sync({ githubToken: token })
   },
 
   // A wrapper for `crossfilter().dimension` which stores a reference
