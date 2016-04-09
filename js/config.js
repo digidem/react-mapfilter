@@ -1,6 +1,7 @@
 var Hubfs = require('hubfs.js')
 var Backbone = require('backbone')
 var _ = require('lodash')
+var xhr = require('xhr')
 
 // Config Loader View, parses repo id from hash string
 // loads file from github
@@ -54,19 +55,20 @@ module.exports = Backbone.View.extend({
   // load config from github
   load: function (token) {
     var self = this
-    if (this.github) {
-      if (token) this.github.auth = {token: token}
+    //if (this.github) {
+      //if (token) this.github.auth = {token: token}
       /*
       this.githubFs = Hubfs(this.github)
       this.githubFs.readFile(this.github.file, {encoding: 'ascii'}, function (err, response) {
         if (err) throw err
         // loaded simpleodk.json file from repo
-        var data = JSON.parse(response)
+      */
+      xhr('http://localhost:4000/simpleodk.json', function (err, res, body) {
+        var data = JSON.parse(body)
         self.options = _.defaults(data, self.options)
         self.trigger('load', self.options)
       })
-      */
-    }
+    //}
   },
 
   // download template file from github
