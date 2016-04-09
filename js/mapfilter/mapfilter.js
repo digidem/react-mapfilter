@@ -15,7 +15,8 @@ module.exports = function (options) {
     comparator: 'start'
   })
 
-  var auth = new Auth(config.options.auth, function (token) {
+  //var auth = new Auth(config.options.auth, function (token) {
+    var token = 'ABCDEF'
     config.load(token)
 
     config.listenTo(config, 'load', function (loaded) {
@@ -59,11 +60,11 @@ module.exports = function (options) {
         appView.collection.template = _.template(body)
       }
     })
-  })
+  //})
 
   var appView = new AppView({
     el: options.el,
-    auth: auth,
+    //auth: auth,
     config: config,
 
     // data filter and display

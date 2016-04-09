@@ -56,6 +56,7 @@ module.exports = Backbone.View.extend({
     var self = this
     if (this.github) {
       if (token) this.github.auth = {token: token}
+      /*
       this.githubFs = Hubfs(this.github)
       this.githubFs.readFile(this.github.file, {encoding: 'ascii'}, function (err, response) {
         if (err) throw err
@@ -64,6 +65,7 @@ module.exports = Backbone.View.extend({
         self.options = _.defaults(data, self.options)
         self.trigger('load', self.options)
       })
+      */
     }
   },
 
