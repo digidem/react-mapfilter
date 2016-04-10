@@ -54,7 +54,8 @@ module.exports = Backbone.View.extend({
     this.filterPane = new FilterPane({
       id: 'filter-pane',
       collection: this.collection,
-      filters: options.filters
+      filters: options.filters,
+      config: options.config
     })
 
     this.infoPane = new InfoPane({

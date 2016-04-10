@@ -20,20 +20,6 @@ module.exports = function (options) {
     config.load(token)
 
     config.listenTo(config, 'load', function (loaded) {
-      // simpleodk config loaded from github
-
-      // reconstruct full url for datafile from repo local path
-      // so collection backbone-sync can parse it
-      /*
-      var dataUrl = [
-        'https://github.com',
-        config.github.owner,
-        config.github.repo,
-        config.github.mode,
-        config.github.branch,
-        loaded.data
-      ].join('/')
-      */
       var dataUrl = 'http://localhost:3210/data.geojson'
       collection.resetToken(token, dataUrl)
       collection.options = loaded.options

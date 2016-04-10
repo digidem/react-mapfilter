@@ -2,6 +2,7 @@ var Backbone = require('backbone')
 var xhr = require('xhr')
 var _ = require('lodash')
 var sync = require('./sync.js')
+var collect = require('collect-stream')
 
 // Config Loader View, parses repo id from hash string
 // loads file from github
@@ -52,15 +53,19 @@ module.exports = Backbone.View.extend({
     }
   },
 
-  load: function (token) {
+  load: function () {
     var self = this
-    sync.meta.get('/odk.json', function (err, values) {
-      if (err) return self.trigger('error', err)
-      self.trigger('odk.json', values)
+    collect(sync.meta.createReadStream({
+      gt: 'filter/',
+      lt: 'filter/~',
+    }), onrows)
 
+    function onrows (err, rows) {
+      if (err) return self.trigger('error', err)
+      self.trigger('filters', rows)
       //self.options = _.defaults(data, self.options)
       //self.trigger('load', self.options)
-    })
+    }
   },
 
   // download template file from github

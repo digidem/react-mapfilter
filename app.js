@@ -6,6 +6,7 @@ var electron = require('electron')
 var app = electron.app  // Module to control application life.
 var Menu = electron.Menu
 var BrowserWindow = electron.BrowserWindow  // Module to create native browser window.
+var ipc = electron.ipcMain
 
 var APP_NAME = app.getName()
 
@@ -17,6 +18,19 @@ var userDataPath = app.getPath('userData')
 // tileServer.listen(argv.tileport, '127.0.0.1', function () {
 //   console.log('tile server listening on :', server.address().port)
 // })
+
+ipc.on('import-filter', function () {
+  electron.dialog.showOpenDialog(win, {
+    title: 'select a filter file',
+    properties: [ 'openFile' ],
+    filters: [],
+  }, onopen)
+  function onopen (filenames) {
+    filenames.forEach(function (file) {
+      win.webContents.send('select-filter', file)
+    })
+  }
+})
 
 var http = require('http')
 var fs = require('fs')

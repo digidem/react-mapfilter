@@ -26,11 +26,13 @@ module.exports = require('backbone').View.extend({
     'click .print-preview': 'showPrintPreview',
     'click .download-shp': 'downloadSHP',
     'click .download-csv': 'downloadCSV',
-    'click .auth-logout': 'authLogout'
+    'click .auth-logout': 'authLogout',
+    'click .import-filter': 'importFilter'
   },
 
   initialize: function (options) {
     this.filters = options.filters || []
+    this.config = options.config
 
     // Initialize a graph pane to hold charts for continuous filters
     this.graphPane = new GraphPane({
@@ -65,10 +67,30 @@ module.exports = require('backbone').View.extend({
           '<li role="separator" class="divider"></li>' +
           '<li><a href="#" class="auth-logout">' + t('ui.filter_pane.log_out') + '</a></li>' +
         '</ul>' +
-      '</div>'
+      '</div>' + `
+      <div class="sync">
+        <div class="filters"></div>
+        <div>
+          <button class="import-filter">import filter</button>
+        </div>
+      </div>`
     )
-
+    var self = this
+    this.config.listenTo(this.config, 'filters', function (filters) {
+      var el = self.$filters.find('.filters')
+      if (filters.length === 0) return el.html('')
+      el.html(`<select>
+        ${filters.map(function (filter) {
+          return `<option>${filter.key.split('/')[1]}</option>`
+        })}
+      </select>`)
+    })
     return this
+
+  },
+  importFilter: function (ev) {
+    ev.preventDefault()
+    this.config.trigger('import-filter')
   },
 
   // Add a filter on a field to the filter pane.
