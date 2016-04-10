@@ -1,6 +1,7 @@
 var Backbone = require('backbone')
 var xhr = require('xhr')
 var _ = require('lodash')
+var sync = require('./sync.js')
 
 // Config Loader View, parses repo id from hash string
 // loads file from github
@@ -51,14 +52,14 @@ module.exports = Backbone.View.extend({
     }
   },
 
-  // load config from github
   load: function (token) {
     var self = this
-    var configUrl = 'http://localhost:3210/odk.json'
-    xhr(configUrl, function (err, res, body) {
-      var data = JSON.parse(body)
-      self.options = _.defaults(data, self.options)
-      self.trigger('load', self.options)
+    sync.meta.get('/odk.json', function (err, values) {
+      if (err) return self.trigger('error', err)
+      self.trigger('odk.json', values)
+
+      //self.options = _.defaults(data, self.options)
+      //self.trigger('load', self.options)
     })
   },
 

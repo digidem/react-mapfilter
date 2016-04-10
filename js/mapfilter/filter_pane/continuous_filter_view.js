@@ -8,7 +8,7 @@
 'use strict'
 
 var d3 = window.d3
-var tpl = require('../../../templates/continuous-filter.tpl')
+var tpl = require('../template.js')('continuous-filter.tpl')
 
 module.exports = require('backbone').View.extend({
   events: {

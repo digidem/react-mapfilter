@@ -10,7 +10,7 @@ var $ = window.jQuery = require('jquery')
 
 // var ImageCache = require('./image_cache.js')
 // var ImageRotator = require('./image_rotate.js')
-var tpl = require('../../../templates/info-pane.tpl')
+var tpl = require('../template.js')('info-pane.tpl')
 
 module.exports = require('backbone').View.extend({
   events: {

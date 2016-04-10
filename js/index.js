@@ -28,6 +28,15 @@ if (hash === '') {
          '&map=10/2.6362/-59.4801'
 }
 
+var sync = require('./sync.js')
+var dragDrop = require('drag-drop')
+dragDrop(window, function (files) {
+  sync.importFiles(files, function (err, docs) {
+    if (err) return error(err)
+    console.log('imported ' + docs.length + ' reports')
+  })
+})
+
 window.app = mapFilter({
   // parse hash to get config details
   config: config.parse(hash, defaults),

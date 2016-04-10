@@ -37,7 +37,7 @@ var server = http.createServer(function (req, res) {
     fs.createReadStream(files.odk).pipe(res)
   } else if (req.url === '/data.geojson') {
     res.setHeader('content-type', 'text/json')
-    fs.createReadStream(files.geo).pipe(res)
+    sync.geojson().pipe(res)
   } else if (files.templates.hasOwnProperty(req.url)) {
     res.setHeader('content-type', 'text/plain')
     fs.createReadStream(files.templates[req.url]).pipe(res)
@@ -58,7 +58,7 @@ var win = null
 // var menu = null
 
 function ready () {
-  var INDEX = 'file://' + path.resolve(__dirname, './index.html')
+  var INDEX = 'file://' + path.resolve(__dirname, './js/index.html')
   win = new BrowserWindow({title: APP_NAME})
   win.maximize()
   win.loadURL(INDEX)

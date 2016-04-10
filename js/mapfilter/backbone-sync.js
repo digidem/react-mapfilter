@@ -10,7 +10,7 @@
 
 // Require Underscore, if we're on the server, and it's not already present.
 var _ = require('lodash')
-var xhr = require('xhr')
+var sync = require('../sync.js')
 
 var Octokat = require('octokat')
 
@@ -89,8 +89,10 @@ function syncWorker (data, callback) {
   }
 
   function findAll () {
-    xhr('http://localhost:3210/data.geojson', function (err, res, body) {
-      var data = JSON.parse(body)
+    sync.geojson(function (err, src) {
+      if (err) return callback(err)
+      try { var doc = JSON.parse(src) }
+      catch (err) { return callback(err) }
       callback(null, data.features)
     })
   }

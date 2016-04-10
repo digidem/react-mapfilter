@@ -9,8 +9,8 @@
 
 var $ = require('jquery')
 var _ = require('lodash')
-var tpl = require('../../../templates/discrete-filter.tpl')
-var checkboxTpl = require('../../../templates/checkbox.tpl')
+var tpl = require('../template.js')('discrete-filter.tpl')
+var checkboxTpl = require('../template.js')('checkbox.tpl')
 
 module.exports = require('backbone').View.extend({
   events: {

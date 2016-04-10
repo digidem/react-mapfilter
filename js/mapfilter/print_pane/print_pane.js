@@ -3,7 +3,7 @@
 var $ = require('jquery')
 var MapPane = require('../map_pane/map_pane.js')
 var InfoPane = require('../info_pane/info_pane.js')
-var tpl = require('../../../templates/print-pane.tpl')
+var tpl = require('../template.js')('print-pane.tpl')
 
 module.exports = require('backbone').View.extend({
   events: {
