@@ -26,6 +26,7 @@ ipc.on('import-filter', function () {
     filters: [],
   }, onopen)
   function onopen (filenames) {
+    if (!filenames) return
     filenames.forEach(function (file) {
       win.webContents.send('select-filter', file)
     })

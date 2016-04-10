@@ -27,7 +27,8 @@ module.exports = require('backbone').View.extend({
     'click .download-shp': 'downloadSHP',
     'click .download-csv': 'downloadCSV',
     'click .auth-logout': 'authLogout',
-    'click .import-filter': 'importFilter'
+    'click .import-filter': 'importFilter',
+    'change select.filters': 'selectFilter'
   },
 
   initialize: function (options) {
@@ -79,11 +80,16 @@ module.exports = require('backbone').View.extend({
     this.config.listenTo(this.config, 'filters', function (filters) {
       var el = self.$filters.find('.filters')
       if (filters.length === 0) return el.html('')
-      el.html(`<select>
+      el.html(`<select class="filters">
         ${filters.map(function (filter) {
-          return `<option>${filter.key.split('/')[1]}</option>`
+          return Object.keys(filter.values).map(function (key) {
+            return `<option value="${key}">${filter.key.split('/')[1]}</option>`
+          })
         })}
       </select>`)
+      self.selectFilter({
+        target: self.$filters.find('select.filters')
+      })
     })
     return this
 
@@ -91,6 +97,10 @@ module.exports = require('backbone').View.extend({
   importFilter: function (ev) {
     ev.preventDefault()
     this.config.trigger('import-filter')
+  },
+
+  selectFilter: function (ev) {
+    config.selectFilter(ev.target.value)
   },
 
   // Add a filter on a field to the filter pane.

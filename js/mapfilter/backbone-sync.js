@@ -91,7 +91,7 @@ function syncWorker (data, callback) {
   function findAll () {
     sync.geojson(function (err, src) {
       if (err) return callback(err)
-      try { var doc = JSON.parse(src) }
+      try { var data = JSON.parse(src) }
       catch (err) { return callback(err) }
       callback(null, data.features)
     })

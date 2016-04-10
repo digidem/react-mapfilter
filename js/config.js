@@ -68,6 +68,15 @@ module.exports = Backbone.View.extend({
     }
   },
 
+  selectFilter: function (key) {
+    var self = this
+    sync.meta.get(key, function (err, data) {
+      if (err) return self.trigger('error', err)
+      self.options = _.defaults(data, self.options)
+      self.trigger('load', self.options)
+    })
+  },
+
   // download template file from github
   getTemplate: function (file) {
     var self = this
