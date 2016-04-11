@@ -26,8 +26,6 @@ module.exports = require('backbone').View.extend({
     'click .print-preview': 'showPrintPreview',
     'click .download-shp': 'downloadSHP',
     'click .download-csv': 'downloadCSV',
-    'click .auth-logout': 'authLogout',
-    'click .import-filter': 'importFilter',
     'change select.filters': 'selectFilter',
     'click button.sync': 'sync'
   },
@@ -59,27 +57,26 @@ module.exports = require('backbone').View.extend({
 
     this.$filters.append(
       '<div class="msg"></div>' +
-      '<div class="btn-group">' +
-        '<button type="button" class="btn btn-default dropdown-toggle"' +
-           'data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
-          t('ui.filter_pane.actions') + '<span class="caret"></span>' +
+      '<div class="actions">' +
+        '<button type="button" class="btn btn-default btn-primary print-preview">' +
+        t('ui.filter_pane.print_report') +
+        '</button> ' +
+        '<div class="btn-group">' +
+          '<button type="button" class="btn btn-default dropdown-toggle"' +
+             'data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
+            t('ui.filter_pane.export') + ' <span class="caret"></span>' +
+          '</button>' +
+          '<ul class="dropdown-menu">' +
+            '<li><a href="#" class="download-shp">' + t('ui.filter_pane.download_shp') + '</a></li>' +
+            '<li><a href="#" class="download-csv">' + t('ui.filter_pane.download_csv') + '</a></li>' +
+          '</ul>' +
+        '</div> ' +
+        '<button type="button" class="btn btn-default sync">' +
+        'Sync' +
         '</button>' +
-        '<ul class="dropdown-menu">' +
-          '<li><a href="#" class="print-preview">' + t('ui.filter_pane.print_report') + '</a></li>' +
-          '<li><a href="#" class="download-shp">' + t('ui.filter_pane.download_shp') + '</a></li>' +
-          '<li><a href="#" class="download-csv">' + t('ui.filter_pane.download_csv') + '</a></li>' +
-          '<li role="separator" class="divider"></li>' +
-          '<li><a href="#" class="auth-logout">' + t('ui.filter_pane.log_out') + '</a></li>' +
-        '</ul>' +
       '</div>' + `
       <div class="sync">
         <div class="filters"></div>
-        <div>
-          <button class="import-filter">import filter</button>
-        </div>
-        <div>
-          <button class="sync">sync</button>
-        </div>
       </div>`
     )
     var self = this
