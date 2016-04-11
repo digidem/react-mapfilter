@@ -35,6 +35,7 @@ module.exports = require('backbone').View.extend({
   initialize: function (options) {
     this.filters = options.filters || []
     this.config = options.config
+    this.filterdocs = []
 
     // Initialize a graph pane to hold charts for continuous filters
     this.graphPane = new GraphPane({
@@ -83,6 +84,15 @@ module.exports = require('backbone').View.extend({
     )
     var self = this
     this.config.listenTo(this.config, 'filters', function (filters) {
+      self.filterdocs = filters
+      addFilters(filters)
+      if (filters.length) {
+        self.selectFilter({
+          target: self.$filters.find('select.filters')[0]
+        })
+      }
+    })
+    function addFilters (filters) {
       var el = self.$filters.find('.filters')
       if (filters.length === 0) return el.html('')
       el.html(`<select class="filters">
@@ -93,10 +103,9 @@ module.exports = require('backbone').View.extend({
           })
         })}
       </select>`)
-      self.selectFilter({
-        target: self.$filters.find('select.filters')
-      })
-    })
+    }
+    addFilters(self.filterdocs)
+
     var msgEl = self.$filters.find('.msg')
     this.config.listenTo(this.config, 'replication-start', function () {
       msgEl.text('replication started')
@@ -121,7 +130,7 @@ module.exports = require('backbone').View.extend({
   },
 
   selectFilter: function (ev) {
-    config.selectFilter(ev.target[0].value)
+    config.selectFilter(ev.target.value)
   },
 
   // Add a filter on a field to the filter pane.
