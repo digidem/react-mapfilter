@@ -63,7 +63,8 @@
     "predeploy": "npm run build:web && copyfiles CNAME dist",
     "build:chrome": "copyup chrome/* dist && crx pack dist -o dist/mapfilter.crx",
     "test": "standard",
-    "patch": "npm version patch && git push --follow-tags"
+    "patch": "npm version patch && git push --follow-tags",
+    "rebuild-leveldb": "cd node_modules/leveldown && set HOME=~/.electron-gyp && node-gyp rebuild --target=0.36.9 --arch=x64 --dist-url=https://atom.io/download/atom-shell"
   },
   "standard": {
     "ignore": [
