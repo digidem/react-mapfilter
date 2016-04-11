@@ -50,11 +50,11 @@ ipc.on('select-sync-dir', function () {
 var http = require('http')
 var fs = require('fs')
 var files = {
-  odk: '/home/substack/projects/test-data/simpleodk.json',
-  geo: '/home/substack/projects/test-data/submissions/incidente.geojson',
+  // odk: '/home/substack/projects/test-data/simpleodk.json',
+  // geo: '/home/substack/projects/test-data/submissions/incidente.geojson',
   templates: {}
 }
-var tdir = '/home/substack/projects/mapfilter/templates'
+var tdir = __dirname + '/templates'
 fs.readdirSync(tdir).forEach(function (file) {
   files.templates['/templates/'+file] = path.join(tdir,file)
 })
