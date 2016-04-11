@@ -21,7 +21,8 @@ module.exports = require('backbone').View.extend({
     options = options || {}
 
     if (options.id) this.$el.attr('id', options.id)
-    this.template = this.collection.template
+    //this.template = this.collection.template
+    this.template = tpl
 
     // this.imageCache = new ImageCache()
   },

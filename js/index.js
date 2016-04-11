@@ -55,6 +55,7 @@ dragDrop(window, function (files) {
   sync.importFiles(files, function (err, docs) {
     if (err) return error(err)
     console.log('imported ' + docs.length + ' reports')
+    if (docs.length > 0) location.reload()
   })
 })
 
