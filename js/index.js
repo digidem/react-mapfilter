@@ -24,6 +24,29 @@ var defaults = require('../defaults.json')
 var sync = require('./sync.js').sync
 var replicate = require('./sync.js').replicate
 
+var http = require('http')
+var server = http.createServer(function (req, res) {
+  if (RegExp('^/image/').test(req.url)) {
+    var key = req.url.replace(RegExp('^/image/'), '')
+    sync.read(key, function (err, streams) {
+      if (err) {
+        res.statusCode = 500
+        res.end(err + '\n')
+      } else if (streams.length === 0) {
+        res.statusCode = 404
+        res.end('image not found\n')
+      } else {
+        res.setHeader('content-type', 'image/jpeg')
+        streams[0].pipe(res)
+      }
+    })
+  } else {
+    res.statusCode = 404
+    res.end('not found\n')
+  }
+})
+server.listen(3211)
+
 var ipc = require('electron').ipcRenderer
 config.listenTo(config, 'import-filter', function () {
   ipc.send('select-import-filter')
