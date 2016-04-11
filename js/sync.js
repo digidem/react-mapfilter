@@ -5,10 +5,10 @@ var hyperlog = require('hyperlog')
 var mkdirp = require('mkdirp')
 var onend = require('end-of-stream')
 var once = require('once')
-
+var app = require('electron').remote.app
 var odksync = require('odk-sync')
 
-var configdir = path.join(require('xdg-basedir').config, 'mapfilter')
+var configdir = path.join(app.getPath('userData'), 'monitoring_data')
 var sync = fromdir(configdir)
 exports.sync = sync
 
