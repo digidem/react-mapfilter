@@ -70,7 +70,7 @@ dragDrop(window, function (files) {
     if (err) return error(err)
     config.trigger('imported', docs)
     console.log('imported ' + docs.length + ' reports')
-    if (docs.length > 0) location.reload()
+    //if (docs.length > 0) location.reload()
   })
 })
 

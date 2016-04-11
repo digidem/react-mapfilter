@@ -41,14 +41,21 @@ module.exports = function (defaults) {
 
     var octo = new Octokat(auth)
 
-    syncWorker({
-      method: method,
-      model: model,
-      repo: octo.repos(owner, repo),
-      options: options
-    }, function (err, data) {
-      if (err) return options.error(err)
-      return options.success(data)
+    function work () {
+      syncWorker({
+        method: method,
+        model: model,
+        repo: octo.repos(owner, repo),
+        options: options
+      }, function (err, data) {
+        if (err) return options.error(err)
+        return options.success(data)
+      })
+    }
+    work()
+    var config = options.config
+    config.listenTo(config, 'imported', function (docs) {
+      if (docs.length > 0) work()
     })
   }
 }

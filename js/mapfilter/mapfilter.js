@@ -12,7 +12,8 @@ module.exports = function (options) {
   var config = options.config
   var collection = new Collection(void 0, {
     model: MonitoringPoint,
-    comparator: 'start'
+    comparator: 'start',
+    config: options.config
   })
 
   //var auth = new Auth(config.options.auth, function (token) {
