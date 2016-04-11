@@ -8,6 +8,8 @@ var Menu = electron.Menu
 var BrowserWindow = electron.BrowserWindow  // Module to create native browser window.
 var ipc = electron.ipcMain
 
+var menuTemplate = require('./menu.js')
+
 var APP_NAME = app.getName()
 
 // Path to `userData`, operating system specific, see
@@ -89,7 +91,7 @@ app.on('window-all-closed', function () {
 })
 
 var win = null
-// var menu = null
+var menu = null
 
 function ready () {
   var INDEX = 'file://' + path.resolve(__dirname, './js/index.html')
@@ -99,8 +101,8 @@ function ready () {
 
   // require('./lib/user-config')
 
-  // menu = Menu.buildFromTemplate(menuTemplate(app))
-  // Menu.setApplicationMenu(menu)
+  menu = Menu.buildFromTemplate(menuTemplate(app))
+  Menu.setApplicationMenu(menu)
 
   // Emitted when the window is closed.
   win.on('closed', function () {
