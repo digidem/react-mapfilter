@@ -100,7 +100,7 @@ module.exports = require('backbone').View.extend({
     this.config.listenTo(this.config, 'replication-start', function () {
       msgEl.text('replication started')
     })
-    this.config.listenTo(this.config, 'replication-start', function () {
+    this.config.listenTo(this.config, 'replication-end', function () {
       msgEl.text('replication complete')
     })
     this.config.listenTo(this.config, 'imported', function (docs) {

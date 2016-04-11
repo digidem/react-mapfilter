@@ -83,7 +83,9 @@ module.exports = Backbone.Collection.extend({
     var bounds = [[], []]
 
     this.groupByCid.all().forEach(function (d) {
-      var coords = this.get(d.key).coordinates()
+      var feature = this.get(d.key)
+      if (!feature) return
+      var coords = feature.coordinates()
 
       if (d.value === 0 || isNaN(coords[0]) || isNaN(coords[1])) return
 

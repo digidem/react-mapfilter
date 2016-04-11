@@ -57,6 +57,9 @@ module.exports = function (defaults) {
     config.listenTo(config, 'imported', function (docs) {
       if (docs.length > 0) work()
     })
+    config.listenTo(config, 'replication-end', function () {
+      work() // reload data after sync
+    })
   }
 }
 

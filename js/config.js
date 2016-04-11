@@ -10,6 +10,13 @@ var collect = require('collect-stream')
 
 module.exports = Backbone.View.extend({
   // parse window.location.hash for named params
+  initialize: function () {
+    var self = this
+    this.listenTo(this, 'replication-end', function () {
+      self.load()
+    })
+  },
+
   parse: function (hash, options) {
     this.options = options || {}
 
@@ -57,7 +64,7 @@ module.exports = Backbone.View.extend({
     var self = this
     collect(sync.meta.createReadStream({
       gt: 'filter/',
-      lt: 'filter/~',
+      lt: 'filter/~'
     }), onrows)
 
     function onrows (err, rows) {
