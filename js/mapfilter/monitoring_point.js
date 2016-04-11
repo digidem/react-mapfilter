@@ -10,6 +10,7 @@
 var _ = require('lodash')
 
 var RESIZER_URL = 'https://resizer.digital-democracy.org/'
+var IMAGE_SERVER = 'http://localhost:3211/image/'
 
 // From http://colorbrewer2.org/?type=qualitative&scheme=Paired&n=12
 var colors = ['#a6cee3', '#1f78b4', '#b2df8a', '#33a02c', '#fb9a99', '#e31a1c', '#fdbf6f', '#ff7f00', '#cab2d6', '#6a3d9a', '#b15928']
@@ -65,19 +66,65 @@ module.exports = require('backbone').Model.extend({
     return lat + ' ' + lon
   },
 
+    getWhat: function () {
+    return this._getOther('happening', 'happening_other')
+  },
+
+  getImpacts: function () {
+    return this._getOther('impacts', 'impacts_other')
+  },
+
+  // Creates a formatted, readable string for the location
+  getLocation: function () {
+    var location = this.get('myarea')
+    var titleOrExtension = ''
+
+    if (this.get('landtitle') === 'yes') {
+      titleOrExtension = 'land title'
+    } else if (this.get('customary') === 'yes') {
+      titleOrExtension = 'extension area'
+    }
+    location = (location && location !== 'other') ? '<em>' + t(location) + '</em> in ' : ''
+    location += '<em>' + t(this.get('myarea_village')) + '</em> ' + titleOrExtension
+    return location
+  },
+
+  getPlacename: function () {
+    var placename = this.get('placename')
+    if (placename === 'not_recorded') placename = this.get('myarea')
+    return this._toSentenceCase(placename)
+  },
+
+  getWho: function () {
+    return this._getOther('people', 'people_other')
+  },
+
+  getWhen: function () {
+    return this.get('today')
+  },
+
   getImage: function (x, y) {
     x = x || 800
     y = y || 800
     var imageField = this.collection.options && this.collection.options.image
-    var picture = this.get(imageField) || this.get('picture') || this.get('foto') || this.get('photo')
-    var url = picture && picture.url
-    return url && RESIZER_URL + x + '/' + y + '/' + url
+    var picture = this.attributes.properties[imageField] || this.attributes.properties.picture || this.attributes.properties.photo
+    var url
+    if (typeof picture === 'string') {
+      url = IMAGE_SERVER + this.getId() + '/' + picture
+    } else if (picture && picture.originalFilename) {
+      url = IMAGE_SERVER + this.getId() + '/' + picture.originalFilename
+    }
+    return url
   },
 
   getDate: function () {
     var dateField = this.collection.options ? this.collection.options.timestamp : 'today'
     var d = this.get(dateField).split('-')
     return new Date(d[0], d[1] - 1, d[2])
+  },
+
+  getId: function () {
+    return this.get('meta').instanceId.replace(/^uuid:/, '')
   },
 
   // Takes a field that is a space-separated list of values, which may include "other"
@@ -96,5 +143,13 @@ module.exports = require('backbone').Model.extend({
     }, this)
 
     return output.join(', ')
+  },
+
+  // Converts a string to sentence case
+  _toSentenceCase: function (s) {
+    s = s || ''
+    // Matches the first letter in the string and the first letter that follows a
+    // period (and 1 or more spaces) and transforms that letter to uppercase.
+    return s.replace(/(^[a-z])|(\.\s*[a-z])/g, function (s) { return s.toUpperCase() })
   }
 })
