@@ -88,7 +88,8 @@ module.exports = require('backbone').View.extend({
       el.html(`<select class="filters">
         ${filters.map(function (filter) {
           return Object.keys(filter.values).map(function (key) {
-            return `<option value="${key}">${filter.key.split('/')[1]}</option>`
+            var ckey = filter.key + '#' + key
+            return `<option value="${ckey}">${filter.key.split('/')[1]}</option>`
           })
         })}
       </select>`)
@@ -120,7 +121,7 @@ module.exports = require('backbone').View.extend({
   },
 
   selectFilter: function (ev) {
-    config.selectFilter(ev.target.value)
+    config.selectFilter(ev.target[0].value)
   },
 
   // Add a filter on a field to the filter pane.

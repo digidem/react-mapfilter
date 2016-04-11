@@ -77,8 +77,11 @@ module.exports = Backbone.View.extend({
 
   selectFilter: function (key) {
     var self = this
-    sync.meta.get(key, function (err, data) {
+    var s = key.split('#')
+    var hkey = s[0], dkey = s[1]
+    sync.meta.get(hkey, function (err, values) {
       if (err) return self.trigger('error', err)
+      var data = values[dkey]
       self.options = _.defaults(data, self.options)
       self.trigger('load', self.options)
     })
