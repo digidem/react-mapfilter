@@ -59,6 +59,11 @@ fs.readdirSync(tdir).forEach(function (file) {
   files.templates['/templates/'+file] = path.join(tdir,file)
 })
 
+var tileServer = require('./tile_server.js')()
+tileServer.listen(3001, '127.0.0.1', function () {
+  console.log('tile server listening on :', tileServer.address().port)
+})
+
 var server = http.createServer(function (req, res) {
   console.log(req.method, req.url)
   if (req.url === '/odk.json') {

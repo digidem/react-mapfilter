@@ -13,8 +13,12 @@
 var MarkerView = require('./marker_view.js')
 var _ = require('lodash')
 
+var WAPICHAN_TILES = 'http://localhost:3001/wapichan/{z}/{x}/{y}.png'
+var BING_TILES = 'http://localhost:3001/bing/{z}/{x}/{y}.jpg'
+
 module.exports = require('backbone').View.extend({
   initialize: function (options) {
+    console.log(options)
     // Initialize the [Leaflet](http://leafletjs.com/) map attaching to this view's element
     this.map = L.map(this.el, {
       center: options.center,
@@ -51,26 +55,11 @@ module.exports = require('backbone').View.extend({
       this.loadMetadata()
     }
 
-    // Create a layer with Bing satellite imagery
-    this.bingLayer = L.bingLayer(options.bingKey)
+    var baseMaps = {}
+    baseMaps['Satelite'] = L.tileLayer(BING_TILES)
+    baseMaps['Savannah, Bush, Hills'] = L.tileLayer(WAPICHAN_TILES).addTo(this.map)
 
-    if (options.tileUrl) {
-      // Add the background tile layer to the map, select by default
-      this.customLayer = L.tileLayer(options.tileUrl).addTo(this.map)
-
-      // this.cloudMadeLayer = L.tileLayer.provider('CloudMade', {
-      //     apiKey: options.cloudMadeKey,
-      //     styleID: '123'
-      // })
-
-      var baseMaps = {}
-      baseMaps[window.t('ui.map_pane.layers.bing')] = this.bingLayer
-      baseMaps[window.t('ui.map_pane.layers.custom')] = this.customLayer
-
-      L.control.layers(baseMaps).addTo(this.map)
-    } else {
-      this.bingLayer.addTo(this.map)
-    }
+    L.control.layers(baseMaps).addTo(this.map)
 
     // Object to hold a reference to any markers added to the map
     this.markersById = {}
