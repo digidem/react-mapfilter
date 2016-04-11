@@ -11,7 +11,6 @@
 'use strict'
 
 var Backbone = require('backbone')
-var Cache = require('cache-blob-store')
 
 var MapPane = require('./map_pane/map_pane.js')
 var PrintPane = require('./print_pane/print_pane.js')
@@ -93,9 +92,6 @@ module.exports = Backbone.View.extend({
     // When the Leaflet Map is first initialized, it is not attached to the DOM
     // and does not have a width. We need to reset the size here now it is attached.
     this.mapPane.map.invalidateSize()
-
-    // initialize image cache
-    this.imageCache = new Cache()
   },
 
   openGraphPane: function () {
