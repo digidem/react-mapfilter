@@ -1,7 +1,7 @@
 var Backbone = require('backbone')
 var xhr = require('xhr')
 var _ = require('lodash')
-var sync = require('./sync.js')
+var sync = require('./sync.js').sync
 var collect = require('collect-stream')
 
 // Config Loader View, parses repo id from hash string

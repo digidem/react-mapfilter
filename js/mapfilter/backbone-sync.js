@@ -10,7 +10,7 @@
 
 // Require Underscore, if we're on the server, and it's not already present.
 var _ = require('lodash')
-var sync = require('../sync.js')
+var sync = require('../sync.js').sync
 
 var Octokat = require('octokat')
 

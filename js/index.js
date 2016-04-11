@@ -21,15 +21,22 @@ var mapFilter = require('./mapfilter/mapfilter.js')
 var config = new (require('./config.js'))
 var defaults = require('../defaults.json')
 
+var sync = require('./sync.js').sync
+var replicate = require('./sync.js').replicate
+
 var ipc = require('electron').ipcRenderer
 config.listenTo(config, 'import-filter', function () {
-  ipc.send('import-filter')
+  ipc.send('select-import-filter')
+})
+
+config.listenTo(config, 'sync', function () {
+  ipc.send('select-sync-dir')
 })
 
 var fs = require('fs')
 var path = require('path')
 
-ipc.on('select-filter', function (ev, file) {
+ipc.on('select-import-filter', function (ev, file) {
   fs.readFile(file, function (err, src) {
     if (err) return config.trigger('error', err)
     try { var doc = JSON.parse(src) }
@@ -42,6 +49,14 @@ ipc.on('select-filter', function (ev, file) {
   })
 })
 
+ipc.on('select-sync-dir', function (ev, dir) {
+  config.trigger('replication-start')
+  replicate(dir, function (err) {
+    if (err) config.trigger('error', err)
+    config.trigger('replication-end')
+  })
+})
+
 var hash = window.location.hash
 if (hash === '') {
   // default to sample data
@@ -49,11 +64,11 @@ if (hash === '') {
          '&map=10/2.6362/-59.4801'
 }
 
-var sync = require('./sync.js')
 var dragDrop = require('drag-drop')
 dragDrop(window, function (files) {
   sync.importFiles(files, function (err, docs) {
     if (err) return error(err)
+    config.trigger('imported', docs)
     console.log('imported ' + docs.length + ' reports')
     if (docs.length > 0) location.reload()
   })

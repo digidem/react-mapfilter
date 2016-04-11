@@ -28,7 +28,8 @@ module.exports = require('backbone').View.extend({
     'click .download-csv': 'downloadCSV',
     'click .auth-logout': 'authLogout',
     'click .import-filter': 'importFilter',
-    'change select.filters': 'selectFilter'
+    'change select.filters': 'selectFilter',
+    'click button.sync': 'sync'
   },
 
   initialize: function (options) {
@@ -56,6 +57,7 @@ module.exports = require('backbone').View.extend({
     }, this)
 
     this.$filters.append(
+      '<div class="msg"></div>' +
       '<div class="btn-group">' +
         '<button type="button" class="btn btn-default dropdown-toggle"' +
            'data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
@@ -74,6 +76,9 @@ module.exports = require('backbone').View.extend({
         <div>
           <button class="import-filter">import filter</button>
         </div>
+        <div>
+          <button class="sync">sync</button>
+        </div>
       </div>`
     )
     var self = this
@@ -91,12 +96,27 @@ module.exports = require('backbone').View.extend({
         target: self.$filters.find('select.filters')
       })
     })
+    var msgEl = self.$filters.find('.msg')
+    this.config.listenTo(this.config, 'replication-start', function () {
+      msgEl.text('replication started')
+    })
+    this.config.listenTo(this.config, 'replication-start', function () {
+      msgEl.text('replication complete')
+    })
+    this.config.listenTo(this.config, 'imported', function (docs) {
+      msgEl.text('imported ' + docs.length + ' reports')
+    })
     return this
 
   },
   importFilter: function (ev) {
     ev.preventDefault()
     this.config.trigger('import-filter')
+  },
+
+  sync: function (ev) {
+    ev.preventDefault()
+    this.config.trigger('sync')
   },
 
   selectFilter: function (ev) {

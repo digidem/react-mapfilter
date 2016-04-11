@@ -19,7 +19,7 @@ var userDataPath = app.getPath('userData')
 //   console.log('tile server listening on :', server.address().port)
 // })
 
-ipc.on('import-filter', function () {
+ipc.on('select-import-filter', function () {
   electron.dialog.showOpenDialog(win, {
     title: 'select a filter file',
     properties: [ 'openFile' ],
@@ -28,7 +28,21 @@ ipc.on('import-filter', function () {
   function onopen (filenames) {
     if (!filenames) return
     filenames.forEach(function (file) {
-      win.webContents.send('select-filter', file)
+      win.webContents.send('select-import-filter', file)
+    })
+  }
+})
+
+ipc.on('select-sync-dir', function () {
+  electron.dialog.showOpenDialog(win, {
+    title: 'select a directory to sync',
+    properties: [ 'openDirectory' ],
+    filters: [],
+  }, onopen)
+  function onopen (filenames) {
+    if (!filenames) return
+    filenames.forEach(function (file) {
+      win.webContents.send('select-sync-dir', file)
     })
   }
 })
