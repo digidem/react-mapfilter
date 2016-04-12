@@ -51,8 +51,8 @@
     "xdg-basedir": "^2.0.0"
   },
   "scripts": {
-    "package-win": "rimraf \"dist/Monitoring Station-win32-x64\" && electron-packager . \"Monitoring Station\" --out=dist --ignore=\"^/dist\" --platform=win32 --arch=x64 --version=0.36.9 --overwrite --asar",
-    "package-mac": "rimraf \"dist/Monitoring Station-darwin-x64\" && electron-packager . \"Monitoring Station\" --out=dist --ignore=\"^/dist\" --platform=darwin --arch=x64 --version=0.36.9 --overwrite",
+    "package-win": "rimraf \"dist/Monitoring Station-win32-x64\" && electron-packager . \"Monitoring Station\" --out=dist --ignore=\"^/dist\" --platform=win32 --arch=x64 --version=0.36.9 --prune --overwrite --asar",
+    "package-mac": "rimraf \"dist/Monitoring Station-darwin-x64\" && electron-packager . \"Monitoring Station\" --out=dist --ignore=\"^/dist\" --platform=darwin --arch=x64 --version=0.36.9 --prune --overwrite",
     "dev": "budo js/index.js:bundle.js --dir dist --live -- -t [ jstify --engine lodash ]",
     "open": "npm run build:dev && npm run dev | opnr | garnish",
     "watch": "watchify js/index.js -o dist/bundle.js -t [ jstify --engine lodash ] -dv",
