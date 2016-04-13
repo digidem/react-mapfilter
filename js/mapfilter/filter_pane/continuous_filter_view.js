@@ -24,7 +24,7 @@ module.exports = require('backbone').View.extend({
     this.field = options.field
     this.graphPane = options.graphPane
     this.$el.attr('id', this.field)
-    this.format = window.locale.d3().timeFormat('%d %b %Y')
+    this.format = window.locale.d3().timeFormat('%Y-%m-%d')
 
     this.template = tpl
     this.dimension = this.collection.dimension(function (d) { return new Date(d.get(options.field)) })
@@ -40,7 +40,8 @@ module.exports = require('backbone').View.extend({
       endDate = this.format(this.dimension.top(1)[0].getDate())
 
     this.$el.html(this.template({
-      filterRange: startDate + ' &mdash; ' + endDate
+      startDate: startDate,
+      endDate: endDate
     }))
     return this
   },
