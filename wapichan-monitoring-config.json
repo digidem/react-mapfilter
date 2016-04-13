@@ -1,0 +1,29 @@
+{
+  "data": "submissions/monitoring.geojson",
+  "templates": [{
+    "file": "templates/info-pane.tpl",
+    "options": {
+        "timestamp": "today",
+        "image": "picture"
+    }
+  }],
+  "filters": [{
+    "type": "continuous",
+    "field": "today",
+    "expanded": true
+  },
+  {
+    "type": "discrete",
+    "field": "meta.formId",
+    "expanded": true
+  },
+  {
+    "type": "discrete",
+    "field": "happening",
+    "expanded": true
+  }, {
+    "type": "discrete",
+    "field": "people",
+    "expanded": true
+  }]
+}
