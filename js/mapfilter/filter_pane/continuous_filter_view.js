@@ -13,7 +13,9 @@ var tpl = require('../template.js')('continuous-filter.tpl')
 module.exports = require('backbone').View.extend({
   events: {
     'click .select_range': 'showGraphPane',
-    'click .select_all': 'selectAll'
+    'click .select_all': 'selectAll',
+    'change .startDate': 'changeDates',
+    'change .endDate': 'changeDates'
   },
 
   className: 'filter',
@@ -43,6 +45,7 @@ module.exports = require('backbone').View.extend({
       startDate: startDate,
       endDate: endDate
     }))
+
     return this
   },
 
@@ -53,5 +56,13 @@ module.exports = require('backbone').View.extend({
 
   selectAll: function () {
     this.graphPane.barChart.reset()
+  },
+
+  changeDates: function (e) {
+    var startDate = new Date(this.$el.find('.startDate').val())
+    var endDate = new Date(this.$el.find('.endDate').val())
+    console.log(startDate, endDate)
+    this.graphPane.barChart.filter([startDate, endDate])
+    this.collection.trigger('filtered')
   }
 })
