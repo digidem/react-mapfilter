@@ -12,6 +12,14 @@ var _ = require('lodash')
 var tpl = require('../template.js')('discrete-filter.tpl')
 var checkboxTpl = require('../template.js')('checkbox.tpl')
 
+function getAttr (v, field) {
+  if (/^meta\./.test(field)) {
+    return v.get('meta')[field.split('.')[1]]
+  } else {
+    return v.get(field)
+  }
+}
+
 module.exports = require('backbone').View.extend({
   events: {
     'click .select_all': 'selectAll',
@@ -24,6 +32,7 @@ module.exports = require('backbone').View.extend({
   initialize: function (options) {
     var field = this.field = options.field
     this.$el.attr('id', field)
+    console.log('discrete', field)
 
     // The template a partial are coded into the html
     this.template = tpl
@@ -33,14 +42,14 @@ module.exports = require('backbone').View.extend({
     // `p` is `{}` for the first execution (passed from reduceInitial).
     // For every subsequent execution it is the value returned from reduceAdd of the prev row
     function reduceAdd (p, v) {
-      v.get(field).split(' ').forEach(function (val) {
+      getAttr(v, field).split(' ').forEach(function (val) {
         p[val] = (p[val] || 0) + 1 // increment counts
       })
       return p
     }
 
     function reduceRemove (p, v) {
-      v.get(field).split(' ').forEach(function (val) {
+      getAttr(v, field).split(' ').forEach(function (val) {
         p[val] -= 1
       })
       return p
@@ -54,7 +63,9 @@ module.exports = require('backbone').View.extend({
     }
 
     // Create a dimension on the field for filtering
-    this.dimension = this.collection.dimension(function (d) { return d.get(field) })
+    this.dimension = this.collection.dimension(function (d) {
+      return getAttr(d, field)
+    })
 
     // This reduces the collection down to an object with a key for each
     // unique value of the filter field, with the value as the count
