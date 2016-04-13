@@ -39,6 +39,13 @@ module.exports = function (options) {
       })
     })
 
+    config.listenTo(config, 'imported', function (docs) {
+      if (docs.length > 0) collection.fetch()
+    })
+    config.listenTo(config, 'replication-end', function () {
+      collection.fetch() // reload data after sync
+    })
+
     // save template body to views
     config.listenTo(config, 'template', function (filename, body) {
       _.findWhere(config.options.templates, {'file': filename})
