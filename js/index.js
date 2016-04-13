@@ -90,7 +90,7 @@ if (hash === '') {
 var dragDrop = require('drag-drop')
 dragDrop(window, function (files) {
   sync.importFiles(files, function (err, docs) {
-    if (err) return error(err)
+    if (err) return console.error(err)
     config.trigger('imported', docs)
     console.log('imported ' + docs.length + ' reports')
     //if (docs.length > 0) location.reload()
