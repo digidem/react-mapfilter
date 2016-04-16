@@ -50,7 +50,7 @@ module.exports = require('backbone').View.extend({
 
     var imageUrl = this.model.getImage()
     if (imageUrl) {
-      $('.image-wrapper img').css('background-image', 'url(/images/loader.gif)').attr('src', imageUrl)
+      $('.image-wrapper img').css('background-image', 'url(../images/loader.gif)').attr('src', imageUrl)
     }
 
     this.$el.show()
