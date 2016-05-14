@@ -10,6 +10,7 @@
     ]
   },
   "dependencies": {
+    "base64-url": "^1.2.2",
     "deep-equal": "^1.0.1",
     "feature-filter": "^2.0.1",
     "geojsonhint": "^1.2.0",
@@ -26,8 +27,7 @@
     "redbox-react": "^1.2.2",
     "redux": "^3.3.1",
     "round-to": "^1.1.0",
-    "turf-extent": "^1.0.4",
-    "urlsafe-base64": "^1.0.0"
+    "turf-extent": "^1.0.4"
   },
   "devDependencies": {
     "babel-eslint": "^5.0.0",
