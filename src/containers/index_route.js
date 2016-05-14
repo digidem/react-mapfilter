@@ -9,6 +9,7 @@ const Filter = require('../components/filter')
 const TopBar = require('./top_bar')
 const actionCreators = require('../action_creators')
 const history = require('../history')
+const {encodeFilter, decodeFilter} = require('../util/filter_helpers')
 
 const style = {
   width: '100vw',
@@ -18,7 +19,7 @@ const style = {
 
 class IndexRoute extends React.Component {
   // Read the filter and map position from the URL on first load
-  componentWillMount() {
+  componentWillMount () {
     const {filter, location, mapPosition, updateFilter, moveMap} = this.props
     const {center, zoom} = mapPosition
     const {query} = location
@@ -27,9 +28,9 @@ class IndexRoute extends React.Component {
     // and update the application state.
     if (!filter && query.filter) {
       try {
-        updateFilter(JSON.parse(query.filter))
+        updateFilter(decodeFilter(query.filter))
       } catch (e) {
-        console.warn('Invalid filter:', decodeURI(query.filter))
+        console.warn('Could not parse filter from URL, reseting filter')
         // Remove an invalid filter from the URL.
         history.replace({query: {
           ...location.query,
@@ -49,17 +50,20 @@ class IndexRoute extends React.Component {
   }
 
   // Every time the filter and map position change, update the URL
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps (nextProps) {
     const {filter, mapPosition} = this.props
     const {center, zoom} = nextProps.mapPosition
 
     // If `filter` has changed, update URL query string to new value
+    // TODO: If the URL is more than 2000 characters (i.e. for large
+    // filters) this will break IE < Edge.
+    // http://stackoverflow.com/questions/417142/what-is-the-maximum-length-of-a-url-in-different-browsers
     if (filter !== nextProps.filter) {
       history.replace({
         ...nextProps.location,
         query: {
           ...nextProps.location.query,
-          filter: JSON.stringify(nextProps.filter)
+          filter: encodeFilter(nextProps.filter)
         }
       })
     }
@@ -84,8 +88,8 @@ class IndexRoute extends React.Component {
     })
   }
 
-  render() {
-    const { children, features, filter, mapPosition, params, updateFilter, moveMap} = this.props
+  render () {
+    const {children, features, filter, mapPosition, params, updateFilter, moveMap} = this.props
     return (
       <div style={style}>
         <TopBar {...this.props} />
