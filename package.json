@@ -2,6 +2,7 @@
   "name": "Monitoring-app",
   "description": "An app for viewing monitoring data",
   "version": "1.0.0-alpha1",
+  "main": "src/index.js",
   "browserify": {
     "transform": [
       "babelify",
