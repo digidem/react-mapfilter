@@ -9,7 +9,7 @@ const rootEl = document.getElementById('root')
 let render = function () {
   const App = require('./containers/app')
   ReactDOM.render(
-    <App/>,
+    <App />,
     rootEl
   )
 }

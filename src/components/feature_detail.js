@@ -22,15 +22,16 @@ const styles = {
 }
 
 class FeatureDetail extends React.Component {
-  render() {
+  render () {
     return (
       <div style={styles.container}>
         <Card style={styles.card}>
-        <CardMedia><img src={'photo.jpg'}/></CardMedia>
-        <CardTitle title={'Creation of reserve areas'}/>
-        <CardText>
-          We have agreed to reserve bush islands and portions of bush islands where no new farms will be allowed without community permission. These areas include Warawaiton, Wazton, Ichibaiton and the upper slopes of Torudukuo Mountain ... As our population grows the majority of our people realise that we have to adopt new agreements. [Jerome Marques, Toshao, Sawari Wa’o, 02/05]
-        </CardText></Card>
+          <CardMedia><img src={'photo.jpg'} /></CardMedia>
+          <CardTitle title={'Creation of reserve areas'} />
+          <CardText>
+            We have agreed to reserve bush islands and portions of bush islands where no new farms will be allowed without community permission. These areas include Warawaiton, Wazton, Ichibaiton and the upper slopes of Torudukuo Mountain ... As our population grows the majority of our people realise that we have to adopt new agreements. [Jerome Marques, Toshao, Sawari Wa’o, 02/05]
+          </CardText>
+        </Card>
       </div>
     )
   }
