@@ -10,6 +10,9 @@ const FeatureDetail = require('../components/feature_detail')
 const reducers = require('../reducers')
 const history = require('../history')
 
+// Roboto font
+require('../../css/fonts.css')
+
 // Attach Chrome devTools extensions if it is present.
 const devTools = window.devToolsExtension ? window.devToolsExtension() : undefined
 const store = createStore(reducers, devTools)

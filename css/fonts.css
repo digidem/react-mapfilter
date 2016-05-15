@@ -1,0 +1,32 @@
+/**
+ * With these fonts we cover most modern browsers:
+ * Chrome Safari Firefox Opera  IE  Android iOS
+ * 5+     5.1+   3.6+    11.50+ 9+  4.4+    5.1+
+ */
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Roboto Light'),
+       local('Roboto-Light'),
+       url(../fonts/roboto-light.woff2) format('woff2'),
+       url(../fonts/roboto-light.woff) format('woff');
+}
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Roboto'),
+       local('Roboto-Regular'),
+       url(../fonts/roboto-regular.woff2) format('woff2'),
+       url(../fonts/roboto-regular.woff) format('woff');
+}
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  src: local('Roboto Medium'),
+       local('Roboto-Medium'),
+       url(../fonts/roboto-medium.woff2) format('woff2'),
+       url(../fonts/roboto-medium.woff) format('woff');
+}

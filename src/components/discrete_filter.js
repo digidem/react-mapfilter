@@ -3,7 +3,7 @@ const { PropTypes } = React
 const shouldPureComponentUpdate = require('react-pure-render/function')
 const Checkbox = require('material-ui/Checkbox').default
 
-const { t } = require('../util/text_helpers')
+const { t, titleCase } = require('../util/text_helpers')
 
 const styles = {
   checkbox: {
@@ -17,6 +17,10 @@ const styles = {
     width: 20,
     height: 20,
     marginRight: 8
+  },
+  headerStyle: {
+    fontFamily: 'Roboto, sans-serif',
+    fontStyle: 'bold'
   }
 }
 
@@ -50,7 +54,7 @@ class DiscreteFilter extends React.Component {
     const {fieldName, checked, values} = this.props
     return (
       <div>
-        <h3>{fieldName}</h3>
+        <h3 style={styles.headerStyle}>{titleCase(fieldName)}</h3>
         {Object.keys(values).map((v) => <Checkbox
           key={v}
           label={t(v)}
