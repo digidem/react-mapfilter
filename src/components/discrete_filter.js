@@ -1,7 +1,7 @@
 const React = require('react')
 const { PropTypes } = React
 const shouldPureComponentUpdate = require('react-pure-render/function')
-const Checkbox = require('material-ui/lib/checkbox')
+const Checkbox = require('material-ui/Checkbox').default
 
 const { t } = require('../util/text_helpers')
 

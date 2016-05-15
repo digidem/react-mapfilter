@@ -92,7 +92,7 @@ class IndexRoute extends React.Component {
     const {children, features, filter, mapPosition, params, updateFilter, moveMap} = this.props
     return (
       <div style={style}>
-        <TopBar {...this.props} />
+        <TopBar />
         <Filter
           features={features}
           filterFields={['people', 'happening']}

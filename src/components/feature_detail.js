@@ -1,6 +1,6 @@
 const React = require('react')
-const { PropTypes } = React
-const { Card, CardMedia, CardText, CardTitle } = require('material-ui/lib/card')
+// const { PropTypes } = React
+const { Card, CardMedia, CardText, CardTitle } = require('material-ui/Card')
 
 const styles = {
   container: {
