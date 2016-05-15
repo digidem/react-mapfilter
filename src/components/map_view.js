@@ -149,35 +149,35 @@ class MapView extends React.Component {
   }
 
   handleMapClick = (e) => {
-    this.map.featuresAt(e.point, {
-      radius: markerSize / 2,
-      includeGeometry: true,
-      layer: 'features'
-    }, (err, features) => {
-      if (err || !features.length) return
-      this.props.onMarkerClick(features[0].properties.id)
-    })
+    var features = this.map.queryRenderedFeatures(
+      e.point,
+      {layers: ['features', 'features-hover']}
+    )
+    if (!features.length) return
+    this.props.onMarkerClick(features[0].properties.id)
   }
 
   handleMouseMove = (e) => {
-    this.map.featuresAt(e.point, {
-      radius: 10,
-      includeGeometry: true,
-      layer: 'features'
-    }, (err, features) => {
-      this.map.getCanvas().style.cursor = (!err && features.length) ? 'pointer' : ''
-      if (err || !features.length) {
-        this.popup.remove()
-        this.map.setFilter('features-hover', ['==', 'id', ''])
-        return
-      }
-      this.map.setFilter('features-hover', ['==', 'id', features[0].properties.id])
-      // Popuplate the popup and set its coordinates
-      // based on the feature found.
+    var features = this.map.queryRenderedFeatures(
+      e.point,
+      {layers: ['features', 'features-hover']}
+    )
+    this.map.getCanvas().style.cursor = (features.length) ? 'pointer' : ''
+    if (!features.length) {
+      this.popup.remove()
+      this.map.setFilter('features-hover', ['==', 'id', ''])
+      return
+    }
+    var hoveredFeatureId = features[0].properties.id
+    this.map.setFilter('features-hover', ['==', 'id', hoveredFeatureId])
+    // Popuplate the popup and set its coordinates
+    // based on the feature found.
+    if (!this.popup._map || hoveredFeatureId && hoveredFeatureId !== this.popup.__featureId) {
       this.popup.setLngLat(features[0].geometry.coordinates)
         .setHTML(this.getPopupHtml(features[0].properties))
         .addTo(this.map)
-    })
+        .__featureId = hoveredFeatureId
+    }
   }
 
   /**
