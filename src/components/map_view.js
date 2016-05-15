@@ -15,6 +15,8 @@ require('../../css/popup.css')
 /* Mapbox [API access token](https://www.mapbox.com/help/create-api-access-token/) */
 mapboxgl.accessToken = config.mapboxToken
 
+const DEFAULT_STYLE = 'mapbox://styles/gmaclennan/cio7mcryg0015akm9b6wur5ic'
+
 const emptyFeatureCollection = {
   type: 'FeatureCollection',
   features: []
@@ -27,17 +29,25 @@ const style = {
   right: 0
 }
 
-const markerSize = 15
-
-// TODO: the icon-image `marker-15` is dependent on the style `streets-v8`
-// We should include our own sprite sheet with the icons we use.
 const pointStyleLayer = {
   id: 'features',
   type: 'symbol',
   source: 'features',
   interactive: true,
   layout: {
-    'icon-image': 'marker-' + markerSize,
+    'icon-image': 'marker-cab2d6',
+    'icon-allow-overlap': true
+  }
+}
+
+const pointHoverStyleLayer = {
+  id: 'features-hover',
+  type: 'symbol',
+  source: 'features',
+  interactive: false,
+  filter: ['==', 'id', ''],
+  layout: {
+    'icon-image': 'marker-cab2d6-hover',
     'icon-allow-overlap': true
   }
 }
@@ -87,7 +97,7 @@ function getBounds (fc) {
 
 class MapView extends React.Component {
   static defaultProps = {
-    mapStyle: 'mapbox://styles/mapbox/streets-v8',
+    mapStyle: DEFAULT_STYLE,
     onMarkerClick: noop,
     onMove: noop,
     fieldMapping: {
@@ -234,12 +244,7 @@ class MapView extends React.Component {
       map.addSource('features', this.featuresSource)
       // TODO: Should choose style based on whether features are point, line or polygon
       map.addLayer(pointStyleLayer)
-      map.addLayer({
-        ...pointStyleLayer,
-        interactive: false,
-        id: 'features-hover',
-        filter: ['==', 'id', '']
-      })
+      map.addLayer(pointHoverStyleLayer)
       if (filter) {
         map.setFilter('features', filter)
       }
