@@ -9,5 +9,19 @@
     "zoom": 10
   },
   "mapboxToken": "pk.eyJ1IjoiZ21hY2xlbm5hbiIsImEiOiJSaWVtd2lRIn0.ASYMZE2HhwkAw4Vt7SavEg",
-  "templates": []
+  "templates": [],
+  "colors": [
+    "#1f78b4",
+    "#33a02c",
+    "#6a3d9a",
+    "#a6cee3",
+    "#b15928",
+    "#b2df8a",
+    "#cab2d6",
+    "#e31a1c",
+    "#fb9a99",
+    "#fdbf6f",
+    "#ff7f00",
+    "#ffff99"
+  ]
 }
