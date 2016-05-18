@@ -1,21 +1,20 @@
+const debug = require('debug')('mf:mapview')
 const React = require('react')
 const { PropTypes } = React
 const mapboxgl = require('mapbox-gl')
-const extent = require('turf-extent')
-const get = require('get-value')
-const lintGeoJson = require('geojsonhint').hint
 const deepEqual = require('deep-equal')
+
+const MFPropTypes = require('../util/prop_types')
+const { getBoundsOrWorld } = require('../util/map_helpers')
 
 const config = require('../../config.json')
 const popupTemplate = require('../../templates/popup.hbs')
-
 require('../../node_modules/mapbox-gl/dist/mapbox-gl.css')
 require('../../css/popup.css')
 
 /* Mapbox [API access token](https://www.mapbox.com/help/create-api-access-token/) */
 mapboxgl.accessToken = config.mapboxToken
 
-const COLORS = config.colors
 const DEFAULT_STYLE = 'mapbox://styles/gmaclennan/cio7mcryg0015akm9b6wur5ic'
 
 const emptyFeatureCollection = {
@@ -36,7 +35,7 @@ const pointStyleLayer = {
   source: 'features',
   interactive: true,
   layout: {
-    'icon-image': 'marker-{marker-color}',
+    'icon-image': 'marker-{__mf_color}',
     'icon-allow-overlap': true,
     'icon-offset': [0, -10]
   }
@@ -49,7 +48,7 @@ const pointHoverStyleLayer = {
   interactive: false,
   filter: ['==', 'id', ''],
   layout: {
-    'icon-image': 'marker-{marker-color}-hover',
+    'icon-image': 'marker-{__mf_color}-hover',
     'icon-allow-overlap': true,
     'icon-offset': [0, -10]
   }
@@ -57,112 +56,24 @@ const pointHoverStyleLayer = {
 
 const noop = (x) => x
 
-/**
- * @private
- * Lints the features GeoJSON and checks if a valid FeatureCollection, single point feature,
- * or multipoint feature. If not, returns an empty FeatureCollection
- * @param {object} features Feature GeoJSON to lint
- * @return {object} No-op if valid GeoJSON, returns empty FC if not valid.
- */
-// TODO: Currently only supporting point features, need to support lines and polygons
-function lintFeatures (features) {
-  const errors = lintGeoJson(features)
-  if (errors.length) {
-    console.warn('features property is invalid GeoJSON\n', errors)
-    return emptyFeatureCollection
-  }
-  const isFeatureCollection = (features.type.toLowerCase() === 'featurecollection')
-  const isPointFeature = (features.type.toLowerCase() === 'feature' && features.geometry.type.toLowerCase === 'point')
-  const isMultiPointFeature = (features.type.toLowerCase() === 'feature' && features.geometry.type.toLowerCase === 'multipoint')
-  if (isFeatureCollection || isPointFeature || isMultiPointFeature) {
-    return features
-  }
-  console.warn('features must be a FeatureCollection, Point or MultiPoint feature')
-  return emptyFeatureCollection
-}
-
-function mapFeaturesToData (features, fieldMapping, coloredField) {
-  const colorMapping = {}
-  let colorIndex = 0
-  return {
-    type: 'FeatureCollection',
-    features: features.features.map(feature => {
-      const props = feature.properties
-      let color
-      let coloredFieldValue = get(props, coloredField)
-      if (colorMapping[coloredFieldValue]) {
-        color = colorMapping[coloredFieldValue]
-      } else {
-        color = colorMapping[coloredFieldValue] = COLORS[colorIndex]
-        colorIndex++
-      }
-      return {
-        ...feature,
-        properties: {
-          id: feature.id,
-          img: get(props, fieldMapping.img),
-          title: get(props, fieldMapping.title),
-          subtitle: get(props, fieldMapping.subtitle),
-          'marker-color': color.slice(1)
-        }
-      }
-    })
-  }
-}
-
-/**
- * @private
- * For a given geojson FeatureCollection, return the geographic bounds.
- * For a missing or invalid FeatureCollection, return the bounds for
- * the whole world.
- * @param {object} fc Geojson FeatureCollection
- * @return {array} Bounds in format `[minLng, minLat, maxLng, maxLat]``
- */
-function getBounds (fc) {
-  // If we don't have data, default to the extent of the whole world
-  // NB. Web mercator goes to infinity at lat 90! Use lat 85.
-  if (!fc || !fc.features || !fc.features.length) {
-    return [-180, -85, 180, 85]
-  }
-  return extent(fc)
-}
-
 class MapView extends React.Component {
   static defaultProps = {
-    coloredField: 'happening',
     mapStyle: DEFAULT_STYLE,
+    geojson: emptyFeatureCollection,
     onMarkerClick: noop,
-    onMove: noop,
-    fieldMapping: {
-      img: 'img',
-      title: 'title',
-      subtitle: 'subtitle'
-    }
+    onMove: noop
   }
 
   static propTypes = {
     /* map center point [lon, lat] */
     center: PropTypes.array,
-    /* Field to color features by */
-    coloredField: PropTypes.string,
     /* Geojson FeatureCollection of features to show on map */
-    features: PropTypes.object,
-    /**
-     * Mapping of geojson properties to field names used in template
-     * If omitted, will try to find an image field and pick the first
-     * two string fields as title and subtitle
-     * @type {object}
-     */
-    fieldMapping: PropTypes.shape({
-      img: PropTypes.string,
-      title: PropTypes.string,
-      subtitle: PropTypes.string
+    geojson: PropTypes.shape({
+      type: PropTypes.oneOf(['FeatureCollection']).isRequired,
+      features: PropTypes.arrayOf(MFPropTypes.mapViewFeature).isRequired
     }),
     /* Current filter (See https://www.mapbox.com/mapbox-gl-style-spec/#types-filter) */
-    filter: PropTypes.arrayOf(PropTypes.oneOfType([
-      PropTypes.array,
-      PropTypes.string
-    ])),
+    filter: MFPropTypes.filter,
     /**
      * - NOT yet dynamic e.g. if you change it the map won't change
      * Map style. This must be an an object conforming to the schema described in the [style reference](https://mapbox.com/mapbox-gl-style-spec/), or a URL to a JSON style. To load a style from the Mapbox API, you can use a URL of the form `mapbox://styles/:owner/:style`, where `:owner` is your Mapbox account name and `:style` is the style ID. Or you can use one of the predefined Mapbox styles.
@@ -171,7 +82,6 @@ class MapView extends React.Component {
     /**
      * Triggered when a marker is clicked. Called with a (cloned) GeoJson feature
      * object of the marker that was clicked.
-     * @type {function}
      */
     onMarkerClick: PropTypes.func,
     /* Triggered when map is moved, called with map center [lng, lat] */
@@ -189,6 +99,7 @@ class MapView extends React.Component {
   }
 
   handleMapClick = (e) => {
+    if (!this.map.loaded()) return
     var features = this.map.queryRenderedFeatures(
       e.point,
       {layers: ['features', 'features-hover']}
@@ -198,6 +109,7 @@ class MapView extends React.Component {
   }
 
   handleMouseMove = (e) => {
+    if (!this.map.loaded()) return
     var features = this.map.queryRenderedFeatures(
       e.point,
       {layers: ['features', 'features-hover']}
@@ -220,12 +132,6 @@ class MapView extends React.Component {
     }
   }
 
-  /**
-   * For a given object, return popupHtml by mapping object fields to
-   * `img`, `title`, `subtitle` properties used in the template.
-   * @param {object} o object, from geojson `properties`
-   * @return {string} HTML string
-   */
   getPopupHtml (o) {
     return popupTemplate(o)
   }
@@ -242,7 +148,7 @@ class MapView extends React.Component {
   // The first time our component mounts, render a new map into `mapDiv`
   // with settings from props.
   componentDidMount () {
-    const { center, filter, mapStyle, features, fieldMapping, coloredField, zoom } = this.props
+    const { center, filter, mapStyle, geojson, zoom } = this.props
 
     const map = this.map = window.map = new mapboxgl.Map({
       style: mapStyle,
@@ -259,12 +165,11 @@ class MapView extends React.Component {
       anchor: 'bottom-left'
     })
 
-    map.on('style.load', () => {
+    map.on('load', () => {
       map.on('moveend', this.handleMapMoveOrZoom)
       map.on('click', this.handleMapClick)
       map.on('mousemove', this.handleMouseMove)
-      const layerData = mapFeaturesToData(features, fieldMapping, coloredField)
-      this.featuresSource = new mapboxgl.GeoJSONSource({data: layerData})
+      this.featuresSource = new mapboxgl.GeoJSONSource({data: geojson})
       map.addSource('features', this.featuresSource)
       // TODO: Should choose style based on whether features are point, line or polygon
       map.addLayer(pointStyleLayer)
@@ -276,17 +181,19 @@ class MapView extends React.Component {
 
     // If no map center or zoom passed, set map extent to extent of marker layer
     if (!center || !zoom) {
-      map.fitBounds(getBounds(features), {padding: 15})
+      map.fitBounds(getBoundsOrWorld(geojson), {padding: 15})
     }
   }
 
   componentWillReceiveProps (nextProps) {
     this.moveIfNeeded(nextProps.center, nextProps.zoom)
-    this.updateDataIfNeeded(
-      nextProps.features,
-      nextProps.fieldMapping,
+    const isDataUpdated = this.updateDataIfNeeded(
+      nextProps.geojson,
       nextProps.coloredField
     )
+    if (isDataUpdated && !nextProps.center || !nextProps.zoom) {
+      this.map.fitBounds(getBoundsOrWorld(nextProps.geojson), {padding: 15})
+    }
     this.updateFilterIfNeeded(nextProps.filter)
   }
 
@@ -318,35 +225,39 @@ class MapView extends React.Component {
     const shouldMapMove = center && zoom &&
       !deepEqual(currentPosition, newMapPosition)
     if (shouldMapMove) {
-      console.log('Moving map')
+      debug('Moving map')
       this.map.jumpTo(newMapPosition)
       return true
     }
     return false
   }
 
-  updateDataIfNeeded (features, fieldMapping, coloredField) {
-    if (features === this.props.features &&
-        (!fieldMapping || fieldMapping === this.props.fieldMapping) &&
+  /**
+   * [updateDataIfNeeded description]
+   * @param {[type]} features     [description]
+   * @param {[type]} coloredField [description]
+   * @return {[type]} [description]
+   */
+  updateDataIfNeeded (geojson, coloredField) {
+    if (geojson === this.props.geojson &&
         (!coloredField || coloredField === this.props.coloredField)) {
       return
     }
-    console.log('updated features')
-    const layerData = mapFeaturesToData(features, fieldMapping, coloredField)
+    debug('updated map geojson')
     if (this.map.loaded()) {
-      this.featuresSource.setData(layerData)
+      this.featuresSource.setData(geojson)
     } else {
-      this.map.on('style.load', () => this.featuresSource.setData(layerData))
+      this.map.on('load', () => this.featuresSource.setData(geojson))
     }
   }
 
   updateFilterIfNeeded (filter) {
     if (filter !== this.props.filter && filter) {
-      console.log('new filter')
+      debug('new filter')
       if (this.map.style.loaded()) {
         this.map.setFilter('features', filter)
       } else {
-        this.map.on('style.load', () => this.map.setFilter('features', filter))
+        this.map.on('load', () => this.map.setFilter('features', filter))
       }
     }
   }

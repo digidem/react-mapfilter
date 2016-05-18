@@ -4,7 +4,7 @@ const { bindActionCreators } = require('redux')
 const deepEqual = require('deep-equal')
 const roundTo = require('round-to')
 
-const MapView = require('../components/map_view')
+const MapContainer = require('./map_container')
 const Filter = require('../components/filter')
 const TopBar = require('./top_bar')
 const actionCreators = require('../action_creators')
@@ -89,7 +89,7 @@ class IndexRoute extends React.Component {
   }
 
   render () {
-    const {children, features, filter, mapPosition, params, updateFilter, moveMap} = this.props
+    const {children, features, filter, params, updateFilter} = this.props
     return (
       <div style={style}>
         <TopBar />
@@ -99,19 +99,7 @@ class IndexRoute extends React.Component {
           filter={filter}
           onUpdate={updateFilter}
         />
-        <MapView
-          center={mapPosition.center}
-          features={features}
-          fieldMapping={{
-            img: 'picture.url',
-            title: 'happening',
-            subtitle: 'placename'
-          }}
-          filter={filter}
-          onMove={moveMap}
-          onMarkerClick={this.handleMarkerClick}
-          zoom={mapPosition.zoom}
-        />
+        <MapContainer />
         {children && React.cloneElement(children, params)}
       </div>
     )

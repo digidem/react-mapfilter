@@ -24,7 +24,7 @@ const style = {
 
 class Filter extends React.Component {
   static propTypes = {
-    features: PropTypes.object,
+    features: PropTypes.array,
     /* Current filter (see https://www.mapbox.com/mapbox-gl-style-spec/#types-filter) */
     filter: PropTypes.arrayOf(PropTypes.oneOfType([
       PropTypes.array,

@@ -1,5 +1,7 @@
-<img src="http://resizer.digital-democracy.org/300/{{img}}">
-<div class="title">
-  <h1>{{title}}</h1>
-  <h2>{{subtitle}}</h2>
+{{#if __mf_popup_img}}
+<img src="http://resizer.digital-democracy.org/300/{{__mf_popup_img}}">
+{{/if}}
+<div class="__mf_popup_title {{#if __mf_popup_img}}__mf_popup_img{{/if}}">
+  <h1>{{__mf_popup_title}}</h1>
+  <h2>{{__mf_popup_subtitle}}</h2>
 </div>

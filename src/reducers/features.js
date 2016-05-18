@@ -1,4 +1,4 @@
-const markers = require('../../test/fixtures/markers.json')
+const markers = require('../../test/fixtures/markers.json').features
 
 const features = (state = markers, action) => {
   return state

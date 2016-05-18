@@ -25,10 +25,9 @@ function parseDate (possibleDate) {
  *   FeatureCollection with properties `type` of filter to use, a count for
  *   each discrete option, or a min/max for continuous fields
  */
-function analyzeFields (featureCollection, {maxTextValues = 15, maxNumberCount = 5} = {}) {
+function analyzeFields (features, {maxTextValues = 15, maxNumberCount = 5} = {}) {
   // TODO: What about mixed fields? e.g. number and string values for the same
   // field? Need to check whether this would give a meaningful result.
-  const features = featureCollection.features
   const fields = {}
   // Iterate over every feature in the FeatureCollection
   for (let i = 0; i < features.length; i++) {
