@@ -1,6 +1,8 @@
 const React = require('react')
 const { PropTypes } = React
 const shouldPureComponentUpdate = require('react-pure-render/function')
+const {List, ListItem} = require('material-ui/List')
+const AddIcon = require('material-ui/svg-icons/content/add').default
 
 const DiscreteFilter = require('./discrete_filter')
 const ContinuousFilter = require('./continuous_filter')
@@ -15,10 +17,18 @@ const style = {
     height: '100%',
     minWidth: 200,
     position: 'absolute',
-    overflowY: 'scroll'
+    overflowY: 'auto',
+    zIndex: 1,
+    boxShadow: 'rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.117647) 0px 1px 4px'
   },
-  inner: {
-    padding: '0 16px'
+  list: {
+    paddingTop: 0
+  },
+  listItemInner: {
+    paddingLeft: 48
+  },
+  listIcon: {
+    left: 0
   }
 }
 
@@ -73,13 +83,20 @@ class Filter extends React.Component {
     }
   }
 
+  componentDidUpdate () {
+    console.log('filter panel updated')
+  }
+
   componentWillReceiveProps (nextProps) {
     const {filterFields, filter, features} = this.props
-
-    if (filterFields !== nextProps.filterFields || filter !== nextProps.filter) {
-      this._cached.filterFieldsToShow = mergeFilterFields(nextProps.filter, nextProps.filterFields)
-    }
+    console.log(filterFields !== nextProps.filterFields)
+    console.log(filter !== nextProps.filter)
+    // if (filterFields !== nextProps.filterFields || filter !== nextProps.filter) {
+    //   console.log('merging filter fields')
+    //   this._cached.filterFieldsToShow = mergeFilterFields(nextProps.filter, nextProps.filterFields)
+    // }
     if (filter !== nextProps.filter) {
+      console.log('updating filter in filter panel')
       let isValidFilter = true
       try {
         this._cached.filtersByField = getFiltersByField(nextProps.filter)
@@ -103,7 +120,7 @@ class Filter extends React.Component {
       </div>
     )
     return (
-      <div style={style.outer}><div style={style.inner}>
+      <div style={style.outer}><List style={style.list}>
         {!isValidFilter ? resetFilter : filterFieldsToShow
           .filter((f) => filterableFields[f])
           .map((f) => {
@@ -132,7 +149,12 @@ class Filter extends React.Component {
             }
           })
         }
-      </div></div>
+        <ListItem
+          innerDivStyle={style.listItemInner}
+          leftIcon={<AddIcon style={style.listIcon} />}
+          primaryText='Add Filter...'
+        />
+      </List></div>
     )
   }
 }

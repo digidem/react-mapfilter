@@ -3,6 +3,8 @@ const { PropTypes } = React
 const shouldPureComponentUpdate = require('react-pure-render/function')
 const makePure = require('recompose/pure').default
 const Checkbox = makePure(require('material-ui/Checkbox').default)
+const ListIcon = require('material-ui/svg-icons/action/list').default
+const {ListItem} = require('material-ui/List')
 
 const { t, titleCase } = require('../util/text_helpers')
 
@@ -11,13 +13,23 @@ const styles = {
     marginBottom: 8,
     fontSize: 14
   },
-  labelStyle: {
+  listItemInner: {
+    paddingLeft: 48
+  },
+  listIcon: {
+    left: 0
+  },
+  nestedList: {
+    padding: '8px 14px',
+    borderBottom: '1px solid rgb(224, 224, 224)'
+  },
+  checkboxLabel: {
     lineHeight: '22px'
   },
-  iconStyle: {
+  checkboxIcon: {
     width: 20,
     height: 20,
-    marginRight: 8
+    marginRight: 14
   },
   headerStyle: {
     fontFamily: 'Roboto, sans-serif',
@@ -54,21 +66,27 @@ class DiscreteFilter extends React.Component {
   render () {
     const {fieldName, checked, values} = this.props
     return (
-      <div>
-        <h3 style={styles.headerStyle}>{titleCase(fieldName)}</h3>
-        {Object.keys(values).map((v) => <Checkbox
+      <ListItem
+        style={styles.listItem}
+        innerDivStyle={styles.listItemInner}
+        primaryText={titleCase(fieldName)}
+        leftIcon={<ListIcon style={styles.listIcon} />}
+        initiallyOpen
+        primaryTogglesNestedList
+        nestedListStyle={styles.nestedList}
+        nestedItems={Object.keys(values).map((v) => <Checkbox
           key={v}
           label={t(v)}
           value={v}
           style={styles.checkbox}
-          iconStyle={styles.iconStyle}
-          labelStyle={styles.labelStyle}
+          iconStyle={styles.checkboxIcon}
+          labelStyle={styles.checkboxLabel}
           checked={checked.indexOf(v) > -1}
           onCheck={this.handleCheck}
           disableFocusRipple
           disableTouchRipple
         />)}
-      </div>
+      />
     )
   }
 }
