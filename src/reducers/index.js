@@ -1,9 +1,10 @@
 const { combineReducers } = require('redux')
 
 module.exports = combineReducers({
+  coloredField: require('./colored_field'),
   features: require('./features'),
-  filter: require('./filter'),
+  filters: require('./filters'),
+  visibleFilterFields: require('./filter_fields'),
   mapPosition: require('./map_position'),
-  popupFields: require('./popup_fields'),
-  coloredField: require('./colored_field')
+  popupFields: require('./popup_fields')
 })

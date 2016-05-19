@@ -5,11 +5,11 @@ const deepEqual = require('deep-equal')
 const roundTo = require('round-to')
 
 const MapContainer = require('./map_container')
-const Filter = require('../components/filter')
+const FilterContainer = require('./filter_container')
 const TopBar = require('./top_bar')
 const actionCreators = require('../action_creators')
 const history = require('../history')
-const {encodeFilter, decodeFilter} = require('../util/filter_helpers')
+const {decodeFilter} = require('../util/filter_helpers')
 
 const style = {
   width: '100vw',
@@ -20,13 +20,13 @@ const style = {
 class IndexRoute extends React.Component {
   // Read the filter and map position from the URL on first load
   componentWillMount () {
-    const {filter, location, mapPosition, updateFilter, moveMap} = this.props
+    const {filters, location, mapPosition, updateFilter, moveMap} = this.props
     const {center, zoom} = mapPosition
     const {query} = location
 
     // If `filter` is not set, try to read it from the URL query parameter
     // and update the application state.
-    if (!filter && query.filter) {
+    if (!filters && query.filter) {
       try {
         updateFilter(decodeFilter(query.filter))
       } catch (e) {
@@ -51,22 +51,22 @@ class IndexRoute extends React.Component {
 
   // Every time the filter and map position change, update the URL
   componentWillReceiveProps (nextProps) {
-    const {filter, mapPosition} = this.props
+    const {mapPosition} = this.props
     const {center, zoom} = nextProps.mapPosition
 
     // If `filter` has changed, update URL query string to new value
     // TODO: If the URL is more than 2000 characters (i.e. for large
     // filters) this will break IE < Edge.
     // http://stackoverflow.com/questions/417142/what-is-the-maximum-length-of-a-url-in-different-browsers
-    if (filter !== nextProps.filter) {
-      history.replace({
-        ...nextProps.location,
-        query: {
-          ...nextProps.location.query,
-          filter: encodeFilter(nextProps.filter)
-        }
-      })
-    }
+    // if (filter !== nextProps.filter) {
+    //   history.replace({
+    //     ...nextProps.location,
+    //     query: {
+    //       ...nextProps.location.query,
+    //       filter: encodeFilter(nextProps.filter)
+    //     }
+    //   })
+    // }
     // If `mapPosition` has changed, update URL query string to new value
     if (!deepEqual(mapPosition, nextProps.mapPosition)) {
       history.replace({
@@ -89,17 +89,14 @@ class IndexRoute extends React.Component {
   }
 
   render () {
-    const {children, features, filter, params, updateFilter} = this.props
+    const {children, params} = this.props
     return (
       <div style={style}>
         <TopBar />
-        <Filter
-          features={features}
-          filterFields={['people', 'happening']}
-          filter={filter}
-          onUpdate={updateFilter}
+        <FilterContainer />
+        <MapContainer
+          onMarkerClick={this.handleMarkerClick}
         />
-        <MapContainer />
         {children && React.cloneElement(children, params)}
       </div>
     )
@@ -107,6 +104,11 @@ class IndexRoute extends React.Component {
 }
 
 module.exports = connect(
-  (state) => state,
+  (state) => {
+    return {
+      mapPosition: state.mapPosition,
+      filters: state.filters
+    }
+  },
   (dispatch) => bindActionCreators(actionCreators, dispatch)
 )(IndexRoute)

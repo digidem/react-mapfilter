@@ -4,12 +4,9 @@ const shouldPureComponentUpdate = require('react-pure-render/function')
 const {List, ListItem} = require('material-ui/List')
 const AddIcon = require('material-ui/svg-icons/content/add').default
 
+const MFPropTypes = require('../util/prop_types')
 const DiscreteFilter = require('./discrete_filter')
 const ContinuousFilter = require('./continuous_filter')
-const { analyzeFields,
-        buildFilter,
-        mergeFilterFields,
-        getFiltersByField } = require('../util/filter_helpers')
 
 const style = {
   outer: {
@@ -34,121 +31,58 @@ const style = {
 
 class Filter extends React.Component {
   static propTypes = {
-    features: PropTypes.array,
-    /* Current filter (see https://www.mapbox.com/mapbox-gl-style-spec/#types-filter) */
-    filter: PropTypes.arrayOf(PropTypes.oneOfType([
-      PropTypes.array,
-      PropTypes.string
-    ])),
-    /* Array of fields to show filters for */
-    filterFields: PropTypes.arrayOf(PropTypes.string),
+    filters: PropTypes.object,
+    fieldStats: PropTypes.object.isRequired,
+    visibleFilterFields: PropTypes.arrayOf(PropTypes.string).isRequired,
     /* called with valid mapbox-gl filter when updated */
-    onUpdate: PropTypes.func
+    onUpdateFilter: PropTypes.func
   }
 
   static defaultProps = {
+    filters: {},
+    fieldStats: {},
+    visibleFilterFields: [],
     onUpdate: (x) => x
   }
 
   shouldComponentUpdate = shouldPureComponentUpdate
 
-  handleFilterUpdate = (filter) => {
-    const filtersByField = Object.assign({}, this._cached.filtersByField, getFiltersByField(filter))
-    this.props.onUpdate(buildFilter(filtersByField))
-  }
-
-  componentWillMount () {
-    // We use state to store data derived from props:
-    // `filterFieldsToShow`: `this.props.filterFields` is a list of fields to show in
-    //   the filter pane, but if a filter is set on a field that is not listed
-    //   in `this.props.filterFields` we should show a filter for that too.
-    // `filtersByField`: this is an index of filter expressions by field name.
-    // `filterableFields`: this is based on analysis of the
-    // `this.props.filterCollection` to evaluate which properties (`fields`)
-    //   can be filtered, and metadata about each field (`values`, `type`,
-    //   `min/max`)
-    let filtersByField
-    let isValidFilter = true
-    try {
-      filtersByField = getFiltersByField(this.props.filter)
-    } catch (e) {
-      console.error(e)
-      isValidFilter = false
-    }
-    this._cached = {
-      isValidFilter,
-      filterFieldsToShow: mergeFilterFields(this.props.filter, this.props.filterFields),
-      filtersByField,
-      filterableFields: analyzeFields(this.props.features)
-    }
-  }
-
   componentDidUpdate () {
     console.log('filter panel updated')
   }
 
-  componentWillReceiveProps (nextProps) {
-    const {filterFields, filter, features} = this.props
-    console.log(filterFields !== nextProps.filterFields)
-    console.log(filter !== nextProps.filter)
-    // if (filterFields !== nextProps.filterFields || filter !== nextProps.filter) {
-    //   console.log('merging filter fields')
-    //   this._cached.filterFieldsToShow = mergeFilterFields(nextProps.filter, nextProps.filterFields)
-    // }
-    if (filter !== nextProps.filter) {
-      console.log('updating filter in filter panel')
-      let isValidFilter = true
-      try {
-        this._cached.filtersByField = getFiltersByField(nextProps.filter)
-      } catch (e) {
-        console.error(e)
-        isValidFilter = false
-      }
-      this._cached.isValidFilter = isValidFilter
-    }
-    if (features !== nextProps.features) {
-      this._cached.filterableFields = analyzeFields(nextProps.features)
-    }
-  }
-
   render () {
-    const {isValidFilter, filterFieldsToShow, filterableFields, filtersByField} = this._cached
-    const resetFilter = (
-      <div>
-        <p>Invalid Filter</p>
-        <a onClick={this.props.onUpdate.bind(null, null)}>Click to reset</a>
-      </div>
-    )
+    const {visibleFilterFields, fieldStats, filters, onUpdateFilter} = this.props
     return (
       <div style={style.outer}><List style={style.list}>
-        {!isValidFilter ? resetFilter : filterFieldsToShow
-          .filter((f) => filterableFields[f])
-          .map((f) => {
-            switch (filterableFields[f].type) {
-              case 'discrete':
-                return <DiscreteFilter
-                  key={f}
-                  fieldName={f}
-                  checked={filtersByField[f] ? filtersByField[f].in : Object.keys(filterableFields[f].values)}
-                  values={filterableFields[f].values}
-                  onUpdate={this.handleFilterUpdate}
-                  />
-              case 'number':
-              case 'date':
-                return <ContinuousFilter
-                  key={f}
-                  isDate={filterableFields[f].type === 'date'}
-                  fieldName={f}
-                  filter={filtersByField[f]}
-                  min={filtersByField[f] ? filtersByField[f]['>='] : filterableFields[f].min}
-                  max={filtersByField[f] ? filtersByField[f]['<='] : filterableFields[f].max}
-                  valueMin={filterableFields[f].min}
-                  valueMax={filterableFields[f].max}
-                  onUpdate={this.handleFilterUpdate}
-                  />
-            }
-          })
-        }
+        {visibleFilterFields.map((f) => {
+          const field = fieldStats[f]
+          const filter = filters[f]
+          console.log(field.filterType)
+          switch (field.filterType) {
+            case 'discrete':
+              return <DiscreteFilter
+                key={f}
+                fieldName={f}
+                checked={filter ? filter.in : Object.keys(field.values)}
+                values={field.values}
+                onUpdate={onUpdateFilter}
+                />
+            case 'number':
+            case 'date':
+              return <ContinuousFilter
+                key={f}
+                isDate={field.type === 'date'}
+                fieldName={f}
+                filter={filter}
+                min={filter ? filter['>='] : field.min}
+                max={filter ? filter['<='] : field.max}
+                valueMin={field.min}
+                valueMax={field.max}
+                onUpdate={onUpdateFilter}
+                />
+          }
+        })}
         <ListItem
           innerDivStyle={style.listItemInner}
           leftIcon={<AddIcon style={style.listIcon} />}

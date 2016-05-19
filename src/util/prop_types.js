@@ -19,22 +19,19 @@ const mapViewFeature = PropTypes.shape({
       PropTypes.string,
       PropTypes.number
     ]).isRequired,
-    __mf_color: PropTypes.string.isRequired,
-    __mf_popup_title: PropTypes.string.isRequired,
-    __mf_popup_subtitle: PropTypes.string,
-    __mf_popup_img: PropTypes.string
+    __mf_color: PropTypes.string.isRequired
   }).isRequired
 })
 
 const popupFields = PropTypes.shape({
   img: PropTypes.string,
-  title: PropTypes.string,
+  title: PropTypes.string.isRequired,
   subtitle: PropTypes.string
 })
 
 /* See https://www.mapbox.com/mapbox-gl-style-spec/#types-filter */
 /* We only support a specific subset of the mapbox array spec */
-const filter = PropTypes.arrayOf(
+const mapboxFilter = PropTypes.arrayOf(
   PropTypes.oneOfType([
     PropTypes.oneOf(['all']),
     PropTypes.arrayOf(
@@ -49,5 +46,5 @@ const filter = PropTypes.arrayOf(
 module.exports = {
   mapViewFeature,
   popupFields,
-  filter
+  mapboxFilter
 }

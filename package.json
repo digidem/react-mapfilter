@@ -15,8 +15,8 @@
     "debug": "^2.2.0",
     "deep-equal": "^1.0.1",
     "feature-filter": "^2.0.1",
+    "flat": "^2.0.0",
     "geojsonhint": "^1.2.0",
-    "get-value": "^2.0.3",
     "mapbox-gl": "^0.18.0",
     "material-ui": "^0.15.0",
     "randombytes": "^2.0.3",
@@ -30,6 +30,7 @@
     "recompose": "^0.18.0",
     "redbox-react": "^1.2.2",
     "redux": "^3.3.1",
+    "reselect": "^2.5.1",
     "round-to": "^1.1.0",
     "turf-extent": "^1.0.4"
   },

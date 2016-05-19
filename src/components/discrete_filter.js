@@ -60,7 +60,11 @@ class DiscreteFilter extends React.Component {
     } else if (!e.target.checked && checked.indexOf(v) > -1) {
       checked.splice(checked.indexOf(v), 1)
     }
-    this.props.onUpdate(['in', this.props.fieldName, ...checked])
+    this.props.onUpdate({
+      exp: 'in',
+      key: this.props.fieldName,
+      val: checked
+    })
   }
 
   render () {

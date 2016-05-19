@@ -73,7 +73,7 @@ class MapView extends React.Component {
       features: PropTypes.arrayOf(MFPropTypes.mapViewFeature).isRequired
     }),
     /* Current filter (See https://www.mapbox.com/mapbox-gl-style-spec/#types-filter) */
-    filter: MFPropTypes.filter,
+    filter: MFPropTypes.mapboxFilter,
     /**
      * - NOT yet dynamic e.g. if you change it the map won't change
      * Map style. This must be an an object conforming to the schema described in the [style reference](https://mapbox.com/mapbox-gl-style-spec/), or a URL to a JSON style. To load a style from the Mapbox API, you can use a URL of the form `mapbox://styles/:owner/:style`, where `:owner` is your Mapbox account name and `:style` is the style ID. Or you can use one of the predefined Mapbox styles.
@@ -86,6 +86,7 @@ class MapView extends React.Component {
     onMarkerClick: PropTypes.func,
     /* Triggered when map is moved, called with map center [lng, lat] */
     onMove: PropTypes.func,
+    popupFields: MFPropTypes.popupFields,
     /* map zoom */
     zoom: PropTypes.number
   }
@@ -133,7 +134,12 @@ class MapView extends React.Component {
   }
 
   getPopupHtml (o) {
-    return popupTemplate(o)
+    const popupFields = this.props.popupFields
+    const templateContext = Object.keys(popupFields).reduce((prev, field) => {
+      prev[field] = o[popupFields[field]]
+      return prev
+    }, {})
+    return popupTemplate(templateContext)
   }
 
   render () {
