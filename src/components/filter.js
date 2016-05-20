@@ -1,10 +1,9 @@
 const React = require('react')
 const { PropTypes } = React
-const shouldPureComponentUpdate = require('react-pure-render/function')
+const pure = require('recompose/pure').default
 const {List, ListItem} = require('material-ui/List')
 const AddIcon = require('material-ui/svg-icons/content/add').default
 
-const MFPropTypes = require('../util/prop_types')
 const DiscreteFilter = require('./discrete_filter')
 const ContinuousFilter = require('./continuous_filter')
 
@@ -29,68 +28,57 @@ const style = {
   }
 }
 
-class Filter extends React.Component {
-  static propTypes = {
-    filters: PropTypes.object,
-    fieldStats: PropTypes.object.isRequired,
-    visibleFilterFields: PropTypes.arrayOf(PropTypes.string).isRequired,
-    /* called with valid mapbox-gl filter when updated */
-    onUpdateFilter: PropTypes.func
-  }
+const Filter = ({
+  filters = {},
+  fieldStats = {},
+  visibleFilterFields = [],
+  onUpdateFilter = (x) => x
+}) => (
+  <div style={style.outer}>
+    <List style={style.list}>
+      {visibleFilterFields.map((f) => {
+        const field = fieldStats[f]
+        const filter = filters[f]
+        console.log(field.filterType)
+        switch (field.filterType) {
+          case 'discrete':
+            return <DiscreteFilter
+              key={f}
+              fieldName={f}
+              checked={filter ? filter.in : Object.keys(field.values)}
+              values={field.values}
+              onUpdate={onUpdateFilter}
+              />
+          case 'number':
+          case 'date':
+            return <ContinuousFilter
+              key={f}
+              isDate={field.type === 'date'}
+              fieldName={f}
+              filter={filter}
+              min={filter ? filter['>='] : field.min}
+              max={filter ? filter['<='] : field.max}
+              valueMin={field.min}
+              valueMax={field.max}
+              onUpdate={onUpdateFilter}
+              />
+        }
+      })}
+      <ListItem
+        innerDivStyle={style.listItemInner}
+        leftIcon={<AddIcon style={style.listIcon} />}
+        primaryText='Add Filter...'
+      />
+    </List>
+  </div>
+)
 
-  static defaultProps = {
-    filters: {},
-    fieldStats: {},
-    visibleFilterFields: [],
-    onUpdate: (x) => x
-  }
-
-  shouldComponentUpdate = shouldPureComponentUpdate
-
-  componentDidUpdate () {
-    console.log('filter panel updated')
-  }
-
-  render () {
-    const {visibleFilterFields, fieldStats, filters, onUpdateFilter} = this.props
-    return (
-      <div style={style.outer}><List style={style.list}>
-        {visibleFilterFields.map((f) => {
-          const field = fieldStats[f]
-          const filter = filters[f]
-          console.log(field.filterType)
-          switch (field.filterType) {
-            case 'discrete':
-              return <DiscreteFilter
-                key={f}
-                fieldName={f}
-                checked={filter ? filter.in : Object.keys(field.values)}
-                values={field.values}
-                onUpdate={onUpdateFilter}
-                />
-            case 'number':
-            case 'date':
-              return <ContinuousFilter
-                key={f}
-                isDate={field.type === 'date'}
-                fieldName={f}
-                filter={filter}
-                min={filter ? filter['>='] : field.min}
-                max={filter ? filter['<='] : field.max}
-                valueMin={field.min}
-                valueMax={field.max}
-                onUpdate={onUpdateFilter}
-                />
-          }
-        })}
-        <ListItem
-          innerDivStyle={style.listItemInner}
-          leftIcon={<AddIcon style={style.listIcon} />}
-          primaryText='Add Filter...'
-        />
-      </List></div>
-    )
-  }
+Filter.propTypes = {
+  filters: PropTypes.object,
+  fieldStats: PropTypes.object.isRequired,
+  visibleFilterFields: PropTypes.arrayOf(PropTypes.string).isRequired,
+  /* called with valid mapbox-gl filter when updated */
+  onUpdateFilter: PropTypes.func
 }
 
-module.exports = Filter
+module.exports = pure(Filter)
