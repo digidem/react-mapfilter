@@ -39,7 +39,6 @@ const Filter = ({
       {visibleFilterFields.map((f) => {
         const field = fieldStats[f]
         const filter = filters[f]
-        console.log(field.filterType)
         switch (field.filterType) {
           case 'discrete':
             return <DiscreteFilter

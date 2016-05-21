@@ -35,16 +35,36 @@ const mapboxFilter = PropTypes.arrayOf(
   PropTypes.oneOfType([
     PropTypes.oneOf(['all']),
     PropTypes.arrayOf(
-      PropTypes.oneOfType([
-        PropTypes.oneOf(['in']),
-        PropTypes.array
-      ])
+      PropTypes.string
     )
   ])
+)
+
+/**
+ * Our filter structure is similar to mapbox filters but we index
+ * by key and then expression. We only allow filters to combined
+ * with logical AND using the "all" expression.
+ * @example
+ * ```
+ * var filter = {
+ *   name: {
+ *     'in': ['bob', 'susan']
+ *   },
+ *   age: {
+ *     '<=': 50,
+ *     '>=': 30
+ *   }
+ * }
+ */
+const filters = PropTypes.objectOf(
+  PropTypes.objectOf(
+    PropTypes.arrayOf(PropTypes.string)
+  )
 )
 
 module.exports = {
   mapViewFeature,
   popupFields,
-  mapboxFilter
+  mapboxFilter,
+  filters
 }
