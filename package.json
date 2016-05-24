@@ -31,6 +31,7 @@
     "recompose": "^0.18.0",
     "redbox-react": "^1.2.2",
     "redux": "^3.3.1",
+    "redux-thunk": "^2.1.0",
     "reselect": "^2.5.1",
     "round-to": "^1.1.0",
     "turf-extent": "^1.0.4"
