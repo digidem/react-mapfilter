@@ -24,7 +24,10 @@ const styles = {
     borderBottom: '1px solid rgb(224, 224, 224)'
   },
   checkboxLabel: {
-    lineHeight: '22px'
+    lineHeight: '22px',
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis'
   },
   checkboxIcon: {
     width: 20,

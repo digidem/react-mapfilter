@@ -9,10 +9,8 @@ const ContinuousFilter = require('./continuous_filter')
 
 const style = {
   outer: {
-    width: '25%',
-    height: '100%',
-    minWidth: 200,
-    position: 'absolute',
+    minWidth: 250,
+    maxWidth: '33%',
     overflowY: 'auto',
     zIndex: 1,
     boxShadow: 'rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.117647) 0px 1px 4px'

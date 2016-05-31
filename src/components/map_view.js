@@ -23,10 +23,7 @@ const emptyFeatureCollection = {
 }
 
 const style = {
-  width: '75%',
-  height: '100%',
-  position: 'absolute',
-  right: 0
+  flex: 3
 }
 
 const pointStyleLayer = {
