@@ -6,6 +6,7 @@ const AddIcon = require('material-ui/svg-icons/content/add').default
 
 const DiscreteFilter = require('./discrete_filter')
 const ContinuousFilter = require('./continuous_filter')
+const {FILTER_TYPES} = require('../constants')
 
 const style = {
   outer: {
@@ -38,7 +39,7 @@ const Filter = ({
         const field = fieldStats[f]
         const filter = filters[f]
         switch (field.filterType) {
-          case 'discrete':
+          case FILTER_TYPES.DISCRETE:
             return <DiscreteFilter
               key={f}
               fieldName={f}
@@ -46,8 +47,9 @@ const Filter = ({
               values={field.values}
               onUpdate={onUpdateFilter}
               />
-          case 'number':
-          case 'date':
+          case FILTER_TYPES.RANGE:
+            return
+          case FILTER_TYPES.DATE:
             return <ContinuousFilter
               key={f}
               isDate={field.type === 'date'}

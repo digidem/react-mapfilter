@@ -1,12 +1,12 @@
 const { createSelector } = require('reselect')
 
-const getFieldStats = require('./field_stats')
+const getFieldAnalysis = require('./field_analysis')
 const COLORS = require('../../config.json').colors
 const DEFAULT_COLOR = '#555555'
 
 const getColorIndex = createSelector(
   (state) => state.coloredField,
-  getFieldStats,
+  getFieldAnalysis,
   (coloredField, fieldStats) => {
     const colorIndex = {}
     const values = Object.keys(fieldStats[coloredField].values)
