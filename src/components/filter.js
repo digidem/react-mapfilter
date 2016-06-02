@@ -2,7 +2,8 @@ const React = require('react')
 const { PropTypes } = React
 const pure = require('recompose/pure').default
 const {List, ListItem} = require('material-ui/List')
-const AddIcon = require('material-ui/svg-icons/content/add').default
+const Divider = require('material-ui/Divider').default
+const SettingsIcon = require('material-ui/svg-icons/action/settings').default
 
 const DiscreteFilter = require('./discrete_filter')
 const ContinuousFilter = require('./continuous_filter')
@@ -40,33 +41,41 @@ const Filter = ({
         const filter = filters[f]
         switch (field.filterType) {
           case FILTER_TYPES.DISCRETE:
-            return <DiscreteFilter
-              key={f}
-              fieldName={f}
-              checked={filter ? filter.in : Object.keys(field.values)}
-              values={field.values}
-              onUpdate={onUpdateFilter}
-              />
+            return (
+              <div>
+                <DiscreteFilter
+                  key={f}
+                  fieldName={f}
+                  checked={filter ? filter.in : Object.keys(field.values)}
+                  values={field.values}
+                  onUpdate={onUpdateFilter} />
+                <Divider />
+              </div>
+            )
           case FILTER_TYPES.RANGE:
             return
           case FILTER_TYPES.DATE:
-            return <ContinuousFilter
-              key={f}
-              isDate={field.type === 'date'}
-              fieldName={f}
-              filter={filter}
-              min={filter ? filter['>='] : field.min}
-              max={filter ? filter['<='] : field.max}
-              valueMin={field.min}
-              valueMax={field.max}
-              onUpdate={onUpdateFilter}
-              />
+            return (
+              <div>
+                <ContinuousFilter
+                  key={f}
+                  isDate={field.type === 'date'}
+                  fieldName={f}
+                  filter={filter}
+                  min={filter ? filter['>='] : field.min}
+                  max={filter ? filter['<='] : field.max}
+                  valueMin={field.min}
+                  valueMax={field.max}
+                  onUpdate={onUpdateFilter} />
+                <Divider />
+              </div>
+            )
         }
       })}
       <ListItem
         innerDivStyle={style.listItemInner}
-        leftIcon={<AddIcon style={style.listIcon} />}
-        primaryText='Add Filter...'
+        leftIcon={<SettingsIcon style={style.listIcon} />}
+        primaryText='Changed Filters…'
       />
     </List>
   </div>
