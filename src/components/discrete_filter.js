@@ -6,6 +6,7 @@ const Checkbox = makePure(require('material-ui/Checkbox').default)
 const ListIcon = require('material-ui/svg-icons/action/list').default
 const {ListItem} = require('material-ui/List')
 
+const ShowAllButton = require('./show_all_button')
 const { t, titleCase } = require('../util/text_helpers')
 const { listStyles } = require('../styles')
 
@@ -42,6 +43,15 @@ class DiscreteFilter extends React.Component {
 
   shouldComponentUpdate = shouldPureComponentUpdate
 
+  showAll = (e) => {
+    e.preventDefault()
+    this.props.onUpdate({
+      exp: 'in',
+      key: this.props.fieldName,
+      val: null
+    })
+  }
+
   handleCheck = (e) => {
     const v = e.target.value
     const checked = this.props.checked.slice(0)
@@ -59,13 +69,15 @@ class DiscreteFilter extends React.Component {
 
   render () {
     const {fieldName, checked, values} = this.props
+    const isFiltered = checked.length < Object.keys(values).length
     return (
       <ListItem
         innerDivStyle={listStyles.listItemInner}
         primaryText={titleCase(fieldName)}
         leftIcon={<ListIcon style={listStyles.listIcon} />}
         initiallyOpen
-        primaryTogglesNestedList
+        disabled
+        rightIconButton={isFiltered && <ShowAllButton onClick={this.showAll} />}
         nestedListStyle={listStyles.nestedList}
         nestedItems={Object.keys(values).map((v) => <Checkbox
           key={v}

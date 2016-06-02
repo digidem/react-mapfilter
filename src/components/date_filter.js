@@ -10,6 +10,7 @@ const {Popover, PopoverAnimationVertical} = require('material-ui/Popover')
 const DateRange = makePure(require('react-date-range').DateRange)
 const moment = require('moment')
 
+const ShowAllButton = require('./show_all_button')
 const { t, titleCase } = require('../util/text_helpers')
 const { listStyles } = require('../styles')
 
@@ -25,10 +26,6 @@ const styles = {
     fontSize: 16,
     lineHeight: '16px',
     color: 'rgba(0, 0, 0, 0.870588)'
-  },
-  flatButton: {
-    fontSize: 12,
-    top: 5
   },
   iconButton: {
     padding: 12,
@@ -77,8 +74,18 @@ class DateFilter extends React.Component {
     })
   }
 
-  showAllDates = (event) => {
-    event.preventDefault()
+  handleNestedListToggle = (e) => {
+    this.setState({
+      expanded: !this.state.expanded
+    })
+  }
+
+  showAllDates = (e) => {
+    e.preventDefault()
+    this.handleDateChange({
+      startDate: this.props.valueMin,
+      endDate: this.props.valueMax
+    })
   }
 
   handleDateChange = (e) => {
@@ -106,15 +113,18 @@ class DateFilter extends React.Component {
 
   render () {
     const {fieldName, min, max, valueMin, valueMax} = this.props
+    const isFiltered = min > valueMin || max < valueMax
     const minMoment = moment(min)
     const maxMoment = moment(max)
-    const rangeStr = minMoment.format(DATE_FORMAT) + ' — ' + maxMoment.format(DATE_FORMAT)
+    const rangeStr = minMoment.format(DATE_FORMAT) +
+      ' — ' + maxMoment.format(DATE_FORMAT)
     return (
       <ListItem
         innerDivStyle={listStyles.listItemInner}
         primaryText={titleCase(fieldName)}
         leftIcon={<DateIcon style={listStyles.listIcon} />}
         initiallyOpen
+        rightIconButton={isFiltered && <ShowAllButton onClick={this.showAllDates} />}
         disabled
         nestedItems={
           [<div style={styles.dateItem} ref='dateItem'>
