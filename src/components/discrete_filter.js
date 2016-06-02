@@ -7,6 +7,7 @@ const ListIcon = require('material-ui/svg-icons/action/list').default
 const {ListItem} = require('material-ui/List')
 
 const ShowAllButton = require('./show_all_button')
+const OnlyButton = require('./only_button')
 const { t, titleCase } = require('../util/text_helpers')
 const { listStyles } = require('../styles')
 
@@ -41,6 +42,8 @@ class DiscreteFilter extends React.Component {
     onUpdate: (x) => x
   }
 
+  state = {}
+
   shouldComponentUpdate = shouldPureComponentUpdate
 
   showAll = (e) => {
@@ -67,6 +70,24 @@ class DiscreteFilter extends React.Component {
     })
   }
 
+  handleOnlyClick (key, e) {
+    e.preventDefault()
+    console.log('onlyClick', key)
+    this.props.onUpdate({
+      exp: 'in',
+      key: this.props.fieldName,
+      val: [key]
+    })
+  }
+
+  handleMouseEnter (key) {
+    this.setState({hovered: key})
+  }
+
+  handleMouseLeave = () => {
+    this.setState({hovered: false})
+  }
+
   render () {
     const {fieldName, checked, values} = this.props
     const isFiltered = checked.length < Object.keys(values).length
@@ -79,18 +100,27 @@ class DiscreteFilter extends React.Component {
         disabled
         rightIconButton={isFiltered && <ShowAllButton onClick={this.showAll} />}
         nestedListStyle={listStyles.nestedList}
-        nestedItems={Object.keys(values).map((v) => <Checkbox
-          key={v}
-          label={t(v)}
-          value={v}
-          style={styles.checkbox}
-          iconStyle={styles.checkboxIcon}
-          labelStyle={styles.checkboxLabel}
-          checked={checked.indexOf(v) > -1}
-          onCheck={this.handleCheck}
-          disableFocusRipple
-          disableTouchRipple
-        />)}
+        nestedItems={Object.keys(values).map((v) => (
+          <div
+            style={{position: 'relative'}}
+            onMouseEnter={this.handleMouseEnter.bind(this, v)}
+            onMouseLeave={this.handleMouseLeave}>
+            <Checkbox
+              key={v}
+              label={t(v)}
+              value={v}
+              style={styles.checkbox}
+              iconStyle={styles.checkboxIcon}
+              labelStyle={styles.checkboxLabel}
+              checked={checked.indexOf(v) > -1}
+              onCheck={this.handleCheck}
+              disableFocusRipple
+              disableTouchRipple />
+              {this.state.hovered === v &&
+                <OnlyButton
+                  onClick={this.handleOnlyClick.bind(this, v)} />}
+          </div>
+        ))}
       />
     )
   }
