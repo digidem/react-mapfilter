@@ -2,10 +2,7 @@ const { createSelector } = require('reselect')
 
 const getFlattenedFeatures = require('./flattened_features')
 const getColorIndex = require('./color_index')
-
-function getColoredField (state) {
-  return state.coloredField
-}
+const getColoredField = require('./colored_field')
 
 const getMapGeoJSON = createSelector(
   [getFlattenedFeatures, getColoredField, getColorIndex],

@@ -83,7 +83,7 @@ class MapView extends React.Component {
     onMarkerClick: PropTypes.func,
     /* Triggered when map is moved, called with map center [lng, lat] */
     onMove: PropTypes.func,
-    popupFields: MFPropTypes.popupFields,
+    fieldMapping: MFPropTypes.fieldMapping,
     /* map zoom */
     zoom: PropTypes.number
   }
@@ -131,9 +131,9 @@ class MapView extends React.Component {
   }
 
   getPopupHtml (o) {
-    const popupFields = this.props.popupFields
-    const templateContext = Object.keys(popupFields).reduce((prev, field) => {
-      prev[field] = o[popupFields[field]]
+    const fieldMapping = this.props.fieldMapping
+    const templateContext = Object.keys(fieldMapping).reduce((prev, field) => {
+      prev[field] = o[fieldMapping[field]]
       return prev
     }, {})
     return popupTemplate(templateContext)

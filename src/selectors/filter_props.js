@@ -1,9 +1,9 @@
 const union = require('lodash/union')
-const intersect = require('lodash/intersection')
 const pick = require('lodash/pick')
 const { createSelector } = require('reselect')
 
 const getFieldAnalysis = require('./field_analysis')
+const getVisibleFilters = require('./visible_filters')
 
 // We're only interested in filters that apply to keys that
 // actually exist in our data
@@ -15,22 +15,13 @@ const getFilters = createSelector(
   }
 )
 
-// We don't show filters for fields that aren't in our data
-const getVisibleFilterFields = createSelector(
-  (state) => state.visibleFilterFields,
-  getFieldAnalysis,
-  (filterFields, fieldStats) => {
-    return intersect(filterFields, Object.keys(fieldStats))
-  }
-)
-
 // We should always show filters for any fields that
 // are in the current filter
 const getMergedFilterFields = createSelector(
-  getVisibleFilterFields,
+  getVisibleFilters,
   getFilters,
-  (filterFields, filters) => {
-    return union(filterFields, Object.keys(filters))
+  (visibleFilters, filters) => {
+    return union(visibleFilters, Object.keys(filters))
   }
 )
 
@@ -38,11 +29,11 @@ const getFilterProps = createSelector(
   getFilters,
   getFieldAnalysis,
   getMergedFilterFields,
-  (filters, fieldStats, visibleFilterFields) => {
+  (filters, fieldStats, visibleFilters) => {
     return {
       filters,
       fieldStats,
-      visibleFilterFields
+      visibleFilters
     }
   }
 )

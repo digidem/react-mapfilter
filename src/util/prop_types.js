@@ -23,8 +23,9 @@ const mapViewFeature = PropTypes.shape({
   }).isRequired
 })
 
-const popupFields = PropTypes.shape({
-  img: PropTypes.string,
+const fieldMapping = PropTypes.shape({
+  media: PropTypes.string,
+  mediaType: PropTypes.string,
   title: PropTypes.string.isRequired,
   subtitle: PropTypes.string
 })
@@ -64,7 +65,7 @@ const filters = PropTypes.objectOf(
 
 module.exports = {
   mapViewFeature,
-  popupFields,
+  fieldMapping,
   mapboxFilter,
   filters
 }

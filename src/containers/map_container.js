@@ -6,6 +6,8 @@ const MapView = require('../components/map_view')
 const { moveMap } = require('../action_creators')
 const getMapGeoJSON = require('../selectors/map_geojson')
 const getMapBoxFilter = require('../selectors/mapbox_filter')
+const getFieldMapping = require('../selectors/field_mapping')
+
 const deepEqual = require('deep-equal')
 const roundTo = require('round-to')
 
@@ -60,7 +62,7 @@ function mapStateToProps (state) {
     zoom: state.mapPosition.zoom,
     geojson: getMapGeoJSON(state),
     filter: getMapBoxFilter(state),
-    popupFields: state.popupFields
+    fieldMapping: getFieldMapping(state)
   }
 }
 

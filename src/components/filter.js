@@ -30,12 +30,12 @@ const style = {
 const Filter = ({
   filters = {},
   fieldStats = {},
-  visibleFilterFields = [],
+  visibleFilters = [],
   onUpdateFilter = (x) => x
 }) => (
   <div style={style.outer}>
     <List style={style.list}>
-      {visibleFilterFields.map((f) => {
+      {visibleFilters.map((f) => {
         const field = fieldStats[f]
         const filter = filters[f]
         switch (field.filterType) {
@@ -75,7 +75,7 @@ const Filter = ({
 Filter.propTypes = {
   filters: PropTypes.object,
   fieldStats: PropTypes.object.isRequired,
-  visibleFilterFields: PropTypes.arrayOf(PropTypes.string).isRequired,
+  visibleFilters: PropTypes.arrayOf(PropTypes.string).isRequired,
   /* called with valid mapbox-gl filter when updated */
   onUpdateFilter: PropTypes.func
 }
