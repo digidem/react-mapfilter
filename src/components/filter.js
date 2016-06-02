@@ -6,12 +6,12 @@ const Divider = require('material-ui/Divider').default
 const SettingsIcon = require('material-ui/svg-icons/action/settings').default
 
 const DiscreteFilter = require('./discrete_filter')
-const ContinuousFilter = require('./continuous_filter')
+const DateFilter = require('./date_filter')
 const {FILTER_TYPES} = require('../constants')
 
 const style = {
   outer: {
-    minWidth: 250,
+    minWidth: 300,
     maxWidth: '33%',
     overflowY: 'auto',
     zIndex: 1,
@@ -57,15 +57,14 @@ const Filter = ({
           case FILTER_TYPES.DATE:
             return (
               <div>
-                <ContinuousFilter
+                <DateFilter
                   key={f}
-                  isDate={field.type === 'date'}
                   fieldName={f}
                   filter={filter}
-                  min={filter ? filter['>='] : field.min}
-                  max={filter ? filter['<='] : field.max}
-                  valueMin={field.min}
-                  valueMax={field.max}
+                  min={filter ? filter['>='] : field.valueStats.min}
+                  max={filter ? filter['<='] : field.valueStats.max}
+                  valueMin={field.valueStats.min}
+                  valueMax={field.valueStats.max}
                   onUpdate={onUpdateFilter} />
                 <Divider />
               </div>
@@ -75,7 +74,7 @@ const Filter = ({
       <ListItem
         innerDivStyle={style.listItemInner}
         leftIcon={<SettingsIcon style={style.listIcon} />}
-        primaryText='Changed Filters…'
+        primaryText='Change Filters…'
       />
     </List>
   </div>

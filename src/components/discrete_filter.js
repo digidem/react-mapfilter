@@ -7,21 +7,12 @@ const ListIcon = require('material-ui/svg-icons/action/list').default
 const {ListItem} = require('material-ui/List')
 
 const { t, titleCase } = require('../util/text_helpers')
+const { listStyles } = require('../styles')
 
 const styles = {
   checkbox: {
     marginBottom: 8,
     fontSize: 14
-  },
-  listItemInner: {
-    paddingLeft: 48
-  },
-  listIcon: {
-    left: 0
-  },
-  nestedList: {
-    padding: '8px 14px',
-    borderBottom: '1px solid rgb(224, 224, 224)'
   },
   checkboxLabel: {
     lineHeight: '22px',
@@ -33,10 +24,6 @@ const styles = {
     width: 20,
     height: 20,
     marginRight: 14
-  },
-  headerStyle: {
-    fontFamily: 'Roboto, sans-serif',
-    fontStyle: 'bold'
   }
 }
 
@@ -74,13 +61,12 @@ class DiscreteFilter extends React.Component {
     const {fieldName, checked, values} = this.props
     return (
       <ListItem
-        style={styles.listItem}
-        innerDivStyle={styles.listItemInner}
+        innerDivStyle={listStyles.listItemInner}
         primaryText={titleCase(fieldName)}
-        leftIcon={<ListIcon style={styles.listIcon} />}
+        leftIcon={<ListIcon style={listStyles.listIcon} />}
         initiallyOpen
         primaryTogglesNestedList
-        nestedListStyle={styles.nestedList}
+        nestedListStyle={listStyles.nestedList}
         nestedItems={Object.keys(values).map((v) => <Checkbox
           key={v}
           label={t(v)}

@@ -40,6 +40,7 @@ function isFilterable (type) {
 function statReduce (p = {mean: NaN, vari: NaN, min: +Infinity, max: -Infinity}, x, i) {
   p.mean = isNaN(p.mean) ? 0 : p.mean
   const mean = p.mean + (x - p.mean) / (i + 1)
+  x = x instanceof Date ? +x : x
   return {
     mean: mean,
     min: x < p.min ? x : p.min,

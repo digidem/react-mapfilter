@@ -17,7 +17,11 @@ const styles = {
     bottom: 0,
     left: 0,
     display: 'flex',
-    flexDirection: 'column'
+    flexDirection: 'column',
+    fontFamily: 'Roboto, sans-serif',
+    '-webkit-font-smoothing': 'antialiased',
+    fontSize: 15,
+    lineHeight: '24px'
   },
   inner: {
     display: 'flex',
