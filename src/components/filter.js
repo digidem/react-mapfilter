@@ -42,9 +42,8 @@ const Filter = ({
         switch (field.filterType) {
           case FILTER_TYPES.DISCRETE:
             return (
-              <div>
+              <div key={f}>
                 <DiscreteFilter
-                  key={f}
                   fieldName={f}
                   checked={filter ? filter.in : Object.keys(field.values)}
                   values={field.values}
@@ -56,9 +55,8 @@ const Filter = ({
             return
           case FILTER_TYPES.DATE:
             return (
-              <div>
+              <div key={f}>
                 <DateFilter
-                  key={f}
                   fieldName={f}
                   filter={filter}
                   min={filter ? filter['>='] : field.valueStats.min}

@@ -12,7 +12,7 @@ class ImageGrid extends React.Component {
     containerWidth: PropTypes.number.isRequired,
     images: PropTypes.array.isRequired,
     thumbSize: PropTypes.number.isRequired,
-    onImageClick: PropTypes.function
+    onImageClick: PropTypes.func
   }
 
   static defaultProps = {
@@ -40,7 +40,7 @@ class ImageGrid extends React.Component {
     const columnsCount = Math.floor(containerWidth / thumbSize)
     const columnWidth = containerWidth / columnsCount
     const rowsCount = Math.ceil(images.length / columnsCount)
-    console.log(columnsCount, columnWidth, rowsCount, containerWidth)
+
     return (
       <Grid
         ref='grid'

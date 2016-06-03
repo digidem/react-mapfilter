@@ -98,15 +98,15 @@ class DiscreteFilter extends React.Component {
         leftIcon={<ListIcon style={listStyles.listIcon} />}
         initiallyOpen
         disabled
-        rightIconButton={isFiltered && <ShowAllButton onClick={this.showAll} />}
+        rightIconButton={isFiltered ? <ShowAllButton onClick={this.showAll} /> : null}
         nestedListStyle={listStyles.nestedList}
         nestedItems={Object.keys(values).map((v) => (
           <div
+            key={v}
             style={{position: 'relative'}}
             onMouseEnter={this.handleMouseEnter.bind(this, v)}
             onMouseLeave={this.handleMouseLeave}>
             <Checkbox
-              key={v}
               label={t(v)}
               value={v}
               style={styles.checkbox}

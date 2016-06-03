@@ -127,10 +127,10 @@ class DateFilter extends React.Component {
         primaryText={titleCase(fieldName)}
         leftIcon={<DateIcon style={listStyles.listIcon} />}
         initiallyOpen
-        rightIconButton={isFiltered && <ShowAllButton onClick={this.showAllDates} />}
+        rightIconButton={isFiltered ? <ShowAllButton onClick={this.showAllDates} /> : null}
         disabled
         nestedItems={
-          [<div style={styles.dateItem} ref='dateItem'>
+          [<div style={styles.dateItem} ref='dateItem' key='dateItem'>
             <div onClick={this.showDatePopover}>{rangeStr}</div>
             <IconButton
               onClick={this.showDatePopover}
