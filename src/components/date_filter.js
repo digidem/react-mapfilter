@@ -13,6 +13,7 @@ const moment = require('moment')
 const ShowAllButton = require('./show_all_button')
 const { t, titleCase } = require('../util/text_helpers')
 const { listStyles } = require('../styles')
+const { dateFormatShort } = require('../../config.json')
 
 const styles = {
   nestedList: {
@@ -23,18 +24,22 @@ const styles = {
     marginLeft: 0,
     padding: '16px 56px 16px 16px',
     position: 'relative',
-    fontSize: 16,
-    lineHeight: '16px',
+    fontSize: 14,
+    lineHeight: '14px',
     color: 'rgba(0, 0, 0, 0.870588)'
   },
   iconButton: {
     padding: 12,
-    width: 48,
-    height: 48,
+    width: 46,
+    height: 46,
     top: 0,
     right: 4,
     background: 'none',
     position: 'absolute'
+  },
+  editIcon: {
+    width: 20,
+    height: 20
   },
   showAll: {
     fontSize: 12,
@@ -46,8 +51,6 @@ const styles = {
     whiteSpace: 'nowrap'
   }
 }
-
-const DATE_FORMAT = 'MMM D, YYYY'
 
 class DateFilter extends React.Component {
   static PropTypes = {
@@ -116,8 +119,8 @@ class DateFilter extends React.Component {
     const isFiltered = min > valueMin || max < valueMax
     const minMoment = moment(min)
     const maxMoment = moment(max)
-    const rangeStr = minMoment.format(DATE_FORMAT) +
-      ' — ' + maxMoment.format(DATE_FORMAT)
+    const rangeStr = minMoment.format(dateFormatShort) +
+      ' — ' + maxMoment.format(dateFormatShort)
     return (
       <ListItem
         innerDivStyle={listStyles.listItemInner}
@@ -129,7 +132,11 @@ class DateFilter extends React.Component {
         nestedItems={
           [<div style={styles.dateItem} ref='dateItem'>
             <div onClick={this.showDatePopover}>{rangeStr}</div>
-            <IconButton onClick={this.showDatePopover} tooltip='Select dates' style={styles.iconButton}>
+            <IconButton
+              onClick={this.showDatePopover}
+              tooltip='Select dates'
+              style={styles.iconButton}
+              iconStyle={styles.editIcon}>
               <EditIcon color='#757575' />
             </IconButton>
             <Popover

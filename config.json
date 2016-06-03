@@ -23,5 +23,7 @@
     "#fdbf6f",
     "#ff7f00",
     "#ffff99"
-  ]
+  ],
+  "dateFormatShort": "ll",
+  "dateFormatLong": "LL"
 }
