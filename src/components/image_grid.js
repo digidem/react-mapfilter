@@ -63,7 +63,8 @@ class ImageGrid extends React.Component {
     } = this.props
     const columnsCount = Math.floor(containerWidth / thumbSize)
     const image = images[(rowIndex * columnsCount) + columnIndex]
-    const url = image && image.url
+    if (!image) return
+    const url = image.url
     return <Image url={url} key={url} onClick={this.handleImageClick.bind(this, image.featureId)} />
   }
 }
