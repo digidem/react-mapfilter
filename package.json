@@ -54,7 +54,9 @@
     "browserify-css": "^0.9.0",
     "browserify-hmr": "^0.3.1",
     "budo": "^8.0.4",
+    "copyfiles": "^0.2.1",
     "dependency-check": "^2.5.1",
+    "gh-pages": "^0.11.0",
     "handlebars": "^4.0.5",
     "hbsfy": "^2.5.0",
     "standard": "^7.0.1",
@@ -67,7 +69,9 @@
     "start": "budo src/index.js:bundle.js",
     "dev": "budo src/dev.js:bundle.js -- -p browserify-hmr",
     "test": "babel-node test/*.test.js",
-    "build": "NODE_ENV=production browserify src/index.js --full-paths -o bundle.js"
+    "build": "npm run build:statics && npm run build:js",
+    "build:statics": "copyfiles index.html fonts/* dist",
+    "build:js": "NODE_ENV=production browserify src/index.js -o dist/bundle.js"
   },
   "standard": {
     "parser": "babel-eslint",
