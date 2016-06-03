@@ -35,6 +35,7 @@ function TopBar ({currentSection, onChange}) {
         style={styles.tabs}
       >
         <Tab label='Map' value='map' style={styles.tab} />
+        <Tab label='Photos' value='photos' style={styles.tab} />
         <Tab label='Report' value='report' style={styles.tab} />
       </Tabs>
       <div style={styles.right} />
