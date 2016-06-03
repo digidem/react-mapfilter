@@ -4,12 +4,11 @@ const find = require('lodash/find')
 // const { PropTypes } = React
 const { Card, CardMedia, CardText, CardHeader, CardActions } = require('material-ui/Card')
 const {Table, TableBody, TableRow, TableRowColumn} = require('material-ui/Table')
-const Avatar = require('material-ui/Avatar').default
-const FlatButton = require('material-ui/FlatButton').default
 const IconButton = require('material-ui/IconButton').default
 const CloseIcon = require('material-ui/svg-icons/navigation/close').default
 
 const getFlattenedFeatures = require('../selectors/flattened_features')
+const getFieldMapping = require('../selectors/field_mapping')
 const getColorIndex = require('../selectors/color_index')
 const MarkerIcon = require('./marker_icon')
 
@@ -84,7 +83,7 @@ const FeatureDetail = ({color, media, properties, title, subtitle, onCloseClick}
             return (
               <TableRow key={prop}>
                 <TableRowColumn style={styles.firstColumn}>{prop}</TableRowColumn>
-                <TableRowColumn>{properties[prop]}</TableRowColumn>
+                <TableRowColumn>{properties[prop].toString()}</TableRowColumn>
               </TableRow>
             )
           })}
@@ -99,15 +98,17 @@ module.exports = connect(
   (state, ownProps) => {
     const features = getFlattenedFeatures(state)
     const colorIndex = getColorIndex(state)
+    const fieldMapping = getFieldMapping(state)
+
     const feature = find(features, {id: ownProps.id})
     if (!feature) return
     const geojsonProps = feature.properties
     return {
       properties: geojsonProps,
-      media: geojsonProps[state.popupFields.img],
-      title: geojsonProps[state.popupFields.title],
-      subtitle: geojsonProps[state.popupFields.subtitle],
-      color: colorIndex[geojsonProps[state.coloredField]]
+      media: geojsonProps[fieldMapping.media],
+      title: geojsonProps[fieldMapping.title],
+      subtitle: geojsonProps[fieldMapping.subtitle],
+      color: colorIndex[geojsonProps[fieldMapping.color]]
     }
   }
 )(FeatureDetail)
