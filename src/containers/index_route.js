@@ -50,7 +50,7 @@ const modalStyles = {
     height: 'calc(100% - 80px)',
     display: 'flex',
     alignItems: 'center',
-    maxWidth: 500
+    maxWidth: 640
   }
 }
 

@@ -1,4 +1,6 @@
 const React = require('react')
+const ReactDOM = require('react-dom')
+
 const { connect } = require('react-redux')
 const find = require('lodash/find')
 // const { PropTypes } = React
@@ -53,46 +55,71 @@ const styles = {
     objectFit: 'cover'
   },
   firstColumn: {
-    maxWidth: 100,
     fontWeight: 'bold'
   }
 }
 
-const FeatureDetail = ({color, media, properties, title, subtitle, onCloseClick}) => (
-  <Card
-    style={styles.card}
-    containerStyle={styles.cardContainerStyle}
-    zDepth={2}>
-    <CardHeader
-      style={styles.header}
-      avatar={<MarkerIcon color={color} style={styles.markerIcon} />}
-      title={title}
-      subtitle={subtitle}>
-      <IconButton style={{float: 'right'}} onClick={onCloseClick}>
-        <CloseIcon />
-      </IconButton>
-    </CardHeader>
-    <div style={styles.scrollable}>
-      <CardMedia style={styles.media}>
-        <img style={styles.img} src={'http://resizer.digital-democracy.org/500/' + media} />
-      </CardMedia>
-      <CardText>
-        <Table selectable={false}>
-          <TableBody displayRowCheckbox={false}>
-          {Object.keys(properties).map(prop => {
-            return (
-              <TableRow key={prop}>
-                <TableRowColumn style={styles.firstColumn}>{prop}</TableRowColumn>
-                <TableRowColumn>{properties[prop].toString()}</TableRowColumn>
-              </TableRow>
-            )
-          })}
-          </TableBody>
-        </Table>
-      </CardText>
-    </div>
-  </Card>
-)
+class FeatureDetail extends React.Component {
+  componentDidMount () {
+    this.autoFitColumn()
+  }
+
+  componentDidUpdate (prevProps) {
+    if (this.props.properties !== prevProps.properties) {
+      this.autoFitColumn()
+    }
+  }
+
+  autoFitColumn () {
+    let width = 0
+    for (let p in this.props.properties) {
+      width = Math.max(width, this.refs[p].getBoundingClientRect().width)
+    }
+    const column = ReactDOM.findDOMNode(this.refs.__td0)
+    column.style.width = Math.ceil(width) + 'px'
+  }
+
+  render () {
+    const {color, media, properties, title, subtitle, onCloseClick} = this.props
+    return (
+      <Card
+        style={styles.card}
+        containerStyle={styles.cardContainerStyle}
+        zDepth={2}>
+        <CardHeader
+          style={styles.header}
+          avatar={<MarkerIcon color={color} style={styles.markerIcon} />}
+          title={title}
+          subtitle={subtitle}>
+          <IconButton style={{float: 'right'}} onClick={onCloseClick}>
+            <CloseIcon />
+          </IconButton>
+        </CardHeader>
+        <div style={styles.scrollable}>
+          <CardMedia style={styles.media}>
+            <img style={styles.img} src={'http://resizer.digital-democracy.org/500/' + media} />
+          </CardMedia>
+          <CardText>
+            <Table selectable={false}>
+              <TableBody displayRowCheckbox={false}>
+              {Object.keys(properties).map((prop, i) => {
+                return (
+                  <TableRow key={prop}>
+                    <TableRowColumn ref={'__td' + i} style={styles.firstColumn}>
+                      <span ref={prop}>{prop}</span>
+                    </TableRowColumn>
+                    <TableRowColumn>{properties[prop].toString()}</TableRowColumn>
+                  </TableRow>
+                )
+              })}
+              </TableBody>
+            </Table>
+          </CardText>
+        </div>
+      </Card>
+    )
+  }
+}
 
 module.exports = connect(
   (state, ownProps) => {
