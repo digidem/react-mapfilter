@@ -136,7 +136,8 @@ class DateFilter extends React.Component {
               onClick={this.showDatePopover}
               tooltip='Select dates'
               style={styles.iconButton}
-              iconStyle={styles.editIcon}>
+              iconStyle={styles.editIcon}
+              tooltipPosition='bottom-left'>
               <EditIcon color='#757575' />
             </IconButton>
             <Popover
