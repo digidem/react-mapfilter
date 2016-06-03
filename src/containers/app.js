@@ -19,7 +19,7 @@ require('../../css/fonts.css')
 
 // Attach Chrome devTools extensions if it is present.
 const devTools = window.devToolsExtension ? window.devToolsExtension() : undefined
-const storeEnhancer = compose(devTools, applyMiddleware(thunk))
+const storeEnhancer = devTools ? compose(devTools, applyMiddleware(thunk)) : applyMiddleware(thunk)
 const store = createStore(reducers, storeEnhancer)
 
 const App = () => (
