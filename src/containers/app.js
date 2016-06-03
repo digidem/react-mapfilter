@@ -27,7 +27,7 @@ const App = () => (
     <MuiThemeProvider muiTheme={getMuiTheme()}>
       <Router history={history}>
         <Route path='/' component={IndexRoute}>
-          <IndexRedirect to="/map" />
+          <IndexRedirect to='/map' />
           <Route path='map' component={MapContainer}>
             <Route path='features/:id' component={FeatureDetail} />
           </Route>
