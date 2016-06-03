@@ -23,8 +23,12 @@ const emptyFeatureCollection = {
 }
 
 const style = {
-  flex: 3
+  flex: 3,
+  display: 'flex'
 }
+
+let savedMap
+let savedMapDiv
 
 const pointStyleLayer = {
   id: 'features',
@@ -142,7 +146,7 @@ class MapView extends React.Component {
   render () {
     return (
       <div
-        ref={(el) => (this.mapDiv = el)}
+        ref={(el) => (this.mapContainer = el)}
         style={style}
       />
     )
@@ -152,10 +156,21 @@ class MapView extends React.Component {
   // with settings from props.
   componentDidMount () {
     const { center, filter, mapStyle, geojson, zoom } = this.props
+    let map
 
-    const map = this.map = window.map = new mapboxgl.Map({
+    if (savedMap) {
+      this.mapContainer.appendChild(savedMapDiv)
+      map = this.map = savedMap
+      map.resize()
+      return
+    }
+    const mapDiv = savedMapDiv = document.createElement('div')
+    mapDiv.style.flex = 1
+    this.mapContainer.appendChild(mapDiv)
+
+    map = this.map = savedMap = new mapboxgl.Map({
       style: mapStyle,
-      container: this.mapDiv,
+      container: mapDiv,
       center: center || [0, 0],
       zoom: zoom || 0
     })
@@ -207,7 +222,7 @@ class MapView extends React.Component {
   }
 
   componentWillUnmount () {
-    this.map.remove()
+    // this.map.remove()
   }
 
   /**
