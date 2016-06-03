@@ -8,6 +8,7 @@ const MuiThemeProvider = require('material-ui/styles/MuiThemeProvider').default
 
 const IndexRoute = require('./index_route')
 const MapContainer = require('./map_container')
+const ReportContainer = require('./report_container')
 const FeatureDetail = require('../components/feature_detail')
 const reducers = require('../reducers')
 const history = require('../history')
@@ -29,6 +30,7 @@ const App = () => (
           <Route path='map' component={MapContainer}>
             <Route path='features/:id' component={FeatureDetail} />
           </Route>
+          <Route path='report' component={ReportContainer} />
         </Route>
       </Router>
     </MuiThemeProvider>

@@ -19,7 +19,7 @@ const styles = {
     display: 'flex',
     flexDirection: 'column',
     fontFamily: 'Roboto, sans-serif',
-    '-webkit-font-smoothing': 'antialiased',
+    WebkitFontSmoothing: 'antialiased',
     fontSize: 15,
     lineHeight: '24px'
   },
@@ -83,12 +83,21 @@ class IndexRoute extends React.Component {
     }
   }
 
+  handleTabChange = (tab) => {
+    history.push({
+      ...this.props.location,
+      pathname: '/' + tab
+    })
+  }
+
   render () {
-    const {children, params} = this.props
+    const {children, location, params} = this.props
     const featureDetail = children && children.props.children
     return (
       <div style={styles.outer}>
-        <TopBar />
+        <TopBar
+          currentSection={location.pathname.split('/')[1]}
+          onChange={this.handleTabChange} />
         <div style={styles.inner}>
           <FilterContainer />
           {children && React.cloneElement(children)}
