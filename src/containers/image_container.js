@@ -6,26 +6,17 @@ const getImages = require('../selectors/images')
 
 function mapStateToProps (state, ownProps) {
   return {
-    images: getImages(state)
+    images: getImages(state),
+    onImageClick: function (featureId) {
+      const {location} = ownProps
+      history.push({
+        ...location,
+        pathname: '/photos/features/' + featureId
+      })
+    }
   }
 }
 
-function mergeProps (stateProps, dispatchProps, ownProps) {
-  return Object.assign({},
-    {
-      onImageClick: function (featureId) {
-        const {location} = ownProps
-        history.push({
-          ...location,
-          pathname: '/photos/features/' + featureId
-        })
-      }
-    },
-    stateProps, dispatchProps)
-}
-
 module.exports = connect(
-  mapStateToProps,
-  () => {},
-  mergeProps
+  mapStateToProps
 )(ImageGrid)

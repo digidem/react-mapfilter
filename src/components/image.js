@@ -12,8 +12,8 @@ const style = {
 
 class Image extends React.Component {
   render () {
-    const url = 'http://resizer.digital-democracy.org/200/' + this.props.url
-    return <img style={style} src={url} onClick={this.props.onClick} />
+    const url = 'http://resizer.digital-democracy.org/400/' + this.props.url
+    return <img style={Object.assign({}, style, this.props.style)} src={url} onClick={this.props.onClick} />
   }
 }
 

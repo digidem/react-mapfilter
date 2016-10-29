@@ -4,7 +4,7 @@ const ReactDOM = require('react-dom')
 const { connect } = require('react-redux')
 const find = require('lodash/find')
 // const { PropTypes } = React
-const { Card, CardMedia, CardText, CardHeader, CardActions } = require('material-ui/Card')
+const { Card, CardMedia, CardText, CardHeader } = require('material-ui/Card')
 const {Table, TableBody, TableRow, TableRowColumn} = require('material-ui/Table')
 const IconButton = require('material-ui/IconButton').default
 const CloseIcon = require('material-ui/svg-icons/navigation/close').default
@@ -102,16 +102,16 @@ class FeatureDetail extends React.Component {
           <CardText>
             <Table selectable={false}>
               <TableBody displayRowCheckbox={false}>
-              {Object.keys(properties).map((prop, i) => {
-                return (
-                  <TableRow key={prop}>
-                    <TableRowColumn ref={'__td' + i} style={styles.firstColumn}>
-                      <span ref={prop}>{prop}</span>
-                    </TableRowColumn>
-                    <TableRowColumn>{properties[prop].toString()}</TableRowColumn>
-                  </TableRow>
-                )
-              })}
+                {Object.keys(properties).map((prop, i) => {
+                  return (
+                    <TableRow key={prop}>
+                      <TableRowColumn ref={'__td' + i} style={styles.firstColumn}>
+                        <span ref={prop}>{prop}</span>
+                      </TableRowColumn>
+                      <TableRowColumn>{properties[prop].toString()}</TableRowColumn>
+                    </TableRow>
+                  )
+                })}
               </TableBody>
             </Table>
           </CardText>

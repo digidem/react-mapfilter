@@ -11,7 +11,7 @@ const DateRange = makePure(require('react-date-range').DateRange)
 const moment = require('moment')
 
 const ShowAllButton = require('./show_all_button')
-const { t, titleCase } = require('../util/text_helpers')
+const { titleCase } = require('../util/text_helpers')
 const { listStyles } = require('../styles')
 const { dateFormatShort } = require('../../config.json')
 

@@ -116,9 +116,9 @@ class DiscreteFilter extends React.Component {
               onCheck={this.handleCheck}
               disableFocusRipple
               disableTouchRipple />
-              {this.state.hovered === v &&
-                <OnlyButton
-                  onClick={this.handleOnlyClick.bind(this, v)} />}
+            {this.state.hovered === v &&
+              <OnlyButton
+                onClick={this.handleOnlyClick.bind(this, v)} />}
           </div>
         ))}
       />

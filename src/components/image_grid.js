@@ -55,7 +55,7 @@ class ImageGrid extends React.Component {
     )
   }
 
-  _renderCell = ({columnIndex, rowIndex}) => {
+  _renderCell = ({columnIndex, rowIndex, key, style}) => {
     const {
       containerWidth,
       images,
@@ -65,7 +65,7 @@ class ImageGrid extends React.Component {
     const image = images[(rowIndex * columnsCount) + columnIndex]
     if (!image) return
     const url = image.url
-    return <Image url={url} key={url} onClick={this.handleImageClick.bind(this, image.featureId)} />
+    return <Image url={url} key={key} style={style} onClick={this.handleImageClick.bind(this, image.featureId)} />
   }
 }
 

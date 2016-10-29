@@ -1,5 +1,5 @@
 const fs = require('fs')
-
+const path = require('path')
 /**
  * Attempt to parse a datestring, returning `false` if it can't be parsed
  * @param {string} possibleDate [description]
@@ -12,7 +12,7 @@ function reviveDate (k, v) {
   return date
 }
 
-const markersJson = fs.readFileSync(__dirname + '/../../test/fixtures/markers.json', 'utf8')
+const markersJson = fs.readFileSync(path.join(__dirname, '/../../test/fixtures/markers.json'), 'utf8')
 const markers = JSON.parse(markersJson, reviveDate).features
 
 const features = (state = markers, action) => {
