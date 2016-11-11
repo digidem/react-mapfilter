@@ -32,23 +32,27 @@
     "collect-stream": "^1.1.1",
     "crossfilter": "^1.3.11",
     "d3": "3",
-    "drag-drop": "^2.3.1",
+    "drag-drop": "^2.12.1",
     "ecstatic": "^1.4.0",
+    "electron": "^1.4.6",
     "end-of-stream": "^1.1.0",
+    "forkdb": "^9.2.1",
     "hubfs.js": "^1.0.0",
-    "hyperlog": "^4.9.0",
+    "hyperlog": "^4.10.5",
     "hyperlog-index": "^5.0.3",
     "jquery": "^2.1.4",
     "json2csv": "^3.0.2",
     "leaflet": "^0.7.3",
-    "level": "^1.4.0",
+    "level": "^1.5.0",
     "lodash": "^3.1.0",
     "mkdirp": "^0.5.1",
     "octokat": "^0.4.10",
     "odk-sync": "^1.0.0",
     "once": "^1.3.3",
     "shp-write": "^0.2.1",
-    "xdg-basedir": "^2.0.0"
+    "xdg-basedir": "^2.0.0",
+    "xform-to-json": "^1.2.0",
+    "xhr": "^2.2.2"
   },
   "scripts": {
     "package-win": "rimraf \"dist/Monitoring Station-win32-x64\" && electron-packager . \"Monitoring Station\" --out=dist --ignore=\"^/dist\" --platform=win32 --arch=x64 --version=0.36.9 --prune --overwrite --asar",
@@ -57,7 +61,7 @@
     "open": "npm run build:dev && npm run dev | opnr | garnish",
     "watch": "watchify js/index.js -o dist/bundle.js -t [ jstify --engine lodash ] -dv",
     "start": "electron app.js --disable-http-cache",
-    "build:dev": "copyfiles index.html dist && npm run build:css && npm run build:img",
+    "build:dev": "mkdirp dist && copyfiles index.html dist && npm run build:css && npm run build:img",
     "build:web": "npm run build:dev && npm run build:js && npm run build:config",
     "prebuild:web": "rimraf dist && mkdirp dist",
     "build:config": "node bin/build_config.js",
@@ -69,7 +73,7 @@
     "build:chrome": "copyup chrome/* dist && crx pack dist -o dist/mapfilter.crx",
     "test": "standard",
     "patch": "npm version patch && git push --follow-tags",
-    "rebuild-leveldb": "cd node_modules/leveldown && set HOME=~/.electron-gyp && node-gyp rebuild --target=0.36.9 --arch=x64 --dist-url=https://atom.io/download/atom-shell"
+    "rebuild-leveldb": "cd node_modules/leveldown && set HOME=~/.electron-gyp && node-gyp rebuild --target=1.4.6 --arch=x64 --dist-url=https://atom.io/download/atom-shell"
   },
   "standard": {
     "ignore": [
