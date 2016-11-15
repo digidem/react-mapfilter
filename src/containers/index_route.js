@@ -70,6 +70,14 @@ class IndexRoute extends React.Component {
     })
   }
 
+  openFeatureDetail = id => {
+    const {router, location} = this.props
+    router.transitionTo({
+      ...location,
+      pathname: '/' + location.pathname.split('/')[1] + '/features/' + id
+    })
+  }
+
   // Read the filter and map position from the URL on first load
   componentWillMount () {
     const {filters, location: {query}, updateFilter, router} = this.props
@@ -104,9 +112,13 @@ class IndexRoute extends React.Component {
         <TopBar tabs={tabs} />
         <div style={styles.inner}>
           <FilterContainer />
-          <Match pattern='/map' component={MapContainer} />
+          <Match pattern='/map' render={matchProps => (
+            <MapContainer {...matchProps} onMarkerClick={this.openFeatureDetail} />
+          )} />
+          <Match pattern='/photos' render={matchProps => (
+            <ImageContainer {...matchProps} onImageClick={this.openFeatureDetail} />
+          )} />
           <Match pattern='/report' component={ReportContainer} />
-          <Match pattern='/photos' component={ImageContainer} />
         </div>
         <MatchModal
           pattern='/:section(map|photos|report)/features/:id'

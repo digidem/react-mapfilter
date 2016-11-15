@@ -13,16 +13,7 @@ const roundTo = require('round-to')
 
 class MapContainer extends React.Component {
   static contextTypes = {
-    router: routerContextType.isRequired,
-    history: historyContextType.isRequired
-  }
-
-  handleMarkerClick = (id) => {
-    const {router, history} = this.context
-    router.transitionTo({
-      ...history.location,
-      pathname: '/map/features/' + id
-    })
+    router: routerContextType.isRequired
   }
 
   // Read the map position from the URL on first load
@@ -58,7 +49,7 @@ class MapContainer extends React.Component {
   }
 
   render () {
-    return <MapView {...this.props} onMarkerClick={this.handleMarkerClick} />
+    return <MapView {...this.props} />
   }
 }
 
