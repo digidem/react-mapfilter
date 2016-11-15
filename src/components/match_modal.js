@@ -40,13 +40,15 @@ const styles = {
     zIndex: 9999,
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    pointerEvents: 'none'
   },
   overlayLink: {
     width: '100%',
     height: '100%',
     position: 'absolute',
-    cursor: 'default'
+    cursor: 'default',
+    pointerEvents: 'auto'
   },
   content: {
     position: 'static',
@@ -62,7 +64,8 @@ const styles = {
     height: 'calc(100% - 80px)',
     display: 'flex',
     alignItems: 'center',
-    maxWidth: 640
+    maxWidth: 640,
+    pointerEvents: 'auto'
   }
 }
 
@@ -104,7 +107,7 @@ const MatchModal = ({ render, component: Component, ...rest }) => (
                 key={config.key}
                 style={getOverlayStyle(config.style)}
               >
-                <Link to={closeLocation} style={styles.overlayLink} />
+                {matched && <Link to={closeLocation} style={styles.overlayLink} />}
                 <div style={getContentStyle(config.style)}>
                   {render ? render(config.data) : Component}
                 </div>
