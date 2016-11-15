@@ -1,7 +1,7 @@
 const React = require('react')
 const { connect } = require('react-redux')
-const history = require('../history')
-
+const routerContextType = require('react-router/PropTypes').routerContext
+const historyContextType = require('react-router/PropTypes').historyContext
 const MapView = require('../components/map_view')
 const { moveMap } = require('../action_creators')
 const getMapGeoJSON = require('../selectors/map_geojson')
@@ -12,17 +12,23 @@ const deepEqual = require('deep-equal')
 const roundTo = require('round-to')
 
 class MapContainer extends React.Component {
+  static contextTypes = {
+    router: routerContextType.isRequired,
+    history: historyContextType.isRequired
+  }
+
   handleMarkerClick = (id) => {
-    const {location} = this.props
-    history.push({
-      ...location,
+    const {router, history} = this.context
+    router.transitionTo({
+      ...history.location,
       pathname: '/map/features/' + id
     })
   }
 
   // Read the map position from the URL on first load
   componentWillMount () {
-    const {center, zoom, location: {query}, onMove} = this.props
+    let {center, zoom, location: {query}, onMove} = this.props
+    query = query || {}
     // If `center` and `zoom` are not set, try to read from the URL query
     // parameter and update the application state.
     const isUrlValid = !isNaN(+query.lng) && !isNaN(+query.lat) && !isNaN(+query.z)
@@ -36,12 +42,12 @@ class MapContainer extends React.Component {
 
   componentWillReceiveProps (nextProps) {
     const {center, zoom, location} = this.props
-
+    const {router} = this.context
     if (deepEqual(center, nextProps.center) && zoom === nextProps.zoom) return
-
     // If `mapPosition` has changed, update URL query string to new value
-    history.replace({
+    router.transitionTo({
       ...location,
+      search: null,
       query: {
         ...nextProps.location.query,
         z: nextProps.zoom && roundTo(nextProps.zoom, 2),

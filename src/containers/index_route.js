@@ -1,13 +1,20 @@
 const React = require('react')
 const { connect } = require('react-redux')
 const { bindActionCreators } = require('redux')
-const Modal = require('react-modal')
+const Match = require('react-router/Match').default
+const Redirect = require('react-router/Redirect').default
+const Miss = require('react-router/Miss').default
 
 const FilterContainer = require('./filter_container')
 const TopBar = require('./top_bar')
 const actionCreators = require('../action_creators')
-const history = require('../history')
 const {decodeFilter} = require('../util/filter_helpers')
+
+const MapContainer = require('./map_container')
+const ReportContainer = require('./report_container')
+const ImageContainer = require('./image_container')
+const FeatureDetail = require('../components/feature_detail')
+const MatchModal = require('../components/match_modal')
 
 const styles = {
   outer: {
@@ -56,8 +63,8 @@ const modalStyles = {
 
 class IndexRoute extends React.Component {
   closeFeatureDetail = () => {
-    const {location} = this.props
-    history.push({
+    const {router, location} = this.props
+    router.transitionTo({
       ...location,
       pathname: '/' + location.pathname.split('/')[1]
     })
@@ -65,7 +72,7 @@ class IndexRoute extends React.Component {
 
   // Read the filter and map position from the URL on first load
   componentWillMount () {
-    const {filters, location: {query}, updateFilter} = this.props
+    const {filters, location: {query}, updateFilter, router} = this.props
 
     // If `filter` is not set, try to read it from the URL query parameter
     // and update the application state.
@@ -75,7 +82,7 @@ class IndexRoute extends React.Component {
       } catch (e) {
         console.warn('Could not parse filter from URL, reseting filter')
         // Remove an invalid filter from the URL.
-        history.replace({query: {
+        router.replaceWith({query: {
           ...query,
           filter: undefined
         }})
@@ -83,33 +90,30 @@ class IndexRoute extends React.Component {
     }
   }
 
-  handleTabChange = (tab) => {
-    history.push({
-      ...this.props.location,
-      pathname: '/' + tab
-    })
-  }
-
   render () {
-    const {children, location, params} = this.props
-    const featureDetail = children && children.props.children
+    const {location} = this.props
+    const sections = ['map', 'photos', 'report']
+    const tabs = sections.map(section => ({
+      active: section === location.pathname.split('/')[1],
+      title: section,
+      link: '/' + section
+    }))
+
     return (
       <div style={styles.outer}>
-        <TopBar
-          currentSection={location.pathname.split('/')[1]}
-          onChange={this.handleTabChange} />
+        <TopBar tabs={tabs} />
         <div style={styles.inner}>
           <FilterContainer />
-          {children && React.cloneElement(children)}
+          <Match pattern='/map' component={MapContainer} />
+          <Match pattern='/report' component={ReportContainer} />
+          <Match pattern='/photos' component={ImageContainer} />
         </div>
-        {featureDetail &&
-          <Modal
-            isOpen={!!featureDetail}
-            onRequestClose={this.closeFeatureDetail}
-            style={modalStyles}>
-            {React.cloneElement(featureDetail, {...params, onCloseClick: this.closeFeatureDetail})}
-          </Modal>
-        }
+        <MatchModal
+          pattern='/:section(map|photos|report)/features/:id'
+          render={matchProps => (
+            <FeatureDetail id={matchProps.params.id} onCloseClick={this.closeFeatureDetail} />
+        )} />
+        <Miss render={() => <Redirect to='/map' />} />
       </div>
     )
   }
