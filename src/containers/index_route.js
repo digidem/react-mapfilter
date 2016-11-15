@@ -36,31 +36,6 @@ const styles = {
   }
 }
 
-const modalStyles = {
-  overlay: {
-    zIndex: 9999,
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  content: {
-    position: 'static',
-    flex: 1,
-    border: 'none',
-    background: 'none',
-    overflow: 'visible',
-    WebkitOverflowScrolling: 'touch',
-    borderRadius: 0,
-    outline: 'none',
-    margin: 0,
-    padding: 0,
-    height: 'calc(100% - 80px)',
-    display: 'flex',
-    alignItems: 'center',
-    maxWidth: 640
-  }
-}
-
 class IndexRoute extends React.Component {
   closeFeatureDetail = () => {
     const {router, location} = this.props
