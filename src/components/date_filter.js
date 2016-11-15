@@ -1,4 +1,5 @@
 const React = require('react')
+const ReactDOM = require('react-dom')
 const { PropTypes } = React
 const shouldPureComponentUpdate = require('react-pure-render/function')
 const makePure = require('recompose/pure').default
@@ -52,6 +53,10 @@ const styles = {
   }
 }
 
+const NestedItem = ({nestedLevel, children, ...props}) => (
+  <div {...props}>{children}</div>
+)
+
 class DateFilter extends React.Component {
   static PropTypes = {
     fieldName: PropTypes.string.isRequired,
@@ -64,7 +69,7 @@ class DateFilter extends React.Component {
 
   showDatePopover = (event) => {
     // This prevents ghost click.
-    const target = this.refs.dateItem
+    const target = this.refs.dateRange
     event.preventDefault()
     var range = document.createRange()
     var sel = window.getSelection()
@@ -114,6 +119,12 @@ class DateFilter extends React.Component {
     })
   }
 
+  componentDidMount = () => {
+    this.setState({
+      el: ReactDOM.findDOMNode(this.refs.dateItem)
+    })
+  }
+
   render () {
     const {fieldName, min, max, valueMin, valueMax} = this.props
     const isFiltered = min > valueMin || max < valueMax
@@ -129,9 +140,10 @@ class DateFilter extends React.Component {
         initiallyOpen
         rightIconButton={isFiltered ? <ShowAllButton onClick={this.showAllDates} /> : null}
         disabled
+        ref='dateItem'
         nestedItems={
-          [<div style={styles.dateItem} ref='dateItem' key='dateItem'>
-            <div onClick={this.showDatePopover}>{rangeStr}</div>
+          [<NestedItem style={styles.dateItem} key='dateItem'>
+            <div ref='dateRange' onClick={this.showDatePopover}>{rangeStr}</div>
             <IconButton
               onClick={this.showDatePopover}
               tooltip='Select dates'
@@ -142,7 +154,7 @@ class DateFilter extends React.Component {
             </IconButton>
             <Popover
               open={this.state.open}
-              anchorEl={this.refs.dateItem}
+              anchorEl={this.state.el}
               anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
               targetOrigin={{horizontal: 'left', vertical: 'top'}}
               onRequestClose={this.handleRequestClose}
@@ -153,7 +165,7 @@ class DateFilter extends React.Component {
                 endDate={maxMoment}
                 onChange={this.handleDateChange} />
             </Popover>
-          </div>]
+          </NestedItem>]
         }
       />
     )

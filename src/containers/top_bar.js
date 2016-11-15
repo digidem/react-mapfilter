@@ -47,7 +47,7 @@ function TopBar ({currentSection, tabs}) {
       showMenuIconButton={false}>
       <div style={styles.tabs}>
         {tabs.map(tab => (
-          <Link to={tab.link} style={styles.tab} activeStyle={styles.activeTab}>
+          <Link key={tab.link} to={tab.link} style={styles.tab} activeStyle={styles.activeTab}>
             {tab.title}
           </Link>
         ))}

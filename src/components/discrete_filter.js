@@ -29,6 +29,11 @@ const styles = {
   }
 }
 
+const NestedItem = ({nestedLevel, children, ...props}) => (
+  <div {...props}>{children}</div>
+)
+
+
 class DiscreteFilter extends React.Component {
   static PropTypes = {
     fieldName: PropTypes.string.isRequired,
@@ -101,7 +106,7 @@ class DiscreteFilter extends React.Component {
         rightIconButton={isFiltered ? <ShowAllButton onClick={this.showAll} /> : null}
         nestedListStyle={listStyles.nestedList}
         nestedItems={Object.keys(values).map((v) => (
-          <div
+          <NestedItem
             key={v}
             style={{position: 'relative'}}
             onMouseEnter={this.handleMouseEnter.bind(this, v)}
@@ -119,7 +124,7 @@ class DiscreteFilter extends React.Component {
             {this.state.hovered === v &&
               <OnlyButton
                 onClick={this.handleOnlyClick.bind(this, v)} />}
-          </div>
+          </NestedItem>
         ))}
       />
     )
