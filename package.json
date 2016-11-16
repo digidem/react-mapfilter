@@ -64,6 +64,7 @@
     "budo": "^8.0.4",
     "copyfiles": "^0.2.1",
     "dependency-check": "^2.5.1",
+    "envify": "^3.4.1",
     "gh-pages": "^0.11.0",
     "handlebars": "^4.0.5",
     "hbsfy": "^2.5.0",
@@ -71,7 +72,9 @@
     "spritesmith-cli": "^1.1.2",
     "spritezero-cli": "^1.0.2",
     "standard": "^8.5.0",
-    "tape": "^4.4.0"
+    "tape": "^4.4.0",
+    "uglify-js": "^2.7.4",
+    "uglifyify": "^3.0.4"
   },
   "license": "MIT",
   "scripts": {
@@ -82,7 +85,7 @@
     "test": "exit 0",
     "build": "npm run build:statics && npm run build:js",
     "build:statics": "copyfiles index.html fonts/* build",
-    "build:js": "NODE_ENV=production browserify src/index.js -o build/bundle.js"
+    "build:js": "NODE_ENV=production browserify -t babelify -t hbsfy -t browserify-css -t envify -t uglifyify src/index.js | uglifyjs -c -m > build/bundle.js"
   },
   "standard": {
     "parser": "babel-eslint",
