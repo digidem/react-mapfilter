@@ -83,11 +83,11 @@
   "scripts": {
     "dependency-check": "dependency-check ./package.json && dependency-check ./package.json --unused --no-dev",
     "lint": "standard",
-    "start": "budo src/index.js:bundle.js --pushstate",
+    "start": "budo src/index.js:bundle.js --pushstate --dir statics",
     "dev": "budo src/dev.js:bundle.js -- -p browserify-hmr",
     "test": "exit 0",
     "build": "npm run build:statics && npm run build:js",
-    "build:statics": "copyfiles index.html fonts/* build",
+    "build:statics": "copyfiles -u 1 'statics/**/*' build",
     "build:js": "NODE_ENV=production browserify -g envify -g uglifyify src/index.js | uglifyjs -c -m > build/bundle.js"
   },
   "standard": {
