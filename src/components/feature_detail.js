@@ -19,7 +19,7 @@ const Image = require('./image')
 const styles = {
   card: {
     width: '100%',
-    maxHeight: '100%',
+    height: '100%',
     flex: 1,
     display: 'flex',
     flexDirection: 'column'
@@ -53,6 +53,7 @@ const styles = {
     width: '100%',
     height: '100%',
     top: 0,
+    left: 0,
     position: 'absolute',
     objectFit: 'cover'
   },

@@ -48,7 +48,8 @@ const styles = {
     height: '100%',
     position: 'absolute',
     cursor: 'default',
-    pointerEvents: 'auto'
+    pointerEvents: 'auto',
+    left: 0
   },
   content: {
     position: 'static',

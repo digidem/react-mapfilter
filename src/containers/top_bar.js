@@ -23,7 +23,6 @@ const styles = {
     color: 'rgba(255, 255, 255, 0.701961)',
     textDecoration: 'none',
     textTransform: 'uppercase',
-    height: '100%',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
