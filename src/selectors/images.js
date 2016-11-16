@@ -1,7 +1,7 @@
 const { createSelector } = require('reselect')
 
 const getFieldAnalysis = require('./field_analysis')
-const getFlattenedFeatures = require('./flattened_features')
+const getFilteredFeatures = require('./filtered_features')
 const {FIELD_TYPES} = require('../constants')
 
 const getImageFieldNames = createSelector(
@@ -15,7 +15,7 @@ const getImageFieldNames = createSelector(
  * Pick the date field that appears in most records
  */
 const getImages = createSelector(
-  getFlattenedFeatures,
+  getFilteredFeatures,
   getImageFieldNames,
   (features, imageFieldNames) => {
     return features.reduce((p, feature) => {

@@ -162,6 +162,7 @@ class MapView extends React.Component {
       this.mapContainer.appendChild(savedMapDiv)
       map = this.map = savedMap
       map.resize()
+      this.componentWillReceiveProps(this.props)
       return
     }
     const mapDiv = savedMapDiv = document.createElement('div')
@@ -257,10 +258,12 @@ class MapView extends React.Component {
    * @return {[type]} [description]
    */
   updateDataIfNeeded (geojson, coloredField) {
-    if (geojson === this.props.geojson &&
-        (!coloredField || coloredField === this.props.coloredField)) {
+    if (geojson === this.geojson &&
+        (!coloredField || coloredField === this.coloredField)) {
       return
     }
+    this.geojson = geojson
+    this.coloredField = coloredField
     debug('updated map geojson')
     if (this.map.loaded()) {
       this.featuresSource.setData(geojson)
@@ -270,7 +273,8 @@ class MapView extends React.Component {
   }
 
   updateFilterIfNeeded (filter) {
-    if (filter !== this.props.filter && filter) {
+    if (filter !== this.filter && filter) {
+      this.filter = filter
       debug('new filter')
       if (this.map.style.loaded()) {
         this.map.setFilter('features', filter)
