@@ -5,8 +5,8 @@ const Link = require('react-router/Link').default
 
 const springParameters = {
   overlay: {
-    stiffness: 400,
-    damping: 35
+    stiffness: 800,
+    damping: 50
   },
   content: {
     stiffness: 800,
@@ -109,7 +109,7 @@ const MatchModal = ({ render, component: Component, ...rest }) => (
               >
                 {matched && <Link to={closeLocation} style={styles.overlayLink} />}
                 <div style={getContentStyle(config.style)}>
-                  {render ? render(config.data) : Component}
+                  {render ? render(config.data) : <Component {...config.data} />}
                 </div>
               </div>
             ))}
