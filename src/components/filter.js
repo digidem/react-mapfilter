@@ -4,6 +4,7 @@ const pure = require('recompose/pure').default
 const {List, ListItem} = require('material-ui/List')
 const Divider = require('material-ui/Divider').default
 const SettingsIcon = require('material-ui/svg-icons/action/settings').default
+const {defineMessages, FormattedMessage} = require('react-intl')
 
 const DiscreteFilter = require('./discrete_filter')
 const DateFilter = require('./date_filter')
@@ -27,6 +28,14 @@ const style = {
     left: 0
   }
 }
+
+const messages = defineMessages({
+  changeFilters: {
+    id: 'filter.change',
+    defaultMessage: 'Change Filters…',
+    description: 'Button text to change which fields are shown and filterable in the filter pane'
+  }
+})
 
 const Filter = ({
   filters = {},
@@ -72,7 +81,7 @@ const Filter = ({
       <ListItem
         innerDivStyle={style.listItemInner}
         leftIcon={<SettingsIcon style={style.listIcon} />}
-        primaryText='Change Filters…'
+        primaryText={<FormattedMessage {...messages.changeFilters} />}
       />
     </List>
   </div>

@@ -78,7 +78,7 @@ class IndexRoute extends React.Component {
     const sections = ['map', 'photos', 'report']
     const tabs = sections.map(section => ({
       active: section === location.pathname.split('/')[1],
-      title: section,
+      id: section,
       link: '/' + section
     }))
 

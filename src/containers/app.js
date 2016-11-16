@@ -5,6 +5,12 @@ const thunk = require('redux-thunk').default
 const Router = require('react-router/BrowserRouter').default
 const getMuiTheme = require('material-ui/styles/getMuiTheme').default
 const MuiThemeProvider = require('material-ui/styles/MuiThemeProvider').default
+const {IntlProvider} = require('react-intl-redux')
+const {addLocaleData} = require('react-intl')
+const en = require('react-intl/locale-data/en')
+const es = require('react-intl/locale-data/es')
+
+addLocaleData([...en, ...es])
 
 const IndexRoute = require('./index_route')
 const reducers = require('../reducers')
@@ -19,11 +25,13 @@ const store = createStore(reducers, storeEnhancer)
 
 const App = () => (
   <Provider store={store}>
-    <MuiThemeProvider muiTheme={getMuiTheme()}>
-      <Router>
-        {routerProps => <IndexRoute {...routerProps} />}
-      </Router>
-    </MuiThemeProvider>
+    <IntlProvider>
+      <MuiThemeProvider muiTheme={getMuiTheme()}>
+        <Router>
+          {routerProps => <IndexRoute {...routerProps} />}
+        </Router>
+      </MuiThemeProvider>
+    </IntlProvider>
   </Provider>
 )
 

@@ -1,5 +1,6 @@
 const React = require('react')
 const FlatButton = require('material-ui/FlatButton').default
+const {defineMessages, FormattedMessage} = require('react-intl')
 
 const styles = {
   flatButton: {
@@ -16,10 +17,18 @@ const styles = {
   }
 }
 
+const messages = defineMessages({
+  only: {
+    id: 'filter.show_only',
+    defaultMessage: 'Only',
+    description: 'Button text to only show a particular field value in a filter'
+  }
+})
+
 const OnlyButton = (props) => (
   <FlatButton
     labelStyle={styles.flatButtonLabel}
-    label='Only'
+    label={<FormattedMessage {...messages.only} />}
     primary
     style={styles.flatButton}
     {...props} />

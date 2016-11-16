@@ -8,11 +8,14 @@ const { Card, CardMedia, CardText, CardHeader } = require('material-ui/Card')
 const {Table, TableBody, TableRow, TableRowColumn} = require('material-ui/Table')
 const IconButton = require('material-ui/IconButton').default
 const CloseIcon = require('material-ui/svg-icons/navigation/close').default
+const {FormattedMessage} = require('react-intl')
 
 const getFlattenedFeatures = require('../selectors/flattened_features')
 const getFieldMapping = require('../selectors/field_mapping')
 const getColorIndex = require('../selectors/color_index')
 const getVisibleFields = require('../selectors/visible_fields')
+const getFieldAnalysis = require('../selectors/field_analysis')
+const {createMessage} = require('../util/intl_helpers')
 const MarkerIcon = require('./marker_icon')
 const Image = require('./image')
 
@@ -115,9 +118,11 @@ class FeatureDetail extends React.Component {
                   return (
                     <TableRow key={row.key}>
                       <TableRowColumn ref={'__td' + i} style={{...styles.firstColumn, width: this.state.width}}>
-                        <span ref={row.key}>{row.key}</span>
+                        <span ref={row.key}><FormattedMessage {...createMessage('ads')(row.key)} /></span>
                       </TableRowColumn>
-                      <TableRowColumn>{row.value.toString()}</TableRowColumn>
+                      <TableRowColumn>
+                        <FormattedMessage {...createMessage('ads')(row.value)} />
+                      </TableRowColumn>
                     </TableRow>
                   )
                 })}
@@ -136,13 +141,14 @@ module.exports = connect(
     const colorIndex = getColorIndex(state)
     const fieldMapping = getFieldMapping(state)
     const visibleFields = getVisibleFields(state)
+    const fieldAnalysis = getFieldAnalysis(state)
 
     const feature = find(features, {id: ownProps.id})
     if (!feature) return
     const geojsonProps = feature.properties
     const data = visibleFields
       .filter(f => typeof geojsonProps[f] !== 'undefined')
-      .map(f => ({key: f, value: geojsonProps[f]}))
+      .map(f => ({key: f, value: geojsonProps[f], type: fieldAnalysis[f].type}))
     if (feature.geometry) {
       data.unshift({
         key: 'location',

@@ -1,6 +1,7 @@
 const React = require('react')
 const Link = require('react-router/Link').default
 const AppBar = require('material-ui/AppBar').default
+const {defineMessages, FormattedMessage} = require('react-intl')
 
 const styles = {
   topBar: {
@@ -39,6 +40,24 @@ const styles = {
   }
 }
 
+const messages = defineMessages({
+  map: {
+    id: 'topbar.map',
+    defaultMessage: 'Map',
+    description: 'Map tab name'
+  },
+  photos: {
+    id: 'topbar.photos',
+    defaultMessage: 'Photos',
+    description: 'Photos tab name'
+  },
+  report: {
+    id: 'topbar.report',
+    defaultMessage: 'Report',
+    description: 'Report tab name'
+  }
+})
+
 function TopBar ({currentSection, tabs}) {
   return (
     <AppBar
@@ -49,7 +68,7 @@ function TopBar ({currentSection, tabs}) {
       <div style={styles.tabs}>
         {tabs.map(tab => (
           <Link key={tab.link} to={tab.link} style={styles.tab} activeStyle={styles.activeTab}>
-            {tab.title}
+            <FormattedMessage {...messages[tab.id]} />
           </Link>
         ))}
       </div>

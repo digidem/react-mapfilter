@@ -1,5 +1,6 @@
 const React = require('react')
 const FlatButton = require('material-ui/FlatButton').default
+const {defineMessages, FormattedMessage} = require('react-intl')
 
 const styles = {
   flatButton: {
@@ -13,10 +14,18 @@ const styles = {
   }
 }
 
+const messages = defineMessages({
+  showAll: {
+    id: 'filter.show_all',
+    defaultMessage: 'Show All',
+    description: 'Button text to turn off filters for a field'
+  }
+})
+
 const ShowAllButton = (props) => (
   <FlatButton
     labelStyle={styles.flatButtonLabel}
-    label='Show All'
+    label={<FormattedMessage {...messages.showAll} />}
     primary
     {...props}
     style={Object.assign({}, props.style, styles.flatButton)} />

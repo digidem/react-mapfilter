@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "base64-url": "^1.3.3",
+    "case": "^1.4.2",
     "debug": "^2.2.0",
     "deep-equal": "^1.0.1",
     "drag-drop": "^2.11.0",
@@ -31,6 +32,8 @@
     "react-date-range": "^0.2.4",
     "react-dom": "^15.3.2",
     "react-imageloader": "^2.1.0",
+    "react-intl": "^2.1.5",
+    "react-intl-redux": "^0.1.0",
     "react-modal": "^1.5.2",
     "react-motion": "^0.4.5",
     "react-pure-render": "^1.0.2",
