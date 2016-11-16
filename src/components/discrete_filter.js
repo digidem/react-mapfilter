@@ -33,7 +33,6 @@ const NestedItem = ({nestedLevel, children, ...props}) => (
   <div {...props}>{children}</div>
 )
 
-
 class DiscreteFilter extends React.Component {
   static PropTypes = {
     fieldName: PropTypes.string.isRequired,
@@ -77,7 +76,6 @@ class DiscreteFilter extends React.Component {
 
   handleOnlyClick (key, e) {
     e.preventDefault()
-    console.log('onlyClick', key)
     this.props.onUpdate({
       exp: 'in',
       key: this.props.fieldName,
