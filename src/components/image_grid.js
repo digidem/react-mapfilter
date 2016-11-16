@@ -1,15 +1,27 @@
 const React = require('react')
-const Dimensions = require('react-dimensions')
 const { PropTypes } = React
-const {Grid} = require('react-virtualized')
-const Image = require('./image')
+const {Grid, AutoSizer} = require('react-virtualized')
+const getScrollBarWidth = require('get-scrollbar-width')
 
 require('../../node_modules/react-virtualized/styles.css')
 
+const pixelRatio = window.devicePixelRatio || 1
+
+const styles = {
+  image: {
+    border: '1px solid white',
+    boxSizing: 'border-box',
+    display: 'block',
+    height: '100%',
+    objectFit: 'cover',
+    width: '100%',
+    cursor: 'pointer',
+    backgroundColor: 'rgb(240, 240, 240)'
+  }
+}
+
 class ImageGrid extends React.Component {
   static propTypes = {
-    containerHeight: PropTypes.number.isRequired,
-    containerWidth: PropTypes.number.isRequired,
     images: PropTypes.array.isRequired,
     thumbSize: PropTypes.number.isRequired,
     onImageClick: PropTypes.func
@@ -17,6 +29,10 @@ class ImageGrid extends React.Component {
 
   static defaultProps = {
     thumbSize: 200
+  }
+
+  componentWillMount () {
+    this.scrollbarWidth = getScrollBarWidth()
   }
 
   componentWillReceiveProps (nextProps) {
@@ -31,42 +47,53 @@ class ImageGrid extends React.Component {
 
   render () {
     const {
-      containerHeight,
-      containerWidth,
       images,
       thumbSize
     } = this.props
 
-    const columnsCount = Math.floor(containerWidth / thumbSize)
-    const columnWidth = containerWidth / columnsCount
-    const rowsCount = Math.ceil(images.length / columnsCount)
-
     return (
-      <Grid
-        ref='grid'
-        columnCount={columnsCount}
-        columnWidth={columnWidth}
-        height={containerHeight}
-        cellRenderer={this._renderCell}
-        rowCount={rowsCount}
-        rowHeight={columnWidth}
-        width={containerWidth}
-      />
+      <div style={{flex: 3}}>
+        <AutoSizer>
+          {({height, width}) => {
+            const columnsCount = Math.floor(width / thumbSize)
+            const rowsCount = Math.ceil(images.length / columnsCount)
+            let cellSize = width / columnsCount
+            const overflow = cellSize * rowsCount > height
+            if (overflow && this.scrollbarWidth) {
+              cellSize = (width - this.scrollbarWidth) / columnsCount
+            }
+            return <Grid
+              ref='grid'
+              columnCount={columnsCount}
+              columnWidth={cellSize}
+              height={height}
+              cellRenderer={this._renderCell.bind(this, width)}
+              rowCount={rowsCount}
+              rowHeight={cellSize}
+              width={width}
+            />
+          }}
+        </AutoSizer>
+      </div>
     )
   }
 
-  _renderCell = ({columnIndex, rowIndex, key, style}) => {
+  _renderCell = (width, {columnIndex, rowIndex, key, style}) => {
     const {
-      containerWidth,
       images,
       thumbSize
     } = this.props
-    const columnsCount = Math.floor(containerWidth / thumbSize)
+    const columnsCount = Math.floor(width / thumbSize)
     const image = images[(rowIndex * columnsCount) + columnIndex]
     if (!image) return
-    const url = image.url
-    return <Image url={url} key={key} style={style} onClick={this.handleImageClick.bind(this, image.featureId)} />
+    const url = 'http://resizer.digital-democracy.org/' + thumbSize * pixelRatio + '/' + image.url
+    return <img
+      src={url}
+      key={key}
+      style={{...styles.image, ...style}}
+      onClick={this.handleImageClick.bind(this, image.featureId)}
+    />
   }
 }
 
-module.exports = Dimensions({containerStyle: {flex: 3}})(ImageGrid)
+module.exports = ImageGrid
