@@ -98,7 +98,10 @@ class IndexRoute extends React.Component {
         <MatchModal
           pattern='/:section(map|photos|report)/features/:id'
           render={matchProps => (
-            <FeatureDetail id={matchProps.params.id} onCloseClick={this.closeFeatureDetail} />
+            <FeatureDetail
+              id={matchProps.params.id}
+              onCloseClick={this.closeFeatureDetail}
+            />
         )} />
         <Miss render={() => <Redirect to='/map' />} />
       </div>

@@ -12,6 +12,7 @@ const CloseIcon = require('material-ui/svg-icons/navigation/close').default
 const getFlattenedFeatures = require('../selectors/flattened_features')
 const getFieldMapping = require('../selectors/field_mapping')
 const getColorIndex = require('../selectors/color_index')
+const getVisibleFields = require('../selectors/visible_fields')
 const MarkerIcon = require('./marker_icon')
 
 const styles = {
@@ -60,27 +61,35 @@ const styles = {
 }
 
 class FeatureDetail extends React.Component {
+  state = {
+    width: '50%'
+  }
+
   componentDidMount () {
+    console.log(this.state)
     this.autoFitColumn()
   }
 
   componentDidUpdate (prevProps) {
-    if (this.props.properties !== prevProps.properties) {
+    if (this.props.data !== prevProps.data) {
       this.autoFitColumn()
     }
   }
 
   autoFitColumn () {
     let width = 0
-    for (let p in this.props.properties) {
-      width = Math.max(width, this.refs[p].getBoundingClientRect().width)
-    }
-    const column = ReactDOM.findDOMNode(this.refs.__td0)
-    column.style.width = Math.ceil(width) + 'px'
+    this.props.data.forEach(row => {
+      var rowEl = ReactDOM.findDOMNode(this.refs[row.key])
+      width = Math.max(width, rowEl.offsetWidth)
+    })
+    this.setState({
+      width: width
+    })
   }
 
   render () {
-    const {color, media, properties, title, subtitle, onCloseClick} = this.props
+    const {color, media, data, title, subtitle, onCloseClick} = this.props
+    console.log('render')
     return (
       <Card
         style={styles.card}
@@ -101,14 +110,14 @@ class FeatureDetail extends React.Component {
           </CardMedia>
           <CardText>
             <Table selectable={false}>
-              <TableBody displayRowCheckbox={false}>
-                {Object.keys(properties).map((prop, i) => {
+              <TableBody displayRowCheckbox={false} preScanRows={false}>
+                {data.map((row, i) => {
                   return (
-                    <TableRow key={prop}>
-                      <TableRowColumn ref={'__td' + i} style={styles.firstColumn}>
-                        <span ref={prop}>{prop}</span>
+                    <TableRow key={row.key}>
+                      <TableRowColumn ref={'__td' + i} style={{...styles.firstColumn, width: this.state.width}}>
+                        <span ref={row.key}>{row.key}</span>
                       </TableRowColumn>
-                      <TableRowColumn>{properties[prop].toString()}</TableRowColumn>
+                      <TableRowColumn>{row.value.toString()}</TableRowColumn>
                     </TableRow>
                   )
                 })}
@@ -126,12 +135,16 @@ module.exports = connect(
     const features = getFlattenedFeatures(state)
     const colorIndex = getColorIndex(state)
     const fieldMapping = getFieldMapping(state)
+    const visibleFields = getVisibleFields(state)
 
     const feature = find(features, {id: ownProps.id})
     if (!feature) return
     const geojsonProps = feature.properties
+    const data = visibleFields
+      .filter(f => typeof geojsonProps[f] !== 'undefined')
+      .map(f => ({key: f, value: geojsonProps[f]}))
     return {
-      properties: geojsonProps,
+      data: data,
       media: geojsonProps[fieldMapping.media],
       title: geojsonProps[fieldMapping.title],
       subtitle: geojsonProps[fieldMapping.subtitle],
