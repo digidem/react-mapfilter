@@ -14,6 +14,7 @@ const getFieldMapping = require('../selectors/field_mapping')
 const getColorIndex = require('../selectors/color_index')
 const getVisibleFields = require('../selectors/visible_fields')
 const MarkerIcon = require('./marker_icon')
+const Image = require('./image')
 
 const styles = {
   card: {
@@ -66,7 +67,6 @@ class FeatureDetail extends React.Component {
   }
 
   componentDidMount () {
-    console.log(this.state)
     this.autoFitColumn()
   }
 
@@ -89,7 +89,6 @@ class FeatureDetail extends React.Component {
 
   render () {
     const {color, media, data, title, subtitle, onCloseClick} = this.props
-    console.log('render')
     return (
       <Card
         style={styles.card}
@@ -106,7 +105,7 @@ class FeatureDetail extends React.Component {
         </CardHeader>
         <div style={styles.scrollable}>
           <CardMedia style={styles.media}>
-            <img style={styles.img} src={'http://resizer.digital-democracy.org/500/' + media} />
+            <Image style={styles.img} src={media} />
           </CardMedia>
           <CardText>
             <Table selectable={false}>
