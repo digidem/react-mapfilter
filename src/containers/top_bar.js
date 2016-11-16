@@ -19,6 +19,7 @@ const styles = {
     display: 'flex',
     flex: 1,
     fontFamily: 'Roboto, sans-serif',
+    fontWeight: 400,
     color: 'rgba(255, 255, 255, 0.701961)',
     textDecoration: 'none',
     textTransform: 'uppercase',
@@ -30,6 +31,7 @@ const styles = {
   },
   activeTab: {
     color: 'rgba(255, 255, 255, 1)',
+    fontWeight: 500,
     borderBottom: '2px solid rgb(255, 64, 129)',
     paddingTop: 2
   },
