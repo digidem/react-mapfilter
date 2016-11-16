@@ -143,6 +143,12 @@ module.exports = connect(
     const data = visibleFields
       .filter(f => typeof geojsonProps[f] !== 'undefined')
       .map(f => ({key: f, value: geojsonProps[f]}))
+    if (feature.geometry) {
+      data.unshift({
+        key: 'location',
+        value: feature.geometry.coordinates
+      })
+    }
     return {
       data: data,
       media: geojsonProps[fieldMapping.media],
