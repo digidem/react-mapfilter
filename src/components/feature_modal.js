@@ -1,23 +1,22 @@
 const React = require('react')
-const ReactDOM = require('react-dom')
 
 const { connect } = require('react-redux')
 const find = require('lodash/find')
-// const { PropTypes } = React
 const { Card, CardMedia, CardText, CardHeader } = require('material-ui/Card')
-const {Table, TableBody, TableRow, TableRowColumn} = require('material-ui/Table')
 const IconButton = require('material-ui/IconButton').default
 const CloseIcon = require('material-ui/svg-icons/navigation/close').default
 const {FormattedMessage} = require('react-intl')
+const Redirect = require('react-router/Redirect').default
 
 const getFlattenedFeatures = require('../selectors/flattened_features')
 const getFieldMapping = require('../selectors/field_mapping')
 const getColorIndex = require('../selectors/color_index')
 const getVisibleFields = require('../selectors/visible_fields')
 const getFieldAnalysis = require('../selectors/field_analysis')
-const {createMessage} = require('../util/intl_helpers')
+const {createMessage: msg} = require('../util/intl_helpers')
 const MarkerIcon = require('./marker_icon')
 const Image = require('./image')
+const FeatureTable = require('./feature_table')
 
 const styles = {
   card: {
@@ -59,81 +58,33 @@ const styles = {
     left: 0,
     position: 'absolute',
     objectFit: 'cover'
-  },
-  firstColumn: {
-    fontWeight: 'bold'
   }
 }
 
-class FeatureDetail extends React.Component {
-  state = {
-    width: '50%'
-  }
-
-  componentDidMount () {
-    this.autoFitColumn()
-  }
-
-  componentDidUpdate (prevProps) {
-    if (this.props.data !== prevProps.data) {
-      this.autoFitColumn()
-    }
-  }
-
-  autoFitColumn () {
-    let width = 0
-    this.props.data.forEach(row => {
-      var rowEl = ReactDOM.findDOMNode(this.refs[row.key])
-      width = Math.max(width, rowEl.offsetWidth)
-    })
-    this.setState({
-      width: width
-    })
-  }
-
-  render () {
-    const {color, media, data, title, subtitle, onCloseClick} = this.props
-    return (
-      <Card
-        style={styles.card}
-        containerStyle={styles.cardContainerStyle}
-        zDepth={2}>
-        <CardHeader
-          style={styles.header}
-          avatar={<MarkerIcon color={color} style={styles.markerIcon} />}
-          title={title}
-          subtitle={subtitle}>
-          <IconButton style={{float: 'right'}} onClick={onCloseClick}>
-            <CloseIcon />
-          </IconButton>
-        </CardHeader>
-        <div style={styles.scrollable}>
-          <CardMedia style={styles.media}>
-            <Image style={styles.img} src={media} />
-          </CardMedia>
-          <CardText>
-            <Table selectable={false}>
-              <TableBody displayRowCheckbox={false} preScanRows={false}>
-                {data.map((row, i) => {
-                  return (
-                    <TableRow key={row.key}>
-                      <TableRowColumn ref={'__td' + i} style={{...styles.firstColumn, width: this.state.width}}>
-                        <span ref={row.key}><FormattedMessage {...createMessage('ads')(row.key)} /></span>
-                      </TableRowColumn>
-                      <TableRowColumn>
-                        <FormattedMessage {...createMessage('ads')(row.value)} />
-                      </TableRowColumn>
-                    </TableRow>
-                  )
-                })}
-              </TableBody>
-            </Table>
-          </CardText>
-        </div>
-      </Card>
-    )
-  }
-}
+const FeatureModal = ({color, media, data, title, subtitle, onCloseClick}) => (
+  <Card
+    style={styles.card}
+    containerStyle={styles.cardContainerStyle}
+    zDepth={2}>
+    <CardHeader
+      style={styles.header}
+      avatar={<MarkerIcon color={color} style={styles.markerIcon} />}
+      title={<FormattedMessage {...msg('field_value')(title)} />}
+      subtitle={<FormattedMessage {...msg('field_value')(subtitle)} />}>
+      <IconButton style={{float: 'right'}} onClick={onCloseClick}>
+        <CloseIcon />
+      </IconButton>
+    </CardHeader>
+    <div style={styles.scrollable}>
+      <CardMedia style={styles.media}>
+        <Image style={styles.img} src={media} />
+      </CardMedia>
+      <CardText>
+        <FeatureTable data={data} />
+      </CardText>
+    </div>
+  </Card>
+)
 
 module.exports = connect(
   (state, ownProps) => {
@@ -163,4 +114,4 @@ module.exports = connect(
       color: colorIndex[geojsonProps[fieldMapping.color]]
     }
   }
-)(FeatureDetail)
+)(FeatureModal)

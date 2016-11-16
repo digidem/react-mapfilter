@@ -13,7 +13,7 @@ const {decodeFilter} = require('../util/filter_helpers')
 const MapContainer = require('./map_container')
 const ReportContainer = require('./report_container')
 const ImageContainer = require('./image_container')
-const FeatureDetail = require('../components/feature_detail')
+const FeatureModal = require('../components/feature_modal')
 const MatchModal = require('../components/match_modal')
 
 const styles = {
@@ -37,7 +37,7 @@ const styles = {
 }
 
 class IndexRoute extends React.Component {
-  closeFeatureDetail = () => {
+  closeModal = () => {
     const {router, location} = this.props
     router.transitionTo({
       ...location,
@@ -45,7 +45,7 @@ class IndexRoute extends React.Component {
     })
   }
 
-  openFeatureDetail = id => {
+  openFeatureModal = id => {
     const {router, location} = this.props
     router.transitionTo({
       ...location,
@@ -88,19 +88,19 @@ class IndexRoute extends React.Component {
         <div style={styles.inner}>
           <FilterContainer />
           <Match pattern='/map' render={matchProps => (
-            <MapContainer {...matchProps} onMarkerClick={this.openFeatureDetail} />
+            <MapContainer {...matchProps} onMarkerClick={this.openFeatureModal} />
           )} />
           <Match pattern='/photos' render={matchProps => (
-            <ImageContainer {...matchProps} onImageClick={this.openFeatureDetail} />
+            <ImageContainer {...matchProps} onImageClick={this.openFeatureModal} />
           )} />
           <Match pattern='/report' component={ReportContainer} />
         </div>
         <MatchModal
           pattern='/:section(map|photos|report)/features/:id'
           render={matchProps => (
-            <FeatureDetail
+            <FeatureModal
               id={matchProps.params.id}
-              onCloseClick={this.closeFeatureDetail}
+              onCloseClick={this.closeModal}
             />
         )} />
         <Miss render={() => <Redirect to='/map' />} />
