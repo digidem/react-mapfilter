@@ -1,7 +1,6 @@
 const React = require('react')
 const { connect } = require('react-redux')
 const routerContextType = require('react-router/PropTypes').routerContext
-const historyContextType = require('react-router/PropTypes').historyContext
 const MapView = require('../components/map_view')
 const { moveMap } = require('../action_creators')
 const getMapGeoJSON = require('../selectors/map_geojson')

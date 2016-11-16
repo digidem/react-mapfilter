@@ -6,7 +6,6 @@ const { Card, CardMedia, CardText, CardHeader } = require('material-ui/Card')
 const IconButton = require('material-ui/IconButton').default
 const CloseIcon = require('material-ui/svg-icons/navigation/close').default
 const {FormattedMessage} = require('react-intl')
-const Redirect = require('react-router/Redirect').default
 
 const getFlattenedFeatures = require('../selectors/flattened_features')
 const getFieldMapping = require('../selectors/field_mapping')

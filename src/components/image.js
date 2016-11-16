@@ -3,6 +3,7 @@ const ReactDOM = require('react-dom')
 const ImageLoader = require('react-imageloader')
 const CircularProgress = require('material-ui/CircularProgress').default
 const {Motion, spring} = require('react-motion')
+const omit = require('lodash/omit')
 
 const styles = {
   wrapper: {
@@ -29,7 +30,9 @@ class Image extends React.Component {
   }
 
   render () {
-    const {src, style, ...props} = this.props
+    const props = omit(this.props, ['src', 'style'])
+    const {style} = this.props
+
     return <ImageLoader
       imgProps={{...props, style: style}}
       src={this.state.src}

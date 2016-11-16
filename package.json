@@ -53,7 +53,7 @@
   },
   "devDependencies": {
     "babel": "^6.5.2",
-    "babel-eslint": "^6.0.0",
+    "babel-eslint": "^6.1.2",
     "babel-plugin-react-transform": "^2.0.0",
     "babel-plugin-transform-class-properties": "^6.5.2",
     "babel-plugin-transform-object-rest-spread": "^6.5.0",
@@ -93,8 +93,7 @@
   "standard": {
     "parser": "babel-eslint",
     "ignore": [
-      "js/**",
-      "dist/**"
+      "build/**"
     ]
   }
 }
