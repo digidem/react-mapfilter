@@ -34,7 +34,6 @@ const pointStyleLayer = {
   id: 'features',
   type: 'symbol',
   source: 'features',
-  interactive: true,
   layout: {
     'icon-image': 'marker-{__mf_color}',
     'icon-allow-overlap': true,
@@ -46,7 +45,6 @@ const pointHoverStyleLayer = {
   id: 'features-hover',
   type: 'symbol',
   source: 'features',
-  interactive: false,
   filter: ['==', 'id', ''],
   layout: {
     'icon-image': 'marker-{__mf_color}-hover',
@@ -177,7 +175,7 @@ class MapView extends React.Component {
     })
 
     // Add zoom and rotation controls to the map.
-    map.addControl(new mapboxgl.Navigation())
+    map.addControl(new mapboxgl.NavigationControl())
 
     this.popup = new mapboxgl.Popup({
       closeButton: false,
@@ -188,8 +186,7 @@ class MapView extends React.Component {
       map.on('moveend', this.handleMapMoveOrZoom)
       map.on('click', this.handleMapClick)
       map.on('mousemove', this.handleMouseMove)
-      this.featuresSource = new mapboxgl.GeoJSONSource({data: geojson})
-      map.addSource('features', this.featuresSource)
+      map.addSource('features', {type: 'geojson', data: geojson})
       // TODO: Should choose style based on whether features are point, line or polygon
       map.addLayer(pointStyleLayer)
       map.addLayer(pointHoverStyleLayer)
@@ -266,9 +263,9 @@ class MapView extends React.Component {
     this.coloredField = coloredField
     debug('updated map geojson')
     if (this.map.loaded()) {
-      this.featuresSource.setData(geojson)
+      this.map.getSource('features').setData(geojson)
     } else {
-      this.map.on('load', () => this.featuresSource.setData(geojson))
+      this.map.on('load', () => this.map.getSource('features').setData(geojson))
     }
   }
 

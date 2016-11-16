@@ -23,7 +23,7 @@
     "geojsonhint": "^1.2.0",
     "get-scrollbar-width": "^1.0.4",
     "lodash": "^4.16.4",
-    "mapbox-gl": "^0.19.0",
+    "mapbox-gl": "^0.27.0",
     "material-ui": "^0.16.1",
     "moment": "^2.15.2",
     "randombytes": "^2.0.3",
