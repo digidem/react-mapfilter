@@ -2,7 +2,6 @@ const React = require('react')
 const ReactDOM = require('react-dom')
 const ImageLoader = require('react-imageloader')
 const CircularProgress = require('material-ui/CircularProgress').default
-const {Motion, spring} = require('react-motion')
 const omit = require('lodash/omit')
 
 const styles = {
@@ -18,6 +17,8 @@ const styles = {
 
 const pixelRatio = window.devicePixelRatio || 1
 
+const createDiv = React.createElement.bind(null, 'div')
+
 class Image extends React.Component {
   state = {}
 
@@ -25,7 +26,8 @@ class Image extends React.Component {
     const el = ReactDOM.findDOMNode(this)
     const size = Math.max(el.offsetWidth, el.offsetHeight) * pixelRatio
     this.setState({
-      src: 'http://resizer.digital-democracy.org/' + roundUp(size) + '/' + this.props.src
+      src: 'http://resizer.digital-democracy.org/' + roundUp(size) + '/' + this.props.src,
+      loadStart: Date.now()
     })
   }
 
@@ -39,23 +41,16 @@ class Image extends React.Component {
       style={{...styles.wrapper, ...style}}
       preloader={() => <CircularProgress />}
       wrapper={(props, element) => {
-        if (element.type !== 'img') {
-          return React.createElement.call(null, 'div', props, element)
+        const loadTime = Date.now() - this.state.loadStart
+        // Only fade in if image takes more than 200ms to load
+        if (element.type !== 'img' || loadTime < 200) {
+          return createDiv(props, element)
         } else {
-          return (
-            <Motion defaultStyle={{opacity: 0}} style={{opacity: spring(1)}}>
-              {style => {
-                const mergedProps = {
-                  ...props,
-                  style: {
-                    ...props.style,
-                    ...style
-                  }
-                }
-                return React.createElement.call(null, 'div', mergedProps, element)
-              }}
-            </Motion>
-          )
+          const mergedProps = {
+            ...props,
+            className: 'fadeIn'
+          }
+          return createDiv(mergedProps, element)
         }
       }}
     />

@@ -17,6 +17,7 @@ const reducers = require('../reducers')
 
 // Roboto font
 require('../../css/fonts.css')
+require('../../css/animations.css')
 
 // Attach Chrome devTools extensions if it is present.
 const devTools = window.devToolsExtension ? window.devToolsExtension() : undefined
