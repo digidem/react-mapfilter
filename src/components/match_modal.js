@@ -70,8 +70,8 @@ const styles = {
   }
 }
 
-const getOverlayStyle = style => ({
-  ...styles.overlay,
+const getOverlayLinkStyle = style => ({
+  ...styles.overlayLink,
   backgroundColor: `rgba(255, 255, 255, ${style.overlayOpacity})`
 })
 
@@ -94,7 +94,7 @@ const MatchModal = ({ render, component: Component, ...rest }) => (
         styles={matched ? [ {
           key: props.location.pathname,
           style: {
-            overlayOpacity: spring(0.95, springParameters.overlay),
+            overlayOpacity: spring(0.8, springParameters.overlay),
             size: spring(1, springParameters.content),
             opacity: spring(1, springParameters.content)
           },
@@ -106,9 +106,9 @@ const MatchModal = ({ render, component: Component, ...rest }) => (
             {interpolatedStyles.map(config => (
               <div
                 key={config.key}
-                style={getOverlayStyle(config.style)}
+                style={styles.overlay}
               >
-                {matched && <Link to={closeLocation} style={styles.overlayLink} />}
+                {matched && <Link to={closeLocation} style={getOverlayLinkStyle(config.style)} />}
                 <div style={getContentStyle(config.style)}>
                   {render ? render(config.data) : <Component {...config.data} />}
                 </div>
