@@ -33,13 +33,13 @@ class Image extends React.Component {
 
   render () {
     const props = omit(this.props, ['src', 'style'])
-    const {style} = this.props
+    const {style, progress} = this.props
 
     return <ImageLoader
       imgProps={{...props, style: style}}
       src={this.state.src}
       style={{...styles.wrapper, ...style}}
-      preloader={() => <CircularProgress />}
+      preloader={() => progress ? <CircularProgress /> : <div />}
       wrapper={(props, element) => {
         const loadTime = Date.now() - this.state.loadStart
         // Only fade in if image takes more than 200ms to load

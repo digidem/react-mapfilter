@@ -76,7 +76,7 @@ const FeatureModal = ({color, media, data, title, subtitle, onCloseClick}) => (
     </CardHeader>
     <div style={styles.scrollable}>
       <CardMedia style={styles.media}>
-        <Image style={styles.img} src={media} />
+        <Image style={styles.img} src={media} progress />
       </CardMedia>
       <CardText>
         <FeatureTable data={data} />

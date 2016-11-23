@@ -6,7 +6,6 @@
   "browserify": {
     "transform": [
       "babelify",
-      "hbsfy",
       "browserify-css",
       "brfs"
     ]
@@ -69,8 +68,6 @@
     "dependency-check": "^2.5.1",
     "envify": "^3.4.1",
     "gh-pages": "^0.11.0",
-    "handlebars": "^4.0.5",
-    "hbsfy": "^2.5.0",
     "mkdirp": "^0.5.1",
     "spritesmith-cli": "^1.1.2",
     "spritezero-cli": "^1.0.2",

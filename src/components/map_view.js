@@ -1,5 +1,6 @@
 const debug = require('debug')('mf:mapview')
 const React = require('react')
+const ReactDOM = require('react-dom')
 const { PropTypes } = React
 const mapboxgl = require('mapbox-gl')
 const deepEqual = require('deep-equal')
@@ -8,7 +9,8 @@ const MFPropTypes = require('../util/prop_types')
 const { getBoundsOrWorld } = require('../util/map_helpers')
 
 const config = require('../../config.json')
-const popupTemplate = require('../../templates/popup.hbs')
+const Popup = require('./Popup')
+
 require('../../node_modules/mapbox-gl/dist/mapbox-gl.css')
 require('../../css/popup.css')
 
@@ -120,25 +122,29 @@ class MapView extends React.Component {
       this.map.setFilter('features-hover', ['==', 'id', ''])
       return
     }
-    var hoveredFeatureId = features[0].properties.id
+    var props = features[0].properties
+    var hoveredFeatureId = props.id
     this.map.setFilter('features-hover', ['==', 'id', hoveredFeatureId])
     // Popuplate the popup and set its coordinates
     // based on the feature found.
     if (!this.popup._map || hoveredFeatureId && hoveredFeatureId !== this.popup.__featureId) {
       this.popup.setLngLat(features[0].geometry.coordinates)
-        .setHTML(this.getPopupHtml(features[0].properties))
         .addTo(this.map)
         .__featureId = hoveredFeatureId
+      this.renderPopup(props)
     }
   }
 
-  getPopupHtml (o) {
+  renderPopup (featureProps) {
     const fieldMapping = this.props.fieldMapping
-    const templateContext = Object.keys(fieldMapping).reduce((prev, field) => {
-      prev[field] = o[fieldMapping[field]]
+    const popupProps = Object.keys(fieldMapping).reduce((prev, field) => {
+      prev[field] = featureProps[fieldMapping[field]]
       return prev
     }, {})
-    return popupTemplate(templateContext)
+    const {media, title, subtitle} = popupProps
+    this.popup._createContent()
+    this.popup._update()
+    ReactDOM.render(<Popup imgSrc={media} title={title} subtitle={subtitle} />, this.popup._content)
   }
 
   render () {
