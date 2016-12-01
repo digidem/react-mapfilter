@@ -1,4 +1,5 @@
 const toCase = require('case')
+const roundTo = require('round-to')
 
 const createMessage = section => value => {
   let msg
@@ -11,7 +12,7 @@ const createMessage = section => value => {
     }
     id = value.replace(' ', '_').toLowerCase()
   } else if (Array.isArray(value)) {
-    msg = value.join(' ')
+    msg = value.map(v => roundTo(v, 5)).join(' ')
     id = value.join('_')
   } else {
     msg = value.toString()
