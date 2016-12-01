@@ -12,13 +12,15 @@ function reviveDate (k, v) {
   return date
 }
 
-const markersJson = fs.readFileSync(path.join(__dirname, '/../../test/fixtures/markers.json'), 'utf8')
+const markersJson = fs.readFileSync(path.join(__dirname, '/../../statics/sample.geojson'), 'utf8')
 const markers = JSON.parse(markersJson, reviveDate).features
 
 const features = (state = markers, action) => {
   switch (action.type) {
     case 'ADD_FEATURE':
       return [...state, action.payload]
+    case 'REPLACE_FEATURES':
+      return action.payload
   }
   return state
 }
