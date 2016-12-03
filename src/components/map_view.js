@@ -9,7 +9,7 @@ const MFPropTypes = require('../util/prop_types')
 const { getBoundsOrWorld } = require('../util/map_helpers')
 
 const config = require('../../config.json')
-const Popup = require('./Popup')
+const Popup = require('./popup')
 
 require('../../node_modules/mapbox-gl/dist/mapbox-gl.css')
 require('../../css/popup.css')
