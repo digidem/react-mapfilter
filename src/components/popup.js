@@ -5,6 +5,7 @@ const styles = {
   image: {
     width: 200,
     height: 200,
+    display: 'block',
     background: '#000000'
   }
 }
