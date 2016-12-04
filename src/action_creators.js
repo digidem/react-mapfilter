@@ -12,7 +12,23 @@ const moveMap = (payload) => {
   }
 }
 
+const replaceFeatures = (payload) => {
+  return {
+    type: 'REPLACE_FEATURES',
+    payload
+  }
+}
+
+const addFeatures = (payload) => {
+  return {
+    type: 'ADD_FEATURES',
+    payload: Array.isArray(payload) ? payload : [payload]
+  }
+}
+
 module.exports = {
   updateFilter,
-  moveMap
+  moveMap,
+  replaceFeatures,
+  addFeatures
 }

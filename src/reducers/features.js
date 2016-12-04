@@ -17,8 +17,8 @@ const markers = JSON.parse(markersJson, reviveDate).features
 
 const features = (state = markers, action) => {
   switch (action.type) {
-    case 'ADD_FEATURE':
-      return [...state, action.payload]
+    case 'ADD_FEATURES':
+      return [...state, ...action.payload]
     case 'REPLACE_FEATURES':
       return action.payload
   }
