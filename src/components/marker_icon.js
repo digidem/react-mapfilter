@@ -1,4 +1,5 @@
 const React = require('react')
+const assign = require('object-assign')
 
 const styles = {
   svg: {
@@ -19,7 +20,7 @@ const MarkerIcon = ({style = {}, color = '#000000'}) => {
   return (
     <svg
       version='1.1'
-      style={{...styles.svg, ...style}}
+      style={assign({}, styles.svg, style)}
       viewBox='0 0 17 23'>
       <path
         style={styles.outline}

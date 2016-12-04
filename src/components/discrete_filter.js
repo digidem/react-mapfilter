@@ -5,6 +5,7 @@ const makePure = require('recompose/pure').default
 const Checkbox = makePure(require('material-ui/Checkbox').default)
 const ListIcon = require('material-ui/svg-icons/action/list').default
 const {ListItem} = require('material-ui/List')
+const omit = require('lodash/omit')
 
 const ShowAllButton = require('./show_all_button')
 const OnlyButton = require('./only_button')
@@ -29,9 +30,13 @@ const styles = {
   }
 }
 
-const NestedItem = ({nestedLevel, children, ...props}) => (
-  <div {...props}>{children}</div>
-)
+// Material-ui passes a `nestedLevel` prop to nested items.
+// We're not using a `div` instead of the material-ui component for
+// nested items, so we need to remove the `nestedLevel` prop.
+const NestedItem = props => {
+  const divProps = omit(props, ['nestedLevel', 'children'])
+  return <div {...divProps}>{props.children}</div>
+}
 
 class DiscreteFilter extends React.Component {
   static PropTypes = {

@@ -2,6 +2,8 @@ const React = require('react')
 const { TransitionMotion, spring } = require('react-motion')
 const Match = require('react-router/Match').default
 const Link = require('react-router/Link').default
+const assign = require('object-assign')
+const omit = require('lodash/omit')
 
 const springParameters = {
   overlay: {
@@ -70,29 +72,29 @@ const styles = {
   }
 }
 
-const getOverlayLinkStyle = style => ({
-  ...styles.overlayLink,
+const getOverlayLinkStyle = style => assign({}, styles.overlayLink, {
   backgroundColor: `rgba(255, 255, 255, ${style.overlayOpacity})`
 })
 
-const getContentStyle = style => ({
-  ...styles.content,
+const getContentStyle = style => assign({}, styles.content, {
   transform: `scale(${style.size})`,
   opacity: style.opacity
 })
 
-const MatchModal = ({ render, component: Component, ...rest }) => (
-  <Match {...rest} children={({ matched, ...props }) => {
-    const closeLocation = matched && {
-      ...props.location,
-      pathname: '/' + props.params.section
-    }
+const MatchModal = props => {
+  const { render, component: Component } = props
+  const rest = omit(props, ['render', 'component'])
+  return <Match {...rest} children={props => {
+    const {matched, location, params} = props
+    const closeLocation = matched && assign({}, location, {
+      pathname: '/' + params.section
+    })
     return (
       <TransitionMotion
         willLeave={willLeave}
         willEnter={willEnter}
         styles={matched ? [ {
-          key: props.location.pathname,
+          key: location.pathname,
           style: {
             overlayOpacity: spring(0.8, springParameters.overlay),
             size: spring(1, springParameters.content),
@@ -119,6 +121,6 @@ const MatchModal = ({ render, component: Component, ...rest }) => (
       </TransitionMotion>
     )
   }} />
-)
+}
 
 module.exports = MatchModal

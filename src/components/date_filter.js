@@ -10,6 +10,7 @@ const EditIcon = require('material-ui/svg-icons/editor/mode-edit').default
 const {Popover, PopoverAnimationVertical} = require('material-ui/Popover')
 const DateRange = makePure(require('react-date-range').DateRange)
 const moment = require('moment')
+const omit = require('lodash/omit')
 
 const ShowAllButton = require('./show_all_button')
 const { titleCase } = require('../util/text_helpers')
@@ -53,9 +54,13 @@ const styles = {
   }
 }
 
-const NestedItem = ({nestedLevel, children, ...props}) => (
-  <div {...props}>{children}</div>
-)
+// Material-ui passes a `nestedLevel` prop to nested items.
+// We're not using a `div` instead of the material-ui component for
+// nested items, so we need to remove the `nestedLevel` prop.
+const NestedItem = props => {
+  const divProps = omit(props, ['nestedLevel', 'children'])
+  return <div {...divProps}>{props.children}</div>
+}
 
 class DateFilter extends React.Component {
   static PropTypes = {

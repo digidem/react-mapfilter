@@ -2,6 +2,7 @@ const React = require('react')
 const ReactDOM = require('react-dom')
 const {Table, TableBody, TableRow, TableRowColumn} = require('material-ui/Table')
 const {FormattedMessage} = require('react-intl')
+const assign = require('object-assign')
 const msg = require('../util/intl_helpers').createMessage
 
 const styles = {
@@ -44,7 +45,7 @@ class FeatureTable extends React.Component {
           {data.map((row, i) => {
             return (
               <TableRow key={row.key}>
-                <TableRowColumn ref={'__td' + i} style={{...styles.firstColumn, width: this.state.width}}>
+                <TableRowColumn ref={'__td' + i} style={assign({}, styles.firstColumn, {width: this.state.width})}>
                   <span ref={row.key}><FormattedMessage {...msg('field_key')(row.key)} /></span>
                 </TableRowColumn>
                 <TableRowColumn>

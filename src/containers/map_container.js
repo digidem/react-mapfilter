@@ -7,6 +7,7 @@ const getMapGeoJSON = require('../selectors/map_geojson')
 const getMapBoxFilter = require('../selectors/mapbox_filter')
 const getFieldMapping = require('../selectors/field_mapping')
 
+const assign = require('object-assign')
 const deepEqual = require('deep-equal')
 const roundTo = require('round-to')
 
@@ -35,16 +36,16 @@ class MapContainer extends React.Component {
     const {router} = this.context
     if (deepEqual(center, nextProps.center) && zoom === nextProps.zoom) return
     // If `mapPosition` has changed, update URL query string to new value
-    router.transitionTo({
-      ...location,
-      search: null,
-      query: {
-        ...nextProps.location.query,
-        z: nextProps.zoom && roundTo(nextProps.zoom, 2),
-        lng: nextProps.center && roundTo(nextProps.center[0], 4),
-        lat: nextProps.center && roundTo(nextProps.center[1], 4)
-      }
+    const newQuery = assign({}, nextProps.location.query, {
+      z: nextProps.zoom && roundTo(nextProps.zoom, 2),
+      lng: nextProps.center && roundTo(nextProps.center[0], 4),
+      lat: nextProps.center && roundTo(nextProps.center[1], 4)
     })
+    const newLocation = assign({}, location, {
+      search: null,
+      query: newQuery
+    })
+    router.transitionTo(newLocation)
   }
 
   render () {

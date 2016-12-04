@@ -4,6 +4,7 @@ const { bindActionCreators } = require('redux')
 const Match = require('react-router/Match').default
 const Redirect = require('react-router/Redirect').default
 const Miss = require('react-router/Miss').default
+const assign = require('object-assign')
 
 const FilterContainer = require('./filter_container')
 const TopBar = require('./top_bar')
@@ -39,18 +40,18 @@ const styles = {
 class IndexRoute extends React.Component {
   closeModal = () => {
     const {router, location} = this.props
-    router.transitionTo({
-      ...location,
+    const newLocation = assign({}, location, {
       pathname: '/' + location.pathname.split('/')[1]
     })
+    router.transitionTo(newLocation)
   }
 
   openFeatureModal = id => {
     const {router, location} = this.props
-    router.transitionTo({
-      ...location,
+    const newLocation = assign({}, location, {
       pathname: '/' + location.pathname.split('/')[1] + '/features/' + id
     })
+    router.transitionTo(newLocation)
   }
 
   // Read the filter and map position from the URL on first load
@@ -65,10 +66,9 @@ class IndexRoute extends React.Component {
       } catch (e) {
         console.warn('Could not parse filter from URL, reseting filter')
         // Remove an invalid filter from the URL.
-        router.replaceWith({query: {
-          ...query,
-          filter: undefined
-        }})
+        const newQuery = assign({}, query, {filter: undefined})
+        const newLocation = assign({}, this.props.location, newQuery)
+        router.replaceWith(newLocation)
       }
     }
   }

@@ -2,6 +2,7 @@ const React = require('react')
 const { PropTypes } = React
 const {Grid, AutoSizer} = require('react-virtualized')
 const getScrollBarWidth = require('get-scrollbar-width')
+const assign = require('object-assign')
 
 require('../../node_modules/react-virtualized/styles.css')
 
@@ -90,7 +91,7 @@ class ImageGrid extends React.Component {
     return <img
       src={url}
       key={key}
-      style={{...styles.image, ...style}}
+      style={assign({}, styles.image, style)}
       onClick={this.handleImageClick.bind(this, image.featureId)}
     />
   }

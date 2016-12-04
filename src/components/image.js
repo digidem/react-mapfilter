@@ -3,6 +3,7 @@ const ReactDOM = require('react-dom')
 const ImageLoader = require('react-imageloader')
 const CircularProgress = require('material-ui/CircularProgress').default
 const omit = require('lodash/omit')
+const assign = require('object-assign')
 
 const styles = {
   wrapper: {
@@ -36,9 +37,9 @@ class Image extends React.Component {
     const {style, progress} = this.props
 
     return <ImageLoader
-      imgProps={{...props, style: style}}
+      imgProps={assign({}, props, {style: style})}
       src={this.state.src}
-      style={{...styles.wrapper, ...style}}
+      style={assign({}, styles.wrapper, style)}
       preloader={() => progress ? <CircularProgress /> : <div />}
       wrapper={(props, element) => {
         const loadTime = Date.now() - this.state.loadStart
@@ -46,10 +47,9 @@ class Image extends React.Component {
         if (element.type !== 'img' || loadTime < 200) {
           return createDiv(props, element)
         } else {
-          const mergedProps = {
-            ...props,
+          const mergedProps = assign({}, props, {
             className: 'fadeIn'
-          }
+          })
           return createDiv(mergedProps, element)
         }
       }}
