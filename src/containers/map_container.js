@@ -12,10 +12,6 @@ const deepEqual = require('deep-equal')
 const roundTo = require('round-to')
 
 class MapContainer extends React.Component {
-  static contextTypes = {
-    router: routerContextType.isRequired
-  }
-
   // Read the map position from the URL on first load
   componentWillMount () {
     let {center, zoom, location: {query}, onMove} = this.props
@@ -51,6 +47,10 @@ class MapContainer extends React.Component {
   render () {
     return <MapView {...this.props} />
   }
+}
+
+MapContainer.contextTypes = {
+  router: routerContextType.isRequired
 }
 
 function mapStateToProps (state) {

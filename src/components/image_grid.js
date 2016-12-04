@@ -22,16 +22,6 @@ const styles = {
 }
 
 class ImageGrid extends React.Component {
-  static propTypes = {
-    images: PropTypes.array.isRequired,
-    thumbSize: PropTypes.number.isRequired,
-    onImageClick: PropTypes.func
-  }
-
-  static defaultProps = {
-    thumbSize: 200
-  }
-
   componentWillMount () {
     this.scrollbarWidth = getScrollBarWidth()
   }
@@ -79,7 +69,7 @@ class ImageGrid extends React.Component {
     )
   }
 
-  _renderCell = (width, {columnIndex, rowIndex, key, style}) => {
+  _renderCell (width, {columnIndex, rowIndex, key, style}) {
     const {
       images,
       thumbSize
@@ -95,6 +85,16 @@ class ImageGrid extends React.Component {
       onClick={this.handleImageClick.bind(this, image.featureId)}
     />
   }
+}
+
+ImageGrid.propTypes = {
+  images: PropTypes.array.isRequired,
+  thumbSize: PropTypes.number.isRequired,
+  onImageClick: PropTypes.func
+}
+
+ImageGrid.defaultProps = {
+  thumbSize: 200
 }
 
 module.exports = ImageGrid

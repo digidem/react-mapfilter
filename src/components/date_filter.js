@@ -63,16 +63,18 @@ const NestedItem = props => {
 }
 
 class DateFilter extends React.Component {
-  static PropTypes = {
-    fieldName: PropTypes.string.isRequired,
-    onUpdate: PropTypes.func
+  constructor (props) {
+    super(props)
+    this.state = {}
+    this.shouldComponentUpdate = shouldPureComponentUpdate.bind(this)
+    this.showDatePopover = this.showDatePopover.bind(this)
+    this.handleNestedListToggle = this.handleNestedListToggle.bind(this)
+    this.showAllDates = this.showAllDates.bind(this)
+    this.handleDateChange = this.handleDateChange.bind(this)
+    this.handleRequestClose = this.handleRequestClose.bind(this)
   }
 
-  state = {}
-
-  shouldComponentUpdate = shouldPureComponentUpdate
-
-  showDatePopover = (event) => {
+  showDatePopover (event) {
     // This prevents ghost click.
     const target = this.refs.dateRange
     event.preventDefault()
@@ -87,13 +89,13 @@ class DateFilter extends React.Component {
     })
   }
 
-  handleNestedListToggle = (e) => {
+  handleNestedListToggle (e) {
     this.setState({
       expanded: !this.state.expanded
     })
   }
 
-  showAllDates = (e) => {
+  showAllDates (e) {
     e.preventDefault()
     this.handleDateChange({
       startDate: this.props.valueMin,
@@ -101,7 +103,7 @@ class DateFilter extends React.Component {
     })
   }
 
-  handleDateChange = (e) => {
+  handleDateChange (e) {
     if (e.startDate !== this.props.startDate) {
       this.props.onUpdate({
         exp: '>=',
@@ -118,13 +120,13 @@ class DateFilter extends React.Component {
     }
   }
 
-  handleRequestClose = () => {
+  handleRequestClose () {
     this.setState({
       open: false
     })
   }
 
-  componentDidMount = () => {
+  componentDidMount () {
     this.setState({
       el: ReactDOM.findDOMNode(this.refs.dateItem)
     })
@@ -175,6 +177,11 @@ class DateFilter extends React.Component {
       />
     )
   }
+}
+
+DateFilter.propTypes = {
+  fieldName: PropTypes.string.isRequired,
+  onUpdate: PropTypes.func
 }
 
 module.exports = DateFilter
