@@ -24,11 +24,6 @@ const emptyFeatureCollection = {
   features: []
 }
 
-const style = {
-  flex: 3,
-  display: 'flex'
-}
-
 let savedMap
 let savedMapDiv
 
@@ -62,7 +57,12 @@ class MapView extends React.Component {
     mapStyle: DEFAULT_STYLE,
     geojson: emptyFeatureCollection,
     onMarkerClick: noop,
-    onMove: noop
+    onMove: noop,
+    style: {
+      height: '100%',
+      width: '100%'
+    },
+    disableScrollToZoom: false
   }
 
   static propTypes = {
@@ -89,7 +89,10 @@ class MapView extends React.Component {
     onMove: PropTypes.func,
     fieldMapping: MFPropTypes.fieldMapping,
     /* map zoom */
-    zoom: PropTypes.number
+    zoom: PropTypes.number,
+    /* container styling */
+    style: PropTypes.object,
+    disableScrollToZoom: PropTypes.bool
   }
 
   handleMapMoveOrZoom = (e) => {
@@ -148,6 +151,8 @@ class MapView extends React.Component {
   }
 
   render () {
+    const { style } = this.props;
+
     return (
       <div
         ref={(el) => (this.mapContainer = el)}
@@ -159,7 +164,7 @@ class MapView extends React.Component {
   // The first time our component mounts, render a new map into `mapDiv`
   // with settings from props.
   componentDidMount () {
-    const { center, filter, mapStyle, geojson, zoom } = this.props
+    const { center, disableScrollToZoom, filter, mapStyle, geojson, zoom } = this.props
     let map
 
     if (savedMap) {
@@ -170,7 +175,8 @@ class MapView extends React.Component {
       return
     }
     const mapDiv = savedMapDiv = document.createElement('div')
-    mapDiv.style.flex = 1
+    mapDiv.style.height = '100%'
+    mapDiv.style.width = '100%'
     this.mapContainer.appendChild(mapDiv)
 
     map = this.map = savedMap = new mapboxgl.Map({
@@ -180,8 +186,14 @@ class MapView extends React.Component {
       zoom: zoom || 0
     })
 
+    if (disableScrollToZoom) {
+      map.scrollZoom.disable();
+    }
+
     // Add zoom and rotation controls to the map.
     map.addControl(new mapboxgl.NavigationControl())
+    map.dragRotate.disable();
+    map.touchZoomRotate.disableRotation();
 
     this.popup = new mapboxgl.Popup({
       closeButton: false,
