@@ -4,33 +4,16 @@ const getBestFilterFields = require('./best_fields')
 const getFieldAnalysis = require('./field_analysis')
 const getColoredFieldName = require('./colored_field')
 const getDateFieldName = require('./date_field')
+const getIdFieldNames = require('./id_fields')
 const {FIELD_TYPES} = require('../constants')
-
-/**
- * Pick the id field that appears in most records
- */
-const getIdFieldName = createSelector(
-  getFieldAnalysis,
-  (fieldAnalysis) => {
-    let idField
-    for (let fieldname in fieldAnalysis) {
-      const field = fieldAnalysis[fieldname]
-      if (field.type !== FIELD_TYPES.UUID) continue
-      if (!idField || field.count > idField.count) {
-        idField = field
-      }
-    }
-    return idField && idField.fieldname
-  }
-)
 
 const getTitleFieldName = createSelector(
   getBestFilterFields,
   getDateFieldName,
-  getIdFieldName,
-  (bestFilterFields, dateFieldName, idFieldName) => {
+  getIdFieldNames,
+  (bestFilterFields, dateFieldName, idFieldNames) => {
     return (bestFilterFields[0] && bestFilterFields[0].fieldname) ||
-      dateFieldName || idFieldName
+      dateFieldName || idFieldNames[0] || 'No Title'
   }
 )
 

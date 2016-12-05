@@ -2,8 +2,18 @@ const { createSelector } = require('reselect')
 const urlRegex = require('url-regex')({exact: true})
 const url = require('url')
 const path = require('path')
+const flat = require('flat')
 
-const getFlattenedFeatures = require('./flattened_features')
+// TODO: This will not flatten arrays, we need to handle that field type.
+const getSafeFlattenedFeatures = createSelector(
+  (state) => state.features,
+  (features) => features.map(f => {
+    return Object.assign({}, f, {
+      properties: flat(f.properties, {safe: true})
+    })
+  })
+)
+
 const {FIELD_TYPES, FILTER_TYPES} = require('../constants')
 
 // Max number of unique text values for a field to still be a filterable discrete field
@@ -70,10 +80,7 @@ function typeReduce (p, v) {
 }
 
 function valuesReduce (p = {}, v) {
-  let keyCount = Object.keys(p).length
-  let valueType = getType(v)
   p[v] = typeof p[v] === 'undefined' ? 1 : p[v] + 1
-  if (keyCount > (MAX_DISCRETE_VALUES[valueType] || MAX_DISCRETE_VALUES.string)) return p
   return p
 }
 
@@ -104,16 +111,20 @@ function getFilterType (f) {
   }
 }
 
+const potentialUUIDTypes = [FIELD_TYPES.STRING, FIELD_TYPES.NUMBER]
+
 /**
- * Guess if a field is a UUID: if it has a length greater than
- * 30, no variance in length, and is only one word.
- * @param {[type]} f [description]
+ * Guess if a field can be used as a UUID: There are as many different values
+ * as there are features, and wordcount === 1 - this is to avoid text fields
+ * been classified as UUID fields.
+ * @param {object} f A field object with analysis props
+ * @param {array} features Array of features
  * @return {Boolean} [description]
  */
-function isUuid (f) {
-  if (f.type !== 'string') return
-  return f.lengthStats.mean > 30 &&
-    f.lengthStats.vari === 0 &&
+function isUnique (f, features) {
+  if (potentialUUIDTypes.indexOf(f.type) < 0) return
+  const keyCount = f.values && Object.keys(f.values).length
+  return features.length === keyCount &&
     f.wordStats.max === 1
 }
 
@@ -131,7 +142,6 @@ function getType (v) {
     if (videoExts.indexOf(ext) > -1) return FIELD_TYPES.VIDEO
     return FIELD_TYPES.LINK
   }
-  if (typeof v === 'string' && /^uuid:/.test(v)) return FIELD_TYPES.UUID
   return typeof v
 }
 
@@ -147,11 +157,13 @@ function getType (v) {
  *   each discrete option, or a min/max for continuous fields
  */
 const getFieldAnalysis = createSelector(
-  getFlattenedFeatures,
+  getSafeFlattenedFeatures,
   function analyzeFields (features) {
     const analysis = {}
+    let idFieldValues = {}
     // Iterate over every feature in the FeatureCollection
     for (let i = 0; i < features.length; i++) {
+      if (features[i].id) idFieldValues = valuesReduce(idFieldValues, features[i].id)
       // For each feature, iterate over its properties
       let properties = features[i].properties
       let keys = Object.keys(properties)
@@ -173,12 +185,14 @@ const getFieldAnalysis = createSelector(
     }
     for (let fieldname in analysis) {
       let field = analysis[fieldname]
-      if (isUuid(field)) {
-        field.type = FIELD_TYPES.UUID
-        field.values = undefined
-      }
+      field.isUnique = isUnique(field, features)
       field.filterType = getFilterType(field)
     }
+    const isIdFieldUnique = Object.keys(idFieldValues).length === features.length
+    // TODO: this could cause an edge-case (extremely unlikely) bug if a feature
+    // has an existing property called `__validGeoJsonIdField`.
+    // Should restructure analysis object
+    analysis.__validGeoJsonIdField = isIdFieldUnique
     return analysis
   }
 )
