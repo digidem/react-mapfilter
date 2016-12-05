@@ -12,11 +12,8 @@ const styles = {
 }
 
 class FeatureTable extends React.Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      width: '50%'
-    }
+  state = {
+    width: '50%'
   }
 
   componentDidMount () {

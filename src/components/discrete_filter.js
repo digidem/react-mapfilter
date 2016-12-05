@@ -39,16 +39,23 @@ const NestedItem = props => {
 }
 
 class DiscreteFilter extends React.Component {
-  constructor (props) {
-    super(props)
-    this.state = {}
-    this.showAll = this.showAll.bind(this)
-    this.handleCheck = this.handleCheck.bind(this)
-    this.handleMouseLeave = this.handleMouseLeave.bind(this)
-    // handleOnlyClick and handleMouseEnter are bound in render
+  static PropTypes = {
+    fieldName: PropTypes.string.isRequired,
+    checked: PropTypes.array,
+    values: PropTypes.array,
+    onUpdate: PropTypes.func
   }
 
-  showAll (e) {
+  static defaultProps = {
+    checked: [],
+    onUpdate: (x) => x
+  }
+
+  state = {}
+
+  shouldComponentUpdate = shouldPureComponentUpdate
+
+  showAll = (e) => {
     e.preventDefault()
     this.props.onUpdate({
       exp: 'in',
@@ -57,7 +64,7 @@ class DiscreteFilter extends React.Component {
     })
   }
 
-  handleCheck (e) {
+  handleCheck = (e) => {
     const v = e.target.value
     const checked = this.props.checked.slice(0)
     if (e.target.checked && checked.indexOf(v) === -1) {
@@ -85,7 +92,7 @@ class DiscreteFilter extends React.Component {
     this.setState({hovered: key})
   }
 
-  handleMouseLeave () {
+  handleMouseLeave = () => {
     this.setState({hovered: false})
   }
 
@@ -125,18 +132,6 @@ class DiscreteFilter extends React.Component {
       />
     )
   }
-}
-
-DiscreteFilter.defaultProps = {
-  checked: [],
-  onUpdate: (x) => x
-}
-
-DiscreteFilter.propTypes = {
-  fieldName: PropTypes.string.isRequired,
-  checked: PropTypes.array,
-  values: PropTypes.object,
-  onUpdate: PropTypes.func
 }
 
 module.exports = DiscreteFilter

@@ -21,10 +21,7 @@ const pixelRatio = window.devicePixelRatio || 1
 const createDiv = React.createElement.bind(null, 'div')
 
 class Image extends React.Component {
-  constructor (props) {
-    super(props)
-    this.state = {}
-  }
+  state = {}
 
   componentDidMount () {
     const el = ReactDOM.findDOMNode(this)
@@ -36,7 +33,7 @@ class Image extends React.Component {
   }
 
   render () {
-    const props = omit(this.props, ['src', 'style', 'progress'])
+    const props = omit(this.props, ['src', 'style'])
     const {style, progress} = this.props
 
     return <ImageLoader

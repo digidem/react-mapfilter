@@ -38,13 +38,7 @@ const styles = {
 }
 
 class IndexRoute extends React.Component {
-  constructor (props) {
-    super(props)
-    this.closeModal = this.closeModal.bind(this)
-    this.openFeatureModal = this.openFeatureModal.bind(this)
-  }
-
-  closeModal () {
+  closeModal = () => {
     const {router, location} = this.props
     const newLocation = assign({}, location, {
       pathname: '/' + location.pathname.split('/')[1]
@@ -52,7 +46,7 @@ class IndexRoute extends React.Component {
     router.transitionTo(newLocation)
   }
 
-  openFeatureModal (id) {
+  openFeatureModal = id => {
     const {router, location} = this.props
     const newLocation = assign({}, location, {
       pathname: '/' + location.pathname.split('/')[1] + '/features/' + id

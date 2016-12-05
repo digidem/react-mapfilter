@@ -32,11 +32,12 @@ const fieldMapping = PropTypes.shape({
 
 /* See https://www.mapbox.com/mapbox-gl-style-spec/#types-filter */
 /* We only support a specific subset of the mapbox array spec */
-// TODO: this could be more specific
 const mapboxFilter = PropTypes.arrayOf(
   PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.array
+    PropTypes.oneOf(['all']),
+    PropTypes.arrayOf(
+      PropTypes.string
+    )
   ])
 )
 

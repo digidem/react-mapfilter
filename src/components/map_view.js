@@ -58,14 +58,41 @@ const pointHoverStyleLayer = {
 const noop = (x) => x
 
 class MapView extends React.Component {
-  constructor (props) {
-    super(props)
-    this.handleMapMoveOrZoom = this.handleMapMoveOrZoom.bind(this)
-    this.handleMapClick = this.handleMapClick.bind(this)
-    this.handleMouseMove = this.handleMouseMove.bind(this)
+  static defaultProps = {
+    mapStyle: DEFAULT_STYLE,
+    geojson: emptyFeatureCollection,
+    onMarkerClick: noop,
+    onMove: noop
   }
 
-  handleMapMoveOrZoom (e) {
+  static propTypes = {
+    /* map center point [lon, lat] */
+    center: PropTypes.array,
+    /* Geojson FeatureCollection of features to show on map */
+    geojson: PropTypes.shape({
+      type: PropTypes.oneOf(['FeatureCollection']).isRequired,
+      features: PropTypes.arrayOf(MFPropTypes.mapViewFeature).isRequired
+    }),
+    /* Current filter (See https://www.mapbox.com/mapbox-gl-style-spec/#types-filter) */
+    filter: MFPropTypes.mapboxFilter,
+    /**
+     * - NOT yet dynamic e.g. if you change it the map won't change
+     * Map style. This must be an an object conforming to the schema described in the [style reference](https://mapbox.com/mapbox-gl-style-spec/), or a URL to a JSON style. To load a style from the Mapbox API, you can use a URL of the form `mapbox://styles/:owner/:style`, where `:owner` is your Mapbox account name and `:style` is the style ID. Or you can use one of the predefined Mapbox styles.
+     */
+    mapStyle: PropTypes.string,
+    /**
+     * Triggered when a marker is clicked. Called with a (cloned) GeoJson feature
+     * object of the marker that was clicked.
+     */
+    onMarkerClick: PropTypes.func,
+    /* Triggered when map is moved, called with map center [lng, lat] */
+    onMove: PropTypes.func,
+    fieldMapping: MFPropTypes.fieldMapping,
+    /* map zoom */
+    zoom: PropTypes.number
+  }
+
+  handleMapMoveOrZoom = (e) => {
     this.props.onMove({
       center: this.map.getCenter().toArray(),
       zoom: this.map.getZoom(),
@@ -73,7 +100,7 @@ class MapView extends React.Component {
     })
   }
 
-  handleMapClick (e) {
+  handleMapClick = (e) => {
     if (!this.map.loaded()) return
     var features = this.map.queryRenderedFeatures(
       e.point,
@@ -83,7 +110,7 @@ class MapView extends React.Component {
     this.props.onMarkerClick(features[0].properties.id)
   }
 
-  handleMouseMove (e) {
+  handleMouseMove = (e) => {
     if (!this.map.loaded()) return
     var features = this.map.queryRenderedFeatures(
       e.point,
@@ -259,40 +286,6 @@ class MapView extends React.Component {
       }
     }
   }
-}
-
-MapView.defaultProps = {
-  mapStyle: DEFAULT_STYLE,
-  geojson: emptyFeatureCollection,
-  onMarkerClick: noop,
-  onMove: noop
-}
-
-MapView.propTypes = {
-  /* map center point [lon, lat] */
-  center: PropTypes.array,
-  /* Geojson FeatureCollection of features to show on map */
-  geojson: PropTypes.shape({
-    type: PropTypes.oneOf(['FeatureCollection']).isRequired,
-    features: PropTypes.arrayOf(MFPropTypes.mapViewFeature).isRequired
-  }),
-  /* Current filter (See https://www.mapbox.com/mapbox-gl-style-spec/#types-filter) */
-  filter: MFPropTypes.mapboxFilter,
-  /**
-   * - NOT yet dynamic e.g. if you change it the map won't change
-   * Map style. This must be an an object conforming to the schema described in the [style reference](https://mapbox.com/mapbox-gl-style-spec/), or a URL to a JSON style. To load a style from the Mapbox API, you can use a URL of the form `mapbox://styles/:owner/:style`, where `:owner` is your Mapbox account name and `:style` is the style ID. Or you can use one of the predefined Mapbox styles.
-   */
-  mapStyle: PropTypes.string,
-  /**
-   * Triggered when a marker is clicked. Called with a (cloned) GeoJson feature
-   * object of the marker that was clicked.
-   */
-  onMarkerClick: PropTypes.func,
-  /* Triggered when map is moved, called with map center [lng, lat] */
-  onMove: PropTypes.func,
-  fieldMapping: MFPropTypes.fieldMapping,
-  /* map zoom */
-  zoom: PropTypes.number
 }
 
 module.exports = MapView
