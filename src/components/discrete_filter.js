@@ -39,7 +39,7 @@ const NestedItem = props => {
 }
 
 class DiscreteFilter extends React.Component {
-  static PropTypes = {
+  static propTypes = {
     fieldName: PropTypes.string.isRequired,
     checked: PropTypes.array,
     values: PropTypes.array,

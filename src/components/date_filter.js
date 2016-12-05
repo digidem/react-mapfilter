@@ -63,7 +63,7 @@ const NestedItem = props => {
 }
 
 class DateFilter extends React.Component {
-  static PropTypes = {
+  static propTypes = {
     fieldName: PropTypes.string.isRequired,
     onUpdate: PropTypes.func
   }
@@ -124,7 +124,7 @@ class DateFilter extends React.Component {
     })
   }
 
-  componentDidMount = () => {
+  componentDidMount () {
     this.setState({
       el: ReactDOM.findDOMNode(this.refs.dateItem)
     })
