@@ -12,6 +12,19 @@ const getMapGeoJSON = require('../selectors/map_geojson')
 
 const LABEL_CHARS = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
 
+const styles = {
+  report: {
+    display: 'flex',
+    flexGrow: 1,
+    flexWrap: 'wrap',
+    overflow: 'scroll'
+  },
+  mapView: {
+    height: '500px',
+    width: '100%'
+  }
+}
+
 class ReportContainer extends React.Component {
   static propTypes = {
     features: PropTypes.array.isRequired,
@@ -26,12 +39,12 @@ class ReportContainer extends React.Component {
     const { features, fieldMapping, geojson } = this.props
 
     return (
-      <div className='report container' style={{ display: 'flex', flexGrow: 1, flexWrap: 'wrap', overflow: 'scroll' }}>
+      <div className='report container' style={styles.report}>
         <h2>{ features.length } Observations</h2>
         <MapView
           fieldMapping={fieldMapping}
           geojson={geojson}
-          style={{ height: '500px', width: '100%' }}
+          style={styles.mapView}
           disableScrollToZoom
           labelPoints
         />
