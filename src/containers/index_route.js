@@ -95,7 +95,10 @@ class IndexRoute extends React.Component {
     const tabs = sections.map(section => ({
       active: section === location.pathname.split('/')[1],
       id: section,
-      link: '/' + section
+      link: {
+        pathname: '/' + section,
+        query: location.query
+      }
     }))
 
     return (
