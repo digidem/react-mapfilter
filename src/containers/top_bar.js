@@ -61,7 +61,7 @@ const messages = defineMessages({
 function TopBar ({currentSection, tabs}) {
   return (
     <AppBar
-      className="nav container"
+      className='nav container'
       title='MapFilter'
       style={styles.topBar}
       titleStyle={styles.title}
