@@ -43,7 +43,7 @@ const Filter = ({
   visibleFilters = [],
   onUpdateFilter = (x) => x
 }) => (
-  <div className="filter" style={style.outer}>
+  <div className='filter' style={style.outer}>
     <List style={style.list}>
       {visibleFilters.map((f) => {
         const field = fieldStats[f]

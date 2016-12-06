@@ -64,7 +64,7 @@ class IndexRoute extends React.Component {
       try {
         updateFilter(decodeFilter(query.filter))
       } catch (e) {
-        console.warn('Could not parse filter from URL, reseting filter')
+        console.warn('Could not parse filter from URL, resetting filter')
         // Remove an invalid filter from the URL.
         const newQuery = assign({}, query, {filter: undefined})
         const newLocation = assign({}, this.props.location, newQuery)
@@ -83,9 +83,9 @@ class IndexRoute extends React.Component {
     }))
 
     return (
-      <div className="outer container" style={styles.outer}>
+      <div className='outer container' style={styles.outer}>
         <TopBar tabs={tabs} />
-        <div className="inner container" style={styles.inner}>
+        <div className='inner container' style={styles.inner}>
           <FilterContainer />
           <Match pattern='/map' render={matchProps => (
             <MapContainer {...matchProps} onMarkerClick={this.openFeatureModal} />

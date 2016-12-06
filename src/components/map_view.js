@@ -151,7 +151,7 @@ class MapView extends React.Component {
   }
 
   render () {
-    const { style } = this.props;
+    const { style } = this.props
 
     return (
       <div
@@ -187,13 +187,13 @@ class MapView extends React.Component {
     })
 
     if (disableScrollToZoom) {
-      map.scrollZoom.disable();
+      map.scrollZoom.disable()
     }
 
     // Add zoom and rotation controls to the map.
     map.addControl(new mapboxgl.NavigationControl())
-    map.dragRotate.disable();
-    map.touchZoomRotate.disableRotation();
+    map.dragRotate.disable()
+    map.touchZoomRotate.disableRotation()
 
     this.popup = new mapboxgl.Popup({
       closeButton: false,
