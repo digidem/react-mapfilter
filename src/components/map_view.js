@@ -1,3 +1,4 @@
+const assign = require('object-assign')
 const debug = require('debug')('mf:mapview')
 const React = require('react')
 const ReactDOM = require('react-dom')
@@ -34,6 +35,7 @@ const pointStyleLayer = {
   layout: {
     'icon-image': 'marker-{__mf_color}',
     'icon-allow-overlap': true,
+    'icon-ignore-placement': true,
     'icon-offset': [0, -10]
   }
 }
@@ -46,7 +48,24 @@ const pointHoverStyleLayer = {
   layout: {
     'icon-image': 'marker-{__mf_color}-hover',
     'icon-allow-overlap': true,
+    'icon-ignore-placement': true,
     'icon-offset': [0, -10]
+  }
+}
+
+const pointLabelsStyle = {
+  layout: {
+    'text-field': '{__mf_label}',
+    'text-allow-overlap': true,
+    'text-ignore-placement': true,
+    'text-size': 10,
+    'text-font': ['Open Sans Bold']
+  },
+  paint: {
+    'text-color': '#fff',
+    'text-translate': [0, -11],
+    'text-halo-color': '#333',
+    'text-halo-width': 1
   }
 }
 
@@ -62,7 +81,8 @@ class MapView extends React.Component {
       height: '100%',
       width: '100%'
     },
-    disableScrollToZoom: false
+    disableScrollToZoom: false,
+    labelPoints: false
   }
 
   static propTypes = {
@@ -80,6 +100,7 @@ class MapView extends React.Component {
      * Map style. This must be an an object conforming to the schema described in the [style reference](https://mapbox.com/mapbox-gl-style-spec/), or a URL to a JSON style. To load a style from the Mapbox API, you can use a URL of the form `mapbox://styles/:owner/:style`, where `:owner` is your Mapbox account name and `:style` is the style ID. Or you can use one of the predefined Mapbox styles.
      */
     mapStyle: PropTypes.string,
+    labelPoints: PropTypes.bool,
     /**
      * Triggered when a marker is clicked. Called with a (cloned) GeoJson feature
      * object of the marker that was clicked.
@@ -164,7 +185,7 @@ class MapView extends React.Component {
   // The first time our component mounts, render a new map into `mapDiv`
   // with settings from props.
   componentDidMount () {
-    const { center, disableScrollToZoom, filter, mapStyle, geojson, zoom } = this.props
+    const { center, disableScrollToZoom, filter, labelPoints, mapStyle, geojson, zoom } = this.props
     let map
 
     if (savedMap) {
@@ -206,8 +227,24 @@ class MapView extends React.Component {
       map.on('mousemove', this.handleMouseMove)
       map.addSource('features', {type: 'geojson', data: geojson})
       // TODO: Should choose style based on whether features are point, line or polygon
-      map.addLayer(pointStyleLayer)
-      map.addLayer(pointHoverStyleLayer)
+
+      let pointStyle = pointStyleLayer
+      let pointHoverStyle = pointHoverStyleLayer
+
+      if (labelPoints) {
+        pointStyle = assign({}, pointStyle, {
+          layout: assign({}, pointStyle.layout, pointLabelsStyle.layout),
+          paint: assign({}, pointStyle.paint, pointLabelsStyle.paint)
+        })
+
+        pointHoverStyle = assign({}, pointHoverStyle, {
+          layout: assign({}, pointHoverStyle.layout, pointLabelsStyle.layout),
+          paint: assign({}, pointHoverStyle.paint, pointLabelsStyle.paint)
+        })
+      }
+
+      map.addLayer(pointStyle)
+      map.addLayer(pointHoverStyle)
       if (filter) {
         map.setFilter('features', filter)
       }
