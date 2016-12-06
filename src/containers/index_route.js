@@ -77,7 +77,7 @@ class IndexRoute extends React.Component {
   componentWillReceiveProps (nextProps) {
     const { filters, location, router } = this.props
 
-    if (deepEqual(filters, nextProps.filters)) {
+    if (filters === nextProps.filters) {
       return
     }
 
