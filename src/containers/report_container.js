@@ -26,6 +26,7 @@ class ReportContainer extends React.Component {
 
     return (
       <div className='report container' style={{ display: 'flex', flexGrow: 1, flexWrap: 'wrap', overflow: 'scroll' }}>
+        <h2>{ features.length } Observations</h2>
         <MapView
           fieldMapping={fieldMapping}
           filter={filter}
