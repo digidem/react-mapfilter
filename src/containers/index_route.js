@@ -83,9 +83,9 @@ class IndexRoute extends React.Component {
     }))
 
     return (
-      <div style={styles.outer}>
+      <div className="outer container" style={styles.outer}>
         <TopBar tabs={tabs} />
-        <div style={styles.inner}>
+        <div className="inner container" style={styles.inner}>
           <FilterContainer />
           <Match pattern='/map' render={matchProps => (
             <MapContainer {...matchProps} onMarkerClick={this.openFeatureModal} />

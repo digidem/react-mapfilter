@@ -21,7 +21,7 @@ class ReportContainer extends React.Component {
 
   render () {
     return (
-      <div style={{ display: 'flex', flexGrow: 1, flexWrap: 'wrap', overflow: 'scroll' }}>
+      <div className="report container" style={{ display: 'flex', flexGrow: 1, flexWrap: 'wrap', overflow: 'scroll' }}>
         <MapView
           style={{ height: '500px', width: '100%' }}
           disableScrollToZoom={true}
