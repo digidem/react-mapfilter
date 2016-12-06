@@ -87,7 +87,7 @@ const FeatureModal = ({color, media, data, title, subtitle, onCloseClick}) => (
 
 module.exports = connect(
   (state, ownProps) => {
-    const features = getFlattenedFeatures(state)
+    const features = getFlattenedFeatures(state, {safe: true})
     const colorIndex = getColorIndex(state)
     const fieldMapping = getFieldMapping(state)
     const visibleFields = getVisibleFields(state)

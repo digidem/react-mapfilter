@@ -13,8 +13,9 @@ const getFlattenedFeatures = createSelector(
   (state) => state.features,
   getFieldAnalysis,
   getIdFieldNames,
-  (features, fieldAnalysis, idFieldNames) => features.map(f => {
-    const properties = flat(f.properties)
+  (state, opts) => opts,
+  (features, fieldAnalysis, idFieldNames, opts) => features.map(f => {
+    const properties = flat(f.properties, opts)
     // We use an existing id feature property, if it is unique across all features,
     // or we use any unique id field we find under properties, or, failing that,
     // we generate a unique id.

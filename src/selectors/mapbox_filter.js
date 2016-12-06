@@ -1,4 +1,11 @@
 const { createSelector } = require('reselect')
+const {FIELD_TYPES} = require('../constants')
+
+const getFieldAnalysis = require('./field_analysis')
+
+function isArrayLike (fieldType) {
+  return [FIELD_TYPES.ARRAY, FIELD_TYPES.NUMBER_OR_ARRAY, FIELD_TYPES.STRING_OR_ARRAY].indexOf(fieldType) > -1
+}
 
 /**
  * Builds a valid mapbox-gl filter expression our filters, which
@@ -13,11 +20,20 @@ const { createSelector } = require('reselect')
  */
 const getMapboxFilter = createSelector(
   (state) => state.filters,
-  (filters) => {
+  getFieldAnalysis,
+  (filters, fieldAnalysis) => {
     return Object.keys(filters).reduce(function (p, f) {
       const exp = filters[f]
       if (exp.in) {
-        p.push(['in', f, ...exp.in])
+        if (isArrayLike(fieldAnalysis[f].type)) {
+          const subFilter = ['any', ['in', f, ...exp.in]]
+          for (let i = 0; i < fieldAnalysis[f].maxArrayLength; i++) {
+            subFilter.push(['in', f + '.' + i, ...exp.in])
+          }
+          p.push(subFilter)
+        } else {
+          p.push(['in', f, ...exp.in])
+        }
       } else if (exp['<='] || exp['>=']) {
         const compoundExp = ['all']
         if (exp['<=']) compoundExp.push(['<=', f, exp['<=']])

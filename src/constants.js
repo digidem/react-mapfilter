@@ -8,7 +8,10 @@ const FIELD_TYPES = {
   IMAGE: 'image',
   VIDEO: 'video',
   MEDIA: 'media',
-  LINK: 'link'
+  LINK: 'link',
+  ARRAY: 'array',
+  STRING_OR_ARRAY: 'string_or_array',
+  NUMBER_OR_ARRAY: 'number_or_array'
 }
 
 const FILTER_TYPES = {

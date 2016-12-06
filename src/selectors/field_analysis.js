@@ -18,8 +18,8 @@ const {FIELD_TYPES, FILTER_TYPES} = require('../constants')
 
 // Max number of unique text values for a field to still be a filterable discrete field
 const MAX_DISCRETE_VALUES = {
-  string: 15,
-  number: 5
+  [FIELD_TYPES.STRING]: 15,
+  [FIELD_TYPES.NUMBER]: 5
 }
 
 const imageExts = ['jpg', 'tif', 'jpeg', 'png', 'tiff', 'webp']
@@ -28,7 +28,10 @@ const filterableTypes = [
   FIELD_TYPES.DATE,
   FIELD_TYPES.STRING,
   FIELD_TYPES.NUMBER,
-  FIELD_TYPES.BOOLEAN
+  FIELD_TYPES.BOOLEAN,
+  FIELD_TYPES.ARRAY,
+  FIELD_TYPES.STRING_OR_ARRAY,
+  FIELD_TYPES.NUMBER_OR_ARRAY
 ]
 
 function wc (s) {
@@ -59,8 +62,16 @@ function statReduce (p = {mean: NaN, vari: NaN, min: +Infinity, max: -Infinity},
   }
 }
 
-function isMediaField (f) {
-  return [FIELD_TYPES.VIDEO, FIELD_TYPES.IMAGE, FIELD_TYPES.MEDIA].indexOf(f.type) > -1
+function isMediaField (fieldType) {
+  return [FIELD_TYPES.VIDEO, FIELD_TYPES.IMAGE, FIELD_TYPES.MEDIA].indexOf(fieldType) > -1
+}
+
+function isStringOrArray (fieldType) {
+  return [FIELD_TYPES.STRING, FIELD_TYPES.ARRAY, FIELD_TYPES.STRING_OR_ARRAY].indexOf(fieldType) > -1
+}
+
+function isNumberOrArray (fieldType) {
+  return [FIELD_TYPES.NUMBER, FIELD_TYPES.ARRAY, FIELD_TYPES.NUMBER_OR_ARRAY].indexOf(fieldType) > -1
 }
 
 /**
@@ -74,13 +85,20 @@ function typeReduce (p, v) {
   if (!p || v === p) return v
   if (isMediaField(p) && isMediaField(v)) {
     return FIELD_TYPES.MEDIA
+  } else if (isStringOrArray(p) && isStringOrArray(v)) {
+    return FIELD_TYPES.STRING_OR_ARRAY
+  } else if (isNumberOrArray(p) && isNumberOrArray(v)) {
+    return FIELD_TYPES.NUMBER_OR_ARRAY
   } else {
     return FIELD_TYPES.MIXED
   }
 }
 
 function valuesReduce (p = {}, v) {
-  p[v] = typeof p[v] === 'undefined' ? 1 : p[v] + 1
+  v = Array.isArray(v) ? v : [v]
+  v.forEach(function (w) {
+    p[w] = typeof p[w] === 'undefined' ? 1 : p[w] + 1
+  })
   return p
 }
 
@@ -93,7 +111,7 @@ function getFilterType (f) {
     case FIELD_TYPES.DATE:
       return FILTER_TYPES.DATE
     case FIELD_TYPES.NUMBER:
-      if (keyCount <= MAX_DISCRETE_VALUES.number) {
+      if (keyCount <= MAX_DISCRETE_VALUES[FIELD_TYPES.NUMBER]) {
         return FILTER_TYPES.DISCRETE
       } else {
         f.values = undefined
@@ -102,7 +120,10 @@ function getFilterType (f) {
     case FIELD_TYPES.BOOLEAN:
       return FILTER_TYPES.DISCRETE
     case FIELD_TYPES.STRING:
-      if (keyCount <= MAX_DISCRETE_VALUES.string) {
+    case FIELD_TYPES.ARRAY:
+    case FIELD_TYPES.STRING_OR_ARRAY:
+    case FIELD_TYPES.NUMBER_OR_ARRAY:
+      if (keyCount <= MAX_DISCRETE_VALUES[FIELD_TYPES.STRING]) {
         return FILTER_TYPES.DISCRETE
       } else {
         f.values = undefined
@@ -142,6 +163,7 @@ function getType (v) {
     if (videoExts.indexOf(ext) > -1) return FIELD_TYPES.VIDEO
     return FIELD_TYPES.LINK
   }
+  if (Array.isArray(v)) return FIELD_TYPES.ARRAY
   return typeof v
 }
 
@@ -170,14 +192,18 @@ const getFieldAnalysis = createSelector(
       for (let j = 0; j < keys.length; j++) {
         let value = properties[keys[j]]
         let field = analysis[keys[j]] = analysis[keys[j]] || {fieldname: keys[j]}
-        field.type = typeReduce(field.type, getType(value))
+        const thisType = getType(value)
+        field.type = typeReduce(field.type, thisType)
         field.count = (field.count || 0) + 1
         if (!isFilterable(field.type)) continue
-        if (field.type === FIELD_TYPES.STRING) {
+        if (thisType === FIELD_TYPES.STRING) {
           field.wordStats = statReduce(field.wordStats, wc(value), i)
           field.lengthStats = statReduce(field.lengthStats, value.length, i)
         }
-        if (field.type === FIELD_TYPES.NUMBER || field.type === FIELD_TYPES.DATE) {
+        if (thisType === FIELD_TYPES.ARRAY) {
+          field.maxArrayLength = Math.max(field.maxArrayLength || 1, value.length)
+        }
+        if (thisType === FIELD_TYPES.NUMBER || thisType === FIELD_TYPES.DATE) {
           field.valueStats = statReduce(field.valueStats, value, i)
         }
         field.values = valuesReduce(field.values, value)

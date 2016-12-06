@@ -13,7 +13,7 @@ const getMapGeoJSON = createSelector(
         const props = feature.properties
         const newProps = Object.assign({}, props, {
           __mf_id: feature.id,
-          __mf_color: colorIndex[props[coloredField]].slice(1)
+          __mf_color: colorIndex[props[coloredField] || props[coloredField + '.0']].slice(1)
         })
         // Coerce dates to numbers
         // TODO: This should be faster by using field analysis to find date

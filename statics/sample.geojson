@@ -4,7 +4,7 @@
     {
       "properties": {
         "people": "burch_andrews",
-        "happening": "fishing",
+        "happening": ["fishing", "bobcats"],
         "impacts": "Violation of sensitive site",
         "placename": "Sims Thermal",
         "today": "2014-03-11",
