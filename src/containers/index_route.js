@@ -81,6 +81,9 @@ class IndexRoute extends React.Component {
       return
     }
 
+    // TODO: If the URL is more than 2000 characters (i.e. for large
+    // filters) this will break IE < Edge.
+    // http://stackoverflow.com/questions/417142/what-is-the-maximum-length-of-a-url-in-different-browsers
     router.transitionTo(assign({}, location, {
       search: null,
       query: assign({}, nextProps.location.query, {
