@@ -5,11 +5,12 @@ const Match = require('react-router/Match').default
 const Redirect = require('react-router/Redirect').default
 const Miss = require('react-router/Miss').default
 const assign = require('object-assign')
+const deepEqual = require('deep-equal')
 
 const FilterContainer = require('./filter_container')
 const TopBar = require('./top_bar')
 const actionCreators = require('../action_creators')
-const {decodeFilter} = require('../util/filter_helpers')
+const { decodeFilter, encodeFilter } = require('../util/filter_helpers')
 
 const MapContainer = require('./map_container')
 const ReportContainer = require('./report_container')
@@ -60,7 +61,7 @@ class IndexRoute extends React.Component {
 
     // If `filter` is not set, try to read it from the URL query parameter
     // and update the application state.
-    if (!filters && query.filter) {
+    if ((filters == null || Object.keys(filters).length === 0) && query && query.filter) {
       try {
         updateFilter(decodeFilter(query.filter))
       } catch (e) {
@@ -71,6 +72,21 @@ class IndexRoute extends React.Component {
         router.replaceWith(newLocation)
       }
     }
+  }
+
+  componentWillReceiveProps (nextProps) {
+    const { filters, location, router } = this.props
+
+    if (deepEqual(filters, nextProps.filters)) {
+      return
+    }
+
+    router.transitionTo(assign({}, location, {
+      search: null,
+      query: assign({}, nextProps.location.query, {
+        filter: encodeFilter(nextProps.filters)
+      })
+    }))
   }
 
   render () {
