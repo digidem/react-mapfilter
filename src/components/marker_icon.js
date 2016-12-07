@@ -35,7 +35,7 @@ const MarkerIcon = ({style = {}, color = '#000000', label}) => {
       />
       {
         label &&
-        <text x='8.5' y='12.5' fontSize='9' fontFamily='Roboto Medium' textAnchor='middle' style={styles.text}>{label}</text>
+        <text x='8.5' y='12.5' fontSize='9' fontFamily='Roboto' textAnchor='middle' style={styles.text}>{label}</text>
       }
     </svg>
   )
