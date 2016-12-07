@@ -10,7 +10,7 @@ const getFieldMapping = require('../selectors/field_mapping')
 const getFilteredFeatures = require('../selectors/filtered_features')
 const getMapGeoJSON = require('../selectors/map_geojson')
 
-const LABEL_CHARS = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
+const LABEL_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
 
 const styles = {
   report: {
