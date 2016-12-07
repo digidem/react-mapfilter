@@ -115,7 +115,9 @@ class IndexRoute extends React.Component {
           <Match pattern='/photos' render={matchProps => (
             <ImageContainer {...matchProps} onImageClick={this.openFeatureModal} />
           )} />
-          <Match pattern='/report' component={ReportContainer} />
+          <Match pattern='/report' render={matchProps => (
+            <ReportContainer {...matchProps} onMarkerClick={this.openFeatureModal} />
+          )} />
         </div>
         <MatchModal
           pattern='/:section(map|photos|report)/features/:id'

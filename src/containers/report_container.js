@@ -1,4 +1,3 @@
-const assign = require('object-assign')
 const React = require('react')
 const { connect } = require('react-redux')
 const { PropTypes } = React
@@ -8,9 +7,8 @@ const MFPropTypes = require('../util/prop_types')
 const MapView = require('../components/map_view')
 const getFieldMapping = require('../selectors/field_mapping')
 const getFilteredFeatures = require('../selectors/filtered_features')
+const getMapboxFilter = require('../selectors/mapbox_filter')
 const getMapGeoJSON = require('../selectors/map_geojson')
-
-const LABEL_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
 
 const styles = {
   report: {
@@ -29,6 +27,7 @@ class ReportContainer extends React.Component {
   static propTypes = {
     features: PropTypes.array.isRequired,
     fieldMapping: MFPropTypes.fieldMapping,
+    filter: MFPropTypes.mapboxFilter,
     geojson: PropTypes.shape({
       type: PropTypes.oneOf(['FeatureCollection']).isRequired,
       features: PropTypes.arrayOf(MFPropTypes.mapViewFeature).isRequired
@@ -36,14 +35,13 @@ class ReportContainer extends React.Component {
   }
 
   render () {
-    const { features, fieldMapping, geojson } = this.props
+    const { features } = this.props
 
     return (
       <div className='report container' style={styles.report}>
         <h2>{ features.length } Observations</h2>
         <MapView
-          fieldMapping={fieldMapping}
-          geojson={geojson}
+          {...this.props}
           style={styles.mapView}
           disableScrollToZoom
           labelPoints
@@ -63,24 +61,11 @@ class ReportContainer extends React.Component {
 }
 
 function mapStateToProps (state) {
-  const features = getFilteredFeatures(state)
-
-  // TODO if features have been filtered, all of the markers should be the same color
-  // (this should already work, but fieldMapping.color is an unexpected value, e.g. 'area')
-  if (features.length < LABEL_CHARS.length) {
-    features.forEach((f, i) => {
-      f.properties.__mf_label = LABEL_CHARS.charAt(i)
-    })
-  }
-
-  const geojson = getMapGeoJSON(assign({}, state, {
-    features
-  }))
-
   return {
-    geojson,
-    features,
-    fieldMapping: getFieldMapping(state)
+    features: getFilteredFeatures(state),
+    fieldMapping: getFieldMapping(state),
+    filter: getMapboxFilter(state),
+    geojson: getMapGeoJSON(state)
   }
 }
 
