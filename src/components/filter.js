@@ -1,13 +1,15 @@
 const React = require('react')
 const { PropTypes } = React
 const pure = require('recompose/pure').default
-const {List, ListItem} = require('material-ui/List')
+const FlatButton = require('material-ui/FlatButton').default
+const {List} = require('material-ui/List')
 const Divider = require('material-ui/Divider').default
 const SettingsIcon = require('material-ui/svg-icons/action/settings').default
 const {defineMessages, FormattedMessage} = require('react-intl')
 
 const DiscreteFilter = require('./discrete_filter')
 const DateFilter = require('./date_filter')
+const FilterConfigurator = require('./filter_configurator')
 const {FILTER_TYPES} = require('../constants')
 
 const style = {
@@ -20,9 +22,6 @@ const style = {
   },
   list: {
     paddingTop: 0
-  },
-  listItemInner: {
-    paddingLeft: 48
   },
   listIcon: {
     left: 0
@@ -38,12 +37,19 @@ const messages = defineMessages({
 })
 
 const Filter = ({
+  configureFilters = false,
   filters = {},
   fieldStats = {},
+  handleClose,
   visibleFilters = [],
+  onOpenFilterConfigurator,
   onUpdateFilter = (x) => x
 }) => (
   <div style={style.outer}>
+    {
+      configureFilters &&
+      <FilterConfigurator handleClose={handleClose} />
+    }
     <List style={style.list}>
       {visibleFilters.map((f) => {
         const field = fieldStats[f]
@@ -78,19 +84,22 @@ const Filter = ({
             )
         }
       })}
-      <ListItem
-        innerDivStyle={style.listItemInner}
-        leftIcon={<SettingsIcon style={style.listIcon} />}
-        primaryText={<FormattedMessage {...messages.changeFilters} />}
+      <FlatButton
+        label={<FormattedMessage {...messages.changeFilters} />}
+        icon={<SettingsIcon style={style.listIcon} />}
+        onTouchTap={onOpenFilterConfigurator}
       />
     </List>
   </div>
 )
 
 Filter.propTypes = {
+  configureFilters: PropTypes.bool,
   filters: PropTypes.object,
   fieldStats: PropTypes.object.isRequired,
+  handleClose: PropTypes.func,
   visibleFilters: PropTypes.arrayOf(PropTypes.string).isRequired,
+  onOpenFilterConfigurator: PropTypes.func,
   /* called with valid mapbox-gl filter when updated */
   onUpdateFilter: PropTypes.func
 }

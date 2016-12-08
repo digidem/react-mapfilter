@@ -5,6 +5,20 @@ const updateFilter = (filter) => {
   }
 }
 
+const addVisibleFilter = (filter) => {
+  return {
+    type: 'ADD_VISIBLE_FILTER',
+    payload: filter
+  }
+}
+
+const removeVisibleFilter = (filter) => {
+  return {
+    type: 'REMOVE_VISIBLE_FILTER',
+    payload: filter
+  }
+}
+
 const moveMap = (payload) => {
   return {
     type: 'MOVE_MAP',
@@ -26,9 +40,25 @@ const addFeatures = (payload) => {
   }
 }
 
+const openFilterConfigurator = () => {
+  return {
+    type: 'OPEN_FILTER_CONFIGURATOR'
+  }
+}
+
+const closeFilterConfigurator = () => {
+  return {
+    type: 'CLOSE_FILTER_CONFIGURATOR'
+  }
+}
+
 module.exports = {
   updateFilter,
+  addVisibleFilter,
+  removeVisibleFilter,
   moveMap,
   replaceFeatures,
-  addFeatures
+  addFeatures,
+  openFilterConfigurator,
+  closeFilterConfigurator
 }
