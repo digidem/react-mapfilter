@@ -5,7 +5,7 @@ const FlatButton = require('material-ui/FlatButton').default
 const {List} = require('material-ui/List')
 const Divider = require('material-ui/Divider').default
 const SettingsIcon = require('material-ui/svg-icons/action/settings').default
-const {defineMessages, FormattedMessage} = require('react-intl')
+const {defineMessages, injectIntl, intlShape} = require('react-intl')
 
 const DiscreteFilter = require('./discrete_filter')
 const DateFilter = require('./date_filter')
@@ -41,6 +41,7 @@ const Filter = ({
   filters = {},
   fieldStats = {},
   handleClose,
+  intl,
   visibleFilters = [],
   onOpenFilterConfigurator,
   onUpdateFilter = (x) => x
@@ -85,7 +86,7 @@ const Filter = ({
         }
       })}
       <FlatButton
-        label={<FormattedMessage {...messages.changeFilters} />}
+        label={intl.formatMessage(messages.changeFilters)}
         icon={<SettingsIcon style={style.listIcon} />}
         onTouchTap={onOpenFilterConfigurator}
       />
@@ -98,10 +99,11 @@ Filter.propTypes = {
   filters: PropTypes.object,
   fieldStats: PropTypes.object.isRequired,
   handleClose: PropTypes.func,
+  intl: intlShape.isRequired,
   visibleFilters: PropTypes.arrayOf(PropTypes.string).isRequired,
   onOpenFilterConfigurator: PropTypes.func,
   /* called with valid mapbox-gl filter when updated */
   onUpdateFilter: PropTypes.func
 }
 
-module.exports = pure(Filter)
+module.exports = pure(injectIntl(Filter))
