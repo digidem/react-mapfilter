@@ -15,11 +15,6 @@ const getFilters = createSelector(
   }
 )
 
-const getConfiguratorState = createSelector(
-  (state) => state,
-  (state) => state.filterConfigurator
-)
-
 // We should always show filters for any fields that
 // are in the current filter
 const getMergedFilterFields = createSelector(
@@ -33,13 +28,11 @@ const getMergedFilterFields = createSelector(
 const getFilterProps = createSelector(
   getFilters,
   getFieldAnalysis,
-  getConfiguratorState,
   getMergedFilterFields,
-  (filters, fieldStats, configureFilters, visibleFilters) => {
+  (filters, fieldStats, visibleFilters) => {
     return {
       filters,
       fieldStats,
-      configureFilters,
       visibleFilters
     }
   }

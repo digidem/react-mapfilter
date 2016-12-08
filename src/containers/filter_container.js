@@ -6,8 +6,6 @@ const getFilterProps = require('../selectors/filter_props')
 
 function mapDispatchToProps (dispatch) {
   return {
-    handleClose: () => dispatch(closeFilterConfigurator()),
-    onOpenFilterConfigurator: () => dispatch(openFilterConfigurator()),
     onUpdateFilter: filter => dispatch(updateFilter(filter))
   }
 }

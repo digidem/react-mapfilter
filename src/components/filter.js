@@ -9,7 +9,6 @@ const {defineMessages, injectIntl, intlShape} = require('react-intl')
 
 const DiscreteFilter = require('./discrete_filter')
 const DateFilter = require('./date_filter')
-const FilterConfigurator = require('./filter_configurator')
 const {FILTER_TYPES} = require('../constants')
 
 const style = {
@@ -40,17 +39,12 @@ const Filter = ({
   configureFilters = false,
   filters = {},
   fieldStats = {},
-  handleClose,
   intl,
   visibleFilters = [],
   onOpenFilterConfigurator,
   onUpdateFilter = (x) => x
 }) => (
   <div style={style.outer}>
-    {
-      configureFilters &&
-      <FilterConfigurator handleClose={handleClose} />
-    }
     <List style={style.list}>
       {visibleFilters.map((f) => {
         const field = fieldStats[f]
@@ -98,7 +92,6 @@ Filter.propTypes = {
   configureFilters: PropTypes.bool,
   filters: PropTypes.object,
   fieldStats: PropTypes.object.isRequired,
-  handleClose: PropTypes.func,
   intl: intlShape.isRequired,
   visibleFilters: PropTypes.arrayOf(PropTypes.string).isRequired,
   onOpenFilterConfigurator: PropTypes.func,

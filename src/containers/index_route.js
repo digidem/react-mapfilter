@@ -11,6 +11,7 @@ const TopBar = require('./top_bar')
 const actionCreators = require('../action_creators')
 const {decodeFilter} = require('../util/filter_helpers')
 
+const FilterConfigurator = require('../components/filter_configurator')
 const MapContainer = require('./map_container')
 const ReportContainer = require('./report_container')
 const ImageContainer = require('./image_container')
@@ -54,6 +55,14 @@ class IndexRoute extends React.Component {
     router.transitionTo(newLocation)
   }
 
+  openFilterConfigurator = () => {
+    const {router, location} = this.props
+    const newLocation = assign({}, location, {
+      pathname: '/' + location.pathname.split('/')[1] + '/settings/filters'
+    })
+    router.transitionTo(newLocation)
+  }
+
   // Read the filter and map position from the URL on first load
   componentWillMount () {
     const {filters, location: {query}, updateFilter, router} = this.props
@@ -86,7 +95,7 @@ class IndexRoute extends React.Component {
       <div style={styles.outer}>
         <TopBar tabs={tabs} />
         <div style={styles.inner}>
-          <FilterContainer />
+          <FilterContainer onOpenFilterConfigurator={this.openFilterConfigurator} />
           <Match pattern='/map' render={matchProps => (
             <MapContainer {...matchProps} onMarkerClick={this.openFeatureModal} />
           )} />
@@ -101,6 +110,13 @@ class IndexRoute extends React.Component {
             <FeatureModal
               id={matchProps.params.id}
               onCloseClick={this.closeModal}
+            />
+        )} />
+        <MatchModal
+          pattern='/:section(map|photos|report)/settings/filters'
+          render={matchProps => (
+            <FilterConfigurator
+              handleClose={this.closeModal}
             />
         )} />
         <Miss render={() => <Redirect to='/map' />} />

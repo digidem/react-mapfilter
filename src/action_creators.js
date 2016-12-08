@@ -40,25 +40,11 @@ const addFeatures = (payload) => {
   }
 }
 
-const openFilterConfigurator = () => {
-  return {
-    type: 'OPEN_FILTER_CONFIGURATOR'
-  }
-}
-
-const closeFilterConfigurator = () => {
-  return {
-    type: 'CLOSE_FILTER_CONFIGURATOR'
-  }
-}
-
 module.exports = {
   updateFilter,
   addVisibleFilter,
   removeVisibleFilter,
   moveMap,
   replaceFeatures,
-  addFeatures,
-  openFilterConfigurator,
-  closeFilterConfigurator
+  addFeatures
 }

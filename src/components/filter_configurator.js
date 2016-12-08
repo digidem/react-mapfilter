@@ -56,7 +56,6 @@ class FilterConfigurator extends React.Component {
       <Dialog
         title={intl.formatMessage(messages.configureFilters)}
         actions={actions}
-        modal={false}
         open
         onRequestClose={this.handleClose}
       >
