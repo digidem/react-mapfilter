@@ -1,8 +1,9 @@
 const React = require('react')
 const { connect } = require('react-redux')
 const { PropTypes } = React
-const Dialog = require('material-ui/Dialog').default
-const FlatButton = require('material-ui/FlatButton').default
+const { Card, CardText, CardHeader } = require('material-ui/Card')
+const IconButton = require('material-ui/IconButton').default
+const CloseIcon = require('material-ui/svg-icons/navigation/close').default
 const { List, ListItem } = require('material-ui/List')
 const Toggle = require('material-ui/Toggle').default
 const {defineMessages, FormattedMessage} = require('react-intl')
@@ -12,14 +13,24 @@ const { addVisibleFilter, removeVisibleFilter } = require('../action_creators')
 
 
 const styles = {
-  title: {
-    margin: '0px',
-    padding: '24px 24px 20px',
-    color: 'rgba(0, 0, 0, 0.870588)',
-    fontSize: '22px',
-    lineHeight: '32px',
-    fontWeight: '400',
-    borderBottom: 'none'
+  card: {
+    width: '100%',
+    flex: 1,
+    display: 'flex',
+    flexDirection: 'column'
+  },
+  cardContainerStyle: {
+    flex: 1,
+    flexDirection: 'column',
+    display: 'flex'
+  },
+  header: {
+    lineHeight: '22px',
+    boxSizing: 'content-box',
+    borderBottom: '1px solid #cccccc'
+  },
+  icon: {
+    float: 'right'
   }
 }
 
@@ -54,40 +65,39 @@ class FilterConfigurator extends React.Component {
   render () {
     const { candidateFilters, handleClose, visibleFilters } = this.props
 
-    const actions = [
-      <FlatButton
-        label='Done'
-        primary
-        onTouchTap={handleClose}
-      />
-    ]
-
     return (
-      <Dialog
-        title={<h3 style={styles.title}><FormattedMessage {...messages.configureFilters} /></h3>}
-        actions={actions}
-        open
-        onRequestClose={this.handleClose}
-      >
-        <List>
-          {
-            // TODO allow these to be reordered
-            candidateFilters.map(([k, v]) => {
-              return (
-                <ListItem
-                  key={k}
-                  primaryText={k}
-                  rightToggle={
-                    <Toggle
-                      toggled={visibleFilters.includes(k)}
-                      onToggle={this.onToggle(k)}
-                    />}
-                />
-              )
-            })
-          }
-        </List>
-      </Dialog>
+      <Card
+        style={styles.card}
+        containerStyle={styles.cardContainerStyle}
+        zDepth={2}>
+        <CardHeader
+          style={styles.header}
+          title={<h3 style={styles.title}><FormattedMessage {...messages.configureFilters} /></h3>}>
+          <IconButton style={styles.icon} onClick={handleClose}>
+            <CloseIcon />
+          </IconButton>
+        </CardHeader>
+        <CardText>
+          <List>
+            {
+              // TODO allow these to be reordered
+              candidateFilters.map(([k, v]) => {
+                return (
+                  <ListItem
+                    key={k}
+                    primaryText={k}
+                    rightToggle={
+                      <Toggle
+                        toggled={visibleFilters.includes(k)}
+                        onToggle={this.onToggle(k)}
+                      />}
+                  />
+                )
+              })
+            }
+          </List>
+        </CardText>
+      </Card>
     )
   }
 }
