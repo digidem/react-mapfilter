@@ -5,11 +5,23 @@ const Dialog = require('material-ui/Dialog').default
 const FlatButton = require('material-ui/FlatButton').default
 const { List, ListItem } = require('material-ui/List')
 const Toggle = require('material-ui/Toggle').default
-const {defineMessages, injectIntl, intlShape} = require('react-intl')
+const {defineMessages, FormattedMessage} = require('react-intl')
 
 const getCandidateFilters = require('../selectors/candidate_filters')
 const { addVisibleFilter, removeVisibleFilter } = require('../action_creators')
 
+
+const styles = {
+  title: {
+    margin: '0px',
+    padding: '24px 24px 20px',
+    color: 'rgba(0, 0, 0, 0.870588)',
+    fontSize: '22px',
+    lineHeight: '32px',
+    fontWeight: '400',
+    borderBottom: 'none'
+  }
+}
 
 const messages = defineMessages({
   configureFilters: {
@@ -23,7 +35,6 @@ class FilterConfigurator extends React.Component {
   static propTypes = {
     candidateFilters: PropTypes.array.isRequired,
     handleClose: PropTypes.func.isRequired,
-    intl: intlShape.isRequired,
     onAddVisibleFilter: PropTypes.func.isRequired,
     onRemoveVisibleFilter: PropTypes.func.isRequired,
     visibleFilters: PropTypes.array.isRequired
@@ -41,7 +52,7 @@ class FilterConfigurator extends React.Component {
   }
 
   render () {
-    const { candidateFilters, handleClose, intl, visibleFilters } = this.props
+    const { candidateFilters, handleClose, visibleFilters } = this.props
 
     const actions = [
       <FlatButton
@@ -53,7 +64,7 @@ class FilterConfigurator extends React.Component {
 
     return (
       <Dialog
-        title={intl.formatMessage(messages.configureFilters)}
+        title={<h3 style={styles.title}><FormattedMessage {...messages.configureFilters} /></h3>}
         actions={actions}
         open
         onRequestClose={this.handleClose}
@@ -98,4 +109,4 @@ function mapDispatchToProps (dispatch) {
 module.exports = connect(
   mapStateToProps,
   mapDispatchToProps
-)(injectIntl(FilterConfigurator))
+)(FilterConfigurator)

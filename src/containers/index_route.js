@@ -55,14 +55,6 @@ class IndexRoute extends React.Component {
     router.transitionTo(newLocation)
   }
 
-  openFilterConfigurator = () => {
-    const {router, location} = this.props
-    const newLocation = assign({}, location, {
-      pathname: '/' + location.pathname.split('/')[1] + '/settings/filters'
-    })
-    router.transitionTo(newLocation)
-  }
-
   // Read the filter and map position from the URL on first load
   componentWillMount () {
     const {filters, location: {query}, updateFilter, router} = this.props
@@ -95,7 +87,7 @@ class IndexRoute extends React.Component {
       <div style={styles.outer}>
         <TopBar tabs={tabs} />
         <div style={styles.inner}>
-          <FilterContainer onOpenFilterConfigurator={this.openFilterConfigurator} />
+          <FilterContainer location={location} />
           <Match pattern='/map' render={matchProps => (
             <MapContainer {...matchProps} onMarkerClick={this.openFeatureModal} />
           )} />

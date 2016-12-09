@@ -2,10 +2,11 @@ const React = require('react')
 const { PropTypes } = React
 const pure = require('recompose/pure').default
 const FlatButton = require('material-ui/FlatButton').default
-const {List} = require('material-ui/List')
+const Link = require('react-router/Link').default
+const {List, ListItem} = require('material-ui/List')
 const Divider = require('material-ui/Divider').default
 const SettingsIcon = require('material-ui/svg-icons/action/settings').default
-const {defineMessages, injectIntl, intlShape} = require('react-intl')
+const {defineMessages, FormattedMessage} = require('react-intl')
 
 const DiscreteFilter = require('./discrete_filter')
 const DateFilter = require('./date_filter')
@@ -22,8 +23,15 @@ const style = {
   list: {
     paddingTop: 0
   },
+  listItemInner: {
+    paddingLeft: 48
+  },
   listIcon: {
     left: 0
+  },
+  link: {
+    color: '#000',
+    textDecoration: 'none'
   }
 }
 
@@ -39,9 +47,8 @@ const Filter = ({
   configureFilters = false,
   filters = {},
   fieldStats = {},
-  intl,
   visibleFilters = [],
-  onOpenFilterConfigurator,
+  location,
   onUpdateFilter = (x) => x
 }) => (
   <div style={style.outer}>
@@ -79,11 +86,17 @@ const Filter = ({
             )
         }
       })}
-      <FlatButton
-        label={intl.formatMessage(messages.changeFilters)}
-        icon={<SettingsIcon style={style.listIcon} />}
-        onTouchTap={onOpenFilterConfigurator}
-      />
+      <ListItem
+        innerDivStyle={style.listItemInner}
+        leftIcon={<SettingsIcon style={style.listIcon} />}
+      >
+        <Link
+          style={style.link}
+          to={{
+            pathname: `${location.pathname}/settings/filters`,
+            query: location.query
+          }}><FormattedMessage {...messages.changeFilters} /></Link>
+      </ListItem>
     </List>
   </div>
 )
@@ -92,11 +105,10 @@ Filter.propTypes = {
   configureFilters: PropTypes.bool,
   filters: PropTypes.object,
   fieldStats: PropTypes.object.isRequired,
-  intl: intlShape.isRequired,
   visibleFilters: PropTypes.arrayOf(PropTypes.string).isRequired,
-  onOpenFilterConfigurator: PropTypes.func,
+  location: PropTypes.object.isRequired,
   /* called with valid mapbox-gl filter when updated */
   onUpdateFilter: PropTypes.func
 }
 
-module.exports = pure(injectIntl(Filter))
+module.exports = pure(Filter)
