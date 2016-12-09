@@ -45,7 +45,7 @@ const messages = defineMessages({
 class FilterConfigurator extends React.Component {
   static propTypes = {
     candidateFilters: PropTypes.array.isRequired,
-    handleClose: PropTypes.func.isRequired,
+    onCloseClick: PropTypes.func.isRequired,
     onAddVisibleFilter: PropTypes.func.isRequired,
     onRemoveVisibleFilter: PropTypes.func.isRequired,
     visibleFilters: PropTypes.array.isRequired
@@ -63,7 +63,7 @@ class FilterConfigurator extends React.Component {
   }
 
   render () {
-    const { candidateFilters, handleClose, visibleFilters } = this.props
+    const { candidateFilters, onCloseClick, visibleFilters } = this.props
 
     return (
       <Card
@@ -73,7 +73,7 @@ class FilterConfigurator extends React.Component {
         <CardHeader
           style={styles.header}
           title={<h3 style={styles.title}><FormattedMessage {...messages.configureFilters} /></h3>}>
-          <IconButton style={styles.icon} onClick={handleClose}>
+          <IconButton style={styles.icon} onClick={onCloseClick}>
             <CloseIcon />
           </IconButton>
         </CardHeader>

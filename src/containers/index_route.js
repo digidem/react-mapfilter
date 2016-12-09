@@ -108,7 +108,7 @@ class IndexRoute extends React.Component {
           pattern='/:section(map|photos|report)/settings/filters'
           render={matchProps => (
             <FilterConfigurator
-              handleClose={this.closeModal}
+              onCloseClick={this.closeModal}
             />
         )} />
         <Miss render={() => <Redirect to='/map' />} />
