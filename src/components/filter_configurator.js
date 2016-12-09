@@ -51,7 +51,6 @@ class FilterConfigurator extends React.Component {
       />
     ]
 
-    // FormattedMessage
     return (
       <Dialog
         title={intl.formatMessage(messages.configureFilters)}
