@@ -22,9 +22,9 @@
     "#fb9a99",
     "#fdbf6f",
     "#ff7f00",
-    "#ffff99",
-    "#000000"
+    "#ffff99"
   ],
+  "defaultColor": "#555555",
   "dateFormatShort": "ll",
   "dateFormatLong": "LL"
 }

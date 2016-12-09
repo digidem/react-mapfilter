@@ -3,7 +3,9 @@
 const fs = require('fs')
 const path = require('path')
 const mkdirp = require('mkdirp')
-const colors = require('../config.json').colors
+const CONFIG = require('../config.json')
+const colors = CONFIG.colors
+colors.push(CONFIG.defaultColor)
 
 const buildPath = path.join(__dirname, '..', 'build', 'markers')
 const markerPath = path.join(__dirname, '..', 'svg')
