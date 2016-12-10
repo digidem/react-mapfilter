@@ -5,11 +5,12 @@ const makePure = require('recompose/pure').default
 const Checkbox = makePure(require('material-ui/Checkbox').default)
 const ListIcon = require('material-ui/svg-icons/action/list').default
 const {ListItem} = require('material-ui/List')
+const {FormattedMessage} = require('react-intl')
 const omit = require('lodash/omit')
 
 const ShowAllButton = require('./show_all_button')
 const OnlyButton = require('./only_button')
-const { t, titleCase } = require('../util/text_helpers')
+const msg = require('../util/intl_helpers').createMessage
 const { listStyles } = require('../styles')
 
 const styles = {
@@ -102,7 +103,7 @@ class DiscreteFilter extends React.Component {
     return (
       <ListItem
         innerDivStyle={listStyles.listItemInner}
-        primaryText={titleCase(fieldName)}
+        primaryText={<FormattedMessage {...msg('field_key')(fieldName)} />}
         leftIcon={<ListIcon style={listStyles.listIcon} />}
         initiallyOpen
         disabled
@@ -115,7 +116,8 @@ class DiscreteFilter extends React.Component {
             onMouseEnter={this.handleMouseEnter.bind(this, v)}
             onMouseLeave={this.handleMouseLeave}>
             <Checkbox
-              label={t(v)}
+              label={<FormattedMessage {...msg('field_value')(v)} />}
+              title={<FormattedMessage {...msg('field_value')(v)} />}
               value={v}
               style={styles.checkbox}
               iconStyle={styles.checkboxIcon}
