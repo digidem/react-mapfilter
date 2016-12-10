@@ -8,9 +8,9 @@ const { List, ListItem } = require('material-ui/List')
 const Toggle = require('material-ui/Toggle').default
 const {defineMessages, FormattedMessage} = require('react-intl')
 
-const getCandidateFilters = require('../selectors/candidate_filters')
-const { addVisibleFilter, removeVisibleFilter } = require('../action_creators')
-
+const getFilterableFields = require('../selectors/filterable_fields')
+const getVisibleFilters = require('../selectors/visible_filters')
+const { updateVisibleFilters } = require('../action_creators')
 
 const styles = {
   card: {
@@ -44,26 +44,36 @@ const messages = defineMessages({
 
 class FilterConfigurator extends React.Component {
   static propTypes = {
-    candidateFilters: PropTypes.array.isRequired,
+    filterableFields: PropTypes.array.isRequired,
     onCloseClick: PropTypes.func.isRequired,
-    onAddVisibleFilter: PropTypes.func.isRequired,
-    onRemoveVisibleFilter: PropTypes.func.isRequired,
+    onUpdateVisibleFilters: PropTypes.func.isRequired,
     visibleFilters: PropTypes.array.isRequired
   }
 
   onToggle = (fieldName) => {
-    const { onAddVisibleFilter, onRemoveVisibleFilter } = this.props
+    const { onUpdateVisibleFilters, visibleFilters } = this.props
     return ({target}) => {
+      let newVisibleFilters
+
       if (target.checked) {
-        onAddVisibleFilter(fieldName)
+        newVisibleFilters = [
+          ...visibleFilters,
+          fieldName
+        ]
       } else {
-        onRemoveVisibleFilter(fieldName)
+        const index = visibleFilters.indexOf(fieldName)
+        newVisibleFilters = [
+          ...visibleFilters.slice(0, index),
+          ...visibleFilters.slice(index + 1)
+        ]
       }
+
+      onUpdateVisibleFilters(newVisibleFilters)
     }
   }
 
   render () {
-    const { candidateFilters, onCloseClick, visibleFilters } = this.props
+    const { filterableFields, onCloseClick, visibleFilters } = this.props
 
     return (
       <Card
@@ -81,15 +91,15 @@ class FilterConfigurator extends React.Component {
           <List>
             {
               // TODO allow these to be reordered
-              candidateFilters.map(([k, v]) => {
+              filterableFields.map((field) => {
                 return (
                   <ListItem
-                    key={k}
-                    primaryText={k}
+                    key={field}
+                    primaryText={field}
                     rightToggle={
                       <Toggle
-                        toggled={visibleFilters.includes(k)}
-                        onToggle={this.onToggle(k)}
+                        toggled={visibleFilters.includes(field)}
+                        onToggle={this.onToggle(field)}
                       />}
                   />
                 )
@@ -104,15 +114,14 @@ class FilterConfigurator extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    candidateFilters: getCandidateFilters(state),
-    visibleFilters: state.visibleFilters
+    filterableFields: getFilterableFields(state),
+    visibleFilters: getVisibleFilters(state)
   }
 }
 
 function mapDispatchToProps (dispatch) {
   return {
-    onAddVisibleFilter: name => dispatch(addVisibleFilter(name)),
-    onRemoveVisibleFilter: name => dispatch(removeVisibleFilter(name))
+    onUpdateVisibleFilters: filters => dispatch(updateVisibleFilters(filters))
   }
 }
 

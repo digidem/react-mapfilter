@@ -5,17 +5,10 @@ const updateFilter = (filter) => {
   }
 }
 
-const addVisibleFilter = (filter) => {
+const updateVisibleFilters = (payload) => {
   return {
-    type: 'ADD_VISIBLE_FILTER',
-    payload: filter
-  }
-}
-
-const removeVisibleFilter = (filter) => {
-  return {
-    type: 'REMOVE_VISIBLE_FILTER',
-    payload: filter
+    type: 'UPDATE_VISIBLE_FILTERS',
+    payload
   }
 }
 
@@ -42,8 +35,7 @@ const addFeatures = (payload) => {
 
 module.exports = {
   updateFilter,
-  addVisibleFilter,
-  removeVisibleFilter,
+  updateVisibleFilters,
   moveMap,
   replaceFeatures,
   addFeatures

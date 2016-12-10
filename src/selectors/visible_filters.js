@@ -3,12 +3,8 @@ const intersect = require('lodash/intersection')
 
 const getBestFilterFields = require('./best_fields')
 const getFieldAnalysis = require('./field_analysis')
+const getFilterableFields = require('./filterable_fields')
 const getDateFieldName = require('./date_field')
-
-const getFilterableFields = createSelector(
-  getFieldAnalysis,
-  (fieldAnalysis) => Object.keys(fieldAnalysis).filter(f => fieldAnalysis[f].filterType)
-)
 
 /**
  * If we have not defined which fields to show filters for, make a best
