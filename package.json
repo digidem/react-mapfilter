@@ -1,8 +1,8 @@
 {
-  "name": "Monitoring-app",
-  "description": "An app for viewing monitoring data",
-  "version": "1.0.0-alpha1",
-  "main": "src/index.js",
+  "name": "react-mapfilter",
+  "description": "A React Component for viewing and filtering GeoJSON",
+  "version": "0.0.1",
+  "main": "dist/mapfilter.min.js",
   "browserify": {
     "transform": [
       "babelify",
@@ -85,10 +85,11 @@
     "start": "budo example/index.js:bundle.js --pushstate --dir example",
     "dev": "budo src/dev.js:bundle.js --pushstate --dir statics -- -p browserify-hmr",
     "test": "exit 0",
-    "build": "npm run build:statics && npm run build:js",
+    "build": "mkdirp dist && npm run -s build:js > dist/mapfilter.js && npm run -s build:min.js > dist/mapfilter.min.js",
     "build:markers": "node ./bin/build_markers.js",
     "build:statics": "copyfiles -u 1 'statics/**/*' build",
-    "build:js": "NODE_ENV=production browserify -g envify -g uglifyify src/index.js | uglifyjs -c -m > build/bundle.js"
+    "build:js": "NODE_ENV=production browserify -g envify --standalone MapFilter src/index.js",
+    "build:min.js": "NODE_ENV=production browserify -g envify -g uglifyify --standalone MapFilter src/index.js | uglifyjs -c -m"
   },
   "standard": {
     "parser": "babel-eslint",
