@@ -1,8 +1,8 @@
 {
-  "name": "Monitoring-app",
-  "description": "An app for viewing monitoring data",
-  "version": "1.0.0-alpha1",
-  "main": "src/index.js",
+  "name": "react-mapfilter",
+  "description": "A React Component for viewing and filtering GeoJSON",
+  "version": "0.0.1",
+  "main": "es5/index.js",
   "browserify": {
     "transform": [
       "babelify",
@@ -21,6 +21,7 @@
     "flat": "^2.0.1",
     "geojsonhint": "^1.2.0",
     "get-scrollbar-width": "^1.0.4",
+    "insert-css": "^2.0.0",
     "is-plain-object": "^2.0.1",
     "lodash": "^4.16.4",
     "mapbox-gl": "^0.27.0",
@@ -28,10 +29,8 @@
     "moment": "^2.15.2",
     "object-assign": "^4.1.0",
     "randombytes": "^2.0.3",
-    "react": "^15.4.0",
     "react-addons-shallow-compare": "^15.3.2",
     "react-date-range": "^0.2.4",
-    "react-dom": "^15.4.0",
     "react-imageloader": "^2.1.0",
     "react-intl": "^2.1.5",
     "react-intl-redux": "^0.1.0",
@@ -48,13 +47,16 @@
     "redux": "^3.6.0",
     "redux-thunk": "^2.1.0",
     "reselect": "^2.5.4",
+    "rework": "^1.0.1",
+    "rework-import": "^2.1.0",
     "round-to": "^1.1.0",
     "turf-extent": "^1.0.4",
     "url-regex": "^3.2.0"
   },
   "devDependencies": {
-    "babel": "^6.5.2",
-    "babel-eslint": "^6.1.2",
+    "babel-cli": "^6.18.0",
+    "babel-core": "^6.20.0",
+    "babel-eslint": "^7.1.1",
     "babel-plugin-react-transform": "^2.0.0",
     "babel-plugin-transform-class-properties": "^6.5.2",
     "babel-plugin-transform-object-rest-spread": "^6.5.0",
@@ -76,6 +78,7 @@
     "eslint-plugin-standard": "^2.0.1",
     "gh-pages": "^0.11.0",
     "mkdirp": "^0.5.1",
+    "rimraf": "^2.5.4",
     "spritesmith-cli": "^1.1.2",
     "spritezero-cli": "^1.0.2",
     "standard": "^8.5.0",
@@ -90,15 +93,23 @@
     "start": "budo example/index.js:bundle.js --pushstate --dir example",
     "dev": "budo src/dev.js:bundle.js --pushstate --dir statics -- -p browserify-hmr",
     "test": "exit 0",
-    "build": "npm run build:statics && npm run build:js",
+    "build": "mkdirp dist && npm run -s build:js && npm run -s build:min.js",
     "build:markers": "node ./bin/build_markers.js",
     "build:statics": "copyfiles -u 1 'statics/**/*' build",
-    "build:js": "NODE_ENV=production browserify -g envify -g uglifyify src/index.js | uglifyjs -c -m > build/bundle.js"
+    "build:js": "NODE_ENV=production browserify -g envify --standalone MapFilter src/index.js > dist/mapfilter.js",
+    "build:es5": "rimraf es5 && babel src/ -d es5/",
+    "build:min.js": "NODE_ENV=production browserify -g envify -g uglifyify --standalone MapFilter src/index.js | uglifyjs -c -m > dist/mapfilter.min.js",
+    "clean": "rimraf dist es5",
+    "prepublish": "npm run build:es5"
   },
   "standard": {
     "parser": "babel-eslint",
     "ignore": [
       "build/**"
     ]
+  },
+  "peerDependencies": {
+    "react": "^15.4.1",
+    "react-dom": "^15.4.1"
   }
 }

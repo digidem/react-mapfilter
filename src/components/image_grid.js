@@ -4,7 +4,7 @@ const {Grid, AutoSizer} = require('react-virtualized')
 const getScrollBarWidth = require('get-scrollbar-width')
 const assign = require('object-assign')
 
-require('../../node_modules/react-virtualized/styles.css')
+require('react-virtualized/styles.css')
 
 const pixelRatio = window.devicePixelRatio || 1
 
