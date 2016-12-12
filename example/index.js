@@ -1,6 +1,6 @@
 const React = require('react')
 const ReactDOM = require('react-dom')
-const MapFilter = require('../dist/mapfilter.js')
+const MapFilter = require('../es5')
 const fs = require('fs')
 const path = require('path')
 

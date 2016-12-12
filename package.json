@@ -2,7 +2,7 @@
   "name": "react-mapfilter",
   "description": "A React Component for viewing and filtering GeoJSON",
   "version": "0.0.1",
-  "main": "dist/mapfilter.min.js",
+  "main": "es5/index.js",
   "browserify": {
     "transform": [
       "babelify",
@@ -21,6 +21,7 @@
     "flat": "^2.0.1",
     "geojsonhint": "^1.2.0",
     "get-scrollbar-width": "^1.0.4",
+    "insert-css": "^2.0.0",
     "is-plain-object": "^2.0.1",
     "lodash": "^4.16.4",
     "mapbox-gl": "^0.27.0",
@@ -46,6 +47,8 @@
     "redux": "^3.6.0",
     "redux-thunk": "^2.1.0",
     "reselect": "^2.5.4",
+    "rework": "^1.0.1",
+    "rework-import": "^2.1.0",
     "round-to": "^1.1.0",
     "turf-extent": "^1.0.4",
     "url-regex": "^3.2.0"
@@ -89,6 +92,9 @@
     "build:statics": "copyfiles -u 1 'statics/**/*' build",
     "build:js": "NODE_ENV=production browserify -g envify --standalone MapFilter src/index.js",
     "build:min.js": "NODE_ENV=production browserify -g envify -g uglifyify --standalone MapFilter src/index.js | uglifyjs -c -m"
+    "build:es5": "rm -rf es5 && babel src/ -d es5/",
+    "clean": "rm -rf dist es5",
+    "prepublish": "npm run build:es5"
   },
   "standard": {
     "parser": "babel-eslint",
