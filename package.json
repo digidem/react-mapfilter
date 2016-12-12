@@ -28,10 +28,8 @@
     "moment": "^2.15.2",
     "object-assign": "^4.1.0",
     "randombytes": "^2.0.3",
-    "react": "^15.4.0",
     "react-addons-shallow-compare": "^15.3.2",
     "react-date-range": "^0.2.4",
-    "react-dom": "^15.4.0",
     "react-imageloader": "^2.1.0",
     "react-intl": "^2.1.5",
     "react-intl-redux": "^0.1.0",
@@ -96,5 +94,9 @@
     "ignore": [
       "build/**"
     ]
+  },
+  "peerDependencies": {
+    "react": "^15.4.1",
+    "react-dom": "^15.4.1"
   }
 }
