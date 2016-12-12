@@ -73,6 +73,7 @@
     "envify": "^3.4.1",
     "gh-pages": "^0.11.0",
     "mkdirp": "^0.5.1",
+    "rimraf": "^2.5.4",
     "spritesmith-cli": "^1.1.2",
     "spritezero-cli": "^1.0.2",
     "standard": "^8.5.0",
@@ -91,9 +92,9 @@
     "build:markers": "node ./bin/build_markers.js",
     "build:statics": "copyfiles -u 1 'statics/**/*' build",
     "build:js": "NODE_ENV=production browserify -g envify --standalone MapFilter src/index.js > dist/mapfilter.js",
-    "build:es5": "rm -rf es5 && babel src/ -d es5/",
+    "build:es5": "rimraf es5 && babel src/ -d es5/",
     "build:min.js": "NODE_ENV=production browserify -g envify -g uglifyify --standalone MapFilter src/index.js | uglifyjs -c -m > dist/mapfilter.min.js",
-    "clean": "rm -rf dist es5",
+    "clean": "rimraf dist es5",
     "prepublish": "npm run build:es5"
   },
   "standard": {
