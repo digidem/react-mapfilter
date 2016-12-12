@@ -7,7 +7,6 @@ const getFilterableFields = createSelector(
   getFieldAnalysis,
   (fieldStats) => Object
       .entries(fieldStats)
-      .filter(([k, v]) => v.filterType)
       .filter(([k, v]) => v.filterType === FILTER_TYPES.DATE || v.filterType === FILTER_TYPES.DISCRETE)
       .map(([k, v]) => k)
 )
