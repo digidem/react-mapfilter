@@ -11,6 +11,7 @@ const {defineMessages, FormattedMessage} = require('react-intl')
 const getFilterableFields = require('../selectors/filterable_fields')
 const getVisibleFilters = require('../selectors/visible_filters')
 const { updateVisibleFilters } = require('../action_creators')
+const msg = require('../util/intl_helpers').createMessage
 
 const styles = {
   card: {
@@ -94,7 +95,7 @@ class FilterConfigurator extends React.Component {
                 return (
                   <ListItem
                     key={field}
-                    primaryText={field}
+                    primaryText={<FormattedMessage {...msg('field_key')(field)} />}
                     rightToggle={
                       <Toggle
                         toggled={visibleFilters.includes(field)}
