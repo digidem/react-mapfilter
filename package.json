@@ -10,7 +10,15 @@
     ]
   },
   "files": [
-    "es5"
+    "bin",
+    "css",
+    "es5",
+    "example",
+    "lib",
+    "src",
+    "svg",
+    "test",
+    "config.json"
   ],
   "dependencies": {
     "base64-url": "^1.3.3",
