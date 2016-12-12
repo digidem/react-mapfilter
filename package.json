@@ -9,6 +9,9 @@
       "brfs"
     ]
   },
+  "files": [
+    "es5"
+  ],
   "dependencies": {
     "base64-url": "^1.3.3",
     "case": "^1.4.2",
