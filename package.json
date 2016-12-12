@@ -6,7 +6,6 @@
   "browserify": {
     "transform": [
       "babelify",
-      "browserify-css",
       "brfs"
     ]
   },
@@ -65,7 +64,6 @@
     "babelify": "^7.2.0",
     "brfs": "^1.4.3",
     "browserify": "^13.0.0",
-    "browserify-css": "^0.9.0",
     "browserify-hmr": "gmaclennan/browserify-hmr#gmaclennan-patch-1",
     "budo": "^8.0.4",
     "copyfiles": "^0.2.1",
