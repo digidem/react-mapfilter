@@ -24,13 +24,19 @@ const style = {
     paddingTop: 0
   },
   listItemInner: {
-    paddingLeft: 48
+    padding: 0
   },
   listIcon: {
-    left: 0
+    fill: 'rgb(117, 117, 117)',
+    left: 0,
+    top: 0,
+    margin: '12px',
+    position: 'absolute'
   },
   link: {
     color: '#000',
+    display: 'block',
+    padding: '16px 16px 16px 48px',
     textDecoration: 'none'
   }
 }
@@ -86,16 +92,13 @@ const Filter = ({
             )
         }
       })}
-      <ListItem
-        innerDivStyle={style.listItemInner}
-        leftIcon={<SettingsIcon style={style.listIcon} />}
-      >
+      <ListItem innerDivStyle={style.listItemInner}>
         <Link
           style={style.link}
           to={{
             pathname: `${location.pathname}/settings/filters`,
             query: location.query
-          }}><FormattedMessage {...messages.changeFilters} /></Link>
+          }}><FormattedMessage {...messages.changeFilters} /> <SettingsIcon style={style.listIcon} /></Link>
       </ListItem>
     </List>
   </div>
