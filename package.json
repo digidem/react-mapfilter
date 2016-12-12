@@ -89,6 +89,8 @@
     "eslint-plugin-standard": "^2.0.1",
     "gh-pages": "^0.11.0",
     "mkdirp": "^0.5.1",
+    "react": "^15.4.1",
+    "react-dom": "^15.4.1",
     "rimraf": "^2.5.4",
     "spritesmith-cli": "^1.1.2",
     "spritezero-cli": "^1.0.2",
@@ -119,7 +121,6 @@
     ]
   },
   "peerDependencies": {
-    "react": "^15.4.1",
-    "react-dom": "^15.4.1"
+    "react": "^15.0.0"
   }
 }
