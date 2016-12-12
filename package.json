@@ -87,12 +87,12 @@
     "start": "budo example/index.js:bundle.js --pushstate --dir example",
     "dev": "budo src/dev.js:bundle.js --pushstate --dir statics -- -p browserify-hmr",
     "test": "exit 0",
-    "build": "mkdirp dist && npm run -s build:js > dist/mapfilter.js && npm run -s build:min.js > dist/mapfilter.min.js",
+    "build": "mkdirp dist && npm run -s build:js && npm run -s build:min.js",
     "build:markers": "node ./bin/build_markers.js",
     "build:statics": "copyfiles -u 1 'statics/**/*' build",
-    "build:js": "NODE_ENV=production browserify -g envify --standalone MapFilter src/index.js",
-    "build:min.js": "NODE_ENV=production browserify -g envify -g uglifyify --standalone MapFilter src/index.js | uglifyjs -c -m"
+    "build:js": "NODE_ENV=production browserify -g envify --standalone MapFilter src/index.js > dist/mapfilter.js",
     "build:es5": "rm -rf es5 && babel src/ -d es5/",
+    "build:min.js": "NODE_ENV=production browserify -g envify -g uglifyify --standalone MapFilter src/index.js | uglifyjs -c -m > dist/mapfilter.min.js",
     "clean": "rm -rf dist es5",
     "prepublish": "npm run build:es5"
   },
