@@ -1,6 +1,7 @@
 const React = require('react')
 const { PropTypes } = React
 const pure = require('recompose/pure').default
+const Link = require('react-router/Link').default
 const {List, ListItem} = require('material-ui/List')
 const Divider = require('material-ui/Divider').default
 const SettingsIcon = require('material-ui/svg-icons/action/settings').default
@@ -22,10 +23,20 @@ const style = {
     paddingTop: 0
   },
   listItemInner: {
-    paddingLeft: 48
+    padding: 0
   },
   listIcon: {
-    left: 0
+    fill: 'rgb(117, 117, 117)',
+    left: 0,
+    top: 0,
+    margin: '12px',
+    position: 'absolute'
+  },
+  link: {
+    color: '#000',
+    display: 'block',
+    padding: '16px 16px 16px 48px',
+    textDecoration: 'none'
   }
 }
 
@@ -38,13 +49,16 @@ const messages = defineMessages({
 })
 
 const Filter = ({
+  configureFilters = false,
   filters = {},
   fieldStats = {},
   visibleFilters = [],
+  location,
   onUpdateFilter = (x) => x
 }) => (
   <div style={style.outer}>
     <List style={style.list}>
+      {/* TODO allow these to be reordered */}
       {visibleFilters.map((f) => {
         const field = fieldStats[f]
         const filter = filters[f]
@@ -78,19 +92,24 @@ const Filter = ({
             )
         }
       })}
-      <ListItem
-        innerDivStyle={style.listItemInner}
-        leftIcon={<SettingsIcon style={style.listIcon} />}
-        primaryText={<FormattedMessage {...messages.changeFilters} />}
-      />
+      <ListItem innerDivStyle={style.listItemInner}>
+        <Link
+          style={style.link}
+          to={{
+            pathname: `${location.pathname}/settings/filters`,
+            query: location.query
+          }}><FormattedMessage {...messages.changeFilters} /> <SettingsIcon style={style.listIcon} /></Link>
+      </ListItem>
     </List>
   </div>
 )
 
 Filter.propTypes = {
+  configureFilters: PropTypes.bool,
   filters: PropTypes.object,
   fieldStats: PropTypes.object.isRequired,
   visibleFilters: PropTypes.arrayOf(PropTypes.string).isRequired,
+  location: PropTypes.object.isRequired,
   /* called with valid mapbox-gl filter when updated */
   onUpdateFilter: PropTypes.func
 }

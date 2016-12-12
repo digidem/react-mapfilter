@@ -9,7 +9,8 @@ const styles = {
     position: 'absolute',
     right: 0,
     top: -4,
-    zIndex: 3
+    zIndex: 3,
+    backgroundColor: 'rgba(235, 235, 235, 0.9)'
   },
   flatButtonLabel: {
     fontSize: 12,

@@ -11,6 +11,7 @@ const TopBar = require('./top_bar')
 const actionCreators = require('../action_creators')
 const {decodeFilter} = require('../util/filter_helpers')
 
+const FilterConfigurator = require('../components/filter_configurator')
 const MapContainer = require('./map_container')
 const ReportContainer = require('./report_container')
 const ImageContainer = require('./image_container')
@@ -86,7 +87,7 @@ class IndexRoute extends React.Component {
       <div style={styles.outer}>
         <TopBar tabs={tabs} />
         <div style={styles.inner}>
-          <FilterContainer />
+          <FilterContainer location={location} />
           <Match pattern='/map' render={matchProps => (
             <MapContainer {...matchProps} onMarkerClick={this.openFeatureModal} />
           )} />
@@ -100,6 +101,13 @@ class IndexRoute extends React.Component {
           render={matchProps => (
             <FeatureModal
               id={matchProps.params.id}
+              onCloseClick={this.closeModal}
+            />
+        )} />
+        <MatchModal
+          pattern='/:section(map|photos|report)/settings/filters'
+          render={matchProps => (
+            <FilterConfigurator
               onCloseClick={this.closeModal}
             />
         )} />
