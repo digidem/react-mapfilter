@@ -11,7 +11,7 @@ const { getBoundsOrWorld } = require('../util/map_helpers')
 const config = require('../../config.json')
 const Popup = require('./popup')
 
-require('../../node_modules/mapbox-gl/dist/mapbox-gl.css')
+require('mapbox-gl/dist/mapbox-gl.css')
 require('../../css/popup.css')
 
 /* Mapbox [API access token](https://www.mapbox.com/help/create-api-access-token/) */
