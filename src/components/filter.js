@@ -58,6 +58,7 @@ const Filter = ({
 }) => (
   <div style={style.outer}>
     <List style={style.list}>
+      {/* TODO allow these to be reordered */}
       {visibleFilters.map((f) => {
         const field = fieldStats[f]
         const filter = filters[f]

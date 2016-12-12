@@ -90,7 +90,6 @@ class FilterConfigurator extends React.Component {
         <CardText>
           <List>
             {
-              // TODO allow these to be reordered
               filterableFields.map((field) => {
                 return (
                   <ListItem
