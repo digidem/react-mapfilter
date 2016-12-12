@@ -107,7 +107,7 @@ class DiscreteFilter extends React.Component {
         leftIcon={<ListIcon style={listStyles.listIcon} />}
         initiallyOpen
         disabled
-        rightIconButton={isFiltered ? <ShowAllButton onClick={this.showAll} /> : null}
+        rightIconButton={isFiltered ? <ShowAllButton onTouchTap={this.showAll} /> : null}
         nestedListStyle={listStyles.nestedList}
         nestedItems={Object.keys(values).map((v) => (
           <NestedItem
@@ -128,7 +128,7 @@ class DiscreteFilter extends React.Component {
               disableTouchRipple />
             {this.state.hovered === v &&
               <OnlyButton
-                onClick={this.handleOnlyClick.bind(this, v)} />}
+                onTouchTap={this.handleOnlyClick.bind(this, v)} />}
           </NestedItem>
         ))}
       />

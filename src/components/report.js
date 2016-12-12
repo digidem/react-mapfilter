@@ -55,7 +55,7 @@ const Report = ({color, media, data, title, subtitle, onCloseClick}) => (
       avatar={<MarkerIcon color={color} style={styles.markerIcon} />}
       title={<FormattedMessage {...msg('field_value')(title)} />}
       subtitle={<FormattedMessage {...msg('field_value')(subtitle)} />}>
-      <IconButton style={{float: 'right'}} onClick={onCloseClick}>
+      <IconButton style={{float: 'right'}} onTouchTap={onCloseClick}>
         <CloseIcon />
       </IconButton>
     </CardHeader>

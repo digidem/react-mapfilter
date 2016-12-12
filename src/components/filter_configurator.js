@@ -84,7 +84,7 @@ class FilterConfigurator extends React.Component {
         <CardHeader
           style={styles.header}
           title={<h3 style={styles.title}><FormattedMessage {...messages.configureFilters} /></h3>}>
-          <IconButton style={styles.icon} onClick={onCloseClick}>
+          <IconButton style={styles.icon} onTouchTap={onCloseClick}>
             <CloseIcon />
           </IconButton>
         </CardHeader>

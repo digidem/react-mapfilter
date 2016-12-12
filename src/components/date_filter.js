@@ -143,14 +143,14 @@ class DateFilter extends React.Component {
         primaryText={titleCase(fieldName)}
         leftIcon={<DateIcon style={listStyles.listIcon} />}
         initiallyOpen
-        rightIconButton={isFiltered ? <ShowAllButton onClick={this.showAllDates} /> : null}
+        rightIconButton={isFiltered ? <ShowAllButton onTouchTap={this.showAllDates} /> : null}
         disabled
         ref='dateItem'
         nestedItems={
           [<NestedItem style={styles.dateItem} key='dateItem'>
             <div ref='dateRange' onClick={this.showDatePopover}>{rangeStr}</div>
             <IconButton
-              onClick={this.showDatePopover}
+              onTouchTap={this.showDatePopover}
               tooltip='Select dates'
               style={styles.iconButton}
               iconStyle={styles.editIcon}
