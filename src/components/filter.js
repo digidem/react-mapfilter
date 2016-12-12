@@ -1,7 +1,6 @@
 const React = require('react')
 const { PropTypes } = React
 const pure = require('recompose/pure').default
-const FlatButton = require('material-ui/FlatButton').default
 const Link = require('react-router/Link').default
 const {List, ListItem} = require('material-ui/List')
 const Divider = require('material-ui/Divider').default
