@@ -17,10 +17,12 @@ const getVisibleFilters = createSelector(
   getDateFieldName,
   getFilterableFields,
   (visibleFilters, bestFilterFields, dateFieldName, filterableFields) => {
-    if (!visibleFilters || visibleFilters.length === 0) {
+    if (visibleFilters == null) {
       visibleFilters = []
       if (dateFieldName) visibleFilters.push(dateFieldName)
       if (bestFilterFields[0]) visibleFilters.push(bestFilterFields[0].fieldname)
+
+      return visibleFilters
     }
     return intersect(visibleFilters, filterableFields)
   }
