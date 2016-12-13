@@ -41,7 +41,7 @@ const getMediaFieldName = createSelector(
         mediaField = field
       }
     }
-    return mediaField.fieldname
+    return mediaField && mediaField.fieldname
   }
 )
 

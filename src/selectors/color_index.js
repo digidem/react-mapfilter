@@ -10,6 +10,7 @@ const getColorIndex = createSelector(
   getFieldAnalysis,
   (coloredField, fieldStats) => {
     const colorIndex = {}
+    if (!coloredField) return colorIndex
     const values = Object.keys(fieldStats[coloredField].values)
     if (!values) return colorIndex
     values.forEach((v, i) => {
