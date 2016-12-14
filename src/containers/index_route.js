@@ -1,10 +1,13 @@
 const React = require('react')
 const { connect } = require('react-redux')
 const { bindActionCreators } = require('redux')
+const Link = require('react-router/Link').default
 const Match = require('react-router/Match').default
 const Redirect = require('react-router/Redirect').default
 const Miss = require('react-router/Miss').default
 const assign = require('object-assign')
+const FloatingActionButton = require('material-ui/FloatingActionButton').default
+const ContentAdd = require('material-ui/svg-icons/content/add').default
 
 const FilterContainer = require('./filter_container')
 const TopBar = require('./top_bar')
@@ -17,6 +20,7 @@ const ReportContainer = require('./report_container')
 const ImageContainer = require('./image_container')
 const FeatureModal = require('../components/feature_modal')
 const MatchModal = require('../components/match_modal')
+const UploadFormDataModal = require('../components/upload_form_data_modal')
 
 const styles = {
   outer: {
@@ -35,6 +39,12 @@ const styles = {
   inner: {
     display: 'flex',
     flex: 1
+  },
+  addButton: {
+    position: 'absolute',
+    bottom: 20,
+    right: 20,
+    zIndex: 2
   }
 }
 
@@ -111,7 +121,24 @@ class IndexRoute extends React.Component {
               onCloseClick={this.closeModal}
             />
         )} />
+        <MatchModal
+          pattern='/:section(map|photos|report)/add'
+          render={matchProps => (
+            <UploadFormDataModal
+              onCloseClick={this.closeModal}
+            />
+        )} />
         <Miss render={() => <Redirect to='/map' />} />
+        {/* TODO componentize */}
+        <Link
+          to={{
+            pathname: `${location.pathname}/add`,
+            query: location.query
+          }}>
+          <FloatingActionButton style={styles.addButton}>
+            <ContentAdd />
+          </FloatingActionButton>
+        </Link>
       </div>
     )
   }

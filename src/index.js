@@ -1,3 +1,5 @@
+require('babel-polyfill')
+
 const React = require('react')
 const { Provider } = require('react-redux')
 const { createStore, applyMiddleware, compose } = require('redux')
