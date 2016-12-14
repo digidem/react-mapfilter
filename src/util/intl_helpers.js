@@ -18,8 +18,13 @@ const createMessage = section => function formatMsg (value) {
     }).join(', ')
     id = value.join('_')
   } else {
-    msg = value.toString()
-    id = value.toString()
+    if (value == null) {
+      msg = ''
+      id = ' '
+    } else {
+      msg = value.toString()
+      id = value.toString()
+    }
   }
   return {
     id: id,
