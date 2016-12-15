@@ -89,7 +89,7 @@ class UploadFormDataModal extends React.Component {
 
     this.uploader.upload({
       observationsUrl: `http://localhost:3210/obs/create`,
-      mediaUrl: `http://localhost:3210/media/jpg`
+      mediaUrl: `http://localhost:3210/media/create`
     }, err => {
       if (err) {
         return console.warn(err.stack)
