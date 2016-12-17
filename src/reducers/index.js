@@ -7,5 +7,6 @@ module.exports = combineReducers({
   visibleFilters: require('./visible_filters'),
   mapPosition: require('./map_position'),
   fieldMapping: require('./field_mapping'),
-  intl: intlReducer
+  intl: intlReducer,
+  xformUploader: require('./xform_uploader')
 })

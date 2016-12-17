@@ -1,4 +1,5 @@
 const React = require('react')
+const { connect } = require('react-redux')
 const { findDOMNode } = require('react-dom')
 const PropTypes = React.PropTypes
 
@@ -75,6 +76,8 @@ const messages = defineMessages({
 
 class UploadFormDataModal extends React.Component {
   static propTypes = {
+    mediaUrl: PropTypes.string.isRequired,
+    observationsUrl: PropTypes.string.isRequired,
     onCloseClick: PropTypes.func.isRequired
   }
 
@@ -85,11 +88,11 @@ class UploadFormDataModal extends React.Component {
   }
 
   uploadForms = () => {
-    console.log('uploading forms...')
+    const { mediaUrl, observationsUrl } = this.props
 
     this.uploader.upload({
-      observationsUrl: `http://localhost:3210/obs/create`,
-      mediaUrl: `http://localhost:3210/media/create`
+      mediaUrl,
+      observationsUrl
     }, err => {
       if (err) {
         return console.warn(err.stack)
@@ -175,4 +178,14 @@ class UploadFormDataModal extends React.Component {
   }
 }
 
-module.exports = UploadFormDataModal
+const mapStateToProps = state => {
+  console.log(state)
+  return {
+    mediaUrl: state.xformUploader.mediaUrl,
+    observationsUrl: state.xformUploader.observationsUrl
+  }
+}
+
+module.exports = connect(
+  mapStateToProps
+)(UploadFormDataModal)

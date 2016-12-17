@@ -8,7 +8,12 @@ const MapFilter = require('../src/index.js')
 // const sampleGeoJSON = fs.readFileSync(path.join(__dirname, './sample.geojson'), 'utf8')
 // const features = JSON.parse(sampleGeoJSON).features
 
-const mf = React.createElement(MapFilter)
+const mf = React.createElement(MapFilter, {
+  xformUploader: {
+    mediaUrl: 'http://localhost:3210/media/create',
+    observationsUrl: 'http://localhost:3210/obs/create'
+  }
+})
 
 fetch(`http://localhost:3210/obs/list`)
   .then(rsp => rsp.text())

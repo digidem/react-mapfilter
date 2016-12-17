@@ -1,6 +1,7 @@
 require('babel-polyfill')
 
 const React = require('react')
+const { PropTypes } = React
 const { Provider } = require('react-redux')
 const { createStore, applyMiddleware, compose } = require('redux')
 const thunk = require('redux-thunk').default
@@ -32,16 +33,27 @@ const storeEnhancer = devTools ? compose(devTools, applyMiddleware(thunk)) : app
 
 class MapFilter extends React.Component {
   static propTypes = {
-    features: MFPropTypes.features
+    features: MFPropTypes.features,
+    xformUploader: PropTypes.shape({
+      mediaUrl: PropTypes.string,
+      observationsUrl: PropTypes.string
+    })
   }
 
   static defaultProps = {
-    features: []
+    features: [],
+    xformUploader: {
+      mediaUrl: 'http://localhost:3210/media/create',
+      observationsUrl: 'http://localhost:3210/obs/create'
+    }
   }
 
   constructor (props) {
     super(props)
-    const initialState = {features: props.features}
+    const initialState = {
+      features: props.features,
+      xformUploader: props.xformUploader
+    }
     this.store = createStore(reducers, initialState, storeEnhancer)
   }
 
