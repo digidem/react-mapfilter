@@ -63,7 +63,7 @@
     "round-to": "^1.1.0",
     "turf-extent": "^1.0.4",
     "url-regex": "^3.2.0",
-    "xform-uploader": "digidem/xform-uploader"
+    "xform-uploader": "mojodna/xform-uploader#integration"
   },
   "devDependencies": {
     "babel-cli": "^6.18.0",
