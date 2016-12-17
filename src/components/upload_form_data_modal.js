@@ -103,19 +103,8 @@ class UploadFormDataModal extends React.Component {
     this.uploader = new Uploader()
 
     this.uploader.on('change', () => {
-      // TODO push state into Redux
-      const forms = this.uploader.state().forms.map(form => {
-        form.missingAttachments = Object.values(this.uploader.forms.forms.missingAttachments)
-          .filter(a => a.form.data.id === form.data.id)
-          .map(a => a.name)
-
-        return form
-      })
-
-      this.setState({
-        forms,
-        orphanAttachments: this.uploader.state().orphanAttachments
-      })
+      // TODO push state into Redux ?
+      this.setState(this.uploader.state())
     })
 
     this.removeDragDrop = dragDrop(findDOMNode(this.uploadContainer), files => {
@@ -161,7 +150,7 @@ class UploadFormDataModal extends React.Component {
                     forms.map((form, idx) => (
                       <ListItem
                         key={idx}
-                        primaryText={form.data.id}
+                        primaryText={<code>{form.name}</code>}
                         leftIcon={form.missingAttachments.length ? <WarningIcon color={colors.orange500} /> : <CheckCircleIcon color={colors.green500} />}
                         nestedItems={form.missingAttachments.map((a, jdx) => (
                           <ListItem
