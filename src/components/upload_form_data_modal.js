@@ -6,8 +6,10 @@ const PropTypes = React.PropTypes
 const { Card, CardText, CardHeader } = require('material-ui/Card')
 const IconButton = require('material-ui/IconButton').default
 const CloseIcon = require('material-ui/svg-icons/navigation/close').default
+const CircularProgress = require('material-ui/CircularProgress').default
 const CheckCircleIcon = require('material-ui/svg-icons/action/check-circle').default
 const RaisedButton = require('material-ui/RaisedButton').default
+const Snackbar = require('material-ui/Snackbar').default
 const WarningIcon = require('material-ui/svg-icons/alert/warning').default
 const { List, ListItem } = require('material-ui/List')
 const Subheader = require('material-ui/Subheader').default
@@ -17,6 +19,8 @@ const dragDrop = require('drag-drop')
 const Uploader = require('xform-uploader')
 
 require('../../css/uploader.css')
+
+const noop = () => null
 
 const styles = {
   card: {
@@ -84,31 +88,53 @@ class UploadFormDataModal extends React.Component {
   state = {
     forms: [],
     missingAttachments: [],
-    orphanAttachments: []
+    orphanAttachments: [],
+    showSnackbar: false,
+    snackbarMessage: 'Forms uploaded.',
+    uploading: false
   }
 
   uploadForms = () => {
     const { mediaUrl, observationsUrl } = this.props
 
+    // trigger progress spinner
+    this.setState({
+      uploading: true
+    })
+
     this.uploader.upload({
       mediaUrl,
       observationsUrl
     }, err => {
+      this.setState({
+        uploading: false
+      })
+
+      // cancel progress spinner
       if (err) {
         return console.warn(err.stack)
       }
 
-      console.log('done.')
+      this.setState({
+        showSnackbar: true
+      })
+
+      this.resetUploader()
     })
   }
 
-  componentDidMount () {
+  resetUploader () {
     this.uploader = new Uploader()
 
     this.uploader.on('change', () => {
-      // TODO push state into Redux ?
       this.setState(this.uploader.state())
     })
+
+    this.setState(this.uploader.state())
+  }
+
+  componentDidMount () {
+    this.resetUploader()
 
     this.removeDragDrop = dragDrop(findDOMNode(this.uploadContainer), files => {
       this.uploader.add(files, err => {
@@ -125,7 +151,7 @@ class UploadFormDataModal extends React.Component {
 
   render () {
     const { onCloseClick } = this.props
-    const { forms } = this.state
+    const { forms, showSnackbar, snackbarMessage, uploading } = this.state
 
     return (
       <Card
@@ -166,20 +192,25 @@ class UploadFormDataModal extends React.Component {
                   }
                 </List>
                 <RaisedButton
+                  icon={uploading ? <CircularProgress size={20} thickness={2.5} /> : null}
                   label={<FormattedMessage {...messages.upload} />}
-                  onTouchTap={this.uploadForms}
+                  onTouchTap={uploading ? noop : this.uploadForms}
                   primary />
               </div>
             )
           }
         </CardText>
+        <Snackbar
+          open={showSnackbar}
+          message={snackbarMessage}
+          autoHideDuration={4000}
+        />
       </Card>
     )
   }
 }
 
 const mapStateToProps = state => {
-  console.log(state)
   return {
     mediaUrl: state.xformUploader.mediaUrl,
     observationsUrl: state.xformUploader.observationsUrl
