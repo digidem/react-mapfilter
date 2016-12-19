@@ -23,7 +23,7 @@ const mf = React.createElement(MapFilter, {
   }
 })
 
-fetch(`http://localhost:3210/obs/list`)
+fetch('http://localhost:3210/obs/list')
   .then(rsp => rsp.text())
   .then(lines => {
     const observations = lines
