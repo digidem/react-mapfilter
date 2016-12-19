@@ -84,7 +84,7 @@ class MapView extends React.Component {
      * - NOT yet dynamic e.g. if you change it the map won't change
      * Map style. This must be an an object conforming to the schema described in the [style reference](https://mapbox.com/mapbox-gl-style-spec/), or a URL to a JSON style. To load a style from the Mapbox API, you can use a URL of the form `mapbox://styles/:owner/:style`, where `:owner` is your Mapbox account name and `:style` is the style ID. Or you can use one of the predefined Mapbox styles.
      */
-    mapStyle: PropTypes.string,
+    mapStyle: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
     /**
      * Triggered when a marker is clicked. Called with a (cloned) GeoJson feature
      * object of the marker that was clicked.

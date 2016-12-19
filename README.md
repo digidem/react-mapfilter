@@ -35,8 +35,16 @@ npm start
 
 You can then open [http://localhost:9966/](http://localhost:9966/) in a browser.
 
+Offline Preparation
+-------------------
+
+Re-create static map assets (these are checked into git at the moment):
+
+```sh
+bin/build_style.js example/map_style
+```
+
 Architecture and how to contribute
 ----------------------------------
 
 See [`CONTRIBUTING.md`](./CONTRIBUTING.md)
-
