@@ -82,6 +82,7 @@
     "budo": "^8.0.4",
     "copyfiles": "^0.2.1",
     "dependency-check": "^2.5.1",
+    "dotenv": "^2.0.0",
     "envify": "^3.4.1",
     "eslint": "^3.11.1",
     "eslint-config-standard": "^6.2.1",
@@ -92,13 +93,17 @@
     "mkdirp": "^0.5.1",
     "react": "^15.4.1",
     "react-dom": "^15.4.1",
+    "pump": "^1.0.1",
+    "request": "^2.79.0",
     "rimraf": "^2.5.4",
     "spritesmith-cli": "^1.1.2",
     "spritezero-cli": "^1.0.2",
     "standard": "^8.5.0",
     "tape": "^4.4.0",
+    "traverse": "^0.6.6",
     "uglify-js": "^2.7.4",
-    "uglifyify": "^3.0.4"
+    "uglifyify": "^3.0.4",
+    "urlencode": "^1.1.0"
   },
   "license": "MIT",
   "scripts": {
