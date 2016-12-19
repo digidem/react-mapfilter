@@ -8,7 +8,15 @@ const MapFilter = require('../src/index.js')
 // const sampleGeoJSON = fs.readFileSync(path.join(__dirname, './sample.geojson'), 'utf8')
 // const features = JSON.parse(sampleGeoJSON).features
 
+const mapStyle = require('./map_style/style.json')
+const loc = window.location
+const baseUrl = loc.protocol + '//' + loc.host + '/map_style/'
+;['glyphs', 'sprite'].forEach(function (key) {
+  mapStyle[key] = mapStyle[key].replace(/mapfilter:\/\//, baseUrl)
+})
+
 const mf = React.createElement(MapFilter, {
+  mapStyle,
   xformUploader: {
     mediaUrl: 'http://localhost:3210/media/create',
     observationsUrl: 'http://localhost:3210/obs/create'

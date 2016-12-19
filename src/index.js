@@ -19,6 +19,7 @@ const MFPropTypes = require('./util/prop_types')
 const IndexRoute = require('./containers/index_route')
 const reducers = require('./reducers')
 const { replaceFeatures } = require('./action_creators')
+const config = require('../config.json')
 
 // Roboto font
 require('../css/fonts.css')
@@ -34,6 +35,7 @@ const storeEnhancer = devTools ? compose(devTools, applyMiddleware(thunk)) : app
 class MapFilter extends React.Component {
   static propTypes = {
     features: MFPropTypes.features,
+    mapStyle: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
     xformUploader: PropTypes.shape({
       mediaUrl: PropTypes.string,
       observationsUrl: PropTypes.string
@@ -42,6 +44,7 @@ class MapFilter extends React.Component {
 
   static defaultProps = {
     features: [],
+    mapStyle: config.defaultMapStyle,
     xformUploader: {
       mediaUrl: 'http://localhost:3210/media/create',
       observationsUrl: 'http://localhost:3210/obs/create'
@@ -52,6 +55,7 @@ class MapFilter extends React.Component {
     super(props)
     const initialState = {
       features: props.features,
+      mapStyle: props.mapStyle,
       xformUploader: props.xformUploader
     }
     this.store = createStore(reducers, initialState, storeEnhancer)

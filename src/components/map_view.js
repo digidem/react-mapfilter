@@ -1,3 +1,4 @@
+const { connect } = require('react-redux')
 const debug = require('debug')('mf:mapview')
 const React = require('react')
 const ReactDOM = require('react-dom')
@@ -16,13 +17,6 @@ require('../../css/popup.css')
 
 /* Mapbox [API access token](https://www.mapbox.com/help/create-api-access-token/) */
 mapboxgl.accessToken = config.mapboxToken
-
-const mapStyle = require('../../example/map_style/style.json')
-const loc = window.location
-const baseUrl = loc.protocol + '//' + loc.host + '/map_style/'
-;['glyphs', 'sprite'].forEach(function (key) {
-  mapStyle[key] = mapStyle[key].replace(/mapfilter:\/\//, baseUrl)
-})
 
 const emptyFeatureCollection = {
   type: 'FeatureCollection',
@@ -64,7 +58,6 @@ const noop = (x) => x
 
 class MapView extends React.Component {
   static defaultProps = {
-    mapStyle: mapStyle,
     geojson: emptyFeatureCollection,
     onMarkerClick: noop,
     onMove: noop
@@ -305,4 +298,12 @@ class MapView extends React.Component {
   }
 }
 
-module.exports = MapView
+const mapStateToProps = state => {
+  return {
+    mapStyle: state.mapStyle
+  }
+}
+
+module.exports = connect(
+  mapStateToProps
+)(MapView)
