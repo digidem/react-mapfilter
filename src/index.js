@@ -18,7 +18,7 @@ addLocaleData([...en, ...es])
 const MFPropTypes = require('./util/prop_types')
 const IndexRoute = require('./containers/index_route')
 const reducers = require('./reducers')
-const { replaceFeatures } = require('./action_creators')
+const { replaceFeatures, replaceMapStyle } = require('./action_creators')
 const config = require('../config.json')
 
 // Roboto font
@@ -62,8 +62,13 @@ class MapFilter extends React.Component {
   }
 
   componentWillReceiveProps (nextProps) {
-    if (nextProps.features === this.props.features) return
-    this.store.dispatch(replaceFeatures(nextProps.features))
+    if (nextProps.features !== this.props.features) {
+      this.store.dispatch(replaceFeatures(nextProps.features))
+    }
+
+    if (nextProps.mapStyle !== this.props.mapStyle) {
+      this.store.dispatch(replaceMapStyle(nextProps.mapStyle))
+    }
   }
 
   render () {

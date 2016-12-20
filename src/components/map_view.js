@@ -217,6 +217,10 @@ class MapView extends React.Component {
     }
   }
 
+  componentDidUpdate () {
+    this.map.setStyle(this.props.mapStyle)
+  }
+
   componentWillReceiveProps (nextProps) {
     this.moveIfNeeded(nextProps.center, nextProps.zoom)
     const isDataUpdated = this.updateDataIfNeeded(
@@ -232,7 +236,8 @@ class MapView extends React.Component {
   // We always return false from this function because we don't want React to
   // handle any rendering of the map itself, we do all that via mapboxgl
   shouldComponentUpdate (nextProps) {
-    return false
+    // only update if the map style changed
+    return this.props.mapStyle !== nextProps.mapStyle
   }
 
   componentWillUnmount () {

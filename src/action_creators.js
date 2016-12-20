@@ -33,10 +33,18 @@ const addFeatures = (payload) => {
   }
 }
 
+const replaceMapStyle = (payload) => {
+  return {
+    type: 'REPLACE_MAP_STYLE',
+    payload
+  }
+}
+
 module.exports = {
   updateFilter,
   updateVisibleFilters,
   moveMap,
   replaceFeatures,
-  addFeatures
+  addFeatures,
+  replaceMapStyle
 }
