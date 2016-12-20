@@ -61,13 +61,14 @@ const messages = defineMessages({
 function TopBar ({currentSection, tabs}) {
   return (
     <AppBar
+      className='nav container'
       title='MapFilter'
       style={styles.topBar}
       titleStyle={styles.title}
       showMenuIconButton={false}>
       <div style={styles.tabs}>
         {tabs.map(tab => (
-          <Link key={tab.link} to={tab.link} style={styles.tab} activeStyle={styles.activeTab}>
+          <Link key={tab.id} to={tab.link} style={styles.tab} activeStyle={styles.activeTab}>
             <FormattedMessage {...messages[tab.id]} />
           </Link>
         ))}

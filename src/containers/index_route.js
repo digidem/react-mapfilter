@@ -12,7 +12,7 @@ const ContentAdd = require('material-ui/svg-icons/content/add').default
 const FilterContainer = require('./filter_container')
 const TopBar = require('./top_bar')
 const actionCreators = require('../action_creators')
-const {decodeFilter} = require('../util/filter_helpers')
+const { decodeFilter, encodeFilter } = require('../util/filter_helpers')
 
 const FilterConfigurator = require('../components/filter_configurator')
 const MapContainer = require('./map_container')
@@ -71,11 +71,11 @@ class IndexRoute extends React.Component {
 
     // If `filter` is not set, try to read it from the URL query parameter
     // and update the application state.
-    if (!filters && query.filter) {
+    if ((filters == null || Object.keys(filters).length === 0) && query && query.filter) {
       try {
         updateFilter(decodeFilter(query.filter))
       } catch (e) {
-        console.warn('Could not parse filter from URL, reseting filter')
+        console.warn('Could not parse filter from URL, resetting filter')
         // Remove an invalid filter from the URL.
         const newQuery = assign({}, query, {filter: undefined})
         const newLocation = assign({}, this.props.location, newQuery)
@@ -84,19 +84,40 @@ class IndexRoute extends React.Component {
     }
   }
 
+  componentWillReceiveProps (nextProps) {
+    const { filters, location, router } = this.props
+
+    if (filters === nextProps.filters) {
+      return
+    }
+
+    // TODO: If the URL is more than 2000 characters (i.e. for large
+    // filters) this will break IE < Edge.
+    // http://stackoverflow.com/questions/417142/what-is-the-maximum-length-of-a-url-in-different-browsers
+    router.transitionTo(assign({}, location, {
+      search: null,
+      query: assign({}, nextProps.location.query, {
+        filter: encodeFilter(nextProps.filters)
+      })
+    }))
+  }
+
   render () {
     const {location} = this.props
     const sections = ['map', 'photos', 'report']
     const tabs = sections.map(section => ({
       active: section === location.pathname.split('/')[1],
       id: section,
-      link: '/' + section
+      link: {
+        pathname: '/' + section,
+        query: location.query
+      }
     }))
 
     return (
-      <div style={styles.outer}>
+      <div className='outer container' style={styles.outer}>
         <TopBar tabs={tabs} />
-        <div style={styles.inner}>
+        <div className='inner container' style={styles.inner}>
           <FilterContainer location={location} />
           <Match pattern='/map' render={matchProps => (
             <MapContainer {...matchProps} onMarkerClick={this.openFeatureModal} />
@@ -104,7 +125,9 @@ class IndexRoute extends React.Component {
           <Match pattern='/photos' render={matchProps => (
             <ImageContainer {...matchProps} onImageClick={this.openFeatureModal} />
           )} />
-          <Match pattern='/report' component={ReportContainer} />
+          <Match pattern='/report' render={matchProps => (
+            <ReportContainer {...matchProps} onMarkerClick={this.openFeatureModal} />
+          )} />
         </div>
         <MatchModal
           pattern='/:section(map|photos|report)/features/:id'

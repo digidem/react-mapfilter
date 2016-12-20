@@ -18,11 +18,7 @@ const FeatureTable = require('./feature_table')
 
 const styles = {
   card: {
-    width: '100%',
-    height: '100%',
-    flex: 1,
-    display: 'flex',
-    flexDirection: 'column'
+    width: '100%'
   },
   cardContainerStyle: {
     flex: 1,
@@ -46,7 +42,7 @@ const styles = {
   },
   media: {
     position: 'relative',
-    height: 0,
+    height: '100%',
     padding: '67% 0 0 0'
   },
   img: {
@@ -59,19 +55,22 @@ const styles = {
   }
 }
 
-const FeatureModal = ({color, media, data, title, subtitle, onCloseClick}) => (
+const FeatureModal = ({color, label, media, data, title, subtitle, onCloseClick}) => (
   <Card
+    className='card'
     style={styles.card}
     containerStyle={styles.cardContainerStyle}
     zDepth={2}>
     <CardHeader
       style={styles.header}
-      avatar={<MarkerIcon color={color} style={styles.markerIcon} />}
+      avatar={<MarkerIcon color={color} style={styles.markerIcon} label={label} />}
       title={<FormattedMessage {...msg('field_value')(title)} />}
       subtitle={<FormattedMessage {...msg('field_value')(subtitle)} />}>
-      <IconButton style={{float: 'right'}} onTouchTap={onCloseClick}>
-        <CloseIcon />
-      </IconButton>
+      { onCloseClick &&
+        <IconButton style={{float: 'right'}} onTouchTap={onCloseClick}>
+          <CloseIcon />
+        </IconButton>
+      }
     </CardHeader>
     <div style={styles.scrollable}>
       {
