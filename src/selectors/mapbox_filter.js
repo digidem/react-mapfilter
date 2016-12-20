@@ -25,7 +25,7 @@ const getMapboxFilter = createSelector(
     return Object.keys(filters).reduce(function (p, f) {
       const exp = filters[f]
       if (exp.in) {
-        if (isArrayLike(fieldAnalysis[f].type)) {
+        if (fieldAnalysis[f] && isArrayLike(fieldAnalysis[f].type)) {
           const subFilter = ['any', ['in', f, ...exp.in]]
           for (let i = 0; i < fieldAnalysis[f].maxArrayLength; i++) {
             subFilter.push(['in', f + '.' + i, ...exp.in])
