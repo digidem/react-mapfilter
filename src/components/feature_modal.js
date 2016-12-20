@@ -18,6 +18,8 @@ const FeatureTable = require('./feature_table')
 
 const styles = {
   card: {
+    overflow: 'auto',
+    maxHeight: '100%',
     width: '100%'
   },
   cardContainerStyle: {
