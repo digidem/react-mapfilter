@@ -25,10 +25,6 @@ const filters = (state = {}, {type, payload = {}}) => {
     case 'UPDATE_FILTER':
       let filter
 
-      if (key == null && exp == null && val == null) {
-        return payload
-      }
-
       if (!val) {
         filter = omit(state[key], exp)
         if (!Object.keys(filter).length) {
