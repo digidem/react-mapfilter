@@ -34,11 +34,20 @@ fetch('http://localhost:3210/obs/list')
     const features = observations
           .map(obs => {
             const data = obs.tags.data
+            const attachments = obs.tags.attachments
 
             // propagate the observation id
             data.id = obs.id
-            data.properties.__mf_attachments = obs.tags.attachments.map(a => 'http://localhost:3210/media/' + a)
-            data.properties.__mf_primary_attachment = data.properties.__mf_attachments[0]
+
+            // attach attachments
+            if (attachments != null) {
+              data.properties.__mf_attachments = attachments.reduce((obj, k) => {
+                obj[k] = `http://localhost:3210/media/${k}`
+
+                return obj
+              }, {})
+              data.properties.__mf_primary_attachment = data.properties.__mf_attachments[attachments[0]]
+            }
 
             return data
           })
