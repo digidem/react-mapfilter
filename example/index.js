@@ -32,8 +32,16 @@ fetch('http://localhost:3210/obs/list')
       .map(JSON.parse)
 
     const features = observations
-          .map(x => x.tags)
-          .map(x => x.data)
+          .map(obs => {
+            const data = obs.tags.data
+
+            // propagate the observation id
+            data.id = obs.id
+            data.properties.__mf_attachments = obs.tags.attachments.map(a => 'http://localhost:3210/media/' + a)
+            data.properties.__mf_primary_attachment = data.properties.__mf_attachments[0]
+
+            return data
+          })
 
     console.log('features:', features)
 
