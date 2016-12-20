@@ -10,7 +10,7 @@ const {defineMessages, FormattedMessage} = require('react-intl')
 
 const getFilterableFields = require('../selectors/filterable_fields')
 const getVisibleFilters = require('../selectors/visible_filters')
-const { updateVisibleFilters } = require('../action_creators')
+const { removeFilter, updateVisibleFilters } = require('../action_creators')
 const msg = require('../util/intl_helpers').createMessage
 
 const styles = {
@@ -51,12 +51,13 @@ class FilterConfigurator extends React.Component {
   static propTypes = {
     filterableFields: PropTypes.array.isRequired,
     onCloseClick: PropTypes.func.isRequired,
+    onRemoveFilter: PropTypes.func.isRequired,
     onUpdateVisibleFilters: PropTypes.func.isRequired,
     visibleFilters: PropTypes.array.isRequired
   }
 
   onToggle = (fieldName) => {
-    const { onUpdateVisibleFilters, visibleFilters } = this.props
+    const { onRemoveFilter, onUpdateVisibleFilters, visibleFilters } = this.props
     return ({target}) => {
       let newVisibleFilters
 
@@ -71,6 +72,8 @@ class FilterConfigurator extends React.Component {
           ...visibleFilters.slice(0, index),
           ...visibleFilters.slice(index + 1)
         ]
+
+        onRemoveFilter(fieldName)
       }
 
       onUpdateVisibleFilters(newVisibleFilters)
@@ -125,6 +128,7 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
   return {
+    onRemoveFilter: filter => dispatch(removeFilter(filter)),
     onUpdateVisibleFilters: filters => dispatch(updateVisibleFilters(filters))
   }
 }

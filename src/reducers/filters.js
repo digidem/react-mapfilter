@@ -44,6 +44,9 @@ const filters = (state = {}, {type, payload = {}}) => {
         [key]: filter
       })
 
+    case 'REMOVE_FILTER':
+      return omit(state, payload)
+
     default:
       return state
   }
