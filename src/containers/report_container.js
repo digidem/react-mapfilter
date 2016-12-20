@@ -39,7 +39,7 @@ class ReportContainer extends React.Component {
 
     return (
       <div className='report container' style={styles.report}>
-        <h2>{ features.length } Observations</h2>
+        <h2>{features.length} Observations</h2>
         <MapView
           {...this.props}
           style={styles.mapView}
@@ -50,7 +50,7 @@ class ReportContainer extends React.Component {
           features.map((feature, id) => (
             <FeatureModal
               key={id}
-              id={feature.properties.id}
+              id={feature.id}
               label={feature.properties.__mf_label}
             />
           ))
