@@ -21,19 +21,30 @@ const pixelRatio = window.devicePixelRatio || 1
 const createDiv = React.createElement.bind(null, 'div')
 
 class Image extends React.Component {
+  static defaultProps = {
+    useResizer: false
+  }
+
   state = {}
 
   componentDidMount () {
-    const el = ReactDOM.findDOMNode(this)
-    const size = Math.max(el.offsetWidth, el.offsetHeight) * pixelRatio
+    const {src, useResizer} = this.props
+    let mediaSrc = src
+
+    if (useResizer) {
+      const el = ReactDOM.findDOMNode(this)
+      const size = Math.max(el.offsetWidth, el.offsetHeight) * pixelRatio
+      mediaSrc = 'http://resizer.digital-democracy.org/' + roundUp(size) + '/' + src
+    }
+
     this.setState({
-      src: 'http://resizer.digital-democracy.org/' + roundUp(size) + '/' + this.props.src,
+      src: mediaSrc,
       loadStart: Date.now()
     })
   }
 
   render () {
-    const props = omit(this.props, ['src', 'style'])
+    const props = omit(this.props, ['progress', 'src', 'style', 'useResizer'])
     const {style, progress} = this.props
 
     return <ImageLoader
