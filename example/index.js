@@ -36,9 +36,6 @@ fetch('http://localhost:3210/obs/list')
             const data = obs.tags.data
             const attachments = obs.tags.attachments
 
-            // propagate the observation id
-            data.id = obs.id
-
             // attach attachments
             if (attachments != null) {
               data.properties.__mf_attachments = attachments.reduce((obj, k) => {
