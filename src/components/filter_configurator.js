@@ -15,6 +15,7 @@ const msg = require('../util/intl_helpers').createMessage
 
 const styles = {
   card: {
+    maxHeight: '100%',
     width: '100%',
     flex: 1,
     display: 'flex',
@@ -32,6 +33,9 @@ const styles = {
   },
   icon: {
     float: 'right'
+  },
+  scrollable: {
+    overflow: 'auto'
   }
 }
 
@@ -88,7 +92,7 @@ class FilterConfigurator extends React.Component {
             <CloseIcon />
           </IconButton>
         </CardHeader>
-        <CardText>
+        <CardText style={styles.scrollable}>
           <List>
             {
               filterableFields.map((field) => {
