@@ -12,6 +12,10 @@ const styles = {
 }
 
 class FeatureTable extends React.Component {
+  static defaultProps = {
+    data: []
+  }
+
   state = {
     width: '50%'
   }
