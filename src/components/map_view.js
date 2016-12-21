@@ -280,6 +280,16 @@ class MapView extends React.Component {
     if (this.props.mapStyle !== nextProps.mapStyle) {
       this.map.setStyle(nextProps.mapStyle)
     }
+
+    if (nextProps.disableScrollToZoom) {
+      console.log('disabling scroll to zoom')
+      this.map.scrollZoom.disable()
+    } else {
+      console.log('enabling scroll to zoom')
+      this.map.scrollZoom.enable()
+    }
+
+    // TODO should re-style points + point hovers according to labelPoints
   }
 
   // We always return false from this function because we don't want React to
