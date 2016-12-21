@@ -52,6 +52,7 @@ class ReportContainer extends React.Component {
               key={id}
               id={feature.id}
               label={feature.properties.__mf_label}
+              restrictHeight={false}
             />
           ))
         }

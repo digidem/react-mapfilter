@@ -22,6 +22,9 @@ const styles = {
     maxHeight: '100%',
     width: '100%'
   },
+  cardUnrestricted: {
+    width: '100%'
+  },
   cardContainerStyle: {
     flex: 1,
     flexDirection: 'column',
@@ -57,10 +60,10 @@ const styles = {
   }
 }
 
-const FeatureModal = ({color, label, media, data, title, subtitle, onCloseClick}) => (
+const FeatureModal = ({color, label, media, data, title, subtitle, onCloseClick, restrictHeight}) => (
   <Card
     className='card'
-    style={styles.card}
+    style={restrictHeight ? styles.card : styles.cardUnrestricted}
     containerStyle={styles.cardContainerStyle}
     zDepth={2}>
     <CardHeader
