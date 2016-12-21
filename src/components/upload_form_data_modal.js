@@ -24,6 +24,7 @@ const noop = () => null
 
 const styles = {
   card: {
+    maxHeight: '100%',
     width: '100%',
     flex: 1,
     display: 'flex',
@@ -33,6 +34,9 @@ const styles = {
     flex: 1,
     flexDirection: 'column',
     display: 'flex'
+  },
+  cardText: {
+    overflow: 'auto'
   },
   header: {
     lineHeight: '22px',
@@ -165,7 +169,7 @@ class UploadFormDataModal extends React.Component {
             <CloseIcon />
           </IconButton>
         </CardHeader>
-        <CardText ref={el => (this.uploadContainer = el)}>
+        <CardText ref={el => (this.uploadContainer = el)} style={styles.cardText}>
           <div className='upload' style={styles.uploadBox}>
             <FormattedMessage {...messages.dragHere} />
           </div>
