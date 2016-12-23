@@ -9,6 +9,9 @@
       "brfs"
     ]
   },
+  "browser": {
+    "mapbox-gl/dist/mapbox-gl.js": "mapbox-gl"
+  },
   "files": [
     "bin",
     "css",

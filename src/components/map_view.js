@@ -4,7 +4,7 @@ const debug = require('debug')('mf:mapview')
 const React = require('react')
 const ReactDOM = require('react-dom')
 const { PropTypes } = React
-const mapboxgl = require('mapbox-gl')
+const mapboxgl = require('mapbox-gl/dist/mapbox-gl.js')
 const deepEqual = require('deep-equal')
 
 const MFPropTypes = require('../util/prop_types')
