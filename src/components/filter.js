@@ -54,7 +54,8 @@ const Filter = ({
   fieldStats = {},
   visibleFilters = [],
   location,
-  onUpdateFilter = (x) => x
+  onUpdateFilter = x => x,
+  onClickSettings = x => x
 }) => (
   <div className='filter' style={style.outer}>
     <List style={style.list}>
@@ -93,12 +94,9 @@ const Filter = ({
         }
       })}
       <ListItem innerDivStyle={style.listItemInner}>
-        <Link
-          style={style.link}
-          to={{
-            pathname: `${location.pathname}/settings/filters`,
-            query: location.query
-          }}><FormattedMessage {...messages.changeFilters} /> <SettingsIcon style={style.listIcon} /></Link>
+        <a style={style.link} onClick={onClickSettings}>
+          <FormattedMessage {...messages.changeFilters} /> <SettingsIcon style={style.listIcon} />
+        </a>
       </ListItem>
     </List>
   </div>
@@ -109,9 +107,9 @@ Filter.propTypes = {
   filters: PropTypes.object,
   fieldStats: PropTypes.object.isRequired,
   visibleFilters: PropTypes.arrayOf(PropTypes.string).isRequired,
-  location: PropTypes.object.isRequired,
   /* called with valid mapbox-gl filter when updated */
-  onUpdateFilter: PropTypes.func
+  onUpdateFilter: PropTypes.func,
+  onClickSettings: PropTypes.func
 }
 
 module.exports = pure(Filter)

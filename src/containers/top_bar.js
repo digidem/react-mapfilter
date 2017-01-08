@@ -3,6 +3,8 @@ const Link = require('react-router/Link').default
 const AppBar = require('material-ui/AppBar').default
 const {defineMessages, FormattedMessage} = require('react-intl')
 
+const {VIEWS} = require('../constants')
+
 const styles = {
   topBar: {
     height: 56
@@ -58,7 +60,9 @@ const messages = defineMessages({
   }
 })
 
-function TopBar ({currentSection, tabs}) {
+const views = Object.keys(VIEWS).map(s => s.toLowerCase())
+
+function TopBar ({currentView}) {
   return (
     <AppBar
       className='nav container'
@@ -67,10 +71,10 @@ function TopBar ({currentSection, tabs}) {
       titleStyle={styles.title}
       showMenuIconButton={false}>
       <div style={styles.tabs}>
-        {tabs.map(tab => (
-          <Link key={tab.id} to={tab.link} style={styles.tab} activeStyle={styles.activeTab}>
-            <FormattedMessage {...messages[tab.id]} />
-          </Link>
+        {views.map(tab => (
+          <a key={tab} style={styles.tab}>
+            <FormattedMessage {...messages[tab]} />
+          </a>
         ))}
       </div>
       <div style={styles.right} />

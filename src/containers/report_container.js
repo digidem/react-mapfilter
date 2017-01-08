@@ -2,7 +2,7 @@ const React = require('react')
 const { connect } = require('react-redux')
 const { PropTypes } = React
 
-const FeatureModal = require('../components/feature_modal')
+const FeatureDetail = require('../components/feature_detail')
 const MFPropTypes = require('../util/prop_types')
 const MapView = require('../components/map_view')
 const getFieldMapping = require('../selectors/field_mapping')
@@ -48,7 +48,7 @@ class ReportContainer extends React.Component {
         />
         {
           features.map((feature, id) => (
-            <FeatureModal
+            <FeatureDetail
               key={id}
               id={feature.id}
               label={feature.properties.__mf_label}

@@ -50,6 +50,7 @@
     "react-intl-redux": "^0.1.0",
     "react-modal": "^1.5.2",
     "react-motion": "^0.4.5",
+    "react-overlays": "^0.6.10",
     "react-pure-render": "^1.0.2",
     "react-redux": "^4.4.0",
     "react-router": "^4.0.0-alpha.5",
@@ -65,8 +66,7 @@
     "rework-import": "^2.1.0",
     "round-to": "^1.1.0",
     "turf-extent": "^1.0.4",
-    "url-regex": "^3.2.0",
-    "xform-uploader": "mojodna/xform-uploader#integration"
+    "url-regex": "^3.2.0"
   },
   "devDependencies": {
     "babel-cli": "^6.18.0",

@@ -60,7 +60,7 @@ const styles = {
   }
 }
 
-const FeatureModal = ({color, label, media, data, title, subtitle, onCloseClick, restrictHeight}) => (
+const FeatureDetail = ({color, label, media, data, title, subtitle, onCloseClick, restrictHeight}) => (
   <Card
     className='card'
     style={restrictHeight ? styles.card : styles.cardUnrestricted}
@@ -119,4 +119,4 @@ module.exports = connect(
       color: colorIndex[geojsonProps[fieldMapping.color]]
     }
   }
-)(FeatureModal)
+)(FeatureDetail)
