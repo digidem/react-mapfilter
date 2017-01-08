@@ -47,6 +47,19 @@ const replaceMapStyle = (payload) => {
   }
 }
 
+const openSettings = (payload) => {
+  return {
+    type: 'OPEN_SETTINGS',
+    payload
+  }
+}
+
+const closeModal = () => {
+  return {
+    type: 'CLOSE_MODAL'
+  }
+}
+
 module.exports = {
   updateFilter,
   removeFilter,
@@ -54,5 +67,7 @@ module.exports = {
   moveMap,
   replaceFeatures,
   addFeatures,
-  replaceMapStyle
+  replaceMapStyle,
+  openSettings,
+  closeModal
 }
