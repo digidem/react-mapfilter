@@ -39,7 +39,8 @@ const storeEnhancer = devTools ? compose(devTools, applyMiddleware(thunk)) : app
 
 const controllableProps = [
   'features',
-  'mapStyle'
+  'mapStyle',
+  'route'
 ]
 
 class MapFilter extends React.Component {
