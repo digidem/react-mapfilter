@@ -21,20 +21,7 @@ const FILTER_TYPES = {
   TEXT: 'TEXT'
 }
 
-const VIEWS = {
-  MAP: 'MAP',
-  PHOTOS: 'PHOTOS',
-  REPORT: 'REPORT'
-}
-
-const MODALS = {
-  FEATURE_DETAIL: 'FEATURE_DETAIL',
-  FILTER_CONFIG: 'FILTER_CONFIG'
-}
-
 module.exports = {
   FIELD_TYPES,
-  FILTER_TYPES,
-  VIEWS,
-  MODALS
+  FILTER_TYPES
 }

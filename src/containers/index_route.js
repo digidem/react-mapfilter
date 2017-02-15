@@ -1,20 +1,16 @@
 const React = require('react')
 const { connect } = require('react-redux')
 const { bindActionCreators } = require('redux')
-const assign = require('object-assign')
+const find = require('lodash/find')
 
 const FilterContainer = require('./filter_container')
 const TopBar = require('./top_bar')
 const actionCreators = require('../action_creators')
-const { decodeFilter, encodeFilter } = require('../util/filter_helpers')
+const getNavigationParams = require('../selectors/navigation')
 
-const MapContainer = require('./map_container')
-const ReportContainer = require('./report_container')
-const ImageContainer = require('./image_container')
 const Modal = require('../components/modal')
 const FeatureDetail = require('../components/feature_detail')
 const FilterConfigurator = require('../components/filter_configurator')
-const {VIEWS, MODALS} = require('../constants')
 
 const styles = {
   outer: {
@@ -43,59 +39,33 @@ const styles = {
 }
 
 class IndexRoute extends React.Component {
-
-  // Read the filter and map position from the URL on first load
   componentWillMount () {
-    const {filters, location: {query}, updateFilter, router} = this.props
-
-    // If `filter` is not set, try to read it from the URL query parameter
-    // and update the application state.
-    if ((filters == null || Object.keys(filters).length === 0) && query && query.filter) {
-      try {
-        updateFilter(decodeFilter(query.filter))
-      } catch (e) {
-        console.warn('Could not parse filter from URL, resetting filter')
-        // Remove an invalid filter from the URL.
-        const newQuery = assign({}, query, {filter: undefined})
-        const newLocation = assign({}, this.props.location, newQuery)
-        router.replaceWith(newLocation)
-      }
-    }
+    this.redirectIfNecessary(this.props)
   }
 
   componentWillReceiveProps (nextProps) {
-    const { filters, location, router } = this.props
+    this.redirectIfNecessary(nextProps)
+  }
 
-    if (filters === nextProps.filters) {
-      return
-    }
-
-    // TODO: If the URL is more than 2000 characters (i.e. for large
-    // filters) this will break IE < Edge.
-    // http://stackoverflow.com/questions/417142/what-is-the-maximum-length-of-a-url-in-different-browsers
-    router.transitionTo(assign({}, location, {
-      search: null,
-      query: assign({}, nextProps.location.query, {
-        filter: encodeFilter(nextProps.filters)
-      })
-    }))
+  redirectIfNecessary ({activeModal, activeView, views, closeModal, switchView}) {
+    if (activeModal && !getModalComponent(activeModal)) closeModal()
+    if (!find(views, {id: activeView})) switchView(views[0].id)
   }
 
   render () {
-    const {activeView, modal, addButton} = this.props
-    let ModalContent = getModalComponent(modal)
-    console.log(ModalContent)
+    const {activeView, activeModal, addButton, views, switchView} = this.props
+    const ModalComponent = getModalComponent(activeModal)
+    const ViewComponent = getViewComponent(activeView, views)
+
     return (
       <div className='outer container' style={styles.outer}>
-        <TopBar />
+        <TopBar views={views} activeView={activeView} onChangeTab={switchView} />
         <div className='inner container' style={styles.inner}>
           <FilterContainer />
-          {activeView === VIEWS.MAP && <MapContainer />}
-          {activeView === VIEWS.PHOTOS && <ImageContainer />}
-          {activeView === VIEWS.REPORT && <ReportContainer />}
-          {addButton && <addButton />}
+          <ViewComponent />
+          {addButton && <div style={styles.addButton}><addButton /></div>}
         </div>
-        <Modal component={ModalContent} />
+        <Modal component={ModalComponent} />
       </div>
     )
   }
@@ -103,21 +73,23 @@ class IndexRoute extends React.Component {
 
 function getModalComponent (modal) {
   switch (modal) {
-    case MODALS.FEATURE_DETAIL:
+    case 'features':
       return FeatureDetail
-    case MODALS.FILTER_CONFIG:
+    case 'settings':
       return FilterConfigurator
     default:
       return
   }
 }
 
+function getViewComponent (activeView, views) {
+  var view = find(views, {id: activeView})
+  if (!view) return () => <div />
+  var ViewComponent = connect(view.mapStateToProps, view.mapDispatchToProps)(view.component)
+  return ViewComponent
+}
+
 module.exports = connect(
-  (state) => {
-    return {
-      activeView: state.navigation.view,
-      modal: state.navigation.modal
-    }
-  },
+  (state) => getNavigationParams(state),
   (dispatch) => bindActionCreators(actionCreators, dispatch)
 )(IndexRoute)

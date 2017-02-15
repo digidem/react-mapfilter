@@ -1,73 +1,27 @@
-const updateFilter = (filter) => {
-  return {
-    type: 'UPDATE_FILTER',
-    payload: filter
+const actions = {
+  updateFilter: 'UPDATE_FILTER',
+  removeFilter: 'REMOVE_FILTER',
+  updateVisibleFilters: 'UPDATE_VISIBLE_FILTERS',
+  moveMap: 'MOVE_MAP',
+  replaceFeatures: 'REPLACE_FEATURES',
+  addFeatures: 'ADD_FEATURES',
+  replaceMapStyle: 'REPLACE_MAP_STYLE',
+  openSettings: 'OPEN_SETTINGS',
+  showFeatureDetail: 'SHOW_FEATURE_DETAIL',
+  closeModal: 'CLOSE_MODAL',
+  switchView: 'SWITCH_VIEW'
+}
+
+const actionCreators = {}
+
+for (var actionName in actions) {
+  actionCreators[actionName] = createActionCreator(actionName)
+}
+
+function createActionCreator (actionName) {
+  return function (payload) {
+    return {type: actions[actionName], payload}
   }
 }
 
-const removeFilter = (filter) => {
-  return {
-    type: 'REMOVE_FILTER',
-    payload: filter
-  }
-}
-
-const updateVisibleFilters = (payload) => {
-  return {
-    type: 'UPDATE_VISIBLE_FILTERS',
-    payload
-  }
-}
-
-const moveMap = (payload) => {
-  return {
-    type: 'MOVE_MAP',
-    payload
-  }
-}
-
-const replaceFeatures = (payload) => {
-  return {
-    type: 'REPLACE_FEATURES',
-    payload
-  }
-}
-
-const addFeatures = (payload) => {
-  return {
-    type: 'ADD_FEATURES',
-    payload: Array.isArray(payload) ? payload : [payload]
-  }
-}
-
-const replaceMapStyle = (payload) => {
-  return {
-    type: 'REPLACE_MAP_STYLE',
-    payload
-  }
-}
-
-const openSettings = (payload) => {
-  return {
-    type: 'OPEN_SETTINGS',
-    payload
-  }
-}
-
-const closeModal = () => {
-  return {
-    type: 'CLOSE_MODAL'
-  }
-}
-
-module.exports = {
-  updateFilter,
-  removeFilter,
-  updateVisibleFilters,
-  moveMap,
-  replaceFeatures,
-  addFeatures,
-  replaceMapStyle,
-  openSettings,
-  closeModal
-}
+module.exports = actionCreators

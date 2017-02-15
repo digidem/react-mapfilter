@@ -1,7 +1,7 @@
 const { connect } = require('react-redux')
 
 const MapView = require('../components/map_view')
-const { moveMap } = require('../action_creators')
+const { moveMap, showFeatureDetail } = require('../action_creators')
 const getMapGeoJSON = require('../selectors/map_geojson')
 const getMapBoxFilter = require('../selectors/mapbox_filter')
 const getFieldMapping = require('../selectors/field_mapping')
@@ -18,7 +18,8 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    onMove: mapPosition => dispatch(moveMap(mapPosition))
+    onMove: mapPosition => dispatch(moveMap(mapPosition)),
+    onMarkerClick: id => dispatch(showFeatureDetail(id))
   }
 }
 

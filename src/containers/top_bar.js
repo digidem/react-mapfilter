@@ -1,9 +1,7 @@
 const React = require('react')
-const Link = require('react-router/Link').default
 const AppBar = require('material-ui/AppBar').default
 const {defineMessages, FormattedMessage} = require('react-intl')
-
-const {VIEWS} = require('../constants')
+const assign = require('object-assign')
 
 const styles = {
   topBar: {
@@ -29,7 +27,8 @@ const styles = {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    boxSizing: 'border-box'
+    boxSizing: 'border-box',
+    cursor: 'pointer'
   },
   activeTab: {
     color: 'rgba(255, 255, 255, 1)',
@@ -48,10 +47,10 @@ const messages = defineMessages({
     defaultMessage: 'Map',
     description: 'Map tab name'
   },
-  photos: {
-    id: 'topbar.photos',
-    defaultMessage: 'Photos',
-    description: 'Photos tab name'
+  media: {
+    id: 'topbar.media',
+    defaultMessage: 'Media',
+    description: 'Media tab name'
   },
   report: {
     id: 'topbar.report',
@@ -60,9 +59,7 @@ const messages = defineMessages({
   }
 })
 
-const views = Object.keys(VIEWS).map(s => s.toLowerCase())
-
-function TopBar ({currentView}) {
+function TopBar ({activeView, views, onChangeTab}) {
   return (
     <AppBar
       className='nav container'
@@ -71,11 +68,12 @@ function TopBar ({currentView}) {
       titleStyle={styles.title}
       showMenuIconButton={false}>
       <div style={styles.tabs}>
-        {views.map(tab => (
-          <a key={tab} style={styles.tab}>
-            <FormattedMessage {...messages[tab]} />
+        {views.map(view => {
+          var tabStyle = view.id === activeView ? assign({}, styles.tab, styles.activeTab) : styles.tab
+          return <a key={view.id} style={tabStyle} onClick={onChangeTab.bind(null, view.id)}>
+            <FormattedMessage {...messages[view.id]} />
           </a>
-        ))}
+        })}
       </div>
       <div style={styles.right} />
     </AppBar>

@@ -1,6 +1,7 @@
 const { connect } = require('react-redux')
 
 const ImageGrid = require('../components/image_grid')
+const { showFeatureDetail } = require('../action_creators')
 const getImages = require('../selectors/images')
 
 function mapStateToProps (state, ownProps) {
@@ -9,6 +10,13 @@ function mapStateToProps (state, ownProps) {
   }
 }
 
+function mapDispatchToProps (dispatch) {
+  return {
+    onImageClick: id => dispatch(showFeatureDetail(id))
+  }
+}
+
 module.exports = connect(
-  mapStateToProps
+  mapStateToProps,
+  mapDispatchToProps
 )(ImageGrid)

@@ -6,8 +6,12 @@ function sentenceCase (s = '') {
 
 function titleCase (str) {
   return str.toLowerCase().split(' ').map(function (word) {
-    return word.replace(word[0], word[0].toUpperCase())
+    return capitalize(word)
   }).join(' ')
+}
+
+function capitalize (str) {
+  return str.charAt(0).toUpperCase() + str.slice(1)
 }
 
 function t (s = '') {
@@ -17,5 +21,6 @@ function t (s = '') {
 module.exports = {
   sentenceCase,
   titleCase,
+  capitalize,
   t
 }
