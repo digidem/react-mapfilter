@@ -73,7 +73,7 @@ class IndexRoute extends React.Component {
 
 function getModalComponent (modal) {
   switch (modal) {
-    case 'features':
+    case 'feature':
       return FeatureDetail
     case 'settings':
       return FilterConfigurator
@@ -89,7 +89,7 @@ function getViewComponent (activeView, views) {
   return ViewComponent
 }
 
-module.exports = connect(
-  (state) => getNavigationParams(state),
+export default connect(
+  (state) => state.ui || {},
   (dispatch) => bindActionCreators(actionCreators, dispatch)
 )(IndexRoute)

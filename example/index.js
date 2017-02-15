@@ -1,6 +1,6 @@
 const React = require('react')
 const ReactDOM = require('react-dom')
-const MapFilter = require('../src/index.js')
+const MapFilter = require('../src/index.js').default
 const fs = require('fs')
 const path = require('path')
 const createHistory = require('history').createBrowserHistory
