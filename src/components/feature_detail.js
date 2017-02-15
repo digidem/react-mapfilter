@@ -1,21 +1,20 @@
-const React = require('react')
+import React from 'react'
 
-const { connect } = require('react-redux')
-const { Card, CardMedia, CardText, CardHeader } = require('material-ui/Card')
-const IconButton = require('material-ui/IconButton').default
-const CloseIcon = require('material-ui/svg-icons/navigation/close').default
-const {FormattedMessage} = require('react-intl')
+import { connect } from 'react-redux'
+import { Card, CardMedia, CardText, CardHeader } from 'material-ui/Card'
+import IconButton from 'material-ui/IconButton'
+import CloseIcon from 'material-ui/svg-icons/navigation/close'
+import {FormattedMessage} from 'react-intl'
 
-const getNavigationParams = require('../selectors/navigation')
-const getFeaturesById = require('../selectors/features_by_id')
-const getFieldMapping = require('../selectors/field_mapping')
-const getColorIndex = require('../selectors/color_index')
-const getVisibleFields = require('../selectors/visible_fields')
-const getFieldAnalysis = require('../selectors/field_analysis')
-const {createMessage: msg} = require('../util/intl_helpers')
-const MarkerIcon = require('./marker_icon')
-const Image = require('./image')
-const FeatureTable = require('./feature_table')
+import getFeaturesById from '../selectors/features_by_id'
+import getFieldMapping from '../selectors/field_mapping'
+import getColorIndex from '../selectors/color_index'
+import getVisibleFields from '../selectors/visible_fields'
+import getFieldAnalysis from '../selectors/field_analysis'
+import {createMessage as msg} from '../util/intl_helpers'
+import MarkerIcon from './marker_icon'
+import Image from './image'
+import FeatureTable from './feature_table'
 
 const styles = {
   card: {
@@ -92,14 +91,14 @@ const FeatureDetail = ({color, label, media, data, title, subtitle, onCloseClick
   </Card>
 )
 
-module.exports = connect(
+export default connect(
   (state, ownProps) => {
     const featuresById = getFeaturesById(state)
     const colorIndex = getColorIndex(state)
     const fieldMapping = getFieldMapping(state)
     const visibleFields = getVisibleFields(state)
     const fieldAnalysis = getFieldAnalysis(state)
-    const id = ownProps.id || getNavigationParams(state).featureId
+    const id = ownProps.id || state.ui.featureId
     const feature = featuresById[id]
     if (!feature) return {}
     const geojsonProps = feature.properties

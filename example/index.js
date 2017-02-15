@@ -10,26 +10,48 @@ const features = JSON.parse(sampleGeoJSON).features
 
 const history = createHistory()
 
+const pathRegExp = /^(?:\/((?:[^/]+?)))?(?:\/((?:[^/]+?)))?(?:\/((?:[^/]+?)))?(?:\/(?=$))?$/
+
+function uiFromPath (path) {
+  const match = pathRegExp.exec(path)
+  if (!match) return {}
+  return {
+    activeView: match[1],
+    activeModal: match[2] && match[2].replace('features', 'feature'),
+    settingsTab: match[2] === 'settings' && match[3],
+    featureId: match[2] === 'features' && match[3]
+  }
+}
+
+function pathFromUi (ui) {
+  let path = '/'
+  if (ui.activeView) path += ui.activeView + '/'
+  if (ui.activeModal === 'settings') path += 'settings/' + ui.settingsTab + '/'
+  if (ui.activeModal === 'feature') path += 'features/' + ui.featureId + '/'
+  return path
+}
+
 class Example extends React.Component {
   constructor (props) {
     super(props)
     this.history = createHistory()
     this.unlisten = history.listen(this.handleHistoryChange)
     this.state = {
-      route: history.location.pathname
+      ui: uiFromPath(history.location.pathname)
     }
   }
   handleHistoryChange = (location, action) => {
     if (action === 'POP') {
-      this.setState({route: location.pathname})
+      this.setState({ui: uiFromPath(location.pathname)})
     }
   }
-  handleChangeRoute = (route) => {
-    history.push(route)
-    this.setState({route})
+  handleChangeUi = (ui) => {
+    const path = pathFromUi(ui)
+    ui.redirect ? history.replace(path) : history.push(path)
+    this.setState({ui})
   }
   render () {
-    return <MapFilter features={features} route={this.state.route} onChangeRoute={this.handleChangeRoute} />
+    return <MapFilter features={features} ui={this.state.ui} onChangeUi={this.handleChangeUi} />
   }
 }
 

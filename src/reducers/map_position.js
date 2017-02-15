@@ -1,4 +1,4 @@
-const assign = require('object-assign')
+import assign from 'object-assign'
 
 const mapPosition = (state = {}, action) => {
   switch (action.type) {
@@ -9,4 +9,4 @@ const mapPosition = (state = {}, action) => {
   }
 }
 
-module.exports = mapPosition
+export default mapPosition

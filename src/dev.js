@@ -1,5 +1,8 @@
-const React = require('react')
-const ReactDOM = require('react-dom')
+import React from 'react'
+import ReactDOM from 'react-dom'
+import RedBox from 'redbox-react'
+
+import App from './containers/app'
 
 // Needed by material-ui for onTouchTap to work
 require('react-tap-event-plugin')()
@@ -7,7 +10,6 @@ require('react-tap-event-plugin')()
 const rootEl = document.getElementById('root')
 
 let render = function () {
-  const App = require('./containers/app')
   ReactDOM.render(
     <App />,
     rootEl
@@ -19,7 +21,6 @@ if (module.hot) {
   // and display an overlay for runtime errors
   const renderApp = render
   const renderError = (error) => {
-    const RedBox = require('redbox-react')
     ReactDOM.render(
       <RedBox error={error} />,
       rootEl

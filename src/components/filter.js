@@ -1,14 +1,14 @@
-const React = require('react')
+import React from 'react'
 const { PropTypes } = React
-const pure = require('recompose/pure').default
-const {List, ListItem} = require('material-ui/List')
-const Divider = require('material-ui/Divider').default
-const SettingsIcon = require('material-ui/svg-icons/action/settings').default
-const {defineMessages, FormattedMessage} = require('react-intl')
+import pure from 'recompose/pure'
+import {List, ListItem} from 'material-ui/List'
+import Divider from 'material-ui/Divider'
+import SettingsIcon from 'material-ui/svg-icons/action/settings'
+import {defineMessages, FormattedMessage} from 'react-intl'
 
-const DiscreteFilter = require('./discrete_filter')
-const DateFilter = require('./date_filter')
-const {FILTER_TYPES} = require('../constants')
+import DiscreteFilter from './discrete_filter'
+import DateFilter from './date_filter'
+import {FILTER_TYPES} from '../constants'
 
 const style = {
   outer: {
@@ -111,4 +111,4 @@ Filter.propTypes = {
   onClickSettings: PropTypes.func
 }
 
-module.exports = pure(Filter)
+export default pure(Filter)

@@ -4,8 +4,4 @@ for (var i = 0; i < 3; i++) {
 }
 reStr += '(?:/(?=$))?$'
 
-const routeRegExp = new RegExp(reStr, 'i')
-
-module.exports = {
-  routeRegExp
-}
+export const routeRegExp = new RegExp(reStr, 'i')

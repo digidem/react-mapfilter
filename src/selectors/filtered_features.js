@@ -1,11 +1,11 @@
-const { createSelector } = require('reselect')
-const assign = require('object-assign')
+import { createSelector } from 'reselect'
+import assign from 'object-assign'
 
-const getFeaturesById = require('./features_by_id')
-const getRawFilteredFeatures = require('./filtered_features_raw')
-const getColorIndex = require('./color_index')
-const getColoredField = require('./colored_field')
-const CONFIG = require('../../config.json')
+import getFeaturesById from './features_by_id'
+import getRawFilteredFeatures from './filtered_features_raw'
+import getColorIndex from './color_index'
+import getColoredField from './colored_field'
+import CONFIG from '../../config.json'
 
 const getFilteredFeatures = createSelector(
   getFeaturesById,
@@ -21,4 +21,4 @@ const getFilteredFeatures = createSelector(
   }
 )
 
-module.exports = getFilteredFeatures
+export default getFilteredFeatures

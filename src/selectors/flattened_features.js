@@ -1,11 +1,11 @@
-const { createSelector } = require('reselect')
-const flat = require('flat')
-const assign = require('object-assign')
+import { createSelector } from 'reselect'
+import flat from 'flat'
+import assign from 'object-assign'
 
-const getFeaturesWithIds = require('./features_with_ids')
-const getColorIndex = require('./color_index')
-const getColoredField = require('./colored_field')
-const CONFIG = require('../../config.json')
+import getFeaturesWithIds from './features_with_ids'
+import getColorIndex from './color_index'
+import getColoredField from './colored_field'
+import CONFIG from '../../config.json'
 
 const getFlattenedFeatures = createSelector(
   getFeaturesWithIds,
@@ -28,4 +28,4 @@ const getFlattenedFeatures = createSelector(
   }
 )
 
-module.exports = getFlattenedFeatures
+export default getFlattenedFeatures

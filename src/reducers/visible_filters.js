@@ -8,4 +8,4 @@ const visibleFilters = (state = null, {type, payload}) => {
   }
 }
 
-module.exports = visibleFilters
+export default visibleFilters

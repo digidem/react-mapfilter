@@ -1,10 +1,10 @@
-const { createSelector } = require('reselect')
+import { createSelector } from 'reselect'
 
-const getFilterableFeatures = require('./filterable_features')
-const getRawFilteredFeatures = require('./filtered_features_raw')
-const getColorIndex = require('./color_index')
-const getColoredField = require('./colored_field')
-const CONFIG = require('../../config.json')
+import getFilterableFeatures from './filterable_features'
+import getRawFilteredFeatures from './filtered_features_raw'
+import getColorIndex from './color_index'
+import getColoredField from './colored_field'
+import CONFIG from '../../config.json'
 
 const getMapGeoJSON = createSelector(
   getFilterableFeatures,
@@ -30,4 +30,4 @@ const getMapGeoJSON = createSelector(
   }
 )
 
-module.exports = getMapGeoJSON
+export default getMapGeoJSON

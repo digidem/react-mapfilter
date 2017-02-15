@@ -1,9 +1,8 @@
-const React = require('react')
-const ReactModal = require('react-overlays').Modal
-const { connect } = require('react-redux')
-const assign = require('object-assign')
+import React from 'react'
+import {Modal as ReactModal} from 'react-overlays'
+import { connect } from 'react-redux'
 
-const { closeModal } = require('../action_creators')
+import { closeModal } from '../action_creators'
 
 const styles = {
   backdrop: {
@@ -74,7 +73,7 @@ function mapDispatchToProps (dispatch) {
   }
 }
 
-module.exports = connect(
+export default connect(
   null,
   mapDispatchToProps
 )(Modal)

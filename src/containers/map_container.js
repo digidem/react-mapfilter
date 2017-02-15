@@ -1,10 +1,10 @@
-const { connect } = require('react-redux')
+import { connect } from 'react-redux'
 
-const MapView = require('../components/map_view')
-const { moveMap, showFeatureDetail } = require('../action_creators')
-const getMapGeoJSON = require('../selectors/map_geojson')
-const getMapBoxFilter = require('../selectors/mapbox_filter')
-const getFieldMapping = require('../selectors/field_mapping')
+import MapView from '../components/map_view'
+import { moveMap, showFeatureDetail } from '../action_creators'
+import getMapGeoJSON from '../selectors/map_geojson'
+import getMapBoxFilter from '../selectors/mapbox_filter'
+import getFieldMapping from '../selectors/field_mapping'
 
 function mapStateToProps (state) {
   return {
@@ -23,7 +23,7 @@ function mapDispatchToProps (dispatch) {
   }
 }
 
-module.exports = connect(
+export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(MapView)

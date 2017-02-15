@@ -1,4 +1,4 @@
-const FIELD_TYPES = {
+export const FIELD_TYPES = {
   STRING: 'string',
   BOOLEAN: 'boolean',
   NUMBER: 'number',
@@ -14,14 +14,9 @@ const FIELD_TYPES = {
   NUMBER_OR_ARRAY: 'number_or_array'
 }
 
-const FILTER_TYPES = {
+export const FILTER_TYPES = {
   DISCRETE: 'DISCRETE',
   RANGE: 'RANGE',
   DATE: 'DATE',
   TEXT: 'TEXT'
-}
-
-module.exports = {
-  FIELD_TYPES,
-  FILTER_TYPES
 }

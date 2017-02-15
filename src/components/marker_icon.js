@@ -1,5 +1,5 @@
-const React = require('react')
-const assign = require('object-assign')
+import React from 'react'
+import assign from 'object-assign'
 
 const styles = {
   svg: {
@@ -41,4 +41,4 @@ const MarkerIcon = ({style = {}, color = '#000000', label}) => {
   )
 }
 
-module.exports = MarkerIcon
+export default MarkerIcon

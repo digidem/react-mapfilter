@@ -1,10 +1,12 @@
-const { createSelector } = require('reselect')
-const urlRegex = require('url-regex')({exact: true})
-const url = require('url')
-const path = require('path')
-const isPlainObject = require('is-plain-object')
+import { createSelector } from 'reselect'
+import makeUrlRegex from 'url-regex'
+import url from 'url'
+import path from 'path'
+import isPlainObject from 'is-plain-object'
 
-const {FIELD_TYPES, FILTER_TYPES} = require('../constants')
+import {FIELD_TYPES, FILTER_TYPES} from '../constants'
+
+const urlRegex = makeUrlRegex({exact: true})
 
 // Max number of unique text values for a field to still be a filterable discrete field
 const MAX_DISCRETE_VALUES = {
@@ -241,4 +243,4 @@ const getFieldAnalysis = createSelector(
   }
 )
 
-module.exports = getFieldAnalysis
+export default getFieldAnalysis

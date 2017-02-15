@@ -1,23 +1,25 @@
-const { connect } = require('react-redux')
-const assign = require('object-assign')
-const debug = require('debug')('mf:mapview')
-const React = require('react')
-const ReactDOM = require('react-dom')
+import { connect } from 'react-redux'
+import assign from 'object-assign'
+import debug from 'debug'
+import React from 'react'
+import ReactDOM from 'react-dom'
 const { PropTypes } = React
-const mapboxgl = require('mapbox-gl/dist/mapbox-gl.js')
-const deepEqual = require('deep-equal')
+import mapboxgl from 'mapbox-gl/dist/mapbox-gl.js'
+import deepEqual from 'deep-equal'
 
-const MFPropTypes = require('../util/prop_types')
-const { getBoundsOrWorld } = require('../util/map_helpers')
+import * as MFPropTypes from '../util/prop_types'
+import { getBoundsOrWorld } from '../util/map_helpers'
 
-const config = require('../../config.json')
-const Popup = require('./popup')
+import config from '../../config.json'
+import Popup from './popup'
 
 require('mapbox-gl/dist/mapbox-gl.css')
 require('../../css/popup.css')
 
 /* Mapbox [API access token](https://www.mapbox.com/help/create-api-access-token/) */
 mapboxgl.accessToken = config.mapboxToken
+
+const log = debug('mf:mapview')
 
 const emptyFeatureCollection = {
   type: 'FeatureCollection',
@@ -320,7 +322,7 @@ class MapView extends React.Component {
     const shouldMapMove = center && zoom &&
       !deepEqual(currentPosition, newMapPosition)
     if (shouldMapMove) {
-      debug('Moving map')
+      log('Moving map')
       this.map.jumpTo(newMapPosition)
       return true
     }
@@ -340,7 +342,7 @@ class MapView extends React.Component {
     }
     this.geojson = geojson
     this.coloredField = coloredField
-    debug('updated map geojson')
+    log('updated map geojson')
     if (this.map.loaded()) {
       this.map.getSource('features').setData(geojson)
     } else {
@@ -351,7 +353,7 @@ class MapView extends React.Component {
   updateFilterIfNeeded (filter) {
     if (filter !== this.filter && filter) {
       this.filter = filter
-      debug('new filter')
+      log('new filter')
       if (this.map.style.loaded()) {
         this.map.setFilter('features', filter)
       } else {
@@ -367,6 +369,6 @@ const mapStateToProps = state => {
   }
 }
 
-module.exports = connect(
+export default connect(
   mapStateToProps
 )(MapView)

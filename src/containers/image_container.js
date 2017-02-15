@@ -1,8 +1,8 @@
-const { connect } = require('react-redux')
+import { connect } from 'react-redux'
 
-const ImageGrid = require('../components/image_grid')
-const { showFeatureDetail } = require('../action_creators')
-const getImages = require('../selectors/images')
+import ImageGrid from '../components/image_grid'
+import { showFeatureDetail } from '../action_creators'
+import getImages from '../selectors/images'
 
 function mapStateToProps (state, ownProps) {
   return {
@@ -16,7 +16,7 @@ function mapDispatchToProps (dispatch) {
   }
 }
 
-module.exports = connect(
+export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(ImageGrid)

@@ -9,4 +9,4 @@ const fieldMapping = (state = defaultFields) => {
   return state
 }
 
-module.exports = fieldMapping
+export default fieldMapping

@@ -1,5 +1,5 @@
-const React = require('react')
-const Image = require('./image')
+import React from 'react'
+import Image from './image'
 
 const styles = {
   image: {
@@ -20,4 +20,4 @@ const Popup = ({imgSrc, title, subtitle}) => (
   </div>
 )
 
-module.exports = Popup
+export default Popup

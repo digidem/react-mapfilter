@@ -1,7 +1,7 @@
-const toCase = require('case')
-const roundTo = require('round-to')
+import toCase from 'case'
+import roundTo from 'round-to'
 
-const createMessage = section => function formatMsg (value) {
+export const createMessage = section => function formatMsg (value) {
   let msg
   let id
   if (typeof value === 'string') {
@@ -41,8 +41,4 @@ function toSentenceCase (s) {
   return s.replace(sentenceRegExp, function (m, prelude, letter) {
     return prelude + letter.toUpperCase()
   })
-}
-
-module.exports = {
-  createMessage
 }

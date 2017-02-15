@@ -1,13 +1,21 @@
-const {intlReducer} = require('react-intl-redux')
-const {combineReducers} = require('redux')
+import {combineReducers} from 'redux'
+import {intlReducer} from 'react-intl-redux'
 
-module.exports = combineReducers({
-  features: require('./features'),
-  filters: require('./filters'),
-  visibleFilters: require('./visible_filters'),
-  mapPosition: require('./map_position'),
-  mapStyle: require('./map_style'),
-  route: require('./route'),
-  fieldMapping: require('./field_mapping'),
+import features from './features'
+import filters from './filters'
+import visibleFilters from './visible_filters'
+import mapPosition from './map_position'
+import mapStyle from './map_style'
+import ui from './ui'
+import fieldMapping from './field_mapping'
+
+export default combineReducers({
+  features,
+  filters,
+  visibleFilters,
+  mapPosition,
+  mapStyle,
+  ui,
+  fieldMapping,
   intl: intlReducer
 })

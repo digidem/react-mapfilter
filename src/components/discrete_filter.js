@@ -1,17 +1,18 @@
-const React = require('react')
-const { PropTypes } = React
-const shouldPureComponentUpdate = require('react-pure-render/function')
-const makePure = require('recompose/pure').default
-const Checkbox = makePure(require('material-ui/Checkbox').default)
-const ListIcon = require('material-ui/svg-icons/action/list').default
-const {ListItem} = require('material-ui/List')
-const {FormattedMessage} = require('react-intl')
-const omit = require('lodash/omit')
+import React, { PropTypes } from 'react'
+import shouldPureComponentUpdate from 'react-pure-render/function'
+import makePure from 'recompose/pure'
+import Checkbox from 'material-ui/Checkbox'
+import ListIcon from 'material-ui/svg-icons/action/list'
+import {ListItem} from 'material-ui/List'
+import {FormattedMessage} from 'react-intl'
+import omit from 'lodash/omit'
 
-const ShowAllButton = require('./show_all_button')
-const OnlyButton = require('./only_button')
-const msg = require('../util/intl_helpers').createMessage
-const { listStyles } = require('../styles')
+import ShowAllButton from './show_all_button'
+import OnlyButton from './only_button'
+import {createMessage as msg} from '../util/intl_helpers'
+import { listStyles } from '../styles'
+
+const PureCheckbox = makePure(Checkbox)
 
 const styles = {
   checkbox: {
@@ -115,7 +116,7 @@ class DiscreteFilter extends React.Component {
             style={{position: 'relative'}}
             onMouseEnter={this.handleMouseEnter.bind(this, v)}
             onMouseLeave={this.handleMouseLeave}>
-            <Checkbox
+            <PureCheckbox
               label={<FormattedMessage {...msg('field_value')(v)} />}
               title={<FormattedMessage {...msg('field_value')(v)} />}
               value={v}
@@ -136,4 +137,4 @@ class DiscreteFilter extends React.Component {
   }
 }
 
-module.exports = DiscreteFilter
+export default DiscreteFilter

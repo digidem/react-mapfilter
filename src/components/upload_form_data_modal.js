@@ -1,22 +1,22 @@
-const React = require('react')
-const { connect } = require('react-redux')
-const { findDOMNode } = require('react-dom')
+import React from 'react'
+import { connect } from 'react-redux'
+import { findDOMNode } from 'react-dom'
 const PropTypes = React.PropTypes
 
-const { Card, CardText, CardHeader } = require('material-ui/Card')
-const IconButton = require('material-ui/IconButton').default
-const CloseIcon = require('material-ui/svg-icons/navigation/close').default
-const CircularProgress = require('material-ui/CircularProgress').default
-const CheckCircleIcon = require('material-ui/svg-icons/action/check-circle').default
-const RaisedButton = require('material-ui/RaisedButton').default
-const Snackbar = require('material-ui/Snackbar').default
-const WarningIcon = require('material-ui/svg-icons/alert/warning').default
-const { List, ListItem } = require('material-ui/List')
-const Subheader = require('material-ui/Subheader').default
-const colors = require('material-ui/styles/colors')
-const { defineMessages, FormattedMessage } = require('react-intl')
-const dragDrop = require('drag-drop')
-const Uploader = require('xform-uploader')
+import { Card, CardText, CardHeader } from 'material-ui/Card'
+import IconButton from 'material-ui/IconButton'
+import CloseIcon from 'material-ui/svg-icons/navigation/close'
+import CircularProgress from 'material-ui/CircularProgress'
+import CheckCircleIcon from 'material-ui/svg-icons/action/check-circle'
+import RaisedButton from 'material-ui/RaisedButton'
+import Snackbar from 'material-ui/Snackbar'
+import WarningIcon from 'material-ui/svg-icons/alert/warning'
+import { List, ListItem } from 'material-ui/List'
+import Subheader from 'material-ui/Subheader'
+import colors from 'material-ui/styles/colors'
+import { defineMessages, FormattedMessage } from 'react-intl'
+import dragDrop from 'drag-drop'
+import Uploader from 'xform-uploader'
 
 require('../../css/uploader.css')
 
@@ -221,6 +221,6 @@ const mapStateToProps = state => {
   }
 }
 
-module.exports = connect(
+export default connect(
   mapStateToProps
 )(UploadFormDataModal)

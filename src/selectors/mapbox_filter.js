@@ -1,7 +1,7 @@
-const { createSelector } = require('reselect')
-const {FIELD_TYPES} = require('../constants')
+import { createSelector } from 'reselect'
+import {FIELD_TYPES} from '../constants'
 
-const getFieldAnalysis = require('./field_analysis')
+import getFieldAnalysis from './field_analysis'
 
 function isArrayLike (fieldType) {
   return [FIELD_TYPES.ARRAY, FIELD_TYPES.NUMBER_OR_ARRAY, FIELD_TYPES.STRING_OR_ARRAY].indexOf(fieldType) > -1
@@ -45,4 +45,4 @@ const getMapboxFilter = createSelector(
   }
 )
 
-module.exports = getMapboxFilter
+export default getMapboxFilter

@@ -1,7 +1,7 @@
-const { createSelector } = require('reselect')
+import { createSelector } from 'reselect'
 
-const getFieldAnalysis = require('./field_analysis')
-const {FIELD_TYPES} = require('../constants')
+import getFieldAnalysis from './field_analysis'
+import {FIELD_TYPES} from '../constants'
 
 const isInterestingField = {
   [FIELD_TYPES.STRING]: true,
@@ -25,4 +25,4 @@ const getVisibleFields = createSelector(
   }
 )
 
-module.exports = getVisibleFields
+export default getVisibleFields

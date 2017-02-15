@@ -1,10 +1,10 @@
-const flat = require('flat')
-const { createSelector } = require('reselect')
+import flat from 'flat'
+import { createSelector } from 'reselect'
 
-const getFeaturesWithIds = require('./features_with_ids')
-const getFieldAnalysis = require('./field_analysis')
-const getIdFieldNames = require('./id_fields')
-const {FIELD_TYPES} = require('../constants')
+import getFeaturesWithIds from './features_with_ids'
+import getFieldAnalysis from './field_analysis'
+import getIdFieldNames from './id_fields'
+import {FIELD_TYPES} from '../constants'
 
 function dateStringToNumber (dateString) {
   return +(new Date(dateString))
@@ -27,4 +27,4 @@ const getFilterableFeatures = createSelector(
   })
 )
 
-module.exports = getFilterableFeatures
+export default getFilterableFeatures

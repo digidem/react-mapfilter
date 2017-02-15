@@ -1,9 +1,9 @@
-const union = require('lodash/union')
-const pick = require('lodash/pick')
-const { createSelector } = require('reselect')
+import union from 'lodash/union'
+import pick from 'lodash/pick'
+import { createSelector } from 'reselect'
 
-const getFieldAnalysis = require('./field_analysis')
-const getVisibleFilters = require('./visible_filters')
+import getFieldAnalysis from './field_analysis'
+import getVisibleFilters from './visible_filters'
 
 // We're only interested in filters that apply to keys that
 // actually exist in our data
@@ -38,4 +38,4 @@ const getFilterProps = createSelector(
   }
 )
 
-module.exports = getFilterProps
+export default getFilterProps

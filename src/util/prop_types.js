@@ -1,11 +1,11 @@
-const {PropTypes} = require('react')
+import {PropTypes} from 'react'
 
 // GeoJSON passed to the map view must be a FeatureCollection
 // of point features with specific properties used for the popup
 // and marker coloring.
 // We need to ensure each feature has an id so we can handle
 // callbacks for when a marker is clicked or hovered.
-const mapViewFeature = PropTypes.shape({
+export const mapViewFeature = PropTypes.shape({
   id: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number
@@ -27,7 +27,7 @@ const mapViewFeature = PropTypes.shape({
   }).isRequired
 })
 
-const fieldMapping = PropTypes.shape({
+export const fieldMapping = PropTypes.shape({
   media: PropTypes.string,
   mediaType: PropTypes.string,
   title: PropTypes.string.isRequired,
@@ -36,7 +36,7 @@ const fieldMapping = PropTypes.shape({
 
 /* See https://www.mapbox.com/mapbox-gl-style-spec/#types-filter */
 /* We only support a specific subset of the mapbox array spec */
-const mapboxFilter = PropTypes.arrayOf(
+export const mapboxFilter = PropTypes.arrayOf(
   PropTypes.oneOfType([
     PropTypes.oneOf(['all']),
     PropTypes.arrayOf(
@@ -45,7 +45,7 @@ const mapboxFilter = PropTypes.arrayOf(
   ])
 )
 
-const features = PropTypes.arrayOf(
+export const features = PropTypes.arrayOf(
   PropTypes.shape({
     type: PropTypes.oneOf(['Feature']).isRequired,
     geometry: PropTypes.oneOfType([
@@ -75,16 +75,8 @@ const features = PropTypes.arrayOf(
  *   }
  * }
  */
-const filters = PropTypes.objectOf(
+export const filters = PropTypes.objectOf(
   PropTypes.objectOf(
     PropTypes.arrayOf(PropTypes.string)
   )
 )
-
-module.exports = {
-  mapViewFeature,
-  fieldMapping,
-  mapboxFilter,
-  features,
-  filters
-}

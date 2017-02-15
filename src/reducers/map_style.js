@@ -8,4 +8,4 @@ const mapStyles = (state = [], {type, payload = {}}) => {
   }
 }
 
-module.exports = mapStyles
+export default mapStyles

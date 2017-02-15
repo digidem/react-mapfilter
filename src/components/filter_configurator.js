@@ -1,17 +1,17 @@
-const React = require('react')
-const { connect } = require('react-redux')
+import React from 'react'
+import { connect } from 'react-redux'
 const { PropTypes } = React
-const { Card, CardText, CardHeader } = require('material-ui/Card')
-const IconButton = require('material-ui/IconButton').default
-const CloseIcon = require('material-ui/svg-icons/navigation/close').default
-const { List, ListItem } = require('material-ui/List')
-const Toggle = require('material-ui/Toggle').default
-const {defineMessages, FormattedMessage} = require('react-intl')
+import { Card, CardText, CardHeader } from 'material-ui/Card'
+import IconButton from 'material-ui/IconButton'
+import CloseIcon from 'material-ui/svg-icons/navigation/close'
+import { List, ListItem } from 'material-ui/List'
+import Toggle from 'material-ui/Toggle'
+import {defineMessages, FormattedMessage} from 'react-intl'
 
-const getFilterableFields = require('../selectors/filterable_fields')
-const getVisibleFilters = require('../selectors/visible_filters')
-const { removeFilter, updateVisibleFilters } = require('../action_creators')
-const msg = require('../util/intl_helpers').createMessage
+import getFilterableFields from '../selectors/filterable_fields'
+import getVisibleFilters from '../selectors/visible_filters'
+import { removeFilter, updateVisibleFilters } from '../action_creators'
+import {createMessage as msg} from '../util/intl_helpers'
 
 const styles = {
   card: {
@@ -133,7 +133,7 @@ function mapDispatchToProps (dispatch) {
   }
 }
 
-module.exports = connect(
+export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(FilterConfigurator)

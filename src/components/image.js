@@ -1,9 +1,9 @@
-const React = require('react')
-const ReactDOM = require('react-dom')
-const ImageLoader = require('react-imageloader')
-const CircularProgress = require('material-ui/CircularProgress').default
-const omit = require('lodash/omit')
-const assign = require('object-assign')
+import React from 'react'
+import ReactDOM from 'react-dom'
+import ImageLoader from 'react-imageloader'
+import CircularProgress from 'material-ui/CircularProgress'
+import omit from 'lodash/omit'
+import assign from 'object-assign'
 
 const styles = {
   wrapper: {
@@ -68,7 +68,7 @@ class Image extends React.Component {
   }
 }
 
-module.exports = Image
+export default Image
 
 function roundUp (v) {
   return Math.ceil(v / 50) * 50

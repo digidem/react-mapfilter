@@ -1,8 +1,8 @@
-var ff = require('feature-filter-geojson')
-const { createSelector } = require('reselect')
+import ff from 'feature-filter-geojson'
+import { createSelector } from 'reselect'
 
-const getFilterableFeatures = require('./filterable_features')
-const getMapboxFilter = require('./mapbox_filter')
+import getFilterableFeatures from './filterable_features'
+import getMapboxFilter from './mapbox_filter'
 
 const getRawFilteredFeatures = createSelector(
   getFilterableFeatures,
@@ -10,4 +10,4 @@ const getRawFilteredFeatures = createSelector(
   (features, filter) => features.filter(ff(filter))
 )
 
-module.exports = getRawFilteredFeatures
+export default getRawFilteredFeatures

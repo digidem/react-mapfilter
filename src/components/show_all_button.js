@@ -1,6 +1,6 @@
-const React = require('react')
-const FlatButton = require('material-ui/FlatButton').default
-const {defineMessages, FormattedMessage} = require('react-intl')
+import React from 'react'
+import FlatButton from 'material-ui/FlatButton'
+import {defineMessages, FormattedMessage} from 'react-intl'
 
 const styles = {
   flatButton: {
@@ -31,4 +31,4 @@ const ShowAllButton = (props) => (
     style={Object.assign({}, props.style, styles.flatButton)} />
 )
 
-module.exports = ShowAllButton
+export default ShowAllButton

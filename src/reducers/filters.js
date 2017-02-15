@@ -1,5 +1,5 @@
-const assign = require('object-assign')
-const omit = require('lodash/omit')
+import assign from 'object-assign'
+import omit from 'lodash/omit'
 
 /**
  * Filter state is an object with whose properties are field names
@@ -48,4 +48,4 @@ const filters = (state = {}, {type, payload = {}}) => {
   }
 }
 
-module.exports = filters
+export default filters

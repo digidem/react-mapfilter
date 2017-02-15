@@ -1,30 +1,27 @@
-require('babel-polyfill')
-
-const React = require('react')
-const { PropTypes } = React
-const { Provider } = require('react-redux')
-const { createStore, applyMiddleware, compose } = require('redux')
-const thunk = require('redux-thunk').default
-const getMuiTheme = require('material-ui/styles/getMuiTheme').default
-const MuiThemeProvider = require('material-ui/styles/MuiThemeProvider').default
-const {IntlProvider} = require('react-intl-redux')
-const {addLocaleData} = require('react-intl')
-const pick = require('lodash/pick')
-const en = require('react-intl/locale-data/en')
-const es = require('react-intl/locale-data/es')
-const shallowEqual = require('shallow-equal/objects')
+import React, { PropTypes } from 'react'
+import { Provider } from 'react-redux'
+import { createStore, applyMiddleware, compose } from 'redux'
+import thunk from 'redux-thunk'
+import getMuiTheme from 'material-ui/styles/getMuiTheme'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import {IntlProvider} from 'react-intl-redux'
+import {addLocaleData} from 'react-intl'
+import pick from 'lodash/pick'
+import en from 'react-intl/locale-data/en'
+import es from 'react-intl/locale-data/es'
+import shallowEqual from 'shallow-equal/objects'
 
 addLocaleData([...en, ...es])
 
-const MFPropTypes = require('./util/prop_types')
-const {capitalize} = require('./util/text_helpers')
-const IndexRoute = require('./containers/index_route')
-const reducers = require('./reducers')
-const config = require('../config.json')
-const controlledStore = require('./controlled_store')
-const MapContainer = require('./containers/map_container')
-const ReportContainer = require('./containers/report_container')
-const ImageContainer = require('./containers/image_container')
+import * as MFPropTypes from './util/prop_types'
+import {capitalize} from './util/text_helpers'
+import IndexRoute from './containers/index_route'
+import reducers from './reducers'
+import controlledStore from './controlled_store'
+import MapContainer from './containers/map_container'
+import ReportContainer from './containers/report_container'
+import ImageContainer from './containers/image_container'
+import config from '../config.json'
 
 // Roboto font
 require('../css/fonts.css')
@@ -40,7 +37,7 @@ const storeEnhancer = devTools ? compose(devTools, applyMiddleware(thunk)) : app
 const controllableProps = [
   'features',
   'mapStyle',
-  'route'
+  'ui'
 ]
 
 class MapFilter extends React.Component {
@@ -99,4 +96,4 @@ class MapFilter extends React.Component {
   }
 }
 
-module.exports = MapFilter
+export default MapFilter

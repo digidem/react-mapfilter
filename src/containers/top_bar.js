@@ -1,7 +1,7 @@
-const React = require('react')
-const AppBar = require('material-ui/AppBar').default
-const {defineMessages, FormattedMessage} = require('react-intl')
-const assign = require('object-assign')
+import React from 'react'
+import AppBar from 'material-ui/AppBar'
+import {defineMessages, FormattedMessage} from 'react-intl'
+import assign from 'object-assign'
 
 const styles = {
   topBar: {
@@ -80,4 +80,4 @@ function TopBar ({activeView, views, onChangeTab}) {
   )
 }
 
-module.exports = TopBar
+export default TopBar

@@ -1,4 +1,4 @@
-const getBestFilterFields = require('./best_fields')
+import getBestFilterFields from './best_fields'
 
 /**
  * If we have not configured a field to color, then use the
@@ -13,4 +13,4 @@ const getColoredFieldName = state => {
   }
 }
 
-module.exports = getColoredFieldName
+export default getColoredFieldName

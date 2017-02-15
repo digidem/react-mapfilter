@@ -1,14 +1,13 @@
-const React = require('react')
-const { connect } = require('react-redux')
-const { PropTypes } = React
+import React, { PropTypes } from 'react'
+import { connect } from 'react-redux'
 
-const FeatureDetail = require('../components/feature_detail')
-const MFPropTypes = require('../util/prop_types')
-const MapView = require('../components/map_view')
-const getFieldMapping = require('../selectors/field_mapping')
-const getFilteredFeatures = require('../selectors/filtered_features')
-const getMapboxFilter = require('../selectors/mapbox_filter')
-const getMapGeoJSON = require('../selectors/map_geojson')
+import FeatureDetail from '../components/feature_detail'
+import * as MFPropTypes from '../util/prop_types'
+import MapView from '../components/map_view'
+import getFieldMapping from '../selectors/field_mapping'
+import getFilteredFeatures from '../selectors/filtered_features'
+import getMapboxFilter from '../selectors/mapbox_filter'
+import getMapGeoJSON from '../selectors/map_geojson'
 
 const styles = {
   report: {
@@ -70,6 +69,6 @@ function mapStateToProps (state) {
   }
 }
 
-module.exports = connect(
+export default connect(
   mapStateToProps
 )(ReportContainer)

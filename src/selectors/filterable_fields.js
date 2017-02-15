@@ -1,7 +1,7 @@
-const { createSelector } = require('reselect')
+import { createSelector } from 'reselect'
 
-const getFieldAnalysis = require('./field_analysis')
-const { FILTER_TYPES } = require('../constants')
+import getFieldAnalysis from './field_analysis'
+import { FILTER_TYPES } from '../constants'
 
 const getFilterableFields = createSelector(
   getFieldAnalysis,
@@ -11,4 +11,4 @@ const getFilterableFields = createSelector(
       .map(([k, v]) => k)
 )
 
-module.exports = getFilterableFields
+export default getFilterableFields

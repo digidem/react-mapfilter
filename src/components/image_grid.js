@@ -1,8 +1,7 @@
-const React = require('react')
-const { PropTypes } = React
-const {Grid, AutoSizer} = require('react-virtualized')
-const getScrollBarWidth = require('get-scrollbar-width')
-const assign = require('object-assign')
+import React, { PropTypes } from 'react'
+import {Grid, AutoSizer} from 'react-virtualized'
+import getScrollBarWidth from 'get-scrollbar-width'
+import assign from 'object-assign'
 
 require('react-virtualized/styles.css')
 
@@ -97,4 +96,4 @@ class ImageGrid extends React.Component {
   }
 }
 
-module.exports = ImageGrid
+export default ImageGrid

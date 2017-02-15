@@ -1,11 +1,11 @@
-const { createSelector } = require('reselect')
+import { createSelector } from 'reselect'
 
-const getBestFilterFields = require('./best_fields')
-const getFieldAnalysis = require('./field_analysis')
-const getColoredFieldName = require('./colored_field')
-const getDateFieldName = require('./date_field')
-const getIdFieldNames = require('./id_fields')
-const {FIELD_TYPES} = require('../constants')
+import getBestFilterFields from './best_fields'
+import getFieldAnalysis from './field_analysis'
+import getColoredFieldName from './colored_field'
+import getDateFieldName from './date_field'
+import getIdFieldNames from './id_fields'
+import {FIELD_TYPES} from '../constants'
 
 const getTitleFieldName = createSelector(
   getBestFilterFields,
@@ -61,4 +61,4 @@ const getFieldMapping = createSelector(
   }
 )
 
-module.exports = getFieldMapping
+export default getFieldMapping

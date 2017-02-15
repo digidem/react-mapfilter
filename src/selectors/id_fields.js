@@ -1,6 +1,6 @@
-const { createSelector } = require('reselect')
+import { createSelector } from 'reselect'
 
-const getFieldAnalysis = require('./field_analysis')
+import getFieldAnalysis from './field_analysis'
 
 /**
  * Pick the id field that appears in most records
@@ -17,4 +17,4 @@ const getIdFieldNames = createSelector(
   }
 )
 
-module.exports = getIdFieldNames
+export default getIdFieldNames

@@ -8,4 +8,4 @@ const features = (state = [], action) => {
   return state
 }
 
-module.exports = features
+export default features

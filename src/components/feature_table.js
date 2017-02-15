@@ -1,9 +1,9 @@
-const React = require('react')
-const ReactDOM = require('react-dom')
-const {Table, TableBody, TableRow, TableRowColumn} = require('material-ui/Table')
-const {FormattedMessage} = require('react-intl')
-const assign = require('object-assign')
-const msg = require('../util/intl_helpers').createMessage
+import React from 'react'
+import ReactDOM from 'react-dom'
+import {Table, TableBody, TableRow, TableRowColumn} from 'material-ui/Table'
+import {FormattedMessage} from 'react-intl'
+import assign from 'object-assign'
+import {createMessage as msg} from '../util/intl_helpers'
 
 const styles = {
   firstColumn: {
@@ -64,4 +64,4 @@ class FeatureTable extends React.Component {
   }
 }
 
-module.exports = FeatureTable
+export default FeatureTable

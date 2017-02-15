@@ -1,7 +1,7 @@
-const { createSelector } = require('reselect')
+import { createSelector } from 'reselect'
 
-const getFieldAnalysis = require('./field_analysis')
-const {FILTER_TYPES} = require('../constants')
+import getFieldAnalysis from './field_analysis'
+import {FILTER_TYPES} from '../constants'
 
 function count (o) {
   return Object.keys(o).length
@@ -45,4 +45,4 @@ const getBestFilterFields = createSelector(
   }
 )
 
-module.exports = getBestFilterFields
+export default getBestFilterFields

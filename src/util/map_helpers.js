@@ -1,4 +1,4 @@
-const extent = require('turf-extent')
+import extent from 'turf-extent'
 
 /**
  * @private
@@ -8,7 +8,7 @@ const extent = require('turf-extent')
  * @param {object} fc Geojson FeatureCollection
  * @return {array} Bounds in format `[minLng, minLat, maxLng, maxLat]``
  */
-function getBoundsOrWorld (fc) {
+export function getBoundsOrWorld (fc) {
   // If we don't have data, default to the extent of the whole world
   // NB. Web mercator goes to infinity at lat 90! Use lat 85.
   if (!fc || !fc.features || !fc.features.length) {
@@ -40,7 +40,3 @@ function getBoundsOrWorld (fc) {
 //   console.warn('features must be a FeatureCollection, Point or MultiPoint feature')
 //   return emptyFeatureCollection
 // }
-
-module.exports = {
-  getBoundsOrWorld
-}

@@ -1,7 +1,7 @@
-const { createSelector } = require('reselect')
+import { createSelector } from 'reselect'
 
-const getFieldAnalysis = require('./field_analysis')
-const {FIELD_TYPES} = require('../constants')
+import getFieldAnalysis from './field_analysis'
+import {FIELD_TYPES} from '../constants'
 
 /**
  * Pick the date field that appears in most records
@@ -21,4 +21,4 @@ const getDateFieldName = createSelector(
   }
 )
 
-module.exports = getDateFieldName
+export default getDateFieldName

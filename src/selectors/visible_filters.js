@@ -1,10 +1,10 @@
-const { createSelector } = require('reselect')
-const intersect = require('lodash/intersection')
+import { createSelector } from 'reselect'
+import intersect from 'lodash/intersection'
 
-const getBestFilterFields = require('./best_fields')
-const getFieldAnalysis = require('./field_analysis')
-const getFilterableFields = require('./filterable_fields')
-const getDateFieldName = require('./date_field')
+import getBestFilterFields from './best_fields'
+import getFieldAnalysis from './field_analysis'
+import getFilterableFields from './filterable_fields'
+import getDateFieldName from './date_field'
 
 /**
  * If we have not defined which fields to show filters for, make a best
@@ -28,4 +28,4 @@ const getVisibleFilters = createSelector(
   }
 )
 
-module.exports = getVisibleFilters
+export default getVisibleFilters

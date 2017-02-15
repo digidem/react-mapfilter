@@ -1,4 +1,4 @@
-const assign = require('object-assign')
+import assign from 'object-assign'
 
 // Private action type for controlled-store
 const ActionTypes = {
@@ -20,7 +20,7 @@ const ActionTypes = {
  * @param {Object} stateOverride
  * @return {Function} Redux Store Enhancer
  */
-module.exports = (onChange, initialStateOverride = {}) => (createStore) => {
+export default (onChange, initialStateOverride = {}) => (createStore) => {
   // These properties of the app state are now controlled
   let controlledProps = Object.keys(initialStateOverride)
 
@@ -35,12 +35,14 @@ module.exports = (onChange, initialStateOverride = {}) => (createStore) => {
     })
 
     function controlledReducer (state, action) {
+      console.log(state, action)
       // Controlled updates skip app reducers and override the state
       if (action.type === ActionTypes.UPDATE) {
         return assign({}, state, action.payload)
       }
       let hasChanged = false
       const newState = reducer(state, action)
+      console.log(assign({}, newState))
       Object.keys(newState).forEach(key => {
         if (newState[key] === state[key]) return
         if (controlledProps.indexOf(key) > -1) {

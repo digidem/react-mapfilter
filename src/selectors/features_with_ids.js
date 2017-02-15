@@ -1,8 +1,8 @@
-const { createSelector } = require('reselect')
-const randomBytes = require('randombytes')
+import { createSelector } from 'reselect'
+import randomBytes from 'randombytes'
 
-const getFieldAnalysis = require('./field_analysis')
-const getIdFieldNames = require('./id_fields')
+import getFieldAnalysis from './field_analysis'
+import getIdFieldNames from './id_fields'
 
 function uniqueId () {
   return randomBytes(8).toString('hex')
@@ -22,4 +22,4 @@ const getFeaturesWithIds = createSelector(
   })
 )
 
-module.exports = getFeaturesWithIds
+export default getFeaturesWithIds

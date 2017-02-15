@@ -1,21 +1,22 @@
-const React = require('react')
-const ReactDOM = require('react-dom')
-const { PropTypes } = React
-const shouldPureComponentUpdate = require('react-pure-render/function')
-const makePure = require('recompose/pure').default
-const DateIcon = require('material-ui/svg-icons/action/date-range').default
-const {ListItem} = require('material-ui/List')
-const IconButton = require('material-ui/IconButton').default
-const EditIcon = require('material-ui/svg-icons/editor/mode-edit').default
-const {Popover, PopoverAnimationVertical} = require('material-ui/Popover')
-const DateRange = makePure(require('react-date-range').DateRange)
-const moment = require('moment')
-const omit = require('lodash/omit')
+import React, { PropTypes } from 'react'
+import {findDOMNode} from 'react-dom'
+import shouldPureComponentUpdate from 'react-pure-render/function'
+import makePure from 'recompose/pure'
+import DateIcon from 'material-ui/svg-icons/action/date-range'
+import {ListItem} from 'material-ui/List'
+import IconButton from 'material-ui/IconButton'
+import EditIcon from 'material-ui/svg-icons/editor/mode-edit'
+import {Popover, PopoverAnimationVertical} from 'material-ui/Popover'
+import {DateRange} from 'react-date-range'
+import moment from 'moment'
+import omit from 'lodash/omit'
 
-const ShowAllButton = require('./show_all_button')
-const { titleCase } = require('../util/text_helpers')
-const { listStyles } = require('../styles')
-const { dateFormatShort } = require('../../config.json')
+import ShowAllButton from './show_all_button'
+import { titleCase } from '../util/text_helpers'
+import { listStyles } from '../styles'
+import { dateFormatShort } from '../../config.json'
+
+const PureDateRange = makePure(DateRange)
 
 const styles = {
   nestedList: {
@@ -126,7 +127,7 @@ class DateFilter extends React.Component {
 
   componentDidMount () {
     this.setState({
-      el: ReactDOM.findDOMNode(this.refs.dateItem)
+      el: findDOMNode(this.refs.dateItem)
     })
   }
 
@@ -165,7 +166,7 @@ class DateFilter extends React.Component {
               onRequestClose={this.handleRequestClose}
               animation={PopoverAnimationVertical}
             >
-              <DateRange
+              <PureDateRange
                 startDate={minMoment}
                 endDate={maxMoment}
                 onChange={this.handleDateChange} />
@@ -177,4 +178,4 @@ class DateFilter extends React.Component {
   }
 }
 
-module.exports = DateFilter
+export default DateFilter

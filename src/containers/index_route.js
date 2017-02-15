@@ -1,16 +1,15 @@
-const React = require('react')
-const { connect } = require('react-redux')
-const { bindActionCreators } = require('redux')
-const find = require('lodash/find')
+import React from 'react'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import find from 'lodash/find'
 
-const FilterContainer = require('./filter_container')
-const TopBar = require('./top_bar')
-const actionCreators = require('../action_creators')
-const getNavigationParams = require('../selectors/navigation')
+import FilterContainer from './filter_container'
+import TopBar from './top_bar'
+import * as actionCreators from '../action_creators'
 
-const Modal = require('../components/modal')
-const FeatureDetail = require('../components/feature_detail')
-const FilterConfigurator = require('../components/filter_configurator')
+import Modal from '../components/modal'
+import FeatureDetail from '../components/feature_detail'
+import FilterConfigurator from '../components/filter_configurator'
 
 const styles = {
   outer: {
@@ -47,9 +46,9 @@ class IndexRoute extends React.Component {
     this.redirectIfNecessary(nextProps)
   }
 
-  redirectIfNecessary ({activeModal, activeView, views, closeModal, switchView}) {
-    if (activeModal && !getModalComponent(activeModal)) closeModal()
-    if (!find(views, {id: activeView})) switchView(views[0].id)
+  redirectIfNecessary ({activeModal, activeView, views, redirectView}) {
+    if (!find(views, {id: activeView})) return redirectView(views[0].id)
+    if (activeModal && !getModalComponent(activeModal)) redirectView(activeView)
   }
 
   render () {

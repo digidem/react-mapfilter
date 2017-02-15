@@ -1,9 +1,9 @@
-const { createSelector } = require('reselect')
+import { createSelector } from 'reselect'
 
-const getFieldAnalysis = require('./field_analysis')
-const getColoredField = require('./colored_field')
+import getFieldAnalysis from './field_analysis'
+import getColoredField from './colored_field'
 
-const CONFIG = require('../../config.json')
+import CONFIG from '../../config.json'
 
 const getColorIndex = createSelector(
   getColoredField,
@@ -20,4 +20,4 @@ const getColorIndex = createSelector(
   }
 )
 
-module.exports = getColorIndex
+export default getColorIndex

@@ -1,6 +1,6 @@
-const React = require('react')
+import React from 'react'
 
-const { Card, CardMedia, CardText, CardHeader } = require('material-ui/Card')
+import { Card, CardMedia, CardText, CardHeader } from 'material-ui/Card'
 
 const styles = {
   card: {
@@ -70,4 +70,4 @@ const Report = ({color, media, data, title, subtitle, onCloseClick}) => (
   </Card>
 )
 
-module.exports = Report
+export default Report

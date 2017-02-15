@@ -1,8 +1,8 @@
-const { createSelector } = require('reselect')
+import { createSelector } from 'reselect'
 
-const getFieldAnalysis = require('./field_analysis')
-const getRawFilteredFeatures = require('./filtered_features_raw')
-const {FIELD_TYPES} = require('../constants')
+import getFieldAnalysis from './field_analysis'
+import getRawFilteredFeatures from './filtered_features_raw'
+import {FIELD_TYPES} from '../constants'
 
 const getImageFieldNames = createSelector(
   getFieldAnalysis,
@@ -29,4 +29,4 @@ const getImages = createSelector(
   }
 )
 
-module.exports = getImages
+export default getImages

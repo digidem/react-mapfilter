@@ -1,6 +1,6 @@
-const { createSelector } = require('reselect')
+import { createSelector } from 'reselect'
 
-const getFlattenedFeatures = require('./flattened_features')
+import getFlattenedFeatures from './flattened_features'
 
 const getFeaturesById = createSelector(
   getFlattenedFeatures,
@@ -10,4 +10,4 @@ const getFeaturesById = createSelector(
   }, {})
 )
 
-module.exports = getFeaturesById
+export default getFeaturesById

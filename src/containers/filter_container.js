@@ -1,8 +1,8 @@
-const { connect } = require('react-redux')
+import { connect } from 'react-redux'
 
-const FilterView = require('../components/filter')
-const { updateFilter, openSettings } = require('../action_creators')
-const getFilterProps = require('../selectors/filter_props')
+import FilterView from '../components/filter'
+import { updateFilter, openSettings } from '../action_creators'
+import getFilterProps from '../selectors/filter_props'
 
 function mapDispatchToProps (dispatch) {
   return {
@@ -11,7 +11,7 @@ function mapDispatchToProps (dispatch) {
   }
 }
 
-module.exports = connect(
+export default connect(
   getFilterProps,
   mapDispatchToProps
 )(FilterView)
