@@ -72,6 +72,7 @@
     "babel-cli": "^6.18.0",
     "babel-core": "^6.20.0",
     "babel-eslint": "^7.1.1",
+    "babel-plugin-react-intl": "^2.3.1",
     "babel-plugin-react-transform": "^2.0.0",
     "babel-plugin-transform-class-properties": "^6.5.2",
     "babel-plugin-transform-object-rest-spread": "^6.5.0",
