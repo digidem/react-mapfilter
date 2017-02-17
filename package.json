@@ -119,6 +119,7 @@
     "build:example:js": "NODE_ENV=production browserify -g envify -g uglifyify example/index.js | uglifyjs -c -m > build/bundle.js",
     "build:markers": "node ./bin/build_markers.js",
     "build:es5": "rimraf es5 && babel src/ -d es5/",
+    "watch": "rimraf es5 && babel src/ -w -d es5/",
     "clean": "rimraf dist es5",
     "prepublish": "npm run build:es5"
   },
