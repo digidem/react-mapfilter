@@ -2,16 +2,18 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import RedBox from 'redbox-react'
 
-import App from './containers/app'
+const MapFilter = require('./index').default
+const fs = require('fs')
+const path = require('path')
 
-// Needed by material-ui for onTouchTap to work
-require('react-tap-event-plugin')()
+const sampleGeoJSON = fs.readFileSync(path.join(__dirname, '../example/sample.geojson'), 'utf8')
+const features = JSON.parse(sampleGeoJSON).features
 
 const rootEl = document.getElementById('root')
 
 let render = function () {
   ReactDOM.render(
-    <App />,
+    <MapFilter features={features} />,
     rootEl
   )
 }
@@ -33,7 +35,7 @@ if (module.hot) {
       renderError(error)
     }
   }
-  module.hot.accept('./containers/app', () => {
+  module.hot.accept('./index', () => {
     setTimeout(render)
   })
 }

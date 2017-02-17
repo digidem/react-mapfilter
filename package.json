@@ -112,7 +112,7 @@
     "dependency-check": "dependency-check ./package.json && dependency-check ./package.json --unused --no-dev",
     "lint": "standard",
     "start": "budo example/index.js:bundle.js --pushstate --dir example",
-    "dev": "budo src/dev.js:bundle.js --pushstate --dir statics -- -p browserify-hmr",
+    "dev": "budo src/dev.js:bundle.js --pushstate --dir example -- -p browserify-hmr",
     "test": "exit 0",
     "build:example": "mkdirp build && npm run -s build:example:statics && npm run -s build:example:js",
     "build:example:statics": "copyfiles -u 1 'example/**/*' build",
