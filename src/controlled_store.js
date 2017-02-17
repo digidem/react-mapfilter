@@ -43,6 +43,8 @@ export default (onChange, initialStateOverride = {}) => (createStore) => {
       const newState = reducer(state, action)
       Object.keys(newState).forEach(key => {
         if (newState[key] === state[key]) return
+        const value = newState[key]
+        process.nextTick(() => onChange(key, value))
         if (controlledProps.indexOf(key) > -1) {
           // If any controlled props of the state are updated, we hide the
           // initial change in state from the redux store and instead
@@ -50,8 +52,6 @@ export default (onChange, initialStateOverride = {}) => (createStore) => {
           // and the new value. Needs to run on nextTick to avoid `controlledUpdate()`
           // being called in the same tick and resulting in a `store.dispatch()`
           // inside this reducer.
-          const value = newState[key]
-          process.nextTick(() => onChange(key, value))
           newState[key] = state[key]
         } else {
           // Unless an uncontrolled prop has been changed, we'll just return the existing state
