@@ -8,6 +8,9 @@ import {createMessage as msg} from '../util/intl_helpers'
 const styles = {
   firstColumn: {
     fontWeight: 'bold'
+  },
+  smallRow: {
+    height: 36
   }
 }
 
@@ -42,17 +45,19 @@ class FeatureTable extends React.Component {
   }
 
   render () {
-    const {data} = this.props
+    const {data, print} = this.props
+    const rowColStyle = assign({}, styles.firstColumn, {width: this.state.width})
+    if (print) assign(rowColStyle, styles.smallRow)
     return (
       <Table selectable={false}>
         <TableBody displayRowCheckbox={false} preScanRows={false}>
           {data.map((row, i) => {
             return (
-              <TableRow key={row.key}>
-                <TableRowColumn ref={'__td' + i} style={assign({}, styles.firstColumn, {width: this.state.width})}>
+              <TableRow key={row.key} style={print && styles.smallRow}>
+                <TableRowColumn ref={'__td' + i} style={rowColStyle}>
                   <span ref={row.key}><FormattedMessage {...msg('field_key')(row.key)} /></span>
                 </TableRowColumn>
-                <TableRowColumn>
+                <TableRowColumn style={styles.smallRow}>
                   <FormattedMessage {...msg('field_value')(row.value)} />
                 </TableRowColumn>
               </TableRow>

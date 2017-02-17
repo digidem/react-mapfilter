@@ -27,41 +27,6 @@
       padding: 0;
       overflow: hidden;
     }
-
-    @media only print {
-      body, html {
-        overflow: visible;
-      }
-
-      .outer.container {
-        position: initial !important;
-      }
-
-      /* TODO change the map height to be more appropriate */
-      .report.container {
-        display: block !important;
-        position: relative !important;
-      }
-
-      /* TODO resize content to fit on a single page */
-      .card {
-        page-break-before: always;
-        page-break-after: always;
-        position: relative !important;
-      }
-
-      .card, .filter {
-        box-shadow: none !important;
-      }
-
-      /* TODO include some form of MapFilter header */
-      /* TODO rotate the filter display and show state vs. allow interaction */
-      .mapboxgl-control-container,
-      .nav.container,
-      .filter {
-        display: none !important;
-      }
-    }
     </style>
   </head>
 

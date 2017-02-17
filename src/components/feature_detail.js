@@ -19,16 +19,10 @@ import FeatureTable from './feature_table'
 const styles = {
   card: {
     overflow: 'auto',
-    maxHeight: '100%',
     width: '100%'
   },
   cardUnrestricted: {
     width: '100%'
-  },
-  cardContainerStyle: {
-    flex: 1,
-    flexDirection: 'column',
-    display: 'flex'
   },
   header: {
     lineHeight: '22px',
@@ -40,10 +34,6 @@ const styles = {
     height: 40,
     margin: 0,
     marginRight: 16
-  },
-  scrollable: {
-    flex: 1,
-    overflow: 'auto'
   },
   media: {
     position: 'relative',
@@ -60,12 +50,11 @@ const styles = {
   }
 }
 
-const FeatureDetail = ({color, label, media, data, title, subtitle, onCloseClick, restrictHeight}) => (
+const FeatureDetail = ({color, label, media, data, title, subtitle, onCloseClick, print}) => (
   <Card
     className='card'
-    style={restrictHeight ? styles.card : styles.cardUnrestricted}
-    containerStyle={styles.cardContainerStyle}
-    zDepth={2}>
+    style={styles.card}
+    zDepth={0}>
     <CardHeader
       style={styles.header}
       avatar={<MarkerIcon color={color} style={styles.markerIcon} label={label} />}
@@ -77,7 +66,7 @@ const FeatureDetail = ({color, label, media, data, title, subtitle, onCloseClick
         </IconButton>
       }
     </CardHeader>
-    <div style={styles.scrollable}>
+    <div>
       {
         media &&
           <CardMedia style={styles.media}>
@@ -85,7 +74,7 @@ const FeatureDetail = ({color, label, media, data, title, subtitle, onCloseClick
           </CardMedia>
       }
       <CardText>
-        <FeatureTable data={data} />
+        <FeatureTable data={data} print={print} />
       </CardText>
     </div>
   </Card>

@@ -2,7 +2,6 @@ import { connect } from 'react-redux'
 import assign from 'object-assign'
 import debug from 'debug'
 import React from 'react'
-import ReactDOM from 'react-dom'
 const { PropTypes } = React
 import mapboxgl from 'mapbox-gl/dist/mapbox-gl.js'
 import deepEqual from 'deep-equal'
@@ -80,7 +79,7 @@ class MapView extends React.Component {
       height: '100%',
       width: '100%'
     },
-    disableScrollToZoom: false,
+    interactive: true,
     labelPoints: false
   }
 
@@ -189,7 +188,7 @@ class MapView extends React.Component {
   // The first time our component mounts, render a new map into `mapDiv`
   // with settings from props.
   componentDidMount () {
-    const { center, disableScrollToZoom, filter, labelPoints, mapStyle, geojson, zoom } = this.props
+    const { center, interactive, filter, labelPoints, mapStyle, geojson, zoom } = this.props
     let map
 
     if (savedMap) {
@@ -197,9 +196,11 @@ class MapView extends React.Component {
       map = this.map = savedMap
       map.resize()
       this.componentWillReceiveProps(this.props)
-      map.on('moveend', this.handleMapMoveOrZoom)
-      map.on('click', this.handleMapClick)
-      map.on('mousemove', this.handleMouseMove)
+      if (interactive) {
+        map.on('moveend', this.handleMapMoveOrZoom)
+        map.on('click', this.handleMapClick)
+        map.on('mousemove', this.handleMouseMove)
+      }
       return
     }
     const mapDiv = savedMapDiv = document.createElement('div')
@@ -214,7 +215,7 @@ class MapView extends React.Component {
       zoom: zoom || 0
     })
 
-    if (disableScrollToZoom) {
+    if (!interactive) {
       map.scrollZoom.disable()
     }
 
@@ -224,9 +225,11 @@ class MapView extends React.Component {
     map.touchZoomRotate.disableRotation()
 
     map.once('load', () => {
-      map.on('moveend', this.handleMapMoveOrZoom)
-      map.on('click', this.handleMapClick)
-      map.on('mousemove', this.handleMouseMove)
+      if (interactive) {
+        map.on('moveend', this.handleMapMoveOrZoom)
+        map.on('click', this.handleMapClick)
+        map.on('mousemove', this.handleMouseMove)
+      }
       map.addSource('features', {type: 'geojson', data: geojson})
       // TODO: Should choose style based on whether features are point, line or polygon
 
@@ -237,11 +240,6 @@ class MapView extends React.Component {
         pointStyle = assign({}, pointStyle, {
           layout: assign({}, pointStyle.layout, pointLabelsStyle.layout),
           paint: assign({}, pointStyle.paint, pointLabelsStyle.paint)
-        })
-
-        pointHoverStyle = assign({}, pointHoverStyle, {
-          layout: assign({}, pointHoverStyle.layout, pointLabelsStyle.layout),
-          paint: assign({}, pointHoverStyle.paint, pointLabelsStyle.paint)
         })
       }
 
