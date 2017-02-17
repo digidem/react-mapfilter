@@ -16,8 +16,8 @@ const styles = {
 }
 
 const Popup = ({imgSrc, title, subtitle}) => (
-    {imgSrc && <Image src={imgSrc} style={styles.image} />}
   <div style={styles.wrapper}>
+    {imgSrc && <Image src={imgSrc} style={styles.image} />}
     <div className={'__mf_popup_title' + (imgSrc ? ' __mf_popup_img' : '')}>
       <h1>{title}</h1>
       <h2>{subtitle}</h2>

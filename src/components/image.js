@@ -4,6 +4,7 @@ import ImageLoader from 'react-imageloader'
 import CircularProgress from 'material-ui/CircularProgress'
 import omit from 'lodash/omit'
 import assign from 'object-assign'
+import {connect} from 'react-redux'
 
 const styles = {
   wrapper: {
@@ -21,20 +22,19 @@ const pixelRatio = window.devicePixelRatio || 1
 const createDiv = React.createElement.bind(null, 'div')
 
 class Image extends React.Component {
-  static defaultProps = {
-    useResizer: false
-  }
-
   state = {}
 
   componentDidMount () {
-    const {src, useResizer} = this.props
+    const {src, resizer} = this.props
     let mediaSrc = src
 
-    if (useResizer) {
+    if (resizer) {
       const el = ReactDOM.findDOMNode(this)
-      const size = Math.max(el.offsetWidth, el.offsetHeight) * pixelRatio
-      mediaSrc = 'http://resizer.digital-democracy.org/' + roundUp(size) + '/' + src
+      const size = roundUp(Math.max(el.offsetWidth, el.offsetHeight) * pixelRatio)
+      mediaSrc = resizer
+        .replace('{width}', size)
+        .replace('{height}', size)
+        .replace('{url}', src)
     }
 
     this.setState({
@@ -44,7 +44,7 @@ class Image extends React.Component {
   }
 
   render () {
-    const props = omit(this.props, ['progress', 'src', 'style', 'useResizer'])
+    const props = omit(this.props, ['progress', 'src', 'style', 'resizer'])
     const {style, progress} = this.props
 
     return <ImageLoader
@@ -68,7 +68,9 @@ class Image extends React.Component {
   }
 }
 
-export default Image
+export default connect(
+  state => ({resizer: state.resizer})
+)(Image)
 
 function roundUp (v) {
   return Math.ceil(v / 50) * 50
