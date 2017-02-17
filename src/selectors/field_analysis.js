@@ -15,7 +15,10 @@ const MAX_DISCRETE_VALUES = {
 }
 
 const imageExts = ['jpg', 'tif', 'jpeg', 'png', 'tiff', 'webp']
-const videoExts = ['mov', 'mp4', 'avi']
+const videoExts = ['mov', 'mp4', 'avi', 'webm']
+const audioExts = ['3gpp', 'wav', 'wma', 'mp3', 'm4a', 'aiff', 'ogg']
+const mediaExts = imageExts.concat(videoExts, audioExts)
+
 const filterableTypes = [
   FIELD_TYPES.DATE,
   FIELD_TYPES.STRING,
@@ -148,12 +151,17 @@ function isUnique (f, features) {
  */
 function getType (v) {
   if (isDate(v)) return FIELD_TYPES.DATE
-  if (typeof v === 'string' && urlRegex.test(v)) {
-    const pathname = url.parse(v).pathname
-    const ext = path.extname(pathname).slice(1)
-    if (imageExts.indexOf(ext) > -1) return FIELD_TYPES.IMAGE
-    if (videoExts.indexOf(ext) > -1) return FIELD_TYPES.VIDEO
-    return FIELD_TYPES.LINK
+  if (typeof v === 'string') {
+    if (urlRegex.test(v)) {
+      const pathname = url.parse(v).pathname
+      const ext = path.extname(pathname).slice(1)
+      if (imageExts.indexOf(ext) > -1) return FIELD_TYPES.IMAGE
+      if (videoExts.indexOf(ext) > -1) return FIELD_TYPES.VIDEO
+      if (audioExts.indexOf(ext) > -1) return FIELD_TYPES.AUDIO
+      return FIELD_TYPES.LINK
+    }
+    const ext = path.extname(v).slice(1)
+    if (v.split('/').length === 1 && mediaExts.indexOf(ext) > -1) return FIELD_TYPES.FILENAME
   }
   if (Array.isArray(v)) return FIELD_TYPES.ARRAY
   return typeof v
