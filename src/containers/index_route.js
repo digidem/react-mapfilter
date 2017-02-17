@@ -84,8 +84,7 @@ function getModalComponent (modal) {
 function getViewComponent (activeView, views) {
   var view = find(views, {id: activeView})
   if (!view) return () => <div />
-  var ViewComponent = connect(view.mapStateToProps, view.mapDispatchToProps)(view.component)
-  return ViewComponent
+  return view.component
 }
 
 export default connect(
