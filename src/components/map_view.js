@@ -14,7 +14,6 @@ import config from '../../config.json'
 import Popup from './popup'
 
 require('mapbox-gl/dist/mapbox-gl.css')
-require('../../css/popup.css')
 
 /* Mapbox [API access token](https://www.mapbox.com/help/create-api-access-token/) */
 mapboxgl.accessToken = config.mapboxToken
@@ -116,6 +115,8 @@ class MapView extends React.Component {
     disableScrollToZoom: PropTypes.bool
   }
 
+  state = {}
+
   handleMapMoveOrZoom = (e) => {
     this.props.onMove({
       center: this.map.getCenter().toArray(),
@@ -142,43 +143,34 @@ class MapView extends React.Component {
     )
     this.map.getCanvas().style.cursor = (features.length) ? 'pointer' : ''
     if (!features.length) {
-      this.popup.remove()
+      this.setState({lngLat: null})
       this.map.setFilter('features-hover', ['==', '__mf_id', ''])
       return
     }
-    const props = features[0].properties
-    const hoveredFeatureId = props.__mf_id
-    this.map.setFilter('features-hover', ['==', '__mf_id', hoveredFeatureId])
-    // Popuplate the popup and set its coordinates
-    // based on the feature found.
-    if (!this.popup._map || hoveredFeatureId && hoveredFeatureId !== this.popup.__featureId) {
-      this.popup.setLngLat(features[0].geometry.coordinates)
-        .addTo(this.map)
-        .__featureId = hoveredFeatureId
-      this.renderPopup(props)
-    }
+    this.map.setFilter('features-hover', ['==', '__mf_id', features[0].properties.__mf_id])
+    this.setState({lngLat: features[0].geometry.coordinates})
+    this.setState(this.getPopupProps(features[0].properties))
   }
 
-  renderPopup (featureProps) {
+  getPopupProps (featureProps) {
     const fieldMapping = this.props.fieldMapping
-    const popupProps = Object.keys(fieldMapping).reduce((prev, field) => {
+    return Object.keys(fieldMapping).reduce((prev, field) => {
       prev[field] = featureProps[fieldMapping[field]]
       return prev
     }, {})
-    const {media, title, subtitle} = popupProps
-    this.popup._createContent()
-    this.popup._update()
-    ReactDOM.render(<Popup imgSrc={media} title={title} subtitle={subtitle} />, this.popup._content)
   }
 
   render () {
     const { style } = this.props
 
     return (
-      <div
-        ref={(el) => (this.mapContainer = el)}
-        style={style}
-      />
+      <div style={{width: '100%', height: '100%', position: 'relative'}}>
+        <div
+          ref={(el) => (this.mapContainer = el)}
+          style={style}
+        />
+        {this.state.lngLat && <Popup map={this.map} {...this.state} />}
+      </div>
     )
   }
 
@@ -205,6 +197,9 @@ class MapView extends React.Component {
       map = this.map = savedMap
       map.resize()
       this.componentWillReceiveProps(this.props)
+      map.on('moveend', this.handleMapMoveOrZoom)
+      map.on('click', this.handleMapClick)
+      map.on('mousemove', this.handleMouseMove)
       return
     }
     const mapDiv = savedMapDiv = document.createElement('div')
@@ -228,12 +223,7 @@ class MapView extends React.Component {
     map.dragRotate.disable()
     map.touchZoomRotate.disableRotation()
 
-    this.popup = new mapboxgl.Popup({
-      closeButton: false,
-      anchor: 'bottom-left'
-    })
-
-    map.on('load', () => {
+    map.once('load', () => {
       map.on('moveend', this.handleMapMoveOrZoom)
       map.on('click', this.handleMapClick)
       map.on('mousemove', this.handleMouseMove)
@@ -290,14 +280,10 @@ class MapView extends React.Component {
     // TODO should re-style points + point hovers according to labelPoints
   }
 
-  // We always return false from this function because we don't want React to
-  // handle any rendering of the map itself, we do all that via mapboxgl
-  shouldComponentUpdate (nextProps) {
-    return false
-  }
-
   componentWillUnmount () {
-    // this.map.remove()
+    this.map.off('moveend', this.handleMapMoveOrZoom)
+    this.map.off('click', this.handleMapClick)
+    this.map.off('mousemove', this.handleMouseMove)
   }
 
   /**
