@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import ImageLoader from 'react-imageloader'
 import CircularProgress from 'material-ui/CircularProgress'
+import BrokenImageIcon from 'material-ui/svg-icons/image/broken-image'
 import omit from 'lodash/omit'
 import assign from 'object-assign'
 import {connect} from 'react-redux'
@@ -12,8 +13,7 @@ const styles = {
     height: '100%',
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: 'rgb(245, 245, 245)'
+    justifyContent: 'center'
   }
 }
 
@@ -44,18 +44,21 @@ class Image extends React.Component {
   }
 
   render () {
-    const props = omit(this.props, ['progress', 'src', 'style', 'resizer'])
-    const {style, progress} = this.props
+    // TODO: whitelist, not blacklist
+    const props = omit(this.props, ['progress', 'src', 'style', 'resizer', 'dispatch'])
+    const {style} = this.props
 
     return <ImageLoader
       imgProps={assign({}, props, {style: style})}
       src={this.state.src}
       style={assign({}, styles.wrapper, style)}
-      preloader={() => progress ? <CircularProgress /> : <div />}
+      preloader={() => <div style={styles.wrapper}><CircularProgress /></div>}
       wrapper={(props, element) => {
         const loadTime = Date.now() - this.state.loadStart
-        // Only fade in if image takes more than 200ms to load
-        if (element.type !== 'img' || loadTime < 200) {
+        if (!element) {
+          return <div style={styles.wrapper}><BrokenImageIcon color='grey' /></div>
+        } else if (element.type !== 'img' || loadTime < 200) {
+          // Only fade in if image takes more than 200ms to load
           return createDiv(props, element)
         } else {
           const mergedProps = assign({}, props, {

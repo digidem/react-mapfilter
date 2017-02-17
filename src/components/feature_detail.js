@@ -81,7 +81,7 @@ const FeatureDetail = ({color, label, media, data, title, subtitle, onCloseClick
       {
         media &&
           <CardMedia style={styles.media}>
-            <Image style={styles.img} src={media} progress />
+            <Image style={styles.img} src={media} />
           </CardMedia>
       }
       <CardText>
