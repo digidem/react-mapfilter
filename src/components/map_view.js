@@ -283,12 +283,8 @@ class MapView extends React.Component {
       this.map.setStyle(nextProps.mapStyle)
     }
 
-    if (nextProps.disableScrollToZoom) {
-      console.log('disabling scroll to zoom')
-      this.map.scrollZoom.disable()
-    } else {
-      console.log('enabling scroll to zoom')
-      this.map.scrollZoom.enable()
+    if (this.props.disableScrollToZoom !== nextProps.disableScrollToZoom) {
+      nextProps.disableScrollToZoom ? this.map.scrollZoom.disable() : this.map.scrollZoom.enable()
     }
 
     // TODO should re-style points + point hovers according to labelPoints
