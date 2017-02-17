@@ -1,6 +1,9 @@
 import React from 'react'
 import Image from './image'
 import assign from 'object-assign'
+import {FormattedMessage} from 'react-intl'
+
+import {createMessage as msg} from '../util/intl_helpers'
 
 const styles = {
   wrapper: {
@@ -30,7 +33,7 @@ const styles = {
     color: 'white'
   },
   h1: {
-    margin: '5px 10px'
+    margin: '10px 10px 5px 10px'
   },
   h2: {
     margin: '5px 10px',
@@ -83,8 +86,12 @@ class Popup extends React.Component {
     return <div style={assign({}, styles.wrapper, {transform})} ref={el => (this._el = el)}>
       {media && <Image src={media} style={styles.image} />}
       <div style={styles.title}>
-        <h1 style={styles.h1}>{title}</h1>
-        <h2 style={assign({}, styles.h1, styles.h2)}>{subtitle}</h2>
+        <h1 style={styles.h1}>
+          <FormattedMessage {...msg('field_value')(title)} />
+        </h1>
+        <h2 style={assign({}, styles.h1, styles.h2)}>
+          <FormattedMessage {...msg('field_value')(subtitle)} />
+        </h2>
       </div>
     </div>
   }
