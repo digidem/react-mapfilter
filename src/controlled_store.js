@@ -35,14 +35,12 @@ export default (onChange, initialStateOverride = {}) => (createStore) => {
     })
 
     function controlledReducer (state, action) {
-      console.log(state, action)
       // Controlled updates skip app reducers and override the state
       if (action.type === ActionTypes.UPDATE) {
         return assign({}, state, action.payload)
       }
       let hasChanged = false
       const newState = reducer(state, action)
-      console.log(assign({}, newState))
       Object.keys(newState).forEach(key => {
         if (newState[key] === state[key]) return
         if (controlledProps.indexOf(key) > -1) {
