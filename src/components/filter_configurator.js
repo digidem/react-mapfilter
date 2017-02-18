@@ -8,10 +8,10 @@ import { List, ListItem } from 'material-ui/List'
 import Toggle from 'material-ui/Toggle'
 import {defineMessages, FormattedMessage} from 'react-intl'
 
+import FormattedFieldname from './formatted_fieldname'
 import getFilterableFields from '../selectors/filterable_fields'
 import getVisibleFilters from '../selectors/visible_filters'
 import { removeFilter, updateVisibleFilters } from '../action_creators'
-import {createMessage as msg} from '../util/intl_helpers'
 
 const styles = {
   card: {
@@ -102,7 +102,7 @@ class FilterConfigurator extends React.Component {
                 return (
                   <ListItem
                     key={field}
-                    primaryText={<FormattedMessage {...msg('field_key')(field)} />}
+                    primaryText={<FormattedFieldname fieldname={field} />}
                     rightToggle={
                       <Toggle
                         toggled={visibleFilters.includes(field)}

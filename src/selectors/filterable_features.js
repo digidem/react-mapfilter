@@ -5,10 +5,7 @@ import getFeaturesWithIds from './features_with_ids'
 import getFieldAnalysis from './field_analysis'
 import getIdFieldNames from './id_fields'
 import {FIELD_TYPES} from '../constants'
-
-function dateStringToNumber (dateString) {
-  return +(new Date(dateString))
-}
+import {parseDate} from '../util/filter_helpers'
 
 const getFilterableFeatures = createSelector(
   getFeaturesWithIds,
@@ -21,7 +18,7 @@ const getFilterableFeatures = createSelector(
     Object.keys(fieldAnalysis)
       .filter(f => fieldAnalysis[f].type === FIELD_TYPES.DATE)
       .forEach(f => {
-        properties[f] = dateStringToNumber(properties[f])
+        properties[f] = +parseDate(properties[f])
       })
     return Object.assign({}, f, {properties})
   })

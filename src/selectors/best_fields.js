@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect'
 
 import getFieldAnalysis from './field_analysis'
-import {FILTER_TYPES} from '../constants'
+import {FILTER_TYPES, FIELD_TYPES} from '../constants'
 
 function count (o) {
   return Object.keys(o).length
@@ -26,8 +26,20 @@ const createCompareFn = (featureCount) => (a, b) => {
   if (aCountGood && !bCountGood) return -1
   if (bCountGood && !aCountGood) return 1
 
-  // Prefer fields with the least number of words
-  return a.wordStats.mean - b.wordStats.mean
+  // Prefer boolean fields
+  if (a.type === FIELD_TYPES.BOOLEAN && b.type !== FIELD_TYPES.BOOLEAN) return -1
+  if (b.type === FIELD_TYPES.BOOLEAN && a.type !== FIELD_TYPES.BOOLEAN) return -1
+
+  // Then prefer text fields
+  if (a.type === FIELD_TYPES.STRING && b.type !== FIELD_TYPES.STRING) return -1
+  if (b.type === FIELD_TYPES.STRING && a.type !== FIELD_TYPES.STRING) return -1
+
+  // If both are strings, prefer fields with the least number of words
+  if (a.type === FIELD_TYPES.STRING && b.type === FIELD_TYPES.STRING) {
+    return a.wordStats.mean - b.wordStats.mean
+  }
+
+  return 0
 }
 
 /**

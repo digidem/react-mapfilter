@@ -4,7 +4,7 @@ import makePure from 'recompose/pure'
 import Checkbox from 'material-ui/Checkbox'
 import ListIcon from 'material-ui/svg-icons/action/list'
 import {ListItem} from 'material-ui/List'
-import {FormattedMessage} from 'react-intl'
+import {injectIntl} from 'react-intl'
 import omit from 'lodash/omit'
 
 import ShowAllButton from './show_all_button'
@@ -99,12 +99,16 @@ class DiscreteFilter extends React.Component {
   }
 
   render () {
-    const {fieldName, checked, values} = this.props
+    const {fieldName, checked, values, intl: {formatMessage}} = this.props
     const isFiltered = checked.length < Object.keys(values).length
+    const title = fieldName.split('.').slice(-1)[0]
+    const subTitle = fieldName.indexOf('.') > 1 ? fieldName.split('.').slice(0, -1).join(' / ') : null
+
     return (
       <ListItem
         innerDivStyle={listStyles.listItemInner}
-        primaryText={<FormattedMessage {...msg('field_key')(fieldName)} />}
+        primaryText={formatMessage(msg('field_key')(title))}
+        secondaryText={subTitle && formatMessage(msg('field_key')(subTitle))}
         leftIcon={<ListIcon style={listStyles.listIcon} />}
         initiallyOpen
         disabled
@@ -117,8 +121,8 @@ class DiscreteFilter extends React.Component {
             onMouseEnter={this.handleMouseEnter.bind(this, v)}
             onMouseLeave={this.handleMouseLeave}>
             <PureCheckbox
-              label={<FormattedMessage {...msg('field_value')(v)} />}
-              title={<FormattedMessage {...msg('field_value')(v)} />}
+              label={formatMessage(msg('field_value')(v))}
+              title={formatMessage(msg('field_value')(v))}
               value={v}
               style={styles.checkbox}
               iconStyle={styles.checkboxIcon}
@@ -137,4 +141,4 @@ class DiscreteFilter extends React.Component {
   }
 }
 
-export default DiscreteFilter
+export default injectIntl(DiscreteFilter)

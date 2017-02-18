@@ -5,6 +5,7 @@ import path from 'path'
 import isPlainObject from 'is-plain-object'
 
 import {FIELD_TYPES, FILTER_TYPES} from '../constants'
+import {parseDate, isDate} from '../util/filter_helpers'
 
 const urlRegex = makeUrlRegex({exact: true})
 
@@ -80,6 +81,11 @@ function typeReduce (p, v) {
   if (!p || v === p) return v
   if (isMediaField(p) && isMediaField(v)) {
     return FIELD_TYPES.MEDIA
+  } else if (isMediaField(p) && v === FIELD_TYPES.LINK) {
+    // If this contains media + links, assume the links are to the same type of media
+    return p
+  } else if (v === FIELD_TYPES.LINK && isMediaField(v)) {
+    return p
   } else if (isStringOrArray(p) && isStringOrArray(v)) {
     return FIELD_TYPES.STRING_OR_ARRAY
   } else if (isNumberOrArray(p) && isNumberOrArray(v)) {
@@ -115,19 +121,23 @@ function getFilterType (f) {
     case FIELD_TYPES.BOOLEAN:
       return FILTER_TYPES.DISCRETE
     case FIELD_TYPES.STRING:
+      // Strings with lots of words we count as text fields, not discrete fields
+      if (f.wordStats.mean > 5) {
+        f.values = undefined
+        return FILTER_TYPES.TEXT
+      }
+    // eslint-disable-next-line no-fallthrough
     case FIELD_TYPES.ARRAY:
     case FIELD_TYPES.STRING_OR_ARRAY:
     case FIELD_TYPES.NUMBER_OR_ARRAY:
       if (keyCount <= MAX_DISCRETE_VALUES[FIELD_TYPES.STRING]) {
         return FILTER_TYPES.DISCRETE
       } else {
-        f.values = undefined
+        // f.values = undefined
         return FILTER_TYPES.TEXT
       }
   }
 }
-
-const potentialUUIDTypes = [FIELD_TYPES.STRING, FIELD_TYPES.NUMBER]
 
 /**
  * Guess if a field can be used as a UUID: There are as many different values
@@ -138,10 +148,8 @@ const potentialUUIDTypes = [FIELD_TYPES.STRING, FIELD_TYPES.NUMBER]
  * @return {Boolean} [description]
  */
 function isUnique (f, features) {
-  if (potentialUUIDTypes.indexOf(f.type) < 0) return
   const keyCount = f.values && Object.keys(f.values).length
-  return features.length === keyCount &&
-    f.wordStats.max === 1
+  return features.length === keyCount
 }
 
 /**
@@ -165,11 +173,6 @@ function getType (v) {
   }
   if (Array.isArray(v)) return FIELD_TYPES.ARRAY
   return typeof v
-}
-
-function isDate (v) {
-  if (v instanceof Date) return true
-  return new Date(v) !== 'Invalid Date' && !isNaN(new Date(v))
 }
 
 /**
@@ -230,7 +233,7 @@ const getFieldAnalysis = createSelector(
         } else if (thisType === FIELD_TYPES.NUMBER) {
           field.valueStats = statReduce(field.valueStats, value, i)
         } else if (thisType === FIELD_TYPES.DATE) {
-          field.valueStats = statReduce(field.valueStats, new Date(value), i)
+          field.valueStats = statReduce(field.valueStats, parseDate(value), i)
         }
         field.values = valuesReduce(field.values, value)
       }

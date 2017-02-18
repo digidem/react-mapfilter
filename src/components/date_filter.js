@@ -10,11 +10,12 @@ import {Popover, PopoverAnimationVertical} from 'material-ui/Popover'
 import {DateRange} from 'react-date-range'
 import moment from 'moment'
 import omit from 'lodash/omit'
+import {injectIntl} from 'react-intl'
 
 import ShowAllButton from './show_all_button'
-import { titleCase } from '../util/text_helpers'
 import { listStyles } from '../styles'
 import { dateFormatShort } from '../../config.json'
+import {createMessage as msg} from '../util/intl_helpers'
 
 const PureDateRange = makePure(DateRange)
 
@@ -132,16 +133,20 @@ class DateFilter extends React.Component {
   }
 
   render () {
-    const {fieldName, min, max, valueMin, valueMax} = this.props
+    const {fieldName, min, max, valueMin, valueMax, intl: {formatMessage}} = this.props
     const isFiltered = min > valueMin || max < valueMax
     const minMoment = moment(min)
     const maxMoment = moment(max)
     const rangeStr = minMoment.format(dateFormatShort) +
       ' — ' + maxMoment.format(dateFormatShort)
+    const title = fieldName.split('.').slice(-1)[0]
+    const subTitle = fieldName.indexOf('.') > 1 ? fieldName.split('.').slice(0, -1).join(' / ') : null
+
     return (
       <ListItem
         innerDivStyle={listStyles.listItemInner}
-        primaryText={titleCase(fieldName)}
+        primaryText={formatMessage(msg('field_key')(title))}
+        secondaryText={subTitle && formatMessage(msg('field_key')(subTitle))}
         leftIcon={<DateIcon style={listStyles.listIcon} />}
         initiallyOpen
         rightIconButton={isFiltered ? <ShowAllButton onTouchTap={this.showAllDates} /> : null}
@@ -178,4 +183,4 @@ class DateFilter extends React.Component {
   }
 }
 
-export default DateFilter
+export default injectIntl(DateFilter)

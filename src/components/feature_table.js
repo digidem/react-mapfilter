@@ -1,16 +1,29 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import {Table, TableBody, TableRow, TableRowColumn} from 'material-ui/Table'
-import {FormattedMessage} from 'react-intl'
+import {FormattedMessage, FormattedDate} from 'react-intl'
 import assign from 'object-assign'
+
 import {createMessage as msg} from '../util/intl_helpers'
+import FormattedFieldname from './formatted_fieldname'
+import {FIELD_TYPES} from '../constants'
+import {parseDate} from '../util/filter_helpers'
 
 const styles = {
   firstColumn: {
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    height: 'auto',
+    verticalAlign: 'top',
+    padding: '16px 24px'
   },
-  smallRow: {
-    height: 36
+  secondColumn: {
+    height: 'auto',
+    padding: '15px 24px 15px 0',
+    lineHeight: '18px',
+    whiteSpace: 'normal'
+  },
+  row: {
+    height: 'auto'
   }
 }
 
@@ -46,19 +59,28 @@ class FeatureTable extends React.Component {
 
   render () {
     const {data, print} = this.props
-    const rowColStyle = assign({}, styles.firstColumn, {width: this.state.width})
-    if (print) assign(rowColStyle, styles.smallRow)
+    const firstColStyle = assign({}, styles.firstColumn, {width: this.state.width})
+    if (print) assign(firstColStyle, styles.smallRow)
     return (
       <Table selectable={false}>
         <TableBody displayRowCheckbox={false} preScanRows={false}>
           {data.map((row, i) => {
             return (
-              <TableRow key={row.key} style={print && styles.smallRow}>
-                <TableRowColumn ref={'__td' + i} style={rowColStyle}>
-                  <span ref={row.key}><FormattedMessage {...msg('field_key')(row.key)} /></span>
+              <TableRow key={row.key} style={styles.row}>
+                <TableRowColumn ref={'__td' + i} style={firstColStyle}>
+                  <span ref={row.key}>
+                    <FormattedFieldname fieldname={row.key} />
+                  </span>
                 </TableRowColumn>
-                <TableRowColumn style={styles.smallRow}>
-                  <FormattedMessage {...msg('field_value')(row.value)} />
+                <TableRowColumn style={styles.secondColumn}>
+                  {row.type === FIELD_TYPES.DATE
+                    ? <FormattedDate
+                      value={parseDate(row.value)}
+                      year='numeric'
+                      month='long'
+                      day='2-digit' />
+                    : <FormattedMessage {...msg('field_value')(row.value)} />
+                  }
                 </TableRowColumn>
               </TableRow>
             )
