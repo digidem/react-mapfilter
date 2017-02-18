@@ -31,8 +31,8 @@ const styles = {
   },
   addButton: {
     position: 'absolute',
-    bottom: 20,
-    right: 20,
+    bottom: 36,
+    right: 36,
     zIndex: 2
   }
 }
@@ -52,7 +52,7 @@ class IndexRoute extends React.Component {
   }
 
   render () {
-    const {activeView, activeModal, addButton, views, switchView} = this.props
+    const {activeView, activeModal, addButton: AddButton, views, switchView} = this.props
     const ModalComponent = getModalComponent(activeModal)
     const ViewComponent = getViewComponent(activeView, views)
 
@@ -62,7 +62,7 @@ class IndexRoute extends React.Component {
         <div className='inner container' style={styles.inner}>
           <FilterContainer />
           <ViewComponent />
-          {addButton && <div style={styles.addButton}><addButton /></div>}
+          {AddButton && <div style={styles.addButton}><AddButton /></div>}
         </div>
         <Modal component={ModalComponent} />
       </div>

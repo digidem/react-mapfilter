@@ -45,7 +45,7 @@ class MapFilter extends React.Component {
     features: MFPropTypes.features,
     propMap: PropTypes.func,
     mapStyle: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
-    addButton: PropTypes.object,
+    addButton: PropTypes.oneOfType([PropTypes.element, PropTypes.func]),
     views: PropTypes.array
   }
 
