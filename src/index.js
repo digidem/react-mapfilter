@@ -46,7 +46,8 @@ class MapFilter extends React.Component {
     propMap: PropTypes.func,
     mapStyle: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
     addButton: PropTypes.oneOfType([PropTypes.element, PropTypes.func]),
-    views: PropTypes.array
+    views: PropTypes.array,
+    onAddButtonClick: PropTypes.func
   }
 
   static defaultProps = {
@@ -85,11 +86,11 @@ class MapFilter extends React.Component {
   }
 
   render () {
-    const {addButton, views} = this.props
+    const {addButton, onAddButtonClick, views} = this.props
     return <Provider store={this.store}>
       <IntlProvider>
         <MuiThemeProvider muiTheme={getMuiTheme()}>
-          <IndexRoute addButton={addButton} views={views} />
+          <IndexRoute addButton={addButton} onAddButtonClick={onAddButtonClick} views={views} />
         </MuiThemeProvider>
       </IntlProvider>
     </Provider>
