@@ -1,5 +1,4 @@
 import { connect } from 'react-redux'
-import assign from 'object-assign'
 import debug from 'debug'
 import React from 'react'
 const { PropTypes } = React
@@ -35,7 +34,18 @@ const pointStyleLayer = {
     'icon-image': 'marker-{__mf_color}',
     'icon-allow-overlap': true,
     'icon-ignore-placement': true,
-    'icon-offset': [0, -10]
+    'icon-offset': [0, -10],
+    'text-field': '',
+    'text-allow-overlap': true,
+    'text-ignore-placement': true,
+    'text-size': 10,
+    'text-font': ['Open Sans Bold']
+  },
+  paint: {
+    'text-color': '#fff',
+    'text-translate': [0, -12],
+    'text-halo-color': 'rgba(100,100,100, 0.3)',
+    'text-halo-width': 0.5
   }
 }
 
@@ -49,22 +59,6 @@ const pointHoverStyleLayer = {
     'icon-allow-overlap': true,
     'icon-ignore-placement': true,
     'icon-offset': [0, -10]
-  }
-}
-
-const pointLabelsStyle = {
-  layout: {
-    'text-field': '{__mf_label}',
-    'text-allow-overlap': true,
-    'text-ignore-placement': true,
-    'text-size': 10,
-    'text-font': ['Open Sans Bold']
-  },
-  paint: {
-    'text-color': '#fff',
-    'text-translate': [0, -11],
-    'text-halo-color': '#333',
-    'text-halo-width': 1
   }
 }
 
@@ -233,20 +227,13 @@ class MapView extends React.Component {
       map.addSource('features', {type: 'geojson', data: geojson})
       // TODO: Should choose style based on whether features are point, line or polygon
 
-      let pointStyle = pointStyleLayer
-      let pointHoverStyle = pointHoverStyleLayer
-
-      if (labelPoints) {
-        pointStyle = assign({}, pointStyle, {
-          layout: assign({}, pointStyle.layout, pointLabelsStyle.layout),
-          paint: assign({}, pointStyle.paint, pointLabelsStyle.paint)
-        })
-      }
-
-      map.addLayer(pointStyle)
-      map.addLayer(pointHoverStyle)
+      map.addLayer(pointStyleLayer)
+      map.addLayer(pointHoverStyleLayer)
       if (filter) {
         map.setFilter('features', filter)
+      }
+      if (labelPoints) {
+        map.setLayoutProperty('features', 'text-field', '{__mf_label}')
       }
     })
 
@@ -275,7 +262,10 @@ class MapView extends React.Component {
       nextProps.disableScrollToZoom ? this.map.scrollZoom.disable() : this.map.scrollZoom.enable()
     }
 
-    // TODO should re-style points + point hovers according to labelPoints
+    const textField = nextProps.labelPoints ? '{__mf_label}' : ''
+    if (this.map.getLayoutProperty('features', 'text-field') !== textField) {
+      this.map.setLayoutProperty('features', 'text-field', textField)
+    }
   }
 
   componentWillUnmount () {
