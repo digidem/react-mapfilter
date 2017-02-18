@@ -14,7 +14,10 @@ export function getBoundsOrWorld (fc) {
   if (!fc || !fc.features || !fc.features.length) {
     return [-180, -85, 180, 85]
   }
-  return extent(fc)
+  return extent({
+    type: 'FeatureCollection',
+    features: fc.features.filter(f => f.geometry)
+  })
 }
 
 /**
