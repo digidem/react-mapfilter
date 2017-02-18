@@ -125,6 +125,7 @@ class MapView extends React.Component {
       {layers: ['features', 'features-hover']}
     )
     if (!features.length) return
+    this.setState({lngLat: null})
     this.props.onMarkerClick(features[0].properties.__mf_id)
   }
 
