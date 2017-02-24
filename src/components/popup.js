@@ -33,12 +33,13 @@ const styles = {
     color: 'white'
   },
   h1: {
-    margin: '10px 10px 5px 10px'
+    margin: '6px 8px 0',
+    fontSize: '1.4em'
   },
   h2: {
-    margin: '5px 10px',
+    margin: '0 8px 5px',
     fontStyle: 'normal',
-    fontSize: '14px'
+    fontSize: '1em'
   }
 }
 
