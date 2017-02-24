@@ -1,7 +1,7 @@
 {
   "name": "react-mapfilter",
   "description": "A React Component for viewing and filtering GeoJSON",
-  "version": "1.0.0-alpha.4",
+  "version": "1.0.0-alpha.5",
   "main": "es5/index.js",
   "browserify": {
     "transform": [
