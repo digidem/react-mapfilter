@@ -4,6 +4,7 @@ import Checkbox from 'material-ui/Checkbox'
 import ListIcon from 'material-ui/svg-icons/action/list'
 import {ListItem} from 'material-ui/List'
 import {injectIntl} from 'react-intl'
+import assign from 'object-assign'
 import omit from 'lodash/omit'
 
 import ShowAllButton from './show_all_button'
@@ -23,6 +24,13 @@ const styles = {
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis'
+  },
+  coloredSpan: {
+    backgroundColor: 'rgb(0, 188, 212)',
+    borderRadius: 2,
+    padding: '2px 5px',
+    color: 'white',
+    letterSpacing: '0.02em'
   },
   checkboxIcon: {
     width: 20,
@@ -96,7 +104,7 @@ class DiscreteFilter extends React.PureComponent {
   }
 
   render () {
-    const {fieldName, checked, values, intl: {formatMessage}} = this.props
+    const {fieldName, checked, values, colored, colorIndex, intl: {formatMessage}} = this.props
     const isFiltered = checked.length < Object.keys(values).length
     const title = fieldName.split('.').slice(-1)[0]
     const subTitle = fieldName.indexOf('.') > 1 ? fieldName.split('.').slice(0, -1).join(' / ') : null
@@ -118,7 +126,11 @@ class DiscreteFilter extends React.PureComponent {
             onMouseEnter={this.handleMouseEnter.bind(this, v)}
             onMouseLeave={this.handleMouseLeave}>
             <PureCheckbox
-              label={formatMessage(msg('field_value')(v))}
+              label={
+                <span style={colored ? assign({}, styles.coloredSpan, {backgroundColor: colorIndex[v]}) : null}>
+                  {formatMessage(msg('field_value')(v))}
+                </span>
+              }
               title={formatMessage(msg('field_value')(v))}
               value={v}
               style={styles.checkbox}

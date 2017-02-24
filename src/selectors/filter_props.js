@@ -4,6 +4,8 @@ import { createSelector } from 'reselect'
 
 import getFieldAnalysis from './field_analysis'
 import getVisibleFilters from './visible_filters'
+import getColorIndex from './color_index'
+import getColoredField from './colored_field'
 
 // We're only interested in filters that apply to keys that
 // actually exist in our data
@@ -29,11 +31,15 @@ const getFilterProps = createSelector(
   getFilters,
   getFieldAnalysis,
   getMergedFilterFields,
-  (filters, fieldStats, visibleFilters) => {
+  getColorIndex,
+  getColoredField,
+  (filters, fieldStats, visibleFilters, colorIndex, coloredField) => {
     return {
       filters,
       fieldStats,
-      visibleFilters
+      visibleFilters,
+      colorIndex,
+      coloredField
     }
   }
 )

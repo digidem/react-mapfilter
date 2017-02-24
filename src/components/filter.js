@@ -48,11 +48,11 @@ const messages = defineMessages({
 })
 
 const Filter = ({
-  configureFilters = false,
   filters = {},
   fieldStats = {},
   visibleFilters = [],
-  location,
+  coloredField,
+  colorIndex,
   onUpdateFilter = x => x,
   onClickSettings = x => x
 }) => (
@@ -70,6 +70,8 @@ const Filter = ({
                   fieldName={f}
                   checked={filter ? filter.in : Object.keys(field.values)}
                   values={field.values}
+                  colored={coloredField === f || coloredField + '.0' === f}
+                  colorIndex={colorIndex}
                   onUpdate={onUpdateFilter} />
                 <Divider />
               </div>
@@ -102,7 +104,6 @@ const Filter = ({
 )
 
 Filter.propTypes = {
-  configureFilters: PropTypes.bool,
   filters: PropTypes.object,
   fieldStats: PropTypes.object.isRequired,
   visibleFilters: PropTypes.arrayOf(PropTypes.string).isRequired,
