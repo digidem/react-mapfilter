@@ -1,6 +1,5 @@
 import React, { PropTypes } from 'react'
 import {findDOMNode} from 'react-dom'
-import shouldPureComponentUpdate from 'react-pure-render/function'
 import makePure from 'recompose/pure'
 import DateIcon from 'material-ui/svg-icons/action/date-range'
 import {ListItem} from 'material-ui/List'
@@ -64,15 +63,13 @@ const NestedItem = props => {
   return <div {...divProps}>{props.children}</div>
 }
 
-class DateFilter extends React.Component {
+class DateFilter extends React.PureComponent {
   static propTypes = {
     fieldName: PropTypes.string.isRequired,
     onUpdate: PropTypes.func
   }
 
   state = {}
-
-  shouldComponentUpdate = shouldPureComponentUpdate
 
   showDatePopover = (event) => {
     // This prevents ghost click.

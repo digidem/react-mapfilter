@@ -9,12 +9,30 @@ Data can be visualized as a map, a grid of photos, or a report layout. In the fu
 
 The goal is to be simple and easy to use. Our partners want to be able to easily access and explore the data they have collected.
 
+Installation
+------------
+
+Using [npm](https://www.npmjs.com/):
+
+    $ npm install --save react-mapfilter
+
+Usage
+-----
+
+`MapFilter` is a [React](https://facebook.github.io/react/) component. If you are using a module bundler like [browserify](http://browserify.org/) or [webpack](https://webpack.github.io/):
+
+```js
+var MapFilter = require('react-mapfilter').default
+```
+
+```js
+// if you are using an ES6 transpiler, like babel
+import MapFilter from 'react-mapfilter'
+```
 Demo
 ----
 
-You can see a demo of the current version of MapFilter here: http://mapfilter.ddem.us
-
-Version 2 is under active development and demo is available here: https://story-teller-cloud-12717.netlify.com
+You can see a demo of the pre-release version of MapFilter here: http://mapfilter.ddem.us
 
 Installation
 ------------
@@ -22,8 +40,8 @@ Installation
 Clone this repository locally:
 
 ```sh
-git clone https://github.com/digidem/mapfilter.git
-cd mapfilter
+git clone https://github.com/digidem/react-mapfilter.git
+cd react-mapfilter
 ```
 
 Then install dependencies and start the development server:

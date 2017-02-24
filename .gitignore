@@ -1,6 +1,7 @@
 # build dir
-dist
-build
+/dist
+/build
+/es5
 
 # deps
 node_modules
@@ -13,4 +14,3 @@ key.pem
 npm-debug.log
 secrets.txt
 .env
-es5/

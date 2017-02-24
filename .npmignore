@@ -1,0 +1,8 @@
+# random temp files
+.DS_Store
+npm-debug.log
+secrets.txt
+.env
+
+# build dir
+/build
