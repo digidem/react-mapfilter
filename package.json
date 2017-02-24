@@ -100,8 +100,9 @@
     "build:example:js": "NODE_ENV=production browserify -g envify -g uglifyify example/index.js | uglifyjs -c -m > build/bundle.js",
     "build:markers": "node ./bin/build_markers.js",
     "build:es5": "rimraf es5 && babel src/ -d es5/",
+    "build:umd": "rimraf dist && mkdirp dist && NODE_ENV=production browserify -g envify -g uglifyify -s MapFilter src/index.js | uglifyjs -c warnings=false -m > dist/react-mapfilter.js",
     "watch": "rimraf es5 && babel src/ -w -d es5/",
-    "prepublish": "npm run build:es5"
+    "prepublish": "npm run build:es5 & npm run build:umd"
   },
   "standard": {
     "parser": "babel-eslint",

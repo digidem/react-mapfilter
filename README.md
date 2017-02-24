@@ -29,6 +29,15 @@ var MapFilter = require('react-mapfilter').default
 // if you are using an ES6 transpiler, like babel
 import MapFilter from 'react-mapfilter'
 ```
+
+To use directly in the browser without a module bundler, the UMD build is also available on [unpkg](https://unpkg.com) (add this code to the `<head>` of your HTML doc:
+
+```html
+<script src="https://unpkg.com/react-mapfilter/dist/react-mapfilter.js"></script>
+```
+
+You can find the library on `window.MapFilter`.
+
 Demo
 ----
 
