@@ -52,7 +52,7 @@ class ImageGrid extends React.Component {
     } = this.props
 
     return (
-      <div style={{flex: 3}}>
+      <div style={{width: '100%', height: '100%', position: 'absolute'}}>
         <AutoSizer>
           {({height, width}) => {
             const columnsCount = Math.floor(width / thumbSize)

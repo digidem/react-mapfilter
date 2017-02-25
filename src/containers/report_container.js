@@ -15,6 +15,9 @@ import getMapGeoJSON from '../selectors/map_geojson'
 insertCss(`
 .report_wrapper {
   overflow: scroll;
+  position: absolute;
+  width: 100%;
+  height: 100%;
 }
 .report_container {
   display: flex;
@@ -33,6 +36,10 @@ insertCss(`
 }
 .report_paper:last-child {
   page-break-after: avoid !important;
+}
+.map_container {
+  flex: 1;
+  position: relative;
 }
 .page_break {
   position: absolute;
@@ -72,6 +79,11 @@ insertCss(`
   /* Override fixed positioning of top level div */
   #root > div {
     position: relative !important;
+  }
+  .report_wrapper {
+    position: relative;
+    width: auto;
+    height: auto;
   }
   .report_container {
     display: block;
@@ -124,11 +136,13 @@ class ReportContainer extends React.Component {
           <Paper className='report_paper'>
             <div className='report_page'>
               <h2>{featuresSlice.length} Observations</h2>
-              <MapView
-                {...this.props}
-                interactive={false}
-                labelPoints
-              />
+              <div className='map_container'>
+                <MapView
+                  {...this.props}
+                  interactive={false}
+                  labelPoints
+                />
+              </div>
             </div>
           </Paper>
           {

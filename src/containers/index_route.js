@@ -29,6 +29,10 @@ const styles = {
     display: 'flex',
     flex: 1
   },
+  view: {
+    flex: 3,
+    position: 'relative'
+  },
   addButton: {
     position: 'absolute',
     bottom: 36,
@@ -61,7 +65,9 @@ class IndexRoute extends React.Component {
         <TopBar views={views} activeView={activeView} onChangeTab={switchView} />
         <div className='inner container' style={styles.inner}>
           <FilterContainer />
-          <ViewComponent />
+          <div style={styles.view}>
+            <ViewComponent />
+          </div>
           {AddButton && <div style={styles.addButton}><AddButton onClick={onAddButtonClick} /></div>}
         </div>
         <Modal component={ModalComponent} />
