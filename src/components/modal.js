@@ -1,5 +1,5 @@
 import React from 'react'
-import {Modal as ReactModal} from 'react-overlays'
+import ReactModal from 'react-overlays/lib/Modal'
 import { connect } from 'react-redux'
 
 import { closeModal } from '../action_creators'
