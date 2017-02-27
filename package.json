@@ -1,7 +1,7 @@
 {
   "name": "react-mapfilter",
   "description": "A React Component for viewing and filtering GeoJSON",
-  "version": "1.0.0-alpha.6",
+  "version": "1.0.0-alpha.7",
   "main": "es5/index.js",
   "browser": {
     "mapbox-gl/dist/mapbox-gl.js": "mapbox-gl"
