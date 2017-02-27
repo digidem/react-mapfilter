@@ -2,12 +2,12 @@ import { createSelector } from 'reselect'
 
 import getFieldAnalysis from './field_analysis'
 import getRawFilteredFeatures from './filtered_features_raw'
-import {FIELD_TYPES} from '../constants'
+import { FIELD_TYPE_IMAGE } from '../constants'
 
 const getImageFieldNames = createSelector(
   getFieldAnalysis,
-  (fieldAnalysis) => Object.keys(fieldAnalysis).filter(
-    fieldname => fieldAnalysis[fieldname].type === FIELD_TYPES.IMAGE
+  (fieldAnalysis) => Object.keys(fieldAnalysis.properties).filter(
+    fieldname => fieldAnalysis.properties[fieldname].type === FIELD_TYPE_IMAGE
   )
 )
 

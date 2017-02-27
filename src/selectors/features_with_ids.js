@@ -16,7 +16,7 @@ const getFeaturesWithIds = createSelector(
     // We use an existing id feature property, if it is unique across all features,
     // or we use any unique id field we find under properties, or, failing that,
     // we generate a unique id.
-    const id = fieldAnalysis.__validGeoJsonIdField ? f.id
+    const id = fieldAnalysis.$id.isUnique ? f.id
       : f.properties[idFieldNames[0]] || uniqueId()
     return Object.assign({}, f, {id})
   })

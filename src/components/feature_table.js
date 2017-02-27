@@ -6,7 +6,7 @@ import assign from 'object-assign'
 
 import {createMessage as msg} from '../util/intl_helpers'
 import FormattedFieldname from './formatted_fieldname'
-import {FIELD_TYPES} from '../constants'
+import {FIELD_TYPE_DATE} from '../constants'
 import {parseDate} from '../util/filter_helpers'
 
 const styles = {
@@ -73,7 +73,7 @@ class FeatureTable extends React.Component {
                   </span>
                 </TableRowColumn>
                 <TableRowColumn style={styles.secondColumn}>
-                  {row.type === FIELD_TYPES.DATE
+                  {row.type === FIELD_TYPE_DATE
                     ? <FormattedDate
                       value={parseDate(row.value)}
                       year='numeric'

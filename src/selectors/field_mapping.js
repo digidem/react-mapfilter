@@ -5,7 +5,7 @@ import getFieldAnalysis from './field_analysis'
 import getColoredFieldName from './colored_field'
 import getDateFieldName from './date_field'
 import getIdFieldNames from './id_fields'
-import {FIELD_TYPES} from '../constants'
+import {FIELD_TYPE_IMAGE, FIELD_TYPE_VIDEO} from '../constants'
 
 const getTitleFieldName = createSelector(
   getBestFilterFields,
@@ -26,15 +26,15 @@ const getMediaFieldName = createSelector(
   getFieldAnalysis,
   (fieldAnalysis) => {
     let mediaField
-    for (let fieldname in fieldAnalysis) {
-      const field = fieldAnalysis[fieldname]
-      if (field.type !== FIELD_TYPES.IMAGE && field.type !== FIELD_TYPES.VIDEO) continue
+    for (let fieldname in fieldAnalysis.properties) {
+      const field = fieldAnalysis.properties[fieldname]
+      if (field.type !== FIELD_TYPE_IMAGE && field.type !== FIELD_TYPE_VIDEO) continue
       if (!mediaField) {
         mediaField = field
         continue
       }
-      const imageVsVideo = field.type === FIELD_TYPES.IMAGE &&
-                           mediaField.type === FIELD_TYPES.VIDEO
+      const imageVsVideo = field.type === FIELD_TYPE_IMAGE &&
+                           mediaField.type === FIELD_TYPE_VIDEO
       const higherCount = field.type === mediaField.type &&
                           field.count > mediaField.count
       if (imageVsVideo || higherCount) {

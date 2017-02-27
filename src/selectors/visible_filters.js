@@ -2,7 +2,6 @@ import { createSelector } from 'reselect'
 import intersect from 'lodash/intersection'
 
 import getBestFilterFields from './best_fields'
-import getFieldAnalysis from './field_analysis'
 import getFilterableFields from './filterable_fields'
 import getDateFieldName from './date_field'
 

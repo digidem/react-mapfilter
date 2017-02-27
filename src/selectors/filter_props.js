@@ -13,7 +13,7 @@ const getFilters = createSelector(
   (state) => state.filters,
   getFieldAnalysis,
   (filters, fieldStats) => {
-    return pick(filters, Object.keys(fieldStats))
+    return pick(filters, Object.keys(fieldStats.properties))
   }
 )
 

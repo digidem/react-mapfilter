@@ -1,9 +1,10 @@
 import { createSelector } from 'reselect'
 
 import getFieldAnalysis from './field_analysis'
-import {FILTER_TYPES, FIELD_TYPES} from '../constants'
+import {FILTER_TYPE_DISCRETE, FIELD_TYPE_BOOLEAN, FIELD_TYPE_STRING} from '../constants'
 
 function count (o) {
+  if (!o) return 0
   return Object.keys(o).length
 }
 
@@ -27,15 +28,15 @@ const createCompareFn = (featureCount) => (a, b) => {
   if (bCountGood && !aCountGood) return 1
 
   // Prefer boolean fields
-  if (a.type === FIELD_TYPES.BOOLEAN && b.type !== FIELD_TYPES.BOOLEAN) return -1
-  if (b.type === FIELD_TYPES.BOOLEAN && a.type !== FIELD_TYPES.BOOLEAN) return -1
+  if (a.type === FIELD_TYPE_BOOLEAN && b.type !== FIELD_TYPE_BOOLEAN) return -1
+  if (b.type === FIELD_TYPE_BOOLEAN && a.type !== FIELD_TYPE_BOOLEAN) return -1
 
   // Then prefer text fields
-  if (a.type === FIELD_TYPES.STRING && b.type !== FIELD_TYPES.STRING) return -1
-  if (b.type === FIELD_TYPES.STRING && a.type !== FIELD_TYPES.STRING) return -1
+  if (a.type === FIELD_TYPE_STRING && b.type !== FIELD_TYPE_STRING) return -1
+  if (b.type === FIELD_TYPE_STRING && a.type !== FIELD_TYPE_STRING) return -1
 
   // If both are strings, prefer fields with the least number of words
-  if (a.type === FIELD_TYPES.STRING && b.type === FIELD_TYPES.STRING) {
+  if (a.type === FIELD_TYPE_STRING && b.type === FIELD_TYPE_STRING) {
     return a.wordStats.mean - b.wordStats.mean
   }
 
@@ -50,9 +51,10 @@ const getBestFilterFields = createSelector(
   getFeatureCount,
   (fieldAnalysis, featureCount) => {
     const compareFn = createCompareFn(featureCount)
-    const discreteFields = Object.keys(fieldAnalysis)
-      .map(fieldname => fieldAnalysis[fieldname])
-      .filter(field => field.filterType === FILTER_TYPES.DISCRETE)
+    const discreteFields = Object.keys(fieldAnalysis.properties)
+      .map(fieldname => fieldAnalysis.properties[fieldname])
+      .concat([fieldAnalysis.$type])
+      .filter(field => field.filterType === FILTER_TYPE_DISCRETE)
     return discreteFields.sort(compareFn)
   }
 )

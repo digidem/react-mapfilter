@@ -8,7 +8,12 @@ import {defineMessages, FormattedMessage} from 'react-intl'
 
 import DiscreteFilter from './discrete_filter'
 import DateFilter from './date_filter'
-import {FILTER_TYPES} from '../constants'
+import {
+  FILTER_TYPE_DISCRETE,
+  FILTER_TYPE_RANGE,
+  FILTER_TYPE_DATE,
+  FILTER_TYPE_TEXT
+} from '../constants'
 
 const style = {
   outer: {
@@ -60,10 +65,10 @@ const Filter = ({
     <List style={style.list}>
       {/* TODO allow these to be reordered */}
       {visibleFilters.map((f) => {
-        const field = fieldStats[f]
+        const field = fieldStats.properties[f] || {}
         const filter = filters[f]
         switch (field.filterType) {
-          case FILTER_TYPES.DISCRETE:
+          case FILTER_TYPE_DISCRETE:
             return (
               <div key={f}>
                 <DiscreteFilter
@@ -76,9 +81,11 @@ const Filter = ({
                 <Divider />
               </div>
             )
-          case FILTER_TYPES.RANGE:
+          case FILTER_TYPE_RANGE:
             return
-          case FILTER_TYPES.DATE:
+          case FILTER_TYPE_TEXT:
+            return
+          case FILTER_TYPE_DATE:
             return (
               <div key={f}>
                 <DateFilter

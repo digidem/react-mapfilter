@@ -2,17 +2,112 @@ import { createSelector } from 'reselect'
 import makeUrlRegex from 'url-regex'
 import url from 'url'
 import path from 'path'
-import isPlainObject from 'is-plain-object'
 
-import {FIELD_TYPES, FILTER_TYPES} from '../constants'
+import {
+  FIELD_TYPE_STRING,
+  FIELD_TYPE_BOOLEAN,
+  FIELD_TYPE_NUMBER,
+  FIELD_TYPE_DATE,
+  FIELD_TYPE_MIXED,
+  FIELD_TYPE_UUID,
+  FIELD_TYPE_IMAGE,
+  FIELD_TYPE_VIDEO,
+  FIELD_TYPE_MEDIA,
+  FIELD_TYPE_AUDIO,
+  FIELD_TYPE_LINK,
+  FIELD_TYPE_ARRAY,
+  FIELD_TYPE_STRING_OR_ARRAY,
+  FIELD_TYPE_NUMBER_OR_ARRAY,
+  FIELD_TYPE_FILENAME,
+  FIELD_TYPE_UNDEFINED,
+  FIELD_TYPE_NULL,
+  FILTER_TYPE_DISCRETE,
+  FILTER_TYPE_RANGE,
+  FILTER_TYPE_DATE,
+  FILTER_TYPE_TEXT
+} from '../constants'
+
 import {parseDate, isDate} from '../util/filter_helpers'
+import getFlattenedFeatures from './flattened_features'
+
+/**
+ * Analyzes the fields of features in a featureCollection and guesses the
+ *   field type and what type of filter to use: `discrete`, `number`,
+ *   `date` (subtype of continuous), or `text` (and field that has more than
+ *   `maxTextValues` discrete values). Number fields with <= `maxNumberCount`
+ *   different values are considered discrete.
+ * @param {object} featureCollection GeoJson FeatureCollection
+ * @return {object} An object with a key for each unique field name in the
+ *   FeatureCollection with properties `type` of filter to use, a count for
+ *   each discrete option, or a min/max for continuous fields
+ */
+const getFieldAnalysis = createSelector(
+  getFlattenedFeatures,
+  function analyzeFields (features) {
+    var props
+    var feature
+    var keys
+    var i
+    var j
+    var value
+    var fieldname
+    var field
+    var geometryType
+
+    var analysis = {
+      properties: {},
+      $id: {},
+      $type: {}
+    }
+
+    // Iterate over every feature in the FeatureCollection
+    // This is performance critical, so we use for loops instead of Array.reduce
+    for (i = 0; i < features.length; i++) {
+      feature = features[i]
+      props = feature.properties || {}
+      keys = Object.keys(props)
+      for (j = 0; j < keys.length; j++) {
+        value = props[keys[j]]
+        fieldname = keys[j]
+        field = analysis.properties[fieldname] = analysis.properties[fieldname] || {fieldname: fieldname}
+        analyzeField(field, value, i)
+      }
+      analyzeField(analysis.$id, feature.id, i)
+      geometryType = feature.geometry && feature.geometry.type
+      analyzeField(analysis.$type, geometryType, i)
+    }
+
+    for (fieldname in analysis.properties) {
+      field = analysis.properties[fieldname]
+      field.isUnique = isUnique(field, features.length)
+      if (isUUIDField(field)) field.type = FIELD_TYPE_UUID
+      field.filterType = getFilterType(field)
+      if (field.filterType === FILTER_TYPE_DISCRETE && field.count < features.length) {
+        // Add undefined values
+        field.values.undefined = (field.values.undefined || 0) + (features.length - field.count)
+      }
+      if (field.filterType !== FILTER_TYPE_DISCRETE) {
+        // Free up memory if we're not going to use field.values
+        field.values = null
+      }
+    }
+
+    analysis.$id.isUnique = isUnique(analysis.$id, features.length)
+    analysis.$id.values = null
+    analysis.$type.filterType = getFilterType(analysis.$type)
+
+    return analysis
+  }
+)
+
+export default getFieldAnalysis
 
 const urlRegex = makeUrlRegex({exact: true})
 
 // Max number of unique text values for a field to still be a filterable discrete field
 const MAX_DISCRETE_VALUES = {
-  [FIELD_TYPES.STRING]: 15,
-  [FIELD_TYPES.NUMBER]: 5
+  [FIELD_TYPE_STRING]: 15,
+  [FIELD_TYPE_NUMBER]: 5
 }
 
 const imageExts = ['jpg', 'tif', 'jpeg', 'png', 'tiff', 'webp']
@@ -20,22 +115,61 @@ const videoExts = ['mov', 'mp4', 'avi', 'webm']
 const audioExts = ['3gpp', 'wav', 'wma', 'mp3', 'm4a', 'aiff', 'ogg']
 const mediaExts = imageExts.concat(videoExts, audioExts)
 
-const filterableTypes = [
-  FIELD_TYPES.DATE,
-  FIELD_TYPES.STRING,
-  FIELD_TYPES.NUMBER,
-  FIELD_TYPES.BOOLEAN,
-  FIELD_TYPES.ARRAY,
-  FIELD_TYPES.STRING_OR_ARRAY,
-  FIELD_TYPES.NUMBER_OR_ARRAY
-]
+const types = {
+  'string': FIELD_TYPE_STRING,
+  'boolean': FIELD_TYPE_BOOLEAN,
+  'number': FIELD_TYPE_NUMBER,
+  'undefined': FIELD_TYPE_UNDEFINED
+}
+
+const isFilterable = {
+  [FIELD_TYPE_DATE]: true,
+  [FIELD_TYPE_STRING]: true,
+  [FIELD_TYPE_NUMBER]: true,
+  [FIELD_TYPE_BOOLEAN]: true,
+  [FIELD_TYPE_ARRAY]: true,
+  [FIELD_TYPE_STRING_OR_ARRAY]: true,
+  [FIELD_TYPE_NUMBER_OR_ARRAY]: true
+}
+
+const isMediaField = {
+  [FIELD_TYPE_VIDEO]: true,
+  [FIELD_TYPE_IMAGE]: true,
+  [FIELD_TYPE_MEDIA]: true
+}
+
+const isStringOrArray = {
+  [FIELD_TYPE_STRING]: true,
+  [FIELD_TYPE_ARRAY]: true,
+  [FIELD_TYPE_STRING_OR_ARRAY]: true
+}
+
+const isNumberOrArray = {
+  [FIELD_TYPE_NUMBER]: true,
+  [FIELD_TYPE_ARRAY]: true,
+  [FIELD_TYPE_NUMBER_OR_ARRAY]: true
+}
+
+function analyzeField (field, value, i) {
+  var type = getType(value)
+  field.type = typeReduce(field.type, type)
+  field.count = (field.count || 0) + 1
+  if (!isFilterable[field.type]) return
+  if (type === FIELD_TYPE_STRING) {
+    field.wordStats = statReduce(field.wordStats, wc(value), i)
+    field.lengthStats = statReduce(field.lengthStats, value.length, i)
+  } else if (type === FIELD_TYPE_ARRAY) {
+    field.maxArrayLength = Math.max(field.maxArrayLength || 1, value.length)
+  } else if (type === FIELD_TYPE_NUMBER) {
+    field.valueStats = statReduce(field.valueStats, value, i)
+  } else if (type === FIELD_TYPE_DATE) {
+    field.valueStats = statReduce(field.valueStats, parseDate(value), i)
+  }
+  field.values = valuesReduce(field.values, value)
+}
 
 function wc (s) {
   return s.split(/ |_/).length
-}
-
-function isFilterable (type) {
-  return filterableTypes.indexOf(type) > -1
 }
 
 /**
@@ -58,18 +192,6 @@ function statReduce (p = {mean: NaN, vari: NaN, min: +Infinity, max: -Infinity},
   }
 }
 
-function isMediaField (fieldType) {
-  return [FIELD_TYPES.VIDEO, FIELD_TYPES.IMAGE, FIELD_TYPES.MEDIA].indexOf(fieldType) > -1
-}
-
-function isStringOrArray (fieldType) {
-  return [FIELD_TYPES.STRING, FIELD_TYPES.ARRAY, FIELD_TYPES.STRING_OR_ARRAY].indexOf(fieldType) > -1
-}
-
-function isNumberOrArray (fieldType) {
-  return [FIELD_TYPES.NUMBER, FIELD_TYPES.ARRAY, FIELD_TYPES.NUMBER_OR_ARRAY].indexOf(fieldType) > -1
-}
-
 /**
  * Reducer that returns 'mixed' if values are not all the same,
  * or 'media' if field is a mixture of image and video files
@@ -79,22 +201,30 @@ function isNumberOrArray (fieldType) {
  */
 function typeReduce (p, v) {
   if (!p || v === p) return v
-  if (isMediaField(p) && isMediaField(v)) {
-    return FIELD_TYPES.MEDIA
-  } else if (isMediaField(p) && v === FIELD_TYPES.LINK) {
+  if (isMediaField[p] && isMediaField[v]) {
+    return FIELD_TYPE_MEDIA
+  } else if (isMediaField[p] && v === FIELD_TYPE_LINK ||
+    v === FIELD_TYPE_UNDEFINED || v === FIELD_TYPE_NULL) {
     // If this contains media + links, assume the links are to the same type of media
     return p
-  } else if (v === FIELD_TYPES.LINK && isMediaField(v)) {
-    return p
-  } else if (isStringOrArray(p) && isStringOrArray(v)) {
-    return FIELD_TYPES.STRING_OR_ARRAY
-  } else if (isNumberOrArray(p) && isNumberOrArray(v)) {
-    return FIELD_TYPES.NUMBER_OR_ARRAY
+  } else if (p === FIELD_TYPE_LINK && isMediaField[v] ||
+    p === FIELD_TYPE_UNDEFINED || p === FIELD_TYPE_NULL) {
+    return v
+  } else if (isStringOrArray[p] && isStringOrArray[v]) {
+    return FIELD_TYPE_STRING_OR_ARRAY
+  } else if (isNumberOrArray[p] && isNumberOrArray[v]) {
+    return FIELD_TYPE_NUMBER_OR_ARRAY
   } else {
-    return FIELD_TYPES.MIXED
+    return FIELD_TYPE_MIXED
   }
 }
 
+/**
+ * Reducer that returns the count of each value for a field
+ * @param {Object} p Accumulator
+ * @param {Any} v Any value
+ * @return {Object} An object with a key for each value and the count of that value
+ */
 function valuesReduce (p = {}, v) {
   v = Array.isArray(v) ? v : [v]
   v.forEach(function (w) {
@@ -103,155 +233,86 @@ function valuesReduce (p = {}, v) {
   return p
 }
 
+/**
+ * Return the filter type for a field `f`.
+ * @param {Object} f A field object with analysis props
+ * @return {String} Filter type: date, range, discrete or text
+ */
 function getFilterType (f) {
   const keyCount = f.values && Object.keys(f.values).length
-  if (!isFilterable(f.type)) return
   // No point in having a filter for only one value
-  if (keyCount === 1) return
+  if (!isFilterable[f.type] || keyCount === 1) return
   switch (f.type) {
-    case FIELD_TYPES.DATE:
-      return FILTER_TYPES.DATE
-    case FIELD_TYPES.NUMBER:
-      if (keyCount <= MAX_DISCRETE_VALUES[FIELD_TYPES.NUMBER]) {
-        return FILTER_TYPES.DISCRETE
+    case FIELD_TYPE_DATE:
+      return FILTER_TYPE_DATE
+    case FIELD_TYPE_NUMBER:
+      if (keyCount <= MAX_DISCRETE_VALUES[FIELD_TYPE_NUMBER]) {
+        return FILTER_TYPE_DISCRETE
       } else {
-        f.values = undefined
-        return FILTER_TYPES.RANGE
+        return FILTER_TYPE_RANGE
       }
-    case FIELD_TYPES.BOOLEAN:
-      return FILTER_TYPES.DISCRETE
-    case FIELD_TYPES.STRING:
+    case FIELD_TYPE_BOOLEAN:
+      return FILTER_TYPE_DISCRETE
+    case FIELD_TYPE_STRING:
       // Strings with lots of words we count as text fields, not discrete fields
       if (f.wordStats.mean > 5) {
-        f.values = undefined
-        return FILTER_TYPES.TEXT
+        return FILTER_TYPE_TEXT
       }
     // eslint-disable-next-line no-fallthrough
-    case FIELD_TYPES.ARRAY:
-    case FIELD_TYPES.STRING_OR_ARRAY:
-    case FIELD_TYPES.NUMBER_OR_ARRAY:
-      if (keyCount <= MAX_DISCRETE_VALUES[FIELD_TYPES.STRING]) {
-        return FILTER_TYPES.DISCRETE
+    case FIELD_TYPE_ARRAY:
+    case FIELD_TYPE_STRING_OR_ARRAY:
+    case FIELD_TYPE_NUMBER_OR_ARRAY:
+      if (keyCount <= MAX_DISCRETE_VALUES[FIELD_TYPE_STRING]) {
+        return FILTER_TYPE_DISCRETE
       } else {
-        // f.values = undefined
-        return FILTER_TYPES.TEXT
+        return FILTER_TYPE_TEXT
       }
   }
-}
-
-/**
- * Guess if a field can be used as a UUID: There are as many different values
- * as there are features, and wordcount === 1 - this is to avoid text fields
- * been classified as UUID fields.
- * @param {object} f A field object with analysis props
- * @param {array} features Array of features
- * @return {Boolean} [description]
- */
-function isUnique (f, features) {
-  const keyCount = f.values && Object.keys(f.values).length
-  return features.length === keyCount
 }
 
 /**
  * Returns the type of a value, guessing types `date`, `link`, `image`, `video`
- * @param {any} v Type to be evaluated
- * @return {string} One of `string`, `number`, `bool`, `date`, `link`, `image`, `video`
+ * @param {any} v Value to be evaluated
+ * @return {string} Field type
  */
 function getType (v) {
-  if (isDate(v)) return FIELD_TYPES.DATE
-  if (typeof v === 'string') {
-    if (urlRegex.test(v)) {
-      const pathname = url.parse(v).pathname
-      const ext = path.extname(pathname).slice(1)
-      if (imageExts.indexOf(ext) > -1) return FIELD_TYPES.IMAGE
-      if (videoExts.indexOf(ext) > -1) return FIELD_TYPES.VIDEO
-      if (audioExts.indexOf(ext) > -1) return FIELD_TYPES.AUDIO
-      return FIELD_TYPES.LINK
-    }
-    const ext = path.extname(v).slice(1)
-    if (v.split('/').length === 1 && mediaExts.indexOf(ext) > -1) return FIELD_TYPES.FILENAME
+  if (Array.isArray(v)) return FIELD_TYPE_ARRAY
+  if (v === null) return FIELD_TYPE_NULL
+  if (typeof v !== 'string') return types[typeof v]
+  // isDate() is the most expensive test, so we do it as little as possible
+  if (isDate(v)) return FIELD_TYPE_DATE
+  if (urlRegex.test(v)) {
+    const pathname = url.parse(v).pathname
+    const ext = path.extname(pathname).slice(1)
+    if (imageExts.indexOf(ext) > -1) return FIELD_TYPE_IMAGE
+    if (videoExts.indexOf(ext) > -1) return FIELD_TYPE_VIDEO
+    if (audioExts.indexOf(ext) > -1) return FIELD_TYPE_AUDIO
+    return FIELD_TYPE_LINK
   }
-  if (Array.isArray(v)) return FIELD_TYPES.ARRAY
-  return typeof v
+  const ext = path.extname(v).slice(1)
+  if (v.split('/').length === 1 && mediaExts.indexOf(ext) > -1) return FIELD_TYPE_FILENAME
+  return FIELD_TYPE_STRING
 }
 
 /**
- * Guess if a field is a UUID: if it has a length greater than
+ * Is a field unique?
+ * @param {object} field        A field object with analysis props
+ * @param {number} featureCount Total number of features
+ * @return {Boolean}
+ */
+function isUnique (field, featureCount) {
+  const valueCount = field.values && Object.keys(field.values).length
+  return featureCount === valueCount
+}
+
+/**
+ * Guess if a field is a UUID: if it is unique, has a length greater than
  * 30, no variance in length, and is only one word.
-**/
+ */
 function isUUIDField (f) {
   if (!f.isUnique) return
-  if (f.type !== FIELD_TYPES.STRING) return
+  if (f.type !== FIELD_TYPE_STRING) return
   return f.lengthStats.mean > 30 &&
     f.lengthStats.vari === 0 &&
     f.wordStats.max === 1
 }
-
-/**
- * Analyzes the fields of features in a featureCollection and guesses the
- *   field type and what type of filter to use: `discrete`, `number`,
- *   `date` (subtype of continuous), or `text` (and field that has more than
- *   `maxTextValues` discrete values). Number fields with <= `maxNumberCount`
- *   different values are considered discrete.
- * @param {object} featureCollection GeoJson FeatureCollection
- * @return {object} An object with a key for each unique field name in the
- *   FeatureCollection with properties `type` of filter to use, a count for
- *   each discrete option, or a min/max for continuous fields
- */
-const getFieldAnalysis = createSelector(
-  (state) => state.features,
-  function analyzeFields (features) {
-    const analysis = {}
-    let idFieldValues = {}
-    // Iterate over every feature in the FeatureCollection
-    for (let i = 0; i < features.length; i++) {
-      if (features[i].id) idFieldValues = valuesReduce(idFieldValues, features[i].id)
-      // For each feature, iterate over its properties
-      traverse(features[i].properties, i)
-    }
-
-    function traverse (obj, i, prefix = '') {
-      let keys = Object.keys(obj)
-      for (let j = 0; j < keys.length; j++) {
-        let value = obj[keys[j]]
-        let fieldname = prefix + keys[j]
-        if (isPlainObject(value)) {
-          traverse(value, i, fieldname + '.')
-          continue
-        }
-        let field = analysis[fieldname] = analysis[fieldname] || {fieldname: fieldname}
-        let thisType = getType(value)
-        field.type = typeReduce(field.type, thisType)
-        field.count = (field.count || 0) + 1
-        if (!isFilterable(field.type)) continue
-        if (thisType === FIELD_TYPES.STRING) {
-          field.wordStats = statReduce(field.wordStats, wc(value), i)
-          field.lengthStats = statReduce(field.lengthStats, value.length, i)
-        }
-        if (thisType === FIELD_TYPES.ARRAY) {
-          field.maxArrayLength = Math.max(field.maxArrayLength || 1, value.length)
-        } else if (thisType === FIELD_TYPES.NUMBER) {
-          field.valueStats = statReduce(field.valueStats, value, i)
-        } else if (thisType === FIELD_TYPES.DATE) {
-          field.valueStats = statReduce(field.valueStats, parseDate(value), i)
-        }
-        field.values = valuesReduce(field.values, value)
-      }
-    }
-
-    for (let fieldname in analysis) {
-      let field = analysis[fieldname]
-      field.isUnique = isUnique(field, features)
-      if (isUUIDField(field)) field.type = FIELD_TYPES.UUID
-      field.filterType = getFilterType(field)
-    }
-    const isIdFieldUnique = Object.keys(idFieldValues).length === features.length
-    // TODO: this could cause an edge-case (extremely unlikely) bug if a feature
-    // has an existing property called `__validGeoJsonIdField`.
-    // Should restructure analysis object
-    analysis.__validGeoJsonIdField = isIdFieldUnique
-    return analysis
-  }
-)
-
-export default getFieldAnalysis

@@ -1,14 +1,20 @@
 import { createSelector } from 'reselect'
 
 import getFieldAnalysis from './field_analysis'
-import {FIELD_TYPES} from '../constants'
+import {
+  FIELD_TYPE_STRING,
+  FIELD_TYPE_BOOLEAN,
+  FIELD_TYPE_NUMBER,
+  FIELD_TYPE_DATE,
+  FIELD_TYPE_MIXED
+} from '../constants'
 
 const isInterestingField = {
-  [FIELD_TYPES.STRING]: true,
-  [FIELD_TYPES.BOOLEAN]: true,
-  [FIELD_TYPES.NUMBER]: true,
-  [FIELD_TYPES.DATE]: true,
-  [FIELD_TYPES.MIXED]: true
+  [FIELD_TYPE_STRING]: true,
+  [FIELD_TYPE_BOOLEAN]: true,
+  [FIELD_TYPE_NUMBER]: true,
+  [FIELD_TYPE_DATE]: true,
+  [FIELD_TYPE_MIXED]: true
 }
 
 const getVisibleFields = createSelector(
@@ -17,8 +23,8 @@ const getVisibleFields = createSelector(
   (visibleFields, fieldAnalysis) => {
     if (visibleFields) return visibleFields
     visibleFields = []
-    for (let fieldname in fieldAnalysis) {
-      let fieldType = fieldAnalysis[fieldname].type
+    for (let fieldname in fieldAnalysis.properties) {
+      let fieldType = fieldAnalysis.properties[fieldname].type
       if (isInterestingField[fieldType]) visibleFields.push(fieldname)
     }
     return visibleFields

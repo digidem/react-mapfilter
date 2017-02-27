@@ -93,7 +93,7 @@ export default connect(
     const geojsonProps = feature.properties
     const data = visibleFields
       .filter(f => typeof geojsonProps[f] !== 'undefined')
-      .map(f => ({key: f, value: geojsonProps[f], type: fieldAnalysis[f].type}))
+      .map(f => ({key: f, value: geojsonProps[f], type: fieldAnalysis.properties[f].type}))
     if (feature.geometry) {
       data.unshift({
         key: 'location',

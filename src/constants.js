@@ -1,24 +1,22 @@
-export const FIELD_TYPES = {
-  STRING: 'string',
-  BOOLEAN: 'boolean',
-  NUMBER: 'number',
-  DATE: 'date',
-  MIXED: 'mixed',
-  UUID: 'uuid',
-  IMAGE: 'image',
-  VIDEO: 'video',
-  MEDIA: 'media',
-  AUDIO: 'audio',
-  LINK: 'link',
-  ARRAY: 'array',
-  STRING_OR_ARRAY: 'string_or_array',
-  NUMBER_OR_ARRAY: 'number_or_array',
-  FILENAME: 'filename'
-}
+export const FIELD_TYPE_STRING = 'string'
+export const FIELD_TYPE_BOOLEAN = 'boolean'
+export const FIELD_TYPE_NUMBER = 'number'
+export const FIELD_TYPE_DATE = 'date'
+export const FIELD_TYPE_MIXED = 'mixed'
+export const FIELD_TYPE_UUID = 'uuid'
+export const FIELD_TYPE_IMAGE = 'image'
+export const FIELD_TYPE_VIDEO = 'video'
+export const FIELD_TYPE_MEDIA = 'media'
+export const FIELD_TYPE_AUDIO = 'audio'
+export const FIELD_TYPE_LINK = 'link'
+export const FIELD_TYPE_ARRAY = 'array'
+export const FIELD_TYPE_STRING_OR_ARRAY = 'string_or_array'
+export const FIELD_TYPE_NUMBER_OR_ARRAY = 'number_or_array'
+export const FIELD_TYPE_FILENAME = 'filename'
+export const FIELD_TYPE_UNDEFINED = 'undefined'
+export const FIELD_TYPE_NULL = 'null'
 
-export const FILTER_TYPES = {
-  DISCRETE: 'DISCRETE',
-  RANGE: 'RANGE',
-  DATE: 'DATE',
-  TEXT: 'TEXT'
-}
+export const FILTER_TYPE_DISCRETE = 'DISCRETE'
+export const FILTER_TYPE_RANGE = 'RANGE'
+export const FILTER_TYPE_DATE = 'DATE'
+export const FILTER_TYPE_TEXT = 'TEXT'
