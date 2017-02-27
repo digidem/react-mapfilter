@@ -3,12 +3,6 @@
   "description": "A React Component for viewing and filtering GeoJSON",
   "version": "1.0.0-alpha.6",
   "main": "es5/index.js",
-  "browserify": {
-    "transform": [
-      "babelify",
-      "brfs"
-    ]
-  },
   "browser": {
     "mapbox-gl/dist/mapbox-gl.js": "mapbox-gl"
   },
@@ -103,10 +97,10 @@
     "test": "exit 0",
     "build:example": "mkdirp build && npm run -s build:example:statics && npm run -s build:example:js",
     "build:example:statics": "copyfiles -u 1 'example/**/*' build",
-    "build:example:js": "NODE_ENV=production browserify -g envify -g uglifyify example/index.js | uglifyjs -c -m > build/bundle.js",
+    "build:example:js": "NODE_ENV=production browserify -t babelify -t brfs -g envify -g uglifyify example/index.js | uglifyjs -c -m > build/bundle.js",
     "build:markers": "node ./bin/build_markers.js",
     "build:es5": "rimraf es5 && babel src/ -d es5/",
-    "build:umd": "rimraf dist && mkdirp dist && NODE_ENV=production browserify -g envify -g uglifyify -p bundle-collapser/plugin -s MapFilter src/index.js | uglifyjs -c warnings=false -m > dist/react-mapfilter.js",
+    "build:umd": "rimraf dist && mkdirp dist && NODE_ENV=production browserify -t babelify -g envify -g uglifyify -p bundle-collapser/plugin -s MapFilter src/index.js | uglifyjs -c warnings=false -m > dist/react-mapfilter.js",
     "watch": "rimraf es5 && babel src/ -w -d es5/",
     "prepublish": "npm run build:es5 & npm run build:umd"
   },
