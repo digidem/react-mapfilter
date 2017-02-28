@@ -1,19 +1,19 @@
 import { createSelector } from 'reselect'
 
 import getFieldAnalysis from './field_analysis'
-import getColoredField from './colored_field'
+import getFieldMapping from './field_mapping'
 
 import CONFIG from '../../config.json'
 
 const getColorIndex = createSelector(
-  getColoredField,
+  getFieldMapping,
   getFieldAnalysis,
-  (coloredField, fieldStats) => {
+  (fieldMapping, fieldAnalysis) => {
+    if (!fieldMapping.color) return
+    const coloredField = fieldAnalysis.properties[fieldMapping.color]
     const colorIndex = {}
-    if (!coloredField) return colorIndex
-    if (!fieldStats.properties[coloredField].values) return colorIndex
-    const values = Object.keys(fieldStats.properties[coloredField].values)
-    if (!values) return colorIndex
+    if (!coloredField || !coloredField.values) return colorIndex
+    const values = coloredField.values.map(v => v.value)
     values.forEach((v, i) => {
       colorIndex[v] = CONFIG.colors[i] || CONFIG.defaultColor
     })

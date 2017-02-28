@@ -2,25 +2,27 @@ import { createSelector } from 'reselect'
 
 import getBestFilterFields from './best_fields'
 import getFieldAnalysis from './field_analysis'
-import getColoredFieldName from './colored_field'
+import getFilterFields from './filter_fields'
 import getDateFieldName from './date_field'
-import getIdFieldNames from './id_fields'
-import {FIELD_TYPE_IMAGE, FIELD_TYPE_VIDEO} from '../constants'
+import {
+  FIELD_TYPE_IMAGE,
+  FIELD_TYPE_VIDEO,
+  FILTER_TYPE_DISCRETE
+} from '../constants'
 
 const getTitleFieldName = createSelector(
   getBestFilterFields,
   getDateFieldName,
-  getIdFieldNames,
-  (bestFilterFields, dateFieldName, idFieldNames) => {
+  (bestFilterFields, dateFieldName) => {
     return (bestFilterFields[0] && bestFilterFields[0].fieldname) ||
-      dateFieldName || idFieldNames[0] || 'No Title'
+      dateFieldName || 'No Title'
   }
 )
 
-const getSubtitleFieldName = (state) => {
-  const bestFilterFields = getBestFilterFields(state)
-  return bestFilterFields[1] && bestFilterFields[1].fieldname
-}
+const getSubtitleFieldName = createSelector(
+  getBestFilterFields,
+  (bestFilterFields) => bestFilterFields[1] && bestFilterFields[1].fieldname
+)
 
 const getMediaFieldName = createSelector(
   getFieldAnalysis,
@@ -45,18 +47,33 @@ const getMediaFieldName = createSelector(
   }
 )
 
+const getColoredFieldName = createSelector(
+  (state) => state.fieldMapping,
+  getFieldAnalysis,
+  getFilterFields,
+  (fieldMapping, fieldAnalysis, visibleFilters) => {
+    if (visibleFilters.indexOf(fieldMapping.color) > -1) return fieldMapping.color
+    var discreteFilters = visibleFilters.filter(function (fieldName) {
+      return fieldAnalysis.properties[fieldName].filterType === FILTER_TYPE_DISCRETE
+    })
+    return discreteFilters[0]
+  }
+)
+
 const getFieldMapping = createSelector(
   (state) => state.fieldMapping,
   getTitleFieldName,
   getSubtitleFieldName,
   getMediaFieldName,
   getColoredFieldName,
-  (fieldMapping, titleFieldName, subtitleFieldName, mediaFieldName, coloredFieldName) => {
+  getDateFieldName,
+  (fieldMapping, titleFieldName, subtitleFieldName, mediaFieldName, coloredFieldName, dateFieldName) => {
     return {
       title: fieldMapping.title || titleFieldName,
       subtitle: fieldMapping.subtitle || subtitleFieldName,
       media: fieldMapping.media || mediaFieldName,
-      color: fieldMapping.color || coloredFieldName
+      color: coloredFieldName,
+      date: dateFieldName
     }
   }
 )

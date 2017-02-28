@@ -1,16 +1,16 @@
 import { createSelector } from 'reselect'
 
 import getFieldAnalysis from './field_analysis'
+import getFlattenedFeatures from './flattened_features'
 import {FILTER_TYPE_DISCRETE, FIELD_TYPE_BOOLEAN, FIELD_TYPE_STRING} from '../constants'
 
 function count (o) {
   if (!o) return 0
-  return Object.keys(o).length
+  return o.length
 }
 
-function getFeatureCount (state) {
-  return state.features.count
-}
+// TODO: This would be easier to follow if we did a ranking and sorted by that,
+// rather than this complicated logic.
 
 const createCompareFn = (featureCount) => (a, b) => {
   // If either field appears in less than 80% of features,
@@ -48,9 +48,9 @@ const createCompareFn = (featureCount) => (a, b) => {
  */
 const getBestFilterFields = createSelector(
   getFieldAnalysis,
-  getFeatureCount,
-  (fieldAnalysis, featureCount) => {
-    const compareFn = createCompareFn(featureCount)
+  getFlattenedFeatures,
+  (fieldAnalysis, features) => {
+    const compareFn = createCompareFn(features.length)
     const discreteFields = Object.keys(fieldAnalysis.properties)
       .map(fieldname => fieldAnalysis.properties[fieldname])
       .concat([fieldAnalysis.$type])

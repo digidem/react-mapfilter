@@ -3,7 +3,7 @@ import {intlReducer} from 'react-intl-redux'
 
 import features from './features'
 import filters from './filters'
-import visibleFilters from './visible_filters'
+import filterFields from './filter_fields'
 import mapPosition from './map_position'
 import mapStyle from './map_style'
 import ui from './ui'
@@ -13,7 +13,7 @@ import resizer from './resizer'
 export default combineReducers({
   features,
   filters,
-  visibleFilters,
+  filterFields,
   mapPosition,
   mapStyle,
   ui,

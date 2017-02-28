@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect'
 
 import getFieldAnalysis from './field_analysis'
-import getRawFilteredFeatures from './filtered_features_raw'
+import getFilteredFeatures from './filtered_features'
 import { FIELD_TYPE_IMAGE } from '../constants'
 
 const getImageFieldNames = createSelector(
@@ -12,7 +12,7 @@ const getImageFieldNames = createSelector(
 )
 
 const getImages = createSelector(
-  getRawFilteredFeatures,
+  getFilteredFeatures,
   getImageFieldNames,
   (features, imageFieldNames) => {
     return features.reduce((p, feature) => {

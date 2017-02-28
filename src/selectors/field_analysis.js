@@ -83,18 +83,21 @@ const getFieldAnalysis = createSelector(
       if (isUUIDField(field)) field.type = FIELD_TYPE_UUID
       field.filterType = getFilterType(field)
       if (field.filterType === FILTER_TYPE_DISCRETE && field.count < features.length) {
-        // Add undefined values
+        // Add count of undefined values
         field.values.undefined = (field.values.undefined || 0) + (features.length - field.count)
       }
       if (field.filterType !== FILTER_TYPE_DISCRETE) {
         // Free up memory if we're not going to use field.values
         field.values = null
+      } else {
+        field.values = parseMapValues(field.values)
       }
     }
 
     analysis.$id.isUnique = isUnique(analysis.$id, features.length)
     analysis.$id.values = null
     analysis.$type.filterType = getFilterType(analysis.$type)
+    analysis.$type.values = parseMapValues(analysis.$type.values)
 
     return analysis
   }
@@ -228,6 +231,7 @@ function typeReduce (p, v) {
 function valuesReduce (p = {}, v) {
   v = Array.isArray(v) ? v : [v]
   v.forEach(function (w) {
+    w = JSON.stringify(w)
     p[w] = typeof p[w] === 'undefined' ? 1 : p[w] + 1
   })
   return p
@@ -292,6 +296,19 @@ function getType (v) {
   const ext = path.extname(v).slice(1)
   if (v.split('/').length === 1 && mediaExts.indexOf(ext) > -1) return FIELD_TYPE_FILENAME
   return FIELD_TYPE_STRING
+}
+
+/**
+ * We initially process values as a map value -> count,
+ * with the value encoded with JSON.stringify() so that
+ * it is not coerced to a string when set as an object property.
+ * This function parses those values back to their original
+ * type and turns the values map into a sorted array
+ */
+function parseMapValues (values) {
+  return Object.keys(values).sort().map(function (v) {
+    return {value: JSON.parse(v), count: values[v]}
+  })
 }
 
 /**

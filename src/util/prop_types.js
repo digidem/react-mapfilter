@@ -1,8 +1,7 @@
 import {PropTypes} from 'react'
 
 // GeoJSON passed to the map view must be a FeatureCollection
-// of point features with specific properties used for the popup
-// and marker coloring.
+// of point features.
 // We need to ensure each feature has an id so we can handle
 // callbacks for when a marker is clicked or hovered.
 export const mapViewFeature = PropTypes.shape({
@@ -17,14 +16,7 @@ export const mapViewFeature = PropTypes.shape({
       type: PropTypes.oneOf(['Point']).isRequired,
       coordinates: PropTypes.array.isRequired
     })
-  ]).isRequired,
-  properties: PropTypes.shape({
-    __mf_color: PropTypes.string.isRequired,
-    __mf_id: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number
-    ]).isRequired
-  }).isRequired
+  ]).isRequired
 })
 
 export const fieldMapping = PropTypes.shape({

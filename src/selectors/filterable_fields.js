@@ -6,12 +6,15 @@ import {
   FILTER_TYPE_DATE
 } from '../constants'
 
+const isFilterable = {
+  [FILTER_TYPE_DISCRETE]: true,
+  [FILTER_TYPE_DATE]: true
+}
+
 const getFilterableFields = createSelector(
   getFieldAnalysis,
-  (fieldAnalysis) => Object
-      .entries(fieldAnalysis.properties)
-      .filter(([k, v]) => v.filterType === FILTER_TYPE_DATE || v.filterType === FILTER_TYPE_DISCRETE)
-      .map(([k, v]) => k)
+  (fieldAnalysis) => Object.keys(fieldAnalysis.properties)
+    .filter(fieldName => isFilterable[fieldAnalysis.properties[fieldName].filterType])
 )
 
 export default getFilterableFields
