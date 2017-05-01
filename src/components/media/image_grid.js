@@ -3,6 +3,7 @@ import Grid from 'react-virtualized/dist/commonjs/Grid/Grid'
 import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer'
 import getScrollBarWidth from 'get-scrollbar-width'
 import assign from 'object-assign'
+import {connect} from 'react-redux'
 
 require('react-virtualized/styles.css')
 
@@ -82,14 +83,19 @@ class ImageGrid extends React.Component {
   _renderCell = (width, {columnIndex, rowIndex, key, style}) => {
     const {
       images,
-      thumbSize
+      thumbSize,
+      resizer
     } = this.props
     const columnsCount = Math.floor(width / thumbSize)
     const image = images[(rowIndex * columnsCount) + columnIndex]
     if (!image) return
-    const url = 'http://resizer.digital-democracy.org/' + thumbSize * pixelRatio + '/' + image.url
+    const imgSize = thumbSize * pixelRatio
+    const imageUrl = resizer
+      .replace('{width}', imgSize)
+      .replace('{height}', imgSize)
+      .replace('{url}', image.url)
     return <img
-      src={url}
+      src={imageUrl}
       key={key}
       style={assign({}, styles.image, style)}
       onClick={this.handleImageClick.bind(this, image.featureId)}
@@ -97,4 +103,6 @@ class ImageGrid extends React.Component {
   }
 }
 
-export default ImageGrid
+export default connect(
+  state => ({resizer: state.resizer})
+)(ImageGrid)

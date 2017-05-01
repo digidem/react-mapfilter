@@ -48,7 +48,11 @@ class Example extends React.Component {
     this.setState({ui})
   }
   render () {
-    return <MapFilter features={features} ui={this.state.ui} onChangeUi={this.handleChangeUi} />
+    return <MapFilter
+      resizer='https://resizer.digital-democracy.org/{width}/{height}/{url}'
+      features={features}
+      ui={this.state.ui}
+      onChangeUi={this.handleChangeUi} />
   }
 }
 

@@ -41,7 +41,8 @@ const storeEnhancer = devTools ? compose(devTools, applyMiddleware(thunk)) : app
 const controllableProps = [
   'features',
   'mapStyle',
-  'ui'
+  'ui',
+  'resizer'
 ]
 
 class MapFilter extends React.Component {
@@ -50,6 +51,7 @@ class MapFilter extends React.Component {
     propMap: PropTypes.func,
     mapStyle: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
     actionButton: PropTypes.oneOfType([PropTypes.element, PropTypes.func]),
+    resizer: PropTypes.string,
     views: PropTypes.array
   }
 
@@ -57,6 +59,7 @@ class MapFilter extends React.Component {
     features: [],
     propMap: prop => prop,
     mapStyle: config.defaultMapStyle,
+    resizer: '',
     views: [{
       id: 'map',
       component: MapView
