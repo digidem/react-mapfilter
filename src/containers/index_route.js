@@ -34,7 +34,7 @@ const styles = {
     flex: 3,
     position: 'relative'
   },
-  addButton: {
+  actionButton: {
     position: 'absolute',
     bottom: 36,
     right: 36,
@@ -57,7 +57,7 @@ class IndexRoute extends React.Component {
   }
 
   render () {
-    const {activeView, activeModal, addButton: AddButton, onAddButtonClick, views, switchView} = this.props
+    const {activeView, activeModal, actionButton: ActionButton, views, switchView} = this.props
     const ModalComponent = getModalComponent(activeModal)
     const ViewComponent = getViewComponent(activeView, views)
 
@@ -71,7 +71,7 @@ class IndexRoute extends React.Component {
               <ViewComponent />
             </ViewContainer>
           </div>
-          {AddButton && <div style={styles.addButton}><AddButton onClick={onAddButtonClick} /></div>}
+          {ActionButton && <div style={styles.actionButton}><ActionButton /></div>}
         </div>
         <Modal component={ModalComponent} />
       </div>
