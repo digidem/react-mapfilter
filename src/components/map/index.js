@@ -1,14 +1,15 @@
-import { connect } from 'react-redux'
 import debug from 'debug'
 import React from 'react'
 const { PropTypes } = React
-import mapboxgl from 'mapbox-gl/dist/mapbox-gl.js'
+import mapboxgl from 'mapbox-gl'
 import deepEqual from 'deep-equal'
+import assign from 'object-assign'
+import featureFilter from 'feature-filter-geojson'
 
-import * as MFPropTypes from '../util/prop_types'
-import { getBoundsOrWorld } from '../util/map_helpers'
+import * as MFPropTypes from '../../util/prop_types'
+import { getBoundsOrWorld } from '../../util/map_helpers'
 
-import config from '../../config.json'
+import config from '../../../config.json'
 import Popup from './popup'
 
 require('mapbox-gl/dist/mapbox-gl.css')
@@ -18,23 +19,19 @@ mapboxgl.accessToken = config.mapboxToken
 
 const log = debug('mf:mapview')
 
-const emptyFeatureCollection = {
+let savedMap
+let savedMapDiv
+
+const emptyGeoJson = {
   type: 'FeatureCollection',
   features: []
 }
 
-let savedMap
-let savedMapDiv
-
-const pointStyleLayer = {
-  id: 'features',
+const labelStyleLayer = {
+  id: 'labels',
   type: 'symbol',
   source: 'features',
   layout: {
-    'icon-image': 'marker-{__mf_color}',
-    'icon-allow-overlap': true,
-    'icon-ignore-placement': true,
-    'icon-offset': [0, -10],
     'text-field': '',
     'text-allow-overlap': true,
     'text-ignore-placement': true,
@@ -43,36 +40,51 @@ const pointStyleLayer = {
   },
   paint: {
     'text-color': '#fff',
-    'text-translate': [0, -12],
     'text-halo-color': 'rgba(100,100,100, 0.3)',
     'text-halo-width': 0.5
   }
 }
 
-const pointHoverStyleLayer = {
-  id: 'features-hover',
-  type: 'symbol',
+const pointStyleLayer = {
+  id: 'points',
+  type: 'circle',
   source: 'features',
-  filter: ['==', '__mf_id', ''],
-  layout: {
-    'icon-image': 'marker-{__mf_color}-hover',
-    'icon-allow-overlap': true,
-    'icon-ignore-placement': true,
-    'icon-offset': [0, -10]
+  paint: {
+    // make circles larger as the user zooms from z12 to z22
+    'circle-radius': {
+      'base': 1.5,
+      'stops': [[7, 5], [18, 50]]
+    },
+    'circle-color': {
+      'property': '__mf_color',
+      'type': 'identity'
+    },
+    'circle-opacity': 0.75,
+    'circle-stroke-width': 1.5,
+    'circle-stroke-color': '#ffffff',
+    'circle-stroke-opacity': 0.9
   }
+}
+
+const pointHoverStyleLayer = {
+  id: 'points-hover',
+  type: 'circle',
+  source: 'hover',
+  paint: assign({}, pointStyleLayer.paint, {
+    'circle-opacity': 1,
+    'circle-stroke-width': 2.5,
+    'circle-stroke-color': '#ffffff',
+    'circle-stroke-opacity': 1
+  })
 }
 
 const noop = (x) => x
 
 class MapView extends React.Component {
   static defaultProps = {
-    geojson: emptyFeatureCollection,
-    onMarkerClick: noop,
-    onMove: noop,
-    style: {
-      height: '100%',
-      width: '100%'
-    },
+    features: [],
+    showFeatureDetail: noop,
+    moveMap: noop,
     interactive: true,
     labelPoints: false
   }
@@ -81,10 +93,7 @@ class MapView extends React.Component {
     /* map center point [lon, lat] */
     center: PropTypes.array,
     /* Geojson FeatureCollection of features to show on map */
-    geojson: PropTypes.shape({
-      type: PropTypes.oneOf(['FeatureCollection']).isRequired,
-      features: PropTypes.arrayOf(MFPropTypes.mapViewFeature).isRequired
-    }),
+    features: PropTypes.arrayOf(MFPropTypes.mapViewFeature).isRequired,
     /* Current filter (See https://www.mapbox.com/mapbox-gl-style-spec/#types-filter) */
     filter: MFPropTypes.mapboxFilter,
     /**
@@ -97,21 +106,19 @@ class MapView extends React.Component {
      * Triggered when a marker is clicked. Called with a (cloned) GeoJson feature
      * object of the marker that was clicked.
      */
-    onMarkerClick: PropTypes.func,
+    showFeatureDetail: PropTypes.func,
     /* Triggered when map is moved, called with map center [lng, lat] */
-    onMove: PropTypes.func,
+    moveMap: PropTypes.func,
     fieldMapping: MFPropTypes.fieldMapping,
     /* map zoom */
     zoom: PropTypes.number,
-    /* container styling */
-    style: PropTypes.object,
-    disableScrollToZoom: PropTypes.bool
+    interactive: PropTypes.bool
   }
 
   state = {}
 
   handleMapMoveOrZoom = (e) => {
-    this.props.onMove({
+    this.props.moveMap({
       center: this.map.getCenter().toArray(),
       zoom: this.map.getZoom(),
       bearing: this.map.getBearing()
@@ -119,31 +126,43 @@ class MapView extends React.Component {
   }
 
   handleMapClick = (e) => {
-    if (!this.map.loaded()) return
+    // if (!this.map.loaded()) return
     var features = this.map.queryRenderedFeatures(
       e.point,
-      {layers: ['features', 'features-hover']}
+      {layers: ['points-hover']}
     )
     if (!features.length) return
     this.setState({lngLat: null})
-    this.props.onMarkerClick(features[0].properties.__mf_id)
+    this.props.showFeatureDetail(features[0].properties.__mf_id)
   }
 
   handleMouseMove = (e) => {
     if (!this.map.loaded()) return
     var features = this.map.queryRenderedFeatures(
       e.point,
-      {layers: ['features', 'features-hover']}
+      {layers: ['points', 'points-hover']}
     )
     this.map.getCanvas().style.cursor = (features.length) ? 'pointer' : ''
     if (!features.length) {
       this.setState({lngLat: null})
-      this.map.setFilter('features-hover', ['==', '__mf_id', ''])
+      this.map.getSource('hover').setData(emptyGeoJson)
       return
     }
-    this.map.setFilter('features-hover', ['==', '__mf_id', features[0].properties.__mf_id])
+    this.map.getSource('hover').setData(features[0])
     this.setState({lngLat: features[0].geometry.coordinates})
     this.setState(this.getPopupProps(features[0].properties))
+  }
+
+  ready (fn) {
+    const self = this
+    if (this.map.loaded()) {
+      fn()
+    } else {
+      this.map.once('load', () => {
+        console.log('loaded', this.map.loaded())
+        fn.call(self)
+      })
+    }
   }
 
   getPopupProps (featureProps) {
@@ -155,13 +174,11 @@ class MapView extends React.Component {
   }
 
   render () {
-    const { style } = this.props
-
     return (
       <div style={{width: '100%', height: '100%', position: 'absolute'}}>
         <div
           ref={(el) => (this.mapContainer = el)}
-          style={style}
+          style={{width: '100%', height: '100%'}}
         />
         {this.state.lngLat && <Popup map={this.map} {...this.state} />}
       </div>
@@ -183,18 +200,20 @@ class MapView extends React.Component {
   // The first time our component mounts, render a new map into `mapDiv`
   // with settings from props.
   componentDidMount () {
-    const { center, interactive, filter, labelPoints, mapStyle, geojson, zoom } = this.props
+    const { center, interactive, filter, labelPoints, mapStyle, zoom } = this.props
     let map
 
     if (savedMap) {
       this.mapContainer.appendChild(savedMapDiv)
       map = this.map = savedMap
       map.resize()
-      this.componentWillReceiveProps(this.props)
+      this.updateIfNeeded(this.props)
       if (interactive) {
-        map.on('moveend', this.handleMapMoveOrZoom)
-        map.on('click', this.handleMapClick)
-        map.on('mousemove', this.handleMouseMove)
+        this.ready(() => {
+          map.on('moveend', this.handleMapMoveOrZoom)
+          map.on('click', this.handleMapClick)
+          map.on('mousemove', this.handleMouseMove)
+        })
       }
       return
     }
@@ -219,60 +238,81 @@ class MapView extends React.Component {
     map.dragRotate.disable()
     map.touchZoomRotate.disableRotation()
 
+    this.geojson = this.getGeoJson(this.props)
+
     map.once('load', () => {
       if (interactive) {
         map.on('moveend', this.handleMapMoveOrZoom)
         map.on('click', this.handleMapClick)
         map.on('mousemove', this.handleMouseMove)
       }
-      map.addSource('features', {type: 'geojson', data: geojson})
+      map.addSource('features', {type: 'geojson', data: this.geojson})
       // TODO: Should choose style based on whether features are point, line or polygon
-
+      map.addSource('hover', {type: 'geojson', data: emptyGeoJson})
       map.addLayer(pointStyleLayer)
       map.addLayer(pointHoverStyleLayer)
+      map.addLayer(labelStyleLayer)
       if (filter) {
-        map.setFilter('features', filter)
+        map.setFilter('points', filter)
+        map.setFilter('labels', filter)
       }
       if (labelPoints) {
-        map.setLayoutProperty('features', 'text-field', '{__mf_label}')
+        map.setLayoutProperty('labels', 'text-field', '{__mf_label}')
       }
     })
 
     // If no map center or zoom passed, set map extent to extent of marker layer
     if (!center || !zoom) {
-      this.centerMap(geojson)
+      this.centerMap(this.geojson)
     }
   }
 
   componentWillReceiveProps (nextProps) {
-    this.moveIfNeeded(nextProps.center, nextProps.zoom)
-    const isDataUpdated = this.updateDataIfNeeded(
-      nextProps.geojson,
-      nextProps.coloredField
-    )
-    if (isDataUpdated && !nextProps.center || !nextProps.zoom) {
-      this.centerMap(nextProps.geojson)
-    }
-    this.updateFilterIfNeeded(nextProps.filter)
-
-    if (this.props.mapStyle !== nextProps.mapStyle) {
-      this.map.setStyle(nextProps.mapStyle)
-    }
-
-    if (this.props.disableScrollToZoom !== nextProps.disableScrollToZoom) {
-      nextProps.disableScrollToZoom ? this.map.scrollZoom.disable() : this.map.scrollZoom.enable()
-    }
-
-    const textField = nextProps.labelPoints ? '{__mf_label}' : ''
-    if (this.map.getLayoutProperty('features', 'text-field') !== textField) {
-      this.map.setLayoutProperty('features', 'text-field', textField)
-    }
+    this.ready(() => this.updateIfNeeded(nextProps, this.props))
   }
 
   componentWillUnmount () {
     this.map.off('moveend', this.handleMapMoveOrZoom)
     this.map.off('click', this.handleMapClick)
     this.map.off('mousemove', this.handleMouseMove)
+  }
+
+  updateIfNeeded (nextProps, props = {}) {
+    const {mapStyle, disableScrollToZoom} = props
+    let isDataUpdated = false
+    let shouldDataUpdate = nextProps.features !== props.features ||
+      nextProps.fieldMapping !== props.fieldMapping ||
+      nextProps.colorIndex !== props.colorIndex ||
+      (nextProps.filter !== props.filter && props.labelPoints)
+
+    if (shouldDataUpdate) {
+      this.geojson = this.getGeoJson(nextProps)
+      console.log(this.geojson)
+      this.ready(() => {
+        console.log('setting source', this.geojson)
+        this.map.getSource('features').setData(this.geojson)
+      })
+      isDataUpdated = true
+    }
+    if (isDataUpdated && !nextProps.center || !nextProps.zoom) {
+      this.centerMap(this.geojson)
+    }
+    this.updateFilterIfNeeded(nextProps.filter)
+
+    if (mapStyle !== nextProps.mapStyle) {
+      this.map.setStyle(nextProps.mapStyle)
+    }
+
+    if (disableScrollToZoom !== nextProps.disableScrollToZoom) {
+      nextProps.disableScrollToZoom ? this.map.scrollZoom.disable() : this.map.scrollZoom.enable()
+    }
+
+    const textField = nextProps.labelPoints ? '{__mf_label}' : ''
+    this.ready(() => {
+      if (this.map.getLayoutProperty('labels', 'text-field') !== textField) {
+        this.map.setLayoutProperty('labels', 'text-field', textField)
+      }
+    })
   }
 
   /**
@@ -300,46 +340,39 @@ class MapView extends React.Component {
     return false
   }
 
-  /**
-   * [updateDataIfNeeded description]
-   * @param {[type]} features     [description]
-   * @param {[type]} coloredField [description]
-   * @return {[type]} [description]
-   */
-  updateDataIfNeeded (geojson, coloredField) {
-    if (geojson === this.geojson &&
-        (!coloredField || coloredField === this.coloredField)) {
-      return
-    }
-    this.geojson = geojson
-    this.coloredField = coloredField
-    log('updated map geojson')
-    if (this.map.loaded()) {
-      this.map.getSource('features').setData(geojson)
-    } else {
-      this.map.on('load', () => this.map.getSource('features').setData(geojson))
-    }
-  }
-
   updateFilterIfNeeded (filter) {
-    if (filter !== this.filter && filter) {
-      this.filter = filter
+    if (filter !== this.props.filter && filter) {
       log('new filter')
       if (this.map.style.loaded()) {
-        this.map.setFilter('features', filter)
+        this.map.setFilter('points', filter)
       } else {
-        this.map.on('load', () => this.map.setFilter('features', filter))
+        this.map.on('load', () => this.map.setFilter('points', filter))
       }
     }
   }
-}
 
-const mapStateToProps = state => {
-  return {
-    mapStyle: state.mapStyle
+  // Construct GeoJSON for map
+  getGeoJson ({features = [], fieldMapping = {}, colorIndex = {}, filter = []}) {
+    let i = 0
+    const ff = featureFilter(filter)
+    return {
+      type: 'FeatureCollection',
+      features: features
+        .filter(f => f.geometry)
+        .map(f => {
+          const newFeature = {
+            type: 'feature',
+            geometry: f.geometry,
+            properties: assign({}, f.properties, {
+              __mf_id: f.id,
+              __mf_color: colorIndex[f.properties[fieldMapping.color]]
+            })
+          }
+          if (ff(f)) newFeature.properties.__mf_label = config.labelChars.charAt(i++)
+          return newFeature
+        })
+    }
   }
 }
 
-export default connect(
-  mapStateToProps
-)(MapView)
+export default MapView

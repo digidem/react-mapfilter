@@ -10,7 +10,7 @@ import {defineMessages, FormattedMessage} from 'react-intl'
 
 import FormattedFieldname from './formatted_fieldname'
 import getFilterableFields from '../selectors/filterable_fields'
-import getVisibleFilters from '../selectors/visible_filters'
+import getFilterFields from '../selectors/filter_fields'
 import { removeFilter, updateVisibleFilters } from '../action_creators'
 
 const styles = {
@@ -122,7 +122,7 @@ class FilterConfigurator extends React.Component {
 function mapStateToProps (state) {
   return {
     filterableFields: getFilterableFields(state),
-    visibleFilters: getVisibleFilters(state)
+    visibleFilters: getFilterFields(state)
   }
 }
 

@@ -4,10 +4,10 @@ import {Table, TableBody, TableRow, TableRowColumn} from 'material-ui/Table'
 import {FormattedMessage, FormattedDate} from 'react-intl'
 import assign from 'object-assign'
 
-import {createMessage as msg} from '../util/intl_helpers'
-import FormattedFieldname from './formatted_fieldname'
-import {FIELD_TYPE_DATE} from '../constants'
-import {parseDate} from '../util/filter_helpers'
+import {createMessage as msg} from '../../util/intl_helpers'
+import FormattedFieldname from '../formatted_fieldname'
+import {FIELD_TYPE_DATE} from '../../constants'
+import {parseDate} from '../../util/filter_helpers'
 
 const styles = {
   firstColumn: {
@@ -18,12 +18,16 @@ const styles = {
   },
   secondColumn: {
     height: 'auto',
-    padding: '15px 24px 15px 0',
+    padding: '1px 24px 15px 0',
     lineHeight: '18px',
     whiteSpace: 'normal'
   },
   row: {
     height: 'auto'
+  },
+  smallRow: {
+    paddingTop: 8,
+    paddingBottom: 8
   }
 }
 
@@ -60,7 +64,11 @@ class FeatureTable extends React.Component {
   render () {
     const {data, print} = this.props
     const firstColStyle = assign({}, styles.firstColumn, {width: this.state.width})
-    if (print) assign(firstColStyle, styles.smallRow)
+    let secondColStyle = styles.secondColumn
+    if (print) {
+      assign(firstColStyle, styles.smallRow)
+      secondColStyle = assign({}, secondColStyle, styles.smallRow)
+    }
     return (
       <Table selectable={false}>
         <TableBody displayRowCheckbox={false} preScanRows={false}>
@@ -72,7 +80,7 @@ class FeatureTable extends React.Component {
                     <FormattedFieldname fieldname={row.key} />
                   </span>
                 </TableRowColumn>
-                <TableRowColumn style={styles.secondColumn}>
+                <TableRowColumn style={secondColStyle}>
                   {row.type === FIELD_TYPE_DATE
                     ? <FormattedDate
                       value={parseDate(row.value)}

@@ -3,11 +3,12 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import find from 'lodash/find'
 
-import FilterContainer from './filter_container'
+import ViewContainer from './view_container'
 import TopBar from './top_bar'
 import * as actionCreators from '../action_creators'
 
 import Modal from '../components/modal'
+import FilterPane from '../components/filter'
 import FeatureDetail from '../components/feature_detail'
 import FilterConfigurator from '../components/filter_configurator'
 
@@ -64,9 +65,11 @@ class IndexRoute extends React.Component {
       <div className='outer container' style={styles.outer}>
         <TopBar views={views} activeView={activeView} onChangeTab={switchView} />
         <div className='inner container' style={styles.inner}>
-          <FilterContainer />
+          <FilterPane />
           <div style={styles.view}>
-            <ViewComponent />
+            <ViewContainer>
+              <ViewComponent />
+            </ViewContainer>
           </div>
           {AddButton && <div style={styles.addButton}><AddButton onClick={onAddButtonClick} /></div>}
         </div>

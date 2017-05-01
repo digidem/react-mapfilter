@@ -2,7 +2,6 @@ import { connect } from 'react-redux'
 
 import FilterView from '../components/filter'
 import { updateFilter, openSettings } from '../action_creators'
-import getFilterProps from '../selectors/filter_props'
 
 function mapDispatchToProps (dispatch) {
   return {
@@ -12,6 +11,6 @@ function mapDispatchToProps (dispatch) {
 }
 
 export default connect(
-  getFilterProps,
+  state => {},
   mapDispatchToProps
 )(FilterView)

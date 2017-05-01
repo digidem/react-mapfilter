@@ -1,10 +1,17 @@
 import React from 'react'
 const { PropTypes } = React
-import pure from 'recompose/pure'
+import { connect } from 'react-redux'
 import {List, ListItem} from 'material-ui/List'
 import Divider from 'material-ui/Divider'
 import SettingsIcon from 'material-ui/svg-icons/action/settings'
 import {defineMessages, FormattedMessage} from 'react-intl'
+
+import getFilterFields from '../../selectors/filter_fields'
+import getFieldAnalysis from '../../selectors/field_analysis'
+import getFieldMapping from '../../selectors/field_mapping'
+import getColorIndex from '../../selectors/color_index'
+
+import { updateFilter, openSettings } from '../../action_creators'
 
 import DiscreteFilter from './discrete_filter'
 import DateFilter from './date_filter'
@@ -13,7 +20,7 @@ import {
   FILTER_TYPE_RANGE,
   FILTER_TYPE_DATE,
   FILTER_TYPE_TEXT
-} from '../constants'
+} from '../../constants'
 
 const style = {
   outer: {
@@ -55,7 +62,7 @@ const messages = defineMessages({
 const Filter = ({
   filters = {},
   fieldStats = {},
-  visibleFilters = [],
+  filterFields = [],
   coloredField,
   colorIndex,
   onUpdateFilter = x => x,
@@ -64,7 +71,7 @@ const Filter = ({
   <div className='filter' style={style.outer}>
     <List style={style.list}>
       {/* TODO allow these to be reordered */}
-      {visibleFilters.map((f) => {
+      {filterFields.map((f) => {
         const field = fieldStats.properties[f] || {}
         const filter = filters[f]
         switch (field.filterType) {
@@ -73,7 +80,7 @@ const Filter = ({
               <div key={f}>
                 <DiscreteFilter
                   fieldName={f}
-                  checked={filter ? filter.in : Object.keys(field.values)}
+                  checked={filter ? filter.in : field.values.map(v => v.value)}
                   values={field.values}
                   colored={coloredField === f || coloredField + '.0' === f}
                   colorIndex={colorIndex}
@@ -113,10 +120,30 @@ const Filter = ({
 Filter.propTypes = {
   filters: PropTypes.object,
   fieldStats: PropTypes.object.isRequired,
-  visibleFilters: PropTypes.arrayOf(PropTypes.string).isRequired,
+  filterFields: PropTypes.arrayOf(PropTypes.string).isRequired,
   /* called with valid mapbox-gl filter when updated */
   onUpdateFilter: PropTypes.func,
   onClickSettings: PropTypes.func
 }
 
-export default pure(Filter)
+function mapStateToProps (state) {
+  return {
+    filters: state.filters,
+    filterFields: getFilterFields(state),
+    fieldStats: getFieldAnalysis(state),
+    coloredField: getFieldMapping(state).color,
+    colorIndex: getColorIndex(state)
+  }
+}
+
+function mapDispatchToProps (dispatch) {
+  return {
+    onUpdateFilter: filter => dispatch(updateFilter(filter)),
+    onClickSettings: () => dispatch(openSettings('filters'))
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Filter)

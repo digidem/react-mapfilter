@@ -1,9 +1,9 @@
 import React from 'react'
-import Image from './image'
 import assign from 'object-assign'
 import {FormattedMessage} from 'react-intl'
 
-import {createMessage as msg} from '../util/intl_helpers'
+import Image from '../../components/image'
+import {createMessage as msg} from '../../util/intl_helpers'
 
 const styles = {
   wrapper: {
@@ -12,11 +12,11 @@ const styles = {
     padding: 0,
     backgroundColor: 'black',
     cursor: 'pointer',
-    pointerEvents: 'none',
     position: 'absolute',
     willChange: 'transform',
     top: 0,
-    left: 0
+    left: 0,
+    pointerEvents: 'none'
   },
   image: {
     width: 200,
@@ -47,7 +47,7 @@ class Popup extends React.Component {
   static defaultProps = {
     offset: {
       x: 0,
-      y: -12
+      y: 0
     }
   }
   constructor (props) {

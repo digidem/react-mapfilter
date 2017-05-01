@@ -25,7 +25,16 @@ class Image extends React.Component {
   state = {}
 
   componentDidMount () {
-    const {src, resizer} = this.props
+    this.onPropChange({}, this.props)
+  }
+
+  componentWillReceiveProps (nextProps) {
+    this.onPropChange(this.props, nextProps)
+  }
+
+  onPropChange (props, nextProps) {
+    if (props.src === nextProps.src) return
+    const {src, resizer} = nextProps
     let mediaSrc = src
 
     if (resizer) {

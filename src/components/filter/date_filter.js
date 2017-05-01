@@ -12,9 +12,9 @@ import omit from 'lodash/omit'
 import {injectIntl} from 'react-intl'
 
 import ShowAllButton from './show_all_button'
-import { listStyles } from '../styles'
-import { dateFormatShort } from '../../config.json'
-import {createMessage as msg} from '../util/intl_helpers'
+import { listStyles } from '../../styles'
+import { dateFormatShort } from '../../../config.json'
+import {createMessage as msg} from '../../util/intl_helpers'
 
 const PureDateRange = makePure(DateRange)
 

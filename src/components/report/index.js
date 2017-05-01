@@ -1,16 +1,11 @@
 import React, { PropTypes } from 'react'
-import { connect } from 'react-redux'
 import Paper from 'material-ui/Paper'
 import insertCss from 'insert-css'
 
-import FeatureDetail from '../components/feature_detail'
-import * as MFPropTypes from '../util/prop_types'
-import MapView from '../components/map_view'
-import Alert from '../components/alert'
-import getFieldMapping from '../selectors/field_mapping'
-import getFilteredFeatures from '../selectors/filtered_features'
-import getMapboxFilter from '../selectors/mapbox_filter'
-import getMapGeoJSON from '../selectors/map_geojson'
+import FeatureDetail from '../feature_detail'
+import * as MFPropTypes from '../../util/prop_types'
+import MapView from '../map'
+import Alert from './alert'
 
 insertCss(`
 .report_wrapper {
@@ -111,25 +106,21 @@ insertCss(`
 }
 `)
 
-class ReportContainer extends React.Component {
+class ReportView extends React.Component {
   static propTypes = {
-    features: PropTypes.array.isRequired,
+    filteredFeatures: PropTypes.arrayOf(MFPropTypes.mapViewFeature).isRequired,
     fieldMapping: MFPropTypes.fieldMapping,
-    filter: MFPropTypes.mapboxFilter,
-    geojson: PropTypes.shape({
-      type: PropTypes.oneOf(['FeatureCollection']).isRequired,
-      features: PropTypes.arrayOf(MFPropTypes.mapViewFeature).isRequired
-    }).isRequired
+    filter: MFPropTypes.mapboxFilter
   }
 
   render () {
-    const { features } = this.props
-    const featuresSlice = features.length > 26 ? features.slice(0, 26) : features
+    const { filteredFeatures } = this.props
+    const featuresSlice = filteredFeatures.length > 26 ? filteredFeatures.slice(0, 26) : filteredFeatures
 
     return (
       <div className='report_wrapper'>
         <div className='report_header'>
-          {features.length > 26 && <Alert label={'Current filters show ' + features.length +
+          {filteredFeatures.length > 26 && <Alert label={'Current filters show ' + filteredFeatures.length +
               ' records, a report will only show the first 26 records'} />}
         </div>
         <div className='report_container'>
@@ -139,6 +130,7 @@ class ReportContainer extends React.Component {
               <div className='map_container'>
                 <MapView
                   {...this.props}
+                  features={featuresSlice}
                   interactive={false}
                   labelPoints
                 />
@@ -173,15 +165,4 @@ class ReportContainer extends React.Component {
   }
 }
 
-function mapStateToProps (state) {
-  return {
-    features: getFilteredFeatures(state),
-    fieldMapping: getFieldMapping(state),
-    filter: getMapboxFilter(state),
-    geojson: getMapGeoJSON(state)
-  }
-}
-
-export default connect(
-  mapStateToProps
-)(ReportContainer)
+export default ReportView

@@ -306,6 +306,7 @@ function getType (v) {
  * type and turns the values map into a sorted array
  */
 function parseMapValues (values) {
+  if (!values) return []
   return Object.keys(values).sort().map(function (v) {
     return {value: JSON.parse(v), count: values[v]}
   })

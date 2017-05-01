@@ -18,9 +18,9 @@ import {capitalize} from './util/text_helpers'
 import IndexRoute from './containers/index_route'
 import reducers from './reducers'
 import controlledStore from './controlled_store'
-import MapContainer from './containers/map_container'
-import ReportContainer from './containers/report_container'
-import ImageContainer from './containers/image_container'
+import MapView from './components/map'
+import ReportView from './components/report'
+import MediaView from './components/media'
 import config from '../config.json'
 
 // Roboto font
@@ -31,7 +31,11 @@ require('../css/animations.css')
 require('react-tap-event-plugin')()
 
 // Attach Chrome devTools extensions if it is present.
-const devTools = window.devToolsExtension ? window.devToolsExtension() : undefined
+let devTools
+if (process.env.NODE_ENV !== 'production' && window.devToolsExtension) {
+  devTools = window.devToolsExtension()
+}
+
 const storeEnhancer = devTools ? compose(devTools, applyMiddleware(thunk)) : applyMiddleware(thunk)
 
 const controllableProps = [
@@ -56,13 +60,13 @@ class MapFilter extends React.Component {
     mapStyle: config.defaultMapStyle,
     views: [{
       id: 'map',
-      component: MapContainer
+      component: MapView
     }, {
       id: 'media',
-      component: ImageContainer
+      component: MediaView
     }, {
       id: 'report',
-      component: ReportContainer
+      component: ReportView
     }]
   }
 

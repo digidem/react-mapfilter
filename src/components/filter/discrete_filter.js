@@ -9,8 +9,9 @@ import omit from 'lodash/omit'
 
 import ShowAllButton from './show_all_button'
 import OnlyButton from './only_button'
-import {createMessage as msg} from '../util/intl_helpers'
-import { listStyles } from '../styles'
+import {createMessage as msg} from '../../util/intl_helpers'
+import { listStyles } from '../../styles'
+import {FIELD_TYPE_BOOLEAN, FIELD_TYPE_NUMBER} from '../../constants'
 
 const PureCheckbox = makePure(Checkbox)
 
@@ -51,7 +52,7 @@ class DiscreteFilter extends React.PureComponent {
   static propTypes = {
     fieldName: PropTypes.string.isRequired,
     checked: PropTypes.array,
-    values: PropTypes.objectOf(PropTypes.number),
+    values: PropTypes.arrayOf(PropTypes.object),
     onUpdate: PropTypes.func
   }
 
@@ -71,13 +72,12 @@ class DiscreteFilter extends React.PureComponent {
     })
   }
 
-  handleCheck = (e) => {
-    const v = e.target.value
+  handleCheck = (value, e) => {
     const checked = this.props.checked.slice(0)
-    if (e.target.checked && checked.indexOf(v) === -1) {
-      checked.push(v)
-    } else if (!e.target.checked && checked.indexOf(v) > -1) {
-      checked.splice(checked.indexOf(v), 1)
+    if (e.target.checked && checked.indexOf(value) === -1) {
+      checked.push(value)
+    } else if (!e.target.checked && checked.indexOf(value) > -1) {
+      checked.splice(checked.indexOf(value), 1)
     }
     this.props.onUpdate({
       exp: 'in',
@@ -105,7 +105,7 @@ class DiscreteFilter extends React.PureComponent {
 
   render () {
     const {fieldName, checked, values, colored, colorIndex, intl: {formatMessage}} = this.props
-    const isFiltered = checked.length < Object.keys(values).length
+    const isFiltered = checked.length < values.length
     const title = fieldName.split('.').slice(-1)[0]
     const subTitle = fieldName.indexOf('.') > 1 ? fieldName.split('.').slice(0, -1).join(' / ') : null
 
@@ -119,30 +119,30 @@ class DiscreteFilter extends React.PureComponent {
         disabled
         rightIconButton={isFiltered ? <ShowAllButton onTouchTap={this.showAll} /> : null}
         nestedListStyle={listStyles.nestedList}
-        nestedItems={Object.keys(values).map((v) => (
+        nestedItems={values.map((v) => (
           <NestedItem
-            key={v}
+            key={v.value}
             style={{position: 'relative'}}
-            onMouseEnter={this.handleMouseEnter.bind(this, v)}
+            onMouseEnter={this.handleMouseEnter.bind(this, v.value)}
             onMouseLeave={this.handleMouseLeave}>
             <PureCheckbox
               label={
-                <span style={colored ? assign({}, styles.coloredSpan, {backgroundColor: colorIndex[v]}) : null}>
-                  {formatMessage(msg('field_value')(v))}
+                <span style={colored ? assign({}, styles.coloredSpan, {backgroundColor: colorIndex[v.value]}) : null}>
+                  {formatMessage(msg('field_value')(v.value + ''))}
                 </span>
               }
-              title={formatMessage(msg('field_value')(v))}
-              value={v}
+              title={formatMessage(msg('field_value')(v.value + ''))}
+              value={v.value}
               style={styles.checkbox}
               iconStyle={styles.checkboxIcon}
               labelStyle={styles.checkboxLabel}
-              checked={checked.indexOf(v) > -1}
-              onCheck={this.handleCheck}
+              checked={checked.indexOf(v.value) > -1}
+              onCheck={this.handleCheck.bind(this, v.value)}
               disableFocusRipple
               disableTouchRipple />
-            {this.state.hovered === v &&
+            {this.state.hovered === v.value &&
               <OnlyButton
-                onTouchTap={this.handleOnlyClick.bind(this, v)} />}
+                onTouchTap={this.handleOnlyClick.bind(this, v.value)} />}
           </NestedItem>
         ))}
       />

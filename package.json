@@ -3,9 +3,6 @@
   "description": "A React Component for viewing and filtering GeoJSON",
   "version": "1.0.0-alpha.7",
   "main": "es5/index.js",
-  "browser": {
-    "mapbox-gl/dist/mapbox-gl.js": "mapbox-gl"
-  },
   "dependencies": {
     "@segment/isodate": "^1.0.2",
     "babel-runtime": "^6.20.0",
@@ -21,7 +18,7 @@
     "insert-css": "^2.0.0",
     "is-plain-object": "^2.0.1",
     "lodash": "^4.16.4",
-    "mapbox-gl": "^0.27.0",
+    "mapbox-gl": "github:gmaclennan/mapbox-gl-js#geojson-reload-tile",
     "material-ui": "^0.16.4",
     "moment": "^2.15.2",
     "object-assign": "^4.1.0",
@@ -33,7 +30,7 @@
     "react-overlays": "^0.6.10",
     "react-redux": "^5.0.2",
     "react-tap-event-plugin": "^2.0.0",
-    "react-virtualized": "^8.5.2",
+    "react-virtualized": "^9.7.2",
     "recompose": "^0.20.2",
     "redux": "^3.6.0",
     "redux-thunk": "^2.1.0",
