@@ -121,7 +121,6 @@ class ReportView extends React.Component {
   render () {
     const { filteredFeatures } = this.props
     const featuresSlice = filteredFeatures.length > 26 ? filteredFeatures.slice(0, 26) : filteredFeatures
-
     return (
       <div className='report_wrapper'>
         <div className='report_header'>

@@ -1,9 +1,9 @@
 import { createSelector } from 'reselect'
 
-import getFilterableFeatures from './filterable_features'
+import getFlattenedFeatures from './flattened_features'
 
 const getFeaturesById = createSelector(
-  getFilterableFeatures,
+  getFlattenedFeatures,
   (features) => features.reduce((p, v) => {
     p[v.id] = v
     return p

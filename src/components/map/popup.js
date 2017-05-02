@@ -1,8 +1,13 @@
 import React from 'react'
 import assign from 'object-assign'
 import {FormattedMessage} from 'react-intl'
+import {connect} from 'react-redux'
+import {darken, fade} from 'material-ui/utils/colorManipulator'
 
 import Image from '../../components/image'
+import getFeaturesById from '../../selectors/features_by_id'
+import getFieldMapping from '../../selectors/field_mapping'
+import getColorIndex from '../../selectors/color_index'
 import {createMessage as msg} from '../../util/intl_helpers'
 
 const styles = {
@@ -81,12 +86,13 @@ class Popup extends React.Component {
   }
 
   render () {
-    const {media, title, subtitle} = this.props
+    const {media, title, subtitle, color} = this.props
     const {transform} = this.state
-
     return <div style={assign({}, styles.wrapper, {transform})} ref={el => (this._el = el)}>
       {media && <Image src={media} style={styles.image} />}
-      <div style={styles.title}>
+      <div style={assign({}, styles.title, {
+        backgroundColor: fade(darken(color || '#000', 0.5), 0.5)
+      })}>
         <h1 style={styles.h1}>
           <FormattedMessage {...msg('field_value')(title)} />
         </h1>
@@ -124,4 +130,20 @@ function getPopupTransform (map, lngLat, width, height, offset = {x: 0, y: 0}) {
   return `${anchorTranslate[anchor]} translate(${pos.x + offset.x}px,${pos.y + offset.y}px)`
 }
 
-export default Popup
+export default connect(
+  (state, ownProps) => {
+    const featuresById = getFeaturesById(state)
+    const colorIndex = getColorIndex(state)
+    const fieldMapping = getFieldMapping(state)
+    const feature = featuresById[ownProps.id]
+    if (!feature) return {}
+    const geojsonProps = feature.properties
+
+    return {
+      media: geojsonProps[fieldMapping.media],
+      title: geojsonProps[fieldMapping.title],
+      subtitle: geojsonProps[fieldMapping.subtitle],
+      color: colorIndex[geojsonProps[fieldMapping.color]]
+    }
+  }
+)(Popup)

@@ -150,7 +150,7 @@ class MapView extends React.Component {
     }
     this.map.getSource('hover').setData(features[0])
     this.setState({lngLat: features[0].geometry.coordinates})
-    this.setState(this.getPopupProps(features[0].properties))
+    this.setState({id: features[0].properties.__mf_id})
   }
 
   ready (fn) {
@@ -163,14 +163,6 @@ class MapView extends React.Component {
         fn.call(self)
       })
     }
-  }
-
-  getPopupProps (featureProps) {
-    const fieldMapping = this.props.fieldMapping
-    return Object.keys(fieldMapping).reduce((prev, field) => {
-      prev[field] = featureProps[fieldMapping[field]]
-      return prev
-    }, {})
   }
 
   render () {
