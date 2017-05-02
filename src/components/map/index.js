@@ -186,15 +186,7 @@ class MapView extends React.Component {
   }
 
   centerMap (geojson) {
-    const bounds = getBoundsOrWorld(geojson)
-
-    // workaround for https://github.com/mapbox/mapbox-gl-js/issues/3307
-    // (more than 1 point with the same coordinates)
-    if (bounds[0] === bounds[2] && bounds[1] === bounds[3]) {
-      this.map.setCenter(bounds.slice(0, 2))
-    } else {
-      this.map.fitBounds(getBoundsOrWorld(geojson), {padding: 15})
-    }
+    this.map.fitBounds(getBoundsOrWorld(geojson), {padding: 15})
   }
 
   // The first time our component mounts, render a new map into `mapDiv`
