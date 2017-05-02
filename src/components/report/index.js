@@ -40,14 +40,17 @@ insertCss(`
 .page_break {
   position: absolute;
   left: 0;
-  top: 11in;
+  top: 10.5in;
   width: 100%;
   border: none;
   margin: 0;
   border-bottom: 3px dashed rgba(200,200,200, 0.75);
 }
 .report_page {
-  margin: 0.5in 0.5in 0.5in 0.5in;
+  margin: 0.5in;
+}
+@page {
+  margin: 0.5in;
 }
 .report_paper:first-child {
   display: flex;
@@ -91,6 +94,7 @@ insertCss(`
     box-shadow: none !important;
     border-radius: 0 !important;
     margin: 0;
+    width: 7.5in;
   }
   .report_page {
     margin: 0
