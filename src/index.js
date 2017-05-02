@@ -49,7 +49,6 @@ const controllableProps = [
 class MapFilter extends React.Component {
   static propTypes = {
     features: MFPropTypes.features,
-    propMap: PropTypes.func,
     mapStyle: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
     actionButton: PropTypes.oneOfType([PropTypes.element, PropTypes.func]),
     resizer: PropTypes.string,
@@ -58,7 +57,6 @@ class MapFilter extends React.Component {
 
   static defaultProps = {
     features: [],
-    propMap: prop => prop,
     mapStyle: config.defaultMapStyle,
     resizer: '',
     views: [{
