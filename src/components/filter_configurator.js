@@ -1,6 +1,6 @@
+import PropTypes from 'prop-types';
 import React from 'react'
 import { connect } from 'react-redux'
-const { PropTypes } = React
 import { Card, CardText, CardHeader } from 'material-ui/Card'
 import IconButton from 'material-ui/IconButton'
 import CloseIcon from 'material-ui/svg-icons/navigation/close'

@@ -1,5 +1,5 @@
+import PropTypes from 'prop-types';
 import React from 'react'
-const { PropTypes } = React
 import { connect } from 'react-redux'
 import {List, ListItem} from 'material-ui/List'
 import Divider from 'material-ui/Divider'

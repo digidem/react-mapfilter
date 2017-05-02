@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react'
+import PropTypes from 'prop-types';
+import React from 'react';
 import Grid from 'react-virtualized/dist/commonjs/Grid/Grid'
 import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer'
 import getScrollBarWidth from 'get-scrollbar-width'

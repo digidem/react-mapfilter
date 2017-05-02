@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react'
+import PropTypes from 'prop-types';
+import React from 'react';
 import {findDOMNode} from 'react-dom'
 import makePure from 'recompose/pure'
 import DateIcon from 'material-ui/svg-icons/action/date-range'
