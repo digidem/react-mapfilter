@@ -53,7 +53,7 @@ class FeatureTable extends React.Component {
   autoFitColumn () {
     let width = 0
     this.props.data.forEach(row => {
-      var rowEl = ReactDOM.findDOMNode(this.refs[row.key])
+      var rowEl = this.refs[row.key]
       width = Math.max(width, rowEl.offsetWidth)
     })
     this.setState({
