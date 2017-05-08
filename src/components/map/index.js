@@ -32,13 +32,16 @@ const labelStyleLayer = {
     'text-field': '',
     'text-allow-overlap': true,
     'text-ignore-placement': true,
-    'text-size': 10,
-    'text-font': ['Open Sans Bold']
+    'text-size': 9,
+    'text-font': [
+      'DIN Offc Pro Bold',
+      'Arial Unicode MS Bold'
+    ]
   },
   paint: {
     'text-color': '#fff',
     'text-halo-color': 'rgba(100,100,100, 0.3)',
-    'text-halo-width': 0.5
+    'text-halo-width': 0.3
   }
 }
 
@@ -241,6 +244,7 @@ class MapView extends React.Component {
     this.map.setFilter('labels', filter)
     if (labelPoints) {
       this.map.setLayoutProperty('labels', 'text-field', '{__mf_label}')
+      this.map.setPaintProperty('points', 'circle-radius', 7)
     }
   }
 
