@@ -174,7 +174,7 @@ class MapView extends React.Component {
   }
 
   centerMap (geojson) {
-    this.map.fitBounds(getBoundsOrWorld(geojson), {padding: 15})
+    this.map.fitBounds(getBoundsOrWorld(geojson), {padding: 15, duration: 0})
   }
 
   // The first time our component mounts, render a new map into `mapDiv`
