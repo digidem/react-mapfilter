@@ -12,7 +12,7 @@ import getMapBoxFilter from '../selectors/mapbox_filter'
 import getFieldMapping from '../selectors/field_mapping'
 import getColorIndex from '../selectors/color_index'
 
-const ViewContainer = (props) => React.cloneElement(props.children, omit(props, 'children'))
+const ViewContainer = (props) => React.createElement(props.component, omit(props, 'component'))
 
 function mapStateToProps (state) {
   return {

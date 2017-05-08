@@ -67,9 +67,7 @@ class IndexRoute extends React.Component {
         <div className='inner container' style={styles.inner}>
           <FilterPane />
           <div style={styles.view}>
-            <ViewContainer>
-              <ViewComponent />
-            </ViewContainer>
+            <ViewContainer component={ViewComponent} />
           </div>
           {ActionButton && <div style={styles.actionButton}><ActionButton /></div>}
         </div>
