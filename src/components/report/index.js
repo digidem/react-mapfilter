@@ -7,6 +7,7 @@ import FeatureDetail from '../feature_detail'
 import * as MFPropTypes from '../../util/prop_types'
 import MapView from '../map'
 import Alert from './alert'
+import config from '../../../config.json'
 
 insertCss(`
 .report_wrapper {
@@ -142,13 +143,13 @@ class ReportView extends React.Component {
             </div>
           </Paper>
           {
-            featuresSlice.map((feature, id) => (
-              <Paper className='report_paper' key={id}>
+            featuresSlice.map((feature, i) => (
+              <Paper className='report_paper' key={i}>
                 <div className='report_page'>
                   <FeatureDetail
-                    key={id}
+                    key={i}
                     id={feature.id}
-                    label={feature.properties.__mf_label}
+                    label={config.labelChars.charAt(i)}
                     print
                   />
                 </div>
