@@ -88,17 +88,18 @@ class Popup extends React.Component {
   render () {
     const {media, title, subtitle, color} = this.props
     const {transform} = this.state
+
     return <div style={assign({}, styles.wrapper, {transform})} ref={el => (this._el = el)}>
       {media && <Image src={media} style={styles.image} />}
       <div style={assign({}, styles.title, {
         backgroundColor: fade(darken(color || '#000', 0.5), 0.5)
       })}>
-        <h1 style={styles.h1}>
+        {title && <h1 style={styles.h1}>
           <FormattedMessage {...msg('field_value')(title)} />
-        </h1>
-        <h2 style={assign({}, styles.h1, styles.h2)}>
+        </h1>}
+        {subtitle && <h2 style={assign({}, styles.h1, styles.h2)}>
           <FormattedMessage {...msg('field_value')(subtitle)} />
-        </h2>
+        </h2>}
       </div>
     </div>
   }
