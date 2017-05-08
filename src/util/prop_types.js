@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+import PropTypes from 'prop-types'
 
 // GeoJSON passed to the map view must be a FeatureCollection
 // of point features.

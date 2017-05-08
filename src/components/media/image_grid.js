@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+import PropTypes from 'prop-types'
 import React from 'react';
 import Grid from 'react-virtualized/dist/commonjs/Grid/Grid'
 import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer'
