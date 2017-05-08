@@ -19,9 +19,6 @@ mapboxgl.accessToken = config.mapboxToken
 
 const log = debug('mf:mapview')
 
-let savedMap
-let savedMapDiv
-
 const emptyGeoJson = {
   type: 'FeatureCollection',
   features: []
@@ -154,14 +151,10 @@ class MapView extends React.Component {
   }
 
   ready (fn) {
-    const self = this
-    if (this.map.loaded()) {
+    if (this.map.loaded() && !this._styleDirty) {
       fn()
     } else {
-      this.map.once('load', () => {
-        console.log('loaded', this.map.loaded())
-        fn.call(self)
-      })
+      this.map.once('load', () => fn.call(this))
     }
   }
 
@@ -184,34 +177,20 @@ class MapView extends React.Component {
   // The first time our component mounts, render a new map into `mapDiv`
   // with settings from props.
   componentDidMount () {
-    const { center, interactive, filter, labelPoints, mapStyle, zoom } = this.props
-    let map
+    const { center, interactive, mapStyle, zoom } = this.props
 
-    if (savedMap) {
-      this.mapContainer.appendChild(savedMapDiv)
-      map = this.map = savedMap
-      map.resize()
-      this.updateIfNeeded(this.props)
-      if (interactive) {
-        this.ready(() => {
-          map.on('moveend', this.handleMapMoveOrZoom)
-          map.on('click', this.handleMapClick)
-          map.on('mousemove', this.handleMouseMove)
-        })
-      }
-      return
-    }
-    const mapDiv = savedMapDiv = document.createElement('div')
+    const mapDiv = document.createElement('div')
     mapDiv.style.height = '100%'
     mapDiv.style.width = '100%'
     this.mapContainer.appendChild(mapDiv)
 
-    map = this.map = savedMap = new mapboxgl.Map({
+    const map = window.map = this.map = new mapboxgl.Map({
       style: mapStyle,
       container: mapDiv,
       center: center || [0, 0],
       zoom: zoom || 0
     })
+    map._prevStyle = mapStyle
 
     if (!interactive) {
       map.scrollZoom.disable()
@@ -230,19 +209,7 @@ class MapView extends React.Component {
         map.on('click', this.handleMapClick)
         map.on('mousemove', this.handleMouseMove)
       }
-      map.addSource('features', {type: 'geojson', data: this.geojson})
-      // TODO: Should choose style based on whether features are point, line or polygon
-      map.addSource('hover', {type: 'geojson', data: emptyGeoJson})
-      map.addLayer(pointStyleLayer)
-      map.addLayer(pointHoverStyleLayer)
-      map.addLayer(labelStyleLayer)
-      if (filter) {
-        map.setFilter('points', filter)
-        map.setFilter('labels', filter)
-      }
-      if (labelPoints) {
-        map.setLayoutProperty('labels', 'text-field', '{__mf_label}')
-      }
+      this.setupLayers(this.props)
     })
 
     // If no map center or zoom passed, set map extent to extent of marker layer
@@ -252,18 +219,48 @@ class MapView extends React.Component {
   }
 
   componentWillReceiveProps (nextProps) {
-    this.ready(() => this.updateIfNeeded(nextProps, this.props))
+    this.updateIfNeeded(nextProps, this.props)
   }
 
   componentWillUnmount () {
     this.map.off('moveend', this.handleMapMoveOrZoom)
     this.map.off('click', this.handleMapClick)
     this.map.off('mousemove', this.handleMouseMove)
+    this.map.remove()
+  }
+
+  setupLayers (props) {
+    const {filter, labelPoints} = props
+    this.map.addSource('features', {type: 'geojson', data: this.geojson})
+    // TODO: Should choose style based on whether features are point, line or polygon
+    this.map.addSource('hover', {type: 'geojson', data: emptyGeoJson})
+    this.map.addLayer(pointStyleLayer)
+    this.map.addLayer(pointHoverStyleLayer)
+    this.map.addLayer(labelStyleLayer)
+    this.map.setFilter('points', filter)
+    this.map.setFilter('labels', filter)
+    if (labelPoints) {
+      this.map.setLayoutProperty('labels', 'text-field', '{__mf_label}')
+    }
   }
 
   updateIfNeeded (nextProps, props = {}) {
-    const {mapStyle, disableScrollToZoom} = props
+    const {disableScrollToZoom} = props
     let isDataUpdated = false
+
+    if (this.map._prevStyle !== nextProps.mapStyle) {
+      log('updating style')
+      this._styleDirty = true
+      this.map.setStyle(nextProps.mapStyle)
+      this.map._prevStyle = nextProps.mapStyle
+      this.map.once('style.load', () => {
+        this.setupLayers(nextProps)
+        this._styleDirty = false
+        if (!this.map._loaded) return
+        this.map.fire('load')
+      })
+    }
+
     let shouldDataUpdate = nextProps.features !== props.features ||
       nextProps.fieldMapping !== props.fieldMapping ||
       nextProps.colorIndex !== props.colorIndex ||
@@ -271,9 +268,8 @@ class MapView extends React.Component {
 
     if (shouldDataUpdate) {
       this.geojson = this.getGeoJson(nextProps)
-      console.log(this.geojson)
       this.ready(() => {
-        console.log('setting source', this.geojson)
+        log('updating source', this.geojson)
         this.map.getSource('features').setData(this.geojson)
       })
       isDataUpdated = true
@@ -283,10 +279,6 @@ class MapView extends React.Component {
     }
     this.updateFilterIfNeeded(nextProps.filter)
 
-    if (mapStyle !== nextProps.mapStyle) {
-      this.map.setStyle(nextProps.mapStyle)
-    }
-
     if (disableScrollToZoom !== nextProps.disableScrollToZoom) {
       nextProps.disableScrollToZoom ? this.map.scrollZoom.disable() : this.map.scrollZoom.enable()
     }
@@ -294,6 +286,7 @@ class MapView extends React.Component {
     const textField = nextProps.labelPoints ? '{__mf_label}' : ''
     this.ready(() => {
       if (this.map.getLayoutProperty('labels', 'text-field') !== textField) {
+        log('updating labels "' + textField + '"')
         this.map.setLayoutProperty('labels', 'text-field', textField)
       }
     })
@@ -326,12 +319,11 @@ class MapView extends React.Component {
 
   updateFilterIfNeeded (filter) {
     if (filter !== this.props.filter && filter) {
-      log('new filter')
-      if (this.map.style.loaded()) {
+      this.ready(() => {
+        log('updating filter')
         this.map.setFilter('points', filter)
-      } else {
-        this.map.on('load', () => this.map.setFilter('points', filter))
-      }
+        this.map.setFilter('labels', filter)
+      })
     }
   }
 
