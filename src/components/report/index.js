@@ -26,7 +26,8 @@ insertCss(`
 .report_paper {
   margin: 20px auto;
   width: 8.5in;
-  min-height: 11in;
+  min-height: 10in;
+  overflow: hidden;
   page-break-after: always;
   background-color: initial;
   position: relative;
@@ -55,6 +56,7 @@ insertCss(`
 }
 .report_paper:first-child {
   display: flex;
+  height: 10.8in;
 }
 .report_paper:first-child .report_page {
   flex: 1;
