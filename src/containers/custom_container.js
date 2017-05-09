@@ -12,7 +12,7 @@ import getMapBoxFilter from '../selectors/mapbox_filter'
 import getFieldMapping from '../selectors/field_mapping'
 import getColorIndex from '../selectors/color_index'
 
-const ViewContainer = (props) => React.createElement(props.component, omit(props, 'component'))
+const CustomContainer = (props) => React.createElement(props.component, omit(props, 'component'))
 
 function mapStateToProps (state) {
   return {
@@ -31,4 +31,4 @@ function mapStateToProps (state) {
 export default connect(
   mapStateToProps,
   (dispatch) => bindActionCreators(actionCreators, dispatch)
-)(ViewContainer)
+)(CustomContainer)

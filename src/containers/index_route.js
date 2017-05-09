@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import find from 'lodash/find'
 
-import ViewContainer from './view_container'
+import CustomContainer from './custom_container'
 import TopBar from './top_bar'
 import * as actionCreators from '../action_creators'
 
@@ -11,6 +11,9 @@ import Modal from '../components/modal'
 import FilterPane from '../components/filter'
 import FeatureDetail from '../components/feature_detail'
 import Settings from '../components/settings'
+import MapView from '../components/map'
+import ReportView from '../components/report'
+import MediaView from '../components/media'
 
 const styles = {
   outer: {
@@ -57,17 +60,17 @@ class IndexRoute extends React.Component {
   }
 
   render () {
-    const {activeView, activeModal, actionButton: ActionButton, views, switchView, settingsTab} = this.props
+    const {activeView, activeModal, actionButton: ActionButton, views, switchView, settingsTab, toolbarButtons} = this.props
     const ModalComponent = getModalComponent(activeModal)
     const ViewComponent = getViewComponent(activeView, views)
 
     return (
       <div className='outer container' style={styles.outer}>
-        <TopBar views={views} activeView={activeView} onChangeTab={switchView} />
+        <TopBar views={views} activeView={activeView} onChangeTab={switchView} buttons={toolbarButtons} />
         <div className='inner container' style={styles.inner}>
           <FilterPane />
           <div style={styles.view}>
-            <ViewContainer component={ViewComponent} />
+            <CustomContainer component={ViewComponent} />
           </div>
           {ActionButton && <div style={styles.actionButton}><ActionButton /></div>}
         </div>
@@ -75,6 +78,19 @@ class IndexRoute extends React.Component {
       </div>
     )
   }
+}
+
+IndexRoute.defaultProps = {
+  views: [{
+    id: 'map',
+    component: MapView
+  }, {
+    id: 'media',
+    component: MediaView
+  }, {
+    id: 'report',
+    component: ReportView
+  }]
 }
 
 function getModalComponent (modal) {

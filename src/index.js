@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React from 'react';
+import React from 'react'
 import { Provider } from 'react-redux'
 import { createStore, applyMiddleware, compose } from 'redux'
 import thunk from 'redux-thunk'
@@ -19,9 +19,6 @@ import {capitalize} from './util/text_helpers'
 import IndexRoute from './containers/index_route'
 import reducers from './reducers'
 import controlledStore from './controlled_store'
-import MapView from './components/map'
-import ReportView from './components/report'
-import MediaView from './components/media'
 import config from '../config.json'
 
 // Roboto font
@@ -52,23 +49,14 @@ class MapFilter extends React.Component {
     mapStyle: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
     actionButton: PropTypes.oneOfType([PropTypes.element, PropTypes.func]),
     resizer: PropTypes.string,
-    views: PropTypes.array
+    views: PropTypes.array,
+    toolbarButtons: PropTypes.arrayOf(PropTypes.element)
   }
 
   static defaultProps = {
     features: [],
     mapStyle: config.defaultMapStyle,
-    resizer: '',
-    views: [{
-      id: 'map',
-      component: MapView
-    }, {
-      id: 'media',
-      component: MediaView
-    }, {
-      id: 'report',
-      component: ReportView
-    }]
+    resizer: ''
   }
 
   handleChange = (key, value) => {
