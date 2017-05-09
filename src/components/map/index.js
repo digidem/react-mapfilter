@@ -345,7 +345,7 @@ class MapView extends React.Component {
             geometry: f.geometry,
             properties: assign({}, f.properties, {
               __mf_id: f.id,
-              __mf_color: colorIndex[f.properties[fieldMapping.color]]
+              __mf_color: colorIndex[f.properties[fieldMapping.color] || f.properties[fieldMapping.color + '.0']]
             })
           }
           if (ff(f)) newFeature.properties.__mf_label = config.labelChars.charAt(i++)
