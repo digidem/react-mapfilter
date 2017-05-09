@@ -15,6 +15,7 @@ export const FIELD_TYPE_NUMBER_OR_ARRAY = 'number_or_array'
 export const FIELD_TYPE_FILENAME = 'filename'
 export const FIELD_TYPE_UNDEFINED = 'undefined'
 export const FIELD_TYPE_NULL = 'null'
+export const FIELD_TYPE_LOCATION = 'location'
 
 export const FILTER_TYPE_DISCRETE = 'DISCRETE'
 export const FILTER_TYPE_RANGE = 'RANGE'

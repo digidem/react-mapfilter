@@ -10,7 +10,7 @@ import * as actionCreators from '../action_creators'
 import Modal from '../components/modal'
 import FilterPane from '../components/filter'
 import FeatureDetail from '../components/feature_detail'
-import FilterConfigurator from '../components/filter_configurator'
+import Settings from '../components/settings'
 
 const styles = {
   outer: {
@@ -57,7 +57,7 @@ class IndexRoute extends React.Component {
   }
 
   render () {
-    const {activeView, activeModal, actionButton: ActionButton, views, switchView} = this.props
+    const {activeView, activeModal, actionButton: ActionButton, views, switchView, settingsTab} = this.props
     const ModalComponent = getModalComponent(activeModal)
     const ViewComponent = getViewComponent(activeView, views)
 
@@ -71,7 +71,7 @@ class IndexRoute extends React.Component {
           </div>
           {ActionButton && <div style={styles.actionButton}><ActionButton /></div>}
         </div>
-        <Modal component={ModalComponent} />
+        <Modal component={ModalComponent} activeTabId={settingsTab} />
       </div>
     )
   }
@@ -82,7 +82,7 @@ function getModalComponent (modal) {
     case 'feature':
       return FeatureDetail
     case 'settings':
-      return FilterConfigurator
+      return Settings
     default:
       return
   }

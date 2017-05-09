@@ -1,7 +1,7 @@
 import React from 'react'
 import {FormattedMessage} from 'react-intl'
 
-import {createMessage as msg} from '../util/intl_helpers'
+import {createMessage as msg} from '../../util/intl_helpers'
 
 const styles = {
   groupText: {

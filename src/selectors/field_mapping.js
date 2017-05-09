@@ -52,7 +52,7 @@ const getColoredFieldName = createSelector(
   getFieldAnalysis,
   getFilterFields,
   (fieldMapping, fieldAnalysis, visibleFilters) => {
-    if (visibleFilters.indexOf(fieldMapping.color) > -1) return fieldMapping.color
+    if (fieldMapping.color) return fieldMapping.color
     var discreteFilters = visibleFilters.filter(function (fieldName) {
       return fieldAnalysis.properties[fieldName].filterType === FILTER_TYPE_DISCRETE
     })

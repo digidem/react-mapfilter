@@ -9,6 +9,8 @@ import mapStyle from './map_style'
 import ui from './ui'
 import fieldMapping from './field_mapping'
 import resizer from './resizer'
+import settings from './settings'
+import visibleFields from './visible_fields'
 
 export default combineReducers({
   features,
@@ -19,5 +21,7 @@ export default combineReducers({
   ui,
   fieldMapping,
   intl: intlReducer,
-  resizer
+  resizer,
+  settings,
+  visibleFields
 })

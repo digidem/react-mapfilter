@@ -1,12 +1,12 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
 import {Table, TableBody, TableRow, TableRowColumn} from 'material-ui/Table'
 import {FormattedMessage, FormattedDate} from 'react-intl'
 import assign from 'object-assign'
 
 import {createMessage as msg} from '../../util/intl_helpers'
-import FormattedFieldname from '../formatted_fieldname'
-import {FIELD_TYPE_DATE} from '../../constants'
+import FormattedFieldname from '../shared/formatted_fieldname'
+import FormattedCoords from '../shared/formatted_coords'
+import {FIELD_TYPE_DATE, FIELD_TYPE_LOCATION} from '../../constants'
 import {parseDate} from '../../util/filter_helpers'
 
 const styles = {
@@ -18,7 +18,7 @@ const styles = {
   },
   secondColumn: {
     height: 'auto',
-    padding: '1px 24px 15px 0',
+    padding: '15px 24px 15px 0',
     lineHeight: '18px',
     whiteSpace: 'normal'
   },
@@ -62,7 +62,7 @@ class FeatureTable extends React.Component {
   }
 
   render () {
-    const {data, print} = this.props
+    const {data, print, coordFormat} = this.props
     const firstColStyle = assign({}, styles.firstColumn, {width: this.state.width})
     let secondColStyle = styles.secondColumn
     if (print) {
@@ -82,13 +82,14 @@ class FeatureTable extends React.Component {
                 </TableRowColumn>
                 <TableRowColumn style={secondColStyle}>
                   {row.type === FIELD_TYPE_DATE
-                    ? <FormattedDate
-                      value={parseDate(row.value)}
-                      year='numeric'
-                      month='long'
-                      day='2-digit' />
-                    : <FormattedMessage {...msg('field_value')(row.value)} />
-                  }
+                  ? <FormattedDate
+                    value={parseDate(row.value)}
+                    year='numeric'
+                    month='long'
+                    day='2-digit' />
+                  : row.type === FIELD_TYPE_LOCATION
+                  ? <FormattedCoords value={row.value} format={coordFormat} />
+                  : <FormattedMessage {...msg('field_value')(row.value)} />}
                 </TableRowColumn>
               </TableRow>
             )

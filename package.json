@@ -39,7 +39,8 @@
     "round-to": "^1.1.0",
     "shallow-equal": "^1.0.0",
     "turf-extent": "^1.0.4",
-    "url-regex": "^3.2.0"
+    "url-regex": "^3.2.0",
+    "utm": "^1.1.0"
   },
   "devDependencies": {
     "babel-cli": "^6.18.0",

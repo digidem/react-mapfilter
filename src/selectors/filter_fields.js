@@ -19,7 +19,8 @@ const getFilterFields = createSelector(
   getDateFieldName,
   getFilterableFields,
   getFieldAnalysis,
-  (filters, filterFields, bestFilterFields, dateFieldName, filterableFields, fieldAnalysis) => {
+  (state) => state.fieldMapping,
+  (filters, filterFields, bestFilterFields, dateFieldName, filterableFields, fieldAnalysis, fieldMapping) => {
     // If the user hasn't selected any filters to show, choose some good defaults
     if (filterFields == null) {
       filterFields = []
@@ -28,11 +29,13 @@ const getFilterFields = createSelector(
     }
     // Don't show filters for fields that are not filterable
     filterFields = intersect(filterFields, filterableFields)
+    // Add the colored field if it is defined
+    const coloredField = fieldMapping.color ? [fieldMapping.color] : []
     // Fields that are in the current filter, but only ones that exist in our dataset
     const fieldsInCurrentFilter = Object.keys(filters).filter(fieldName => fieldAnalysis.properties[fieldName])
     // Filters that should be shown in the UI are the union of fields that have been
     // selected by the user with any fields that are in the current filter
-    return union(filterFields, fieldsInCurrentFilter)
+    return union(filterFields, fieldsInCurrentFilter, coloredField)
   }
 )
 

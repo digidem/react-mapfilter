@@ -15,6 +15,7 @@ import {createMessage as msg} from '../../util/intl_helpers'
 import Image from '../image'
 import MarkerIcon from './marker_icon'
 import FeatureTable from './feature_table'
+import {FIELD_TYPE_LOCATION} from '../../constants'
 
 const styles = {
   card: {
@@ -50,7 +51,7 @@ const styles = {
   }
 }
 
-const FeatureDetail = ({color, label, media, data, title, subtitle, onCloseClick, print}) => (
+const FeatureDetail = ({color, label, media, data, title, subtitle, onCloseClick, print, coordFormat}) => (
   <Card
     className='card'
     style={styles.card}
@@ -74,7 +75,7 @@ const FeatureDetail = ({color, label, media, data, title, subtitle, onCloseClick
           </CardMedia>
       }
       <CardText>
-        <FeatureTable data={data} print={print} />
+        <FeatureTable data={data} print={print} coordFormat={coordFormat} />
       </CardText>
     </div>
   </Card>
@@ -97,10 +98,12 @@ export default connect(
     if (feature.geometry) {
       data.unshift({
         key: 'location',
-        value: feature.geometry.coordinates
+        value: feature.geometry.coordinates,
+        type: FIELD_TYPE_LOCATION
       })
     }
     return {
+      coordFormat: state.settings.coordFormat,
       data: data,
       media: geojsonProps[fieldMapping.media],
       title: geojsonProps[fieldMapping.title],

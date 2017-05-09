@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactModal from 'react-overlays/lib/Modal'
 import { connect } from 'react-redux'
-
+import omit from 'lodash/omit'
 import { closeModal } from '../action_creators'
 
 const styles = {
@@ -51,7 +51,8 @@ class Modal extends React.Component {
 
   render () {
     const {component: Component, closeModal} = this.props
-    const dialog = Component ? <Component onCloseClick={closeModal} /> : <div />
+    const props = omit(this.props, 'component', closeModal)
+    const dialog = Component ? <Component onCloseClick={closeModal} {...props} /> : <div />
     return (
       <ReactModal
         show={!!Component}
