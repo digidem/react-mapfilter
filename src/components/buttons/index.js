@@ -4,7 +4,7 @@ import IconButton from 'material-ui/IconButton'
 import PrintIcon from 'material-ui/svg-icons/action/print'
 
 export const SettingsButton = ({openSettings}) => (
-  <IconButton tooltip='Settings' onTouchTap={openSettings.bind('general')}>
+  <IconButton tooltip='Settings' onTouchTap={openSettings.bind(null, 'general')}>
     <SettingsIcon color='white' />
   </IconButton>
 )

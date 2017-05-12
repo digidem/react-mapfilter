@@ -83,7 +83,7 @@ function TopBar ({activeView, views, onChangeTab, buttons}) {
         })}
       </div>
       <div style={styles.right}>
-        {buttons.map(button => <CustomContainer component={button} />)}
+        {buttons.map((button, i) => <CustomContainer key={i} component={button} />)}
       </div>
     </AppBar>
   )
@@ -97,7 +97,7 @@ TopBar.defaultProps = {
 }
 
 TopBar.propTypes = {
-  buttons: PropTypes.arrayOf(PropTypes.element)
+  buttons: PropTypes.arrayOf(PropTypes.func)
 }
 
 export default TopBar

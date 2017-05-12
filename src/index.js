@@ -51,7 +51,7 @@ class MapFilter extends React.Component {
     actionButton: PropTypes.oneOfType([PropTypes.element, PropTypes.func]),
     resizer: PropTypes.string,
     views: PropTypes.array,
-    toolbarButtons: PropTypes.arrayOf(PropTypes.element)
+    toolbarButtons: PropTypes.arrayOf(PropTypes.func)
   }
 
   static defaultProps = {
@@ -80,11 +80,11 @@ class MapFilter extends React.Component {
   }
 
   render () {
-    const {actionButton, views} = this.props
+    const {actionButton, views, toolbarButtons} = this.props
     return <Provider store={this.store}>
       <IntlProvider>
         <MuiThemeProvider muiTheme={getMuiTheme()}>
-          <IndexRoute actionButton={actionButton} views={views} />
+          <IndexRoute actionButton={actionButton} views={views} toolbarButtons={toolbarButtons} />
         </MuiThemeProvider>
       </IntlProvider>
     </Provider>
