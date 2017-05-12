@@ -17,7 +17,7 @@ const styles = {
 const messages = defineMessages({
   description: {
     id: 'filter.fields.description',
-    defaultMessage: 'Select which fields you would like to appear in reports and the detail view:',
+    defaultMessage: 'Show or hide fields in reports and the detail view:',
     description: 'Description of what the fields setting pane does'
   }
 })

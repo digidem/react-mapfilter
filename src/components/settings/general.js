@@ -33,7 +33,7 @@ class GeneralSettings extends React.Component {
             <SelectField
               value={coordFormat}
               onChange={onChangeCoordinates}
-              style={styles.select}
+              autowidth
             >
               <MenuItem value='lonlat' primaryText='Lon / Lat' />
               <MenuItem value='utm' primaryText='UTM' />
@@ -46,7 +46,7 @@ class GeneralSettings extends React.Component {
             <SelectField
               value={fieldMapping.title}
               onChange={onChangeFieldMapping.bind(null, 'title')}
-              style={styles.select}
+              autowidth
               maxHeight={400}
             >
               {potentialTitleFields.map((field, i) => (
@@ -62,7 +62,7 @@ class GeneralSettings extends React.Component {
             <SelectField
               value={fieldMapping.subtitle}
               onChange={onChangeFieldMapping.bind(null, 'subtitle')}
-              style={styles.select}
+              autowidth
               maxHeight={400}
             >
               {potentialTitleFields.map((field, i) => (
@@ -78,7 +78,7 @@ class GeneralSettings extends React.Component {
             <SelectField
               value={fieldMapping.color}
               onChange={onChangeFieldMapping.bind(null, 'color')}
-              style={styles.select}
+              autowidth
               maxHeight={400}
             >
               {potentialColoredFields.map((field, i) => (

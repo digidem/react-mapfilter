@@ -91,7 +91,7 @@ const messages = defineMessages({
   },
   fields: {
     id: 'settings.fields',
-    defaultMessage: 'Hide Fields',
+    defaultMessage: 'Visible Fields',
     description: 'Tab label for fields settings pane'
   },
   general: {
