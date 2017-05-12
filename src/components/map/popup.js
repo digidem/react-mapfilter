@@ -13,7 +13,6 @@ import {createMessage as msg} from '../../util/intl_helpers'
 const styles = {
   wrapper: {
     width: 200,
-    height: 200,
     padding: 0,
     backgroundColor: 'black',
     cursor: 'pointer',
