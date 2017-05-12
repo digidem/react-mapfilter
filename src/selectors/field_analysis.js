@@ -206,12 +206,17 @@ function typeReduce (p, v) {
   if (!p || v === p) return v
   if (isMediaField[p] && isMediaField[v]) {
     return FIELD_TYPE_MEDIA
-  } else if (isMediaField[p] && v === FIELD_TYPE_LINK ||
-    v === FIELD_TYPE_UNDEFINED || v === FIELD_TYPE_NULL) {
+  } else if (isMediaField[p] && (v === FIELD_TYPE_LINK ||
+    v === FIELD_TYPE_UNDEFINED || v === FIELD_TYPE_NULL || v === FIELD_TYPE_FILENAME)) {
     // If this contains media + links, assume the links are to the same type of media
+    // media field might also have a string filename if image is lost
     return p
-  } else if (p === FIELD_TYPE_LINK && isMediaField[v] ||
-    p === FIELD_TYPE_UNDEFINED || p === FIELD_TYPE_NULL) {
+  } else if (isMediaField[v] && (p === FIELD_TYPE_LINK ||
+    p === FIELD_TYPE_UNDEFINED || p === FIELD_TYPE_NULL || p === FIELD_TYPE_FILENAME)) {
+    // If this contains media + links, assume the links are to the same type of media
+    return v
+  } else if (p === FIELD_TYPE_LINK && (isMediaField[v] ||
+    p === FIELD_TYPE_UNDEFINED || p === FIELD_TYPE_NULL)) {
     return v
   } else if (isStringOrArray[p] && isStringOrArray[v]) {
     return FIELD_TYPE_STRING_OR_ARRAY
@@ -308,7 +313,17 @@ function getType (v) {
 function parseMapValues (values) {
   if (!values) return []
   return Object.keys(values).sort().map(function (v) {
-    return {value: JSON.parse(v), count: values[v]}
+    var parsed
+    if (v === 'undefined') {
+      parsed = v
+    } else {
+      try {
+        parsed = JSON.parse(v)
+      } catch (e) {
+        console.error('problem parsing', v)
+      }
+    }
+    return {value: parsed, count: values[v]}
   })
 }
 
