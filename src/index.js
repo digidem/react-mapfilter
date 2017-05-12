@@ -57,7 +57,7 @@ class MapFilter extends React.Component {
   static defaultProps = {
     features: [],
     mapStyle: config.defaultMapStyle,
-    resizer: ''
+    resizer: '{url}'
   }
 
   handleChange = (key, value) => {
