@@ -276,11 +276,9 @@ class MapView extends React.Component {
         log('updating source', this.geojson)
         this.map.getSource('features').setData(this.geojson)
       })
-      isDataUpdated = true
-    }
-    if (isDataUpdated && !nextProps.center || !nextProps.zoom) {
       this.centerMap(this.geojson)
     }
+
     this.updateFilterIfNeeded(nextProps.filter)
 
     if (disableScrollToZoom !== nextProps.disableScrollToZoom) {
