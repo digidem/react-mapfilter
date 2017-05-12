@@ -11,6 +11,8 @@ import pick from 'lodash/pick'
 import en from 'react-intl/locale-data/en'
 import es from 'react-intl/locale-data/es'
 import shallowEqual from 'shallow-equal/objects'
+import {persistStore, autoRehydrate} from 'redux-persist'
+import localForage from 'localForage'
 
 addLocaleData([...en, ...es])
 
@@ -34,11 +36,24 @@ if (process.env.NODE_ENV !== 'production' && window.devToolsExtension) {
   devTools = window.devToolsExtension()
 }
 
-const storeEnhancer = devTools ? compose(devTools, applyMiddleware(thunk)) : applyMiddleware(thunk)
+const storeEnhancer = devTools
+  ? compose(applyMiddleware(thunk), autoRehydrate({log: true}), devTools)
+  : compose(applyMiddleware(thunk), autoRehydrate())
+
+const reduxPersistOptions = {
+  storage: localForage,
+  blacklist: [
+    'features',
+    'ui',
+    'mapStyle'
+  ],
+  debounce: 500
+}
 
 const controllableProps = [
   'features',
   'mapStyle',
+  'fieldTypes',
   'ui',
   'resizer'
 ]
@@ -71,6 +86,7 @@ class MapFilter extends React.Component {
     const stateOverride = pick(props, controllableProps)
     const controlledStoreEnhancer = controlledStore(this.handleChange, stateOverride)
     this.store = createStore(reducers, compose(controlledStoreEnhancer, storeEnhancer))
+    persistStore(this.store, reduxPersistOptions)
   }
 
   componentWillReceiveProps (nextProps) {
