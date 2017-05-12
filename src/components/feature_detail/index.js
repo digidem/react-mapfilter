@@ -108,7 +108,7 @@ export default connect(
       media: geojsonProps[fieldMapping.media],
       title: geojsonProps[fieldMapping.title],
       subtitle: geojsonProps[fieldMapping.subtitle],
-      color: colorIndex[geojsonProps[fieldMapping.color]]
+      color: colorIndex[geojsonProps[fieldMapping.color]] || geojsonProps[fieldMapping.color] && colorIndex[geojsonProps[fieldMapping.color][0]]
     }
   }
 )(FeatureDetail)
