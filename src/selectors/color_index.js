@@ -9,7 +9,7 @@ const getColorIndex = createSelector(
   getFieldMapping,
   getFieldAnalysis,
   (fieldMapping, fieldAnalysis) => {
-    if (!fieldMapping.color) return
+    if (!fieldMapping.color) return {}
     const coloredField = fieldAnalysis.properties[fieldMapping.color]
     const colorIndex = {}
     if (!coloredField || !coloredField.values) return colorIndex
