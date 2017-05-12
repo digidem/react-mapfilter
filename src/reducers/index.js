@@ -8,6 +8,7 @@ import mapPosition from './map_position'
 import mapStyle from './map_style'
 import ui from './ui'
 import fieldMapping from './field_mapping'
+import fieldTypes from './field_types'
 import resizer from './resizer'
 import settings from './settings'
 import visibleFields from './visible_fields'
@@ -20,6 +21,7 @@ export default combineReducers({
   mapStyle,
   ui,
   fieldMapping,
+  fieldTypes,
   intl: intlReducer,
   resizer,
   settings,

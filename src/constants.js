@@ -16,6 +16,7 @@ export const FIELD_TYPE_FILENAME = 'filename'
 export const FIELD_TYPE_UNDEFINED = 'undefined'
 export const FIELD_TYPE_NULL = 'null'
 export const FIELD_TYPE_LOCATION = 'location'
+export const FIELD_TYPE_SPACE_DELIMITED = 'space_delimited'
 
 export const FILTER_TYPE_DISCRETE = 'DISCRETE'
 export const FILTER_TYPE_RANGE = 'RANGE'
