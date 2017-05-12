@@ -9,12 +9,17 @@ import getFieldAnalysis from '../../selectors/field_analysis'
 import getFieldMapping from '../../selectors/field_mapping'
 import FormattedFieldname from '../shared/formatted_fieldname'
 import { changeCoordinates, updateFieldMapping } from '../../action_creators'
-import { FILTER_TYPE_DISCRETE, FIELD_TYPE_STRING } from '../../constants'
+import { FILTER_TYPE_DISCRETE, FIELD_TYPE_STRING, FIELD_TYPE_DATE } from '../../constants'
 
 const styles = {
   select: {
     width: 150
   }
+}
+
+const titleFieldTypes = {
+  [FIELD_TYPE_STRING]: true,
+  [FIELD_TYPE_DATE]: true
 }
 
 class GeneralSettings extends React.Component {
@@ -23,7 +28,7 @@ class GeneralSettings extends React.Component {
     const potentialColoredFields = fields
       .filter(field => fieldAnalysis.properties[field].filterType === FILTER_TYPE_DISCRETE)
     const potentialTitleFields = fields
-      .filter(field => fieldAnalysis.properties[field].type === FIELD_TYPE_STRING)
+      .filter(field => titleFieldTypes[fieldAnalysis.properties[field].type])
     return (
       <List>
         <ListItem
