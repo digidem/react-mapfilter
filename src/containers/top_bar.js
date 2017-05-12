@@ -66,11 +66,11 @@ const messages = defineMessages({
   }
 })
 
-function TopBar ({activeView, views, onChangeTab, buttons}) {
+function TopBar ({activeView, views, onChangeTab, buttons, title}) {
   return (
     <AppBar
       className='nav container'
-      title='MapFilter'
+      title={title}
       style={styles.topBar}
       titleStyle={styles.title}
       showMenuIconButton={false}>
@@ -93,11 +93,13 @@ TopBar.defaultProps = {
   buttons: [
     PrintButton,
     SettingsButton
-  ]
+  ],
+  title: 'MapFilter'
 }
 
 TopBar.propTypes = {
-  buttons: PropTypes.arrayOf(PropTypes.func)
+  buttons: PropTypes.arrayOf(PropTypes.func),
+  title: PropTypes.oneOfType([PropTypes.string, PropTypes.element])
 }
 
 export default TopBar

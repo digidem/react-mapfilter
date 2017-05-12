@@ -60,13 +60,13 @@ class IndexRoute extends React.Component {
   }
 
   render () {
-    const {activeView, activeModal, actionButton: ActionButton, views, switchView, settingsTab, toolbarButtons} = this.props
+    const {activeView, activeModal, actionButton: ActionButton, views, switchView, settingsTab, toolbarButtons, toolbarTitle} = this.props
     const ModalComponent = getModalComponent(activeModal)
     const ViewComponent = getViewComponent(activeView, views)
 
     return (
       <div className='outer container' style={styles.outer}>
-        <TopBar views={views} activeView={activeView} onChangeTab={switchView} buttons={toolbarButtons} />
+        <TopBar views={views} activeView={activeView} onChangeTab={switchView} buttons={toolbarButtons} title={toolbarTitle} />
         <div className='inner container' style={styles.inner}>
           <FilterPane />
           <div style={styles.view}>
