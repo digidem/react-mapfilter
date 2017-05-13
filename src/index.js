@@ -31,14 +31,15 @@ require('../css/animations.css')
 require('react-tap-event-plugin')()
 
 // Attach Chrome devTools extensions if it is present.
-let devTools
-if (process.env.NODE_ENV !== 'production' && window.devToolsExtension) {
-  devTools = window.devToolsExtension()
+let composeEnhancers = compose
+if (process.env.NODE_ENV !== 'production' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) {
+  composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
 }
 
-const storeEnhancer = devTools
-  ? compose(applyMiddleware(thunk), autoRehydrate({log: true}), devTools)
-  : compose(applyMiddleware(thunk), autoRehydrate())
+const storeEnhancer = composeEnhancers(
+  applyMiddleware(thunk),
+  autoRehydrate({log: process.env.NODE_ENV !== 'production'})
+)
 
 const reduxPersistOptions = {
   storage: localForage,
