@@ -79,7 +79,7 @@ insertCss(`
     page-break-inside: avoid;
   }
   /* Override fixed positioning of top level div */
-  #root > div {
+  #root .outer.container {
     position: relative !important;
   }
   .report_wrapper {
