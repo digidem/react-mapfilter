@@ -11,6 +11,7 @@ const styles = {
 }
 
 const FormattedFieldname = ({fieldname}) => {
+  if (!fieldname) return null
   const parts = fieldname.split('.')
   if (parts.length === 1) return <FormattedMessage {...msg('field_key')(fieldname)} />
 

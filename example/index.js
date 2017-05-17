@@ -34,7 +34,8 @@ class Example extends React.Component {
     this.history = createHistory()
     this.unlisten = history.listen(this.handleHistoryChange)
     this.state = {
-      ui: uiFromPath(history.location.pathname)
+      ui: uiFromPath(history.location.pathname),
+      features: features
     }
   }
   handleHistoryChange = (location, action) => {
@@ -47,12 +48,17 @@ class Example extends React.Component {
     ui.redirect ? history.replace(path) : history.push(path)
     this.setState({ui})
   }
+  handleChangeFeatures = (_) => {
+    this.setState({features: _})
+  }
   render () {
     return <MapFilter
       resizer='https://resizer.digital-democracy.org/{width}/{height}/{url}'
-      features={features}
+      features={this.state.features}
       ui={this.state.ui}
-      onChangeUi={this.handleChangeUi} />
+      mapStyle='http://localhost:8080/style.json'
+      onChangeUi={this.handleChangeUi}
+      onChangeFeatures={this.handleChangeFeatures} />
   }
 }
 

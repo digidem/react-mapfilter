@@ -1,5 +1,17 @@
 import toCase from 'case'
 import roundTo from 'round-to'
+import {defineMessages} from 'react-intl'
+
+const messages = defineMessages({
+  true: {
+    id: 'fieldValue.true',
+    defaultMessage: 'Yes'
+  },
+  false: {
+    id: 'fieldValue.false',
+    defaultMessage: 'No'
+  }
+})
 
 export const createMessage = section => function formatMsg (value) {
   let msg
@@ -17,6 +29,9 @@ export const createMessage = section => function formatMsg (value) {
       return formatMsg(v).defaultMessage
     }).join(', ')
     id = value.join('_')
+  } else if (typeof value === 'boolean') {
+    if (value) return messages.true
+    else return messages.false
   } else {
     if (value == null) {
       msg = ''

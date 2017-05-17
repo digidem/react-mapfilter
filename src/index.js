@@ -38,7 +38,7 @@ if (process.env.NODE_ENV !== 'production' && window.__REDUX_DEVTOOLS_EXTENSION_C
 
 const storeEnhancer = composeEnhancers(
   applyMiddleware(thunk),
-  autoRehydrate({log: process.env.NODE_ENV !== 'production'})
+  autoRehydrate()
 )
 
 const reduxPersistOptions = {

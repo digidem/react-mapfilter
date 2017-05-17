@@ -3,8 +3,12 @@
   "features": [
     {
       "properties": {
+        "public": true,
         "people": "burch_andrews",
-        "happening": ["fishing", "bobcats"],
+        "happening": [
+          "fishing",
+          "bobcats"
+        ],
         "impacts": "Violation of sensitive site",
         "placename": "Sims Thermal",
         "today": "2014-03-11",
@@ -34,7 +38,9 @@
     {
       "properties": {
         "people": "cross_kemp",
-        "happening": "mining",
+        "happening": [
+          "mining"
+        ],
         "impacts": "Depletion of fish",
         "placename": "Harold Johnsonburg",
         "today": "2014-06-28",
@@ -64,7 +70,9 @@
     {
       "properties": {
         "people": "hancock_martinez",
-        "happening": "other",
+        "happening": [
+          "other"
+        ],
         "impacts": "Damage to water source / watershed",
         "placename": "Zarephath Highland",
         "today": "2014-09-21",
@@ -94,7 +102,9 @@
     {
       "properties": {
         "people": "mattie_solis",
-        "happening": "crossing",
+        "happening": [
+          "crossing"
+        ],
         "impacts": "Damage to gathering grounds",
         "placename": "Elbert Manchester",
         "today": "2014-11-30",
@@ -124,7 +134,9 @@
     {
       "properties": {
         "people": "crawford_hill",
-        "happening": "logging",
+        "happening": [
+          "logging"
+        ],
         "impacts": "Loss of cultural heritage",
         "placename": "Dola Fairhaven",
         "today": "2014-09-23",
@@ -154,7 +166,9 @@
     {
       "properties": {
         "people": "inez_alston",
-        "happening": "rustling",
+        "happening": [
+          "rustling"
+        ],
         "impacts": "Water pollution",
         "placename": "Chamizal Inkerman",
         "today": "2014-12-21",
@@ -184,7 +198,9 @@
     {
       "properties": {
         "people": "inez_alston",
-        "happening": "rustling",
+        "happening": [
+          "rustling"
+        ],
         "impacts": "Damage to farming grounds",
         "placename": "Fairfield Edneyville",
         "today": "2014-06-23",
@@ -214,7 +230,9 @@
     {
       "properties": {
         "people": "burch_andrews",
-        "happening": "hunting",
+        "happening": [
+          "hunting"
+        ],
         "impacts": "Damage to water source / watershed",
         "placename": "Williston Brookfield",
         "today": "2014-11-01",
@@ -244,7 +262,9 @@
     {
       "properties": {
         "people": "mattie_solis",
-        "happening": "other",
+        "happening": [
+          "other"
+        ],
         "impacts": "FPIC violation",
         "placename": "Sterling Springville",
         "today": "2014-04-14",
@@ -274,7 +294,9 @@
     {
       "properties": {
         "people": "hancock_martinez",
-        "happening": "hunting",
+        "happening": [
+          "hunting"
+        ],
         "impacts": "Damage to water source / watershed",
         "placename": "Walland Fairforest",
         "today": "2014-02-28",
@@ -304,7 +326,9 @@
     {
       "properties": {
         "people": "crawford_hill",
-        "happening": "mining",
+        "happening": [
+          "mining"
+        ],
         "impacts": "Damage to gathering grounds",
         "placename": "Caspar Magnolia",
         "today": "2014-09-19",
@@ -334,7 +358,9 @@
     {
       "properties": {
         "people": "burch_andrews",
-        "happening": "hunting",
+        "happening": [
+          "hunting"
+        ],
         "impacts": "Deforestation",
         "placename": "Frierson Why",
         "today": "2014-01-04",
@@ -364,7 +390,9 @@
     {
       "properties": {
         "people": "deanne_velazquez",
-        "happening": "rustling",
+        "happening": [
+          "rustling"
+        ],
         "impacts": "Water poisoned",
         "placename": "Succasunna Beechmont",
         "today": "2014-07-05",
@@ -394,7 +422,9 @@
     {
       "properties": {
         "people": "hancock_martinez",
-        "happening": "mining",
+        "happening": [
+          "mining"
+        ],
         "impacts": "Water poisoned",
         "placename": "Fillmore Whipholt",
         "today": "2014-11-25",
@@ -424,7 +454,9 @@
     {
       "properties": {
         "people": "cross_kemp",
-        "happening": "rustling",
+        "happening": [
+          "rustling"
+        ],
         "impacts": "Violation of sensitive site",
         "placename": "Fedora Evergreen",
         "today": "2014-11-14",
@@ -454,7 +486,9 @@
     {
       "properties": {
         "people": "deanne_velazquez",
-        "happening": "artefacts",
+        "happening": [
+          "artefacts"
+        ],
         "impacts": "FPIC violation",
         "placename": "Greensburg Whitmer",
         "today": "2014-06-22",
@@ -484,7 +518,9 @@
     {
       "properties": {
         "people": "burch_andrews",
-        "happening": "artefacts",
+        "happening": [
+          "artefacts"
+        ],
         "impacts": "Damage to water source / watershed",
         "placename": "Elliston Brogan",
         "today": "2014-01-13",
@@ -514,7 +550,9 @@
     {
       "properties": {
         "people": "deanne_velazquez",
-        "happening": "hunting",
+        "happening": [
+          "hunting"
+        ],
         "impacts": "Water pollution",
         "placename": "Sena Spelter",
         "today": "2014-01-11",
@@ -544,7 +582,9 @@
     {
       "properties": {
         "people": "burch_andrews",
-        "happening": "other",
+        "happening": [
+          "other"
+        ],
         "impacts": "Violation of sensitive site",
         "placename": "Outlook Connerton",
         "today": "2014-06-30",
@@ -574,7 +614,9 @@
     {
       "properties": {
         "people": "lillie_flores",
-        "happening": "tourism",
+        "happening": [
+          "tourism"
+        ],
         "impacts": "Damage to gathering grounds",
         "placename": "Mapletown Westmoreland",
         "today": "2014-09-14",
@@ -604,7 +646,9 @@
     {
       "properties": {
         "people": "inez_alston",
-        "happening": "other",
+        "happening": [
+          "other"
+        ],
         "impacts": "Damage to wildlife / habitat",
         "placename": "Otranto Wright",
         "today": "2014-05-13",
@@ -634,7 +678,9 @@
     {
       "properties": {
         "people": "osborne_saunders",
-        "happening": "tourism",
+        "happening": [
+          "tourism"
+        ],
         "impacts": "Deforestation",
         "placename": "Westerville Ebro",
         "today": "2014-01-29",
@@ -664,7 +710,9 @@
     {
       "properties": {
         "people": "hancock_martinez",
-        "happening": "crossing",
+        "happening": [
+          "crossing"
+        ],
         "impacts": "Damage to farming grounds",
         "placename": "Salvo Loretto",
         "today": "2014-04-03",
@@ -694,7 +742,9 @@
     {
       "properties": {
         "people": "inez_alston",
-        "happening": "logging",
+        "happening": [
+          "logging"
+        ],
         "impacts": "Damage to gathering grounds",
         "placename": "Norfolk Goodville",
         "today": "2014-02-03",
@@ -724,7 +774,9 @@
     {
       "properties": {
         "people": "hancock_martinez",
-        "happening": "trapping",
+        "happening": [
+          "trapping"
+        ],
         "impacts": "Violation of sensitive site",
         "placename": "Chical Coloma",
         "today": "2014-12-19",
@@ -754,7 +806,9 @@
     {
       "properties": {
         "people": "lillie_flores",
-        "happening": "crossing",
+        "happening": [
+          "crossing"
+        ],
         "impacts": "Water poisoned",
         "placename": "Wolcott Bascom",
         "today": "2014-06-28",
@@ -784,7 +838,9 @@
     {
       "properties": {
         "people": "inez_alston",
-        "happening": "hunting",
+        "happening": [
+          "hunting"
+        ],
         "impacts": "Harm to community conserved site",
         "placename": "Holtville Belfair",
         "today": "2014-09-24",
@@ -814,7 +870,9 @@
     {
       "properties": {
         "people": "burch_andrews",
-        "happening": "logging",
+        "happening": [
+          "logging"
+        ],
         "impacts": "Depletion of game",
         "placename": "Edgar Villarreal",
         "today": "2014-06-19",
@@ -844,7 +902,9 @@
     {
       "properties": {
         "people": "dennis_moreno",
-        "happening": "grazing",
+        "happening": [
+          "grazing"
+        ],
         "impacts": "Water pollution",
         "placename": "Wanship Washington",
         "today": "2014-02-21",
@@ -874,7 +934,9 @@
     {
       "properties": {
         "people": "mattie_solis",
-        "happening": "grazing",
+        "happening": [
+          "grazing"
+        ],
         "impacts": "Water pollution",
         "placename": "Cresaptown Hollins",
         "today": "2014-03-10",
@@ -904,7 +966,9 @@
     {
       "properties": {
         "people": "inez_alston",
-        "happening": "mining",
+        "happening": [
+          "mining"
+        ],
         "impacts": "Damage to gathering grounds",
         "placename": "Conway Greenock",
         "today": "2014-11-22",
@@ -934,7 +998,9 @@
     {
       "properties": {
         "people": "deanne_velazquez",
-        "happening": "logging",
+        "happening": [
+          "logging"
+        ],
         "impacts": "Social harm or abuse",
         "placename": "Como Cetronia",
         "today": "2014-04-10",
@@ -964,7 +1030,9 @@
     {
       "properties": {
         "people": "burch_andrews",
-        "happening": "hunting",
+        "happening": [
+          "hunting"
+        ],
         "impacts": "Water pollution",
         "placename": "Kimmell Dubois",
         "today": "2014-04-06",
@@ -994,7 +1062,9 @@
     {
       "properties": {
         "people": "mattie_solis",
-        "happening": "hunting",
+        "happening": [
+          "hunting"
+        ],
         "impacts": "Depletion of game",
         "placename": "Cherokee Campo",
         "today": "2014-06-09",
@@ -1024,7 +1094,9 @@
     {
       "properties": {
         "people": "lillie_flores",
-        "happening": "artefacts",
+        "happening": [
+          "artefacts"
+        ],
         "impacts": "Violation of sensitive site",
         "placename": "Wheaton Cowiche",
         "today": "2014-06-02",
@@ -1054,7 +1126,9 @@
     {
       "properties": {
         "people": "deanne_velazquez",
-        "happening": "hunting",
+        "happening": [
+          "hunting"
+        ],
         "impacts": "Damage to water source / watershed",
         "placename": "Byrnedale Morgandale",
         "today": "2014-03-04",
@@ -1084,7 +1158,9 @@
     {
       "properties": {
         "people": "inez_alston",
-        "happening": "trapping",
+        "happening": [
+          "trapping"
+        ],
         "impacts": "Damage to gathering grounds",
         "placename": "Talpa Oberlin",
         "today": "2014-11-18",
@@ -1114,7 +1190,9 @@
     {
       "properties": {
         "people": "mattie_solis",
-        "happening": "trapping",
+        "happening": [
+          "trapping"
+        ],
         "impacts": "Damage to water source / watershed",
         "placename": "Chilton Dunbar",
         "today": "2014-12-06",
@@ -1144,7 +1222,9 @@
     {
       "properties": {
         "people": "burch_andrews",
-        "happening": "grazing",
+        "happening": [
+          "grazing"
+        ],
         "impacts": "Depletion of game",
         "placename": "Knowlton Tampico",
         "today": "2014-12-12",
@@ -1174,7 +1254,9 @@
     {
       "properties": {
         "people": "crawford_hill",
-        "happening": "fishing",
+        "happening": [
+          "fishing"
+        ],
         "impacts": "Damage to wildlife / habitat",
         "placename": "Devon Tecolotito",
         "today": "2014-03-05",
@@ -1204,7 +1286,9 @@
     {
       "properties": {
         "people": "burch_andrews",
-        "happening": "logging",
+        "happening": [
+          "logging"
+        ],
         "impacts": "Damage to farming grounds",
         "placename": "Efland Day",
         "today": "2014-07-21",
@@ -1234,7 +1318,9 @@
     {
       "properties": {
         "people": "crawford_hill",
-        "happening": "fishing",
+        "happening": [
+          "fishing"
+        ],
         "impacts": "Damage to wildlife / habitat",
         "placename": "Reinerton Springdale",
         "today": "2014-10-30",
@@ -1264,7 +1350,9 @@
     {
       "properties": {
         "people": "cross_kemp",
-        "happening": "trapping",
+        "happening": [
+          "trapping"
+        ],
         "impacts": "Damage to water source / watershed",
         "placename": "Graniteville Babb",
         "today": "2014-08-26",
@@ -1294,7 +1382,9 @@
     {
       "properties": {
         "people": "mattie_solis",
-        "happening": "mining",
+        "happening": [
+          "mining"
+        ],
         "impacts": "Damage to water source / watershed",
         "placename": "Lisco Sabillasville",
         "today": "2014-10-12",
@@ -1324,7 +1414,9 @@
     {
       "properties": {
         "people": "crawford_hill",
-        "happening": "hunting",
+        "happening": [
+          "hunting"
+        ],
         "impacts": "Harm to community conserved site",
         "placename": "Yardville Gerton",
         "today": "2014-06-29",
@@ -1354,7 +1446,9 @@
     {
       "properties": {
         "people": "cross_kemp",
-        "happening": "rustling",
+        "happening": [
+          "rustling"
+        ],
         "impacts": "Violation of sensitive site",
         "placename": "Balm Edinburg",
         "today": "2014-05-18",
@@ -1384,7 +1478,9 @@
     {
       "properties": {
         "people": "inez_alston",
-        "happening": "grazing",
+        "happening": [
+          "grazing"
+        ],
         "impacts": "Deforestation",
         "placename": "Tuttle Breinigsville",
         "today": "2014-09-22",
@@ -1414,7 +1510,9 @@
     {
       "properties": {
         "people": "hancock_martinez",
-        "happening": "hunting",
+        "happening": [
+          "hunting"
+        ],
         "impacts": "Loss of cultural heritage",
         "placename": "Curtice Cobbtown",
         "today": "2014-07-28",
@@ -1444,7 +1542,9 @@
     {
       "properties": {
         "people": "hancock_martinez",
-        "happening": "tourism",
+        "happening": [
+          "tourism"
+        ],
         "impacts": "Depletion of fish",
         "placename": "Lumberton Camas",
         "today": "2014-10-23",
@@ -1474,7 +1574,9 @@
     {
       "properties": {
         "people": "lillie_flores",
-        "happening": "tourism",
+        "happening": [
+          "tourism"
+        ],
         "impacts": "Damage to water source / watershed",
         "placename": "Beason Robinette",
         "today": "2014-01-13",
@@ -1504,7 +1606,9 @@
     {
       "properties": {
         "people": "dennis_moreno",
-        "happening": "hunting",
+        "happening": [
+          "hunting"
+        ],
         "impacts": "Damage to water source / watershed",
         "placename": "Faxon Cumberland",
         "today": "2014-11-27",
@@ -1534,7 +1638,9 @@
     {
       "properties": {
         "people": "dennis_moreno",
-        "happening": "mining",
+        "happening": [
+          "mining"
+        ],
         "impacts": "Damage to farming grounds",
         "placename": "Eastvale Chicopee",
         "today": "2014-08-07",
@@ -1564,7 +1670,9 @@
     {
       "properties": {
         "people": "dennis_moreno",
-        "happening": "rustling",
+        "happening": [
+          "rustling"
+        ],
         "impacts": "Water pollution",
         "placename": "Kylertown Ilchester",
         "today": "2014-09-28",
@@ -1594,7 +1702,9 @@
     {
       "properties": {
         "people": "osborne_saunders",
-        "happening": "logging",
+        "happening": [
+          "logging"
+        ],
         "impacts": "Social harm or abuse",
         "placename": "Brambleton Garfield",
         "today": "2014-02-16",
@@ -1624,7 +1734,9 @@
     {
       "properties": {
         "people": "hancock_martinez",
-        "happening": "trapping",
+        "happening": [
+          "trapping"
+        ],
         "impacts": "Damage to water source / watershed",
         "placename": "Whitehaven Fidelis",
         "today": "2014-02-10",
@@ -1654,7 +1766,9 @@
     {
       "properties": {
         "people": "deanne_velazquez",
-        "happening": "artefacts",
+        "happening": [
+          "artefacts"
+        ],
         "impacts": "Depletion of game",
         "placename": "Lowell Tioga",
         "today": "2014-03-22",
@@ -1684,7 +1798,9 @@
     {
       "properties": {
         "people": "hancock_martinez",
-        "happening": "tourism",
+        "happening": [
+          "tourism"
+        ],
         "impacts": "Violation of sensitive site",
         "placename": "Sandston Leeper",
         "today": "2014-01-13",
@@ -1714,7 +1830,9 @@
     {
       "properties": {
         "people": "crawford_hill",
-        "happening": "crossing",
+        "happening": [
+          "crossing"
+        ],
         "impacts": "Damage to water source / watershed",
         "placename": "Chumuckla Westphalia",
         "today": "2014-03-21",
@@ -1744,7 +1862,9 @@
     {
       "properties": {
         "people": "cross_kemp",
-        "happening": "artefacts",
+        "happening": [
+          "artefacts"
+        ],
         "impacts": "Violation of sensitive site",
         "placename": "Rosine Masthope",
         "today": "2014-10-12",
@@ -1774,7 +1894,9 @@
     {
       "properties": {
         "people": "cross_kemp",
-        "happening": "fishing",
+        "happening": [
+          "fishing"
+        ],
         "impacts": "Water poisoned",
         "placename": "Islandia Sidman",
         "today": "2014-01-02",
@@ -1804,7 +1926,9 @@
     {
       "properties": {
         "people": "cross_kemp",
-        "happening": "rustling",
+        "happening": [
+          "rustling"
+        ],
         "impacts": "Water poisoned",
         "placename": "Catharine Dante",
         "today": "2014-09-04",
@@ -1834,7 +1958,9 @@
     {
       "properties": {
         "people": "dennis_moreno",
-        "happening": "logging",
+        "happening": [
+          "logging"
+        ],
         "impacts": "Damage to water source / watershed",
         "placename": "Sunriver Sylvanite",
         "today": "2014-07-31",
@@ -1864,7 +1990,9 @@
     {
       "properties": {
         "people": "dennis_moreno",
-        "happening": "trapping",
+        "happening": [
+          "trapping"
+        ],
         "impacts": "Damage to wildlife / habitat",
         "placename": "Collins Detroit",
         "today": "2014-09-28",
@@ -1894,7 +2022,9 @@
     {
       "properties": {
         "people": "deanne_velazquez",
-        "happening": "rustling",
+        "happening": [
+          "rustling"
+        ],
         "impacts": "Violation of sensitive site",
         "placename": "Ronco Cleary",
         "today": "2014-03-10",
@@ -1924,7 +2054,9 @@
     {
       "properties": {
         "people": "inez_alston",
-        "happening": "hunting",
+        "happening": [
+          "hunting"
+        ],
         "impacts": "Damage to farming grounds",
         "placename": "Grantville Volta",
         "today": "2014-07-02",
@@ -1954,7 +2086,9 @@
     {
       "properties": {
         "people": "dennis_moreno",
-        "happening": "rustling",
+        "happening": [
+          "rustling"
+        ],
         "impacts": "Loss of cultural heritage",
         "placename": "Crenshaw Mahtowa",
         "today": "2014-06-06",
@@ -1984,7 +2118,9 @@
     {
       "properties": {
         "people": "inez_alston",
-        "happening": "crossing",
+        "happening": [
+          "crossing"
+        ],
         "impacts": "Deforestation",
         "placename": "Bath Waukeenah",
         "today": "2014-03-14",
@@ -2014,7 +2150,9 @@
     {
       "properties": {
         "people": "burch_andrews",
-        "happening": "artefacts",
+        "happening": [
+          "artefacts"
+        ],
         "impacts": "Damage to water source / watershed",
         "placename": "Noblestown Gwynn",
         "today": "2014-06-29",
@@ -2044,7 +2182,9 @@
     {
       "properties": {
         "people": "cross_kemp",
-        "happening": "fishing",
+        "happening": [
+          "fishing"
+        ],
         "impacts": "Loss of cultural heritage",
         "placename": "Bloomington Cumminsville",
         "today": "2014-01-25",
@@ -2074,7 +2214,9 @@
     {
       "properties": {
         "people": "deanne_velazquez",
-        "happening": "trapping",
+        "happening": [
+          "trapping"
+        ],
         "impacts": "Damage to wildlife / habitat",
         "placename": "Deseret Cliffside",
         "today": "2014-03-05",
@@ -2104,7 +2246,9 @@
     {
       "properties": {
         "people": "inez_alston",
-        "happening": "hunting",
+        "happening": [
+          "hunting"
+        ],
         "impacts": "Social harm or abuse",
         "placename": "Onton Brandermill",
         "today": "2014-05-11",
@@ -2134,7 +2278,9 @@
     {
       "properties": {
         "people": "crawford_hill",
-        "happening": "logging",
+        "happening": [
+          "logging"
+        ],
         "impacts": "Damage to farming grounds",
         "placename": "Stagecoach Olney",
         "today": "2014-12-15",
@@ -2164,7 +2310,9 @@
     {
       "properties": {
         "people": "burch_andrews",
-        "happening": "grazing",
+        "happening": [
+          "grazing"
+        ],
         "impacts": "Deforestation",
         "placename": "Coalmont Ernstville",
         "today": "2014-03-12",
@@ -2194,7 +2342,9 @@
     {
       "properties": {
         "people": "inez_alston",
-        "happening": "tourism",
+        "happening": [
+          "tourism"
+        ],
         "impacts": "Damage to farming grounds",
         "placename": "Kenwood Darlington",
         "today": "2014-12-29",
@@ -2224,7 +2374,9 @@
     {
       "properties": {
         "people": "crawford_hill",
-        "happening": "grazing",
+        "happening": [
+          "grazing"
+        ],
         "impacts": "Damage to gathering grounds",
         "placename": "Maplewood Farmers",
         "today": "2014-08-22",
@@ -2254,7 +2406,9 @@
     {
       "properties": {
         "people": "deanne_velazquez",
-        "happening": "logging",
+        "happening": [
+          "logging"
+        ],
         "impacts": "Damage to wildlife / habitat",
         "placename": "Staples Riner",
         "today": "2014-03-21",
@@ -2284,7 +2438,9 @@
     {
       "properties": {
         "people": "cross_kemp",
-        "happening": "mining",
+        "happening": [
+          "mining"
+        ],
         "impacts": "Deforestation",
         "placename": "Fairview Dalton",
         "today": "2014-03-23",
@@ -2314,7 +2470,9 @@
     {
       "properties": {
         "people": "deanne_velazquez",
-        "happening": "tourism",
+        "happening": [
+          "tourism"
+        ],
         "impacts": "Depletion of game",
         "placename": "Vandiver Centerville",
         "today": "2014-05-29",
@@ -2344,7 +2502,9 @@
     {
       "properties": {
         "people": "lillie_flores",
-        "happening": "logging",
+        "happening": [
+          "logging"
+        ],
         "impacts": "Water poisoned",
         "placename": "Buxton Tilleda",
         "today": "2014-04-20",
@@ -2374,7 +2534,9 @@
     {
       "properties": {
         "people": "mattie_solis",
-        "happening": "grazing",
+        "happening": [
+          "grazing"
+        ],
         "impacts": "Damage to water source / watershed",
         "placename": "Springhill Gibsonia",
         "today": "2014-01-16",
@@ -2404,7 +2566,9 @@
     {
       "properties": {
         "people": "burch_andrews",
-        "happening": "mining",
+        "happening": [
+          "mining"
+        ],
         "impacts": "Damage to wildlife / habitat",
         "placename": "Kirk Laurelton",
         "today": "2014-04-06",
@@ -2434,7 +2598,9 @@
     {
       "properties": {
         "people": "dennis_moreno",
-        "happening": "other",
+        "happening": [
+          "other"
+        ],
         "impacts": "Deforestation",
         "placename": "Barronett Davenport",
         "today": "2014-03-12",
@@ -2464,7 +2630,9 @@
     {
       "properties": {
         "people": "osborne_saunders",
-        "happening": "logging",
+        "happening": [
+          "logging"
+        ],
         "impacts": "Deforestation",
         "placename": "Geyserville Hatteras",
         "today": "2014-09-08",
@@ -2494,7 +2662,9 @@
     {
       "properties": {
         "people": "lillie_flores",
-        "happening": "trapping",
+        "happening": [
+          "trapping"
+        ],
         "impacts": "Social harm or abuse",
         "placename": "Gilgo Bedias",
         "today": "2014-05-17",
@@ -2524,7 +2694,9 @@
     {
       "properties": {
         "people": "inez_alston",
-        "happening": "grazing",
+        "happening": [
+          "grazing"
+        ],
         "impacts": "Deforestation",
         "placename": "Sparkill Torboy",
         "today": "2014-02-08",
@@ -2554,7 +2726,9 @@
     {
       "properties": {
         "people": "crawford_hill",
-        "happening": "grazing",
+        "happening": [
+          "grazing"
+        ],
         "impacts": "Violation of sensitive site",
         "placename": "Wanamie Grapeview",
         "today": "2014-08-22",
@@ -2584,7 +2758,9 @@
     {
       "properties": {
         "people": "hancock_martinez",
-        "happening": "hunting",
+        "happening": [
+          "hunting"
+        ],
         "impacts": "Deforestation",
         "placename": "Idledale Haena",
         "today": "2014-03-12",
@@ -2614,7 +2790,9 @@
     {
       "properties": {
         "people": "mattie_solis",
-        "happening": "artefacts",
+        "happening": [
+          "artefacts"
+        ],
         "impacts": "Damage to farming grounds",
         "placename": "Lorraine Alleghenyville",
         "today": "2014-09-20",
@@ -2644,7 +2822,9 @@
     {
       "properties": {
         "people": "cross_kemp",
-        "happening": "tourism",
+        "happening": [
+          "tourism"
+        ],
         "impacts": "Loss of cultural heritage",
         "placename": "Sheatown Veyo",
         "today": "2014-11-02",
@@ -2674,7 +2854,9 @@
     {
       "properties": {
         "people": "deanne_velazquez",
-        "happening": "fishing",
+        "happening": [
+          "fishing"
+        ],
         "impacts": "Damage to farming grounds",
         "placename": "Leyner Somerset",
         "today": "2014-04-17",
@@ -2704,7 +2886,9 @@
     {
       "properties": {
         "people": "crawford_hill",
-        "happening": "grazing",
+        "happening": [
+          "grazing"
+        ],
         "impacts": "Damage to water source / watershed",
         "placename": "Stonybrook Rockhill",
         "today": "2014-01-22",
@@ -2734,7 +2918,9 @@
     {
       "properties": {
         "people": "osborne_saunders",
-        "happening": "crossing",
+        "happening": [
+          "crossing"
+        ],
         "impacts": "Depletion of fish",
         "placename": "Century Rosedale",
         "today": "2014-05-08",
@@ -2764,7 +2950,9 @@
     {
       "properties": {
         "people": "osborne_saunders",
-        "happening": "trapping",
+        "happening": [
+          "trapping"
+        ],
         "impacts": "Damage to wildlife / habitat",
         "placename": "Croom Jacumba",
         "today": "2014-03-07",
@@ -2794,7 +2982,9 @@
     {
       "properties": {
         "people": "osborne_saunders",
-        "happening": "artefacts",
+        "happening": [
+          "artefacts"
+        ],
         "impacts": "Water poisoned",
         "placename": "Norris Thomasville",
         "today": "2014-02-21",
@@ -2824,7 +3014,9 @@
     {
       "properties": {
         "people": "deanne_velazquez",
-        "happening": "crossing",
+        "happening": [
+          "crossing"
+        ],
         "impacts": "Harm to community conserved site",
         "placename": "Adamstown Sexton",
         "today": "2014-04-18",
@@ -2854,7 +3046,9 @@
     {
       "properties": {
         "people": "osborne_saunders",
-        "happening": "tourism",
+        "happening": [
+          "tourism"
+        ],
         "impacts": "FPIC violation",
         "placename": "Roosevelt Fontanelle",
         "today": "2014-09-28",
@@ -2884,7 +3078,9 @@
     {
       "properties": {
         "people": "crawford_hill",
-        "happening": "trapping",
+        "happening": [
+          "trapping"
+        ],
         "impacts": "Deforestation",
         "placename": "Abiquiu Harborton",
         "today": "2014-03-22",
@@ -2914,7 +3110,9 @@
     {
       "properties": {
         "people": "dennis_moreno",
-        "happening": "other",
+        "happening": [
+          "other"
+        ],
         "impacts": "Damage to gathering grounds",
         "placename": "Joppa Taft",
         "today": "2014-11-25",
@@ -2944,7 +3142,9 @@
     {
       "properties": {
         "people": "hancock_martinez",
-        "happening": "grazing",
+        "happening": [
+          "grazing"
+        ],
         "impacts": "Damage to farming grounds",
         "placename": "Hartsville/Hartley Kerby",
         "today": "2014-07-19",
@@ -2974,7 +3174,9 @@
     {
       "properties": {
         "people": "inez_alston",
-        "happening": "tourism",
+        "happening": [
+          "tourism"
+        ],
         "impacts": "Damage to water source / watershed",
         "placename": "Chase Longoria",
         "today": "2014-09-26",
@@ -3004,7 +3206,9 @@
     {
       "properties": {
         "people": "crawford_hill",
-        "happening": "fishing",
+        "happening": [
+          "fishing"
+        ],
         "impacts": "Social harm or abuse",
         "placename": "Snelling Indio",
         "today": "2014-03-25",
@@ -3034,7 +3238,9 @@
     {
       "properties": {
         "people": "mattie_solis",
-        "happening": "artefacts",
+        "happening": [
+          "artefacts"
+        ],
         "impacts": "Damage to gathering grounds",
         "placename": "Lowgap Tuskahoma",
         "today": "2014-06-21",
@@ -3064,7 +3270,9 @@
     {
       "properties": {
         "people": "mattie_solis",
-        "happening": "artefacts",
+        "happening": [
+          "artefacts"
+        ],
         "impacts": "Water poisoned",
         "placename": "Accoville Lemoyne",
         "today": "2014-12-11",
@@ -3094,7 +3302,9 @@
     {
       "properties": {
         "people": "cross_kemp",
-        "happening": "crossing",
+        "happening": [
+          "crossing"
+        ],
         "impacts": "Violation of sensitive site",
         "placename": "Albrightsville Orovada",
         "today": "2014-05-04",
@@ -3124,7 +3334,9 @@
     {
       "properties": {
         "people": "crawford_hill",
-        "happening": "other",
+        "happening": [
+          "other"
+        ],
         "impacts": "Water pollution",
         "placename": "Dundee Lawrence",
         "today": "2014-01-15",
@@ -3154,7 +3366,9 @@
     {
       "properties": {
         "people": "mattie_solis",
-        "happening": "rustling",
+        "happening": [
+          "rustling"
+        ],
         "impacts": "Social harm or abuse",
         "placename": "Tilden Mulino",
         "today": "2014-09-21",
@@ -3184,7 +3398,9 @@
     {
       "properties": {
         "people": "burch_andrews",
-        "happening": "grazing",
+        "happening": [
+          "grazing"
+        ],
         "impacts": "Water poisoned",
         "placename": "Boonville Loma",
         "today": "2014-01-16",
@@ -3214,7 +3430,9 @@
     {
       "properties": {
         "people": "burch_andrews",
-        "happening": "other",
+        "happening": [
+          "other"
+        ],
         "impacts": "Loss of cultural heritage",
         "placename": "Coventry Longoria",
         "today": "2014-08-20",
@@ -3244,7 +3462,9 @@
     {
       "properties": {
         "people": "dennis_moreno",
-        "happening": "mining",
+        "happening": [
+          "mining"
+        ],
         "impacts": "Social harm or abuse",
         "placename": "Bowmansville Eureka",
         "today": "2014-06-06",
@@ -3274,7 +3494,9 @@
     {
       "properties": {
         "people": "lillie_flores",
-        "happening": "other",
+        "happening": [
+          "other"
+        ],
         "impacts": "Damage to water source / watershed",
         "placename": "Waiohinu Kieler",
         "today": "2014-04-29",
@@ -3304,7 +3526,9 @@
     {
       "properties": {
         "people": "deanne_velazquez",
-        "happening": "trapping",
+        "happening": [
+          "trapping"
+        ],
         "impacts": "Violation of sensitive site",
         "placename": "Bakersville Waukeenah",
         "today": "2014-08-19",
@@ -3334,7 +3558,9 @@
     {
       "properties": {
         "people": "crawford_hill",
-        "happening": "artefacts",
+        "happening": [
+          "artefacts"
+        ],
         "impacts": "Water poisoned",
         "placename": "Russellville Gardiner",
         "today": "2014-06-20",
@@ -3364,7 +3590,9 @@
     {
       "properties": {
         "people": "crawford_hill",
-        "happening": "grazing",
+        "happening": [
+          "grazing"
+        ],
         "impacts": "Water pollution",
         "placename": "Bendon Cumberland",
         "today": "2014-01-22",
@@ -3394,7 +3622,9 @@
     {
       "properties": {
         "people": "deanne_velazquez",
-        "happening": "crossing",
+        "happening": [
+          "crossing"
+        ],
         "impacts": "FPIC violation",
         "placename": "Savage Adelino",
         "today": "2014-01-10",
@@ -3424,7 +3654,9 @@
     {
       "properties": {
         "people": "inez_alston",
-        "happening": "fishing",
+        "happening": [
+          "fishing"
+        ],
         "impacts": "Damage to gathering grounds",
         "placename": "Masthope Grazierville",
         "today": "2014-05-26",
@@ -3454,7 +3686,9 @@
     {
       "properties": {
         "people": "hancock_martinez",
-        "happening": "grazing",
+        "happening": [
+          "grazing"
+        ],
         "impacts": "Harm to community conserved site",
         "placename": "Fredericktown Goochland",
         "today": "2014-04-07",
@@ -3484,7 +3718,9 @@
     {
       "properties": {
         "people": "hancock_martinez",
-        "happening": "artefacts",
+        "happening": [
+          "artefacts"
+        ],
         "impacts": "Harm to community conserved site",
         "placename": "Taycheedah Johnsonburg",
         "today": "2014-05-18",
@@ -3514,7 +3750,9 @@
     {
       "properties": {
         "people": "burch_andrews",
-        "happening": "mining",
+        "happening": [
+          "mining"
+        ],
         "impacts": "Damage to wildlife / habitat",
         "placename": "Gracey Mahtowa",
         "today": "2014-10-14",
@@ -3544,7 +3782,9 @@
     {
       "properties": {
         "people": "deanne_velazquez",
-        "happening": "hunting",
+        "happening": [
+          "hunting"
+        ],
         "impacts": "Water pollution",
         "placename": "Tecolotito Brule",
         "today": "2014-12-07",
@@ -3574,7 +3814,9 @@
     {
       "properties": {
         "people": "dennis_moreno",
-        "happening": "rustling",
+        "happening": [
+          "rustling"
+        ],
         "impacts": "Depletion of game",
         "placename": "Rowe Tolu",
         "today": "2014-04-02",
@@ -3604,7 +3846,9 @@
     {
       "properties": {
         "people": "osborne_saunders",
-        "happening": "tourism",
+        "happening": [
+          "tourism"
+        ],
         "impacts": "Damage to water source / watershed",
         "placename": "Riverton Roberts",
         "today": "2014-06-07",
@@ -3634,7 +3878,9 @@
     {
       "properties": {
         "people": "burch_andrews",
-        "happening": "mining",
+        "happening": [
+          "mining"
+        ],
         "impacts": "Damage to gathering grounds",
         "placename": "Blodgett Chemung",
         "today": "2014-06-08",
@@ -3664,7 +3910,9 @@
     {
       "properties": {
         "people": "dennis_moreno",
-        "happening": "logging",
+        "happening": [
+          "logging"
+        ],
         "impacts": "Harm to community conserved site",
         "placename": "Cleary Harleigh",
         "today": "2014-12-24",
@@ -3694,7 +3942,9 @@
     {
       "properties": {
         "people": "burch_andrews",
-        "happening": "trapping",
+        "happening": [
+          "trapping"
+        ],
         "impacts": "Harm to community conserved site",
         "placename": "Skyland Watrous",
         "today": "2014-02-19",
@@ -3724,7 +3974,9 @@
     {
       "properties": {
         "people": "lillie_flores",
-        "happening": "mining",
+        "happening": [
+          "mining"
+        ],
         "impacts": "Water poisoned",
         "placename": "Verdi Klagetoh",
         "today": "2014-03-17",
@@ -3754,7 +4006,9 @@
     {
       "properties": {
         "people": "hancock_martinez",
-        "happening": "fishing",
+        "happening": [
+          "fishing"
+        ],
         "impacts": "Harm to community conserved site",
         "placename": "Comptche Tonopah",
         "today": "2014-08-21",
@@ -3784,7 +4038,9 @@
     {
       "properties": {
         "people": "inez_alston",
-        "happening": "artefacts",
+        "happening": [
+          "artefacts"
+        ],
         "impacts": "Depletion of fish",
         "placename": "Cassel Richmond",
         "today": "2014-10-06",
@@ -3814,7 +4070,9 @@
     {
       "properties": {
         "people": "inez_alston",
-        "happening": "other",
+        "happening": [
+          "other"
+        ],
         "impacts": "Water pollution",
         "placename": "Stewart Harrison",
         "today": "2014-05-14",
@@ -3844,7 +4102,9 @@
     {
       "properties": {
         "people": "cross_kemp",
-        "happening": "grazing",
+        "happening": [
+          "grazing"
+        ],
         "impacts": "Violation of sensitive site",
         "placename": "Crenshaw Stevens",
         "today": "2014-02-14",
@@ -3874,7 +4134,9 @@
     {
       "properties": {
         "people": "dennis_moreno",
-        "happening": "tourism",
+        "happening": [
+          "tourism"
+        ],
         "impacts": "FPIC violation",
         "placename": "Golconda Trexlertown",
         "today": "2014-03-12",
@@ -3904,7 +4166,9 @@
     {
       "properties": {
         "people": "burch_andrews",
-        "happening": "mining",
+        "happening": [
+          "mining"
+        ],
         "impacts": "FPIC violation",
         "placename": "Tyro Falconaire",
         "today": "2014-11-14",
@@ -3934,7 +4198,9 @@
     {
       "properties": {
         "people": "dennis_moreno",
-        "happening": "grazing",
+        "happening": [
+          "grazing"
+        ],
         "impacts": "Water pollution",
         "placename": "Joppa Sterling",
         "today": "2014-05-30",
@@ -3964,7 +4230,9 @@
     {
       "properties": {
         "people": "osborne_saunders",
-        "happening": "grazing",
+        "happening": [
+          "grazing"
+        ],
         "impacts": "Depletion of fish",
         "placename": "Bluffview Brewster",
         "today": "2014-06-06",
@@ -3994,7 +4262,9 @@
     {
       "properties": {
         "people": "inez_alston",
-        "happening": "logging",
+        "happening": [
+          "logging"
+        ],
         "impacts": "Damage to gathering grounds",
         "placename": "Hilltop Collins",
         "today": "2014-01-16",
@@ -4024,7 +4294,9 @@
     {
       "properties": {
         "people": "burch_andrews",
-        "happening": "logging",
+        "happening": [
+          "logging"
+        ],
         "impacts": "Deforestation",
         "placename": "Hobucken Chumuckla",
         "today": "2014-05-12",
@@ -4054,7 +4326,9 @@
     {
       "properties": {
         "people": "lillie_flores",
-        "happening": "rustling",
+        "happening": [
+          "rustling"
+        ],
         "impacts": "FPIC violation",
         "placename": "Maybell Canby",
         "today": "2014-08-20",
@@ -4084,7 +4358,9 @@
     {
       "properties": {
         "people": "osborne_saunders",
-        "happening": "tourism",
+        "happening": [
+          "tourism"
+        ],
         "impacts": "FPIC violation",
         "placename": "Bentonville Nord",
         "today": "2014-04-13",
@@ -4114,7 +4390,9 @@
     {
       "properties": {
         "people": "cross_kemp",
-        "happening": "rustling",
+        "happening": [
+          "rustling"
+        ],
         "impacts": "Water pollution",
         "placename": "Hoagland Emison",
         "today": "2014-04-11",
@@ -4144,7 +4422,9 @@
     {
       "properties": {
         "people": "burch_andrews",
-        "happening": "logging",
+        "happening": [
+          "logging"
+        ],
         "impacts": "Depletion of game",
         "placename": "Ronco Bannock",
         "today": "2014-08-05",
@@ -4174,7 +4454,9 @@
     {
       "properties": {
         "people": "cross_kemp",
-        "happening": "fishing",
+        "happening": [
+          "fishing"
+        ],
         "impacts": "Violation of sensitive site",
         "placename": "Devon Canterwood",
         "today": "2014-03-16",
@@ -4204,7 +4486,9 @@
     {
       "properties": {
         "people": "osborne_saunders",
-        "happening": "trapping",
+        "happening": [
+          "trapping"
+        ],
         "impacts": "Damage to gathering grounds",
         "placename": "Enetai Chestnut",
         "today": "2014-01-04",
@@ -4234,7 +4518,9 @@
     {
       "properties": {
         "people": "osborne_saunders",
-        "happening": "hunting",
+        "happening": [
+          "hunting"
+        ],
         "impacts": "Violation of sensitive site",
         "placename": "Kingstowne Jessie",
         "today": "2014-01-10",
@@ -4264,7 +4550,9 @@
     {
       "properties": {
         "people": "dennis_moreno",
-        "happening": "tourism",
+        "happening": [
+          "tourism"
+        ],
         "impacts": "Water poisoned",
         "placename": "Waterview Glenbrook",
         "today": "2014-02-16",
@@ -4294,7 +4582,9 @@
     {
       "properties": {
         "people": "mattie_solis",
-        "happening": "tourism",
+        "happening": [
+          "tourism"
+        ],
         "impacts": "Damage to wildlife / habitat",
         "placename": "Singer Crisman",
         "today": "2014-06-07",
@@ -4324,7 +4614,9 @@
     {
       "properties": {
         "people": "hancock_martinez",
-        "happening": "trapping",
+        "happening": [
+          "trapping"
+        ],
         "impacts": "Depletion of fish",
         "placename": "Bagtown Nicut",
         "today": "2014-06-12",
@@ -4354,7 +4646,9 @@
     {
       "properties": {
         "people": "inez_alston",
-        "happening": "mining",
+        "happening": [
+          "mining"
+        ],
         "impacts": "Damage to wildlife / habitat",
         "placename": "Choctaw Hartsville/Hartley",
         "today": "2014-05-28",
@@ -4384,7 +4678,9 @@
     {
       "properties": {
         "people": "lillie_flores",
-        "happening": "grazing",
+        "happening": [
+          "grazing"
+        ],
         "impacts": "Water pollution",
         "placename": "Frank Cherokee",
         "today": "2014-06-02",
@@ -4414,7 +4710,9 @@
     {
       "properties": {
         "people": "hancock_martinez",
-        "happening": "fishing",
+        "happening": [
+          "fishing"
+        ],
         "impacts": "Harm to community conserved site",
         "placename": "Westboro Thornport",
         "today": "2014-02-09",
@@ -4444,7 +4742,9 @@
     {
       "properties": {
         "people": "deanne_velazquez",
-        "happening": "hunting",
+        "happening": [
+          "hunting"
+        ],
         "impacts": "Harm to community conserved site",
         "placename": "Sugartown Curtice",
         "today": "2014-12-31",
@@ -4474,7 +4774,9 @@
     {
       "properties": {
         "people": "inez_alston",
-        "happening": "logging",
+        "happening": [
+          "logging"
+        ],
         "impacts": "Harm to community conserved site",
         "placename": "Wyano Dotsero",
         "today": "2014-02-26",
@@ -4504,7 +4806,9 @@
     {
       "properties": {
         "people": "inez_alston",
-        "happening": "crossing",
+        "happening": [
+          "crossing"
+        ],
         "impacts": "Water poisoned",
         "placename": "Summerset Dennard",
         "today": "2014-01-20",
@@ -4534,7 +4838,9 @@
     {
       "properties": {
         "people": "dennis_moreno",
-        "happening": "trapping",
+        "happening": [
+          "trapping"
+        ],
         "impacts": "Water pollution",
         "placename": "Zarephath Rosine",
         "today": "2014-07-15",
@@ -4564,7 +4870,9 @@
     {
       "properties": {
         "people": "crawford_hill",
-        "happening": "artefacts",
+        "happening": [
+          "artefacts"
+        ],
         "impacts": "Deforestation",
         "placename": "Fairforest Frystown",
         "today": "2014-01-30",
@@ -4594,7 +4902,9 @@
     {
       "properties": {
         "people": "cross_kemp",
-        "happening": "grazing",
+        "happening": [
+          "grazing"
+        ],
         "impacts": "Depletion of fish",
         "placename": "Westmoreland Spokane",
         "today": "2014-02-02",
@@ -4624,7 +4934,9 @@
     {
       "properties": {
         "people": "hancock_martinez",
-        "happening": "artefacts",
+        "happening": [
+          "artefacts"
+        ],
         "impacts": "Violation of sensitive site",
         "placename": "Clinton Shelby",
         "today": "2014-05-04",
@@ -4654,7 +4966,9 @@
     {
       "properties": {
         "people": "burch_andrews",
-        "happening": "other",
+        "happening": [
+          "other"
+        ],
         "impacts": "FPIC violation",
         "placename": "Gorst Veyo",
         "today": "2014-01-31",
@@ -4684,7 +4998,9 @@
     {
       "properties": {
         "people": "dennis_moreno",
-        "happening": "artefacts",
+        "happening": [
+          "artefacts"
+        ],
         "impacts": "Damage to gathering grounds",
         "placename": "Farmers Denio",
         "today": "2014-02-18",
@@ -4714,7 +5030,9 @@
     {
       "properties": {
         "people": "burch_andrews",
-        "happening": "fishing",
+        "happening": [
+          "fishing"
+        ],
         "impacts": "Harm to community conserved site",
         "placename": "Marenisco Springdale",
         "today": "2014-01-12",
@@ -4744,7 +5062,9 @@
     {
       "properties": {
         "people": "mattie_solis",
-        "happening": "hunting",
+        "happening": [
+          "hunting"
+        ],
         "impacts": "Damage to water source / watershed",
         "placename": "Sandston Orason",
         "today": "2014-04-16",
@@ -4774,7 +5094,9 @@
     {
       "properties": {
         "people": "inez_alston",
-        "happening": "crossing",
+        "happening": [
+          "crossing"
+        ],
         "impacts": "Depletion of fish",
         "placename": "Breinigsville Glasgow",
         "today": "2014-02-06",
@@ -4804,7 +5126,9 @@
     {
       "properties": {
         "people": "osborne_saunders",
-        "happening": "grazing",
+        "happening": [
+          "grazing"
+        ],
         "impacts": "Damage to water source / watershed",
         "placename": "Barrelville Saddlebrooke",
         "today": "2014-09-15",
@@ -4834,7 +5158,9 @@
     {
       "properties": {
         "people": "deanne_velazquez",
-        "happening": "artefacts",
+        "happening": [
+          "artefacts"
+        ],
         "impacts": "Deforestation",
         "placename": "Baden Hinsdale",
         "today": "2014-07-21",
@@ -4864,7 +5190,9 @@
     {
       "properties": {
         "people": "cross_kemp",
-        "happening": "tourism",
+        "happening": [
+          "tourism"
+        ],
         "impacts": "Deforestation",
         "placename": "Waumandee Loretto",
         "today": "2014-01-28",
@@ -4894,7 +5222,9 @@
     {
       "properties": {
         "people": "burch_andrews",
-        "happening": "crossing",
+        "happening": [
+          "crossing"
+        ],
         "impacts": "Damage to wildlife / habitat",
         "placename": "Morriston Drytown",
         "today": "2014-06-28",
@@ -4924,7 +5254,9 @@
     {
       "properties": {
         "people": "burch_andrews",
-        "happening": "grazing",
+        "happening": [
+          "grazing"
+        ],
         "impacts": "Damage to water source / watershed",
         "placename": "Bayview Sattley",
         "today": "2014-04-06",
@@ -4954,7 +5286,9 @@
     {
       "properties": {
         "people": "burch_andrews",
-        "happening": "logging",
+        "happening": [
+          "logging"
+        ],
         "impacts": "Violation of sensitive site",
         "placename": "Caspar Robinson",
         "today": "2014-01-10",
@@ -4984,7 +5318,9 @@
     {
       "properties": {
         "people": "inez_alston",
-        "happening": "rustling",
+        "happening": [
+          "rustling"
+        ],
         "impacts": "FPIC violation",
         "placename": "Yardville Mayfair",
         "today": "2014-05-15",
@@ -5014,7 +5350,9 @@
     {
       "properties": {
         "people": "hancock_martinez",
-        "happening": "tourism",
+        "happening": [
+          "tourism"
+        ],
         "impacts": "Depletion of game",
         "placename": "Klondike Winston",
         "today": "2014-02-05",
@@ -5044,7 +5382,9 @@
     {
       "properties": {
         "people": "deanne_velazquez",
-        "happening": "artefacts",
+        "happening": [
+          "artefacts"
+        ],
         "impacts": "FPIC violation",
         "placename": "Glendale Ona",
         "today": "2014-11-13",
@@ -5074,7 +5414,9 @@
     {
       "properties": {
         "people": "dennis_moreno",
-        "happening": "hunting",
+        "happening": [
+          "hunting"
+        ],
         "impacts": "Damage to water source / watershed",
         "placename": "Olney Robbins",
         "today": "2014-01-12",
@@ -5104,7 +5446,9 @@
     {
       "properties": {
         "people": "osborne_saunders",
-        "happening": "logging",
+        "happening": [
+          "logging"
+        ],
         "impacts": "FPIC violation",
         "placename": "Talpa Leroy",
         "today": "2014-10-14",
@@ -5134,7 +5478,9 @@
     {
       "properties": {
         "people": "inez_alston",
-        "happening": "artefacts",
+        "happening": [
+          "artefacts"
+        ],
         "impacts": "Damage to gathering grounds",
         "placename": "Elbert Whipholt",
         "today": "2014-06-11",
@@ -5164,7 +5510,9 @@
     {
       "properties": {
         "people": "lillie_flores",
-        "happening": "hunting",
+        "happening": [
+          "hunting"
+        ],
         "impacts": "Loss of cultural heritage",
         "placename": "Ferney Ogema",
         "today": "2014-08-28",
@@ -5194,7 +5542,9 @@
     {
       "properties": {
         "people": "burch_andrews",
-        "happening": "fishing",
+        "happening": [
+          "fishing"
+        ],
         "impacts": "Loss of cultural heritage",
         "placename": "Dawn Ticonderoga",
         "today": "2014-07-15",
@@ -5224,7 +5574,9 @@
     {
       "properties": {
         "people": "dennis_moreno",
-        "happening": "mining",
+        "happening": [
+          "mining"
+        ],
         "impacts": "Depletion of fish",
         "placename": "Hiko Boling",
         "today": "2014-03-25",
@@ -5254,7 +5606,9 @@
     {
       "properties": {
         "people": "inez_alston",
-        "happening": "other",
+        "happening": [
+          "other"
+        ],
         "impacts": "FPIC violation",
         "placename": "Dunlo Cliffside",
         "today": "2014-10-25",
@@ -5284,7 +5638,9 @@
     {
       "properties": {
         "people": "cross_kemp",
-        "happening": "fishing",
+        "happening": [
+          "fishing"
+        ],
         "impacts": "Damage to gathering grounds",
         "placename": "Lodoga Northchase",
         "today": "2014-06-25",
@@ -5314,7 +5670,9 @@
     {
       "properties": {
         "people": "dennis_moreno",
-        "happening": "trapping",
+        "happening": [
+          "trapping"
+        ],
         "impacts": "Loss of cultural heritage",
         "placename": "Sardis Tyhee",
         "today": "2014-04-01",
@@ -5344,7 +5702,9 @@
     {
       "properties": {
         "people": "dennis_moreno",
-        "happening": "mining",
+        "happening": [
+          "mining"
+        ],
         "impacts": "Loss of cultural heritage",
         "placename": "Floriston Statenville",
         "today": "2014-06-30",
@@ -5374,7 +5734,9 @@
     {
       "properties": {
         "people": "burch_andrews",
-        "happening": "other",
+        "happening": [
+          "other"
+        ],
         "impacts": "Water poisoned",
         "placename": "Imperial Caledonia",
         "today": "2014-06-12",
@@ -5404,7 +5766,9 @@
     {
       "properties": {
         "people": "cross_kemp",
-        "happening": "grazing",
+        "happening": [
+          "grazing"
+        ],
         "impacts": "FPIC violation",
         "placename": "Homeland Mapletown",
         "today": "2014-02-25",
@@ -5434,7 +5798,9 @@
     {
       "properties": {
         "people": "deanne_velazquez",
-        "happening": "logging",
+        "happening": [
+          "logging"
+        ],
         "impacts": "Water poisoned",
         "placename": "Moraida Tooleville",
         "today": "2014-11-15",
@@ -5464,7 +5830,9 @@
     {
       "properties": {
         "people": "cross_kemp",
-        "happening": "trapping",
+        "happening": [
+          "trapping"
+        ],
         "impacts": "Loss of cultural heritage",
         "placename": "Yonah Enlow",
         "today": "2014-06-05",
@@ -5494,7 +5862,9 @@
     {
       "properties": {
         "people": "cross_kemp",
-        "happening": "other",
+        "happening": [
+          "other"
+        ],
         "impacts": "Social harm or abuse",
         "placename": "Gulf Knowlton",
         "today": "2014-07-13",
@@ -5524,7 +5894,9 @@
     {
       "properties": {
         "people": "inez_alston",
-        "happening": "logging",
+        "happening": [
+          "logging"
+        ],
         "impacts": "Damage to water source / watershed",
         "placename": "Crayne Brantleyville",
         "today": "2014-09-16",
@@ -5554,7 +5926,9 @@
     {
       "properties": {
         "people": "cross_kemp",
-        "happening": "grazing",
+        "happening": [
+          "grazing"
+        ],
         "impacts": "Loss of cultural heritage",
         "placename": "Oberlin Vivian",
         "today": "2014-11-30",
@@ -5584,7 +5958,9 @@
     {
       "properties": {
         "people": "lillie_flores",
-        "happening": "rustling",
+        "happening": [
+          "rustling"
+        ],
         "impacts": "Social harm or abuse",
         "placename": "Barstow Ypsilanti",
         "today": "2014-09-23",
@@ -5614,7 +5990,9 @@
     {
       "properties": {
         "people": "inez_alston",
-        "happening": "grazing",
+        "happening": [
+          "grazing"
+        ],
         "impacts": "Violation of sensitive site",
         "placename": "Lloyd Groveville",
         "today": "2014-01-27",
@@ -5644,7 +6022,9 @@
     {
       "properties": {
         "people": "inez_alston",
-        "happening": "artefacts",
+        "happening": [
+          "artefacts"
+        ],
         "impacts": "Deforestation",
         "placename": "Weedville Trona",
         "today": "2014-12-05",
@@ -5674,7 +6054,9 @@
     {
       "properties": {
         "people": "deanne_velazquez",
-        "happening": "tourism",
+        "happening": [
+          "tourism"
+        ],
         "impacts": "Depletion of fish",
         "placename": "Hiseville Hebron",
         "today": "2014-05-22",
@@ -5704,7 +6086,9 @@
     {
       "properties": {
         "people": "hancock_martinez",
-        "happening": "crossing",
+        "happening": [
+          "crossing"
+        ],
         "impacts": "Water pollution",
         "placename": "Chicopee Beason",
         "today": "2014-04-12",
@@ -5734,7 +6118,9 @@
     {
       "properties": {
         "people": "crawford_hill",
-        "happening": "tourism",
+        "happening": [
+          "tourism"
+        ],
         "impacts": "Depletion of fish",
         "placename": "Wheaton Cloverdale",
         "today": "2014-03-23",
@@ -5764,7 +6150,9 @@
     {
       "properties": {
         "people": "burch_andrews",
-        "happening": "logging",
+        "happening": [
+          "logging"
+        ],
         "impacts": "Damage to water source / watershed",
         "placename": "Clarktown Hendersonville",
         "today": "2014-06-19",
@@ -5794,7 +6182,9 @@
     {
       "properties": {
         "people": "burch_andrews",
-        "happening": "artefacts",
+        "happening": [
+          "artefacts"
+        ],
         "impacts": "Harm to community conserved site",
         "placename": "Courtland Greenock",
         "today": "2014-01-07",
@@ -5824,7 +6214,9 @@
     {
       "properties": {
         "people": "hancock_martinez",
-        "happening": "grazing",
+        "happening": [
+          "grazing"
+        ],
         "impacts": "Loss of cultural heritage",
         "placename": "Faywood Campo",
         "today": "2014-03-13",
@@ -5854,7 +6246,9 @@
     {
       "properties": {
         "people": "cross_kemp",
-        "happening": "other",
+        "happening": [
+          "other"
+        ],
         "impacts": "Damage to wildlife / habitat",
         "placename": "Ahwahnee Romeville",
         "today": "2014-05-22",
@@ -5884,7 +6278,9 @@
     {
       "properties": {
         "people": "cross_kemp",
-        "happening": "trapping",
+        "happening": [
+          "trapping"
+        ],
         "impacts": "Damage to water source / watershed",
         "placename": "Ironton Eagletown",
         "today": "2014-11-20",
@@ -5914,7 +6310,9 @@
     {
       "properties": {
         "people": "mattie_solis",
-        "happening": "fishing",
+        "happening": [
+          "fishing"
+        ],
         "impacts": "Social harm or abuse",
         "placename": "Welda Cutter",
         "today": "2014-02-12",
@@ -5944,7 +6342,9 @@
     {
       "properties": {
         "people": "burch_andrews",
-        "happening": "other",
+        "happening": [
+          "other"
+        ],
         "impacts": "Depletion of fish",
         "placename": "Crown Hasty",
         "today": "2014-03-24",
@@ -5974,7 +6374,9 @@
     {
       "properties": {
         "people": "dennis_moreno",
-        "happening": "tourism",
+        "happening": [
+          "tourism"
+        ],
         "impacts": "Depletion of game",
         "placename": "Epworth Taft",
         "today": "2014-04-17",

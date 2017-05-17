@@ -9,7 +9,6 @@ import {defineMessages, FormattedMessage} from 'react-intl'
 
 import { openSettings } from '../../action_creators'
 import FilterConfigurator from './filter_configurator'
-import FieldConfigurator from './field_configurator'
 import GeneralSettings from './general'
 
 const styles = {
@@ -107,9 +106,6 @@ const tabs = [{
 }, {
   id: 'filters',
   component: FilterConfigurator
-}, {
-  id: 'fields',
-  component: FieldConfigurator
 }]
 
 const Tab = ({active, label, onClick}) => (

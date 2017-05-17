@@ -11,7 +11,7 @@ import fieldMapping from './field_mapping'
 import fieldTypes from './field_types'
 import resizer from './resizer'
 import settings from './settings'
-import visibleFields from './visible_fields'
+import hiddenFields from './hidden_fields'
 
 export default combineReducers({
   features,
@@ -25,5 +25,5 @@ export default combineReducers({
   intl: intlReducer,
   resizer,
   settings,
-  visibleFields
+  hiddenFields
 })
