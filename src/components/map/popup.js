@@ -1,14 +1,14 @@
 import React from 'react'
 import assign from 'object-assign'
-import {FormattedMessage} from 'react-intl'
 import {connect} from 'react-redux'
 import {darken, fade} from 'material-ui/utils/colorManipulator'
 
-import Image from '../../components/image'
+import Image from '..//image'
+import FormattedValue from '../shared/formatted_value'
 import getFeaturesById from '../../selectors/features_by_id'
 import getFieldMapping from '../../selectors/field_mapping'
 import getColorIndex from '../../selectors/color_index'
-import {createMessage as msg} from '../../util/intl_helpers'
+import getFieldAnalysis from '../../selectors/field_analysis'
 
 const styles = {
   wrapper: {
@@ -85,7 +85,7 @@ class Popup extends React.Component {
   }
 
   render () {
-    const {media, title, subtitle, color} = this.props
+    const {media, title, subtitle, color, titleType, subtitleType} = this.props
     const {transform} = this.state
 
     return <div style={assign({}, styles.wrapper, {transform})} ref={el => (this._el = el)}>
@@ -94,10 +94,10 @@ class Popup extends React.Component {
         backgroundColor: fade(darken(color || '#000', 0.5), 0.5)
       })}>
         {title && <h1 style={styles.h1}>
-          <FormattedMessage {...msg('field_value')(title)} />
+          <FormattedValue value={title} type={titleType} />
         </h1>}
         {subtitle && <h2 style={assign({}, styles.h1, styles.h2)}>
-          <FormattedMessage {...msg('field_value')(subtitle)} />
+          <FormattedValue value={subtitle} type={subtitleType} />
         </h2>}
       </div>
     </div>
@@ -138,12 +138,14 @@ export default connect(
     const feature = featuresById[ownProps.id]
     if (!feature) return {}
     const geojsonProps = feature.properties
-
+    const fieldAnalysisProps = getFieldAnalysis(state).properties
     return {
       media: geojsonProps[fieldMapping.media],
       title: geojsonProps[fieldMapping.title],
       subtitle: geojsonProps[fieldMapping.subtitle],
-      color: colorIndex[geojsonProps[fieldMapping.color]]
+      color: colorIndex[geojsonProps[fieldMapping.color]],
+      titleType: fieldAnalysisProps[fieldMapping.title] && fieldAnalysisProps[fieldMapping.title].type,
+      subtitleType: fieldAnalysisProps[fieldMapping.subtitle] && fieldAnalysisProps[fieldMapping.subtitle].type
     }
   }
 )(Popup)

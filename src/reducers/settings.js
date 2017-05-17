@@ -1,12 +1,19 @@
 import assign from 'object-assign'
 
+import {
+  FORMATS_UTM,
+  FORMATS_DEC_DEG,
+  FORMATS_DEG_MIN_SEC
+} from '../constants'
+
 const defaultSettings = {
-  coordFormat: 'lonlat'
+  coordFormat: FORMATS_DEC_DEG
 }
 
 const isValidFormat = {
-  lonlat: true,
-  utm: true
+  [FORMATS_UTM]: true,
+  [FORMATS_DEC_DEG]: true,
+  [FORMATS_DEG_MIN_SEC]: true
 }
 
 const settings = (state = defaultSettings, {type, payload}) => {

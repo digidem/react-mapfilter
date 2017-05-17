@@ -10,6 +10,7 @@ import {FormattedMessage, defineMessages} from 'react-intl'
 import assign from 'object-assign'
 import {unflatten} from 'flat'
 
+import FormattedValue from '../shared/formatted_value'
 import getFeaturesById from '../../selectors/features_by_id'
 import getFieldMapping from '../../selectors/field_mapping'
 import getColorIndex from '../../selectors/color_index'
@@ -171,7 +172,7 @@ class FeatureDetail extends React.Component {
 
   render () {
     const {color, label, media, feature, title, subtitle, onCloseClick,
-      print, coordFormat, fieldAnalysis, hiddenFields} = this.props
+      print, coordFormat, fieldAnalysis, hiddenFields, titleType, subtitleType} = this.props
     const {editMode, feature: editedFeature, hiddenFields: editedHiddenFields} = this.state
     return <Card
       className='card'
@@ -180,8 +181,8 @@ class FeatureDetail extends React.Component {
       <CardHeader
         style={styles.header}
         avatar={<MarkerIcon color={color} style={styles.markerIcon} label={label} />}
-        title={<FormattedMessage {...msg('field_value')(title)} />}
-        subtitle={<FormattedMessage {...msg('field_value')(subtitle)} />}>
+        title={<FormattedValue value={title} type={titleType} />}
+        subtitle={<FormattedValue value={subtitle} type={subtitleType} />}>
         { onCloseClick &&
           <IconButton style={{float: 'right'}} onTouchTap={onCloseClick}>
             <CloseIcon />
@@ -248,6 +249,7 @@ export default connect(
     const feature = featuresById[id]
     if (!feature) return {}
     const geojsonProps = feature.properties
+    const fieldAnalysisProps = fieldAnalysis.properties
     return {
       coordFormat: state.settings.coordFormat,
       feature: feature,
@@ -256,7 +258,9 @@ export default connect(
       media: geojsonProps[fieldMapping.media],
       title: geojsonProps[fieldMapping.title],
       subtitle: geojsonProps[fieldMapping.subtitle],
-      color: colorIndex[geojsonProps[fieldMapping.color]] || geojsonProps[fieldMapping.color] && colorIndex[geojsonProps[fieldMapping.color][0]]
+      color: colorIndex[geojsonProps[fieldMapping.color]] || geojsonProps[fieldMapping.color] && colorIndex[geojsonProps[fieldMapping.color][0]],
+      titleType: fieldAnalysisProps[fieldMapping.title] && fieldAnalysisProps[fieldMapping.title].type,
+      subtitleType: fieldAnalysisProps[fieldMapping.subtitle] && fieldAnalysisProps[fieldMapping.subtitle].type
     }
   },
   (dispatch) => ({

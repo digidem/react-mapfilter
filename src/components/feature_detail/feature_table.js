@@ -1,21 +1,20 @@
 import React from 'react'
 import {Table, TableBody, TableRow, TableRowColumn} from 'material-ui/Table'
-import {FormattedMessage, FormattedDate, defineMessages} from 'react-intl'
+import {FormattedMessage, defineMessages} from 'react-intl'
 import assign from 'object-assign'
 
 import {createMessage as msg} from '../../util/intl_helpers'
+import FormattedValue from '../shared/formatted_value'
 import FormattedFieldname from '../shared/formatted_fieldname'
-import FormattedCoords from '../shared/formatted_coords'
-import {parseDate} from '../../util/filter_helpers'
 import IconButton from 'material-ui/IconButton'
 import VisibilityIcon from 'material-ui/svg-icons/action/visibility'
 import VisibilityOffIcon from 'material-ui/svg-icons/action/visibility-off'
 import TextField from 'material-ui/TextField'
 import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem'
+import makePure from 'recompose/pure'
 
 import {
-  FIELD_TYPE_DATE,
   FIELD_TYPE_LOCATION,
   FIELD_TYPE_STRING,
   FIELD_TYPE_ARRAY,
@@ -36,7 +35,6 @@ const messages = defineMessages({
   }
 })
 
-// const visibilityOff = require('material-ui/svg-icons/action/visibility-off')
 const styles = {
   firstColumn: {
     fontWeight: 'bold',
@@ -78,18 +76,10 @@ const styles = {
 }
 
 const ValueCell = ({value, type, coordFormat}) => (
-  type === FIELD_TYPE_DATE
-  ? <FormattedDate
-    value={parseDate(value)}
-    year='numeric'
-    month='long'
-    day='2-digit' />
-  : type === FIELD_TYPE_LOCATION
-  ? <FormattedCoords value={value} format={coordFormat} />
-  : <FormattedMessage {...msg('field_value')(value)} />
+  <FormattedValue value={value} type={type} coordFormat={coordFormat} />
 )
 
-const ValueCellEdit = ({value, type, coordFormat, fieldMetadata = {}, onChange}) => {
+const ValueCellEdit = makePure(({value, type, coordFormat, fieldMetadata = {}, onChange}) => {
   const values = type === FIELD_TYPE_BOOLEAN
     ? [true, false]
     : Array.isArray(fieldMetadata.values) && fieldMetadata.values.map(d => d.value)
@@ -149,7 +139,7 @@ const ValueCellEdit = ({value, type, coordFormat, fieldMetadata = {}, onChange})
     </SelectField>
   }
   return <ValueCell value={value} type={type} coordFormat={coordFormat} />
-}
+})
 
 class Row extends React.PureComponent {
   constructor (props) {
@@ -182,12 +172,13 @@ class Row extends React.PureComponent {
         <TableRowColumn style={secondColStyle}>
           {editMode
           ? <ValueCellEdit
+            key={_key}
             value={value}
             type={type}
             coordFormat={coordFormat}
             onChange={this.handleChange}
             fieldMetadata={fieldMetadata} />
-          : <ValueCell value={value} type={type} coordFormat={coordFormat} />}
+          : <ValueCell key={_key} value={value} type={type} coordFormat={coordFormat} />}
         </TableRowColumn>
         {editMode && <TableRowColumn style={{width: 48, padding: 0, verticalAlign: 'top'}}>
           <IconButton

@@ -4,12 +4,16 @@ import {defineMessages} from 'react-intl'
 
 const messages = defineMessages({
   true: {
-    id: 'fieldValue.true',
+    id: 'field_value.true',
     defaultMessage: 'Yes'
   },
   false: {
-    id: 'fieldValue.false',
+    id: 'field_value.false',
     defaultMessage: 'No'
+  },
+  null: {
+    id: 'field_value.no_value',
+    defaultMessage: '[No Value]'
   }
 })
 
@@ -17,6 +21,7 @@ export const createMessage = section => function formatMsg (value) {
   let msg
   let id
   if (typeof value === 'string') {
+    if (value.length === 0) return messages.null
     if (value.indexOf('_') > -1 && value.indexOf(' ') < 0) {
       msg = toCase.capital(value)
     } else {
@@ -34,15 +39,14 @@ export const createMessage = section => function formatMsg (value) {
     else return messages.false
   } else {
     if (value == null) {
-      msg = ''
-      id = ' '
+      return messages.null
     } else {
       msg = value.toString()
       id = value.toString()
     }
   }
   return {
-    id: id,
+    id: section + '.' + id,
     defaultMessage: msg
   }
 }

@@ -9,13 +9,14 @@ import getFieldAnalysis from '../../selectors/field_analysis'
 import getFieldMapping from '../../selectors/field_mapping'
 import FormattedFieldname from '../shared/formatted_fieldname'
 import { changeCoordinates, updateFieldMapping } from '../../action_creators'
-import { FILTER_TYPE_DISCRETE, FIELD_TYPE_STRING, FIELD_TYPE_DATE } from '../../constants'
-
-const styles = {
-  select: {
-    width: 150
-  }
-}
+import {
+  FILTER_TYPE_DISCRETE,
+  FIELD_TYPE_STRING,
+  FIELD_TYPE_DATE,
+  FORMATS_UTM,
+  FORMATS_DEC_DEG,
+  FORMATS_DEG_MIN_SEC
+} from '../../constants'
 
 const titleFieldTypes = {
   [FIELD_TYPE_STRING]: true,
@@ -40,8 +41,9 @@ class GeneralSettings extends React.Component {
               onChange={onChangeCoordinates}
               autowidth
             >
-              <MenuItem value='lonlat' primaryText='Lon / Lat' />
-              <MenuItem value='utm' primaryText='UTM' />
+              <MenuItem value={FORMATS_DEC_DEG} primaryText='Decimal degrees' />
+              <MenuItem value={FORMATS_DEG_MIN_SEC} primaryText='Degrees, minutes, seconds' />
+              <MenuItem value={FORMATS_UTM} primaryText='UTM' />
             </SelectField>}
         />
         <ListItem
