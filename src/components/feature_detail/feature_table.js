@@ -290,10 +290,10 @@ function getRows (props) {
         type: fieldAnalysis.properties[key].type,
         hidden: hiddenFields.indexOf(key) > -1
       }))
-      .filter(row => !isNonEditableFieldType[row.type])
+      .filter(row => !isNonEditableFieldType[row.type] && typeof row.value !== 'undefined')
   if (!editMode) {
-    rows = rows.filter(row => typeof row.value !== 'undefined' &&
-      hiddenFields.indexOf(row.key) === -1)
+    rows = rows.filter(row => hiddenFields.indexOf(row.key) === -1 &&
+      (typeof row.value !== 'string' || row.value.length))
   }
   if (feature.geometry || editMode) {
     rows.unshift({
