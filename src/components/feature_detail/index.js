@@ -158,9 +158,6 @@ class FeatureDetail extends React.Component {
   }
 
   handleValueChange (key, value) {
-    if (typeof value === 'string') {
-      value = value.trim()
-    }
     const feature = this.state.feature
     const newFeature = assign({}, feature, {
       properties: assign({}, feature.properties, {
@@ -225,6 +222,9 @@ function untransformFeature (feature, fieldAnalysis) {
   const newProps = {}
   const prevProps = feature.properties
   Object.keys(prevProps).forEach(function (key) {
+    if (typeof prevProps[key] === 'string') {
+      newProps[key] = prevProps[key].trim()
+    }
     switch (fieldAnalysis.properties[key].type) {
       case FIELD_TYPE_SPACE_DELIMITED:
         newProps[key] = Array.isArray(prevProps[key]) ? prevProps[key].join(' ') : prevProps[key]
