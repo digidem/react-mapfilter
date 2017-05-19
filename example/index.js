@@ -55,6 +55,7 @@ class Example extends React.Component {
     return <MapFilter
       resizer='https://resizer.digital-democracy.org/{width}/{height}/{url}'
       features={this.state.features}
+      fieldOrder={{caption: 1}}
       ui={this.state.ui}
       mapStyle='http://localhost:8080/style.json'
       onChangeUi={this.handleChangeUi}

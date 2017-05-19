@@ -168,7 +168,7 @@ class FeatureDetail extends React.Component {
   }
 
   render () {
-    const {color, label, media, feature, title, subtitle, onCloseClick,
+    const {color, label, media, feature, title, subtitle, onCloseClick, fieldOrder,
       print, coordFormat, fieldAnalysis, hiddenFields, titleType, subtitleType} = this.props
     const {editMode, feature: editedFeature, hiddenFields: editedHiddenFields} = this.state
     return <Card
@@ -196,6 +196,7 @@ class FeatureDetail extends React.Component {
             editMode={editMode}
             feature={editMode ? editedFeature : feature}
             fieldAnalysis={fieldAnalysis}
+            fieldOrder={fieldOrder}
             hiddenFields={editMode ? editedHiddenFields : hiddenFields}
             print={print}
             coordFormat={coordFormat}
@@ -254,6 +255,7 @@ export default connect(
       coordFormat: state.settings.coordFormat,
       feature: feature,
       fieldAnalysis: fieldAnalysis,
+      fieldOrder: state.fieldOrder,
       hiddenFields: hiddenFields,
       media: geojsonProps[fieldMapping.media],
       title: geojsonProps[fieldMapping.title],

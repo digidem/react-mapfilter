@@ -1,5 +1,5 @@
 import React from 'react'
-import {Table, TableBody, TableRow, TableRowColumn} from 'material-ui/Table'
+// import {Table, TableBody, TableRow, div} from 'material-ui/Table'
 import {FormattedMessage, defineMessages} from 'react-intl'
 import assign from 'object-assign'
 
@@ -38,35 +38,30 @@ const messages = defineMessages({
 const styles = {
   firstColumn: {
     fontWeight: 'bold',
-    height: 'auto',
-    verticalAlign: 'top',
-    padding: '16px 24px'
+    flex: 'initial',
+    textAlign: 'right'
   },
-  secondColumn: {
-    height: 'auto',
-    padding: '15px 24px 15px 0',
-    lineHeight: '18px',
-    whiteSpace: 'normal'
+  column: {
+    padding: 12,
+    whiteSpace: 'normal',
+    flex: 1
   },
   secondColumnEdit: {
-    padding: '15px 0 15px 0'
+    padding: '0 12px'
   },
   row: {
-    paddingTop: 3,
-    height: 'auto'
+    maxHeight: 50,
+    display: 'flex'
   },
   smallRow: {
-    paddingTop: 8,
-    paddingBottom: 8
-  },
-  textField: {
-    fontSize: 13,
-    lineHeight: '18px',
-    height: 39
-  },
-  editRow: {
     paddingTop: 4,
     paddingBottom: 4
+  },
+  textField: {
+    fontSize: 14,
+    lineHeight: '17px',
+    height: 39,
+    marginTop: -12
   },
   fieldUnderline: {
     bottom: 4,
@@ -160,16 +155,16 @@ class Row extends React.PureComponent {
   }
 
   render () {
-    const {_key, value, type, hidden, editMode, coordFormat, fieldMetadata, firstColStyle, secondColStyle} = this.props
+    const {_key, value, type, hidden, editMode, coordFormat, fieldMetadata, firstColWidth} = this.props
     const rowStyle = assign({}, styles.row, {opacity: hidden ? 0.4 : 1, borderBottomColor: editMode ? '#f0f0f0' : '#e0e0e0'})
     return (
-      <TableRow key={_key} style={rowStyle}>
-        <TableRowColumn style={firstColStyle}>
+      <div key={_key} style={rowStyle}>
+        <div style={assign({}, styles.column, styles.firstColumn, {width: firstColWidth})}>
           <span ref={'firstColumn'}>
             <FormattedFieldname fieldname={_key} />
           </span>
-        </TableRowColumn>
-        <TableRowColumn style={secondColStyle}>
+        </div>
+        <div style={assign({}, styles.column, editMode && {minHeight: 50})}>
           {editMode
           ? <ValueCellEdit
             key={_key}
@@ -179,16 +174,16 @@ class Row extends React.PureComponent {
             onChange={this.handleChange}
             fieldMetadata={fieldMetadata} />
           : <ValueCell key={_key} value={value} type={type} coordFormat={coordFormat} />}
-        </TableRowColumn>
-        {editMode && <TableRowColumn style={{width: 48, padding: 0, verticalAlign: 'top'}}>
+        </div>
+        {editMode && <div style={assign({}, styles.column, {padding: 0, flex: 'initial'})}>
           <IconButton
+            style={{width: 39, height: 39, padding: 5}}
             disableTouchRipple
-            tooltip={<FormattedMessage {...messages.visibility} />}
             onTouchTap={this.handleVisibilityChange}>
             {hidden ? <VisibilityOffIcon /> : <VisibilityIcon />}
           </IconButton>
-        </TableRowColumn>}
-      </TableRow>
+        </div>}
+      </div>
     )
   }
 }
@@ -222,8 +217,8 @@ class FeatureTable extends React.PureComponent {
 
   componentDidUpdate (prevProps, prevState) {
     const rows = this.state.rows
-    const didFeaturePropKeysChange = rows
-      .reduce((acc, row, i) => acc || row.key !== prevState.rows[i].key, false)
+    const didFeaturePropKeysChange = (rows.length !== prevState.rows.length) ||
+      rows.reduce((acc, row, i) => acc || row.key !== prevState.rows[i].key, false)
     if (didFeaturePropKeysChange) {
       this.autoFitColumn()
     }
@@ -243,32 +238,29 @@ class FeatureTable extends React.PureComponent {
   render () {
     const {print, editMode, fieldAnalysis} = this.props
     const {rows} = this.state
-    const firstColStyle = assign({}, styles.firstColumn, {width: this.state.width})
-    let secondColStyle = styles.secondColumn
-    if (print) {
-      assign(firstColStyle, styles.smallRow)
-      secondColStyle = assign({}, secondColStyle, styles.smallRow)
-    }
-    if (editMode) {
-      secondColStyle = assign({}, secondColStyle, styles.editRow, styles.secondColumnEdit)
-    }
+    // const firstColStyle = assign({}, styles.firstColumn, {width: this.state.width})
+    // let secondColStyle = styles.secondColumn
+    // if (print) {
+    //   assign(firstColStyle, styles.smallRow)
+    //   secondColStyle = assign({}, secondColStyle, styles.smallRow)
+    // }
+    // if (editMode) {
+    //   secondColStyle = assign({}, secondColStyle, styles.editRow, styles.secondColumnEdit)
+    // }
     return (
-      <Table selectable={false}>
-        <TableBody displayRowCheckbox={false} preScanRows={false}>
-          {rows.map((row, index) => (
-            <Row
-              ref={row.key}
-              {...row}
-              _key={row.key}
-              {...this.props}
-              fieldMetadata={fieldAnalysis.properties[row.key]}
-              firstColStyle={firstColStyle}
-              secondColStyle={secondColStyle}
-              index={index}
-            />
-          ))}
-        </TableBody>
-      </Table>
+      <div>
+        {rows.map((row, index) => (
+          <Row
+            ref={row.key}
+            {...row}
+            _key={row.key}
+            {...this.props}
+            fieldMetadata={fieldAnalysis.properties[row.key]}
+            firstColWidth={this.state.width}
+            index={index}
+          />
+        ))}
+      </div>
     )
   }
 }
@@ -282,7 +274,7 @@ const isNonEditableFieldType = {
 }
 
 function getRows (props) {
-  const {feature, editMode, fieldAnalysis, hiddenFields} = props
+  const {feature, editMode, fieldAnalysis, hiddenFields, fieldOrder} = props
   let rows = Object.keys(fieldAnalysis.properties)
       .map(key => ({
         key: key,
@@ -303,7 +295,11 @@ function getRows (props) {
       hidden: hiddenFields.indexOf('location') > -1
     })
   }
-  return rows
+  return rows.sort((a, b) => {
+    const orderA = fieldOrder.hasOwnProperty(a.key) ? fieldOrder[a.key] : Infinity
+    const orderB = fieldOrder.hasOwnProperty(b.key) ? fieldOrder[b.key] : Infinity
+    return orderA - orderB
+  })
 }
 
 export default FeatureTable
