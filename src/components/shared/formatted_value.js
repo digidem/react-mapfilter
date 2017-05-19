@@ -2,6 +2,7 @@ import React from 'react'
 import {FormattedMessage, FormattedDate} from 'react-intl'
 import roundTo from 'round-to'
 import {fromLatLon} from 'utm'
+import sexagesimal from '@mapbox/sexagesimal'
 
 import {parseDate} from '../../util/filter_helpers'
 import {createMessage as msg} from '../../util/intl_helpers'
@@ -39,7 +40,7 @@ function formatLocation (coords, format) {
     case FORMATS_DEC_DEG:
       return coords.map(coord => roundTo(coord, 5)).join(', ')
     case FORMATS_DEG_MIN_SEC:
-      return coords.map(coord => roundTo(coord, 5)).join(', ')
+      return sexagesimal.formatPair({lon: coords[0], lat: coords[1]})
     case FORMATS_UTM:
       const utm = fromLatLon(coords[1], coords[0])
       return `X ${roundTo(utm.easting, 1)}, Y ${roundTo(utm.northing, 1)} — UTM ${utm.zoneNum}${utm.zoneLetter}`
