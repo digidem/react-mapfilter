@@ -174,7 +174,7 @@ function analyzeField (field, value, i) {
 }
 
 function wc (s) {
-  return s.split(/ |_/).length
+  return s.split(' ').length
 }
 
 /**
@@ -251,8 +251,7 @@ function valuesReduce (p = {}, v) {
  */
 function getFilterType (f) {
   const keyCount = f.values && Object.keys(f.values).length
-  // No point in having a filter for only one value
-  if (!isFilterable[f.type] || keyCount === 1) return
+  if (!isFilterable[f.type]) return
   switch (f.type) {
     case FIELD_TYPE_DATE:
       return FILTER_TYPE_DATE
@@ -266,7 +265,7 @@ function getFilterType (f) {
       return FILTER_TYPE_DISCRETE
     case FIELD_TYPE_STRING:
       // Strings with lots of words we count as text fields, not discrete fields
-      if (f.wordStats.mean > 5) {
+      if (f.wordStats.mean > 1) {
         return FILTER_TYPE_TEXT
       }
     // eslint-disable-next-line no-fallthrough
