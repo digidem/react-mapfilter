@@ -43,7 +43,8 @@ import getFlattenedFeatures from './flattened_features'
  */
 const getFieldAnalysis = createSelector(
   getFlattenedFeatures,
-  function analyzeFields (features) {
+  state => state.fieldTypes,
+  function analyzeFields (features, fieldTypes) {
     var props
     var feature
     var keys
@@ -92,6 +93,7 @@ const getFieldAnalysis = createSelector(
       } else {
         field.values = parseMapValues(field.values)
       }
+      field.type = fieldTypes[fieldname] || field.type
     }
 
     analysis.$id.isUnique = isUnique(analysis.$id, features.length)
