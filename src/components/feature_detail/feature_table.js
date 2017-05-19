@@ -95,7 +95,7 @@ const ValueCellEdit = makePure(({value, type, coordFormat, fieldMetadata = {}, o
           key={d}
           value={d}
           style={{fontSize: 13}}
-          primaryText={<FormattedMessage {...msg('field_value')(d)} />}
+          primaryText={d === 'undefined' ? '' : <FormattedMessage {...msg('field_value')(d)} />}
         />
       ))}
     </SelectField>
@@ -147,7 +147,7 @@ class Row extends React.PureComponent {
     let value
     if (arguments.length === 3) value = arguments[2]
     else value = arguments[1]
-    this.props.onValueChange(this.props._key, value)
+    this.props.onValueChange(this.props._key, value === 'undefined' ? undefined : value)
   }
 
   handleVisibilityChange () {
