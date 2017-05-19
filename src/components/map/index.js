@@ -53,7 +53,7 @@ const pointStyleLayer = {
     // make circles larger as the user zooms from z12 to z22
     'circle-radius': {
       'base': 1.5,
-      'stops': [[7, 5], [18, 50]]
+      'stops': [[7, 5], [18, 25]]
     },
     'circle-color': {
       'property': '__mf_color',
