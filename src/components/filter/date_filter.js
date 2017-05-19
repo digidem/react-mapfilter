@@ -96,8 +96,8 @@ class DateFilter extends React.PureComponent {
   showAllDates = (e) => {
     e.preventDefault()
     this.handleDateChange({
-      startDate: this.props.valueMin,
-      endDate: this.props.valueMax
+      startDate: null,
+      endDate: null
     })
   }
 
