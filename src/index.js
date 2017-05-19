@@ -55,6 +55,7 @@ const controllableProps = [
   'features',
   'mapStyle',
   'fieldTypes',
+  'fieldOrder',
   'ui',
   'resizer'
 ]
