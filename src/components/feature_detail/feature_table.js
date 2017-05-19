@@ -50,7 +50,7 @@ const styles = {
     padding: '0 12px'
   },
   row: {
-    maxHeight: 50,
+    lineHeight: 1.4,
     display: 'flex'
   },
   smallRow: {
@@ -164,7 +164,7 @@ class Row extends React.PureComponent {
             <FormattedFieldname fieldname={_key} />
           </span>
         </div>
-        <div style={assign({}, styles.column, editMode && {minHeight: 50})}>
+        <div style={assign({}, styles.column, editMode && {minHeight: 30})}>
           {editMode
           ? <ValueCellEdit
             key={_key}
