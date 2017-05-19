@@ -14,13 +14,13 @@ import FormattedValue from '../shared/formatted_value'
 import getFeaturesById from '../../selectors/features_by_id'
 import getFieldMapping from '../../selectors/field_mapping'
 import getColorIndex from '../../selectors/color_index'
-import getHiddenFields from '../../selectors/hidden_fields'
+import getVisibleFields from '../../selectors/visible_fields'
 import getFieldAnalysis from '../../selectors/field_analysis'
 import {createMessage as msg} from '../../util/intl_helpers'
 import Image from '../image'
 import MarkerIcon from './marker_icon'
 import FeatureTable from './feature_table'
-import {updateHiddenFields, editFeature} from '../../action_creators'
+import {updateVisibleFields, editFeature} from '../../action_creators'
 import {FIELD_TYPE_LOCATION, FIELD_TYPE_SPACE_DELIMITED} from '../../constants'
 
 const styles = {
@@ -131,7 +131,7 @@ class FeatureDetail extends React.Component {
     this.setState({
       editMode: true,
       feature: this.props.feature,
-      hiddenFields: this.props.hiddenFields
+      visibleFields: this.props.visibleFields
     })
   }
 
@@ -144,17 +144,17 @@ class FeatureDetail extends React.Component {
       const newFeature = untransformFeature(this.state.feature, this.props.fieldAnalysis)
       this.props.onEditFeature(newFeature)
     }
-    if (this.state.hiddenFields !== this.props.hiddenFields) {
-      this.props.onEditHiddenFields(this.state.hiddenFields)
+    if (this.state.visibleFields !== this.props.visibleFields) {
+      this.props.onEditHiddenFields(this.state.visibleFields)
     }
     this.setState({editMode: false})
   }
 
-  handleVisibilityChange (key, hidden) {
-    const hiddenFields = hidden
-      ? this.state.hiddenFields.concat([key])
-      : this.state.hiddenFields.filter(fieldname => fieldname !== key)
-    this.setState({hiddenFields: hiddenFields})
+  handleVisibilityChange (key, visible) {
+    const visibleFields = visible
+      ? this.state.visibleFields.concat([key])
+      : this.state.visibleFields.filter(fieldname => fieldname !== key)
+    this.setState({visibleFields: visibleFields})
   }
 
   handleValueChange (key, value) {
@@ -169,8 +169,8 @@ class FeatureDetail extends React.Component {
 
   render () {
     const {color, label, media, feature, title, subtitle, onCloseClick, fieldOrder,
-      print, coordFormat, fieldAnalysis, hiddenFields, titleType, subtitleType} = this.props
-    const {editMode, feature: editedFeature, hiddenFields: editedHiddenFields} = this.state
+      print, coordFormat, fieldAnalysis, visibleFields, titleType, subtitleType} = this.props
+    const {editMode, feature: editedFeature, visibleFields: editedVisibleFields} = this.state
     return <Card
       className='card'
       style={styles.card}
@@ -197,7 +197,7 @@ class FeatureDetail extends React.Component {
             feature={editMode ? editedFeature : feature}
             fieldAnalysis={fieldAnalysis}
             fieldOrder={fieldOrder}
-            hiddenFields={editMode ? editedHiddenFields : hiddenFields}
+            visibleFields={editMode ? editedVisibleFields : visibleFields}
             print={print}
             coordFormat={coordFormat}
             onVisibilityChange={this.handleVisibilityChange}
@@ -244,7 +244,7 @@ export default connect(
     const featuresById = getFeaturesById(state)
     const colorIndex = getColorIndex(state)
     const fieldMapping = getFieldMapping(state)
-    const hiddenFields = getHiddenFields(state)
+    const visibleFields = getVisibleFields(state)
     const fieldAnalysis = getFieldAnalysis(state)
     const id = ownProps.id || state.ui.featureId
     const feature = featuresById[id]
@@ -256,7 +256,7 @@ export default connect(
       feature: feature,
       fieldAnalysis: fieldAnalysis,
       fieldOrder: state.fieldOrder,
-      hiddenFields: hiddenFields,
+      visibleFields: visibleFields,
       media: geojsonProps[fieldMapping.media],
       title: geojsonProps[fieldMapping.title],
       subtitle: geojsonProps[fieldMapping.subtitle],
@@ -267,6 +267,6 @@ export default connect(
   },
   (dispatch) => ({
     onEditFeature: (feature) => dispatch(editFeature(feature)),
-    onEditHiddenFields: (hiddenFields) => dispatch(updateHiddenFields(hiddenFields))
+    onEditHiddenFields: (visibleFields) => dispatch(updateVisibleFields(visibleFields))
   })
 )(FeatureDetail)

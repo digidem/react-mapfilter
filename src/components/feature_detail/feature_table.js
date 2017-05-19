@@ -151,12 +151,12 @@ class Row extends React.PureComponent {
   }
 
   handleVisibilityChange () {
-    this.props.onVisibilityChange(this.props._key, !this.props.hidden)
+    this.props.onVisibilityChange(this.props._key, !this.props.visible)
   }
 
   render () {
-    const {_key, value, type, hidden, editMode, coordFormat, fieldMetadata, firstColWidth} = this.props
-    const rowStyle = assign({}, styles.row, {opacity: hidden ? 0.4 : 1, borderBottomColor: editMode ? '#f0f0f0' : '#e0e0e0'})
+    const {_key, value, type, visible, editMode, coordFormat, fieldMetadata, firstColWidth} = this.props
+    const rowStyle = assign({}, styles.row, {opacity: visible ? 1 : 0.6, borderBottomColor: editMode ? '#f0f0f0' : '#e0e0e0'})
     return (
       <div key={_key} style={rowStyle}>
         <div style={assign({}, styles.column, styles.firstColumn, {width: firstColWidth})}>
@@ -180,7 +180,7 @@ class Row extends React.PureComponent {
             style={{width: 39, height: 39, padding: 5}}
             disableTouchRipple
             onTouchTap={this.handleVisibilityChange}>
-            {hidden ? <VisibilityOffIcon /> : <VisibilityIcon />}
+            {visible ? <VisibilityIcon /> : <VisibilityOffIcon />}
           </IconButton>
         </div>}
       </div>
@@ -211,7 +211,7 @@ class FeatureTable extends React.PureComponent {
   componentWillReceiveProps (nextProps) {
     if (nextProps.feature === this.props.feature &&
       nextProps.editMode === this.props.editMode &&
-      nextProps.hiddenFields === this.props.hiddenFields) return
+      nextProps.visibleFields === this.props.visibleFields) return
     this.setState({rows: getRows(nextProps)})
   }
 
@@ -274,25 +274,26 @@ const isNonEditableFieldType = {
 }
 
 function getRows (props) {
-  const {feature, editMode, fieldAnalysis, hiddenFields, fieldOrder} = props
+  const {feature, editMode, fieldAnalysis, visibleFields, fieldOrder} = props
   let rows = Object.keys(fieldAnalysis.properties)
       .map(key => ({
         key: key,
         value: feature.properties[key],
         type: fieldAnalysis.properties[key].type,
-        hidden: hiddenFields.indexOf(key) > -1
+        visible: visibleFields.indexOf(key) > -1
       }))
-      .filter(row => !isNonEditableFieldType[row.type] && typeof row.value !== 'undefined')
+      .filter(row => !isNonEditableFieldType[row.type])
   if (!editMode) {
-    rows = rows.filter(row => hiddenFields.indexOf(row.key) === -1 &&
-      (typeof row.value !== 'string' || row.value.length))
+    rows = rows.filter(row => visibleFields.indexOf(row.key) > -1 &&
+      (typeof row.value !== 'string' || row.value.length) &&
+      typeof row.value !== 'undefined')
   }
   if (feature.geometry || editMode) {
     rows.unshift({
       key: 'location',
       value: feature.geometry && feature.geometry.coordinates,
       type: FIELD_TYPE_LOCATION,
-      hidden: hiddenFields.indexOf('location') > -1
+      visible: visibleFields.indexOf('location') > -1
     })
   }
   return rows.sort((a, b) => {

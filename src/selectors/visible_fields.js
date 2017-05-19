@@ -17,18 +17,18 @@ const isInterestingField = {
   [FIELD_TYPE_MIXED]: true
 }
 
-const getHiddenFields = createSelector(
-  state => state.hiddenFields && state.hiddenFields.length && state.hiddenFields,
+const getVisibleFields = createSelector(
+  state => state.visibleFields && state.visibleFields.length && state.visibleFields,
   getFieldAnalysis,
-  (hiddenFields, fieldAnalysis) => {
-    if (hiddenFields) return hiddenFields
-    hiddenFields = []
+  (visibleFields, fieldAnalysis) => {
+    if (visibleFields) return visibleFields
+    visibleFields = []
     for (let fieldname in fieldAnalysis.properties) {
       let fieldType = fieldAnalysis.properties[fieldname].type
-      if (!isInterestingField[fieldType]) hiddenFields.push(fieldname)
+      if (isInterestingField[fieldType]) visibleFields.push(fieldname)
     }
-    return hiddenFields
+    return visibleFields
   }
 )
 
-export default getHiddenFields
+export default getVisibleFields
