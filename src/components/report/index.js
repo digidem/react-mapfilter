@@ -8,6 +8,7 @@ import * as MFPropTypes from '../../util/prop_types'
 import MapView from '../map'
 import Alert from './alert'
 import config from '../../../config.json'
+import {FIELD_TYPE_DATE} from '../../constants'
 
 insertCss(`
 .report_wrapper {
@@ -26,7 +27,7 @@ insertCss(`
 .report_paper {
   margin: 20px auto;
   width: 8.5in;
-  min-height: 10in;
+  min-height: 10.5in;
   overflow: hidden;
   page-break-after: always;
   background-color: initial;
@@ -48,6 +49,7 @@ insertCss(`
   margin: 0;
   border-bottom: 3px dashed rgba(200,200,200, 0.75);
 }
+
 .report_page {
   margin: 0.5in;
 }
@@ -56,7 +58,7 @@ insertCss(`
 }
 .report_paper:first-child {
   display: flex;
-  height: 10.8in;
+  height: 9.8in;
 }
 .report_paper:first-child .report_page {
   flex: 1;
@@ -94,6 +96,7 @@ insertCss(`
     background-color: initial;
   }
   .report_paper {
+    min-height: auto;
     box-shadow: none !important;
     border-radius: 0 !important;
     margin: 0;
@@ -136,7 +139,8 @@ class ReportView extends React.Component {
         <div className='report_container'>
           <Paper className='report_paper'>
             <div className='report_page'>
-              <h2>{featuresSlice.length} Observations</h2>
+              <h2>Monitoring Report</h2>
+              <p style={{marginTop: 0}}>{featuresSlice.length} locations</p>
               <div className='map_container'>
                 <MapView
                   {...this.props}
