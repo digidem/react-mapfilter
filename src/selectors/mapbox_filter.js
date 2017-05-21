@@ -1,17 +1,7 @@
 import { createSelector } from 'reselect'
-import {
-  FIELD_TYPE_ARRAY,
-  FIELD_TYPE_STRING_OR_ARRAY,
-  FIELD_TYPE_NUMBER_OR_ARRAY
-} from '../constants'
 
+import {isArrayLike} from '../util/filter_helpers'
 import getFieldAnalysis from './field_analysis'
-
-const isArrayLike = {
-  [FIELD_TYPE_ARRAY]: true,
-  [FIELD_TYPE_NUMBER_OR_ARRAY]: true,
-  [FIELD_TYPE_STRING_OR_ARRAY]: true
-}
 
 /**
  * Builds a valid mapbox-gl filter expression our filters, which
@@ -31,7 +21,7 @@ const getMapboxFilter = createSelector(
     return Object.keys(filters).reduce(function (p, f) {
       const exp = filters[f]
       if (exp.in) {
-        if (fieldAnalysis.properties[f] && isArrayLike[fieldAnalysis.properties[f].type]) {
+        if (fieldAnalysis.properties[f] && isArrayLike(fieldAnalysis.properties[f].type)) {
           const subFilter = ['any', ['in', f, ...exp.in]]
           for (let i = 0; i < fieldAnalysis.properties[f].maxArrayLength; i++) {
             subFilter.push(['in', f + '.' + i, ...exp.in])

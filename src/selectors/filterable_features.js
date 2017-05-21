@@ -2,24 +2,13 @@ import { createSelector } from 'reselect'
 import randomBytes from 'randombytes'
 
 import getFieldAnalysis from './field_analysis'
-import {parseDate} from '../util/filter_helpers'
+import {parseDate, isArrayLike} from '../util/filter_helpers'
 import getFlattenedFeatures from './flattened_features'
-import {
-  FIELD_TYPE_DATE,
-  FIELD_TYPE_ARRAY,
-  FIELD_TYPE_STRING_OR_ARRAY,
-  FIELD_TYPE_NUMBER_OR_ARRAY
-} from '../constants'
+import {FIELD_TYPE_DATE} from '../constants'
 
 // TODO: Create id based on hash of feature for consistency?
 function uniqueId (f) {
   return randomBytes(8).toString('hex')
-}
-
-const isArrayLike = {
-  [FIELD_TYPE_ARRAY]: true,
-  [FIELD_TYPE_NUMBER_OR_ARRAY]: true,
-  [FIELD_TYPE_STRING_OR_ARRAY]: true
 }
 
 /**
@@ -40,7 +29,7 @@ const getFilterableFeatures = createSelector(
       for (var fieldName in f.properties) {
         field = fieldAnalysis.properties[fieldName]
         value = f.properties[fieldName]
-        if (isArrayLike[field.type]) {
+        if (isArrayLike(field.type)) {
           // We can't filter arrays, so we flatten them
           if (!Array.isArray(value)) {
             // for fields which are a mix of arrays and numbers/strings

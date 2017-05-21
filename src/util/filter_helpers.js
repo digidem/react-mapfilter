@@ -2,6 +2,13 @@ import base64Url from 'base64-url'
 import isodate from '@segment/isodate'
 import chrono from 'chrono-node'
 
+import {
+  FIELD_TYPE_SPACE_DELIMITED,
+  FIELD_TYPE_ARRAY,
+  FIELD_TYPE_STRING_OR_ARRAY,
+  FIELD_TYPE_NUMBER_OR_ARRAY
+} from '../constants'
+
 // const iso8601RegExp = /^([\+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-2])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T\s]((([01]\d|2[0-3])((:?)[0-5]\d)?|24\:?00)([\.,]\d+(?!:))?)?(\17[0-5]\d([\.,]\d+)?)?([zZ]|([\+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$/
 
 const shortDateRegExp = /^(\d{4})-(\d{2})-(\d{2})$/
@@ -23,6 +30,18 @@ export function isDate (v) {
   if (v instanceof Date) return true
   if (typeof v !== 'string') return false
   return isodate.is(v) || chrono.strict.parseDate(v) != null
+}
+
+export function isArrayLike (type) {
+  switch (type) {
+    case FIELD_TYPE_SPACE_DELIMITED:
+    case FIELD_TYPE_ARRAY:
+    case FIELD_TYPE_STRING_OR_ARRAY:
+    case FIELD_TYPE_NUMBER_OR_ARRAY:
+      return true
+    default:
+      return false
+  }
 }
 
 /**
