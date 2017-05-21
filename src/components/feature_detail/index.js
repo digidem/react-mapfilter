@@ -16,12 +16,11 @@ import getFieldMapping from '../../selectors/field_mapping'
 import getColorIndex from '../../selectors/color_index'
 import getVisibleFields from '../../selectors/visible_fields'
 import getFieldAnalysis from '../../selectors/field_analysis'
-import {createMessage as msg} from '../../util/intl_helpers'
 import Image from '../image'
 import MarkerIcon from './marker_icon'
 import FeatureTable from './feature_table'
 import {updateVisibleFields, editFeature} from '../../action_creators'
-import {FIELD_TYPE_LOCATION, FIELD_TYPE_SPACE_DELIMITED} from '../../constants'
+import {FIELD_TYPE_SPACE_DELIMITED} from '../../constants'
 
 const styles = {
   card: {
@@ -85,7 +84,7 @@ const messages = defineMessages({
 
 const Actions = ({style, editMode, onCloseClick, onEditClick, onCancelClick, onSaveClick}) => (
   editMode
-  ? <CardActions style={style}>
+  ? <CardActions style={style} className='no_print'>
     <RaisedButton
       label={<FormattedMessage {...messages.cancelButton} />}
       onTouchTap={onCancelClick}
@@ -98,7 +97,7 @@ const Actions = ({style, editMode, onCloseClick, onEditClick, onCancelClick, onS
       style={styles.button}
     />
   </CardActions>
-  : <CardActions style={style}>
+  : <CardActions style={style} className='no_print'>
     <RaisedButton
       label={<FormattedMessage {...messages.editButton} />}
       icon={<EditIcon />}

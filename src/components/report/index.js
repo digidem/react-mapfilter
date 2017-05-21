@@ -99,6 +99,9 @@ insertCss(`
     margin: 0;
     width: 7.5in;
   }
+  .no_print {
+    display: none;
+  }
   .report_page {
     margin: 0
   }
