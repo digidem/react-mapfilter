@@ -12,7 +12,7 @@ import en from 'react-intl/locale-data/en'
 import es from 'react-intl/locale-data/es'
 import shallowEqual from 'shallow-equal/objects'
 import {persistStore, autoRehydrate} from 'redux-persist'
-import localForage from 'localForage'
+import localForage from 'localforage'
 
 addLocaleData([...en, ...es])
 
