@@ -27,9 +27,6 @@ import config from '../config.json'
 require('../css/fonts.css')
 require('../css/animations.css')
 
-// Needed by material-ui for onTouchTap to work
-require('react-tap-event-plugin')()
-
 // Attach Chrome devTools extensions if it is present.
 let composeEnhancers = compose
 if (process.env.NODE_ENV !== 'production' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) {

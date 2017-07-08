@@ -9,6 +9,9 @@ const history = createHistory()
 
 const pathRegExp = /^(?:\/((?:[^/]+?)))?(?:\/((?:[^/]+?)))?(?:\/((?:[^/]+?)))?(?:\/(?=$))?$/
 
+// Needed by material-ui for onTouchTap to work
+require('react-tap-event-plugin')()
+
 function uiFromPath (path) {
   const match = pathRegExp.exec(path)
   if (!match) return {}
