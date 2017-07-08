@@ -59,20 +59,63 @@ const controllableProps = [
 
 class MapFilter extends React.Component {
   static propTypes = {
+    /**
+     * An array of GeoJSON Feature objects
+     * Default: `[]`
+     */
     features: MFPropTypes.features,
+    /**
+     * Called whenever features are changed (added or edited)
+     * with a new array of feature objects. Use shallow equality
+     * checks to get changes.
+     */
+    onChangeFeatures: MFPropTypes.func,
+    /**
+     * A Mapbox Style document https://www.mapbox.com/mapbox-gl-js/style-spec/
+     * or a URL pointing to a style JSON
+     * Default: `mapbox://styles/mapbox/streets-v9`
+     */
     mapStyle: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+    /**
+     * Override the field types of properties on features
+     */
     fieldTypes: PropTypes.objectOf(PropTypes.string),
+    /**
+     * A floating action button to render in the bottom-right corner
+     * https://material.io/guidelines/components/buttons-floating-action-button.html
+     * Either a React Element (`<MyActionButton myProp='hello' />`)
+     * or a React Component (`MyActionButton`)
+     * Default: `null`
+     */
     actionButton: PropTypes.oneOfType([PropTypes.element, PropTypes.func]),
+    /**
+     * A URL template to request resized images. Used for thumbnails in the media view
+     * and map view, as well as the previews in "FeatureDetail" view.
+     * `{width}` & `{height}` are replaced with the requested dimensions.
+     * `{url}` is replaced with the original URL of the image
+     * e.g. using https://github.com/digidem/vips-resizer
+     * `https://resizer.digital-democracy.org/{width}/{height}/{url}`
+     * Default: `'{url}'` - e.g. just requests the image at full original size
+     */
     resizer: PropTypes.string,
-    views: PropTypes.array,
-    toolbarButtons: PropTypes.arrayOf(PropTypes.func),
-    toolbarTitle: PropTypes.oneOfType([PropTypes.string, PropTypes.element])
+    views: PropTypes.arrayOf(PropTypes.shape({
+      id: PropTypes.string,
+      component: PropTypes.func
+    })),
+    /**
+     * Buttons to render on the right-side of the toolbar. Should be an array of either
+     * React Elements or React Components.
+     * Default:
+     */
+    toolbarButtons: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.element, PropTypes.func])),
+    toolbarTitle: PropTypes.oneOfType([PropTypes.string, PropTypes.element, PropTypes.func])
   }
 
   static defaultProps = {
     features: [],
     mapStyle: config.defaultMapStyle,
-    resizer: '{url}'
+    resizer: '{url}',
+    actionButton: null
   }
 
   handleChange = (key, value) => {
