@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React from 'react';
+import React from 'react'
 import makePure from 'recompose/pure'
 import Checkbox from 'material-ui/Checkbox'
 import ListIcon from 'material-ui/svg-icons/action/list'
@@ -12,7 +12,7 @@ import ShowAllButton from './show_all_button'
 import OnlyButton from './only_button'
 import {createMessage as msg} from '../../util/intl_helpers'
 import { listStyles } from '../../styles'
-import {FIELD_TYPE_BOOLEAN, FIELD_TYPE_NUMBER} from '../../constants'
+// import {FIELD_TYPE_BOOLEAN, FIELD_TYPE_NUMBER} from '../../constants'
 
 const PureCheckbox = makePure(Checkbox)
 

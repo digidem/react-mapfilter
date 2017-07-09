@@ -1,6 +1,6 @@
 import React from 'react'
 // import {Table, TableBody, TableRow, div} from 'material-ui/Table'
-import {FormattedMessage, defineMessages} from 'react-intl'
+import {FormattedMessage} from 'react-intl'
 import assign from 'object-assign'
 
 import {createMessage as msg} from '../../util/intl_helpers'
@@ -27,13 +27,13 @@ import {
   FIELD_TYPE_AUDIO
 } from '../../constants'
 
-const messages = defineMessages({
-  visibility: {
-    id: 'featureDetail.visibilitySwitch',
-    defaultMessage: 'Hide or show field',
-    description: 'Tooltip for button to hide or show a field'
-  }
-})
+// const messages = defineMessages({
+//   visibility: {
+//     id: 'featureDetail.visibilitySwitch',
+//     defaultMessage: 'Hide or show field',
+//     description: 'Tooltip for button to hide or show a field'
+//   }
+// })
 
 const styles = {
   firstColumn: {
@@ -236,7 +236,7 @@ class FeatureTable extends React.PureComponent {
   }
 
   render () {
-    const {print, editMode, fieldAnalysis} = this.props
+    const {fieldAnalysis} = this.props
     const {rows} = this.state
     // const firstColStyle = assign({}, styles.firstColumn, {width: this.state.width})
     // let secondColStyle = styles.secondColumn

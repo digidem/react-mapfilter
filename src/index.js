@@ -14,14 +14,14 @@ import shallowEqual from 'shallow-equal/objects'
 import {persistStore, autoRehydrate} from 'redux-persist'
 import localForage from 'localforage'
 
-addLocaleData([...en, ...es])
-
 import * as MFPropTypes from './util/prop_types'
 import {capitalize} from './util/text_helpers'
 import IndexRoute from './containers/index_route'
 import reducers from './reducers'
 import controlledStore from './controlled_store'
 import config from '../config.json'
+
+addLocaleData([...en, ...es])
 
 // Roboto font
 require('../css/fonts.css')
@@ -104,7 +104,7 @@ class MapFilter extends React.Component {
      * Default:
      */
     toolbarButtons: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.element, PropTypes.func])),
-    toolbarTitle: PropTypes.oneOfType([PropTypes.string, PropTypes.element, PropTypes.func])
+    toolbarTitle: PropTypes.oneOfType([PropTypes.string, PropTypes.element])
   }
 
   static defaultProps = {

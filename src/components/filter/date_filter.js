@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React from 'react';
+import React from 'react'
 import {findDOMNode} from 'react-dom'
 import makePure from 'recompose/pure'
 import DateIcon from 'material-ui/svg-icons/action/date-range'
@@ -151,30 +151,30 @@ class DateFilter extends React.PureComponent {
         disabled
         ref='dateItem'
         nestedItems={
-          [<NestedItem style={styles.dateItem} key='dateItem'>
-            <div ref='dateRange' onClick={this.showDatePopover}>{rangeStr}</div>
-            <IconButton
-              onTouchTap={this.showDatePopover}
-              tooltip='Select dates'
-              style={styles.iconButton}
-              iconStyle={styles.editIcon}
-              tooltipPosition='bottom-left'>
-              <EditIcon color='#757575' />
-            </IconButton>
-            <Popover
-              open={this.state.open}
-              anchorEl={this.state.el}
-              anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
-              targetOrigin={{horizontal: 'left', vertical: 'top'}}
-              onRequestClose={this.handleRequestClose}
-              animation={PopoverAnimationVertical}
-            >
-              <PureDateRange
-                startDate={minMoment}
-                endDate={maxMoment}
-                onChange={this.handleDateChange} />
-            </Popover>
-          </NestedItem>]
+        [<NestedItem style={styles.dateItem} key='dateItem'>
+          <div ref='dateRange' onClick={this.showDatePopover}>{rangeStr}</div>
+          <IconButton
+            onTouchTap={this.showDatePopover}
+            tooltip='Select dates'
+            style={styles.iconButton}
+            iconStyle={styles.editIcon}
+            tooltipPosition='bottom-left'>
+            <EditIcon color='#757575' />
+          </IconButton>
+          <Popover
+            open={this.state.open}
+            anchorEl={this.state.el}
+            anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
+            targetOrigin={{horizontal: 'left', vertical: 'top'}}
+            onRequestClose={this.handleRequestClose}
+            animation={PopoverAnimationVertical}
+          >
+            <PureDateRange
+              startDate={minMoment}
+              endDate={maxMoment}
+              onChange={this.handleDateChange} />
+          </Popover>
+        </NestedItem>]
         }
       />
     )

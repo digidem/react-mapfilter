@@ -1,10 +1,10 @@
-import React from 'react'
 import { connect } from 'react-redux'
 import omit from 'lodash/omit'
 import { bindActionCreators } from 'redux'
 
 import * as actionCreators from '../action_creators'
 
+import { createElement } from '../util/general_helpers'
 import getFieldAnalysis from '../selectors/field_analysis'
 import getFilterableFeatures from '../selectors/filterable_features'
 import getFilteredFeatures from '../selectors/filtered_features'
@@ -12,7 +12,7 @@ import getMapBoxFilter from '../selectors/mapbox_filter'
 import getFieldMapping from '../selectors/field_mapping'
 import getColorIndex from '../selectors/color_index'
 
-const CustomContainer = (props) => React.createElement(props.component, omit(props, 'component'))
+const CustomContainer = (props) => createElement(props.component, omit(props, 'component'))
 
 function mapStateToProps (state) {
   return {

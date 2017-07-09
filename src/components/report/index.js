@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React from 'react';
+import React from 'react'
 import Paper from 'material-ui/Paper'
 import insertCss from 'insert-css'
 
@@ -8,7 +8,7 @@ import * as MFPropTypes from '../../util/prop_types'
 import MapView from '../map'
 import Alert from './alert'
 import config from '../../../config.json'
-import {FIELD_TYPE_DATE} from '../../constants'
+// import {FIELD_TYPE_DATE} from '../../constants'
 
 insertCss(`
 .report_wrapper {

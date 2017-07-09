@@ -50,7 +50,7 @@ export function isArrayLike (type) {
  * @return {string} URL safe base64 encoded string
  */
 export function encodeFilter (filter) {
-  return base64Url.encode(new Buffer(JSON.stringify(filter)))
+  return base64Url.encode(Buffer.from(JSON.stringify(filter)))
 }
 
 /**

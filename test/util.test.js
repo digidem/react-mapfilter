@@ -82,4 +82,3 @@ test('buildFilter', function (t) {
   t.deepEqual(buildFilter({foo: {in: ['bar']}, baz: {in: ['qux']}}), ['all', ['in', 'foo', 'bar'], ['in', 'baz', 'qux']])
   t.end()
 })
-

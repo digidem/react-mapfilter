@@ -98,7 +98,7 @@ TopBar.defaultProps = {
 }
 
 TopBar.propTypes = {
-  buttons: PropTypes.arrayOf(PropTypes.func),
+  buttons: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.element, PropTypes.func])),
   title: PropTypes.oneOfType([PropTypes.string, PropTypes.element])
 }
 

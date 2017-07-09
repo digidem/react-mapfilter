@@ -250,7 +250,6 @@ class MapView extends React.Component {
 
   updateIfNeeded (nextProps, props = {}) {
     const {disableScrollToZoom} = props
-    let isDataUpdated = false
 
     if (this.map._prevStyle !== nextProps.mapStyle) {
       log('updating style')

@@ -14,6 +14,7 @@ import Settings from '../components/settings'
 import MapView from '../components/map'
 import ReportView from '../components/report'
 import MediaView from '../components/media'
+import {createElement} from '../util/general_helpers'
 
 const styles = {
   outer: {
@@ -60,7 +61,7 @@ class IndexRoute extends React.Component {
   }
 
   render () {
-    const {activeView, activeModal, actionButton: ActionButton, views, switchView, settingsTab, toolbarButtons, toolbarTitle} = this.props
+    const {activeView, activeModal, actionButton, views, switchView, settingsTab, toolbarButtons, toolbarTitle} = this.props
     const ModalComponent = getModalComponent(activeModal)
     const ViewComponent = getViewComponent(activeView, views)
 
@@ -72,7 +73,7 @@ class IndexRoute extends React.Component {
           <div style={styles.view}>
             <CustomContainer component={ViewComponent} />
           </div>
-          {ActionButton && <div style={styles.actionButton}><ActionButton /></div>}
+          {actionButton && <div style={styles.actionButton}>{createElement(actionButton)}</div>}
         </div>
         <Modal component={ModalComponent} activeTabId={settingsTab} />
       </div>
@@ -100,7 +101,6 @@ function getModalComponent (modal) {
     case 'settings':
       return Settings
     default:
-      return
   }
 }
 
