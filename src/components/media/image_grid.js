@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React from 'react';
+import React from 'react'
 import Grid from 'react-virtualized/dist/commonjs/Grid/Grid'
 import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer'
 import getScrollBarWidth from 'get-scrollbar-width'
@@ -91,10 +91,7 @@ class ImageGrid extends React.Component {
     const image = images[(rowIndex * columnsCount) + columnIndex]
     if (!image) return
     const imgSize = thumbSize * pixelRatio
-    const imageUrl = resizer
-      .replace('{width}', imgSize)
-      .replace('{height}', imgSize)
-      .replace('{url}', image.url)
+    const imageUrl = resizer(image.url, imgSize)
     return <img
       src={imageUrl}
       key={key}

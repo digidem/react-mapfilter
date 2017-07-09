@@ -89,15 +89,11 @@ class MapFilter extends React.Component {
      */
     actionButton: PropTypes.oneOfType([PropTypes.element, PropTypes.func]),
     /**
-     * A URL template to request resized images. Used for thumbnails in the media view
-     * and map view, as well as the previews in "FeatureDetail" view.
-     * `{width}` & `{height}` are replaced with the requested dimensions.
-     * `{url}` is replaced with the original URL of the image
-     * e.g. using https://github.com/digidem/vips-resizer
-     * `https://resizer.digital-democracy.org/{width}/{height}/{url}`
-     * Default: `'{url}'` - e.g. just requests the image at full original size
+     * A function to return a URL to a resized version of an image. It will be passed
+     * the URL to the original image, and the desired size, and should return a
+     * URL to a resized version of the image. Default: `src => src`
      */
-    resizer: PropTypes.string,
+    resizer: PropTypes.func,
     views: PropTypes.arrayOf(PropTypes.shape({
       id: PropTypes.string,
       component: PropTypes.func
@@ -114,7 +110,7 @@ class MapFilter extends React.Component {
   static defaultProps = {
     features: [],
     mapStyle: config.defaultMapStyle,
-    resizer: '{url}',
+    resizer: src => src,
     actionButton: null
   }
 

@@ -40,10 +40,7 @@ class Image extends React.Component {
     if (resizer) {
       const el = ReactDOM.findDOMNode(this)
       const size = roundUp(Math.max(el.offsetWidth, el.offsetHeight) * pixelRatio)
-      mediaSrc = resizer
-        .replace('{width}', size)
-        .replace('{height}', size)
-        .replace('{url}', src)
+      mediaSrc = resizer(src, size)
     }
 
     this.setState({

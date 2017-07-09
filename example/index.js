@@ -31,6 +31,13 @@ function pathFromUi (ui) {
   return path
 }
 
+function resizer (src, size) {
+  return 'https://resizer.digital-democracy.org/{width}/{height}/{url}'
+    .replace('{width}', size)
+    .replace('{height}', size)
+    .replace('{url}', src)
+}
+
 class Example extends React.Component {
   constructor (props) {
     super(props)
@@ -56,11 +63,10 @@ class Example extends React.Component {
   }
   render () {
     return <MapFilter
-      resizer='https://resizer.digital-democracy.org/{width}/{height}/{url}'
+      resizer={resizer}
       features={this.state.features}
       fieldOrder={{caption: 1}}
       ui={this.state.ui}
-      mapStyle='http://localhost:8080/style.json'
       onChangeUi={this.handleChangeUi}
       onChangeFeatures={this.handleChangeFeatures} />
   }
