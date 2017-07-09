@@ -69,7 +69,7 @@ class MapFilter extends React.Component {
      * with a new array of feature objects. Use shallow equality
      * checks to get changes.
      */
-    onChangeFeatures: MFPropTypes.func,
+    onChangeFeatures: PropTypes.func,
     /**
      * A Mapbox Style document https://www.mapbox.com/mapbox-gl-js/style-spec/
      * or a URL pointing to a style JSON
