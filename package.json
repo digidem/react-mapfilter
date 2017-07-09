@@ -1,7 +1,7 @@
 {
   "name": "react-mapfilter",
   "description": "A React Component for viewing and filtering GeoJSON",
-  "version": "1.0.0-alpha.12",
+  "version": "1.0.0-alpha.13",
   "main": "es5/index.js",
   "dependencies": {
     "@mapbox/sexagesimal": "^1.0.0",
