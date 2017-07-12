@@ -43,7 +43,8 @@ const reduxPersistOptions = {
   blacklist: [
     'features',
     'ui',
-    'mapStyle'
+    'mapStyle',
+    'resizer'
   ],
   debounce: 500
 }
@@ -140,6 +141,7 @@ class MapFilter extends React.Component {
       <IntlProvider>
         <MuiThemeProvider muiTheme={getMuiTheme()}>
           <IndexRoute actionButton={actionButton} views={views} toolbarButtons={toolbarButtons} toolbarTitle={toolbarTitle} />
+          <IndexRoute actionButton={actionButton} views={views} toolbarButtons={toolbarButtons} toolbarTitle={toolbarTitle} resizer={resizer} />
         </MuiThemeProvider>
       </IntlProvider>
     </Provider>
