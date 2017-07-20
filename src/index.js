@@ -21,7 +21,29 @@ import reducers from './reducers'
 import controlledStore from './controlled_store'
 import config from '../config.json'
 
+import esStrings from '../locales/es.json'
+import frStrings from '../locales/fr.json'
+
 addLocaleData([...en, ...es])
+
+const translations = {
+  es: {
+    locale: 'es',
+    messages: Object.keys(esStrings).reduce((messages, id) => {
+      messages[id] = esStrings[id].message
+      return messages
+    }, {})
+  },
+  fr: {
+    locale: 'fr',
+    messages: Object.keys(frStrings).reduce((messages, id) => {
+      messages[id] = frStrings[id].message
+      return messages
+    }, {})
+  }
+}
+
+const lang = navigator.language.slice(0, 2)
 
 // Roboto font
 require('../css/fonts.css')
@@ -44,7 +66,8 @@ const reduxPersistOptions = {
     'features',
     'ui',
     'mapStyle',
-    'resizer'
+    'resizer',
+    'intl'
   ],
   debounce: 500
 }
@@ -57,6 +80,12 @@ const controllableProps = [
   'ui',
   'resizer'
 ]
+
+const initialState = {}
+
+if (translations[lang]) {
+  initialState.intl = translations[lang]
+}
 
 class MapFilter extends React.Component {
   static propTypes = {
@@ -125,7 +154,7 @@ class MapFilter extends React.Component {
     super(props)
     const stateOverride = pick(props, controllableProps)
     const controlledStoreEnhancer = controlledStore(this.handleChange, stateOverride)
-    this.store = createStore(reducers, compose(controlledStoreEnhancer, storeEnhancer))
+    this.store = createStore(reducers, initialState, compose(controlledStoreEnhancer, storeEnhancer))
     persistStore(this.store, reduxPersistOptions)
   }
 
@@ -138,7 +167,7 @@ class MapFilter extends React.Component {
   render () {
     const {actionButton, views, toolbarButtons, toolbarTitle} = this.props
     return <Provider store={this.store}>
-      <IntlProvider>
+      <IntlProvider locale={navigator.language.slice(0, 2)} >
         <MuiThemeProvider muiTheme={getMuiTheme()}>
           <IndexRoute actionButton={actionButton} views={views} toolbarButtons={toolbarButtons} toolbarTitle={toolbarTitle} />
         </MuiThemeProvider>

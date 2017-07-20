@@ -1,0 +1,71 @@
+{
+  "feature.editButton": {
+    "message": "Edit",
+    "description": "Edit button label"
+  },
+  "feature.closeButton": {
+    "message": "Close",
+    "description": "Close button label"
+  },
+  "feature.cancelButton": {
+    "message": "Cancel",
+    "description": "Cancel button label"
+  },
+  "feature.saveButton": {
+    "message": "Save",
+    "description": "Save button label"
+  },
+  "filter.change": {
+    "message": "Change Filters…",
+    "description": "Button text to change which fields are shown and filterable in the filter pane"
+  },
+  "filter.show_only": {
+    "message": "Only",
+    "description": "Button text to only show a particular field value in a filter"
+  },
+  "filter.show_all": {
+    "message": "Show All",
+    "description": "Button text to turn off filters for a field"
+  },
+  "filter.filters.description": {
+    "message": "Select the fields you would like to use to filter the data:",
+    "description": "Description of what the filter settings pane does"
+  },
+  "settings.title": {
+    "message": "Settings",
+    "description": "Title text for settings dialog"
+  },
+  "settings.filters": {
+    "message": "Change Filters",
+    "description": "Tab label for filter settings pane"
+  },
+  "settings.fields": {
+    "message": "Visible Fields",
+    "description": "Tab label for fields settings pane"
+  },
+  "settings.general": {
+    "message": "General",
+    "description": "Tab label for general settings pane"
+  },
+  "topbar.map": {
+    "message": "Map",
+    "description": "Map tab name"
+  },
+  "topbar.media": {
+    "message": "Media",
+    "description": "Media tab name"
+  },
+  "topbar.report": {
+    "message": "Report",
+    "description": "Report tab name"
+  },
+  "field_value.true": {
+    "message": "Yes"
+  },
+  "field_value.false": {
+    "message": "No"
+  },
+  "field_value.no_value": {
+    "message": "[No Value]"
+  }
+}
