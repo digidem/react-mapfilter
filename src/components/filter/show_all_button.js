@@ -1,18 +1,6 @@
 import React from 'react'
-import FlatButton from 'material-ui/FlatButton'
+import Button from 'material-ui/Button'
 import {defineMessages, FormattedMessage} from 'react-intl'
-
-const styles = {
-  flatButton: {
-    height: 30,
-    lineHeight: '29px',
-    top: 9
-  },
-  flatButtonLabel: {
-    fontSize: 12,
-    top: 0
-  }
-}
 
 const messages = defineMessages({
   showAll: {
@@ -23,12 +11,9 @@ const messages = defineMessages({
 })
 
 const ShowAllButton = (props) => (
-  <FlatButton
-    labelStyle={styles.flatButtonLabel}
-    label={<FormattedMessage {...messages.showAll} />}
-    primary
-    {...props}
-    style={Object.assign({}, props.style, styles.flatButton)} />
+  <Button color='primary' {...props}>
+    <FormattedMessage {...messages.showAll} />
+  </Button>
 )
 
 export default ShowAllButton

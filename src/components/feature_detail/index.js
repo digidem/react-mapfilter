@@ -1,11 +1,13 @@
 import React from 'react'
 
 import { connect } from 'react-redux'
-import { Card, CardMedia, CardText, CardHeader, CardActions } from 'material-ui/Card'
-import RaisedButton from 'material-ui/RaisedButton'
-import EditIcon from 'material-ui/svg-icons/editor/mode-edit'
+import { CardMedia, CardContent, CardHeader, CardActions } from 'material-ui/Card'
+import Paper from 'material-ui/Paper'
+import Button from 'material-ui/Button'
 import IconButton from 'material-ui/IconButton'
-import CloseIcon from 'material-ui/svg-icons/navigation/close'
+import { withStyles } from 'material-ui/styles'
+import EditIcon from 'material-ui-icons/ModeEdit'
+import CloseIcon from 'material-ui-icons/Close'
 import {FormattedMessage, defineMessages} from 'react-intl'
 import assign from 'object-assign'
 import {unflatten} from 'flat'
@@ -22,10 +24,11 @@ import FeatureTable from './feature_table'
 import {updateVisibleFields, editFeature} from '../../action_creators'
 import {FIELD_TYPE_SPACE_DELIMITED} from '../../constants'
 
-const styles = {
+const styleSheet = {
   card: {
     overflow: 'auto',
-    width: '100%'
+    width: '100%',
+    position: 'relative'
   },
   cardUnrestricted: {
     width: '100%'
@@ -56,6 +59,11 @@ const styles = {
   },
   button: {
     margin: '8px 16px 8px 8px'
+  },
+  closeButton: {
+    position: 'absolute',
+    top: 5,
+    right: 5
   }
 }
 
@@ -82,34 +90,34 @@ const messages = defineMessages({
   }
 })
 
-const Actions = ({style, editMode, onCloseClick, onEditClick, onCancelClick, onSaveClick}) => (
+const Actions = ({editMode, onCloseClick, onEditClick, onCancelClick, onSaveClick, classes}) => (
   editMode
-  ? <CardActions style={style} className='no_print'>
-    <RaisedButton
-      label={<FormattedMessage {...messages.cancelButton} />}
-      onTouchTap={onCancelClick}
-      style={styles.button}
-    />
-    <RaisedButton
-      label={<FormattedMessage {...messages.saveButton} />}
-      primary
-      onTouchTap={onSaveClick}
-      style={styles.button}
-    />
+  ? <CardActions className='no_print'>
+    <Button
+      raised
+      onClick={onCancelClick}
+      className={classes.button}
+    ><FormattedMessage {...messages.cancelButton} /></Button>
+    <Button
+      raised
+      color='primary'
+      onClick={onSaveClick}
+      className={classes.button}
+    ><FormattedMessage {...messages.saveButton} /></Button>
   </CardActions>
-  : <CardActions style={style} className='no_print'>
-    <RaisedButton
-      label={<FormattedMessage {...messages.editButton} />}
+  : <CardActions className='no_print'>
+    <Button
+      raised
       icon={<EditIcon />}
-      onTouchTap={onEditClick}
-      style={styles.button}
-    />
-    <RaisedButton
-      label={<FormattedMessage {...messages.closeButton} />}
-      primary
-      onTouchTap={onCloseClick}
-      style={styles.button}
-    />
+      onClick={onEditClick}
+      className={classes.button}
+    ><FormattedMessage {...messages.editButton} /></Button>
+    <Button
+      raised
+      color='primary'
+      onClick={onCloseClick}
+      className={classes.button}
+    ><FormattedMessage {...messages.closeButton} /></Button>
   </CardActions>
 )
 
@@ -167,30 +175,23 @@ class FeatureDetail extends React.Component {
   }
 
   render () {
-    const {color, label, media, feature, title, subtitle, onCloseClick, fieldOrder,
+    const {color, label, media, feature, title, subtitle, onCloseClick, fieldOrder, classes,
       print, coordFormat, fieldAnalysis, visibleFields, titleType, subtitleType} = this.props
     const {editMode, feature: editedFeature, visibleFields: editedVisibleFields} = this.state
-    return <Card
-      className='card'
-      style={styles.card}
-      zDepth={0}>
+    return <Paper className={classes.card} elevation={onCloseClick ? 8 : 0}>
+      {onCloseClick && <IconButton onClick={onCloseClick} className={classes.closeButton}>
+        <CloseIcon />
+      </IconButton>}
       <CardHeader
-        style={styles.header}
-        avatar={<MarkerIcon color={color} style={styles.markerIcon} label={label} />}
+        avatar={<MarkerIcon color={color} className={classes.markerIcon} label={label} />}
         title={<FormattedValue value={title} type={titleType} />}
-        subtitle={<FormattedValue value={subtitle} type={subtitleType} />}>
-        { onCloseClick &&
-          <IconButton style={{float: 'right'}} onTouchTap={onCloseClick}>
-            <CloseIcon />
-          </IconButton>
-        }
-      </CardHeader>
+        subheader={<FormattedValue value={subtitle} type={subtitleType} />} />
       <div>
         {media &&
-          <CardMedia style={styles.media}>
-            <Image style={styles.img} src={media} />
+          <CardMedia className={classes.media}>
+            <Image className={classes.img} src={media} />
           </CardMedia>}
-        <CardText>
+        <CardContent>
           <FeatureTable
             editMode={editMode}
             feature={editMode ? editedFeature : feature}
@@ -202,8 +203,9 @@ class FeatureDetail extends React.Component {
             onVisibilityChange={this.handleVisibilityChange}
             onValueChange={this.handleValueChange}
           />
-        </CardText>
+        </CardContent>
         <Actions
+          classes={classes}
           style={{textAlign: 'right'}}
           editMode={editMode}
           onChangeProp={this.handlePropEdit}
@@ -213,7 +215,7 @@ class FeatureDetail extends React.Component {
           onSaveClick={this.handleSaveClick}
         />
       </div>
-    </Card>
+    </Paper>
   }
 }
 
@@ -268,4 +270,4 @@ export default connect(
     onEditFeature: (feature) => dispatch(editFeature(feature)),
     onEditHiddenFields: (visibleFields) => dispatch(updateVisibleFields(visibleFields))
   })
-)(FeatureDetail)
+)(withStyles(styleSheet)(FeatureDetail))

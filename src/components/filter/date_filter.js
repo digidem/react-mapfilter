@@ -2,24 +2,25 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import {findDOMNode} from 'react-dom'
 import makePure from 'recompose/pure'
-import DateIcon from 'material-ui/svg-icons/action/date-range'
-import {ListItem} from 'material-ui/List'
+import DateIcon from 'material-ui-icons/DateRange'
+import { ListItem, ListItemIcon, ListItemText, ListItemSecondaryAction } from 'material-ui/List'
+import { withStyles } from 'material-ui/styles'
 import IconButton from 'material-ui/IconButton'
-import EditIcon from 'material-ui/svg-icons/editor/mode-edit'
-import {Popover, PopoverAnimationVertical} from 'material-ui/Popover'
+import EditIcon from 'material-ui-icons/Edit'
+import Menu from 'material-ui/Menu'
 import {DateRange} from 'react-date-range'
 import moment from 'moment'
 import omit from 'lodash/omit'
 import {injectIntl} from 'react-intl'
 
-import ShowAllButton from './show_all_button'
+import FilterSection from './filter_section'
 import { listStyles } from '../../styles'
 import { dateFormatShort } from '../../../config.json'
 import {createMessage as msg} from '../../util/intl_helpers'
 
 const PureDateRange = makePure(DateRange)
 
-const styles = {
+const styleSheet = {
   nestedList: {
     paddingTop: 0,
     paddingBottom: 0
@@ -46,13 +47,8 @@ const styles = {
     height: 20
   },
   showAll: {
-    fontSize: 12,
-    lineHeight: '16px',
-    height: 16,
-    margin: '4px 0px 0px',
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-    whiteSpace: 'nowrap'
+    top: 6,
+    fontSize: 12
   }
 }
 
@@ -131,54 +127,41 @@ class DateFilter extends React.PureComponent {
   }
 
   render () {
-    const {fieldName, min, max, valueMin, valueMax, intl: {formatMessage}} = this.props
+    const {fieldName, min, max, classes, valueMin, valueMax, intl: {formatMessage}} = this.props
     const isFiltered = min > valueMin || max < valueMax
     const minMoment = moment(min)
     const maxMoment = moment(max)
     const rangeStr = minMoment.format(dateFormatShort) +
       ' — ' + maxMoment.format(dateFormatShort)
     const title = fieldName.split('.').slice(-1)[0]
-    const subTitle = fieldName.indexOf('.') > 1 ? fieldName.split('.').slice(0, -1).join(' / ') : null
+    const subtitle = fieldName.indexOf('.') > 1 ? fieldName.split('.').slice(0, -1).join(' / ') : null
 
     return (
-      <ListItem
-        innerDivStyle={listStyles.listItemInner}
-        primaryText={formatMessage(msg('field_key')(title))}
-        secondaryText={subTitle && formatMessage(msg('field_key')(subTitle))}
-        leftIcon={<DateIcon style={listStyles.listIcon} />}
-        initiallyOpen
-        rightIconButton={isFiltered ? <ShowAllButton onTouchTap={this.showAllDates} /> : null}
-        disabled
-        ref='dateItem'
-        nestedItems={
-        [<NestedItem style={styles.dateItem} key='dateItem'>
-          <div ref='dateRange' onClick={this.showDatePopover}>{rangeStr}</div>
-          <IconButton
-            onTouchTap={this.showDatePopover}
-            tooltip='Select dates'
-            style={styles.iconButton}
-            iconStyle={styles.editIcon}
-            tooltipPosition='bottom-left'>
-            <EditIcon color='#757575' />
-          </IconButton>
-          <Popover
-            open={this.state.open}
-            anchorEl={this.state.el}
-            anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
-            targetOrigin={{horizontal: 'left', vertical: 'top'}}
-            onRequestClose={this.handleRequestClose}
-            animation={PopoverAnimationVertical}
-          >
-            <PureDateRange
-              startDate={minMoment}
-              endDate={maxMoment}
-              onChange={this.handleDateChange} />
-          </Popover>
-        </NestedItem>]
-        }
-      />
+      <FilterSection
+        title={formatMessage(msg('field_key')(title))}
+        subtitle={subtitle && formatMessage(msg('field_key')(subtitle))}
+        icon={<DateIcon />}
+        isFiltered={isFiltered}
+        showAll={this.showAllDates}>
+        <div ref='dateRange' onClick={this.showDatePopover}>{rangeStr}</div>
+        <IconButton
+          onClick={this.showDatePopover}
+          className={classes.iconButton}>
+          <EditIcon color='#757575' className={classes.editIcon} />
+        </IconButton>
+        <Menu
+          open={this.state.open}
+          anchorEl={this.state.el}
+          onRequestClose={this.handleRequestClose}
+        >
+          <PureDateRange
+            startDate={minMoment}
+            endDate={maxMoment}
+            onChange={this.handleDateChange} />
+        </Menu>
+      </FilterSection>
     )
   }
 }
 
-export default injectIntl(DateFilter)
+export default withStyles(styleSheet)(injectIntl(DateFilter))

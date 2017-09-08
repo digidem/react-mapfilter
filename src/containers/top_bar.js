@@ -1,13 +1,16 @@
 import PropTypes from 'prop-types'
 import React from 'react'
+import { withStyles } from 'material-ui/styles'
 import AppBar from 'material-ui/AppBar'
+import Toolbar from 'material-ui/Toolbar'
+import Typography from 'material-ui/Typography'
 import {defineMessages, FormattedMessage} from 'react-intl'
 import assign from 'object-assign'
 
 import CustomContainer from './custom_container'
 import {SettingsButton, PrintButton} from '../components/buttons'
 
-const styles = {
+const styleSheet = {
   topBar: {
     height: 56
   },
@@ -66,25 +69,23 @@ const messages = defineMessages({
   }
 })
 
-function TopBar ({activeView, views, onChangeTab, buttons, title}) {
+function TopBar ({activeView, views, onChangeTab, buttons, title, classes}) {
   return (
-    <AppBar
-      className='nav container'
-      title={title}
-      style={styles.topBar}
-      titleStyle={styles.title}
-      showMenuIconButton={false}>
-      <div style={styles.tabs}>
-        {views.map(view => {
-          var tabStyle = view.id === activeView ? assign({}, styles.tab, styles.activeTab) : styles.tab
-          return <a key={view.id} style={tabStyle} onClick={onChangeTab.bind(null, view.id)}>
-            <FormattedMessage {...messages[view.id]} />
-          </a>
-        })}
-      </div>
-      <div style={styles.right}>
-        {buttons.map((button, i) => <CustomContainer key={i} component={button} />)}
-      </div>
+    <AppBar position='static'>
+      <Toolbar>
+        <Typography type='title' color='inherit'>{title}</Typography>
+        <div className={classes.tabs}>
+          {views.map(view => {
+            var className = view.id === activeView ? classes.tab + ' ' + classes.activeTab : classes.tab
+            return <a key={view.id} className={className} onClick={onChangeTab.bind(null, view.id)}>
+              <FormattedMessage {...messages[view.id]} />
+            </a>
+          })}
+        </div>
+        <div className={classes.right}>
+          {buttons.map((button, i) => <CustomContainer key={i} component={button} />)}
+        </div>
+      </Toolbar>
     </AppBar>
   )
 }
@@ -102,4 +103,4 @@ TopBar.propTypes = {
   title: PropTypes.oneOfType([PropTypes.string, PropTypes.element])
 }
 
-export default TopBar
+export default withStyles(styleSheet)(TopBar)

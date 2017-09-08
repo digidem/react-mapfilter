@@ -1,17 +1,16 @@
 import React from 'react'
 // import {Table, TableBody, TableRow, div} from 'material-ui/Table'
-import {FormattedMessage} from 'react-intl'
 import assign from 'object-assign'
 
 import {createMessage as msg} from '../../util/intl_helpers'
 import FormattedValue from '../shared/formatted_value'
 import FormattedFieldname from '../shared/formatted_fieldname'
 import IconButton from 'material-ui/IconButton'
-import VisibilityIcon from 'material-ui/svg-icons/action/visibility'
-import VisibilityOffIcon from 'material-ui/svg-icons/action/visibility-off'
+import VisibilityIcon from 'material-ui-icons/Visibility'
+import VisibilityOffIcon from 'material-ui-icons/VisibilityOff'
 import TextField from 'material-ui/TextField'
-import SelectField from 'material-ui/SelectField'
-import MenuItem from 'material-ui/MenuItem'
+import Select from '../shared/select'
+import MultiSelect from '../shared/multi_select'
 import makePure from 'recompose/pure'
 
 import {
@@ -51,7 +50,8 @@ const styles = {
   },
   row: {
     lineHeight: 1.4,
-    display: 'flex'
+    display: 'flex',
+    position: 'relative',
   },
   smallRow: {
     paddingTop: 4,
@@ -75,63 +75,29 @@ const ValueCell = ({value, type, coordFormat}) => (
 )
 
 const ValueCellEdit = makePure(({value, type, coordFormat, fieldMetadata = {}, onChange}) => {
-  const values = type === FIELD_TYPE_BOOLEAN
-    ? [true, false]
+  const suggestions = type === FIELD_TYPE_BOOLEAN
+    ? ['Yes', 'No']
     : Array.isArray(fieldMetadata.values) && fieldMetadata.values.map(d => d.value)
   const isDiscreteField = type === FIELD_TYPE_STRING && fieldMetadata.values &&
     fieldMetadata.values.length / fieldMetadata.count < 0.8
   if (isDiscreteField || type === FIELD_TYPE_BOOLEAN) {
-    return <SelectField
-      style={styles.textField}
-      underlineStyle={styles.fieldUnderline}
-      iconStyle={{height: 39, padding: 7}}
-      labelStyle={{height: 35, lineHeight: '39px', top: 0}}
-      autoWidth
-      fullWidth
+    return <Select
       value={value}
-      onChange={onChange}>
-      {values.map(d => (
-        <MenuItem
-          key={d}
-          value={d}
-          style={{fontSize: 13}}
-          primaryText={d === 'undefined' ? '' : <FormattedMessage {...msg('field_value')(d)} />}
-        />
-      ))}
-    </SelectField>
+      onChange={onChange}
+      suggestions={suggestions} />
   }
   if (type === FIELD_TYPE_STRING || type === FIELD_TYPE_MIXED) {
     return <TextField
       fullWidth
-      multiLine
-      underlineStyle={styles.fieldUnderline}
       value={value}
       onChange={onChange}
       style={styles.textField} />
   }
   if (type === FIELD_TYPE_ARRAY) {
-    return <SelectField
-      style={styles.textField}
-      underlineStyle={styles.fieldUnderline}
-      iconStyle={{height: 39, padding: 7}}
-      labelStyle={{height: 35, lineHeight: '39px', top: 0}}
-      multiple
-      autoWidth
-      fullWidth
+    return <MultiSelect
       value={value}
-      selectionRenderer={value => <FormattedMessage {...msg('field_value')(value)} />}
-      onChange={onChange}>
-      {values.map(d => (
-        <MenuItem
-          key={d}
-          insetChildren
-          checked={value && value.includes(d)}
-          value={d}
-          style={{fontSize: 13}}
-          primaryText={<FormattedMessage {...msg('field_value')(d)} />}
-        />
-      ))}
-    </SelectField>
+      onChange={onChange}
+      suggestions={suggestions} />
   }
   return <ValueCell value={value} type={type} coordFormat={coordFormat} />
 })
@@ -143,10 +109,8 @@ class Row extends React.PureComponent {
     this.handleVisibilityChange = this.handleVisibilityChange.bind(this)
   }
 
-  handleChange () {
-    let value
-    if (arguments.length === 3) value = arguments[2]
-    else value = arguments[1]
+  handleChange (e, {newValue, type}) {
+    const value = newValue || e.target.value
     this.props.onValueChange(this.props._key, value === 'undefined' ? undefined : value)
   }
 
@@ -155,8 +119,8 @@ class Row extends React.PureComponent {
   }
 
   render () {
-    const {_key, value, type, visible, editMode, coordFormat, fieldMetadata, firstColWidth} = this.props
-    const rowStyle = assign({}, styles.row, {opacity: visible ? 1 : 0.6, borderBottomColor: editMode ? '#f0f0f0' : '#e0e0e0'})
+    const {_key, value, type, visible, editMode, coordFormat, fieldMetadata, firstColWidth, style} = this.props
+    const rowStyle = assign({}, styles.row, {opacity: visible ? 1 : 0.6, borderBottomColor: editMode ? '#f0f0f0' : '#e0e0e0'}, style)
     return (
       <div key={_key} style={rowStyle}>
         <div style={assign({}, styles.column, styles.firstColumn, {width: firstColWidth})}>
@@ -178,8 +142,7 @@ class Row extends React.PureComponent {
         {editMode && <div style={assign({}, styles.column, {padding: 0, flex: 'initial'})}>
           <IconButton
             style={{width: 39, height: 39, padding: 5}}
-            disableTouchRipple
-            onTouchTap={this.handleVisibilityChange}>
+            onClick={this.handleVisibilityChange}>
             {visible ? <VisibilityIcon /> : <VisibilityOffIcon />}
           </IconButton>
         </div>}
@@ -238,6 +201,7 @@ class FeatureTable extends React.PureComponent {
   render () {
     const {fieldAnalysis} = this.props
     const {rows} = this.state
+    console.log('render', rows.length)
     // const firstColStyle = assign({}, styles.firstColumn, {width: this.state.width})
     // let secondColStyle = styles.secondColumn
     // if (print) {
@@ -258,6 +222,7 @@ class FeatureTable extends React.PureComponent {
             fieldMetadata={fieldAnalysis.properties[row.key]}
             firstColWidth={this.state.width}
             index={index}
+            style={{zIndex: rows.length - index}}
           />
         ))}
       </div>

@@ -1,7 +1,7 @@
 // import PropTypes from 'prop-types'
 import React from 'react'
 import { connect } from 'react-redux'
-import { List, ListItem } from 'material-ui/List'
+import List, { ListItem } from 'material-ui/List'
 import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem'
 

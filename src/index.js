@@ -3,8 +3,6 @@ import React from 'react'
 import { Provider } from 'react-redux'
 import { createStore, applyMiddleware, compose } from 'redux'
 import thunk from 'redux-thunk'
-import getMuiTheme from 'material-ui/styles/getMuiTheme'
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import {IntlProvider} from 'react-intl-redux'
 import {addLocaleData} from 'react-intl'
 import pick from 'lodash/pick'
@@ -168,9 +166,7 @@ class MapFilter extends React.Component {
     const {actionButton, views, toolbarButtons, toolbarTitle} = this.props
     return <Provider store={this.store}>
       <IntlProvider locale={navigator.language.slice(0, 2)} >
-        <MuiThemeProvider muiTheme={getMuiTheme()}>
-          <IndexRoute actionButton={actionButton} views={views} toolbarButtons={toolbarButtons} toolbarTitle={toolbarTitle} />
-        </MuiThemeProvider>
+        <IndexRoute actionButton={actionButton} views={views} toolbarButtons={toolbarButtons} toolbarTitle={toolbarTitle} />
       </IntlProvider>
     </Provider>
   }

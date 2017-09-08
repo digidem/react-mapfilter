@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import { List, ListItem } from 'material-ui/List'
-import Toggle from 'material-ui/Toggle'
+import List, { ListItem } from 'material-ui/List'
+import Switch from 'material-ui/Switch'
 
 import FormattedFieldname from '../shared/formatted_fieldname'
 
@@ -33,9 +33,9 @@ class FieldList extends React.Component {
             style={!visibleFields.includes(field) && {opacity: 0.4}}
             primaryText={<FormattedFieldname fieldname={field} />}
             rightToggle={
-              <Toggle
-                toggled={visibleFields.includes(field)}
-                onToggle={this.handleToggle.bind(this, field)}
+              <Switch
+                checked={visibleFields.includes(field)}
+                onChange={this.handleToggle.bind(this, field)}
               />}
           />
         ))}

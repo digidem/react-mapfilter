@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import { connect } from 'react-redux'
-import {List, ListItem} from 'material-ui/List'
+import List, {ListItem, ListItemIcon, ListItemText} from 'material-ui/List'
 import Divider from 'material-ui/Divider'
-import SettingsIcon from 'material-ui/svg-icons/action/settings'
+import SettingsIcon from 'material-ui-icons/Settings'
 import {defineMessages, FormattedMessage} from 'react-intl'
 
 import getFilterFields from '../../selectors/filter_fields'
@@ -59,7 +59,7 @@ const messages = defineMessages({
   }
 })
 
-const Filter = ({
+const FilterPane = ({
   filters = {},
   fieldStats = {},
   filterFields = [],
@@ -69,7 +69,7 @@ const Filter = ({
   onClickSettings = x => x
 }) => (
   <div className='filter' style={style.outer}>
-    <List style={style.list}>
+    <List style={style.list} dense>
       {/* TODO allow these to be reordered */}
       {filterFields.map((f) => {
         const field = fieldStats.properties[f] || {}
@@ -108,16 +108,19 @@ const Filter = ({
             )
         }
       })}
-      <ListItem innerDivStyle={style.listItemInner}>
-        <a style={style.link} onClick={onClickSettings}>
-          <FormattedMessage {...messages.changeFilters} /> <SettingsIcon style={style.listIcon} />
-        </a>
+      <ListItem button onClick={onClickSettings}>
+        <ListItemIcon>
+          <SettingsIcon />
+        </ListItemIcon>
+        <ListItemText
+          primary={<FormattedMessage {...messages.changeFilters} />}
+        />
       </ListItem>
     </List>
   </div>
 )
 
-Filter.propTypes = {
+FilterPane.propTypes = {
   filters: PropTypes.object,
   fieldStats: PropTypes.object.isRequired,
   filterFields: PropTypes.arrayOf(PropTypes.string).isRequired,
@@ -146,4 +149,4 @@ function mapDispatchToProps (dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Filter)
+)(FilterPane)

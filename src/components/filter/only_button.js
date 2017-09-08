@@ -1,5 +1,5 @@
 import React from 'react'
-import FlatButton from 'material-ui/FlatButton'
+import Button from 'material-ui/Button'
 import {defineMessages, FormattedMessage} from 'react-intl'
 
 const styles = {
@@ -27,10 +27,10 @@ const messages = defineMessages({
 })
 
 const OnlyButton = (props) => (
-  <FlatButton
+  <Button
     labelStyle={styles.flatButtonLabel}
     label={<FormattedMessage {...messages.only} />}
-    primary
+    color='primary'
     style={styles.flatButton}
     {...props} />
 )

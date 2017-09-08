@@ -1,15 +1,15 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import { connect } from 'react-redux'
-import { Card } from 'material-ui/Card'
+import Card from 'material-ui/Card'
 import IconButton from 'material-ui/IconButton'
-import FlatButton from 'material-ui/FlatButton'
-import CloseIcon from 'material-ui/svg-icons/navigation/close'
+import Button from 'material-ui/Button'
+import CloseIcon from 'material-ui-icons/Close'
 import {defineMessages, FormattedMessage} from 'react-intl'
 
 import { openSettings } from '../../action_creators'
 import FilterConfigurator from './filter_configurator'
-import GeneralSettings from './general'
+// import GeneralSettings from './general'
 
 const styles = {
   card: {
@@ -101,20 +101,17 @@ const messages = defineMessages({
 })
 
 const tabs = [{
-  id: 'general',
-  component: GeneralSettings
-}, {
   id: 'filters',
   component: FilterConfigurator
 }]
 
 const Tab = ({active, label, onClick}) => (
-  <FlatButton
+  <Button
     fullWidth
     label={label}
     style={active ? styles.tabActive : styles.tab}
     labelStyle={active ? styles.tabLabelActive : styles.tabLabel}
-    onTouchTap={onClick} />
+    onClick={onClick} />
 )
 
 class Settings extends React.Component {
@@ -135,7 +132,7 @@ class Settings extends React.Component {
         zDepth={2}>
         <h3 style={styles.title}>
           <FormattedMessage {...messages.settingsTitle} />
-          <IconButton style={styles.icon} onTouchTap={onCloseClick}>
+          <IconButton style={styles.icon} onClick={onCloseClick}>
             <CloseIcon />
           </IconButton>
         </h3>

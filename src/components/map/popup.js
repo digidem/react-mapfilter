@@ -1,7 +1,6 @@
 import React from 'react'
 import assign from 'object-assign'
 import {connect} from 'react-redux'
-import {darken, fade} from 'material-ui/utils/colorManipulator'
 
 import Image from '..//image'
 import FormattedValue from '../shared/formatted_value'
@@ -91,7 +90,7 @@ class Popup extends React.Component {
     return <div style={assign({}, styles.wrapper, {transform})} ref={el => (this._el = el)}>
       {media && <Image src={media} style={styles.image} />}
       <div style={assign({}, styles.title, {
-        backgroundColor: fade(darken(color || '#000', 0.5), 0.5)
+        backgroundColor: 'rgba(0,0,0,0.5)'
       })}>
         {title && <h1 style={styles.h1}>
           <FormattedValue value={title} type={titleType} />

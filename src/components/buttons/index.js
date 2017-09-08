@@ -1,16 +1,16 @@
 import React from 'react'
-import SettingsIcon from 'material-ui/svg-icons/action/settings'
 import IconButton from 'material-ui/IconButton'
-import PrintIcon from 'material-ui/svg-icons/action/print'
+import SettingsIcon from 'material-ui-icons/Settings'
+import PrintIcon from 'material-ui-icons/Print'
 
 export const SettingsButton = ({openSettings}) => (
-  <IconButton tooltip='Settings' onTouchTap={openSettings.bind(null, 'general')}>
+  <IconButton onClick={openSettings.bind(null, 'general')}>
     <SettingsIcon color='white' />
   </IconButton>
 )
 
 export const PrintButton = () => (
-  <IconButton tooltip='Print' onTouchTap={() => window.print()}>
+  <IconButton onClick={() => window.print()}>
     <PrintIcon color='white' />
   </IconButton>
 )

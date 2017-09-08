@@ -6,6 +6,7 @@
   "dependencies": {
     "@mapbox/sexagesimal": "^1.0.0",
     "@segment/isodate": "^1.0.2",
+    "autosuggest-highlight": "^3.1.0",
     "babel-runtime": "^6.20.0",
     "base64-url": "^1.3.3",
     "case": "^1.4.2",
@@ -13,23 +14,26 @@
     "debug": "^2.6.8",
     "deep-equal": "^1.0.1",
     "feature-filter-geojson": "^1.0.0",
-    "flat": "^2.0.1",
+    "flat": "^4.0.0",
     "geojson-flatten": "^0.2.1",
     "get-scrollbar-width": "^1.0.4",
     "insert-css": "^2.0.0",
     "is-plain-object": "^2.0.3",
     "localforage": "^1.5.0",
     "lodash": "^4.16.4",
-    "mapbox-gl": "^0.38.0",
-    "material-ui": "^0.18.6",
+    "mapbox-gl": "^0.39.1",
+    "material-ui": "^1.0.0-beta.8",
+    "material-ui-icons": "^1.0.0-alpha.19",
     "moment": "^2.15.2",
     "object-assign": "^4.1.0",
     "prop-types": "^15.5.10",
     "randombytes": "^2.0.5",
+    "react-autosuggest": "^9.3.2",
     "react-date-range": "^0.9.4",
     "react-imageloader": "^2.1.0",
     "react-intl": "^2.3.0",
     "react-intl-redux": "^0.6.0",
+    "react-isolated-scroll": "^0.1.1",
     "react-overlays": "^0.7.0",
     "react-redux": "^5.0.5",
     "react-tap-event-plugin": "^2.0.1",
@@ -86,7 +90,8 @@
     "traverse": "^0.6.6",
     "uglify-js": "^3.0.0",
     "uglifyify": "^4.0.2",
-    "urlencode": "^1.1.0"
+    "urlencode": "^1.1.0",
+    "@storybook/react": "^3.2.3"
   },
   "peerDependencies": {
     "react": "^15.4.1",
@@ -106,7 +111,9 @@
     "build:es5": "rimraf es5 && babel src/ --source-maps -d es5/",
     "build:umd": "rimraf dist && mkdirp dist && NODE_ENV=production browserify -t babelify -g envify -g uglifyify -p bundle-collapser/plugin -s MapFilter src/index.js | uglifyjs -c warnings=false -m > dist/react-mapfilter.js",
     "watch": "rimraf es5 && babel src/ -w --source-maps -d es5/",
-    "prepublish": "npm run build:es5 & npm run build:umd"
+    "prepublish": "npm run build:es5 & npm run build:umd",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "standard": {
     "parser": "babel-eslint",
