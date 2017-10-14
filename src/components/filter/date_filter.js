@@ -3,11 +3,13 @@ import React from 'react'
 import {findDOMNode} from 'react-dom'
 import makePure from 'recompose/pure'
 import DateIcon from 'material-ui-icons/DateRange'
+import Button from 'material-ui/Button'
+import Typography from 'material-ui/Typography'
 import { ListItem, ListItemIcon, ListItemText, ListItemSecondaryAction } from 'material-ui/List'
 import { withStyles } from 'material-ui/styles'
 import IconButton from 'material-ui/IconButton'
 import EditIcon from 'material-ui-icons/Edit'
-import Menu from 'material-ui/Menu'
+import Popover from 'material-ui/Popover'
 import {DateRange} from 'react-date-range'
 import moment from 'moment'
 import omit from 'lodash/omit'
@@ -20,10 +22,18 @@ import {createMessage as msg} from '../../util/intl_helpers'
 
 const PureDateRange = makePure(DateRange)
 
-const styleSheet = {
+const styles = theme => ({
   nestedList: {
     paddingTop: 0,
     paddingBottom: 0
+  },
+  button: {
+    textTransform: 'none',
+    fontWeight: 'inherit',
+    padding: '4px 5px',
+    margin: '9px 0 9px 52px',
+    fontSize: 13,
+    minHeight: 'auto'
   },
   dateItem: {
     marginLeft: 0,
@@ -34,11 +44,11 @@ const styleSheet = {
     color: 'rgba(0, 0, 0, 0.870588)'
   },
   iconButton: {
-    padding: 12,
-    width: 46,
-    height: 46,
     top: 0,
-    right: 4,
+    width: 38,
+    right: 8,
+    height: 38,
+    padding: 9,
     background: 'none',
     position: 'absolute'
   },
@@ -49,8 +59,11 @@ const styleSheet = {
   showAll: {
     top: 6,
     fontSize: 12
+  },
+  popover: {
+    fontFamily: theme.typography.fontFamily
   }
-}
+})
 
 // Material-ui passes a `nestedLevel` prop to nested items.
 // We're not using a `div` instead of the material-ui component for
@@ -69,17 +82,13 @@ class DateFilter extends React.PureComponent {
   state = {}
 
   showDatePopover = (event) => {
-    // This prevents ghost click.
-    const target = this.refs.dateRange
     event.preventDefault()
     var range = document.createRange()
     var sel = window.getSelection()
-    range.selectNodeContents(target)
+    range.selectNodeContents(this.buttonNode)
     sel.removeAllRanges()
-    sel.addRange(range)
     this.setState({
-      open: true,
-      anchorEl: target
+      open: true
     })
   }
 
@@ -120,12 +129,6 @@ class DateFilter extends React.PureComponent {
     })
   }
 
-  componentDidMount () {
-    this.setState({
-      el: findDOMNode(this.refs.dateItem)
-    })
-  }
-
   render () {
     const {fieldName, min, max, classes, valueMin, valueMax, intl: {formatMessage}} = this.props
     const isFiltered = min > valueMin || max < valueMax
@@ -143,25 +146,32 @@ class DateFilter extends React.PureComponent {
         icon={<DateIcon />}
         isFiltered={isFiltered}
         showAll={this.showAllDates}>
-        <div ref='dateRange' onClick={this.showDatePopover}>{rangeStr}</div>
+        <Button
+          rootRef={el => (this.buttonNode = el)}
+          onClick={this.showDatePopover}
+          className={classes.button}>
+          {rangeStr}
+        </Button>
         <IconButton
           onClick={this.showDatePopover}
           className={classes.iconButton}>
           <EditIcon color='#757575' className={classes.editIcon} />
         </IconButton>
-        <Menu
+        <Popover
           open={this.state.open}
-          anchorEl={this.state.el}
+          anchorEl={this.buttonNode}
+          anchorOrigin={{vertical: 'bottom', horizontal: 'left'}}
           onRequestClose={this.handleRequestClose}
+          className={classes.popover}
         >
           <PureDateRange
             startDate={minMoment}
             endDate={maxMoment}
             onChange={this.handleDateChange} />
-        </Menu>
+        </Popover>
       </FilterSection>
     )
   }
 }
 
-export default withStyles(styleSheet)(injectIntl(DateFilter))
+export default withStyles(styles)(injectIntl(DateFilter))

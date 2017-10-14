@@ -9,9 +9,15 @@ import IconButton from 'material-ui/IconButton'
 import VisibilityIcon from 'material-ui-icons/Visibility'
 import VisibilityOffIcon from 'material-ui-icons/VisibilityOff'
 import TextField from 'material-ui/TextField'
+import Typography from 'material-ui/Typography'
+import Input from 'material-ui/Input'
+import { MenuItem } from 'material-ui/Menu'
+import MUISelect from 'material-ui/Select'
 import Select from '../shared/select'
 import MultiSelect from '../shared/multi_select'
 import makePure from 'recompose/pure'
+import Tooltip from 'material-ui/Tooltip'
+import { FormattedMessage, defineMessages } from 'react-intl'
 
 import {
   FIELD_TYPE_LOCATION,
@@ -26,13 +32,13 @@ import {
   FIELD_TYPE_AUDIO
 } from '../../constants'
 
-// const messages = defineMessages({
-//   visibility: {
-//     id: 'featureDetail.visibilitySwitch',
-//     defaultMessage: 'Hide or show field',
-//     description: 'Tooltip for button to hide or show a field'
-//   }
-// })
+const messages = defineMessages({
+  visibility: {
+    id: 'featureDetail.visibilitySwitch',
+    defaultMessage: 'Hide or show field',
+    description: 'Tooltip for button to hide or show a field'
+  }
+})
 
 const styles = {
   firstColumn: {
@@ -41,7 +47,7 @@ const styles = {
     textAlign: 'right'
   },
   column: {
-    padding: 12,
+    padding: '12px 12px',
     whiteSpace: 'normal',
     flex: 1
   },
@@ -51,7 +57,7 @@ const styles = {
   row: {
     lineHeight: 1.4,
     display: 'flex',
-    position: 'relative',
+    position: 'relative'
   },
   smallRow: {
     paddingTop: 4,
@@ -59,9 +65,15 @@ const styles = {
   },
   textField: {
     fontSize: 14,
-    lineHeight: '17px',
-    height: 39,
-    marginTop: -12
+    marginTop: -2
+  },
+  muiSelect: {
+    fontSize: 14,
+    marginTop: -4
+  },
+  selectField: {
+    fontSize: 14,
+    marginTop: -3
   },
   fieldUnderline: {
     bottom: 4,
@@ -71,20 +83,38 @@ const styles = {
 }
 
 const ValueCell = ({value, type, coordFormat}) => (
-  <FormattedValue value={value} type={type} coordFormat={coordFormat} />
+  <Typography>
+    <FormattedValue value={value} type={type} coordFormat={coordFormat} />
+  </Typography>
 )
 
 const ValueCellEdit = makePure(({value, type, coordFormat, fieldMetadata = {}, onChange}) => {
-  const suggestions = type === FIELD_TYPE_BOOLEAN
-    ? ['Yes', 'No']
-    : Array.isArray(fieldMetadata.values) && fieldMetadata.values.map(d => d.value)
+  const suggestions = Array.isArray(fieldMetadata.values) && fieldMetadata.values.map(d => d.value)
   const isDiscreteField = type === FIELD_TYPE_STRING && fieldMetadata.values &&
     fieldMetadata.values.length / fieldMetadata.count < 0.8
-  if (isDiscreteField || type === FIELD_TYPE_BOOLEAN) {
+  if (isDiscreteField) {
     return <Select
       value={value}
       onChange={onChange}
-      suggestions={suggestions} />
+      suggestions={suggestions}
+      style={styles.selectField} />
+  }
+  if (type === FIELD_TYPE_BOOLEAN) {
+    return <MUISelect
+      MenuProps={{MenuListProps: {dense: true}}}
+      fullWidth
+      autoWidth
+      value={value + ''}
+      onChange={(e) => {
+        const newValue = e.target.value === 'true' ? true : e.target.value === 'false' ? false : undefined
+        onChange(e, {newValue})
+      }}
+      input={<Input />}
+      style={styles.muiSelect}>
+      <MenuItem value='undefined' />
+      <MenuItem value='true'>Yes</MenuItem>
+      <MenuItem value='false'>No</MenuItem>
+    </MUISelect>
   }
   if (type === FIELD_TYPE_STRING || type === FIELD_TYPE_MIXED) {
     return <TextField
@@ -97,7 +127,8 @@ const ValueCellEdit = makePure(({value, type, coordFormat, fieldMetadata = {}, o
     return <MultiSelect
       value={value}
       onChange={onChange}
-      suggestions={suggestions} />
+      suggestions={suggestions}
+      style={styles.selectField} />
   }
   return <ValueCell value={value} type={type} coordFormat={coordFormat} />
 })
@@ -110,7 +141,7 @@ class Row extends React.PureComponent {
   }
 
   handleChange (e, {newValue, type}) {
-    const value = newValue || e.target.value
+    const value = typeof newValue === 'undefined' ? e.target.value : newValue
     this.props.onValueChange(this.props._key, value === 'undefined' ? undefined : value)
   }
 
@@ -120,14 +151,14 @@ class Row extends React.PureComponent {
 
   render () {
     const {_key, value, type, visible, editMode, coordFormat, fieldMetadata, firstColWidth, style} = this.props
-    const rowStyle = assign({}, styles.row, {opacity: visible ? 1 : 0.6, borderBottomColor: editMode ? '#f0f0f0' : '#e0e0e0'}, style)
+    const rowStyle = assign({}, styles.row, {color: visible ? 'initial' : '#999999'}, style)
     return (
       <div key={_key} style={rowStyle}>
-        <div style={assign({}, styles.column, styles.firstColumn, {width: firstColWidth})}>
+        <Typography style={assign({}, styles.column, styles.firstColumn, {width: firstColWidth, color: 'inherit'})}>
           <span ref={'firstColumn'}>
             <FormattedFieldname fieldname={_key} />
           </span>
-        </div>
+        </Typography>
         <div style={assign({}, styles.column, editMode && {minHeight: 30})}>
           {editMode
           ? <ValueCellEdit
@@ -140,11 +171,13 @@ class Row extends React.PureComponent {
           : <ValueCell key={_key} value={value} type={type} coordFormat={coordFormat} />}
         </div>
         {editMode && <div style={assign({}, styles.column, {padding: 0, flex: 'initial'})}>
-          <IconButton
-            style={{width: 39, height: 39, padding: 5}}
-            onClick={this.handleVisibilityChange}>
-            {visible ? <VisibilityIcon /> : <VisibilityOffIcon />}
-          </IconButton>
+          <Tooltip title={<FormattedMessage {...messages.visibility} />}>
+            <IconButton
+              style={{width: 39, height: 39, padding: 5, color: visible ? 'initial' : '#999999'}}
+              onClick={this.handleVisibilityChange}>
+              {visible ? <VisibilityIcon /> : <VisibilityOffIcon />}
+            </IconButton>
+          </Tooltip>
         </div>}
       </div>
     )
@@ -201,16 +234,6 @@ class FeatureTable extends React.PureComponent {
   render () {
     const {fieldAnalysis} = this.props
     const {rows} = this.state
-    console.log('render', rows.length)
-    // const firstColStyle = assign({}, styles.firstColumn, {width: this.state.width})
-    // let secondColStyle = styles.secondColumn
-    // if (print) {
-    //   assign(firstColStyle, styles.smallRow)
-    //   secondColStyle = assign({}, secondColStyle, styles.smallRow)
-    // }
-    // if (editMode) {
-    //   secondColStyle = assign({}, secondColStyle, styles.editRow, styles.secondColumnEdit)
-    // }
     return (
       <div>
         {rows.map((row, index) => (
@@ -261,11 +284,29 @@ function getRows (props) {
       visible: visibleFields.indexOf('location') > -1
     })
   }
+  // Sort rows by `fieldOrder` from state, if an order is set, if not then sort lexically.
   return rows.sort((a, b) => {
-    const orderA = fieldOrder.hasOwnProperty(a.key) ? fieldOrder[a.key] : Infinity
-    const orderB = fieldOrder.hasOwnProperty(b.key) ? fieldOrder[b.key] : Infinity
-    return orderA - orderB
+    var orderA = typeof fieldOrder[a.key] !== 'undefined' ? fieldOrder[a.key] : Infinity
+    var orderB = typeof fieldOrder[b.key] !== 'undefined' ? fieldOrder[b.key] : Infinity
+    if (orderA === Infinity && orderB === Infinity) {
+      return lexicalSort(a, b)
+    } else {
+      return orderA - orderB
+    }
   })
+}
+
+function lexicalSort (a, b) {
+  var nameA = a.key.toUpperCase() // ignore upper and lowercase
+  var nameB = b.key.toUpperCase() // ignore upper and lowercase
+  if (nameA < nameB) {
+    return -1
+  }
+  if (nameA > nameB) {
+    return 1
+  }
+  // names must be equal
+  return 0
 }
 
 export default FeatureTable

@@ -7,27 +7,31 @@ import { FormGroup, FormControlLabel } from 'material-ui/Form'
 import ListIcon from 'material-ui-icons/List'
 import { withStyles } from 'material-ui/styles'
 import {injectIntl} from 'react-intl'
-import omit from 'lodash/omit'
 
 import FilterSection from './filter_section'
 import OnlyButton from './only_button'
 import {createMessage as msg} from '../../util/intl_helpers'
-import { listStyles } from '../../styles'
 // import {FIELD_TYPE_BOOLEAN, FIELD_TYPE_NUMBER} from '../../constants'
 
-const styleSheet = {
-  checkboxLabel: {
-    lineHeight: '22px',
-    whiteSpace: 'nowrap',
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-    padding: '2px 16px'
-  },
-  checkboxLabelLast: {
+const styles = {
+  formGroup: {
     paddingBottom: 8
   },
+  formControlRoot: {
+    lineHeight: '22px',
+    padding: '2px 16px',
+    boxSizing: 'border-box',
+    width: '100%',
+    minWidth: 0,
+    marginRight: 0,
+    marginLeft: 0
+  },
+  formControlLabel: {
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis'
+  },
   coloredSpan: {
-    marginLeft: -5,
     backgroundColor: 'rgb(0, 188, 212)',
     borderRadius: 2,
     padding: '2px 5px',
@@ -40,6 +44,10 @@ const styleSheet = {
     top: 6,
     fontSize: 12
   },
+  checkboxItem: {
+    display: 'flex',
+    justifyContent: 'space-between'
+  },
   checkboxButton: {
     width: 24,
     height: 24,
@@ -49,14 +57,6 @@ const styleSheet = {
     width: 20,
     height: 20
   }
-}
-
-// Material-ui passes a `nestedLevel` prop to nested items.
-// We're not using a `div` instead of the material-ui component for
-// nested items, so we need to remove the `nestedLevel` prop.
-const NestedItem = props => {
-  const divProps = omit(props, ['nestedLevel', 'children'])
-  return <div {...divProps}>{props.children}</div>
 }
 
 class DiscreteFilter extends React.PureComponent {
@@ -70,6 +70,11 @@ class DiscreteFilter extends React.PureComponent {
   static defaultProps = {
     checked: [],
     onUpdate: (x) => x
+  }
+
+  constructor (props) {
+    super(props)
+    this.state = {}
   }
 
   showAll = (e) => {
@@ -125,58 +130,39 @@ class DiscreteFilter extends React.PureComponent {
         icon={<ListIcon />}
         isFiltered={isFiltered}
         showAll={this.showAll}>
-        <FormGroup>
+        <FormGroup className={classes.formGroup}>
           {values.map((v, i) => (
-            <FormControlLabel
+            <div
+              className={classes.checkboxItem}
               key={v.value}
-              classes={{root: classes.checkboxLabel}}
-              style={i === values.length - 1 ? {paddingBottom: 8} : null}
-              control={
-                <Checkbox
-                  classes={{root: classes.checkboxButton}}
-                  checked={checked.indexOf(v.value) > -1}
-                  icon={<CheckBoxOutlineBlankIcon classes={{root: classes.checkboxIcon}} />}
-                  checkedIcon={<CheckBoxIcon classes={{root: classes.checkboxIcon}} />}
-                  onChange={this.handleCheck.bind(this, v.value)}
-                />
+              onMouseEnter={this.handleMouseEnter.bind(this, v.value)}
+              onMouseLeave={this.handleMouseLeave}>
+              <FormControlLabel
+                classes={{root: classes.formControlRoot, label: classes.formControlLabel}}
+                control={
+                  <Checkbox
+                    classes={{default: classes.checkboxButton}}
+                    checked={checked.indexOf(v.value) > -1}
+                    icon={<CheckBoxOutlineBlankIcon classes={{root: classes.checkboxIcon}} />}
+                    checkedIcon={<CheckBoxIcon classes={{root: classes.checkboxIcon}} />}
+                    onChange={this.handleCheck.bind(this, v.value)}
+                  />
+                }
+                label={
+                  <span className={colored ? classes.coloredSpan : ''} style={colored ? {backgroundColor: colorIndex[v.value]} : null}>
+                    {formatMessage(msg('field_value')(v.value + ''))}
+                  </span>
+                }
+              />
+              {(this.state.hovered === v.value) &&
+                <OnlyButton onClick={this.handleOnlyClick.bind(this, v.value)} />
               }
-              label={
-                <span className={colored ? classes.coloredSpan : ''} style={colored && {backgroundColor: colorIndex[v.value]}}>
-                  {formatMessage(msg('field_value')(v.value + ''))}
-                </span>
-              }
-            />
+            </div>
           ))}
         </FormGroup>
       </FilterSection>
     )
-      //     <NestedItem
-      //       key={v.value}
-      //       style={{position: 'relative'}}
-      //       onMouseEnter={this.handleMouseEnter.bind(this, v.value)}
-      //       onMouseLeave={this.handleMouseLeave}>
-      //       <PureCheckbox
-      //         label={
-      //           <span style={colored ? assign({}, styles.coloredSpan, {backgroundColor: colorIndex[v.value]}) : null}>
-      //             {formatMessage(msg('field_value')(v.value + ''))}
-      //           </span>
-      //         }
-      //         title={formatMessage(msg('field_value')(v.value + ''))}
-      //         value={v.value}
-      //         style={styles.checkbox}
-      //         iconStyle={styles.checkboxIcon}
-      //         labelStyle={styles.checkboxLabel}
-      //         checked={checked.indexOf(v.value) > -1}
-      //         onCheck={this.handleCheck.bind(this, v.value)}
-      //         disableFocusRipple
-      //         disableTouchRipple />
-      //       {this.state.hovered === v.value &&
-      //         <OnlyButton
-      //           onClick={this.handleOnlyClick.bind(this, v.value)} />}
-      //     </NestedItem>
-      //   ))}
-      // />
   }
 }
 
-export default withStyles(styleSheet)(injectIntl(DiscreteFilter))
+export default withStyles(styles)(injectIntl(DiscreteFilter))

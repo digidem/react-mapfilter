@@ -8,6 +8,7 @@ import IsolatedScroll from 'react-isolated-scroll'
 import match from 'autosuggest-highlight/match'
 import parse from 'autosuggest-highlight/parse'
 import omit from 'lodash/omit'
+import isEqual from 'lodash/isEqual'
 import assign from 'object-assign'
 import { withStyles } from 'material-ui/styles'
 
@@ -17,7 +18,8 @@ const styleSheet = theme => ({
   container: {
     flexGrow: 1,
     position: 'relative',
-    zIndex: 1
+    zIndex: 1,
+    fontSize: 14
   },
   suggestionsContainerOpen: {
     position: 'absolute',
@@ -32,7 +34,8 @@ const styleSheet = theme => ({
     overflowY: 'auto'
   },
   suggestion: {
-    display: 'block'
+    display: 'block',
+    fontSize: 14
   },
   suggestionsList: {
     margin: 0,
@@ -45,9 +48,9 @@ const styleSheet = theme => ({
 })
 
 function renderInput (props) {
-  const {classes, home, value, inputRef, ref} = props
+  const {classes, home, value, inputRef, ref, style} = props
   const inputProps = assign({},
-    omit(props, ['classes', 'home', 'value', 'inputRef', 'ref']),
+    omit(props, ['classes', 'home', 'value', 'inputRef', 'ref', 'style']),
     {classes: classes.input}
   )
   function callRef (el) {
@@ -56,6 +59,7 @@ function renderInput (props) {
   }
   return (
     <TextField
+      style={style}
       autoFocus={home}
       className={classes.textField}
       value={value}
@@ -70,14 +74,14 @@ function renderSuggestion (suggestion, { query, isHighlighted }) {
   const parts = parse(suggestion, matches)
 
   return (
-    <MenuItem selected={isHighlighted} component='div'>
+    <MenuItem dense selected={isHighlighted} component='div' style={{fontSize: 14}}>
       <div>
         {parts.map((part, index) => {
           return part.highlight
-            ? <span key={index} style={{ fontWeight: 300 }}>
+            ? <span key={index} style={{ fontWeight: 500 }}>
               {part.text}
             </span>
-            : <strong key={index} style={{ fontWeight: 500 }}>
+            : <strong key={index} style={{ fontWeight: 300 }}>
               {part.text}
             </strong>
         })}
@@ -127,7 +131,7 @@ class Select extends Component {
   }
 
   componentWillReceiveProps (nextProps) {
-    if (nextProps.suggestions !== this.props.suggestions) {
+    if (!isEqual(nextProps.suggestions, this.props.suggestions)) {
       this.setState({suggestions: nextProps.suggestions})
     }
   }
@@ -172,7 +176,7 @@ class Select extends Component {
   }
 
   render () {
-    const { classes, className, value, onSuggestionSelected, onKeyDown } = this.props
+    const { classes, className, value, onSuggestionSelected, onKeyDown, style } = this.props
     return (
       <Autosuggest
         ref={(el) => (this.autosuggest = el)}
@@ -193,7 +197,7 @@ class Select extends Component {
         renderSuggestion={renderSuggestion}
         inputProps={{
           inputRef: (el) => (this.input = el),
-          autoFocus: true,
+          style,
           classes,
           value,
           onChange: this.handleChange,
@@ -212,7 +216,8 @@ Select.propTypes = {
   value: PropTypes.string,
   onChange: PropTypes.func.isRequired,
   onSuggestionSelected: PropTypes.func,
-  onKeyDown: PropTypes.func
+  onKeyDown: PropTypes.func,
+  style: PropTypes.object
 }
 
 Select.defaultProps = {

@@ -1,9 +1,17 @@
 // import PropTypes from 'prop-types'
 import React from 'react'
+import { compose } from 'redux'
 import { connect } from 'react-redux'
-import List, { ListItem } from 'material-ui/List'
-import SelectField from 'material-ui/SelectField'
-import MenuItem from 'material-ui/MenuItem'
+import { withStyles } from 'material-ui/styles'
+import List, {
+  ListItem,
+  ListItemSecondaryAction,
+  ListItemText
+} from 'material-ui/List'
+import Input from 'material-ui/Input'
+import { MenuItem } from 'material-ui/Menu'
+import { FormControl } from 'material-ui/Form'
+import Select from 'material-ui/Select'
 
 import getFieldAnalysis from '../../selectors/field_analysis'
 import getFieldMapping from '../../selectors/field_mapping'
@@ -23,76 +31,114 @@ const titleFieldTypes = {
   [FIELD_TYPE_DATE]: true
 }
 
+const styles = {
+  select: {
+    paddingTop: 8,
+    minWidth: 200
+  }
+}
+
+const SelectField = ({id, value, onChange, children, classes}) => (
+  <FormControl>
+    <Select
+      native
+      className={classes.select}
+      value={value}
+      onChange={onChange}
+      input={<Input fullWidth id={id} />}
+    >
+      {children}
+    </Select>
+  </FormControl>
+)
+
 class GeneralSettings extends React.Component {
+  constructor (props) {
+    super(props)
+    this.handleChange = this.handleChange.bind(this)
+  }
+
+  handleChange (name) {
+    return (e) => {
+      if (name === 'coords') {
+        this.props.onChangeCoordinates(e.target.value)
+      } else {
+        this.props.onChangeFieldMapping(name, e.target.value)
+      }
+    }
+  }
+
   render () {
-    const {onChangeCoordinates, onChangeFieldMapping, coordFormat, fields, fieldAnalysis, fieldMapping} = this.props
+    const {coordFormat, fields, fieldAnalysis, fieldMapping, classes} = this.props
     const potentialColoredFields = fields
       .filter(field => fieldAnalysis.properties[field].filterType === FILTER_TYPE_DISCRETE)
     const potentialTitleFields = fields
       .filter(field => titleFieldTypes[fieldAnalysis.properties[field].type])
     return (
       <List>
-        <ListItem
-          primaryText='Coordinate format'
-          disabled
-          rightIconButton={
+        <ListItem>
+          <ListItemText primary='Coordinate format' />
+          <ListItemSecondaryAction>
             <SelectField
+              id='coords'
+              classes={classes}
               value={coordFormat}
-              onChange={onChangeCoordinates}
-              autowidth
-            >
-              <MenuItem value={FORMATS_DEC_DEG} primaryText='Decimal degrees' />
-              <MenuItem value={FORMATS_DEG_MIN_SEC} primaryText='Degrees, minutes, seconds' />
-              <MenuItem value={FORMATS_UTM} primaryText='UTM' />
-            </SelectField>}
-        />
-        <ListItem
-          primaryText='Title field'
-          disabled
-          rightIconButton={
+              onChange={this.handleChange('coords')}>
+              <option value={FORMATS_DEC_DEG}>Decimal degrees</option>
+              <option value={FORMATS_DEG_MIN_SEC}>Degrees, minutes, seconds</option>
+              <option value={FORMATS_UTM}>UTM</option>
+            </SelectField>
+          </ListItemSecondaryAction>
+        </ListItem>
+        <ListItem>
+          <ListItemText primary='Title field' />
+          <ListItemSecondaryAction>
             <SelectField
+              id='title-field'
+              fullWidth
+              classes={classes}
               value={fieldMapping.title}
-              onChange={onChangeFieldMapping.bind(null, 'title')}
-              autowidth
-              maxHeight={400}
-            >
+              onChange={this.handleChange('title')}>
               {potentialTitleFields.map((field, i) => (
-                <MenuItem key={i} value={field} primaryText={<FormattedFieldname fieldname={field} />} />
+                <FormattedFieldname key={i} fieldname={field}>
+                  {msg => <option value={field}>{msg}</option>}
+                </FormattedFieldname>
               ))}
-            </SelectField>}
-        />
-        <ListItem
-          key={3}
-          primaryText='Subtitle field'
-          disabled
-          rightIconButton={
+            </SelectField>
+          </ListItemSecondaryAction>
+        </ListItem>
+        <ListItem>
+          <ListItemText primary='Subtitle field' />
+          <ListItemSecondaryAction>
             <SelectField
+              id='subtitle-field'
               value={fieldMapping.subtitle}
-              onChange={onChangeFieldMapping.bind(null, 'subtitle')}
-              autowidth
-              maxHeight={400}
-            >
+              classes={classes}
+              onChange={this.handleChange('subtitle')}>
               {potentialTitleFields.map((field, i) => (
-                <MenuItem key={i} value={field} primaryText={<FormattedFieldname fieldname={field} />} />
+                <FormattedFieldname key={i} fieldname={field}>
+                  {msg => <option value={field}>{msg}</option>}
+                </FormattedFieldname>
               ))}
-            </SelectField>}
-        />
-        <ListItem
-          key={4}
-          primaryText='Colored field'
-          disabled
-          rightIconButton={
+            </SelectField>
+          </ListItemSecondaryAction>
+        </ListItem>
+        <ListItem>
+          <ListItemText primary='Colored field' />
+          <ListItemSecondaryAction>
             <SelectField
+              id='colored-field'
+              classes={classes}
               value={fieldMapping.color}
-              onChange={onChangeFieldMapping.bind(null, 'color')}
-              autowidth
-              maxHeight={400}
-            >
+              onChange={this.handleChange('color')}>
               {potentialColoredFields.map((field, i) => (
-                <MenuItem key={i} value={field} primaryText={<FormattedFieldname fieldname={field} />} />
+                <FormattedFieldname key={i} fieldname={field}>
+                  {msg => <option value={field}>{msg}</option>}
+                </FormattedFieldname>
               ))}
-            </SelectField>}
-        />
+            </SelectField>
+          </ListItemSecondaryAction>
+        </ListItem>
       </List>
     )
   }
@@ -109,12 +155,15 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    onChangeCoordinates: (e, i, coordFormat) => dispatch(changeCoordinates(coordFormat)),
-    onChangeFieldMapping: (type, e, i, field) => dispatch(updateFieldMapping({type, field}))
+    onChangeCoordinates: (coordFormat) => {
+      console.log(coordFormat)
+      dispatch(changeCoordinates(coordFormat))
+    },
+    onChangeFieldMapping: (type, field) => dispatch(updateFieldMapping({type, field}))
   }
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
+export default compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  withStyles(styles)
 )(GeneralSettings)

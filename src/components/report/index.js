@@ -1,33 +1,39 @@
 import PropTypes from 'prop-types'
 import React from 'react'
+import { connect } from 'react-redux'
 import Paper from 'material-ui/Paper'
 import insertCss from 'insert-css'
+import Typography from 'material-ui/Typography'
 
 import FeatureDetail from '../feature_detail'
 import * as MFPropTypes from '../../util/prop_types'
 import MapView from '../map'
 import Alert from './alert'
 import config from '../../../config.json'
+import {showFeatureDetail} from '../../action_creators'
 // import {FIELD_TYPE_DATE} from '../../constants'
 
 insertCss(`
+.report_header {
+  position: relative;
+  min-width: calc(8.5in + 40px);
+  z-index: 1;
+}
 .report_wrapper {
   overflow: scroll;
   position: absolute;
+  background-color: rgba(236, 236, 236, 1);
   width: 100%;
   height: 100%;
 }
 .report_container {
-  display: flex;
-  flex-grow: 1;
-  flex-wrap: wrap;
-  background-color: rgba(236, 236, 236, 1);
+  min-width: 8.5in;
   padding: 0 20px
 }
 .report_paper {
+  cursor: pointer;
   margin: 20px auto;
   width: 8.5in;
-  min-height: 10.5in;
   overflow: hidden;
   page-break-after: always;
   background-color: initial;
@@ -52,13 +58,16 @@ insertCss(`
 
 .report_page {
   margin: 0.5in;
+  min-height: 10in;
+  outline: 1px dashed #eeeeee;
 }
 @page {
   margin: 0.5in;
 }
 .report_paper:first-child {
+  cursor: auto;
   display: flex;
-  height: 9.8in;
+  height: calc(11in - 2px);
 }
 .report_paper:first-child .report_page {
   flex: 1;
@@ -70,9 +79,6 @@ insertCss(`
     overflow: visible;
   }
   /* Override display: flex which breaks page-break-after */
-  .outer.container, .inner.container {
-    display: block !important;
-  }
   /* Fix for page-break-after not working in Chrome see http://stackoverflow.com/questions/4884380/css-page-break-not-working-in-all-browsers/5314590 */
   div {
     float: none !important;
@@ -80,33 +86,35 @@ insertCss(`
   tr {
     page-break-inside: avoid;
   }
-  /* Override fixed positioning of top level div */
-  #root .outer.container {
-    position: relative !important;
-  }
   .report_wrapper {
     position: relative;
     width: auto;
     height: auto;
+    background-color: initial;
   }
   .report_container {
     display: block;
     padding: 0;
     overflow: visible;
-    background-color: initial;
   }
   .report_paper {
     min-height: auto;
     box-shadow: none !important;
     border-radius: 0 !important;
     margin: 0;
-    width: 7.5in;
+    /* for some reason we need to substract 2px for a perfect fit */
+    width: calc(7.5in - 2px);
+  }
+  .report_paper:first-child {
+    height: calc(10in - 2px);
   }
   .no_print {
     display: none;
   }
   .report_page {
-    margin: 0
+    min-height: auto;
+    margin: 0;
+    outline: none;
   }
   /* TODO include some form of MapFilter header */
   /* TODO rotate the filter display and show state vs. allow interaction */
@@ -128,7 +136,7 @@ class ReportView extends React.Component {
   }
 
   render () {
-    const { filteredFeatures } = this.props
+    const { filteredFeatures, showFeatureDetail } = this.props
     const featuresSlice = filteredFeatures.length > 26 ? filteredFeatures.slice(0, 26) : filteredFeatures
     return (
       <div className='report_wrapper'>
@@ -137,10 +145,12 @@ class ReportView extends React.Component {
               ' records, a report will only show the first 26 records'} />}
         </div>
         <div className='report_container'>
-          <Paper className='report_paper'>
+          <Paper className='report_paper' elevation={1}>
             <div className='report_page'>
-              <h2>Monitoring Report</h2>
-              <p style={{marginTop: 0}}>{featuresSlice.length} locations</p>
+              <header className='map_header'>
+                <Typography type='title'>Monitoring Report</Typography>
+                <Typography type='subheading' style={{marginBottom: '0.5em'}}>{featuresSlice.length} locations</Typography>
+              </header>
               <div className='map_container'>
                 <MapView
                   {...this.props}
@@ -153,7 +163,7 @@ class ReportView extends React.Component {
           </Paper>
           {
             featuresSlice.map((feature, i) => (
-              <Paper className='report_paper' key={i}>
+              <Paper className='report_paper' key={i} onClick={() => showFeatureDetail(feature.id)} elevation={1}>
                 <div className='report_page'>
                   <FeatureDetail
                     key={i}
@@ -166,7 +176,7 @@ class ReportView extends React.Component {
               </Paper>
             ))
           }
-          {featuresSlice.length > 20 &&
+          {featuresSlice.length > 26 &&
             <Paper className='report_paper'>
               <div className='report_page'>
                 <h2>Cannot print more than 26 observations in a single report</h2>
@@ -179,4 +189,8 @@ class ReportView extends React.Component {
   }
 }
 
-export default ReportView
+const mapDispatchToProps = dispatch => ({
+  showFeatureDetail: id => dispatch(showFeatureDetail(id))
+})
+
+export default connect(null, mapDispatchToProps)(ReportView)

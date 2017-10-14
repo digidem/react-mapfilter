@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { withStyles } from 'material-ui/styles'
 import { bindActionCreators } from 'redux'
 import find from 'lodash/find'
 
@@ -16,23 +17,26 @@ import ReportView from '../components/report'
 import MediaView from '../components/media'
 import {createElement} from '../util/general_helpers'
 
-const styles = {
+const styles = theme => ({
   outer: {
     position: 'fixed',
     top: 0,
-    right: 0,
     bottom: 0,
-    left: 0,
+    width: '100%',
     display: 'flex',
     flexDirection: 'column',
-    fontFamily: 'Roboto, sans-serif',
-    WebkitFontSmoothing: 'antialiased',
-    fontSize: 15,
-    lineHeight: '24px'
+    '@media print': {
+      display: 'block',
+      position: 'static',
+      bottom: 'auto'
+    }
   },
   inner: {
     display: 'flex',
-    flex: 1
+    flex: 1,
+    '@media print': {
+      display: 'block'
+    }
   },
   view: {
     flex: 3,
@@ -44,7 +48,7 @@ const styles = {
     right: 36,
     zIndex: 2
   }
-}
+})
 
 class IndexRoute extends React.Component {
   componentWillMount () {
@@ -61,19 +65,19 @@ class IndexRoute extends React.Component {
   }
 
   render () {
-    const {activeView, activeModal, actionButton, views, switchView, settingsTab, toolbarButtons, toolbarTitle} = this.props
+    const {activeView, activeModal, actionButton, classes, views, switchView, settingsTab, toolbarButtons, toolbarTitle} = this.props
     const ModalComponent = getModalComponent(activeModal)
     const ViewComponent = getViewComponent(activeView, views)
 
     return (
-      <div className='outer container' style={styles.outer}>
+      <div className={classes.outer}>
         <TopBar views={views} activeView={activeView} onChangeTab={switchView} buttons={toolbarButtons} title={toolbarTitle} />
-        <div className='inner container' style={styles.inner}>
+        <div className={classes.inner}>
           <FilterPane />
-          <div style={styles.view}>
+          <div className={classes.view}>
             <CustomContainer component={ViewComponent} />
           </div>
-          {actionButton && <div style={styles.actionButton}>{createElement(actionButton)}</div>}
+          {actionButton && <div className={classes.actionButton}>{createElement(actionButton)}</div>}
         </div>
         <Modal component={ModalComponent} activeTabId={settingsTab} />
       </div>
@@ -113,4 +117,4 @@ function getViewComponent (activeView, views) {
 export default connect(
   (state) => state.ui || {},
   (dispatch) => bindActionCreators(actionCreators, dispatch)
-)(IndexRoute)
+)(withStyles(styles)(IndexRoute))

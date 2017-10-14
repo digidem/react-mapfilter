@@ -1,9 +1,12 @@
 import PropTypes from 'prop-types'
 import React from 'react'
+import { compose } from 'redux'
 import { connect } from 'react-redux'
+import { withStyles } from 'material-ui/styles'
 import List, {ListItem, ListItemIcon, ListItemText} from 'material-ui/List'
 import Divider from 'material-ui/Divider'
 import SettingsIcon from 'material-ui-icons/Settings'
+import Paper from 'material-ui/Paper'
 import {defineMessages, FormattedMessage} from 'react-intl'
 
 import getFilterFields from '../../selectors/filter_fields'
@@ -22,19 +25,25 @@ import {
   FILTER_TYPE_TEXT
 } from '../../constants'
 
-const style = {
-  outer: {
+const styles = {
+  root: {
     minWidth: 300,
     flex: 1,
     overflowY: 'auto',
-    zIndex: 1,
-    boxShadow: 'rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.117647) 0px 1px 4px'
+    zIndex: 2,
+    // backgroundColor: 'white',
+    '@media print': {
+      display: 'none'
+    }
   },
   list: {
     paddingTop: 0
   },
   listItemInner: {
     padding: 0
+  },
+  listItemText: {
+    padding: '0 16px 0 0'
   },
   listIcon: {
     fill: 'rgb(117, 117, 117)',
@@ -60,6 +69,7 @@ const messages = defineMessages({
 })
 
 const FilterPane = ({
+  classes,
   filters = {},
   fieldStats = {},
   filterFields = [],
@@ -68,8 +78,8 @@ const FilterPane = ({
   onUpdateFilter = x => x,
   onClickSettings = x => x
 }) => (
-  <div className='filter' style={style.outer}>
-    <List style={style.list} dense>
+  <Paper className={classes.root} elevation={3}>
+    <List className={classes.list} dense>
       {/* TODO allow these to be reordered */}
       {filterFields.map((f) => {
         const field = fieldStats.properties[f] || {}
@@ -113,11 +123,12 @@ const FilterPane = ({
           <SettingsIcon />
         </ListItemIcon>
         <ListItemText
+          classes={{root: classes.listItemText}}
           primary={<FormattedMessage {...messages.changeFilters} />}
         />
       </ListItem>
     </List>
-  </div>
+  </Paper>
 )
 
 FilterPane.propTypes = {
@@ -146,7 +157,7 @@ function mapDispatchToProps (dispatch) {
   }
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
+export default compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  withStyles(styles)
 )(FilterPane)

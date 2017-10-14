@@ -3,9 +3,8 @@ import assign from 'object-assign'
 
 const styles = {
   svg: {
-    width: 24,
-    height: 24,
-    margin: 8
+    width: 32,
+    height: 32
   },
   outline: {
     stroke: '#ffffff',

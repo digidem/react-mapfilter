@@ -1,20 +1,16 @@
 import React from 'react'
 import Button from 'material-ui/Button'
+import { withStyles } from 'material-ui/styles'
+
 import {defineMessages, FormattedMessage} from 'react-intl'
 
 const styles = {
   flatButton: {
-    height: 30,
-    lineHeight: '29px',
-    position: 'absolute',
-    right: 0,
-    top: -4,
-    zIndex: 3,
-    backgroundColor: 'rgba(235, 235, 235, 0.9)'
-  },
-  flatButtonLabel: {
+    minHeight: 28,
+    minWidth: 'auto',
+    padding: '8px 16px',
     fontSize: 12,
-    top: 0
+    marginLeft: -12
   }
 }
 
@@ -26,13 +22,13 @@ const messages = defineMessages({
   }
 })
 
-const OnlyButton = (props) => (
+const OnlyButton = ({classes, onClick}) => (
   <Button
-    labelStyle={styles.flatButtonLabel}
-    label={<FormattedMessage {...messages.only} />}
     color='primary'
-    style={styles.flatButton}
-    {...props} />
+    className={classes.flatButton}
+    onClick={onClick}>
+    <FormattedMessage {...messages.only} />
+  </Button>
 )
 
-export default OnlyButton
+export default withStyles(styles)(OnlyButton)

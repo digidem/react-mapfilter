@@ -7,10 +7,12 @@ import Select from './select'
 const styleSheet = {
   row: {
     display: 'flex',
-    flexWrap: 'wrap'
+    flexWrap: 'wrap',
+    marginTop: -3
   },
   chip: {
-    margin: '0 3px 5px 0'
+    margin: '3px 3px 0 0',
+    height: 30
   },
   select: {
     minWidth: 220

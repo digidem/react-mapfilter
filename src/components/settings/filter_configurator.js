@@ -2,17 +2,12 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import { connect } from 'react-redux'
 import {defineMessages, FormattedMessage} from 'react-intl'
+import Typography from 'material-ui/Typography'
 
 import FieldList from './toggleable_fieldlist'
 import getFilterableFields from '../../selectors/filterable_fields'
 import getFilterFields from '../../selectors/filter_fields'
 import { updateVisibleFilters } from '../../action_creators'
-
-const styles = {
-  description: {
-    padding: '0 16px'
-  }
-}
 
 const messages = defineMessages({
   description: {
@@ -24,7 +19,7 @@ const messages = defineMessages({
 
 const FilterConfigurator = ({filterableFields, visibleFilters, onUpdateVisibleFilters}) => (
   <div>
-    <p style={styles.description}><FormattedMessage {...messages.description} /></p>
+    <Typography><FormattedMessage {...messages.description} /></Typography>
     <FieldList fields={filterableFields} visibleFields={visibleFilters} onUpdate={onUpdateVisibleFilters} />
   </div>
 )

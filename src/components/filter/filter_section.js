@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from 'material-ui/styles'
+
 import { ListItem, ListItemIcon, ListItemText, ListItemSecondaryAction } from 'material-ui/List'
 import IconButton from 'material-ui/IconButton'
 import Collapse from 'material-ui/transitions/Collapse'
@@ -11,11 +12,15 @@ import ShowAllButton from './show_all_button'
 
 const styleSheet = {
   listItemText: {
+    fontSize: 14,
     padding: '0 32px 0 0'
   },
   showAll: {
     top: 6,
     fontSize: 12
+  },
+  collapse: {
+    position: 'relative'
   }
 }
 
@@ -56,7 +61,7 @@ class FilterSection extends React.Component {
               : <ExpandButton expanded={expanded} onClick={this.handleExpandClick} />}
           </ListItemSecondaryAction>
         </ListItem>
-        <Collapse in={expanded} transitionDuration='auto'>
+        <Collapse in={expanded} transitionDuration='auto' className={classes.collapse}>
           {children}
         </Collapse>
       </div>

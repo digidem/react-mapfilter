@@ -19,8 +19,9 @@ const styles = {
     top: 0,
     left: 0,
     right: 0,
-    minHeight: 'calc(100% - 160px)',
-    padding: '80px 0',
+    boxSizing: 'border-box',
+    minHeight: '100%',
+    padding: '32px 0',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center'
@@ -53,8 +54,12 @@ class Modal extends React.Component {
     const {component: Component, closeModal} = this.props
     const props = omit(this.props, 'component', closeModal)
     const dialog = Component ? <Component onCloseClick={closeModal} {...props} /> : <div />
+    // TODO: Should not use enforceFocus=false for accessibility reasons
+    // but otherwise causes a rangeError with select menus inside the modal
+    // Should probably use material-ui dialogs instead.
     return (
       <ReactModal
+        enforceFocus={false}
         show={!!Component}
         onHide={closeModal}
         style={styles.backdrop}

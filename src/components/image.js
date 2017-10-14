@@ -13,7 +13,9 @@ const styles = {
     height: '100%',
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    top: 0,
+    position: 'absolute'
   }
 }
 
@@ -53,7 +55,6 @@ class Image extends React.Component {
     // TODO: whitelist, not blacklist
     const props = omit(this.props, ['progress', 'src', 'style', 'resizer', 'dispatch'])
     const {style} = this.props
-
     return <ImageLoader
       imgProps={assign({}, props, {style: style})}
       src={this.state.src}

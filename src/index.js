@@ -11,6 +11,7 @@ import es from 'react-intl/locale-data/es'
 import shallowEqual from 'shallow-equal/objects'
 import {persistStore, autoRehydrate} from 'redux-persist'
 import localForage from 'localforage'
+import assign from 'object-assign'
 
 import * as MFPropTypes from './util/prop_types'
 import {capitalize} from './util/text_helpers'
@@ -139,7 +140,8 @@ class MapFilter extends React.Component {
     features: [],
     mapStyle: config.defaultMapStyle,
     resizer: src => src,
-    actionButton: null
+    actionButton: null,
+    datasetName: 'default'
   }
 
   handleChange = (key, value) => {
@@ -153,7 +155,9 @@ class MapFilter extends React.Component {
     const stateOverride = pick(props, controllableProps)
     const controlledStoreEnhancer = controlledStore(this.handleChange, stateOverride)
     this.store = createStore(reducers, initialState, compose(controlledStoreEnhancer, storeEnhancer))
-    persistStore(this.store, reduxPersistOptions)
+    persistStore(this.store, assign({}, reduxPersistOptions, {
+      keyPrefix: 'reduxPersist:' + props.datasetName + ':'
+    }))
   }
 
   componentWillReceiveProps (nextProps) {

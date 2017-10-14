@@ -1,15 +1,18 @@
 import PropTypes from 'prop-types'
 import React from 'react'
+import { compose } from 'redux'
 import { connect } from 'react-redux'
-import Card from 'material-ui/Card'
+import Card, { CardHeader, CardContent, CardActions } from 'material-ui/Card'
 import IconButton from 'material-ui/IconButton'
-import Button from 'material-ui/Button'
+import ButtonBase from 'material-ui/ButtonBase'
 import CloseIcon from 'material-ui-icons/Close'
+import { withStyles } from 'material-ui/styles'
 import {defineMessages, FormattedMessage} from 'react-intl'
+import classNames from 'classnames'
 
 import { openSettings } from '../../action_creators'
 import FilterConfigurator from './filter_configurator'
-// import GeneralSettings from './general'
+import GeneralSettings from './general'
 
 const styles = {
   card: {
@@ -17,14 +20,12 @@ const styles = {
     width: '100%',
     flex: 1,
     display: 'flex',
-    flexDirection: 'column'
+    flexDirection: 'column',
+    position: 'relative'
   },
   title: {
     borderBottom: '1px solid #e0e0e0',
     boxSizing: 'border-box',
-    color: '#212121',
-    margin: 0,
-    fontWeight: 'normal',
     padding: '1em',
     position: 'relative'
   },
@@ -32,30 +33,24 @@ const styles = {
     borderRight: '1px solid #e0e0e0',
     flex: 1
   },
-  tabLabel: {
-    textTransform: 'none',
-    fontWeight: 'normal'
-  },
-  tabLabelActive: {
-    textTransform: 'none',
-    fontWeight: 'bold'
-  },
   tab: {
-    textAlign: 'left',
+    justifyContent: 'left',
+    paddingLeft: 16,
+    paddingRight: 16,
+    fontSize: 13,
     height: 48,
-    lineHeight: '48px'
+    width: '100%'
   },
   tabActive: {
-    textAlign: 'left',
-    height: 48,
-    lineHeight: '48px',
-    backgroundColor: 'rgba(0,0,0,.05)'
+    backgroundColor: 'rgba(0,0,0,.05)',
+    fontWeight: 'bold'
   },
   body: {
     display: 'flex'
   },
   content: {
-    flex: 3
+    flex: 3,
+    padding: 16
   },
   cardContainerStyle: {
     flex: 1,
@@ -70,7 +65,8 @@ const styles = {
   icon: {
     position: 'absolute',
     top: 7,
-    right: 7
+    right: 7,
+    zIndex: 1
   },
   scrollable: {
     overflow: 'auto'
@@ -103,15 +99,18 @@ const messages = defineMessages({
 const tabs = [{
   id: 'filters',
   component: FilterConfigurator
+}, {
+  id: 'general',
+  component: GeneralSettings
 }]
 
-const Tab = ({active, label, onClick}) => (
-  <Button
-    fullWidth
-    label={label}
-    style={active ? styles.tabActive : styles.tab}
-    labelStyle={active ? styles.tabLabelActive : styles.tabLabel}
-    onClick={onClick} />
+const Tab = ({active, label, onClick, classes}) => (
+  <ButtonBase
+    disableRipple
+    className={classNames(classes.tab, {[classes.tabActive]: active})}
+    onClick={onClick}>
+    {label}
+  </ButtonBase>
 )
 
 class Settings extends React.Component {
@@ -122,31 +121,29 @@ class Settings extends React.Component {
   }
 
   render () {
-    const { onCloseClick, activeTabId, onChangeTab } = this.props
+    const { onCloseClick, activeTabId, onChangeTab, classes } = this.props
     const tabIndex = getTabIndex(activeTabId)
     const TabComponent = tabs[tabIndex].component
     return (
-      <Card
-        style={styles.card}
-        containerStyle={styles.cardContainerStyle}
-        zDepth={2}>
-        <h3 style={styles.title}>
-          <FormattedMessage {...messages.settingsTitle} />
-          <IconButton style={styles.icon} onClick={onCloseClick}>
-            <CloseIcon />
-          </IconButton>
-        </h3>
-        <div style={styles.body}>
-          <div style={styles.tabList}>
+      <Card className={classes.card}>
+        <IconButton className={classes.icon} onClick={onCloseClick}>
+          <CloseIcon />
+        </IconButton>
+        <CardHeader
+          className={classes.title}
+          title={<FormattedMessage {...messages.settingsTitle} />} />
+        <div className={classes.body}>
+          <div className={classes.tabList}>
             {tabs.map((tab, i) => (
               <Tab
                 key={i}
                 label={<FormattedMessage {...messages[tab.id]} />}
                 active={i === tabIndex}
+                classes={classes}
                 onClick={onChangeTab.bind(null, tab.id)} />
             ))}
           </div>
-          <div style={styles.content}>
+          <div className={classes.content}>
             <TabComponent />
           </div>
         </div>
@@ -168,7 +165,7 @@ function mapDispatchToProps (dispatch) {
   }
 }
 
-export default connect(
-  state => state,
-  mapDispatchToProps
+export default compose(
+  connect(state => state, mapDispatchToProps),
+  withStyles(styles)
 )(Settings)

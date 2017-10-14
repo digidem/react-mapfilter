@@ -1,6 +1,10 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import List, { ListItem } from 'material-ui/List'
+import List, {
+  ListItem,
+  ListItemSecondaryAction,
+  ListItemText
+} from 'material-ui/List'
 import Switch from 'material-ui/Switch'
 
 import FormattedFieldname from '../shared/formatted_fieldname'
@@ -26,18 +30,19 @@ class FieldList extends React.Component {
     const { fields, visibleFields } = this.props
 
     return (
-      <List>
+      <List dense>
         {fields.map(field => (
           <ListItem
             key={field}
-            style={!visibleFields.includes(field) && {opacity: 0.4}}
-            primaryText={<FormattedFieldname fieldname={field} />}
-            rightToggle={
+            style={!visibleFields.includes(field) ? {opacity: 0.4} : {}}>
+            <ListItemText primary={<FormattedFieldname fieldname={field} />} />
+            <ListItemSecondaryAction>
               <Switch
                 checked={visibleFields.includes(field)}
                 onChange={this.handleToggle.bind(this, field)}
-              />}
-          />
+              />
+            </ListItemSecondaryAction>
+          </ListItem>
         ))}
       </List>
     )

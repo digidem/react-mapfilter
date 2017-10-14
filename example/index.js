@@ -2,6 +2,16 @@ const React = require('react')
 const ReactDOM = require('react-dom')
 const MapFilter = require('../src/index.js').default
 const createHistory = require('history').createBrowserHistory
+const { MuiThemeProvider, createMuiTheme } = require('material-ui/styles')
+const blue = require('material-ui/colors/blue').default
+const pink = require('material-ui/colors/pink').default
+
+const theme = createMuiTheme({
+  palette: {
+    primary: blue,
+    secondary: pink
+  }
+})
 
 const features = require('./sample.json').features
 
@@ -52,20 +62,22 @@ class Example extends React.Component {
   }
   handleChangeUi = (ui) => {
     const path = pathFromUi(ui)
-    ui.redirect ? history.replace(path) : history.push(path)
+    ui.amberirect ? history.replace(path) : history.push(path)
     this.setState({ui})
   }
   handleChangeFeatures = (_) => {
     this.setState({features: _})
   }
   render () {
-    return <MapFilter
-      resizer={resizer}
-      features={this.state.features}
-      fieldOrder={{caption: 1}}
-      ui={this.state.ui}
-      onChangeUi={this.handleChangeUi}
-      onChangeFeatures={this.handleChangeFeatures} />
+    return <MuiThemeProvider theme={theme}>
+      <MapFilter
+        resizer={resizer}
+        features={this.state.features}
+        fieldOrder={{caption: 1, public: 0}}
+        ui={this.state.ui}
+        onChangeUi={this.handleChangeUi}
+        onChangeFeatures={this.handleChangeFeatures} />
+    </MuiThemeProvider>
   }
 }
 

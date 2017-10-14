@@ -32,7 +32,11 @@ export const mapboxFilter = PropTypes.arrayOf(
   PropTypes.oneOfType([
     PropTypes.oneOf(['all']),
     PropTypes.arrayOf(
-      PropTypes.string
+      PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number,
+        PropTypes.array
+      ])
     )
   ])
 )

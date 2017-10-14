@@ -1,5 +1,13 @@
 {
-  "presets": ["es2015", "react"],
+  "presets": [
+    "react",
+    ["env", {
+      "targets": {
+        "browsers": ["last 2 versions", "not ie < 11"]
+      },
+      "shippedProposals": true
+    }]
+  ],
   "plugins": [
     [
       "react-intl", {

@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { connect } from 'react-redux'
-import { CardMedia, CardContent, CardHeader, CardActions } from 'material-ui/Card'
+import { CardContent, CardHeader, CardActions } from 'material-ui/Card'
 import Paper from 'material-ui/Paper'
 import Button from 'material-ui/Button'
 import IconButton from 'material-ui/IconButton'
@@ -26,7 +26,6 @@ import {FIELD_TYPE_SPACE_DELIMITED} from '../../constants'
 
 const styleSheet = {
   card: {
-    overflow: 'auto',
     width: '100%',
     position: 'relative'
   },
@@ -62,8 +61,12 @@ const styleSheet = {
   },
   closeButton: {
     position: 'absolute',
-    top: 5,
+    top: 15,
     right: 5
+  },
+  actions: {
+    justifyContent: 'flex-end',
+    paddingBottom: 8
   }
 }
 
@@ -92,7 +95,7 @@ const messages = defineMessages({
 
 const Actions = ({editMode, onCloseClick, onEditClick, onCancelClick, onSaveClick, classes}) => (
   editMode
-  ? <CardActions className='no_print'>
+  ? <CardActions className={classes.actions}>
     <Button
       raised
       onClick={onCancelClick}
@@ -105,7 +108,7 @@ const Actions = ({editMode, onCloseClick, onEditClick, onCancelClick, onSaveClic
       className={classes.button}
     ><FormattedMessage {...messages.saveButton} /></Button>
   </CardActions>
-  : <CardActions className='no_print'>
+  : <CardActions className={classes.actions}>
     <Button
       raised
       icon={<EditIcon />}
@@ -186,35 +189,33 @@ class FeatureDetail extends React.Component {
         avatar={<MarkerIcon color={color} className={classes.markerIcon} label={label} />}
         title={<FormattedValue value={title} type={titleType} />}
         subheader={<FormattedValue value={subtitle} type={subtitleType} />} />
-      <div>
-        {media &&
-          <CardMedia className={classes.media}>
-            <Image className={classes.img} src={media} />
-          </CardMedia>}
-        <CardContent>
-          <FeatureTable
-            editMode={editMode}
-            feature={editMode ? editedFeature : feature}
-            fieldAnalysis={fieldAnalysis}
-            fieldOrder={fieldOrder}
-            visibleFields={editMode ? editedVisibleFields : visibleFields}
-            print={print}
-            coordFormat={coordFormat}
-            onVisibilityChange={this.handleVisibilityChange}
-            onValueChange={this.handleValueChange}
-          />
-        </CardContent>
-        <Actions
-          classes={classes}
-          style={{textAlign: 'right'}}
+      {media &&
+        <div className={classes.media}>
+          <Image className={classes.img} src={media} />
+        </div>}
+      <CardContent>
+        <FeatureTable
           editMode={editMode}
-          onChangeProp={this.handlePropEdit}
-          onEditClick={this.handleEditClick}
-          onCloseClick={onCloseClick}
-          onCancelClick={this.handleCancelClick}
-          onSaveClick={this.handleSaveClick}
+          feature={editMode ? editedFeature : feature}
+          fieldAnalysis={fieldAnalysis}
+          fieldOrder={fieldOrder}
+          visibleFields={editMode ? editedVisibleFields : visibleFields}
+          print={print}
+          coordFormat={coordFormat}
+          onVisibilityChange={this.handleVisibilityChange}
+          onValueChange={this.handleValueChange}
         />
-      </div>
+      </CardContent>
+      {!print && <Actions
+        classes={classes}
+        style={{textAlign: 'right'}}
+        editMode={editMode}
+        onChangeProp={this.handlePropEdit}
+        onEditClick={this.handleEditClick}
+        onCloseClick={onCloseClick}
+        onCancelClick={this.handleCancelClick}
+        onSaveClick={this.handleSaveClick}
+      />}
     </Paper>
   }
 }

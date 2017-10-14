@@ -1,8 +1,12 @@
 import React from 'react'
 import assign from 'object-assign'
+import {compose} from 'redux'
 import {connect} from 'react-redux'
+import Typography from 'material-ui/Typography'
+import { withStyles } from 'material-ui/styles'
+import classNames from 'classnames'
 
-import Image from '..//image'
+import Image from '../image'
 import FormattedValue from '../shared/formatted_value'
 import getFeaturesById from '../../selectors/features_by_id'
 import getFieldMapping from '../../selectors/field_mapping'
@@ -21,6 +25,9 @@ const styles = {
     left: 0,
     pointerEvents: 'none'
   },
+  wrapperImage: {
+    height: 200
+  },
   image: {
     width: 200,
     height: 200,
@@ -28,21 +35,20 @@ const styles = {
     display: 'block',
     background: '#000000'
   },
-  title: {
+  titleBox: {
     position: 'absolute',
     bottom: 0,
     width: '100%',
     backgroundColor: 'rgba(0,0,0,0.5)',
+    color: 'white',
+    padding: '0.25em 0.5em',
+    boxSizing: 'border-box'
+  },
+  title: {
     color: 'white'
   },
-  h1: {
-    margin: '6px 8px 0',
-    fontSize: '1.4em'
-  },
-  h2: {
-    margin: '0 8px 5px',
-    fontStyle: 'normal',
-    fontSize: '1em'
+  subheading: {
+    color: 'white'
   }
 }
 
@@ -84,20 +90,18 @@ class Popup extends React.Component {
   }
 
   render () {
-    const {media, title, subtitle, color, titleType, subtitleType} = this.props
+    const {media, title, subtitle, classes, titleType, subtitleType} = this.props
     const {transform} = this.state
 
-    return <div style={assign({}, styles.wrapper, {transform})} ref={el => (this._el = el)}>
-      {media && <Image src={media} style={styles.image} />}
-      <div style={assign({}, styles.title, {
-        backgroundColor: 'rgba(0,0,0,0.5)'
-      })}>
-        {title && <h1 style={styles.h1}>
+    return <div className={classNames(classes.wrapper, {[classes.wrapperImage]: media})} style={{transform}} ref={el => (this._el = el)}>
+      {media && <Image src={media} className={classes.image} />}
+      <div className={classes.titleBox}>
+        {title && <Typography type='title' className={classes.title}>
           <FormattedValue value={title} type={titleType} />
-        </h1>}
-        {subtitle && <h2 style={assign({}, styles.h1, styles.h2)}>
+        </Typography>}
+        {subtitle && <Typography type='subheading' className={classes.subheading}>
           <FormattedValue value={subtitle} type={subtitleType} />
-        </h2>}
+        </Typography>}
       </div>
     </div>
   }
@@ -129,22 +133,25 @@ function getPopupTransform (map, lngLat, width, height, offset = {x: 0, y: 0}) {
   return `${anchorTranslate[anchor]} translate(${pos.x + offset.x}px,${pos.y + offset.y}px)`
 }
 
-export default connect(
-  (state, ownProps) => {
-    const featuresById = getFeaturesById(state)
-    const colorIndex = getColorIndex(state)
-    const fieldMapping = getFieldMapping(state)
-    const feature = featuresById[ownProps.id]
-    if (!feature) return {}
-    const geojsonProps = feature.properties
-    const fieldAnalysisProps = getFieldAnalysis(state).properties
-    return {
-      media: geojsonProps[fieldMapping.media],
-      title: geojsonProps[fieldMapping.title],
-      subtitle: geojsonProps[fieldMapping.subtitle],
-      color: colorIndex[geojsonProps[fieldMapping.color]],
-      titleType: fieldAnalysisProps[fieldMapping.title] && fieldAnalysisProps[fieldMapping.title].type,
-      subtitleType: fieldAnalysisProps[fieldMapping.subtitle] && fieldAnalysisProps[fieldMapping.subtitle].type
-    }
+const mapStateToProps = (state, ownProps) => {
+  const featuresById = getFeaturesById(state)
+  const colorIndex = getColorIndex(state)
+  const fieldMapping = getFieldMapping(state)
+  const feature = featuresById[ownProps.id]
+  if (!feature) return {}
+  const geojsonProps = feature.properties
+  const fieldAnalysisProps = getFieldAnalysis(state).properties
+  return {
+    media: geojsonProps[fieldMapping.media],
+    title: geojsonProps[fieldMapping.title],
+    subtitle: geojsonProps[fieldMapping.subtitle],
+    color: colorIndex[geojsonProps[fieldMapping.color]],
+    titleType: fieldAnalysisProps[fieldMapping.title] && fieldAnalysisProps[fieldMapping.title].type,
+    subtitleType: fieldAnalysisProps[fieldMapping.subtitle] && fieldAnalysisProps[fieldMapping.subtitle].type
   }
+}
+
+export default compose(
+  connect(mapStateToProps),
+  withStyles(styles)
 )(Popup)
