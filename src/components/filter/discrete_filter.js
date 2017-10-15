@@ -149,7 +149,10 @@ class DiscreteFilter extends React.PureComponent {
                   />
                 }
                 label={
-                  <span className={colored ? classes.coloredSpan : ''} style={colored ? {backgroundColor: colorIndex[v.value]} : null}>
+                  <span
+                    className={colored ? classes.coloredSpan : ''}
+                    style={colored ? {backgroundColor: colorIndex[v.value]} : null}
+                    title={formatMessage(msg('field_value')(v.value + ''))}>
                     {formatMessage(msg('field_value')(v.value + ''))}
                   </span>
                 }
