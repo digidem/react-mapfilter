@@ -24,7 +24,8 @@ import {
   FILTER_TYPE_DISCRETE,
   FILTER_TYPE_RANGE,
   FILTER_TYPE_DATE,
-  FILTER_TYPE_TEXT
+  FILTER_TYPE_TEXT,
+  UNDEFINED_KEY
 } from '../constants'
 
 import {parseDate, isDate} from '../util/filter_helpers'
@@ -85,7 +86,7 @@ const getFieldAnalysis = createSelector(
       field.filterType = getFilterType(field)
       if (field.filterType === FILTER_TYPE_DISCRETE && field.count < features.length) {
         // Add count of undefined values
-        field.values.undefined = (field.values.undefined || 0) + (features.length - field.count)
+        field.values[UNDEFINED_KEY] = (field.values[UNDEFINED_KEY] || 0) + (features.length - field.count)
       }
       if (field.filterType !== FILTER_TYPE_DISCRETE) {
         // Free up memory if we're not going to use field.values
@@ -315,7 +316,7 @@ function parseMapValues (values) {
   if (!values) return []
   return Object.keys(values).sort().map(function (v) {
     var parsed
-    if (v === 'undefined') {
+    if (v === UNDEFINED_KEY) {
       parsed = v
     } else {
       try {

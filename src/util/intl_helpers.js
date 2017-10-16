@@ -1,6 +1,7 @@
 import toCase from 'case'
 import roundTo from 'round-to'
 import {defineMessages} from 'react-intl'
+import {UNDEFINED_KEY} from '../constants'
 
 const messages = defineMessages({
   true: {
@@ -13,6 +14,10 @@ const messages = defineMessages({
   },
   null: {
     id: 'field_value.no_value',
+    defaultMessage: '[Null]'
+  },
+  undefined: {
+    id: 'field_value.undefined',
     defaultMessage: '[No Value]'
   }
 })
@@ -20,7 +25,9 @@ const messages = defineMessages({
 export const createMessage = section => function formatMsg (value) {
   let msg
   let id
-  if (typeof value === 'string') {
+  if (value === UNDEFINED_KEY) {
+    return messages.undefined
+  } else if (typeof value === 'string') {
     if (value.length === 0) return messages.null
     if (value.indexOf('_') > -1 && value.indexOf(' ') < 0) {
       msg = toCase.capital(value)

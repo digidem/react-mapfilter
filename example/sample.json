@@ -70,9 +70,6 @@
     {
       "properties": {
         "people": "hancock_martinez",
-        "happening": [
-          "other"
-        ],
         "impacts": "Damage to water source / watershed",
         "placename": "Zarephath Highland",
         "today": "2014-09-21",
@@ -133,7 +130,6 @@
     },
     {
       "properties": {
-        "people": "crawford_hill",
         "happening": [
           "logging"
         ],
