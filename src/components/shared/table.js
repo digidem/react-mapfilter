@@ -204,9 +204,9 @@ function getRows (feature, fieldAnalysis, visibleFields, fieldOrder, editMode) {
       type: fieldAnalysis.properties[key].type,
       visible: visibleFields.indexOf(key) > -1
     }))
-    .filter(row => (editMode || visibleFields.indexOf(row.key) > -1) &&
+    .filter(row => editMode || (visibleFields.indexOf(row.key) > -1 &&
       (typeof row.value !== 'string' || row.value.length) &&
-      typeof row.value !== 'undefined')
+      typeof row.value !== 'undefined'))
 
   if (feature.geometry) {
     rows.unshift({
