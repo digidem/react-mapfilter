@@ -37,7 +37,7 @@ const FormattedValue = ({value, type, coordFormat = FORMATS_DEG_MIN_SEC}) => {
     case FIELD_TYPE_MEDIA:
     case FIELD_TYPE_AUDIO:
     case FIELD_TYPE_LINK:
-      return <a href={value}>{value}</a>
+      return <a href={value} target='_blank'>{value}</a>
     default:
       return <FormattedMessage {...msg('field_value')(value)} />
   }
