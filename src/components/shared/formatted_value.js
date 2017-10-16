@@ -12,7 +12,12 @@ import {
   FIELD_TYPE_NUMBER,
   FORMATS_UTM,
   FORMATS_DEC_DEG,
-  FORMATS_DEG_MIN_SEC
+  FORMATS_DEG_MIN_SEC,
+  FIELD_TYPE_IMAGE,
+  FIELD_TYPE_VIDEO,
+  FIELD_TYPE_MEDIA,
+  FIELD_TYPE_AUDIO,
+  FIELD_TYPE_LINK
 } from '../../constants'
 
 const FormattedValue = ({value, type, coordFormat = FORMATS_DEG_MIN_SEC}) => {
@@ -27,6 +32,12 @@ const FormattedValue = ({value, type, coordFormat = FORMATS_DEG_MIN_SEC}) => {
       return <span>{formatLocation(value, coordFormat)}</span>
     case FIELD_TYPE_NUMBER:
       return <span>{(value || 0) + ''}</span>
+    case FIELD_TYPE_IMAGE:
+    case FIELD_TYPE_VIDEO:
+    case FIELD_TYPE_MEDIA:
+    case FIELD_TYPE_AUDIO:
+    case FIELD_TYPE_LINK:
+      return <a href={value}>{value}</a>
     default:
       return <FormattedMessage {...msg('field_value')(value)} />
   }
