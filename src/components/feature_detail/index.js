@@ -6,6 +6,7 @@ import Paper from 'material-ui/Paper'
 import Button from 'material-ui/Button'
 import { withStyles } from 'material-ui/styles'
 import EditIcon from 'material-ui-icons/ModeEdit'
+import Dialog, { DialogActions, DialogTitle } from 'material-ui/Dialog'
 import {FormattedMessage, defineMessages} from 'react-intl'
 import assign from 'object-assign'
 import {unflatten} from 'flat'
@@ -17,7 +18,7 @@ import getVisibleFields from '../../selectors/visible_fields'
 import getFieldAnalysis from '../../selectors/field_analysis'
 import Image from '../image'
 import FeatureTable from '../shared/table'
-import {updateVisibleFields, editFeature} from '../../action_creators'
+import {updateVisibleFields, editFeature, deleteFeature} from '../../action_creators'
 import {FIELD_TYPE_SPACE_DELIMITED} from '../../constants'
 
 const styleSheet = {
@@ -78,6 +79,11 @@ const messages = defineMessages({
     defaultMessage: 'Close',
     description: 'Close button label'
   },
+  deleteButton: {
+    id: 'feature.deleteButton',
+    defaultMessage: 'Delete',
+    description: 'Delete feature button label'
+  },
   cancelButton: {
     id: 'feature.cancelButton',
     defaultMessage: 'Cancel',
@@ -90,9 +96,15 @@ const messages = defineMessages({
   }
 })
 
-const Actions = ({editMode, onCloseClick, onEditClick, onCancelClick, onSaveClick, classes}) => (
+const Actions = ({editMode, onCloseClick, onEditClick, onCancelClick, onSaveClick, onDeleteClick, classes}) => (
   editMode
   ? <CardActions className={classes.actions}>
+    <Button
+      color='accent'
+      raised
+      onClick={onDeleteClick}
+      className={classes.button}
+    ><FormattedMessage {...messages.deleteButton} /></Button>
     <Button
       raised
       onClick={onCancelClick}
@@ -127,11 +139,16 @@ class FeatureDetail extends React.Component {
     this.state = {
       editMode: false
     }
+    if (!props.feature) props.onCloseClick()
     this.handleEditClick = this.handleEditClick.bind(this)
     this.handleCancelClick = this.handleCancelClick.bind(this)
     this.handleSaveClick = this.handleSaveClick.bind(this)
     this.handleValueChange = this.handleValueChange.bind(this)
     this.handleVisibilityChange = this.handleVisibilityChange.bind(this)
+  }
+
+  componentWillReceiveProps (nextProps) {
+    if (!nextProps.feature) return nextProps.onCloseClick()
   }
 
   handleEditClick () {
@@ -176,8 +193,9 @@ class FeatureDetail extends React.Component {
 
   render () {
     const {media, feature, onCloseClick, fieldOrder, classes, className,
-      coordFormat, fieldAnalysis, visibleFields} = this.props
+      coordFormat, fieldAnalysis, visibleFields, onDeleteFeature} = this.props
     const {editMode, feature: editedFeature, visibleFields: editedVisibleFields} = this.state
+    if (!feature) return null
     return <Paper className={classNames(classes.card, className)} elevation={8}>
       {media &&
         <div className={classes.media}>
@@ -202,7 +220,19 @@ class FeatureDetail extends React.Component {
         onCloseClick={onCloseClick}
         onCancelClick={this.handleCancelClick}
         onSaveClick={this.handleSaveClick}
+        onDeleteClick={() => this.setState({confirmDelete: () => onDeleteFeature(feature.id)})}
       />
+      <Dialog ignoreBackdropClick open={!!this.state.confirmDelete} maxWidth='xs' fullWidth>
+        <DialogTitle>Delete Feature?</DialogTitle>
+        <DialogActions>
+          <Button onClick={() => this.setState({confirmDelete: null})} color='primary'>
+            Cancel
+          </Button>
+          <Button onClick={this.state.confirmDelete} color='primary'>
+            Ok
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Paper>
   }
 }
@@ -236,8 +266,7 @@ export default connect(
     const fieldAnalysis = getFieldAnalysis(state)
     const id = ownProps.id || state.ui.featureId
     const feature = featuresById[id]
-    if (!feature) return {}
-    const geojsonProps = feature.properties
+    const geojsonProps = feature ? feature.properties : {}
     return {
       coordFormat: state.settings.coordFormat,
       feature: feature,
@@ -249,6 +278,7 @@ export default connect(
   },
   (dispatch) => ({
     onEditFeature: (feature) => dispatch(editFeature(feature)),
-    onEditHiddenFields: (visibleFields) => dispatch(updateVisibleFields(visibleFields))
+    onEditHiddenFields: (visibleFields) => dispatch(updateVisibleFields(visibleFields)),
+    onDeleteFeature: (id) => dispatch(deleteFeature(id))
   })
 )(withStyles(styleSheet)(FeatureDetail))

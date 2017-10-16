@@ -1,7 +1,8 @@
 import {
   UPDATE_VISIBLE_FIELDS,
   UPDATE_FIELD_ORDER,
-  EDIT_FEATURE
+  EDIT_FEATURE,
+  DELETE_FEATURE
 } from './constants'
 
 export const updateFilter = createActionCreator('UPDATE_FILTER')
@@ -21,6 +22,7 @@ export const redirectView = createActionCreator('REDIRECT_VIEW')
 export const updateVisibleFields = createActionCreator(UPDATE_VISIBLE_FIELDS)
 export const updateFieldOrder = createActionCreator(UPDATE_FIELD_ORDER)
 export const editFeature = createActionCreator(EDIT_FEATURE)
+export const deleteFeature = createActionCreator(DELETE_FEATURE)
 
 function createActionCreator (type) {
   return function (payload) {

@@ -8,7 +8,6 @@ import Table, {
   TableCell,
   TableRow
 } from 'material-ui/Table'
-import assign from 'object-assign'
 import classNames from 'classnames'
 
 import FormattedValue from '../shared/formatted_value'
