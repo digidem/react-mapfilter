@@ -104,7 +104,7 @@
     "build:example:js": "NODE_ENV=production browserify -t babelify -t brfs -g envify -g uglifyify example/index.js | uglifyjs -c comparisons=false -m > build/bundle.js",
     "build:markers": "node ./bin/build_markers.js",
     "build:es5": "rimraf es5 && babel src/ --source-maps -d es5/",
-    "build:umd": "rimraf dist && mkdirp dist && NODE_ENV=production browserify -t babelify -g envify -g uglifyify -p bundle-collapser/plugin -s MapFilter src/index.js | uglifyjs -c warnings=false comparisons=false -m > dist/react-mapfilter.js",
+    "build:umd": "rimraf dist && mkdirp dist && NODE_ENV=production browserify -t babelify -g envify -g uglifyify -p bundle-collapser/plugin -s MapFilter src/index.js | uglifyjs -c warnings=false,comparisons=false -m > dist/react-mapfilter.js",
     "watch": "rimraf es5 && babel src/ -w --source-maps -d es5/",
     "prepublish": "npm run build:es5 & npm run build:umd",
     "storybook": "start-storybook -p 6006",
