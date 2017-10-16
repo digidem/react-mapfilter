@@ -43,12 +43,15 @@ const styles = theme => ({
     overflow: 'scroll'
   },
   modalPaper: {
+    [theme.breakpoints.down('sm')]: {
+      padding: 0
+    },
     backgroundColor: 'initial',
     maxHeight: 'initial',
     minHeight: '100%',
     position: 'relative',
     margin: '0 auto',
-    padding: '32px 0',
+    padding: 32,
     boxShadow: 'none',
     boxSizing: 'border-box',
     display: 'flex',
