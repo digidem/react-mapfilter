@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import ImageLoader from 'react-imageloader'
+import ImageLoader from './image_loader'
 import {CircularProgress} from 'material-ui/Progress'
 import BrokenImageIcon from 'material-ui-icons/BrokenImage'
 import omit from 'lodash/omit'

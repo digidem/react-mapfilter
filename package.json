@@ -31,7 +31,6 @@
     "randombytes": "^2.0.5",
     "react-autosuggest": "^9.3.2",
     "react-date-range": "^0.9.4",
-    "react-imageloader": "^2.1.0",
     "react-intl": "^2.3.0",
     "react-intl-redux": "^0.6.0",
     "react-isolated-scroll": "^0.1.1",
