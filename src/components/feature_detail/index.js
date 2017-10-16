@@ -4,6 +4,8 @@ import { connect } from 'react-redux'
 import { CardActions } from 'material-ui/Card'
 import Paper from 'material-ui/Paper'
 import Button from 'material-ui/Button'
+import IconButton from 'material-ui/IconButton'
+import CloseIcon from 'material-ui-icons/Close'
 import { withStyles } from 'material-ui/styles'
 import EditIcon from 'material-ui-icons/ModeEdit'
 import Dialog, { DialogActions, DialogTitle } from 'material-ui/Dialog'
@@ -59,8 +61,12 @@ const styleSheet = {
   },
   closeButton: {
     position: 'absolute',
-    top: 15,
-    right: 5
+    top: 0,
+    right: 0,
+    zIndex: 1,
+    color: 'white',
+    backgroundColor: 'rgba(0,0,0,0.3)',
+    borderRadius: 0
   },
   actions: {
     justifyContent: 'flex-end',
@@ -197,6 +203,9 @@ class FeatureDetail extends React.Component {
     const {editMode, feature: editedFeature, visibleFields: editedVisibleFields} = this.state
     if (!feature) return null
     return <Paper className={classNames(classes.card, className)} elevation={8}>
+      <IconButton onClick={onCloseClick} className={classes.closeButton}>
+        <CloseIcon />
+      </IconButton>
       {media &&
         <div className={classes.media}>
           <Image className={classes.img} src={media} />
