@@ -59,6 +59,9 @@ const styles = theme => ({
     justifyContent: 'center',
     pointerEvents: 'none'
   },
+  modalPaperMd: {
+    maxWidth: 800
+  },
   modalInner: {
     pointerEvents: 'auto'
   },
@@ -85,12 +88,11 @@ class IndexRoute extends React.Component {
 
   redirectIfNecessary ({activeModal, activeView, views, redirectView}) {
     if (!find(views, {id: activeView})) return redirectView(views[0].id)
-    if (activeModal && !getModalComponent(activeModal)) redirectView(activeView)
+    // if (activeModal && !getModalComponent(activeModal)) redirectView(activeView)
   }
 
   render () {
     const {activeView, activeModal, actionButton, classes, views, switchView, settingsTab, toolbarButtons, toolbarTitle} = this.props
-    const ModalComponent = getModalComponent(activeModal)
     const ViewComponent = getViewComponent(activeView, views)
 
     return (
@@ -105,10 +107,18 @@ class IndexRoute extends React.Component {
         </div>
         <Dialog
           onRequestClose={this.props.closeModal}
-          open={!!ModalComponent}
+          open={activeModal === 'feature'}
+          fullWidth
+          maxWidth='md'
+          classes={{root: classes.modalRoot, paper: classes.modalPaper, paperWidthMd: classes.modalPaperMd}}>
+          <FeatureDetail onCloseClick={this.props.closeModal} className={classes.modalInner} />}
+        </Dialog>
+        <Dialog
+          onRequestClose={this.props.closeModal}
+          open={activeModal === 'settings'}
           fullWidth
           classes={{root: classes.modalRoot, paper: classes.modalPaper}}>
-          {ModalComponent && <ModalComponent activeTabId={settingsTab} onCloseClick={this.props.closeModal} className={classes.modalInner} />}
+          <Settings activeTabId={settingsTab} onCloseClick={this.props.closeModal} className={classes.modalInner} />}
         </Dialog>
       </div>
     )
@@ -126,16 +136,6 @@ IndexRoute.defaultProps = {
     id: 'report',
     component: ReportView
   }]
-}
-
-function getModalComponent (modal) {
-  switch (modal) {
-    case 'feature':
-      return FeatureDetail
-    case 'settings':
-      return Settings
-    default:
-  }
 }
 
 function getViewComponent (activeView, views) {
