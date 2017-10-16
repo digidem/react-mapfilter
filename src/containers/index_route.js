@@ -106,7 +106,6 @@ class IndexRoute extends React.Component {
         <Dialog
           onRequestClose={this.props.closeModal}
           open={!!ModalComponent}
-          elevation={0}
           fullWidth
           classes={{root: classes.modalRoot, paper: classes.modalPaper}}>
           {ModalComponent && <ModalComponent activeTabId={settingsTab} onCloseClick={this.props.closeModal} className={classes.modalInner} />}
@@ -115,7 +114,6 @@ class IndexRoute extends React.Component {
     )
   }
 }
-
 
 IndexRoute.defaultProps = {
   views: [{
