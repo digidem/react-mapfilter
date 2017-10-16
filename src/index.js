@@ -46,7 +46,6 @@ const lang = navigator.language.slice(0, 2)
 
 // Roboto font
 require('../css/fonts.css')
-require('../css/animations.css')
 
 // Attach Chrome devTools extensions if it is present.
 let composeEnhancers = compose

@@ -48,8 +48,7 @@ class Image extends React.Component {
     }
 
     this.setState({
-      src: mediaSrc,
-      loadStart: Date.now()
+      src: mediaSrc
     })
   }
 
@@ -64,17 +63,10 @@ class Image extends React.Component {
       style={assign({}, styles.wrapper, style, {backgroundImage: 'url(' + previewUrl + ')'})}
       preloader={() => <div style={styles.wrapper}><CircularProgress /></div>}
       wrapper={(props, element) => {
-        const loadTime = Date.now() - this.state.loadStart
         if (!element) {
           return <div style={styles.wrapper}><BrokenImageIcon color='grey' /></div>
-        } else if (element.type !== 'img' || loadTime < 200) {
-          // Only fade in if image takes more than 200ms to load
-          return createDiv(props, element)
         } else {
-          const mergedProps = assign({}, props, {
-            className: 'fadeIn'
-          })
-          return createDiv(mergedProps, element)
+          return createDiv(props, element)
         }
       }}
     />
