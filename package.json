@@ -34,7 +34,6 @@
     "react-intl": "^2.3.0",
     "react-intl-redux": "^0.6.0",
     "react-isolated-scroll": "^0.1.1",
-    "react-overlays": "^0.8.2",
     "react-redux": "^5.0.5",
     "react-virtualized": "^9.8.0",
     "recompose": "^0.26.0",

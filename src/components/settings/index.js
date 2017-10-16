@@ -18,7 +18,6 @@ const styles = {
   card: {
     maxHeight: '100%',
     width: '100%',
-    flex: 1,
     display: 'flex',
     flexDirection: 'column',
     position: 'relative'
@@ -121,11 +120,11 @@ class Settings extends React.Component {
   }
 
   render () {
-    const { onCloseClick, activeTabId, onChangeTab, classes } = this.props
+    const { onCloseClick, activeTabId, onChangeTab, classes, className } = this.props
     const tabIndex = getTabIndex(activeTabId)
     const TabComponent = tabs[tabIndex].component
     return (
-      <Card className={classes.card}>
+      <Card className={classNames(classes.card, className)}>
         <IconButton className={classes.icon} onClick={onCloseClick}>
           <CloseIcon />
         </IconButton>

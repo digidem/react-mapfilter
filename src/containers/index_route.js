@@ -8,7 +8,7 @@ import CustomContainer from './custom_container'
 import TopBar from './top_bar'
 import * as actionCreators from '../action_creators'
 
-import Modal from '../components/modal'
+import Dialog from 'material-ui/Dialog'
 import FilterPane from '../components/filter'
 import FeatureDetail from '../components/feature_detail'
 import Settings from '../components/settings'
@@ -37,6 +37,27 @@ const styles = theme => ({
     '@media print': {
       display: 'block'
     }
+  },
+  modalRoot: {
+    display: 'block',
+    overflow: 'scroll'
+  },
+  modalPaper: {
+    backgroundColor: 'initial',
+    maxHeight: 'initial',
+    minHeight: '100%',
+    position: 'relative',
+    margin: '0 auto',
+    padding: '32px 0',
+    boxShadow: 'none',
+    boxSizing: 'border-box',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    pointerEvents: 'none'
+  },
+  modalInner: {
+    pointerEvents: 'auto'
   },
   view: {
     flex: 3,
@@ -79,11 +100,19 @@ class IndexRoute extends React.Component {
           </div>
           {actionButton && <div className={classes.actionButton}>{createElement(actionButton)}</div>}
         </div>
-        <Modal component={ModalComponent} activeTabId={settingsTab} />
+        <Dialog
+          onRequestClose={this.props.closeModal}
+          open={!!ModalComponent}
+          elevation={0}
+          fullWidth
+          classes={{root: classes.modalRoot, paper: classes.modalPaper}}>
+          {ModalComponent && <ModalComponent activeTabId={settingsTab} onCloseClick={this.props.closeModal} className={classes.modalInner} />}
+        </Dialog>
       </div>
     )
   }
 }
+
 
 IndexRoute.defaultProps = {
   views: [{

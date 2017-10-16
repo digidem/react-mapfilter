@@ -9,6 +9,7 @@ import EditIcon from 'material-ui-icons/ModeEdit'
 import {FormattedMessage, defineMessages} from 'react-intl'
 import assign from 'object-assign'
 import {unflatten} from 'flat'
+import classNames from 'classnames'
 
 import getFeaturesById from '../../selectors/features_by_id'
 import getFieldMapping from '../../selectors/field_mapping'
@@ -174,10 +175,10 @@ class FeatureDetail extends React.Component {
   }
 
   render () {
-    const {media, feature, onCloseClick, fieldOrder, classes,
+    const {media, feature, onCloseClick, fieldOrder, classes, className,
       coordFormat, fieldAnalysis, visibleFields} = this.props
     const {editMode, feature: editedFeature, visibleFields: editedVisibleFields} = this.state
-    return <Paper className={classes.card} elevation={8}>
+    return <Paper className={classNames(classes.card, className)} elevation={8}>
       {media &&
         <div className={classes.media}>
           <Image className={classes.img} src={media} />
