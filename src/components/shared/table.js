@@ -65,6 +65,7 @@ const styles = {
   col2: {
     padding: '14px 24px 14px 12px !important',
     width: '100%',
+    maxWidth: 0,
     whiteSpace: 'initial',
     fontSize: '0.875rem'
   },
@@ -72,19 +73,40 @@ const styles = {
     paddingTop: '9px !important',
     paddingBottom: '9px !important'
   },
+  col2TextEdit: {
+    paddingTop: 5,
+    paddingBottom: 5
+  },
+  col2TextNoWrap: {
+    overflow: 'hidden',
+    whiteSpace: 'nowrap',
+    textOverflow: 'ellipsis'
+  },
   col3: {
     paddingLeft: 0,
     paddingRight: 12
   }
 }
 
-const ValueCell = ({value, type, coordFormat, editMode}) => (
-  <Typography style={editMode ? {paddingTop: 5, paddingBottom: 5} : null}>
+const shouldNotWrap = {
+  [FIELD_TYPE_UUID]: true,
+  [FIELD_TYPE_MIXED]: true,
+  [FIELD_TYPE_IMAGE]: true,
+  [FIELD_TYPE_VIDEO]: true,
+  [FIELD_TYPE_MEDIA]: true,
+  [FIELD_TYPE_AUDIO]: true
+}
+
+const ValueCell = ({value, type, coordFormat, editMode, classes}) => (
+  <Typography className={classNames({
+    [classes.col2TextEdit]: editMode,
+    [classes.col2TextNoWrap]: shouldNotWrap[type]
+  })}>
     <FormattedValue value={value} type={type} coordFormat={coordFormat} />
   </Typography>
 )
 
-const ValueCellEdit = makePure(({value, type, coordFormat, fieldMetadata = {}, onChange}) => {
+const ValueCellEdit = makePure(({value, type, coordFormat, fieldMetadata = {}, onChange, classes}) => {
   const suggestions = Array.isArray(fieldMetadata.values) && fieldMetadata.values.map(d => d.value)
   const isDiscreteField = type === FIELD_TYPE_STRING && fieldMetadata.values &&
     fieldMetadata.values.length / fieldMetadata.count < 0.8
@@ -127,7 +149,7 @@ const ValueCellEdit = makePure(({value, type, coordFormat, fieldMetadata = {}, o
       suggestions={suggestions}
       style={styles.selectField} />
   }
-  return <ValueCell value={value} type={type} coordFormat={coordFormat} editMode />
+  return <ValueCell value={value} type={type} coordFormat={coordFormat} editMode classes={classes} />
 })
 
 const FeatureTable = ({editMode, classes, coordFormat, feature, fieldAnalysis, visibleFields, fieldOrder, onValueChange, onVisibilityChange}) => {
@@ -150,9 +172,10 @@ const FeatureTable = ({editMode, classes, coordFormat, feature, fieldAnalysis, v
                     value={row.value}
                     type={row.type}
                     coordFormat={coordFormat}
+                    classes={classes}
                     onChange={(e, {newValue, type}) => onValueChange(row.key, newValue)}
                     fieldMetadata={fieldAnalysis.properties[row.key]} />
-                  : <ValueCell value={row.value} type={row.type} coordFormat={coordFormat} />}
+                  : <ValueCell value={row.value} type={row.type} coordFormat={coordFormat} classes={classes} />}
                 </TableCell>
                 {editMode &&
                 <TableCell className={classes.col3}>
