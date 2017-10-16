@@ -1,4 +1,5 @@
 import React from 'react'
+import { createSelector } from 'reselect'
 import Typography from 'material-ui/Typography'
 import { withStyles } from 'material-ui/styles'
 import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer'
@@ -106,14 +107,14 @@ const ValueCell = ({value, type, coordFormat, editMode, classes}) => (
   </Typography>
 )
 
-const ValueCellEdit = makePure(({value, type, coordFormat, fieldMetadata = {}, onChange, classes}) => {
+const ValueCellEdit = makePure(({value, type, rowKey, coordFormat, fieldMetadata = {}, onChange, classes}) => {
   const suggestions = Array.isArray(fieldMetadata.values) && fieldMetadata.values.map(d => d.value)
   const isDiscreteField = type === FIELD_TYPE_STRING && fieldMetadata.values &&
     fieldMetadata.values.length / fieldMetadata.count < 0.8
   if (isDiscreteField) {
     return <Select
       value={value}
-      onChange={onChange}
+      onChange={(e, {newValue, type}) => onChange(rowKey, newValue)}
       suggestions={suggestions}
       style={styles.selectField} />
   }
@@ -125,7 +126,7 @@ const ValueCellEdit = makePure(({value, type, coordFormat, fieldMetadata = {}, o
       value={value + ''}
       onChange={(e) => {
         const newValue = e.target.value === 'true' ? true : e.target.value === 'false' ? false : undefined
-        onChange(e, {newValue})
+        onChange(rowKey, newValue)
       }}
       input={<Input />}
       style={styles.muiSelect}>
@@ -139,21 +140,22 @@ const ValueCellEdit = makePure(({value, type, coordFormat, fieldMetadata = {}, o
       fullWidth
       multiline
       value={value}
-      onChange={(e) => onChange(e, {newValue: e.target.value, method: 'type'})}
+      onChange={(e) => onChange(rowKey, e.target.value)}
       style={styles.textField} />
   }
   if (type === FIELD_TYPE_ARRAY) {
     return <MultiSelect
       value={value}
-      onChange={onChange}
+      onChange={(e, {newValue, type}) => onChange(rowKey, newValue)}
       suggestions={suggestions}
       style={styles.selectField} />
   }
   return <ValueCell value={value} type={type} coordFormat={coordFormat} editMode classes={classes} />
 })
 
-const FeatureTable = ({editMode, classes, coordFormat, feature, fieldAnalysis, visibleFields, fieldOrder, onValueChange, onVisibilityChange}) => {
-  const rows = getRows(feature, fieldAnalysis, visibleFields, fieldOrder, editMode)
+const FeatureTable = (props) => {
+  const {editMode, classes, coordFormat, fieldAnalysis, onValueChange, onVisibilityChange} = props
+  const rows = getRows(props)
   return (
     <AutoSizer disableHeight>
       {({ width }) => (
@@ -171,9 +173,10 @@ const FeatureTable = ({editMode, classes, coordFormat, feature, fieldAnalysis, v
                   ? <ValueCellEdit
                     value={row.value}
                     type={row.type}
+                    rowKey={row.key}
                     coordFormat={coordFormat}
                     classes={classes}
-                    onChange={(e, {newValue, type}) => onValueChange(row.key, newValue)}
+                    onChange={onValueChange}
                     fieldMetadata={fieldAnalysis.properties[row.key]} />
                   : <ValueCell value={row.value} type={row.type} coordFormat={coordFormat} classes={classes} />}
                 </TableCell>
@@ -196,37 +199,46 @@ const FeatureTable = ({editMode, classes, coordFormat, feature, fieldAnalysis, v
   )
 }
 
-function getRows (feature, fieldAnalysis, visibleFields, fieldOrder, editMode) {
-  const rows = Object.keys(fieldAnalysis.properties)
-    .map(key => ({
-      key: key,
-      value: feature.properties[key],
-      type: fieldAnalysis.properties[key].type,
-      visible: visibleFields.indexOf(key) > -1
-    }))
-    .filter(row => editMode || (visibleFields.indexOf(row.key) > -1 &&
-      (typeof row.value !== 'string' || row.value.length) &&
-      typeof row.value !== 'undefined'))
+// TODO: Does not actually work and memoize anything because props.feature
+// changes every edit
+const getRows = createSelector(
+  props => props.feature,
+  props => props.fieldAnalysis,
+  props => props.visibleFields,
+  props => props.fieldOrder,
+  props => props.editMode,
+  (feature, fieldAnalysis, visibleFields, fieldOrder, editMode) => {
+    const rows = Object.keys(fieldAnalysis.properties)
+      .map(key => ({
+        key: key,
+        value: feature.properties[key],
+        type: fieldAnalysis.properties[key].type,
+        visible: visibleFields.indexOf(key) > -1
+      }))
+      .filter(row => editMode || (visibleFields.indexOf(row.key) > -1 &&
+        (typeof row.value !== 'string' || row.value.length) &&
+        typeof row.value !== 'undefined'))
 
-  if (feature.geometry) {
-    rows.unshift({
-      key: 'location',
-      value: feature.geometry && feature.geometry.coordinates,
-      type: FIELD_TYPE_LOCATION,
-      visible: visibleFields.indexOf('location') > -1
+    if (feature.geometry) {
+      rows.unshift({
+        key: 'location',
+        value: feature.geometry && feature.geometry.coordinates,
+        type: FIELD_TYPE_LOCATION,
+        visible: visibleFields.indexOf('location') > -1
+      })
+    }
+    // Sort rows by `fieldOrder` from state, if an order is set, if not then sort lexically.
+    return rows.sort((a, b) => {
+      var orderA = typeof fieldOrder[a.key] !== 'undefined' ? fieldOrder[a.key] : Infinity
+      var orderB = typeof fieldOrder[b.key] !== 'undefined' ? fieldOrder[b.key] : Infinity
+      if (orderA === Infinity && orderB === Infinity) {
+        return lexicalSort(a, b)
+      } else {
+        return orderA - orderB
+      }
     })
   }
-  // Sort rows by `fieldOrder` from state, if an order is set, if not then sort lexically.
-  return rows.sort((a, b) => {
-    var orderA = typeof fieldOrder[a.key] !== 'undefined' ? fieldOrder[a.key] : Infinity
-    var orderB = typeof fieldOrder[b.key] !== 'undefined' ? fieldOrder[b.key] : Infinity
-    if (orderA === Infinity && orderB === Infinity) {
-      return lexicalSort(a, b)
-    } else {
-      return orderA - orderB
-    }
-  })
-}
+)
 
 function lexicalSort (a, b) {
   var nameA = a.key.toUpperCase() // ignore upper and lowercase
