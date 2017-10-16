@@ -15,7 +15,7 @@ import {
   FORMATS_DEG_MIN_SEC
 } from '../../constants'
 
-const FormattedValue = ({value, type, coordFormat}) => {
+const FormattedValue = ({value, type, coordFormat = FORMATS_DEG_MIN_SEC}) => {
   switch (type) {
     case FIELD_TYPE_DATE:
       return <FormattedDate

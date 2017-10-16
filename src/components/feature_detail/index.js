@@ -1,26 +1,21 @@
 import React from 'react'
 
 import { connect } from 'react-redux'
-import { CardContent, CardHeader, CardActions } from 'material-ui/Card'
+import { CardActions } from 'material-ui/Card'
 import Paper from 'material-ui/Paper'
 import Button from 'material-ui/Button'
-import IconButton from 'material-ui/IconButton'
 import { withStyles } from 'material-ui/styles'
 import EditIcon from 'material-ui-icons/ModeEdit'
-import CloseIcon from 'material-ui-icons/Close'
 import {FormattedMessage, defineMessages} from 'react-intl'
 import assign from 'object-assign'
 import {unflatten} from 'flat'
 
-import FormattedValue from '../shared/formatted_value'
 import getFeaturesById from '../../selectors/features_by_id'
 import getFieldMapping from '../../selectors/field_mapping'
-import getColorIndex from '../../selectors/color_index'
 import getVisibleFields from '../../selectors/visible_fields'
 import getFieldAnalysis from '../../selectors/field_analysis'
 import Image from '../image'
-import MarkerIcon from './marker_icon'
-import FeatureTable from './feature_table'
+import FeatureTable from '../shared/table'
 import {updateVisibleFields, editFeature} from '../../action_creators'
 import {FIELD_TYPE_SPACE_DELIMITED} from '../../constants'
 
@@ -54,7 +49,8 @@ const styleSheet = {
     top: 0,
     left: 0,
     position: 'absolute',
-    objectFit: 'cover'
+    objectFit: 'cover',
+    transform: 'translate3d(0,0,0)'
   },
   button: {
     margin: '8px 16px 8px 8px'
@@ -178,35 +174,25 @@ class FeatureDetail extends React.Component {
   }
 
   render () {
-    const {color, label, media, feature, title, subtitle, onCloseClick, fieldOrder, classes,
-      print, coordFormat, fieldAnalysis, visibleFields, titleType, subtitleType} = this.props
+    const {media, feature, onCloseClick, fieldOrder, classes,
+      coordFormat, fieldAnalysis, visibleFields} = this.props
     const {editMode, feature: editedFeature, visibleFields: editedVisibleFields} = this.state
-    return <Paper className={classes.card} elevation={onCloseClick ? 8 : 0}>
-      {onCloseClick && <IconButton onClick={onCloseClick} className={classes.closeButton}>
-        <CloseIcon />
-      </IconButton>}
-      <CardHeader
-        avatar={<MarkerIcon color={color} className={classes.markerIcon} label={label} />}
-        title={<FormattedValue value={title} type={titleType} />}
-        subheader={<FormattedValue value={subtitle} type={subtitleType} />} />
+    return <Paper className={classes.card} elevation={8}>
       {media &&
         <div className={classes.media}>
           <Image className={classes.img} src={media} />
         </div>}
-      <CardContent>
-        <FeatureTable
-          editMode={editMode}
-          feature={editMode ? editedFeature : feature}
-          fieldAnalysis={fieldAnalysis}
-          fieldOrder={fieldOrder}
-          visibleFields={editMode ? editedVisibleFields : visibleFields}
-          print={print}
-          coordFormat={coordFormat}
-          onVisibilityChange={this.handleVisibilityChange}
-          onValueChange={this.handleValueChange}
-        />
-      </CardContent>
-      {!print && <Actions
+      <FeatureTable
+        editMode={editMode}
+        feature={editMode ? editedFeature : feature}
+        fieldAnalysis={fieldAnalysis}
+        fieldOrder={fieldOrder}
+        visibleFields={editMode ? editedVisibleFields : visibleFields}
+        coordFormat={coordFormat}
+        onVisibilityChange={this.handleVisibilityChange}
+        onValueChange={this.handleValueChange}
+      />
+      <Actions
         classes={classes}
         style={{textAlign: 'right'}}
         editMode={editMode}
@@ -215,7 +201,7 @@ class FeatureDetail extends React.Component {
         onCloseClick={onCloseClick}
         onCancelClick={this.handleCancelClick}
         onSaveClick={this.handleSaveClick}
-      />}
+      />
     </Paper>
   }
 }
@@ -244,7 +230,6 @@ function untransformFeature (feature, fieldAnalysis) {
 export default connect(
   (state, ownProps) => {
     const featuresById = getFeaturesById(state)
-    const colorIndex = getColorIndex(state)
     const fieldMapping = getFieldMapping(state)
     const visibleFields = getVisibleFields(state)
     const fieldAnalysis = getFieldAnalysis(state)
@@ -252,19 +237,13 @@ export default connect(
     const feature = featuresById[id]
     if (!feature) return {}
     const geojsonProps = feature.properties
-    const fieldAnalysisProps = fieldAnalysis.properties
     return {
       coordFormat: state.settings.coordFormat,
       feature: feature,
       fieldAnalysis: fieldAnalysis,
       fieldOrder: state.fieldOrder,
       visibleFields: visibleFields,
-      media: geojsonProps[fieldMapping.media],
-      title: geojsonProps[fieldMapping.title],
-      subtitle: geojsonProps[fieldMapping.subtitle],
-      color: colorIndex[geojsonProps[fieldMapping.color]] || (geojsonProps[fieldMapping.color] && colorIndex[geojsonProps[fieldMapping.color][0]]),
-      titleType: fieldAnalysisProps[fieldMapping.title] && fieldAnalysisProps[fieldMapping.title].type,
-      subtitleType: fieldAnalysisProps[fieldMapping.subtitle] && fieldAnalysisProps[fieldMapping.subtitle].type
+      media: geojsonProps[fieldMapping.media]
     }
   },
   (dispatch) => ({

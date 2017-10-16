@@ -1,16 +1,14 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import { connect } from 'react-redux'
 import Paper from 'material-ui/Paper'
 import insertCss from 'insert-css'
 import Typography from 'material-ui/Typography'
 
-import FeatureDetail from '../feature_detail'
+import ReportFeature from './feature'
 import * as MFPropTypes from '../../util/prop_types'
 import MapView from '../map'
 import Alert from './alert'
 import config from '../../../config.json'
-import {showFeatureDetail} from '../../action_creators'
 // import {FIELD_TYPE_DATE} from '../../constants'
 
 insertCss(`
@@ -128,6 +126,8 @@ insertCss(`
 }
 `)
 
+const MAX_REPORT_LEN = 26
+
 class ReportView extends React.Component {
   static propTypes = {
     filteredFeatures: PropTypes.arrayOf(MFPropTypes.mapViewFeature).isRequired,
@@ -137,12 +137,12 @@ class ReportView extends React.Component {
 
   render () {
     const { filteredFeatures, showFeatureDetail } = this.props
-    const featuresSlice = filteredFeatures.length > 26 ? filteredFeatures.slice(0, 26) : filteredFeatures
+    const featuresSlice = filteredFeatures.length > MAX_REPORT_LEN ? filteredFeatures.slice(0, MAX_REPORT_LEN) : filteredFeatures
     return (
       <div className='report_wrapper'>
         <div className='report_header'>
-          {filteredFeatures.length > 26 && <Alert label={'Current filters show ' + filteredFeatures.length +
-              ' records, a report will only show the first 26 records'} />}
+          {filteredFeatures.length > MAX_REPORT_LEN && <Alert label={'Current filters show ' + filteredFeatures.length +
+              ' records, a report will only show the first ' + MAX_REPORT_LEN + ' records'} />}
         </div>
         <div className='report_container'>
           <Paper className='report_paper' elevation={1}>
@@ -165,18 +165,17 @@ class ReportView extends React.Component {
             featuresSlice.map((feature, i) => (
               <Paper className='report_paper' key={i} onClick={() => showFeatureDetail(feature.id)} elevation={1}>
                 <div className='report_page'>
-                  <FeatureDetail
-                    key={i}
-                    id={feature.id}
+                  <ReportFeature
+                    {...this.props}
+                    feature={feature}
                     label={config.labelChars.charAt(i)}
-                    print
                   />
                 </div>
                 <hr className='page_break' />
               </Paper>
             ))
           }
-          {featuresSlice.length > 26 &&
+          {featuresSlice.length > MAX_REPORT_LEN &&
             <Paper className='report_paper'>
               <div className='report_page'>
                 <h2>Cannot print more than 26 observations in a single report</h2>
@@ -189,8 +188,4 @@ class ReportView extends React.Component {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  showFeatureDetail: id => dispatch(showFeatureDetail(id))
-})
-
-export default connect(null, mapDispatchToProps)(ReportView)
+export default ReportView

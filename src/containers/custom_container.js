@@ -11,6 +11,7 @@ import getFilteredFeatures from '../selectors/filtered_features'
 import getMapBoxFilter from '../selectors/mapbox_filter'
 import getFieldMapping from '../selectors/field_mapping'
 import getColorIndex from '../selectors/color_index'
+import getVisibleFields from '../selectors/visible_fields'
 
 const CustomContainer = (props) => createElement(props.component, omit(props, 'component'))
 
@@ -19,12 +20,15 @@ function mapStateToProps (state) {
     center: state.mapPosition.center,
     zoom: state.mapPosition.zoom,
     mapStyle: state.mapStyle,
+    settings: state.settings,
     features: getFilterableFeatures(state),
     fieldAnalysis: getFieldAnalysis(state),
+    fieldOrder: state.fieldOrder,
     filter: getMapBoxFilter(state),
     filteredFeatures: getFilteredFeatures(state),
     fieldMapping: getFieldMapping(state),
-    colorIndex: getColorIndex(state)
+    colorIndex: getColorIndex(state),
+    visibleFields: getVisibleFields(state)
   }
 }
 

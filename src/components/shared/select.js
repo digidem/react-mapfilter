@@ -18,7 +18,6 @@ const styleSheet = theme => ({
   container: {
     flexGrow: 1,
     position: 'relative',
-    zIndex: 1,
     fontSize: 14
   },
   suggestionsContainerOpen: {
