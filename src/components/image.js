@@ -15,7 +15,9 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'center',
     top: 0,
-    position: 'absolute'
+    position: 'absolute',
+    backgroundSize: 'cover',
+    backgroundPosition: 'center'
   }
 }
 
@@ -54,11 +56,12 @@ class Image extends React.Component {
   render () {
     // TODO: whitelist, not blacklist
     const props = omit(this.props, ['progress', 'src', 'style', 'resizer', 'dispatch'])
-    const {style} = this.props
+    const {style, resizer, src} = this.props
+    const previewUrl = resizer(src, 200 * pixelRatio)
     return <ImageLoader
       imgProps={assign({}, props, {style: style})}
       src={this.state.src}
-      style={assign({}, styles.wrapper, style)}
+      style={assign({}, styles.wrapper, style, {backgroundImage: 'url(' + previewUrl + ')'})}
       preloader={() => <div style={styles.wrapper}><CircularProgress /></div>}
       wrapper={(props, element) => {
         const loadTime = Date.now() - this.state.loadStart
