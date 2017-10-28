@@ -9,7 +9,7 @@ import {defineMessages, FormattedMessage} from 'react-intl'
 import classNames from 'classnames'
 
 import CustomContainer from './custom_container'
-import {SettingsButton, PrintButton} from '../components/buttons'
+import {MenuButton, PrintButton} from '../components/buttons'
 
 const styleSheet = theme => ({
   root: {
@@ -95,7 +95,7 @@ function TopBar ({activeView, views, onChangeTab, buttons, title, classes}) {
 TopBar.defaultProps = {
   buttons: [
     PrintButton,
-    SettingsButton
+    MenuButton
   ],
   title: 'MapFilter'
 }
