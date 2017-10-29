@@ -213,7 +213,7 @@ class ReportView extends React.Component {
                 <div className={classes.reportPage}>
                   <ReportFeature
                     {...omit(this.props, 'classes')}
-                    visibleFields={Object.keys(fieldAnalysis.properties).filter(fieldname => !viewState.hiddenFields[fieldname])}
+                    hiddenFields={viewState.hiddenFields}
                     feature={feature}
                     label={config.labelChars.charAt(i)}
                   />

@@ -150,7 +150,6 @@ class FeatureDetail extends React.Component {
     this.handleCancelClick = this.handleCancelClick.bind(this)
     this.handleSaveClick = this.handleSaveClick.bind(this)
     this.handleValueChange = this.handleValueChange.bind(this)
-    this.handleVisibilityChange = this.handleVisibilityChange.bind(this)
   }
 
   componentWillReceiveProps (nextProps) {
@@ -160,8 +159,7 @@ class FeatureDetail extends React.Component {
   handleEditClick () {
     this.setState({
       editMode: true,
-      feature: this.props.feature,
-      visibleFields: this.props.visibleFields
+      feature: this.props.feature
     })
   }
 
@@ -174,17 +172,7 @@ class FeatureDetail extends React.Component {
       const newFeature = untransformFeature(this.state.feature, this.props.fieldAnalysis)
       this.props.onEditFeature(newFeature)
     }
-    if (this.state.visibleFields !== this.props.visibleFields) {
-      this.props.onEditHiddenFields(this.state.visibleFields)
-    }
     this.setState({editMode: false})
-  }
-
-  handleVisibilityChange (key, visible) {
-    const visibleFields = visible
-      ? this.state.visibleFields.concat([key])
-      : this.state.visibleFields.filter(fieldname => fieldname !== key)
-    this.setState({visibleFields: visibleFields})
   }
 
   handleValueChange (key, value) {
@@ -199,8 +187,8 @@ class FeatureDetail extends React.Component {
 
   render () {
     const {media, feature, onCloseClick, fieldOrder, classes, className,
-      coordFormat, fieldAnalysis, visibleFields, onDeleteFeature} = this.props
-    const {editMode, feature: editedFeature, visibleFields: editedVisibleFields} = this.state
+      coordFormat, fieldAnalysis, onDeleteFeature} = this.props
+    const {editMode, feature: editedFeature} = this.state
     if (!feature) return null
     return <Paper className={classNames(classes.card, className)} elevation={8}>
       <IconButton onClick={onCloseClick} className={classes.closeButton}>
@@ -215,9 +203,7 @@ class FeatureDetail extends React.Component {
         feature={editMode ? editedFeature : feature}
         fieldAnalysis={fieldAnalysis}
         fieldOrder={fieldOrder}
-        visibleFields={editMode ? editedVisibleFields : visibleFields}
         coordFormat={coordFormat}
-        onVisibilityChange={this.handleVisibilityChange}
         onValueChange={this.handleValueChange}
       />
       <Actions
@@ -287,7 +273,6 @@ export default connect(
   },
   (dispatch) => ({
     onEditFeature: (feature) => dispatch(editFeature(feature)),
-    onEditHiddenFields: (visibleFields) => dispatch(updateVisibleFields(visibleFields)),
     onDeleteFeature: (id) => dispatch(deleteFeature(id))
   })
 )(withStyles(styleSheet)(FeatureDetail))

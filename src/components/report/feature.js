@@ -48,7 +48,7 @@ const ReportFeature = ({
   fieldMapping,
   fieldOrder,
   settings,
-  visibleFields
+  hiddenFields
 }) => {
   const props = feature.properties
   const media = props[fieldMapping.media]
@@ -78,7 +78,7 @@ const ReportFeature = ({
         feature={feature}
         fieldAnalysis={fieldAnalysis}
         fieldOrder={fieldOrder}
-        visibleFields={visibleFields}
+        hiddenFields={hiddenFields}
         coordFormat={settings.coordFormat}
       />
     </div>

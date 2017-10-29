@@ -153,7 +153,7 @@ const ValueCellEdit = makePure(({value, type, rowKey, coordFormat, fieldMetadata
 })
 
 const FeatureTable = (props) => {
-  const {editMode, classes, coordFormat, fieldAnalysis, onValueChange, onVisibilityChange} = props
+  const {editMode, classes, coordFormat, fieldAnalysis, onValueChange} = props
   const rows = getRows(props)
   return (
     <AutoSizer disableHeight>
@@ -179,16 +179,6 @@ const FeatureTable = (props) => {
                     fieldMetadata={fieldAnalysis.properties[row.key]} />
                   : <ValueCell value={row.value} type={row.type} coordFormat={coordFormat} classes={classes} />}
                 </TableCell>
-                {editMode &&
-                <TableCell className={classes.col3}>
-                  <Tooltip title={<FormattedMessage {...messages.visibility} />}>
-                    <IconButton
-                      style={{color: row.visible ? 'initial' : '#999999'}}
-                      onClick={(e) => onVisibilityChange(row.key, !row.visible)}>
-                      {row.visible ? <VisibilityIcon /> : <VisibilityOffIcon />}
-                    </IconButton>
-                  </Tooltip>
-                </TableCell>}
               </TableRow>
             ))}
           </TableBody>
@@ -198,23 +188,27 @@ const FeatureTable = (props) => {
   )
 }
 
+FeatureTable.defaultProps = {
+  hiddenFields: {}
+}
+
 // TODO: Does not actually work and memoize anything because props.feature
 // changes every edit
 const getRows = createSelector(
   props => props.feature,
   props => props.fieldAnalysis,
-  props => props.visibleFields,
+  props => props.hiddenFields,
   props => props.fieldOrder,
   props => props.editMode,
-  (feature, fieldAnalysis, visibleFields, fieldOrder, editMode) => {
+  (feature, fieldAnalysis, hiddenFields, fieldOrder, editMode) => {
     const rows = Object.keys(fieldAnalysis.properties)
       .map(key => ({
         key: key,
         value: feature.properties[key],
         type: fieldAnalysis.properties[key].type,
-        visible: visibleFields.indexOf(key) > -1
+        visible: !hiddenFields[key]
       }))
-      .filter(row => editMode || (visibleFields.indexOf(row.key) > -1 &&
+      .filter(row => editMode || (!hiddenFields[row.key] &&
         (typeof row.value !== 'string' || row.value.length) &&
         typeof row.value !== 'undefined'))
 
@@ -223,7 +217,7 @@ const getRows = createSelector(
         key: 'location',
         value: feature.geometry && feature.geometry.coordinates,
         type: FIELD_TYPE_LOCATION,
-        visible: visibleFields.indexOf('location') > -1
+        visible: !hiddenFields.location
       })
     }
     // Sort rows by `fieldOrder` from state, if an order is set, if not then sort lexically.

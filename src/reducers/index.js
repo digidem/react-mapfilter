@@ -12,7 +12,6 @@ import fieldOrder from './field_order'
 import fieldTypes from './field_types'
 import resizer from './resizer'
 import settings from './settings'
-import visibleFields from './visible_fields'
 import print from './print'
 import viewStates from './view_states'
 
@@ -30,6 +29,5 @@ export default combineReducers({
   intl: intlReducer,
   resizer,
   settings,
-  visibleFields,
   viewStates
 })

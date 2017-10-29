@@ -1,5 +1,4 @@
 import {
-  UPDATE_VISIBLE_FIELDS,
   UPDATE_FIELD_ORDER,
   EDIT_FEATURE,
   DELETE_FEATURE
@@ -19,7 +18,6 @@ export const showFeatureDetail = createActionCreator('SHOW_FEATURE_DETAIL')
 export const closeModal = createActionCreator('CLOSE_MODAL')
 export const switchView = createActionCreator('SWITCH_VIEW')
 export const redirectView = createActionCreator('REDIRECT_VIEW')
-export const updateVisibleFields = createActionCreator(UPDATE_VISIBLE_FIELDS)
 export const updateFieldOrder = createActionCreator(UPDATE_FIELD_ORDER)
 export const editFeature = createActionCreator(EDIT_FEATURE)
 export const deleteFeature = createActionCreator(DELETE_FEATURE)
