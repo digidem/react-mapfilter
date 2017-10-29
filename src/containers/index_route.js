@@ -79,6 +79,9 @@ const styles = theme => ({
     }
   },
   '@global': {
+    '@page': {
+      margin: '0.5in'
+    },
     '@media only print': {
       'body, html': {
         overflow: 'visible'

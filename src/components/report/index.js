@@ -102,9 +102,6 @@ const styles = {
     flexDirection: 'column'
   },
   '@global': {
-    '@page': {
-      margin: '0.5in'
-    },
     '@media only print': {
       tr: {
         pageBreakInside: 'avoid'

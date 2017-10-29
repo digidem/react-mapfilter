@@ -5,6 +5,7 @@ import mapboxgl from 'mapbox-gl'
 import deepEqual from 'deep-equal'
 import assign from 'object-assign'
 import featureFilter from 'feature-filter-geojson'
+import { withStyles } from 'material-ui/styles'
 
 import * as MFPropTypes from '../../util/prop_types'
 import { getBoundsOrWorld } from '../../util/map_helpers'
@@ -18,6 +19,22 @@ require('mapbox-gl/dist/mapbox-gl.css')
 mapboxgl.accessToken = config.mapboxToken
 
 const log = debug('mf:mapview')
+
+const styles = {
+  root: {
+    width: '100%',
+    height: '100%',
+    position: 'absolute',
+    '@media only print': {
+      width: '7.5in',
+      height: '10in'
+    }
+  },
+  map: {
+    width: '100%',
+    height: '100%'
+  }
+}
 
 const emptyGeoJson = {
   type: 'FeatureCollection',
@@ -162,11 +179,12 @@ class MapView extends React.Component {
   }
 
   render () {
+    const {classes} = this.props
     return (
-      <div style={{width: '100%', height: '100%', position: 'absolute'}}>
+      <div className={classes.root}>
         <div
           ref={(el) => (this.mapContainer = el)}
-          style={{width: '100%', height: '100%'}}
+          className={classes.map}
         />
         {this.state.lngLat && <Popup map={this.map} {...this.state} />}
       </div>
@@ -352,4 +370,4 @@ class MapView extends React.Component {
   }
 }
 
-export default MapView
+export default withStyles(styles)(MapView)
