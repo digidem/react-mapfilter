@@ -55,6 +55,20 @@ export const features = PropTypes.arrayOf(
   })
 ).isRequired
 
+const fieldAnalysisField = PropTypes.shape({
+  fieldname: PropTypes.string,
+  count: PropTypes.number,
+  filterType: PropTypes.string,
+  isUnique: PropTypes.bool,
+  type: PropTypes.string
+})
+
+export const fieldAnalysis = PropTypes.shape({
+  $id: fieldAnalysisField,
+  $type: fieldAnalysisField,
+  properties: PropTypes.objectOf(fieldAnalysisField).isRequired
+})
+
 /**
  * Our filter structure is similar to mapbox filters but we index
  * by key and then expression. We only allow filters to combined

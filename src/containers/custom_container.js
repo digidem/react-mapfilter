@@ -1,6 +1,7 @@
 import { connect } from 'react-redux'
 import omit from 'lodash/omit'
 import { bindActionCreators } from 'redux'
+import assign from 'object-assign'
 
 import * as actionCreators from '../action_creators'
 
@@ -15,8 +16,11 @@ import getVisibleFields from '../selectors/visible_fields'
 
 const CustomContainer = (props) => createElement(props.component, omit(props, 'component'))
 
-function mapStateToProps (state) {
+function mapStateToProps (state, ownProps) {
   return {
+    viewState: state.viewStates[ownProps.component.MfViewId],
+    print: state.print.print,
+    paperSize: state.print.paperSize,
     center: state.mapPosition.center,
     zoom: state.mapPosition.zoom,
     mapStyle: state.mapStyle,
@@ -34,5 +38,7 @@ function mapStateToProps (state) {
 
 export default connect(
   mapStateToProps,
-  (dispatch) => bindActionCreators(actionCreators, dispatch)
+  (dispatch, ownProps) => assign({}, bindActionCreators(actionCreators, dispatch), {
+    updateViewState: (state) => dispatch(actionCreators.updateViewState({id: ownProps.component.MfViewId, state: state}))
+  })
 )(CustomContainer)

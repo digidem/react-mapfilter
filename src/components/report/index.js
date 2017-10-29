@@ -4,7 +4,9 @@ import Paper from 'material-ui/Paper'
 import Typography from 'material-ui/Typography'
 import { withStyles } from 'material-ui/styles'
 import omit from 'lodash/omit'
+import assign from 'object-assign'
 
+import ReportToolbar from './ReportToolbar'
 import ReportFeature from './feature'
 import * as MFPropTypes from '../../util/prop_types'
 import MapView from '../map'
@@ -34,8 +36,61 @@ const styles = {
       backgroundColor: 'initial'
     }
   },
+  letter: {
+    '& $reportContainer': {
+      minWidth: '8.5in'
+    },
+    '& $reportPaper': {
+      width: '8.5in',
+      '@media only print': {
+        /* for some reason we need to substract 2px for a perfect fit */
+        width: 'calc(7.5in - 2px)'
+      }
+    },
+    '& $reportPaperMap': {
+      height: 'calc(11in - 2px)',
+      '@media only print': {
+        height: 'calc(10in - 2px)'
+      }
+    },
+    '& $pageBreak': {
+      top: '10.5in'
+    },
+    '& $reportPage': {
+      minHeight: '10in',
+      '@media only print': {
+        minHeight: 'auto'
+      }
+    }
+  },
+  a4: {
+    '& $reportContainer': {
+      minWidth: '210mm'
+    },
+    '& $reportPaper': {
+      width: '210mm',
+      '@media only print': {
+        /* for some reason we need to substract 2px for a perfect fit */
+        width: 'calc(210mm - 1in - 2px)'
+      }
+    },
+    '& $reportPaperMap': {
+      height: 'calc(297mm - 3px)',
+      '@media only print': {
+        height: 'calc(297mm - 1in - 3px)'
+      }
+    },
+    '& $pageBreak': {
+      top: 'calc(297mm - 0.5in)'
+    },
+    '& $reportPage': {
+      minHeight: 'calc(297mm - 1in)',
+      '@media only print': {
+        minHeight: 'auto'
+      }
+    }
+  },
   reportContainer: {
-    minWidth: '8.5in',
     padding: '0 20px',
     '@media only print': {
       display: 'block',
@@ -46,7 +101,6 @@ const styles = {
   reportPaper: {
     cursor: 'pointer',
     margin: '20px auto',
-    width: '8.5in',
     overflow: 'hidden',
     pageBreakAfter: 'always',
     position: 'relative',
@@ -54,9 +108,7 @@ const styles = {
       minHeight: 'auto',
       boxShadow: 'none !important',
       borderRadius: '0 !important',
-      margin: 0,
-      /* for some reason we need to substract 2px for a perfect fit */
-      width: 'calc(7.5in - 2px)'
+      margin: 0
     },
     '&:last-child': {
       pageBreakAfter: 'avoid !important'
@@ -64,11 +116,7 @@ const styles = {
   },
   reportPaperMap: {
     cursor: 'auto',
-    display: 'flex',
-    height: 'calc(11in - 2px)',
-    '@media only print': {
-      height: 'calc(10in - 2px)'
-    }
+    display: 'flex'
   },
   mapContainer: {
     flex: 1,
@@ -77,7 +125,6 @@ const styles = {
   pageBreak: {
     position: 'absolute',
     left: 0,
-    top: '10.5in',
     width: '100%',
     border: 'none',
     margin: 0,
@@ -88,10 +135,8 @@ const styles = {
   },
   reportPage: {
     margin: '0.5in',
-    minHeight: '10in',
     outline: '1px dashed #eeeeee',
     '@media only print': {
-      minHeight: 'auto',
       margin: 0,
       outline: 'none'
     }
@@ -110,6 +155,7 @@ const styles = {
   }
 }
 
+const VIEW_ID = 'report'
 const MAX_REPORT_LEN = 26
 
 class ReportView extends React.Component {
@@ -119,11 +165,27 @@ class ReportView extends React.Component {
     filter: MFPropTypes.mapboxFilter
   }
 
+  handleFieldVisibilityToggle = (fieldname) => {
+    const {updateViewState, viewState: {hiddenFields = {}}} = this.props
+    updateViewState({
+      hiddenFields: assign({},
+        hiddenFields,
+        {[fieldname]: !hiddenFields[fieldname]}
+      )
+    })
+  }
+
   render () {
-    const { filteredFeatures, showFeatureDetail, classes } = this.props
+    const { filteredFeatures, showFeatureDetail, fieldAnalysis, classes, requestPrint, paperSize, viewState } = this.props
     const featuresSlice = filteredFeatures.length > MAX_REPORT_LEN ? filteredFeatures.slice(0, MAX_REPORT_LEN) : filteredFeatures
-    return (
-      <div className={classes.reportWrapper}>
+    return (<div>
+      <ReportToolbar
+        hiddenFields={viewState.hiddenFields}
+        onToggleFieldVisibility={this.handleFieldVisibilityToggle}
+        fieldAnalysis={fieldAnalysis}
+        requestPrint={requestPrint}
+      />
+      <div className={classes.reportWrapper + ' ' + classes[paperSize]}>
         <div className={classes.reportHeader}>
           {filteredFeatures.length > MAX_REPORT_LEN && <Alert label={'Current filters show ' + filteredFeatures.length +
               ' records, a report will only show the first ' + MAX_REPORT_LEN + ' records'} />}
@@ -151,6 +213,7 @@ class ReportView extends React.Component {
                 <div className={classes.reportPage}>
                   <ReportFeature
                     {...omit(this.props, 'classes')}
+                    visibleFields={Object.keys(fieldAnalysis.properties).filter(fieldname => !viewState.hiddenFields[fieldname])}
                     feature={feature}
                     label={config.labelChars.charAt(i)}
                   />
@@ -168,8 +231,16 @@ class ReportView extends React.Component {
           }
         </div>
       </div>
-    )
+    </div>)
   }
 }
+
+ReportView.defaultProps = {
+  viewState: {
+    hiddenFields: {}
+  }
+}
+
+ReportView.MfViewId = VIEW_ID
 
 export default withStyles(styles)(ReportView)

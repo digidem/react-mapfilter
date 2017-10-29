@@ -1,7 +1,6 @@
 import React from 'react'
 
 import { storiesOf } from '@storybook/react'
-import { action } from '@storybook/addon-actions'
 
 import Select from '../src/components/shared/select'
 import MultiSelect from '../src/components/shared/multi_select'

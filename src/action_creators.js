@@ -23,6 +23,10 @@ export const updateVisibleFields = createActionCreator(UPDATE_VISIBLE_FIELDS)
 export const updateFieldOrder = createActionCreator(UPDATE_FIELD_ORDER)
 export const editFeature = createActionCreator(EDIT_FEATURE)
 export const deleteFeature = createActionCreator(DELETE_FEATURE)
+export const requestPrint = createActionCreator('REQUEST_PRINT')
+export const cancelPrint = createActionCreator('CANCEL_PRINT')
+export const changePaperSize = createActionCreator('CHANGE_PAPER_SIZE')
+export const updateViewState = createActionCreator('UPDATE_VIEW_STATE')
 
 function createActionCreator (type) {
   return function (payload) {

@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { withStyles } from 'material-ui/styles'
 import { bindActionCreators } from 'redux'
 import find from 'lodash/find'
+import assign from 'object-assign'
 
 import CustomContainer from './custom_container'
 import TopBar from './top_bar'
@@ -16,6 +17,7 @@ import MapView from '../components/map'
 import ReportView from '../components/report'
 import MediaView from '../components/media'
 import {createElement} from '../util/general_helpers'
+import PrintDialog from '../components/PrintDialog'
 
 const styles = theme => ({
   outer: {
@@ -86,6 +88,9 @@ const styles = theme => ({
       'body, html': {
         overflow: 'visible'
       },
+      '.d-print-none': {
+        display: 'none'
+      },
       /* Override display: flex which breaks page-break-after */
       // Fix for page-break-after not working in Chrome see http://stackoverflow.com/questions/4884380/css-page-break-not-working-in-all-browsers/5314590
       div: {
@@ -115,7 +120,8 @@ class IndexRoute extends React.Component {
   }
 
   render () {
-    const {activeView, activeModal, actionButton, classes, views, switchView, settingsTab, toolbarButtons, toolbarTitle} = this.props
+    const {activeView, activeModal, actionButton, classes, views, switchView,
+      settingsTab, toolbarButtons, toolbarTitle, print, paperSize, cancelPrint, changePaperSize} = this.props
     const ViewComponent = getViewComponent(activeView, views)
 
     return (
@@ -143,6 +149,7 @@ class IndexRoute extends React.Component {
           classes={{root: classes.modalRoot, paper: classes.modalPaper}}>
           <Settings activeTabId={settingsTab} onCloseClick={this.props.closeModal} className={classes.modalInner} />}
         </Dialog>
+        <PrintDialog open={print} onRequestClose={cancelPrint} onChangePaperSize={changePaperSize} paperSize={paperSize} />
       </div>
     )
   }
@@ -168,6 +175,6 @@ function getViewComponent (activeView, views) {
 }
 
 export default connect(
-  (state) => state.ui || {},
+  (state) => assign({}, state.ui || {}, state.print),
   (dispatch) => bindActionCreators(actionCreators, dispatch)
 )(withStyles(styles)(IndexRoute))

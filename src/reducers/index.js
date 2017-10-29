@@ -13,6 +13,8 @@ import fieldTypes from './field_types'
 import resizer from './resizer'
 import settings from './settings'
 import visibleFields from './visible_fields'
+import print from './print'
+import viewStates from './view_states'
 
 export default combineReducers({
   features,
@@ -21,11 +23,13 @@ export default combineReducers({
   mapPosition,
   mapStyle,
   ui,
+  print,
   fieldMapping,
   fieldOrder,
   fieldTypes,
   intl: intlReducer,
   resizer,
   settings,
-  visibleFields
+  visibleFields,
+  viewStates
 })

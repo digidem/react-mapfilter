@@ -30,7 +30,7 @@ const styles = {
     minWidth: 300,
     flex: 1,
     overflowY: 'auto',
-    zIndex: 2,
+    zIndex: 20,
     // backgroundColor: 'white',
     '@media print': {
       display: 'none'

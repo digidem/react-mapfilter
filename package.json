@@ -82,6 +82,7 @@
     "rework-import": "^2.1.0",
     "rimraf": "^2.5.4",
     "standard": "^10.0.0",
+    "storybook-addon-intl": "^2.1.2",
     "tape": "^4.7.0",
     "traverse": "^0.6.6",
     "uglify-es": "^3.1.3",

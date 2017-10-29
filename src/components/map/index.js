@@ -24,11 +24,7 @@ const styles = {
   root: {
     width: '100%',
     height: '100%',
-    position: 'absolute',
-    '@media only print': {
-      width: '7.5in',
-      height: '10in'
-    }
+    position: 'absolute'
   },
   map: {
     width: '100%',
