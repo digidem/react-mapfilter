@@ -73,7 +73,27 @@ const styles = theme => ({
     position: 'absolute',
     bottom: 36,
     right: 36,
-    zIndex: 2
+    zIndex: 2,
+    '@media only print': {
+      display: 'none'
+    }
+  },
+  '@global': {
+    '@media only print': {
+      'body, html': {
+        overflow: 'visible'
+      },
+      /* Override display: flex which breaks page-break-after */
+      // Fix for page-break-after not working in Chrome see http://stackoverflow.com/questions/4884380/css-page-break-not-working-in-all-browsers/5314590
+      div: {
+        float: 'none !important'
+      },
+      /* TODO include some form of MapFilter header */
+      /* TODO rotate the filter display and show state vs. allow interaction */
+      '.mapboxgl-control-container': {
+        display: 'none'
+      }
+    }
   }
 })
 
