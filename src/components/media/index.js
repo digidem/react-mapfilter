@@ -34,4 +34,6 @@ class MediaView extends React.Component {
   }
 }
 
+MediaView.MfViewId = 'media'
+
 export default MediaView

@@ -74,13 +74,13 @@ function TopBar ({activeView, views, onChangeTab, buttons, title, classes}) {
           onChange={(e, value) => onChangeTab(value)}
           centered
         >
-          {views.map((view, i) => (
+          {views.map((view) => (
             <Tab
-              key={i}
-              label={<FormattedMessage {...messages[view.id]} />}
+              key={view.MfViewId}
+              label={<FormattedMessage {...messages[view.MfViewId]} />}
               className={classes.heights}
               classes={{label: classes.tabLabels}}
-              value={view.id}
+              value={view.MfViewId}
             />
           ))}
         </Tabs>
@@ -96,12 +96,14 @@ TopBar.defaultProps = {
   buttons: [
     MenuButton
   ],
-  title: 'MapFilter'
+  title: 'MapFilter',
+  views: []
 }
 
 TopBar.propTypes = {
   buttons: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.element, PropTypes.func])),
-  title: PropTypes.oneOfType([PropTypes.string, PropTypes.element])
+  title: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
+  views: PropTypes.arrayOf(PropTypes.func)
 }
 
 export default withStyles(styleSheet)(TopBar)

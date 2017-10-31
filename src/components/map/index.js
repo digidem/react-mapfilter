@@ -366,4 +366,6 @@ class MapView extends React.Component {
   }
 }
 
+MapView.MfViewId = 'map'
+
 export default withStyles(styles)(MapView)

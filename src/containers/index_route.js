@@ -115,7 +115,7 @@ class IndexRoute extends React.Component {
   }
 
   redirectIfNecessary ({activeModal, activeView, views, redirectView}) {
-    if (!find(views, {id: activeView})) return redirectView(views[0].id)
+    if (!find(views, {MfViewId: activeView})) return redirectView(views[0].MfViewId)
     // if (activeModal && !getModalComponent(activeModal)) redirectView(activeView)
   }
 
@@ -156,22 +156,13 @@ class IndexRoute extends React.Component {
 }
 
 IndexRoute.defaultProps = {
-  views: [{
-    id: 'map',
-    component: MapView
-  }, {
-    id: 'media',
-    component: MediaView
-  }, {
-    id: 'report',
-    component: ReportView
-  }]
+  views: [MapView, MediaView, ReportView]
 }
 
 function getViewComponent (activeView, views) {
-  var view = find(views, {id: activeView})
+  var view = find(views, {MfViewId: activeView})
   if (!view) return () => <div />
-  return view.component
+  return view
 }
 
 export default connect(
