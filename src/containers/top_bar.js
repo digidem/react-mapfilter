@@ -85,7 +85,7 @@ function TopBar ({activeView, views, onChangeTab, buttons, title, classes}) {
           ))}
         </Tabs>
         <div className={classes.buttons}>
-          {buttons.map((button, i) => <CustomContainer key={i} component={button} />)}
+          {buttons.concat([MenuButton]).map((button, i) => <CustomContainer key={i} component={button} />)}
         </div>
       </Toolbar>
     </AppBar>
@@ -93,9 +93,7 @@ function TopBar ({activeView, views, onChangeTab, buttons, title, classes}) {
 }
 
 TopBar.defaultProps = {
-  buttons: [
-    MenuButton
-  ],
+  buttons: [],
   title: 'MapFilter',
   views: []
 }
