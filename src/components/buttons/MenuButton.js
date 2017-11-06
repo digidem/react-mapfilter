@@ -88,6 +88,7 @@ class MenuButton extends React.Component {
       </Tooltip>
       <Menu
         open={this.state.open}
+        MenuListProps={{dense: true}}
         id='toolbar-menu'
         anchorEl={this.state.anchorEl}
         onClick={this.handleRequestClose}
