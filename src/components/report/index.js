@@ -189,7 +189,7 @@ class ReportView extends React.Component {
   }
 
   render () {
-    const { filteredFeatures, showFeatureDetail, fieldAnalysis, classes, requestPrint, paperSize, viewState } = this.props
+    const { filteredFeatures, featuresById, showFeatureDetail, fieldAnalysis, classes, requestPrint, paperSize, viewState } = this.props
     const featuresSlice = filteredFeatures.length > MAX_REPORT_LEN ? filteredFeatures.slice(0, MAX_REPORT_LEN) : filteredFeatures
     return (<div>
       <ReportToolbar
@@ -229,7 +229,7 @@ class ReportView extends React.Component {
                   <ReportFeature
                     {...omit(this.props, 'classes')}
                     hiddenFields={viewState.hiddenFields}
-                    feature={feature}
+                    feature={featuresById[feature.id]}
                     label={config.labelChars.charAt(i)}
                   />
                 </div>

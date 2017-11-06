@@ -8,6 +8,7 @@ import * as actionCreators from '../action_creators'
 import { createElement } from '../util/general_helpers'
 import getFieldAnalysis from '../selectors/field_analysis'
 import getFilterableFeatures from '../selectors/filterable_features'
+import getFeaturesById from '../selectors/features_by_id'
 import getFilteredFeatures from '../selectors/filtered_features'
 import getMapBoxFilter from '../selectors/mapbox_filter'
 import getFieldMapping from '../selectors/field_mapping'
@@ -26,6 +27,7 @@ function mapStateToProps (state, ownProps) {
     mapStyle: state.mapStyle,
     settings: state.settings,
     features: getFilterableFeatures(state),
+    featuresById: getFeaturesById(state),
     fieldAnalysis: getFieldAnalysis(state),
     fieldOrder: state.fieldOrder,
     filter: getMapBoxFilter(state),
