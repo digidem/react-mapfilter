@@ -16,7 +16,7 @@ export const mapViewFeature = PropTypes.shape({
       type: PropTypes.oneOf(['Point']).isRequired,
       coordinates: PropTypes.array.isRequired
     })
-  ]).isRequired
+  ])
 })
 
 export const fieldMapping = PropTypes.shape({
@@ -50,7 +50,7 @@ export const features = PropTypes.arrayOf(
         type: PropTypes.oneOf(['Point']).isRequired,
         coordinates: PropTypes.array.isRequired
       })
-    ]).isRequired,
+    ]),
     properties: PropTypes.object
   })
 ).isRequired
