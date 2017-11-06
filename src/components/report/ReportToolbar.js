@@ -40,7 +40,7 @@ class ReportToolbar extends React.Component {
   }
 
   render () {
-    const {fieldAnalysis, hiddenFields, onToggleFieldVisibility, requestPrint} = this.props
+    const {fieldAnalysis, hiddenFields, onToggleFieldVisibility, requestPrint, onShowAll, onHideAll} = this.props
     const fields = getFieldList(fieldAnalysis, hiddenFields)
     const hiddenCount = Object.keys(hiddenFields).filter(key => hiddenFields[key]).length
     return (
@@ -53,6 +53,8 @@ class ReportToolbar extends React.Component {
           anchorEl={this.state.hideFieldsButtonEl}
           open={this.state.hideFieldsOpen}
           fields={fields}
+          onShowAll={onShowAll}
+          onHideAll={onHideAll}
           onToggle={onToggleFieldVisibility}
           onRequestClose={() => this.setState({hideFieldsOpen: false})} />
         <ToolbarButton onClick={requestPrint}>

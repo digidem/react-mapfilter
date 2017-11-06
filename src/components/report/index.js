@@ -165,6 +165,19 @@ class ReportView extends React.Component {
     filter: MFPropTypes.mapboxFilter
   }
 
+  handleOnShowAll = () => {
+    this.props.updateViewState({hiddenFields: {}})
+  }
+
+  handleOnHideAll = () => {
+    const {fieldAnalysis, updateViewState} = this.props
+    const hiddenFields = {}
+    Object.keys(fieldAnalysis.properties).forEach(key => {
+      hiddenFields[key] = true
+    })
+    updateViewState({hiddenFields})
+  }
+
   handleFieldVisibilityToggle = (fieldname) => {
     const {updateViewState, viewState: {hiddenFields = {}}} = this.props
     updateViewState({
@@ -182,6 +195,8 @@ class ReportView extends React.Component {
       <ReportToolbar
         hiddenFields={viewState.hiddenFields}
         onToggleFieldVisibility={this.handleFieldVisibilityToggle}
+        onShowAll={this.handleOnShowAll}
+        onHideAll={this.handleOnHideAll}
         fieldAnalysis={fieldAnalysis}
         requestPrint={requestPrint}
       />
