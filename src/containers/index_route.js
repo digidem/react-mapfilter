@@ -156,7 +156,8 @@ class IndexRoute extends React.Component {
 }
 
 IndexRoute.defaultProps = {
-  views: [MapView, MediaView, ReportView]
+  views: [MapView, MediaView, ReportView],
+  activeView: 'map'
 }
 
 function getViewComponent (activeView, views) {

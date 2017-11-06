@@ -3,7 +3,7 @@ import assign from 'object-assign'
 // The current UI state of the app
 const defaultState = {
   // The current main view of the data
-  activeView: null,
+  activeView: undefined,
   // The current open modal
   activeModal: null,
   // Whether the filter pane is shown or hidden
