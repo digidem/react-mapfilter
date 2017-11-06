@@ -164,7 +164,7 @@ const FeatureTable = (props) => {
           <TableBody>
             {rows.map((row, i) => (
               <TableRow key={i} className={classes.row} style={{zIndex: rows.length - i}}>
-                <TableCell padding='dense' className={classes.col1} style={{maxWidth: width / 3}}>
+                <TableCell padding='dense' className={classes.col1} style={{maxWidth: width / 3 - 36}}>
                   <Typography className={classes.col1Text}>
                     <FormattedFieldname fieldname={row.key} />
                   </Typography>
