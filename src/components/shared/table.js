@@ -60,7 +60,9 @@ const styles = {
   col1Text: {
     fontWeight: 500,
     textOverflow: 'ellipsis',
-    overflow: 'hidden'
+    overflow: 'hidden',
+    whiteSpace: 'nowrap',
+    direction: 'rtl'
   },
   col2: {
     padding: '14px 24px 14px 12px !important',

@@ -25,14 +25,16 @@ const FormattedFieldname = ({fieldname, children, intl}) => {
   if (typeof children === 'function') {
     return children(parts.join(' / '))
   }
-  const groupText = parts.slice(0, -1)
-  const fieldText = parts.slice(-1)[0]
-  return <span>
-    {groupText.map((t, i) => <span style={styles.groupText} key={i}>
-      <FormattedMessage {...msg('field_key')(t)} />{' / '}
-    </span>)}
+  const groupText = parts.slice(0, -1).map(t => (
+    intl.formatMessage(msg('field_key')(t)) + ' / '
+  )).join('')
+  const fieldText = intl.formatMessage(msg('field_key')(parts.slice(-1)[0]))
+  return <span title={groupText + fieldText}>
+    <span style={styles.groupText}>
+      {groupText}
+    </span>
     <span style={styles.fieldText}>
-      <FormattedMessage {...msg('field_key')(fieldText)} />
+      {fieldText}
     </span>
   </span>
 }

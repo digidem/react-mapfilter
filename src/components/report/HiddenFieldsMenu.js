@@ -14,6 +14,13 @@ const styles = (theme) => ({
   },
   button: {
     margin: `0 ${theme.spacing.unit / 2}px`
+  },
+  fieldname: {
+    maxWidth: 250,
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
+    whiteSpace: 'nowrap',
+    direction: 'rtl'
   }
 })
 
@@ -42,7 +49,7 @@ const HiddenFieldsMenu = ({anchorEl, open, onRequestClose, onShowAll, onHideAll,
     <List dense>
       {fields.map(field => (
         <ListItem key={field.key} button={false}>
-          <ListItemText primary={<FormattedFieldname fieldname={field.key} />} />
+          <ListItemText className={classes.fieldname} primary={<FormattedFieldname fieldname={field.key} />} />
           <ListItemSecondaryAction>
             <Switch
               onClick={() => onToggle(field.key)}
