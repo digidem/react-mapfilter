@@ -17,7 +17,10 @@ import {
   FIELD_TYPE_VIDEO,
   FIELD_TYPE_MEDIA,
   FIELD_TYPE_AUDIO,
-  FIELD_TYPE_LINK
+  FIELD_TYPE_LINK,
+  FIELD_TYPE_UUID,
+  FIELD_TYPE_FILENAME,
+  UNDEFINED_KEY
 } from '../../constants'
 
 const FormattedValue = ({value, type, coordFormat = FORMATS_DEG_MIN_SEC}) => {
@@ -31,7 +34,10 @@ const FormattedValue = ({value, type, coordFormat = FORMATS_DEG_MIN_SEC}) => {
     case FIELD_TYPE_LOCATION:
       return <span>{formatLocation(value, coordFormat)}</span>
     case FIELD_TYPE_NUMBER:
-      return <span>{(value || 0) + ''}</span>
+      return <span>{value === UNDEFINED_KEY ? '' : value + ''}</span>
+    case FIELD_TYPE_UUID:
+    case FIELD_TYPE_FILENAME:
+      return <span>{value}</span>
     case FIELD_TYPE_IMAGE:
     case FIELD_TYPE_VIDEO:
     case FIELD_TYPE_MEDIA:

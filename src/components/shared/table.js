@@ -35,7 +35,8 @@ import {
   FIELD_TYPE_IMAGE,
   FIELD_TYPE_VIDEO,
   FIELD_TYPE_MEDIA,
-  FIELD_TYPE_AUDIO
+  FIELD_TYPE_AUDIO,
+  UNDEFINED_KEY
 } from '../../constants'
 
 const messages = defineMessages({
@@ -212,7 +213,7 @@ const getRows = createSelector(
       }))
       .filter(row => editMode || (!hiddenFields[row.key] &&
         (typeof row.value !== 'string' || row.value.length) &&
-        typeof row.value !== 'undefined'))
+        typeof row.value !== 'undefined' && row.value !== UNDEFINED_KEY))
 
     if (feature.geometry) {
       rows.unshift({
