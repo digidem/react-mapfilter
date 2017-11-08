@@ -20,7 +20,7 @@ import getVisibleFields from '../../selectors/visible_fields'
 import getFieldAnalysis from '../../selectors/field_analysis'
 import Image from '../image'
 import FeatureTable from '../shared/table'
-import {updateVisibleFields, editFeature, deleteFeature} from '../../action_creators'
+import {editFeature, deleteFeature} from '../../action_creators'
 import {FIELD_TYPE_SPACE_DELIMITED} from '../../constants'
 
 const styleSheet = {

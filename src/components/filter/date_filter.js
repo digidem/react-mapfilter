@@ -1,22 +1,17 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import {findDOMNode} from 'react-dom'
 import makePure from 'recompose/pure'
 import DateIcon from 'material-ui-icons/DateRange'
 import Button from 'material-ui/Button'
-import Typography from 'material-ui/Typography'
-import { ListItem, ListItemIcon, ListItemText, ListItemSecondaryAction } from 'material-ui/List'
 import { withStyles } from 'material-ui/styles'
 import IconButton from 'material-ui/IconButton'
 import EditIcon from 'material-ui-icons/Edit'
 import Popover from 'material-ui/Popover'
 import {DateRange} from 'react-date-range'
 import moment from 'moment'
-import omit from 'lodash/omit'
 import {injectIntl} from 'react-intl'
 
 import FilterSection from './filter_section'
-import { listStyles } from '../../styles'
 import { dateFormatShort } from '../../../config.json'
 import {createMessage as msg} from '../../util/intl_helpers'
 
@@ -64,14 +59,6 @@ const styles = theme => ({
     fontFamily: theme.typography.fontFamily
   }
 })
-
-// Material-ui passes a `nestedLevel` prop to nested items.
-// We're not using a `div` instead of the material-ui component for
-// nested items, so we need to remove the `nestedLevel` prop.
-const NestedItem = props => {
-  const divProps = omit(props, ['nestedLevel', 'children'])
-  return <div {...divProps}>{props.children}</div>
-}
 
 class DateFilter extends React.PureComponent {
   static propTypes = {

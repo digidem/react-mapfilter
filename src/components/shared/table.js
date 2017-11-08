@@ -12,9 +12,6 @@ import classNames from 'classnames'
 
 import FormattedValue from '../shared/formatted_value'
 import FormattedFieldname from '../shared/formatted_fieldname'
-import IconButton from 'material-ui/IconButton'
-import VisibilityIcon from 'material-ui-icons/Visibility'
-import VisibilityOffIcon from 'material-ui-icons/VisibilityOff'
 import TextField from 'material-ui/TextField'
 import Input from 'material-ui/Input'
 import { MenuItem } from 'material-ui/Menu'
@@ -22,8 +19,6 @@ import MUISelect from 'material-ui/Select'
 import Select from '../shared/select'
 import MultiSelect from '../shared/multi_select'
 import makePure from 'recompose/pure'
-import Tooltip from 'material-ui/Tooltip'
-import { FormattedMessage, defineMessages } from 'react-intl'
 
 import {
   FIELD_TYPE_LOCATION,
@@ -38,14 +33,6 @@ import {
   FIELD_TYPE_AUDIO,
   UNDEFINED_KEY
 } from '../../constants'
-
-const messages = defineMessages({
-  visibility: {
-    id: 'featureDetail.visibilitySwitch',
-    defaultMessage: 'Hide or show field',
-    description: 'Tooltip for button to hide or show a field'
-  }
-})
 
 const styles = {
   root: {

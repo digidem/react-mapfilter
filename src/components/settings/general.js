@@ -9,7 +9,6 @@ import List, {
   ListItemText
 } from 'material-ui/List'
 import Input from 'material-ui/Input'
-import { MenuItem } from 'material-ui/Menu'
 import { FormControl } from 'material-ui/Form'
 import Select from 'material-ui/Select'
 
