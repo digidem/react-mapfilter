@@ -7,6 +7,7 @@ import IconButton from 'material-ui/IconButton'
 import Collapse from 'material-ui/transitions/Collapse'
 import ExpandMoreIcon from 'material-ui-icons/ExpandMore'
 import ExpandLessIcon from 'material-ui-icons/ExpandLess'
+// import ColorIcon from 'material-ui-icons/ColorLens'
 
 import ShowAllButton from './show_all_button'
 
@@ -23,6 +24,12 @@ const styleSheet = {
     position: 'relative'
   }
 }
+
+// const ColorButton = () => (
+//   <IconButton>
+//     <ColorIcon />
+//   </IconButton>
+// )
 
 const ExpandButton = ({expanded, onClick}) => (
   <IconButton onClick={onClick}>

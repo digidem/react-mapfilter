@@ -1,8 +1,5 @@
 import React from 'react'
-
-import { connect } from 'react-redux'
-import { CardActions } from 'material-ui/Card'
-import Paper from 'material-ui/Paper'
+import PropTypes from 'prop-types'
 import Button from 'material-ui/Button'
 import IconButton from 'material-ui/IconButton'
 import CloseIcon from 'material-ui-icons/Close'
@@ -12,35 +9,16 @@ import Dialog, { DialogActions, DialogTitle } from 'material-ui/Dialog'
 import {FormattedMessage, defineMessages} from 'react-intl'
 import assign from 'object-assign'
 import {unflatten} from 'flat'
-import classNames from 'classnames'
 
-import getFeaturesById from '../../selectors/features_by_id'
-import getFieldMapping from '../../selectors/field_mapping'
-import getVisibleFields from '../../selectors/visible_fields'
-import getFieldAnalysis from '../../selectors/field_analysis'
 import Image from '../image'
 import FeatureTable from '../shared/table'
-import {editFeature, deleteFeature} from '../../action_creators'
 import {FIELD_TYPE_SPACE_DELIMITED} from '../../constants'
 
-const styleSheet = {
-  card: {
+const styles = {
+  root: {
     width: '100%',
-    position: 'relative'
-  },
-  cardUnrestricted: {
-    width: '100%'
-  },
-  header: {
-    lineHeight: '22px',
-    boxSizing: 'content-box',
-    borderBottom: '1px solid #cccccc'
-  },
-  markerIcon: {
-    width: 40,
-    height: 40,
-    margin: 0,
-    marginRight: 16
+    position: 'relative',
+    backgroundColor: 'white'
   },
   media: {
     position: 'relative',
@@ -56,9 +34,6 @@ const styleSheet = {
     objectFit: 'cover',
     transform: 'translate3d(0,0,0)'
   },
-  button: {
-    margin: '8px 16px 8px 8px'
-  },
   closeButton: {
     position: 'absolute',
     top: 0,
@@ -67,10 +42,6 @@ const styleSheet = {
     color: 'white',
     backgroundColor: 'rgba(0,0,0,0.3)',
     borderRadius: 0
-  },
-  actions: {
-    justifyContent: 'flex-end',
-    paddingBottom: 8
   }
 }
 
@@ -102,41 +73,44 @@ const messages = defineMessages({
   }
 })
 
-const Actions = ({editMode, onCloseClick, onEditClick, onCancelClick, onSaveClick, onDeleteClick, classes}) => (
-  editMode
-  ? <CardActions className={classes.actions}>
-    <Button
-      color='accent'
-      raised
-      onClick={onDeleteClick}
-      className={classes.button}
-    ><FormattedMessage {...messages.deleteButton} /></Button>
-    <Button
-      raised
-      onClick={onCancelClick}
-      className={classes.button}
-    ><FormattedMessage {...messages.cancelButton} /></Button>
-    <Button
-      raised
-      color='primary'
-      onClick={onSaveClick}
-      className={classes.button}
-    ><FormattedMessage {...messages.saveButton} /></Button>
-  </CardActions>
-  : <CardActions className={classes.actions}>
+const ViewActions = ({onCloseClick, onEditClick, classes}) => (
+  <DialogActions>
     <Button
       raised
       icon={<EditIcon />}
-      onClick={onEditClick}
-      className={classes.button}
-    ><FormattedMessage {...messages.editButton} /></Button>
+      onClick={onEditClick}>
+      <FormattedMessage {...messages.editButton} />
+    </Button>
     <Button
       raised
       color='primary'
-      onClick={onCloseClick}
-      className={classes.button}
-    ><FormattedMessage {...messages.closeButton} /></Button>
-  </CardActions>
+      onClick={onCloseClick}>
+      <FormattedMessage {...messages.closeButton} />
+    </Button>
+  </DialogActions>
+)
+
+const EditActions = ({onCancelClick, onSaveClick, onDeleteClick, classes}) => (
+  <DialogActions>
+    <Button
+      color='accent'
+      raised
+      onClick={onDeleteClick}>
+      <FormattedMessage {...messages.deleteButton} />
+    </Button>
+    <Button
+      raised
+      onClick={onCancelClick}
+      className={classes.button}>
+      <FormattedMessage {...messages.cancelButton} />
+    </Button>
+    <Button
+      raised
+      color='primary'
+      onClick={onSaveClick}>
+      <FormattedMessage {...messages.saveButton} />
+    </Button>
+  </DialogActions>
 )
 
 class FeatureDetail extends React.Component {
@@ -145,7 +119,7 @@ class FeatureDetail extends React.Component {
     this.state = {
       editMode: false
     }
-    if (!props.feature) props.onCloseClick()
+    if (!props.feature) props.onRequestClose()
     this.handleEditClick = this.handleEditClick.bind(this)
     this.handleCancelClick = this.handleCancelClick.bind(this)
     this.handleSaveClick = this.handleSaveClick.bind(this)
@@ -153,7 +127,7 @@ class FeatureDetail extends React.Component {
   }
 
   componentWillReceiveProps (nextProps) {
-    if (!nextProps.feature) return nextProps.onCloseClick()
+    if (!nextProps.feature) return nextProps.onRequestClose()
   }
 
   handleEditClick () {
@@ -186,17 +160,17 @@ class FeatureDetail extends React.Component {
   }
 
   render () {
-    const {media, feature, onCloseClick, fieldOrder, classes, className,
+    const {feature, onRequestClose, fieldOrder, classes, media,
       coordFormat, fieldAnalysis, onDeleteFeature} = this.props
     const {editMode, feature: editedFeature} = this.state
     if (!feature) return null
-    return <Paper className={classNames(classes.card, className)} elevation={8}>
-      <IconButton onClick={onCloseClick} className={classes.closeButton}>
+    return <div className={classes.root}>
+      <IconButton onClick={onRequestClose} className={classes.closeButton}>
         <CloseIcon />
       </IconButton>
-      {media &&
+      {!!media.length &&
         <div className={classes.media}>
-          <Image className={classes.img} src={media} />
+          <Image className={classes.img} src={media[0].value} />
         </div>}
       <FeatureTable
         editMode={editMode}
@@ -206,17 +180,16 @@ class FeatureDetail extends React.Component {
         coordFormat={coordFormat}
         onValueChange={this.handleValueChange}
       />
-      <Actions
+      {editMode
+      ? <EditActions
         classes={classes}
-        style={{textAlign: 'right'}}
-        editMode={editMode}
-        onChangeProp={this.handlePropEdit}
-        onEditClick={this.handleEditClick}
-        onCloseClick={onCloseClick}
         onCancelClick={this.handleCancelClick}
         onSaveClick={this.handleSaveClick}
-        onDeleteClick={() => this.setState({confirmDelete: () => onDeleteFeature(feature.id)})}
-      />
+        onDeleteClick={() => this.setState({confirmDelete: () => onDeleteFeature(feature.id)})} />
+      : <ViewActions
+        classes={classes}
+        onEditClick={this.handleEditClick}
+        onCloseClick={onRequestClose} />}
       <Dialog ignoreBackdropClick open={!!this.state.confirmDelete} maxWidth='xs' fullWidth>
         <DialogTitle>Delete Feature?</DialogTitle>
         <DialogActions>
@@ -228,8 +201,12 @@ class FeatureDetail extends React.Component {
           </Button>
         </DialogActions>
       </Dialog>
-    </Paper>
+    </div>
   }
+}
+
+FeatureDetail.propTypes = {
+  media: PropTypes.array.isRequired
 }
 
 // The selectors transform input features, we want to undo this before we save
@@ -253,26 +230,4 @@ function untransformFeature (feature, fieldAnalysis) {
   }))
 }
 
-export default connect(
-  (state, ownProps) => {
-    const featuresById = getFeaturesById(state)
-    const fieldMapping = getFieldMapping(state)
-    const visibleFields = getVisibleFields(state)
-    const fieldAnalysis = getFieldAnalysis(state)
-    const id = ownProps.id || state.ui.featureId
-    const feature = featuresById[id]
-    const geojsonProps = feature ? feature.properties : {}
-    return {
-      coordFormat: state.settings.coordFormat,
-      feature: feature,
-      fieldAnalysis: fieldAnalysis,
-      fieldOrder: state.fieldOrder,
-      visibleFields: visibleFields,
-      media: geojsonProps[fieldMapping.media]
-    }
-  },
-  (dispatch) => ({
-    onEditFeature: (feature) => dispatch(editFeature(feature)),
-    onDeleteFeature: (id) => dispatch(deleteFeature(id))
-  })
-)(withStyles(styleSheet)(FeatureDetail))
+export default withStyles(styles)(FeatureDetail)

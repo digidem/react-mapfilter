@@ -11,7 +11,7 @@ import * as actionCreators from '../action_creators'
 
 import Dialog from 'material-ui/Dialog'
 import FilterPane from '../components/filter'
-import FeatureDetail from '../components/feature_detail'
+import FeatureDetail from './feature_detail'
 import Settings from '../components/settings'
 import MapView from '../components/map'
 import ReportView from '../components/report'
@@ -54,18 +54,13 @@ const styles = theme => ({
     position: 'relative',
     margin: '0 auto',
     padding: 32,
-    boxShadow: 'none',
     boxSizing: 'border-box',
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center',
-    pointerEvents: 'none'
+    justifyContent: 'center'
   },
   modalPaperMd: {
     maxWidth: 800
-  },
-  modalInner: {
-    pointerEvents: 'auto'
   },
   view: {
     flex: 3,
@@ -120,7 +115,7 @@ class IndexRoute extends React.Component {
   }
 
   render () {
-    const {activeView, activeModal, actionButton, classes, views, switchView,
+    const {activeView, activeModal, actionButton, classes, views, switchView, closeModal,
       settingsTab, toolbarButtons, toolbarTitle, print, paperSize, cancelPrint, changePaperSize} = this.props
     const ViewComponent = getViewComponent(activeView, views)
 
@@ -135,21 +130,25 @@ class IndexRoute extends React.Component {
           {actionButton && <div className={classes.actionButton}>{createElement(actionButton)}</div>}
         </div>
         <Dialog
-          onRequestClose={this.props.closeModal}
+          onRequestClose={closeModal}
           open={activeModal === 'feature'}
           fullWidth
           maxWidth='md'
           classes={{root: classes.modalRoot, paper: classes.modalPaper, paperWidthMd: classes.modalPaperMd}}>
-          <FeatureDetail onCloseClick={this.props.closeModal} className={classes.modalInner} />}
+          <FeatureDetail onRequestClose={closeModal} />}
         </Dialog>
         <Dialog
-          onRequestClose={this.props.closeModal}
+          onRequestClose={closeModal}
           open={activeModal === 'settings'}
           fullWidth
           classes={{root: classes.modalRoot, paper: classes.modalPaper}}>
-          <Settings activeTabId={settingsTab} onCloseClick={this.props.closeModal} className={classes.modalInner} />}
+          <Settings activeTabId={settingsTab} onRequestClose={closeModal} />}
         </Dialog>
-        <PrintDialog open={print} onRequestClose={cancelPrint} onChangePaperSize={changePaperSize} paperSize={paperSize} />
+        <PrintDialog
+          onRequestClose={cancelPrint}
+          open={print}
+          onChangePaperSize={changePaperSize}
+          paperSize={paperSize} />
       </div>
     )
   }

@@ -114,18 +114,18 @@ const Tab = ({active, label, onClick, classes}) => (
 
 class Settings extends React.Component {
   static propTypes = {
-    onCloseClick: PropTypes.func.isRequired,
+    onRequestClose: PropTypes.func.isRequired,
     onChangeTab: PropTypes.func.isRequired,
     activeTabId: PropTypes.string
   }
 
   render () {
-    const { onCloseClick, activeTabId, onChangeTab, classes, className } = this.props
+    const { onRequestClose, activeTabId, onChangeTab, classes, className } = this.props
     const tabIndex = getTabIndex(activeTabId)
     const TabComponent = tabs[tabIndex].component
     return (
       <Card className={classNames(classes.card, className)}>
-        <IconButton className={classes.icon} onClick={onCloseClick}>
+        <IconButton className={classes.icon} onClick={onRequestClose}>
           <CloseIcon />
         </IconButton>
         <CardHeader
