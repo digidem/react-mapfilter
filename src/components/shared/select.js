@@ -43,6 +43,9 @@ const styleSheet = theme => ({
   },
   textField: {
     width: '100%'
+  },
+  input: {
+    fontSize: 'inherit'
   }
 })
 
@@ -50,7 +53,7 @@ function renderInput (props) {
   const {classes, home, value, inputRef, ref, style} = props
   const inputProps = assign({},
     omit(props, ['classes', 'home', 'value', 'inputRef', 'ref', 'style']),
-    {classes: classes.input}
+    {className: classes.input}
   )
   function callRef (el) {
     inputRef(el)

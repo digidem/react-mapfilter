@@ -72,9 +72,8 @@ const styles = {
     whiteSpace: 'nowrap',
     textOverflow: 'ellipsis'
   },
-  col3: {
-    paddingLeft: 0,
-    paddingRight: 12
+  input: {
+    fontSize: 'inherit'
   }
 }
 
@@ -117,7 +116,7 @@ const ValueCellEdit = makePure(({value, type, rowKey, coordFormat, fieldMetadata
         const newValue = e.target.value === 'true' ? true : e.target.value === 'false' ? false : undefined
         onChange(rowKey, newValue)
       }}
-      input={<Input />}
+      input={<Input className={classes.input} />}
       style={styles.muiSelect}>
       <MenuItem value='undefined' />
       <MenuItem value='true'>Yes</MenuItem>
@@ -126,6 +125,7 @@ const ValueCellEdit = makePure(({value, type, rowKey, coordFormat, fieldMetadata
   }
   if (type === FIELD_TYPE_STRING || type === FIELD_TYPE_MIXED) {
     return <TextField
+      InputClassName={classes.input}
       fullWidth
       multiline
       value={value}
