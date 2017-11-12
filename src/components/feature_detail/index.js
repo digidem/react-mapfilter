@@ -12,7 +12,7 @@ import {unflatten} from 'flat'
 
 import Image from '../image'
 import FeatureTable from '../shared/table'
-import {FIELD_TYPE_SPACE_DELIMITED} from '../../constants'
+import {FIELD_TYPE_SPACE_DELIMITED, FORMATS_DEC_DEG} from '../../constants'
 
 const styles = {
   root: {
@@ -206,7 +206,24 @@ class FeatureDetail extends React.Component {
 }
 
 FeatureDetail.propTypes = {
-  media: PropTypes.array.isRequired
+  feature: PropTypes.object.isRequired,
+  onRequestClose: PropTypes.func.isRequired,
+  fieldOrder: PropTypes.object,
+  classes: PropTypes.object.isRequired,
+  media: PropTypes.arrayOf(PropTypes.shape({
+    fieldname: PropTypes.string.isRequired,
+    value: PropTypes.string.isRequired
+  })),
+  coordFormat: PropTypes.string.isRequired,
+  fieldAnalysis: PropTypes.object.isRequired,
+  onDeleteFeature: PropTypes.func.isRequired,
+  onEditFeature: PropTypes.func.isRequired
+}
+
+FeatureDetail.defaultProps = {
+  coordFormat: FORMATS_DEC_DEG,
+  media: [],
+  fieldOrder: {}
 }
 
 // The selectors transform input features, we want to undo this before we save
