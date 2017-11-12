@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import ReactDOM from 'react-dom'
 import ImageLoader from './image_loader'
 import {CircularProgress} from 'material-ui/Progress'
@@ -57,7 +58,7 @@ class Image extends React.Component {
     // TODO: whitelist, not blacklist
     const props = omit(this.props, ['progress', 'src', 'style', 'resizer', 'dispatch'])
     const {style, resizer, src} = this.props
-    const previewUrl = resizer(src, 200 * pixelRatio)
+    const previewUrl = resizer ? resizer(src, 200 * pixelRatio) : ''
     return <ImageLoader
       imgProps={assign({}, props, {style: style})}
       src={this.state.src}
@@ -72,6 +73,12 @@ class Image extends React.Component {
       }}
     />
   }
+}
+
+Image.propTypes = {
+  style: PropTypes.object,
+  resizer: PropTypes.func,
+  src: PropTypes.string.isRequired
 }
 
 export default connect(
