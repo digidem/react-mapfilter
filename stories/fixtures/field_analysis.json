@@ -1,0 +1,454 @@
+{
+  "properties": {
+    "area": {
+      "fieldname": "area",
+      "type": "string",
+      "count": 200,
+      "wordStats": {
+        "mean": 1.59,
+        "min": 1,
+        "max": 4,
+        "vari": 0.5619
+      },
+      "lengthStats": {
+        "mean": 10.919999999999996,
+        "min": 5,
+        "max": 22,
+        "vari": 18.12360000000001
+      },
+      "values": null,
+      "isUnique": false,
+      "filterType": "TEXT"
+    },
+    "caption": {
+      "fieldname": "caption",
+      "type": "string",
+      "count": 200,
+      "wordStats": {
+        "mean": 3.999999999999999,
+        "min": 3,
+        "max": 5,
+        "vari": 0.6300000000000003
+      },
+      "lengthStats": {
+        "mean": 25.62500000000001,
+        "min": 10,
+        "max": 49,
+        "vari": 51.594374999999964
+      },
+      "values": null,
+      "isUnique": true,
+      "filterType": "TEXT"
+    },
+    "happening": {
+      "fieldname": "happening",
+      "type": "array",
+      "count": 198,
+      "maxArrayLength": 2,
+      "values": [
+        {
+          "value": "artefacts",
+          "count": 21
+        },
+        {
+          "value": "bobcats",
+          "count": 1
+        },
+        {
+          "value": "crossing",
+          "count": 13
+        },
+        {
+          "value": "fishing",
+          "count": 15
+        },
+        {
+          "value": "grazing",
+          "count": 25
+        },
+        {
+          "value": "hunting",
+          "count": 20
+        },
+        {
+          "value": "logging",
+          "count": 21
+        },
+        {
+          "value": "mining",
+          "count": 16
+        },
+        {
+          "value": "other",
+          "count": 15
+        },
+        {
+          "value": "rustling",
+          "count": 14
+        },
+        {
+          "value": "tourism",
+          "count": 20
+        },
+        {
+          "value": "trapping",
+          "count": 18
+        },
+        {
+          "value": "@@MAPFILTER/UNDEFINED",
+          "count": 2
+        }
+      ],
+      "isUnique": false,
+      "filterType": "DISCRETE"
+    },
+    "id": {
+      "fieldname": "id",
+      "type": "uuid",
+      "count": 200,
+      "wordStats": {
+        "mean": 1,
+        "min": 1,
+        "max": 1,
+        "vari": 0
+      },
+      "lengthStats": {
+        "mean": 36,
+        "min": 36,
+        "max": 36,
+        "vari": 0
+      },
+      "values": null,
+      "isUnique": true
+    },
+    "impacts": {
+      "fieldname": "impacts",
+      "type": "string",
+      "count": 200,
+      "wordStats": {
+        "mean": 6.154999999999999,
+        "min": 1,
+        "max": 36,
+        "vari": 74.21097500000002
+      },
+      "lengthStats": {
+        "mean": 39.040000000000006,
+        "min": 13,
+        "max": 231,
+        "vari": 3036.0184000000013
+      },
+      "values": null,
+      "isUnique": false,
+      "filterType": "TEXT"
+    },
+    "meta.deepnested_TestingWhatHappens.whatalongfieldname": {
+      "fieldname": "meta.deepnested_TestingWhatHappens.whatalongfieldname",
+      "type": "string",
+      "count": 200,
+      "wordStats": {
+        "mean": 2,
+        "min": 2,
+        "max": 2,
+        "vari": 0
+      },
+      "lengthStats": {
+        "mean": 12,
+        "min": 12,
+        "max": 12,
+        "vari": 0
+      },
+      "values": null,
+      "isUnique": false,
+      "filterType": "TEXT"
+    },
+    "meta.instanceId": {
+      "fieldname": "meta.instanceId",
+      "type": "uuid",
+      "count": 200,
+      "wordStats": {
+        "mean": 1,
+        "min": 1,
+        "max": 1,
+        "vari": 0
+      },
+      "lengthStats": {
+        "mean": 41,
+        "min": 41,
+        "max": 41,
+        "vari": 0
+      },
+      "values": null,
+      "isUnique": true
+    },
+    "number": {
+      "fieldname": "number",
+      "type": "number",
+      "count": 198,
+      "valueStats": {
+        "mean": 5,
+        "min": 5,
+        "max": 5,
+        "vari": 0
+      },
+      "values": [
+        {
+          "value": 5,
+          "count": 198
+        },
+        {
+          "value": "@@MAPFILTER/UNDEFINED",
+          "count": 2
+        }
+      ],
+      "isUnique": false,
+      "filterType": "DISCRETE"
+    },
+    "other": {
+      "fieldname": "other",
+      "type": "string",
+      "count": 200,
+      "wordStats": {
+        "mean": 1,
+        "min": 1,
+        "max": 1,
+        "vari": 0
+      },
+      "lengthStats": {
+        "mean": 4.234999999999998,
+        "min": 4,
+        "max": 51,
+        "vari": 10.989775000000003
+      },
+      "values": [
+        {
+          "value": "a_very_long_option_to_test_text_ellipsis_formatting",
+          "count": 1
+        },
+        {
+          "value": "test",
+          "count": 199
+        }
+      ],
+      "isUnique": false,
+      "filterType": "DISCRETE"
+    },
+    "people": {
+      "fieldname": "people",
+      "type": "string",
+      "count": 199,
+      "wordStats": {
+        "mean": 1,
+        "min": 1,
+        "max": 1,
+        "vari": 0
+      },
+      "lengthStats": {
+        "mean": 13.113750000000003,
+        "min": 10,
+        "max": 16,
+        "vari": 4.1058109374999985
+      },
+      "values": [
+        {
+          "value": "burch_andrews",
+          "count": 30
+        },
+        {
+          "value": "crawford_hill",
+          "count": 16
+        },
+        {
+          "value": "cross_kemp",
+          "count": 23
+        },
+        {
+          "value": "deanne_velazquez",
+          "count": 20
+        },
+        {
+          "value": "dennis_moreno",
+          "count": 22
+        },
+        {
+          "value": "hancock_martinez",
+          "count": 20
+        },
+        {
+          "value": "inez_alston",
+          "count": 28
+        },
+        {
+          "value": "lillie_flores",
+          "count": 12
+        },
+        {
+          "value": "mattie_solis",
+          "count": 14
+        },
+        {
+          "value": "osborne_saunders",
+          "count": 14
+        },
+        {
+          "value": "@@MAPFILTER/UNDEFINED",
+          "count": 1
+        }
+      ],
+      "isUnique": false,
+      "filterType": "DISCRETE"
+    },
+    "picture.url": {
+      "fieldname": "picture.url",
+      "type": "image",
+      "count": 200,
+      "isUnique": false,
+      "values": null
+    },
+    "picture2": {
+      "fieldname": "picture.url",
+      "type": "image",
+      "count": 200,
+      "isUnique": false,
+      "values": null
+    },
+    "picture3": {
+      "fieldname": "picture.url",
+      "type": "image",
+      "count": 200,
+      "isUnique": false,
+      "values": null
+    },
+    "placename": {
+      "fieldname": "placename",
+      "type": "string",
+      "count": 200,
+      "wordStats": {
+        "mean": 2,
+        "min": 2,
+        "max": 2,
+        "vari": 0
+      },
+      "lengthStats": {
+        "mean": 16.195000000000007,
+        "min": 9,
+        "max": 26,
+        "vari": 9.066974999999992
+      },
+      "values": null,
+      "isUnique": true,
+      "filterType": "TEXT"
+    },
+    "public": {
+      "fieldname": "public",
+      "type": "boolean",
+      "count": 1,
+      "values": [
+        {
+          "value": "@@MAPFILTER/UNDEFINED",
+          "count": 199
+        },
+        {
+          "value": true,
+          "count": 1
+        }
+      ],
+      "isUnique": false,
+      "filterType": "DISCRETE"
+    },
+    "region": {
+      "fieldname": "region",
+      "type": "string",
+      "count": 200,
+      "wordStats": {
+        "mean": 2,
+        "min": 2,
+        "max": 2,
+        "vari": 0
+      },
+      "lengthStats": {
+        "mean": 11.590000000000002,
+        "min": 10,
+        "max": 13,
+        "vari": 2.2418999999999993
+      },
+      "values": null,
+      "isUnique": false,
+      "filterType": "TEXT"
+    },
+    "today": {
+      "fieldname": "today",
+      "type": "date",
+      "count": 200,
+      "valueStats": {
+        "mean": 1401920208000.0002,
+        "min": 1388638800000,
+        "max": 1420002000000,
+        "vari": 81377705742335410000
+      },
+      "values": null,
+      "isUnique": false,
+      "filterType": "DATE"
+    },
+    "village": {
+      "fieldname": "village",
+      "type": "string",
+      "count": 200,
+      "wordStats": {
+        "mean": 1.6649999999999994,
+        "min": 1,
+        "max": 3,
+        "vari": 0.34277500000000005
+      },
+      "lengthStats": {
+        "mean": 10.324999999999992,
+        "min": 4,
+        "max": 16,
+        "vari": 11.669375000000004
+      },
+      "values": null,
+      "isUnique": false,
+      "filterType": "TEXT"
+    }
+  },
+  "$id": {
+    "type": "string",
+    "count": 200,
+    "wordStats": {
+      "mean": 1,
+      "min": 1,
+      "max": 1,
+      "vari": 0
+    },
+    "lengthStats": {
+      "mean": 36,
+      "min": 36,
+      "max": 36,
+      "vari": 0
+    },
+    "values": null,
+    "isUnique": true
+  },
+  "$type": {
+    "type": "string",
+    "count": 200,
+    "wordStats": {
+      "mean": 1,
+      "min": 1,
+      "max": 1,
+      "vari": 0
+    },
+    "lengthStats": {
+      "mean": 5,
+      "min": 5,
+      "max": 5,
+      "vari": 0
+    },
+    "values": [
+      {
+        "value": "Point",
+        "count": 200
+      }
+    ],
+    "filterType": "DISCRETE"
+  }
+}

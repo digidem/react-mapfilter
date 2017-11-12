@@ -10,7 +10,7 @@ import {FormattedMessage, defineMessages} from 'react-intl'
 import assign from 'object-assign'
 import {unflatten} from 'flat'
 
-import Image from '../image'
+import MediaCarousel from './MediaCarousel'
 import FeatureTable from '../shared/table'
 import {FIELD_TYPE_SPACE_DELIMITED, FORMATS_DEC_DEG} from '../../constants'
 
@@ -20,25 +20,11 @@ const styles = {
     position: 'relative',
     backgroundColor: 'white'
   },
-  media: {
-    position: 'relative',
-    height: '100%',
-    padding: '67% 0 0 0'
-  },
-  img: {
-    width: '100%',
-    height: '100%',
-    top: 0,
-    left: 0,
-    position: 'absolute',
-    objectFit: 'cover',
-    transform: 'translate3d(0,0,0)'
-  },
   closeButton: {
     position: 'absolute',
     top: 0,
     right: 0,
-    zIndex: 1,
+    zIndex: 500,
     color: 'white',
     backgroundColor: 'rgba(0,0,0,0.3)',
     borderRadius: 0
@@ -168,10 +154,7 @@ class FeatureDetail extends React.Component {
       <IconButton onClick={onRequestClose} className={classes.closeButton}>
         <CloseIcon />
       </IconButton>
-      {!!media.length &&
-        <div className={classes.media}>
-          <Image className={classes.img} src={media[0].value} />
-        </div>}
+      {!!media.length && <MediaCarousel media={media} />}
       <FeatureTable
         editMode={editMode}
         feature={editMode ? editedFeature : feature}

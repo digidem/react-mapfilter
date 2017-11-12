@@ -17,7 +17,8 @@ const styles = {
     top: 0,
     position: 'absolute',
     backgroundSize: 'cover',
-    backgroundPosition: 'center'
+    backgroundPosition: 'center',
+    backgroundColor: '#cccccc'
   }
 }
 
@@ -64,7 +65,7 @@ class Image extends React.Component {
       preloader={() => <div style={styles.wrapper}><CircularProgress /></div>}
       wrapper={(props, element) => {
         if (!element) {
-          return <div style={styles.wrapper}><BrokenImageIcon color='grey' /></div>
+          return <div style={styles.wrapper}><BrokenImageIcon color='white' /></div>
         } else {
           return createDiv(props, element)
         }

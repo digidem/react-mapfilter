@@ -1,0 +1,32 @@
+{
+  "geometry": {
+    "coordinates": [
+      -59.63859404693358,
+      2.675879372190684
+    ],
+    "type": "Point"
+  },
+  "id": "ebacecc0-9e2f-44a2-8dc7-7edad5d52fb0",
+  "properties": {
+    "area": "Kwitaro",
+    "caption": "Cillum nisi est",
+    "happening": [
+      "crossing"
+    ],
+    "id": "ebacecc0-9e2f-44a2-8dc7-7edad5d52fb0",
+    "impacts": "Damage to gathering grounds",
+    "meta.deepnested_TestingWhatHappens.whatalongfieldname": "Just testing",
+    "meta.instanceId": "uuid:ebacecc0-9e2f-44a2-8dc7-7edad5d52fb0",
+    "number": 5,
+    "other": "test",
+    "people": "mattie_solis",
+    "picture.url": "https://s3.amazonaws.com/images.digital-democracy.org/mapfilter-sample/sample-14.jpg",
+    "picture2": "https://s3.amazonaws.com/images.digital-democracy.org/mapfilter-sample/sample-14.jpg",
+    "picture3": "https://s3.amazonaws.com/images.digital-democracy.org/mapfilter-sample/sample-14.jpg",
+    "placename": "Elbert Manchester",
+    "region": "South Central",
+    "today": "2014-11-30",
+    "village": "Potari Naawa"
+  },
+  "type": "Feature"
+}
