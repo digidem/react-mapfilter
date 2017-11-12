@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { createSelector } from 'reselect'
 import Typography from 'material-ui/Typography'
 import { withStyles } from 'material-ui/styles'
@@ -178,8 +179,14 @@ const FeatureTable = (props) => {
   )
 }
 
+FeatureTable.propTypes = {
+  hiddenFields: PropTypes.object.isRequired,
+  fieldOrder: PropTypes.object.isRequired
+}
+
 FeatureTable.defaultProps = {
-  hiddenFields: {}
+  hiddenFields: {},
+  fieldOrder: {}
 }
 
 // TODO: Does not actually work and memoize anything because props.feature
@@ -210,6 +217,7 @@ const getRows = createSelector(
         visible: !hiddenFields.location
       })
     }
+
     // Sort rows by `fieldOrder` from state, if an order is set, if not then sort lexically.
     return rows.sort((a, b) => {
       var orderA = typeof fieldOrder[a.key] !== 'undefined' ? fieldOrder[a.key] : Infinity
