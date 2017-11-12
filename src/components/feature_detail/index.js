@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import Paper from 'material-ui/Paper'
 import Button from 'material-ui/Button'
 import IconButton from 'material-ui/IconButton'
 import CloseIcon from 'material-ui-icons/Close'
@@ -150,7 +151,7 @@ class FeatureDetail extends React.Component {
       coordFormat, fieldAnalysis, onDeleteFeature} = this.props
     const {editMode, feature: editedFeature} = this.state
     if (!feature) return null
-    return <div className={classes.root}>
+    return <Paper className={classes.root} elevation={24}>
       <IconButton onClick={onRequestClose} className={classes.closeButton}>
         <CloseIcon />
       </IconButton>
@@ -184,7 +185,7 @@ class FeatureDetail extends React.Component {
           </Button>
         </DialogActions>
       </Dialog>
-    </div>
+    </Paper>
   }
 }
 

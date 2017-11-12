@@ -57,7 +57,8 @@ const styles = theme => ({
     boxSizing: 'border-box',
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    boxShadow: 'none'
   },
   modalPaperMd: {
     maxWidth: 800
