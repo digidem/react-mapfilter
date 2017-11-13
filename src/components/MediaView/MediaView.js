@@ -1,5 +1,6 @@
 import React from 'react'
-
+import PropTypes from 'prop-types'
+import * as MFPropTypes from '../../util/prop_types'
 import ImageGrid from './ImageGrid'
 import { FIELD_TYPE_IMAGE } from '../../constants'
 
@@ -32,6 +33,12 @@ class MediaView extends React.Component {
     const images = this.getImages()
     return <ImageGrid images={images} onImageClick={showFeatureDetail} />
   }
+}
+
+MediaView.propTypes = {
+  showFeatureDetail: PropTypes.func.isRequired,
+  fieldAnalysis: MFPropTypes.fieldAnalysis,
+  filteredFeatures: PropTypes.arrayOf(MFPropTypes.mapViewFeature).isRequired
 }
 
 MediaView.MfViewId = 'media'

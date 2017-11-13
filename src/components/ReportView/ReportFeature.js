@@ -1,10 +1,12 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 import { withStyles } from 'material-ui/styles'
 import Typography from 'material-ui/Typography'
 
 import Image from '../Image'
 import MarkerIcon from './MarkerIcon'
+import * as MFPropTypes from '../../util/prop_types'
 import FormattedValue from '../shared/FormattedValue'
 import FeatureTable from '../shared/FeatureTable'
 
@@ -83,6 +85,18 @@ const ReportFeature = ({
       />
     </div>
   )
+}
+
+ReportFeature.propTypes = {
+  label: PropTypes.string,
+  classes: PropTypes.object.isRequired,
+  settings: MFPropTypes.settings.isRequired,
+  colorIndex: MFPropTypes.colorIndex.isRequired,
+  feature: MFPropTypes.feature.isRequired,
+  fieldAnalysis: MFPropTypes.fieldAnalysis.isRequired,
+  fieldMapping: MFPropTypes.fieldMapping.isRequired,
+  fieldOrder: PropTypes.object,
+  hiddenFields: PropTypes.object
 }
 
 export default withStyles(styles)(ReportFeature)

@@ -1,5 +1,11 @@
 import PropTypes from 'prop-types'
 
+import {
+  FORMATS_UTM,
+  FORMATS_DEC_DEG,
+  FORMATS_DEG_MIN_SEC
+} from '../constants'
+
 // GeoJSON passed to the map view must be a FeatureCollection
 // of point features.
 // We need to ensure each feature has an id so we can handle
@@ -18,6 +24,14 @@ export const mapViewFeature = PropTypes.shape({
     })
   ])
 })
+
+export const colorIndex = PropTypes.objectOf(PropTypes.string)
+
+export const settings = PropTypes.shape({
+  coordFormat: PropTypes.oneOf([FORMATS_UTM, FORMATS_DEC_DEG, FORMATS_DEG_MIN_SEC])
+})
+
+export const paperSize = PropTypes.oneOf(['a4', 'letter'])
 
 export const fieldMapping = PropTypes.shape({
   media: PropTypes.string,
@@ -41,19 +55,19 @@ export const mapboxFilter = PropTypes.arrayOf(
   ])
 )
 
-export const features = PropTypes.arrayOf(
-  PropTypes.shape({
-    type: PropTypes.oneOf(['Feature']).isRequired,
-    geometry: PropTypes.oneOfType([
-      PropTypes.oneOf([null]),
-      PropTypes.shape({
-        type: PropTypes.oneOf(['Point']).isRequired,
-        coordinates: PropTypes.array.isRequired
-      })
-    ]),
-    properties: PropTypes.object
-  })
-).isRequired
+export const feature = PropTypes.shape({
+  type: PropTypes.oneOf(['Feature']).isRequired,
+  geometry: PropTypes.oneOfType([
+    PropTypes.oneOf([null]),
+    PropTypes.shape({
+      type: PropTypes.oneOf(['Point']).isRequired,
+      coordinates: PropTypes.array.isRequired
+    })
+  ]),
+  properties: PropTypes.object
+})
+
+export const features = PropTypes.arrayOf(feature).isRequired
 
 const fieldAnalysisField = PropTypes.shape({
   fieldname: PropTypes.string,

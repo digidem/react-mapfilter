@@ -159,12 +159,6 @@ const VIEW_ID = 'report'
 const MAX_REPORT_LEN = 26
 
 class ReportView extends React.Component {
-  static propTypes = {
-    filteredFeatures: PropTypes.arrayOf(MFPropTypes.mapViewFeature).isRequired,
-    fieldMapping: MFPropTypes.fieldMapping,
-    filter: MFPropTypes.mapboxFilter
-  }
-
   handleOnShowAll = () => {
     this.props.updateViewState({hiddenFields: {}})
   }
@@ -250,7 +244,23 @@ class ReportView extends React.Component {
   }
 }
 
+ReportView.propTypes = {
+  filteredFeatures: PropTypes.arrayOf(MFPropTypes.mapViewFeature).isRequired,
+  featuresById: PropTypes.objectOf(MFPropTypes.mapViewFeature).isRequired,
+  fieldAnalysis: MFPropTypes.fieldAnalysis.isRequired,
+  paperSize: MFPropTypes.paperSize,
+  willPrint: PropTypes.bool,
+  viewState: PropTypes.shape({
+    hiddenFields: PropTypes.object
+  }),
+  filter: MFPropTypes.mapboxFilter,
+  showFeatureDetail: PropTypes.func.isRequired,
+  requestPrint: PropTypes.func.isRequired,
+  classes: PropTypes.object.isRequired
+}
+
 ReportView.defaultProps = {
+  paperSize: 'a4',
   viewState: {
     hiddenFields: {}
   }

@@ -121,7 +121,7 @@ class MapView extends React.Component {
      */
     showFeatureDetail: PropTypes.func,
     /* Triggered when map is moved, called with map center [lng, lat] */
-    moveMap: PropTypes.func,
+    moveMap: PropTypes.func.isRequired,
     fieldMapping: MFPropTypes.fieldMapping,
     /* map zoom */
     zoom: PropTypes.number,

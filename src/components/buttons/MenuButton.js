@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import IconButton from 'material-ui/IconButton'
 import Tooltip from 'material-ui/Tooltip'
 import MenuIcon from 'material-ui-icons/MoreVert'
@@ -7,6 +8,8 @@ import { injectIntl, defineMessages } from 'react-intl'
 import { saveAs } from 'file-saver'
 import { csvFormat } from 'd3-dsv'
 import assign from 'object-assign'
+
+import * as MFPropTypes from '../../util/prop_types'
 
 const messages = defineMessages({
   settings: {
@@ -99,6 +102,12 @@ class MenuButton extends React.Component {
       </Menu>
     </div>
   }
+}
+
+MenuButton.propTypes = {
+  features: MFPropTypes.features,
+  intl: PropTypes.object.isRequired,
+  openSettings: PropTypes.func.isRequired
 }
 
 export default injectIntl(MenuButton)
