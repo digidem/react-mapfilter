@@ -7,8 +7,9 @@ import {defineMessages, FormattedMessage} from 'react-intl'
 const styles = {
   flatButton: {
     minHeight: 28,
+    height: 28,
     minWidth: 'auto',
-    padding: '8px 16px',
+    padding: '6px 16px',
     fontSize: 12,
     marginLeft: -12
   }
