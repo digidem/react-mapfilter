@@ -2,7 +2,7 @@ import assign from 'object-assign'
 
 // The current UI state of the app
 const defaultState = {
-  print: false,
+  willPrint: false,
   paperSize: navigator.language === 'en-US' ? 'letter' : 'a4'
 }
 
@@ -10,11 +10,11 @@ export default function (state = defaultState, {type, payload}) {
   let newState
   switch (type) {
     case 'REQUEST_PRINT':
-      newState = state.print ? state : assign({}, state, {print: true})
+      newState = state.willPrint ? state : assign({}, state, {willPrint: true})
       break
 
     case 'CANCEL_PRINT':
-      newState = !state.print ? state : assign({}, state, {print: false})
+      newState = !state.willPrint ? state : assign({}, state, {willPrint: false})
       break
 
     case 'CHANGE_PAPER_SIZE':
