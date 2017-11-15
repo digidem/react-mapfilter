@@ -10,7 +10,7 @@ import AppBar from '../components/AppBar'
 import * as actionCreators from '../action_creators'
 
 import Dialog from 'material-ui/Dialog'
-import FilterPane from '../components/FilterPane'
+import ConnectFilterPane from './ConnectFilterPane'
 import FeatureDetail from './ConnectFeatureDetail'
 import Settings from '../components/Settings'
 import MapView from '../components/MapView'
@@ -124,7 +124,7 @@ class App extends React.Component {
       <div className={classes.outer}>
         <AppBar views={views} activeView={activeView} onChangeTab={switchView} buttons={toolbarButtons} title={toolbarTitle} />
         <div className={classes.inner}>
-          <FilterPane />
+          <ConnectFilterPane />
           <div className={classes.view}>
             <ViewContainer component={ViewComponent} />
           </div>

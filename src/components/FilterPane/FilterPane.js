@@ -1,20 +1,11 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import { compose } from 'redux'
-import { connect } from 'react-redux'
 import { withStyles } from 'material-ui/styles'
 import List, {ListItem, ListItemIcon, ListItemText} from 'material-ui/List'
 import Divider from 'material-ui/Divider'
 import SettingsIcon from 'material-ui-icons/Settings'
 import Paper from 'material-ui/Paper'
 import {defineMessages, FormattedMessage} from 'react-intl'
-
-import getFilterFields from '../../selectors/filter_fields'
-import getFieldAnalysis from '../../selectors/field_analysis'
-import getFieldMapping from '../../selectors/field_mapping'
-import getColorIndex from '../../selectors/color_index'
-
-import { updateFilter, openSettings } from '../../action_creators'
 
 import DiscreteFilter from './DiscreteFilter'
 import DateFilter from './DateFilter'
@@ -140,24 +131,4 @@ FilterPane.propTypes = {
   onClickSettings: PropTypes.func
 }
 
-function mapStateToProps (state) {
-  return {
-    filters: state.filters,
-    filterFields: getFilterFields(state),
-    fieldStats: getFieldAnalysis(state),
-    coloredField: getFieldMapping(state).color,
-    colorIndex: getColorIndex(state)
-  }
-}
-
-function mapDispatchToProps (dispatch) {
-  return {
-    onUpdateFilter: filter => dispatch(updateFilter(filter)),
-    onClickSettings: () => dispatch(openSettings('filters'))
-  }
-}
-
-export default compose(
-  connect(mapStateToProps, mapDispatchToProps),
-  withStyles(styles)
-)(FilterPane)
+export default withStyles(styles)(FilterPane)
