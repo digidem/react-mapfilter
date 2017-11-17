@@ -107,28 +107,24 @@ class FeatureDetail extends React.Component {
       editMode: false
     }
     if (!props.feature) props.onRequestClose()
-    this.handleEditClick = this.handleEditClick.bind(this)
-    this.handleCancelClick = this.handleCancelClick.bind(this)
-    this.handleSaveClick = this.handleSaveClick.bind(this)
-    this.handleValueChange = this.handleValueChange.bind(this)
   }
 
   componentWillReceiveProps (nextProps) {
     if (!nextProps.feature) return nextProps.onRequestClose()
   }
 
-  handleEditClick () {
+  handleEditClick = () => {
     this.setState({
       editMode: true,
       feature: this.props.feature
     })
   }
 
-  handleCancelClick () {
+  handleCancelClick = () => {
     this.setState({editMode: false})
   }
 
-  handleSaveClick () {
+  handleSaveClick = () => {
     if (this.state.feature !== this.props.feature) {
       const newFeature = untransformFeature(this.state.feature, this.props.fieldAnalysis)
       this.props.onEditFeature(newFeature)
@@ -136,7 +132,7 @@ class FeatureDetail extends React.Component {
     this.setState({editMode: false})
   }
 
-  handleValueChange (key, value) {
+  handleValueChange = (key, value) => {
     const feature = this.state.feature
     const newFeature = assign({}, feature, {
       properties: assign({}, feature.properties, {

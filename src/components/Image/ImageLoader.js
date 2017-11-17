@@ -26,11 +26,22 @@ export default class ImageLoader extends React.Component {
     wrapper: React.createElement.bind('span')
   }
 
-  constructor (props) {
-    super(props)
-    this.handleLoad = this.handleLoad.bind(this)
-    this.handleError = this.handleError.bind(this)
-    this.state = {status: props.src ? Status.LOADING : Status.PENDING}
+  state = {
+    status: this.props.src ? Status.LOADING : Status.PENDING
+  }
+
+  handleLoad = (event) => {
+    this.destroyLoader()
+    this.setState({status: Status.LOADED})
+
+    if (this.props.onLoad) this.props.onLoad(event)
+  }
+
+  handleError = (error) => {
+    this.destroyLoader()
+    this.setState({status: Status.FAILED})
+
+    if (this.props.onError) this.props.onError(error)
   }
 
   componentDidMount () {
@@ -78,20 +89,6 @@ export default class ImageLoader extends React.Component {
       this.img.onerror = null
       this.img = null
     }
-  }
-
-  handleLoad (event) {
-    this.destroyLoader()
-    this.setState({status: Status.LOADED})
-
-    if (this.props.onLoad) this.props.onLoad(event)
-  }
-
-  handleError (error) {
-    this.destroyLoader()
-    this.setState({status: Status.FAILED})
-
-    if (this.props.onError) this.props.onError(error)
   }
 
   renderImg () {

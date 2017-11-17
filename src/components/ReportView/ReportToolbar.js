@@ -24,15 +24,11 @@ const messages = defineMessages({
 })
 
 class ReportToolbar extends React.Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      hideFieldsOpen: false
-    }
-    this.handleHideFieldsButtonClick = this.handleHideFieldsButtonClick.bind(this)
+  state = {
+    hideFieldsOpen: false
   }
 
-  handleHideFieldsButtonClick (event) {
+  handleHideFieldsButtonClick = (event) => {
     this.setState({
       hideFieldsOpen: !this.state.hideFieldsOpen,
       hideFieldsButtonEl: event.currentTarget

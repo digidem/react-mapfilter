@@ -70,7 +70,7 @@ class ImageGrid extends React.Component {
               columnCount={columnsCount}
               columnWidth={cellSize}
               height={height}
-              cellRenderer={this._renderCell.bind(this, width)}
+              cellRenderer={(d) => this._renderCell(width, d)}
               rowCount={rowsCount}
               rowHeight={cellSize}
               width={width}
@@ -96,7 +96,7 @@ class ImageGrid extends React.Component {
       src={imageUrl}
       key={key}
       style={assign({}, styles.image, style)}
-      onClick={this.handleImageClick.bind(this, image.featureId)}
+      onClick={() => this.handleImageClick(image.featureId)}
     />
   }
 }

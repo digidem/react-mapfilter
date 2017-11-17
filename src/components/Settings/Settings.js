@@ -139,7 +139,7 @@ class Settings extends React.Component {
                 label={<FormattedMessage {...messages[tab.id]} />}
                 active={i === tabIndex}
                 classes={classes}
-                onClick={onChangeTab.bind(null, tab.id)} />
+                onClick={(e) => onChangeTab(tab.id, e)} />
             ))}
           </div>
           <div className={classes.content}>

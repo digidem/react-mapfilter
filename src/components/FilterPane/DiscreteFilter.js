@@ -72,10 +72,7 @@ class DiscreteFilter extends React.PureComponent {
     onUpdate: (x) => x
   }
 
-  constructor (props) {
-    super(props)
-    this.state = {}
-  }
+  state = {}
 
   showAll = (e) => {
     e.preventDefault()
@@ -135,7 +132,7 @@ class DiscreteFilter extends React.PureComponent {
             <div
               className={classes.checkboxItem}
               key={v.value}
-              onMouseEnter={this.handleMouseEnter.bind(this, v.value)}
+              onMouseEnter={() => this.handleMouseEnter(v.value)}
               onMouseLeave={this.handleMouseLeave}>
               <FormControlLabel
                 classes={{root: classes.formControlRoot, label: classes.formControlLabel}}
@@ -145,7 +142,7 @@ class DiscreteFilter extends React.PureComponent {
                     checked={checked.indexOf(v.value) > -1}
                     icon={<CheckBoxOutlineBlankIcon classes={{root: classes.checkboxIcon}} />}
                     checkedIcon={<CheckBoxIcon classes={{root: classes.checkboxIcon}} />}
-                    onChange={this.handleCheck.bind(this, v.value)}
+                    onChange={(e) => this.handleCheck(v.value, e)}
                   />
                 }
                 label={
@@ -158,7 +155,7 @@ class DiscreteFilter extends React.PureComponent {
                 }
               />
               {(this.state.hovered === v.value) &&
-                <OnlyButton onClick={this.handleOnlyClick.bind(this, v.value)} />
+                <OnlyButton onClick={(e) => this.handleOnlyClick(v.value, e)} />
               }
             </div>
           ))}

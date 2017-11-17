@@ -33,24 +33,17 @@ const messages = defineMessages({
 })
 
 class MenuButton extends React.Component {
-  constructor (props) {
-    super(props)
-    this.state = {open: false}
-    this.handleClick = this.handleClick.bind(this)
-    this.handleRequestClose = this.handleRequestClose.bind(this)
-    this.handleExportGeoJSONClick = this.handleExportGeoJSONClick.bind(this)
-    this.handleExportCSVClick = this.handleExportCSVClick.bind(this)
-  }
+  state = {open: false}
 
-  handleClick (event) {
+  handleClick = (event) => {
     this.setState({ open: true, anchorEl: event.currentTarget })
   }
 
-  handleRequestClose () {
+  handleRequestClose = () => {
     this.setState({open: false})
   }
 
-  handleExportGeoJSONClick () {
+  handleExportGeoJSONClick = () => {
     const geojson = {
       type: 'FeatureCollection',
       features: this.props.features
@@ -59,7 +52,7 @@ class MenuButton extends React.Component {
     saveAs(blob, 'data.geojson')
   }
 
-  handleExportCSVClick () {
+  handleExportCSVClick = () => {
     const rows = this.props.features
       .map(function (feature) {
         if (feature.geometry && feature.geometry.type === 'Point') {

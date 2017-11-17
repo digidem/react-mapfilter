@@ -39,7 +39,7 @@ class FieldList extends React.Component {
             <ListItemSecondaryAction>
               <Switch
                 checked={visibleFields.includes(field)}
-                onChange={this.handleToggle.bind(this, field)}
+                onChange={(e) => this.handleToggle(field, e)}
               />
             </ListItemSecondaryAction>
           </ListItem>

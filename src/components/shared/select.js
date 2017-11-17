@@ -120,16 +120,8 @@ function getSuggestions (value, suggestions) {
 }
 
 class Select extends Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      suggestions: props.suggestions
-    }
-    this.getSuggestions = this.getSuggestions.bind(this)
-    this.resetSuggestions = this.resetSuggestions.bind(this)
-    this.selectInputText = this.selectInputText.bind(this)
-    this.handleChange = this.handleChange.bind(this)
-    this.renderSuggestionsContainer = this.renderSuggestionsContainer.bind(this)
+  state = {
+    suggestions: this.props.suggestions
   }
 
   componentWillReceiveProps (nextProps) {
@@ -138,7 +130,7 @@ class Select extends Component {
     }
   }
 
-  renderSuggestionsContainer ({containerProps, children}) {
+  renderSuggestionsContainer = ({containerProps, children}) => {
     const callRef = isolatedScroll => {
       if (isolatedScroll !== null) {
         containerProps.ref(isolatedScroll.component)
@@ -153,26 +145,26 @@ class Select extends Component {
     )
   }
 
-  getSuggestions ({ value }) {
+  getSuggestions = ({ value }) => {
     this.setState({
       suggestions: this.justFocussed ? this.props.suggestions : getSuggestions(value, this.props.suggestions)
     })
   }
 
-  resetSuggestions () {
+  resetSuggestions = () => {
     this.setState({
       suggestions: this.props.suggestions
     })
   }
 
-  selectInputText (e) {
+  selectInputText = (e) => {
     e.target.select()
     this.justFocussed = true
     // Naughty? But it works... *WARNING* relies on an internal method of react-autosuggest
     this.autosuggest && this.autosuggest.revealSuggestions()
   }
 
-  handleChange (e, d) {
+  handleChange = (e, d) => {
     this.justFocussed = false
     this.props.onChange(e, d)
   }

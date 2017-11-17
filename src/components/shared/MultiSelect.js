@@ -23,16 +23,9 @@ const styleSheet = {
 }
 
 class MultiSelect extends Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      selectValue: '',
-      suggestions: props.suggestions.filter(s => props.value.indexOf(s) === -1)
-    }
-    this.handleRequestDelete = this.handleRequestDelete.bind(this)
-    this.handleSelectChange = this.handleSelectChange.bind(this)
-    this.handleKeyDown = this.handleKeyDown.bind(this)
-    this.handleSuggestionSelected = this.handleSuggestionSelected.bind(this)
+  state = {
+    selectValue: '',
+    suggestions: this.props.suggestions.filter(s => this.props.value.indexOf(s) === -1)
   }
 
   componentWillReceiveProps (nextProps) {
@@ -42,11 +35,11 @@ class MultiSelect extends Component {
     }
   }
 
-  handleSelectChange (e, d) {
+  handleSelectChange = (e, d) => {
     this.setState({selectValue: d.newValue})
   }
 
-  handleKeyDown (e) {
+  handleKeyDown = (e) => {
     if (this.justAdded || e.keyCode !== 13) {
       this.justAdded = false
       return
@@ -61,14 +54,14 @@ class MultiSelect extends Component {
     }
   }
 
-  handleSuggestionSelected (e, d) {
+  handleSuggestionSelected = (e, d) => {
     const newValue = this.props.value.concat(d.suggestionValue)
     this.justAdded = true
     this.setState({selectValue: ''})
     this.props.onChange(e, {newValue, type: 'add'})
   }
 
-  handleRequestDelete (i) {
+  handleRequestDelete = (i) => {
     return (e) => {
       const {value} = this.props
       const newValue = value.slice(0, i).concat(value.slice(i + 1))

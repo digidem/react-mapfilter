@@ -52,12 +52,7 @@ const SelectField = ({id, value, onChange, children, classes}) => (
 )
 
 class GeneralSettings extends React.Component {
-  constructor (props) {
-    super(props)
-    this.handleChange = this.handleChange.bind(this)
-  }
-
-  handleChange (name) {
+  handleChange = (name) => {
     return (e) => {
       if (name === 'coords') {
         this.props.onChangeCoordinates(e.target.value)
