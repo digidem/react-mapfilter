@@ -47,23 +47,28 @@ const styleSheet = theme => ({
 
 const messages = defineMessages({
   map: {
-    id: 'topbar.map',
+    id: 'view.map.name',
     defaultMessage: 'Map',
     description: 'Map tab name'
   },
   media: {
-    id: 'topbar.media',
+    id: 'view.media.name',
     defaultMessage: 'Media',
     description: 'Media tab name'
   },
   report: {
-    id: 'topbar.report',
+    id: 'view.report.name',
     defaultMessage: 'Report',
     description: 'Report tab name'
   }
 })
 
 function AppBar ({activeView, views, onChangeTab, buttons, title, classes}) {
+const getViewMessage = (viewId) => ({
+  id: 'view.' + viewId + '.name',
+  defaultMessage: viewId
+})
+
   title = typeof title === 'string' ? <Typography type='title' color='inherit'>{title}</Typography> : title
   return (
     <MuiAppBar position='static' className={classes.root}>
@@ -77,7 +82,7 @@ function AppBar ({activeView, views, onChangeTab, buttons, title, classes}) {
           {views.map((view) => (
             <Tab
               key={view.MfViewId}
-              label={<FormattedMessage {...messages[view.MfViewId]} />}
+              label={<FormattedMessage {...(messages[view.MfViewId] || getViewMessage(view.MfViewId))} />}
               className={classes.heights}
               classes={{label: classes.tabLabels}}
               value={view.MfViewId}
