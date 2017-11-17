@@ -104,7 +104,8 @@ class FeatureDetail extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      editMode: false
+      editMode: false,
+      confirmDelete: false
     }
     if (!props.feature) props.onRequestClose()
   }
@@ -142,9 +143,14 @@ class FeatureDetail extends React.Component {
     this.setState({feature: newFeature})
   }
 
+  handleDeleteConfirm = () => {
+    this.props.onDeleteFeature(this.props.feature.id)
+    // this.props.onRequestClose()
+  }
+
   render () {
     const {feature, onRequestClose, fieldOrder, classes, media,
-      coordFormat, fieldAnalysis, onDeleteFeature} = this.props
+      coordFormat, fieldAnalysis} = this.props
     const {editMode, feature: editedFeature} = this.state
     if (!feature) return null
     return <Paper className={classes.root} elevation={24}>
@@ -165,18 +171,18 @@ class FeatureDetail extends React.Component {
         classes={classes}
         onCancelClick={this.handleCancelClick}
         onSaveClick={this.handleSaveClick}
-        onDeleteClick={() => this.setState({confirmDelete: () => onDeleteFeature(feature.id)})} />
+        onDeleteClick={() => this.setState({confirmDelete: true})} />
       : <ViewActions
         classes={classes}
         onEditClick={this.handleEditClick}
         onCloseClick={onRequestClose} />}
-      <Dialog ignoreBackdropClick open={!!this.state.confirmDelete} maxWidth='xs' fullWidth>
+      <Dialog ignoreBackdropClick open={this.state.confirmDelete} maxWidth='xs' fullWidth>
         <DialogTitle>Delete Feature?</DialogTitle>
         <DialogActions>
-          <Button onClick={() => this.setState({confirmDelete: null})} color='primary'>
+          <Button onClick={() => this.setState({confirmDelete: false})} color='primary'>
             Cancel
           </Button>
-          <Button onClick={this.state.confirmDelete} color='primary'>
+          <Button onClick={this.handleDeleteConfirm} color='primary'>
             Ok
           </Button>
         </DialogActions>
