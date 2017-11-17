@@ -7,6 +7,7 @@
       },
       "id": "7b8f0c7d-0d08-4029-ab66-eca3517e8aea",
       "properties": {
+        "group1": {},
         "area": "Kwitaro",
         "caption": "Sit id esse deserunt",
         "happening": ["fishing", "bobcats"],
@@ -21,9 +22,11 @@
         "number": 5,
         "other": "a_very_long_option_to_test_text_ellipsis_formatting",
         "people": "burch_andrews",
-        "picture": {
+        "pictures": [{
           "url": "https://s3.amazonaws.com/images.digital-democracy.org/mapfilter-sample/sample-6.jpg"
-        },
+        }, {
+          "url": "https://s3.amazonaws.com/images.digital-democracy.org/mapfilter-sample/sample-17.jpg"
+        }],
         "placename": "Sims Thermal",
         "public": true,
         "region": "South Central",
@@ -39,6 +42,9 @@
       },
       "id": "f506db2b-4aa9-4d27-bd49-c126d823c894",
       "properties": {
+        "group1": {
+          "foo": "bar"
+        },
         "area": "Kosad",
         "caption": "Lorem aliqua sint ullamco est",
         "happening": ["mining"],

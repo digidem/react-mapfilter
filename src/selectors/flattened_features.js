@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect'
-import flattenObject from 'flat'
+import flattenObject from '../util/flat'
 import flattenGeom from 'geojson-flatten'
 import assign from 'object-assign'
 
