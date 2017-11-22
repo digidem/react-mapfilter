@@ -88,16 +88,22 @@ if (translations[lang]) {
 class MapFilter extends React.Component {
   static propTypes = {
     /**
+     * A unique identifier for a dataset. react-mapfilter persists settings (current filters, map locations).
+     * Use `datasetName` to namespace saved settings - e.g. if the dataset is different, use a different `datasetname`
+     * default: `default`
+     */
+    datasetName: PropTypes.string,
+    /**
      * An array of GeoJSON Feature objects
      * Default: `[]`
      */
-    features: MFPropTypes.features,
+    features: MFPropTypes.features.isRequired,
     /**
      * Called whenever features are changed (added or edited)
      * with a new array of feature objects. Use shallow equality
      * checks to get changes.
      */
-    onChangeFeatures: PropTypes.func,
+    onChangeFeatures: PropTypes.func.isRequired,
     /**
      * A Mapbox Style document https://www.mapbox.com/mapbox-gl-js/style-spec/
      * or a URL pointing to a style JSON
