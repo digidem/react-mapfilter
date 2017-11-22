@@ -29,6 +29,7 @@ export default connect(
 // Gets all the media fields for a feature
 function getMedia (feature, fieldAnalysis) {
   const media = []
+  if (!feature) return media
   Object.keys(fieldAnalysis.properties)
     .forEach(fieldname => {
       if (fieldAnalysis.properties[fieldname].type !== FIELD_TYPE_IMAGE) return
