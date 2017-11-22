@@ -122,17 +122,40 @@ class MapFilter extends React.Component {
      * URL to a resized version of the image. Default: `src => src`
      */
     resizer: PropTypes.func,
-    views: PropTypes.arrayOf(PropTypes.shape({
-      id: PropTypes.string,
-      component: PropTypes.func
-    })),
     /**
-     * Buttons to render on the right-side of the toolbar. Should be an array of either
-     * React Elements or React Components.
-     * Default:
+     * An array of views. Each view should have a static property `MfViewId` which
+     * is used for the tab name (and translation)
+     * Default: `['MapView', 'MediaView', 'ReportView']`
      */
-    toolbarButtons: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.element, PropTypes.func])),
-    toolbarTitle: PropTypes.oneOfType([PropTypes.string, PropTypes.element])
+    views: PropTypes.arrayOf(PropTypes.func),
+    /**
+     * Array of buttons to render on the right-side of the AppBar.
+     * Either a React Element (`<MyButton myProp='hello' />`)
+     * or a React Component (`MyButton`)
+     */
+    appBarButtons: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.element, PropTypes.func])),
+    /**
+     * App title to render on left-side of the AppBar. Can be anything that can be rendered
+     * (numbers, strings, elements or an array containing these types)
+     * Default: `'MapFilter'`
+     */
+    appBarTitle: PropTypes.node,
+    /**
+     * Menu items to render at the end of the AppBar menu.
+     * Either a React Element (`<MyMenuItem myProp='hello' />`)
+     * or a React Component (`MyMenuItem`)
+     */
+    appBarMenuItems: PropTypes.oneOfType([PropTypes.element, PropTypes.func]),
+    /**
+     * Buttons to render on a view toolbar. An array of objects with a `MfViewId` prop
+     * that matches the MfViewId of the view where the button should appear, and a prop
+     * `button` which should be either a React Element (`<MyToolbarButton myProp='hello' />`)
+     * or a React Component (`MyToolbarButton`)
+     */
+    viewToolbarButtons: PropTypes.arrayOf(PropTypes.shape({
+      MfViewId: PropTypes.string.isRequired,
+      button: PropTypes.oneOfType([PropTypes.element, PropTypes.func])
+    }))
   }
 
   static defaultProps = {
@@ -166,10 +189,10 @@ class MapFilter extends React.Component {
   }
 
   render () {
-    const {actionButton, views, toolbarButtons, toolbarTitle} = this.props
+    const {actionButton, views, appBarButtons, appBarTitle} = this.props
     return <Provider store={this.store}>
       <IntlProvider locale={navigator.language.slice(0, 2)} >
-        <App actionButton={actionButton} views={views} toolbarButtons={toolbarButtons} toolbarTitle={toolbarTitle} />
+        <App actionButton={actionButton} views={views} appBarButtons={appBarButtons} appBarTitle={appBarTitle} />
       </IntlProvider>
     </Provider>
   }

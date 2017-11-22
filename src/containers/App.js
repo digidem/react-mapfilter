@@ -116,13 +116,19 @@ class App extends React.Component {
   }
 
   render () {
-    const {activeView, activeModal, actionButton, classes, views, switchView, closeModal,
-      settingsTab, toolbarButtons, toolbarTitle, willPrint, paperSize, cancelPrint, changePaperSize} = this.props
+    const {activeView, activeModal, actionButton, classes, views, switchView, closeModal, appBarMenuItems,
+      settingsTab, appBarButtons, appBarTitle, willPrint, paperSize, cancelPrint, changePaperSize} = this.props
     const ViewComponent = getViewComponent(activeView, views)
 
     return (
       <div className={classes.outer}>
-        <AppBar views={views} activeView={activeView} onChangeTab={switchView} buttons={toolbarButtons} title={toolbarTitle} />
+        <AppBar
+          views={views}
+          activeView={activeView}
+          onChangeTab={switchView}
+          buttons={appBarButtons}
+          menuItems={appBarMenuItems}
+          title={appBarTitle} />
         <div className={classes.inner}>
           <ConnectFilterPane />
           <div className={classes.view}>

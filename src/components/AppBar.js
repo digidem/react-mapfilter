@@ -9,7 +9,7 @@ import {defineMessages, FormattedMessage} from 'react-intl'
 import classNames from 'classnames'
 
 import CustomContainer from '../containers/ViewContainer'
-import {MenuButton} from './buttons'
+import ConnectMenuButton from '../containers/ConnectMenuButton'
 
 const styleSheet = theme => ({
   root: {
@@ -63,12 +63,12 @@ const messages = defineMessages({
   }
 })
 
-function AppBar ({activeView, views, onChangeTab, buttons, title, classes}) {
 const getViewMessage = (viewId) => ({
   id: 'view.' + viewId + '.name',
   defaultMessage: viewId
 })
 
+function AppBar ({activeView, views, onChangeTab, buttons, title, menuItems, classes}) {
   title = typeof title === 'string' ? <Typography type='title' color='inherit'>{title}</Typography> : title
   return (
     <MuiAppBar position='static' className={classes.root}>
@@ -90,7 +90,8 @@ const getViewMessage = (viewId) => ({
           ))}
         </Tabs>
         <div className={classes.buttons}>
-          {buttons.concat([MenuButton]).map((button, i) => <CustomContainer key={i} component={button} />)}
+          {buttons.map((button, i) => <CustomContainer key={i} component={button} />)}
+          <ConnectMenuButton menuItems={menuItems} />
         </div>
       </Toolbar>
     </MuiAppBar>
