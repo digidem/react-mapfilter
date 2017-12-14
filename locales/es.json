@@ -1,20 +1,71 @@
-[
-    {
-        "id": "menu.settings",
-        "defaultMessage": "Settings"
-    },
-    {
-        "id": "buttons.menu",
-        "defaultMessage": "Menu"
-    },
-    {
-        "id": "menu.exportGeoJSON",
-        "description": "Menu item to export GeoJSON data",
-        "defaultMessage": "Export GeoJSON…"
-    },
-    {
-        "id": "menu.exportCSV",
-        "description": "Menu item to export CSV data",
-        "defaultMessage": "Export CSV…"
-    }
-]
+{
+  "feature.editButton": {
+    "message": "Editar",
+    "description": "Edit button label"
+  },
+  "feature.closeButton": {
+    "message": "Cerrar",
+    "description": "Close button label"
+  },
+  "feature.cancelButton": {
+    "message": "Cancelar",
+    "description": "Cancel button label"
+  },
+  "feature.saveButton": {
+    "message": "Guardar",
+    "description": "Save button label"
+  },
+  "filter.change": {
+    "message": "Modificar filtros...",
+    "description": "Button text to change which fields are shown and filterable in the filter pane"
+  },
+  "filter.show_only": {
+    "message": "Solo",
+    "description": "Button text to only show a particular field value in a filter"
+  },
+  "filter.show_all": {
+    "message": "Mostrar todo",
+    "description": "Button text to turn off filters for a field"
+  },
+  "filter.filters.description": {
+    "message": "Seleccione los campos que desea utilizar para filtrar sus datos",
+    "description": "Description of what the filter settings pane does"
+  },
+  "settings.title": {
+    "message": "Herramientas",
+    "description": "Title text for settings dialog"
+  },
+  "settings.filters": {
+    "message": "Modificar filtros",
+    "description": "Tab label for filter settings pane"
+  },
+  "settings.fields": {
+    "message": "Campos visibles",
+    "description": "Tab label for fields settings pane"
+  },
+  "settings.general": {
+    "message": "General",
+    "description": "Tab label for general settings pane"
+  },
+  "topbar.map": {
+    "message": "Mapa",
+    "description": "Map tab name"
+  },
+  "topbar.media": {
+    "message": "Media",
+    "description": "Media tab name"
+  },
+  "topbar.report": {
+    "message": "Informe",
+    "description": "Report tab name"
+  },
+  "field_value.true": {
+    "message": "Si"
+  },
+  "field_value.false": {
+    "message": "No"
+  },
+  "field_value.no_value": {
+    "message": "[Vacio]"
+  }
+}
