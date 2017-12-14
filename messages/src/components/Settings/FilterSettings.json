@@ -1,0 +1,7 @@
+[
+  {
+    "id": "filter.filters.description",
+    "description": "Description of what the filter settings pane does",
+    "defaultMessage": "Select the fields you would like to use to filter the data:"
+  }
+]

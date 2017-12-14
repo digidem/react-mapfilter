@@ -1,0 +1,18 @@
+[
+  {
+    "id": "field_value.true",
+    "defaultMessage": "Yes"
+  },
+  {
+    "id": "field_value.false",
+    "defaultMessage": "No"
+  },
+  {
+    "id": "field_value.no_value",
+    "defaultMessage": "[Null]"
+  },
+  {
+    "id": "field_value.undefined",
+    "defaultMessage": "[No Value]"
+  }
+]

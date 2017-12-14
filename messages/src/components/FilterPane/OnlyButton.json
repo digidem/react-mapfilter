@@ -1,0 +1,7 @@
+[
+  {
+    "id": "filter.show_only",
+    "description": "Button text to only show a particular field value in a filter",
+    "defaultMessage": "Only"
+  }
+]

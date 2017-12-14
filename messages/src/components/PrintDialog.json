@@ -1,0 +1,18 @@
+[
+  {
+    "id": "printDialog.title",
+    "defaultMessage": "Print settings"
+  },
+  {
+    "id": "printDialog.paperSizeLabel",
+    "defaultMessage": "Paper size"
+  },
+  {
+    "id": "printDialog.cancelButtonLabel",
+    "defaultMessage": "Cancel"
+  },
+  {
+    "id": "printDialog.printButtonLabel",
+    "defaultMessage": "Print"
+  }
+]

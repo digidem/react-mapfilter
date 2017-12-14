@@ -1,0 +1,27 @@
+[
+  {
+    "id": "feature.editButton",
+    "description": "Edit button label",
+    "defaultMessage": "Edit"
+  },
+  {
+    "id": "feature.closeButton",
+    "description": "Close button label",
+    "defaultMessage": "Close"
+  },
+  {
+    "id": "feature.deleteButton",
+    "description": "Delete feature button label",
+    "defaultMessage": "Delete"
+  },
+  {
+    "id": "feature.cancelButton",
+    "description": "Cancel button label",
+    "defaultMessage": "Cancel"
+  },
+  {
+    "id": "feature.saveButton",
+    "description": "Save button label",
+    "defaultMessage": "Save"
+  }
+]

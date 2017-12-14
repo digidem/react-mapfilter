@@ -1,0 +1,22 @@
+[
+  {
+    "id": "settings.title",
+    "description": "Title text for settings dialog",
+    "defaultMessage": "Settings"
+  },
+  {
+    "id": "settings.filters",
+    "description": "Tab label for filter settings pane",
+    "defaultMessage": "Change Filters"
+  },
+  {
+    "id": "settings.fields",
+    "description": "Tab label for fields settings pane",
+    "defaultMessage": "Visible Fields"
+  },
+  {
+    "id": "settings.general",
+    "description": "Tab label for general settings pane",
+    "defaultMessage": "General"
+  }
+]

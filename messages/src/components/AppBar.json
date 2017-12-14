@@ -1,0 +1,17 @@
+[
+  {
+    "id": "view.map.name",
+    "description": "Map tab name",
+    "defaultMessage": "Map"
+  },
+  {
+    "id": "view.media.name",
+    "description": "Media tab name",
+    "defaultMessage": "Media"
+  },
+  {
+    "id": "view.report.name",
+    "description": "Report tab name",
+    "defaultMessage": "Report"
+  }
+]

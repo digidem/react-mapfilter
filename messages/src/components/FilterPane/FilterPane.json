@@ -1,0 +1,7 @@
+[
+  {
+    "id": "filter.change",
+    "description": "Button text to change which fields are shown and filterable in the filter pane",
+    "defaultMessage": "Change Filters…"
+  }
+]
