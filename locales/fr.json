@@ -1,4 +1,30 @@
 {
+  "view.map.name": {
+    "message": "Map",
+    "description": "Map tab name"
+  },
+  "view.media.name": {
+    "message": "Media",
+    "description": "Media tab name"
+  },
+  "view.report.name": {
+    "message": "Report",
+    "description": "Report tab name"
+  },
+  "menu.settings": {
+    "message": "Settings"
+  },
+  "buttons.menu": {
+    "message": "Menu"
+  },
+  "menu.exportGeoJSON": {
+    "message": "Export GeoJSON…",
+    "description": "Menu item to export GeoJSON data"
+  },
+  "menu.exportCSV": {
+    "message": "Export CSV…",
+    "description": "Menu item to export CSV data"
+  },
   "feature.editButton": {
     "message": "Edit",
     "description": "Edit button label"
@@ -6,6 +32,10 @@
   "feature.closeButton": {
     "message": "Close",
     "description": "Close button label"
+  },
+  "feature.deleteButton": {
+    "message": "Delete",
+    "description": "Delete feature button label"
   },
   "feature.cancelButton": {
     "message": "Cancel",
@@ -27,6 +57,24 @@
     "message": "Show All",
     "description": "Button text to turn off filters for a field"
   },
+  "printDialog.title": {
+    "message": "Print settings"
+  },
+  "printDialog.paperSizeLabel": {
+    "message": "Paper size"
+  },
+  "printDialog.cancelButtonLabel": {
+    "message": "Cancel"
+  },
+  "printDialog.printButtonLabel": {
+    "message": "Print"
+  },
+  "reportToolbar.hideFieldsLabel": {
+    "message": "{count, plural, =0 {Hide Fields} one {# Hidden Field} other {# Hidden Fields}}"
+  },
+  "reportToolbar.printLabel": {
+    "message": "Print"
+  },
   "filter.filters.description": {
     "message": "Select the fields you would like to use to filter the data:",
     "description": "Description of what the filter settings pane does"
@@ -47,18 +95,6 @@
     "message": "General",
     "description": "Tab label for general settings pane"
   },
-  "topbar.map": {
-    "message": "Map",
-    "description": "Map tab name"
-  },
-  "topbar.media": {
-    "message": "Media",
-    "description": "Media tab name"
-  },
-  "topbar.report": {
-    "message": "Report",
-    "description": "Report tab name"
-  },
   "field_value.true": {
     "message": "Yes"
   },
@@ -66,6 +102,9 @@
     "message": "No"
   },
   "field_value.no_value": {
+    "message": "[Null]"
+  },
+  "field_value.undefined": {
     "message": "[No Value]"
   }
 }
