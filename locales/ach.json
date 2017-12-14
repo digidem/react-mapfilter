@@ -1,4 +1,30 @@
 {
+  "view.map.name": {
+    "message": "crwdns94:0crwdne94:0",
+    "description": "Map tab name"
+  },
+  "view.media.name": {
+    "message": "crwdns95:0crwdne95:0",
+    "description": "Media tab name"
+  },
+  "view.report.name": {
+    "message": "crwdns96:0crwdne96:0",
+    "description": "Report tab name"
+  },
+  "menu.settings": {
+    "message": "crwdns97:0crwdne97:0"
+  },
+  "buttons.menu": {
+    "message": "crwdns98:0crwdne98:0"
+  },
+  "menu.exportGeoJSON": {
+    "message": "crwdns99:0crwdne99:0",
+    "description": "Menu item to export GeoJSON data"
+  },
+  "menu.exportCSV": {
+    "message": "crwdns100:0crwdne100:0",
+    "description": "Menu item to export CSV data"
+  },
   "feature.editButton": {
     "message": "crwdns76:0crwdne76:0",
     "description": "Edit button label"
@@ -6,6 +32,10 @@
   "feature.closeButton": {
     "message": "crwdns77:0crwdne77:0",
     "description": "Close button label"
+  },
+  "feature.deleteButton": {
+    "message": "crwdns101:0crwdne101:0",
+    "description": "Delete feature button label"
   },
   "feature.cancelButton": {
     "message": "crwdns78:0crwdne78:0",
@@ -27,6 +57,24 @@
     "message": "crwdns82:0crwdne82:0",
     "description": "Button text to turn off filters for a field"
   },
+  "printDialog.title": {
+    "message": "crwdns102:0crwdne102:0"
+  },
+  "printDialog.paperSizeLabel": {
+    "message": "crwdns103:0crwdne103:0"
+  },
+  "printDialog.cancelButtonLabel": {
+    "message": "crwdns104:0crwdne104:0"
+  },
+  "printDialog.printButtonLabel": {
+    "message": "crwdns105:0crwdne105:0"
+  },
+  "reportToolbar.hideFieldsLabel": {
+    "message": "crwdns106:0count={count}crwdne106:0"
+  },
+  "reportToolbar.printLabel": {
+    "message": "crwdns107:0crwdne107:0"
+  },
   "filter.filters.description": {
     "message": "crwdns83:0crwdne83:0",
     "description": "Description of what the filter settings pane does"
@@ -47,18 +95,6 @@
     "message": "crwdns87:0crwdne87:0",
     "description": "Tab label for general settings pane"
   },
-  "topbar.map": {
-    "message": "crwdns88:0crwdne88:0",
-    "description": "Map tab name"
-  },
-  "topbar.media": {
-    "message": "crwdns89:0crwdne89:0",
-    "description": "Media tab name"
-  },
-  "topbar.report": {
-    "message": "crwdns90:0crwdne90:0",
-    "description": "Report tab name"
-  },
   "field_value.true": {
     "message": "crwdns91:0crwdne91:0"
   },
@@ -66,6 +102,9 @@
     "message": "crwdns92:0crwdne92:0"
   },
   "field_value.no_value": {
-    "message": "crwdns93:0crwdne93:0"
+    "message": "crwdns108:0[Null]crwdne108:0"
+  },
+  "field_value.undefined": {
+    "message": "crwdns109:0crwdne109:0"
   }
 }
