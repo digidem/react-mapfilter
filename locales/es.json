@@ -4,25 +4,25 @@
     "description": "Map tab name"
   },
   "view.media.name": {
-    "message": "Media",
+    "message": "Fotos",
     "description": "Media tab name"
   },
   "view.report.name": {
-    "message": "Report",
+    "message": "Informe",
     "description": "Report tab name"
   },
   "menu.settings": {
-    "message": "Settings"
+    "message": "Configuración"
   },
   "buttons.menu": {
-    "message": "Menu"
+    "message": "Menú"
   },
   "menu.exportGeoJSON": {
-    "message": "Export GeoJSON…",
+    "message": "Exportar GeoJSON…",
     "description": "Menu item to export GeoJSON data"
   },
   "menu.exportCSV": {
-    "message": "Export CSV…",
+    "message": "Exportar CSV…",
     "description": "Menu item to export CSV data"
   },
   "feature.editButton": {
@@ -34,7 +34,7 @@
     "description": "Close button label"
   },
   "feature.deleteButton": {
-    "message": "Delete",
+    "message": "Eliminar",
     "description": "Delete feature button label"
   },
   "feature.cancelButton": {
@@ -46,11 +46,11 @@
     "description": "Save button label"
   },
   "filter.change": {
-    "message": "Modificar filtros...",
+    "message": "Modificar filtros…",
     "description": "Button text to change which fields are shown and filterable in the filter pane"
   },
   "filter.show_only": {
-    "message": "Solo",
+    "message": "Sólo",
     "description": "Button text to only show a particular field value in a filter"
   },
   "filter.show_all": {
@@ -58,29 +58,29 @@
     "description": "Button text to turn off filters for a field"
   },
   "printDialog.title": {
-    "message": "Print settings"
+    "message": "Configuración de impresión"
   },
   "printDialog.paperSizeLabel": {
-    "message": "Paper size"
+    "message": "Tamaño de papel"
   },
   "printDialog.cancelButtonLabel": {
-    "message": "Cancel"
+    "message": "Cancelar"
   },
   "printDialog.printButtonLabel": {
-    "message": "Print"
+    "message": "Imprimir"
   },
   "reportToolbar.hideFieldsLabel": {
-    "message": "{count, plural, =0 {Hide Fields} one {# Hidden Field} other {# Hidden Fields}}"
+    "message": "{count, plural, =0 {Ocultar campos} one {# Campo Oculto} other {# Campos Ocultos}}"
   },
   "reportToolbar.printLabel": {
-    "message": "Print"
+    "message": "Imprimir"
   },
   "filter.filters.description": {
-    "message": "Seleccione los campos que desea utilizar para filtrar sus datos",
+    "message": "Seleccione los campos que desea utilizar para filtrar sus datos:",
     "description": "Description of what the filter settings pane does"
   },
   "settings.title": {
-    "message": "Herramientas",
+    "message": "Configuración",
     "description": "Title text for settings dialog"
   },
   "settings.filters": {
@@ -96,7 +96,7 @@
     "description": "Tab label for general settings pane"
   },
   "field_value.true": {
-    "message": "Si"
+    "message": "Sí"
   },
   "field_value.false": {
     "message": "No"
@@ -105,6 +105,6 @@
     "message": "[Null]"
   },
   "field_value.undefined": {
-    "message": "[No Value]"
+    "message": "[Ningún valor]"
   }
 }
