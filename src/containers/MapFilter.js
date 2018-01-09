@@ -76,7 +76,8 @@ const controllableProps = [
   'fieldTypes',
   'fieldOrder',
   'ui',
-  'resizer'
+  'resizer',
+  'fieldMapping'
 ]
 
 const initialState = {}
@@ -104,6 +105,14 @@ class MapFilter extends React.Component {
      * checks to get changes.
      */
     onChangeFeatures: PropTypes.func.isRequired,
+    /**
+     * Configure which fields are used for the title and subtitle field.
+     */
+    fieldMapping: MFPropTypes.fieldMapping,
+    /**
+     * Called whenever the field mapping is changed
+     */
+    onChangeFieldMapping: PropTypes.func,
     /**
      * A Mapbox Style document https://www.mapbox.com/mapbox-gl-js/style-spec/
      * or a URL pointing to a style JSON
