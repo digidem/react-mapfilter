@@ -6,7 +6,7 @@
   "peerDependencies": {
     "react": "^15.4.1 || ^16",
     "react-dom": "^15.4.1 || ^16",
-    "material-ui": "^1.0.0-beta.20"
+    "material-ui": "1.0.0-beta.20"
   },
   "dependencies": {
     "@mapbox/sexagesimal": "^1.0.0",
