@@ -17,6 +17,9 @@ const styles = {
   }
 }
 
+let wrapper
+let frames = {}
+
 class Carousel extends React.Component {
   constructor (props) {
     super(props)
@@ -24,7 +27,6 @@ class Carousel extends React.Component {
     this.state = {
       current: 0
     }
-
     this.mounted = false
     this.onTouchStart = this.onTouchStart.bind(this)
     this.onTouchMove = this.onTouchMove.bind(this)
@@ -45,7 +47,7 @@ class Carousel extends React.Component {
 
     // Hide all frames
     for (let i = 1; i < childCount; i++) {
-      this.refs['f' + i].style.opacity = 0
+      frames['f' + i].style.opacity = 0
     }
   }
 
@@ -70,10 +72,10 @@ class Carousel extends React.Component {
       deltaY: 0
     })
 
-    this.refs.wrapper.addEventListener('touchmove', this.onTouchMove, {passive: true})
-    this.refs.wrapper.addEventListener('mousemove', this.onTouchMove, {passive: true})
-    this.refs.wrapper.addEventListener('touchend', this.onTouchEnd, true)
-    this.refs.wrapper.addEventListener('mouseup', this.onTouchEnd, true)
+    wrapper.addEventListener('touchmove', this.onTouchMove, {passive: true})
+    wrapper.addEventListener('mousemove', this.onTouchMove, {passive: true})
+    wrapper.addEventListener('touchend', this.onTouchEnd, true)
+    wrapper.addEventListener('mouseup', this.onTouchEnd, true)
   }
 
   onTouchMove (e) {
@@ -111,10 +113,10 @@ class Carousel extends React.Component {
     direction && this.transitFramesTowards(direction)
 
     // cleanup
-    this.refs.wrapper.removeEventListener('touchmove', this.onTouchMove)
-    this.refs.wrapper.removeEventListener('mousemove', this.onTouchMove)
-    this.refs.wrapper.removeEventListener('touchend', this.onTouchEnd, true)
-    this.refs.wrapper.removeEventListener('mouseup', this.onTouchEnd, true)
+    wrapper.removeEventListener('touchmove', this.onTouchMove)
+    wrapper.removeEventListener('mousemove', this.onTouchMove)
+    wrapper.removeEventListener('touchend', this.onTouchEnd, true)
+    wrapper.removeEventListener('mouseup', this.onTouchEnd, true)
 
     setTimeout(() => this.prepareAutoSlide(), this.props.duration)
   }
@@ -217,7 +219,7 @@ class Carousel extends React.Component {
   }
 
   updateFrameSize (cb) {
-    const { width, height } = window.getComputedStyle(this.refs.wrapper)
+    const { width, height } = window.getComputedStyle(wrapper)
     this.setState({
       frameWidth: parseFloat(width.split('px')[0]),
       frameHeight: parseFloat(height.split('px')[0])
@@ -226,9 +228,9 @@ class Carousel extends React.Component {
 
   prepareSiblingFrames () {
     const siblings = {
-      current: this.refs['f' + this.getFrameId()],
-      prev: this.refs['f' + this.getFrameId('prev')],
-      next: this.refs['f' + this.getFrameId('next')]
+      current: frames['f' + this.getFrameId()],
+      prev: frames['f' + this.getFrameId('prev')],
+      next: frames['f' + this.getFrameId('next')]
     }
 
     if (!this.props.loop) {
@@ -320,7 +322,7 @@ class Carousel extends React.Component {
 
     return (
       <div
-        ref='wrapper'
+        ref={_wrapper => { wrapper = _wrapper }}
         className={className}
         style={assign({}, styles.wrapper, this.props.style)}
         onTouchStart={this.onTouchStart}
@@ -328,7 +330,7 @@ class Carousel extends React.Component {
         {
           Children.map(children, (child, i) => {
             const frameStyle = assign({zIndex: 99 - i}, styles.frame)
-            return <div ref={'f' + i} key={i} style={frameStyle}>{child}</div>
+            return <div ref={_f => { frames['f' + i] = _f }} key={i} style={frameStyle}>{child}</div>
           })
         }
         {

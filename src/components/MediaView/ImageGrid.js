@@ -22,6 +22,7 @@ const styles = {
     backgroundColor: 'rgb(240, 240, 240)'
   }
 }
+let grid = null
 
 class ImageGrid extends React.Component {
   static propTypes = {
@@ -40,7 +41,7 @@ class ImageGrid extends React.Component {
 
   componentWillReceiveProps (nextProps) {
     if (this.props.images !== nextProps.images) {
-      this.refs.grid && this.refs.grid.recomputeGridSize()
+      grid && grid.recomputeGridSize()
     }
   }
 
@@ -66,7 +67,7 @@ class ImageGrid extends React.Component {
               cellSize = (width - this.scrollbarWidth) / columnsCount
             }
             return <Grid
-              ref='grid'
+              ref={inst => { grid = inst }}
               columnCount={columnsCount}
               columnWidth={cellSize}
               height={height}
