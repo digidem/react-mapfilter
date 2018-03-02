@@ -6,7 +6,7 @@
   "peerDependencies": {
     "react": "^15.4.1 || ^16",
     "react-dom": "^15.4.1 || ^16",
-    "material-ui": "1.0.0-beta.20"
+    "material-ui": "^1.0.0-beta.35"
   },
   "dependencies": {
     "@mapbox/sexagesimal": "^1.0.0",
@@ -29,7 +29,8 @@
     "localforage": "^1.5.0",
     "lodash": "^4.16.4",
     "mapbox-gl": "^0.41.0",
-    "material-ui-icons": "^1.0.0-beta.17",
+    "material-ui": "^1.0.0-beta.35",
+    "material-ui-icons": "^1.0.0-beta.35",
     "moment": "^2.15.2",
     "object-assign": "^4.1.0",
     "prop-types": "^15.5.10",
@@ -74,7 +75,6 @@
     "gh-pages": "^1.0.0",
     "glob": "^7.1.2",
     "history": "^4.6.3",
-    "material-ui": "1.0.0-beta.20",
     "mkdirp": "^0.5.1",
     "precinct": "^3.8.0",
     "pump": "^1.0.1",
