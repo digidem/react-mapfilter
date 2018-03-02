@@ -66,7 +66,9 @@ class DateFilter extends React.PureComponent {
     onUpdate: PropTypes.func
   }
 
-  state = {}
+  state = {
+    open: false
+  }
 
   showDatePopover = (event) => {
     event.preventDefault()
