@@ -22,7 +22,7 @@ const styles = {
 const ToolbarButton = (props) => {
   const {children, classes} = props
   const otherProps = omit(props, 'children', 'classes')
-  return <Button dense className={classes.root} {...otherProps}>
+  return <Button className={classes.root} {...otherProps}>
     {children}
   </Button>
 }
