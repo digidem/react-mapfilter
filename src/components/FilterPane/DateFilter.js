@@ -136,7 +136,7 @@ class DateFilter extends React.PureComponent {
         isFiltered={isFiltered}
         showAll={this.showAllDates}>
         <Button
-          rootRef={el => (this.buttonNode = el)}
+          ref={el => (this.buttonNode = el)}
           onClick={this.showDatePopover}
           className={classes.button}>
           {rangeStr}
