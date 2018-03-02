@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types'
+import ReactDOM from 'react-dom'
 import React from 'react'
 import makePure from 'recompose/pure'
 import DateIcon from 'material-ui-icons/DateRange'
@@ -136,7 +137,7 @@ class DateFilter extends React.PureComponent {
         isFiltered={isFiltered}
         showAll={this.showAllDates}>
         <Button
-          ref={el => (this.buttonNode = el)}
+          ref={el => (this.buttonNode = ReactDOM.findDOMNode(el))}
           onClick={this.showDatePopover}
           className={classes.button}>
           {rangeStr}
@@ -150,7 +151,7 @@ class DateFilter extends React.PureComponent {
           open={this.state.open}
           anchorEl={this.buttonNode}
           anchorOrigin={{vertical: 'bottom', horizontal: 'left'}}
-          onRequestClose={this.handleRequestClose}
+          onClose={this.handleRequestClose}
           className={classes.popover}
         >
           <PureDateRange
