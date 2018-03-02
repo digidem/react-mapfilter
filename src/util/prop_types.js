@@ -67,7 +67,7 @@ export const feature = PropTypes.shape({
   properties: PropTypes.object
 })
 
-export const features = PropTypes.arrayOf(feature).isRequired
+export const features = PropTypes.arrayOf(feature)
 
 const fieldAnalysisField = PropTypes.shape({
   fieldname: PropTypes.string,
