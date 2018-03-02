@@ -63,13 +63,13 @@ const messages = defineMessages({
 const ViewActions = ({onCloseClick, onEditClick, classes}) => (
   <DialogActions>
     <Button
-      raised
+      variant='raised'
       icon={<EditIcon />}
       onClick={onEditClick}>
       <FormattedMessage {...messages.editButton} />
     </Button>
     <Button
-      raised
+      variant='raised'
       color='primary'
       onClick={onCloseClick}>
       <FormattedMessage {...messages.closeButton} />
@@ -81,12 +81,12 @@ const EditActions = ({onCancelClick, onSaveClick, onDeleteClick, classes}) => (
   <DialogActions>
     <Button
       color='accent'
-      raised
+      variant='raised'
       onClick={onDeleteClick}>
       <FormattedMessage {...messages.deleteButton} />
     </Button>
     <Button
-      raised
+      variant='raised'
       onClick={onCancelClick}
       className={classes.button}>
       <FormattedMessage {...messages.cancelButton} />
