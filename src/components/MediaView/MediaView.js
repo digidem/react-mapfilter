@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import * as MFPropTypes from '../../util/prop_types'
 import ImageGrid from './ImageGrid'
-import { FIELD_TYPE_IMAGE } from '../../constants'
+import { FIELD_TYPE_IMAGE, UNDEFINED_KEY } from '../../constants'
 
 class MediaView extends React.Component {
   shouldComponentUpdate (nextProps) {
@@ -17,7 +17,7 @@ class MediaView extends React.Component {
     )
     return filteredFeatures.reduce((p, feature) => {
       imageFieldNames.forEach(f => {
-        if (feature.properties[f]) {
+        if (feature.properties[f] && feature.properties[f] !== UNDEFINED_KEY) {
           p.push({
             url: feature.properties[f],
             featureId: feature.id
