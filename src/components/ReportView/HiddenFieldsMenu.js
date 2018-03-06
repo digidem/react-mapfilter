@@ -33,7 +33,7 @@ const HiddenFieldsMenu = ({anchorEl, open, onRequestClose, onShowAll, onHideAll,
       horizontal: 'left'
     }}
     open={open}
-    onRequestClose={onRequestClose}
+    onClose={onRequestClose}
     PaperProps={{
       style: {
         maxHeight: '50vh',

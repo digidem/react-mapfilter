@@ -68,7 +68,7 @@ class FilterSection extends React.Component {
               : <ExpandButton expanded={expanded} onClick={this.handleExpandClick} />}
           </ListItemSecondaryAction>
         </ListItem>
-        <Collapse in={expanded} transitionDuration='auto' classes={{wrapperInner: classes.collapse}}>
+        <Collapse in={expanded} classes={{wrapperInner: classes.collapse}}>
           {children}
         </Collapse>
       </div>
