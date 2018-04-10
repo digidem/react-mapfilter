@@ -42,8 +42,6 @@ const translations = {
   }
 }
 
-const lang = navigator.language.slice(0, 2)
-
 // Roboto font
 require('../../css/fonts.css')
 
@@ -82,10 +80,6 @@ const controllableProps = [
 ]
 
 const initialState = {}
-
-if (translations[lang]) {
-  initialState.intl = translations[lang]
-}
 
 class MapFilter extends React.Component {
   static propTypes = {
@@ -162,6 +156,10 @@ class MapFilter extends React.Component {
      * or a React Component (`MyMenuItem`)
      */
     appBarMenuItems: PropTypes.oneOfType([PropTypes.element, PropTypes.func]),
+     /**
+     * A locale string that is optional, overriding the default navigator locale.
+     */
+    locale: PropTypes.string,
     /**
      * Buttons to render on a view toolbar. An array of objects with a `MfViewId` prop
      * that matches the MfViewId of the view where the button should appear, and a prop
@@ -178,6 +176,7 @@ class MapFilter extends React.Component {
     features: [],
     mapStyle: config.defaultMapStyle,
     resizer: src => src,
+    locale: navigator.language.slice(0, 2),
     actionButton: null,
     datasetName: 'default'
   }
@@ -192,6 +191,10 @@ class MapFilter extends React.Component {
     super(props)
     const stateOverride = pick(props, controllableProps)
     const controlledStoreEnhancer = controlledStore(this.handleChange, stateOverride)
+    var lang = this.props.locale
+    if (translations[lang]) {
+      initialState.intl = translations[lang]
+    }
     this.store = createStore(reducers, initialState, compose(controlledStoreEnhancer, storeEnhancer))
     persistStore(this.store, assign({}, reduxPersistOptions, {
       keyPrefix: 'reduxPersist:' + props.datasetName + ':'
@@ -205,9 +208,9 @@ class MapFilter extends React.Component {
   }
 
   render () {
-    const {actionButton, views, appBarButtons, appBarTitle} = this.props
+    const {actionButton, views, appBarButtons, appBarTitle, locale} = this.props
     return <Provider store={this.store}>
-      <IntlProvider locale={navigator.language.slice(0, 2)} >
+      <IntlProvider locale={locale} >
         <App actionButton={actionButton} views={views} appBarButtons={appBarButtons} appBarTitle={appBarTitle} />
       </IntlProvider>
     </Provider>
