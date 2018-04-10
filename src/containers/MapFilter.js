@@ -72,6 +72,7 @@ const reduxPersistOptions = {
 
 const controllableProps = [
   'features',
+  'mapPosition',
   'mapStyle',
   'fieldTypes',
   'fieldOrder',
