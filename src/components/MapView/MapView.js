@@ -99,7 +99,8 @@ class MapView extends React.Component {
     showFeatureDetail: noop,
     moveMap: noop,
     interactive: true,
-    labelPoints: false
+    labelPoints: false,
+    controls: []
   }
 
   static propTypes = {
@@ -125,7 +126,11 @@ class MapView extends React.Component {
     fieldMapping: MFPropTypes.fieldMapping,
     /* map zoom */
     zoom: PropTypes.number,
-    interactive: PropTypes.bool
+    interactive: PropTypes.bool,
+    controls: PropTypes.arrayOf(PropTypes.shape({
+      onAdd: PropTypes.func.isRequired,
+      onRemove: PropTypes.func.isRequired
+    }))
   }
 
   state = {}
@@ -217,6 +222,9 @@ class MapView extends React.Component {
     map.addControl(new mapboxgl.NavigationControl())
     map.dragRotate.disable()
     map.touchZoomRotate.disableRotation()
+    this.props.controls.forEach(function (control) {
+      map.addControl(control)
+    })
 
     this.geojson = this.getGeoJson(this.props)
 

@@ -5,6 +5,7 @@ const createHistory = require('history').createBrowserHistory
 const { MuiThemeProvider, createMuiTheme } = require('material-ui/styles')
 const blue = require('material-ui/colors/blue').default
 const pink = require('material-ui/colors/pink').default
+const mapboxgl = require('mapbox-gl')
 
 const theme = createMuiTheme({
   palette: {
@@ -75,6 +76,7 @@ class Example extends React.Component {
         features={this.state.features}
         fieldOrder={{caption: 1, public: 0}}
         ui={this.state.ui}
+        mapControls={[new mapboxgl.FullscreenControl()]}
         onChangeUi={this.handleChangeUi}
         onChangeFeatures={this.handleChangeFeatures} />
     </MuiThemeProvider>

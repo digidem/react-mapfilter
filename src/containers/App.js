@@ -114,7 +114,7 @@ class App extends React.Component {
 
   render () {
     const {activeView, activeModal, actionButton, classes, views, switchView, closeModal, appBarMenuItems,
-      settingsTab, appBarButtons, appBarTitle, willPrint, paperSize, cancelPrint, changePaperSize} = this.props
+      settingsTab, appBarButtons, appBarTitle, willPrint, paperSize, cancelPrint, changePaperSize, mapControls} = this.props
     const ViewComponent = getViewComponent(activeView, views)
 
     return (
@@ -129,7 +129,7 @@ class App extends React.Component {
         <div className={classes.inner}>
           <ConnectFilterPane />
           <div className={classes.view}>
-            <ViewContainer component={ViewComponent} />
+            <ViewContainer component={ViewComponent} controls={activeView === 'map' ? mapControls : undefined} />
           </div>
           {actionButton && <div className={classes.actionButton}>{createElement(actionButton)}</div>}
         </div>

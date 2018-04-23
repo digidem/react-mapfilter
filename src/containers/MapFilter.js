@@ -169,6 +169,15 @@ class MapFilter extends React.Component {
     viewToolbarButtons: PropTypes.arrayOf(PropTypes.shape({
       MfViewId: PropTypes.string.isRequired,
       button: PropTypes.oneOfType([PropTypes.element, PropTypes.func])
+    })),
+    /**
+     * An array of controls to add to the map. Each control should implement
+     * the IControl interface of mapbox-gl-js https://www.mapbox.com/mapbox-gl-js/api/#icontrol
+     * To set the position of the control, add a `getDefaultPosition()` method.
+     */
+    mapControls: PropTypes.arrayOf(PropTypes.shape({
+      onAdd: PropTypes.func.isRequired,
+      onRemove: PropTypes.func.isRequired
     }))
   }
 
@@ -208,10 +217,10 @@ class MapFilter extends React.Component {
   }
 
   render () {
-    const {actionButton, views, appBarButtons, appBarTitle, locale} = this.props
+    const {actionButton, views, appBarButtons, appBarTitle, locale, mapControls} = this.props
     return <Provider store={this.store}>
       <IntlProvider locale={locale} >
-        <App actionButton={actionButton} views={views} appBarButtons={appBarButtons} appBarTitle={appBarTitle} />
+        <App actionButton={actionButton} views={views} appBarButtons={appBarButtons} appBarTitle={appBarTitle} mapControls={mapControls} />
       </IntlProvider>
     </Provider>
   }
