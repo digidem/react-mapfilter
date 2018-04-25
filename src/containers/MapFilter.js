@@ -19,6 +19,7 @@ import {capitalize} from '../util/text_helpers'
 import reducers from '../reducers'
 import controlledStore from '../controlled_store'
 import config from '../../config.json'
+import stateReconciler from '../util/stateReconciler'
 
 import esStrings from '../../locales/es.json'
 import frStrings from '../../locales/fr.json'
@@ -51,9 +52,10 @@ if (process.env.NODE_ENV !== 'production' && window.__REDUX_DEVTOOLS_EXTENSION_C
   composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
 }
 
+
 const storeEnhancer = composeEnhancers(
   applyMiddleware(thunk),
-  autoRehydrate()
+  autoRehydrate({stateReconciler})
 )
 
 const reduxPersistOptions = {
@@ -69,6 +71,8 @@ const reduxPersistOptions = {
 }
 
 const controllableProps = [
+  'filters',
+  'filterFields',
   'features',
   'mapPosition',
   'mapStyle',
@@ -89,6 +93,26 @@ class MapFilter extends React.Component {
      * default: `default`
      */
     datasetName: PropTypes.string,
+    /**
+     * An object of filters
+     * Default: `{}`
+     */
+    filters: PropTypes.object,
+    /**
+     * Called whenever filters are changed
+     * with a new array of filter objects.
+    */
+    onChangeFilters: PropTypes.func,
+    /**
+     * Called whenever filters are changed
+     * with a new array of filter objects.
+    */
+    onChangeFilterFields: PropTypes.func,
+    /**
+     * An array of filter fields
+     * Default: `[]`
+     */
+    filterFields: PropTypes.array,
     /**
      * An array of GeoJSON Feature objects
      * Default: `[]`
