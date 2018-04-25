@@ -19,6 +19,7 @@ import {capitalize} from '../util/text_helpers'
 import reducers from '../reducers'
 import controlledStore from '../controlled_store'
 import config from '../../config.json'
+import stateReconciler from '../util/stateReconciler'
 
 import esStrings from '../../locales/es.json'
 import frStrings from '../../locales/fr.json'
@@ -53,9 +54,10 @@ if (process.env.NODE_ENV !== 'production' && window.__REDUX_DEVTOOLS_EXTENSION_C
   composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
 }
 
+
 const storeEnhancer = composeEnhancers(
   applyMiddleware(thunk),
-  autoRehydrate()
+  autoRehydrate({stateReconciler})
 )
 
 const reduxPersistOptions = {
