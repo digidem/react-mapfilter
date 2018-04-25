@@ -71,6 +71,8 @@ const reduxPersistOptions = {
 }
 
 const controllableProps = [
+  'filters',
+  'filterFields',
   'features',
   'mapPosition',
   'mapStyle',
@@ -95,6 +97,26 @@ class MapFilter extends React.Component {
      * default: `default`
      */
     datasetName: PropTypes.string,
+    /**
+     * An object of filters
+     * Default: `{}`
+     */
+    filters: PropTypes.object,
+    /**
+     * Called whenever filters are changed
+     * with a new array of filter objects.
+    */
+    onChangeFilters: PropTypes.func,
+    /**
+     * Called whenever filters are changed
+     * with a new array of filter objects.
+    */
+    onChangeFilterFields: PropTypes.func,
+    /**
+     * An array of filter fields
+     * Default: `[]`
+     */
+    filterFields: PropTypes.array,
     /**
      * An array of GeoJSON Feature objects
      * Default: `[]`
