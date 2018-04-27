@@ -52,12 +52,6 @@ if (process.env.NODE_ENV !== 'production' && window.__REDUX_DEVTOOLS_EXTENSION_C
   composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
 }
 
-
-const storeEnhancer = composeEnhancers(
-  applyMiddleware(thunk),
-  autoRehydrate({stateReconciler})
-)
-
 const reduxPersistOptions = {
   storage: localForage,
   blacklist: [
@@ -82,6 +76,11 @@ const controllableProps = [
   'resizer',
   'fieldMapping'
 ]
+
+const storeEnhancer = composeEnhancers(
+  applyMiddleware(thunk),
+  autoRehydrate({stateReconciler: stateReconciler(controllableProps)})
+)
 
 const initialState = {}
 
