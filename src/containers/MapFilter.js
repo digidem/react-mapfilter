@@ -6,6 +6,7 @@ import thunk from 'redux-thunk'
 import {IntlProvider} from 'react-intl-redux'
 import {addLocaleData} from 'react-intl'
 import pick from 'lodash/pick'
+import merge from 'lodash/merge'
 import en from 'react-intl/locale-data/en'
 import es from 'react-intl/locale-data/es'
 import shallowEqual from 'shallow-equal/objects'
@@ -26,7 +27,7 @@ import frStrings from '../../locales/fr.json'
 
 addLocaleData([...en, ...es])
 
-const translations = {
+var translations = {
   es: {
     locale: 'es',
     messages: Object.keys(esStrings).reduce((messages, id) => {
@@ -92,6 +93,10 @@ class MapFilter extends React.Component {
      * default: `default`
      */
     datasetName: PropTypes.string,
+    /**
+     * Override the default translations mapping.
+     */
+    translations: PropTypes.object,
     /**
      * An object of filters
      * Default: `{}`
@@ -215,6 +220,7 @@ class MapFilter extends React.Component {
     const stateOverride = pick(props, controllableProps)
     const controlledStoreEnhancer = controlledStore(this.handleChange, stateOverride)
     var lang = this.props.locale
+    if (this.props.translations) merge(translations, this.props.translations)
     if (translations[lang]) {
       initialState.intl = translations[lang]
     }
