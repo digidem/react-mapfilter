@@ -9,6 +9,7 @@ import pick from 'lodash/pick'
 import merge from 'lodash/merge'
 import en from 'react-intl/locale-data/en'
 import es from 'react-intl/locale-data/es'
+import fr from 'react-intl/locale-data/fr'
 import shallowEqual from 'shallow-equal/objects'
 import {persistStore, autoRehydrate} from 'redux-persist'
 import localForage from 'localforage'
@@ -25,7 +26,7 @@ import stateReconciler from '../util/stateReconciler'
 import esStrings from '../../locales/es.json'
 import frStrings from '../../locales/fr.json'
 
-addLocaleData([...en, ...es])
+addLocaleData([...en, ...es, ...fr])
 
 var translations = {
   es: {
