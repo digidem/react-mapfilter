@@ -222,9 +222,6 @@ class MapView extends React.Component {
     map.addControl(new mapboxgl.NavigationControl())
     map.dragRotate.disable()
     map.touchZoomRotate.disableRotation()
-    this.props.controls.forEach(function (control) {
-      map.addControl(control)
-    })
 
     this.geojson = this.getGeoJson(this.props)
 
