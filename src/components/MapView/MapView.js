@@ -226,9 +226,6 @@ class MapView extends React.Component {
     this.geojson = this.getGeoJson(this.props)
 
     map.once('load', () => {
-      mapControls.forEach(function (control) {
-        map.addControl.bind(map)(control)
-      })
       if (interactive) {
         map.on('moveend', this.handleMapMoveOrZoom)
         map.on('click', this.handleMapClick)
@@ -236,6 +233,12 @@ class MapView extends React.Component {
       }
       this.setupLayers(this.props)
     })
+    map.once('style.load', () => {
+      mapControls.forEach(function (control) {
+        map.addControl.bind(map)(control)
+      })
+    })
+
 
     // If no map center or zoom passed, set map extent to extent of marker layer
     if (!center || !zoom) {
