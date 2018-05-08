@@ -291,23 +291,24 @@ class MapView extends React.Component {
       nextProps.colorIndex !== props.colorIndex ||
       (nextProps.filter !== props.filter && props.labelPoints)
 
-    if (shouldDataUpdate) {
-      this.geojson = this.getGeoJson(nextProps)
-      this.ready(() => {
+    this.ready(() => {
+      if (shouldDataUpdate) {
+        this.geojson = this.getGeoJson(nextProps)
+
         log('updating source', this.geojson)
         this.map.getSource('features').setData(this.geojson)
-      })
-      this.centerMap(this.geojson)
-    }
 
-    this.updateFilterIfNeeded(nextProps.filter)
+        this.centerMap(this.geojson)
+      }
 
-    if (disableScrollToZoom !== nextProps.disableScrollToZoom) {
-      nextProps.disableScrollToZoom ? this.map.scrollZoom.disable() : this.map.scrollZoom.enable()
-    }
+      this.updateFilterIfNeeded(nextProps.filter)
 
-    const textField = nextProps.labelPoints ? '{__mf_label}' : ''
-    this.ready(() => {
+      if (disableScrollToZoom !== nextProps.disableScrollToZoom) {
+        nextProps.disableScrollToZoom ? this.map.scrollZoom.disable() : this.map.scrollZoom.enable()
+      }
+
+      const textField = nextProps.labelPoints ? '{__mf_label}' : ''
+
       if (this.map.getLayoutProperty('labels', 'text-field') !== textField) {
         log('updating labels "' + textField + '"')
         this.map.setLayoutProperty('labels', 'text-field', textField)
@@ -342,11 +343,9 @@ class MapView extends React.Component {
 
   updateFilterIfNeeded (filter) {
     if (filter !== this.props.filter && filter) {
-      this.ready(() => {
-        log('updating filter')
-        this.map.setFilter('points', filter)
-        this.map.setFilter('labels', filter)
-      })
+      log('updating filter')
+      this.map.setFilter('points', filter)
+      this.map.setFilter('labels', filter)
     }
   }
 
