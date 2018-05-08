@@ -129,7 +129,7 @@ class App extends React.Component {
         <div className={classes.inner}>
           <ConnectFilterPane />
           <div className={classes.view}>
-            <ViewContainer component={ViewComponent} controls={activeView === 'map' ? mapControls : undefined} />
+            <ViewContainer component={ViewComponent} mapControls={activeView === 'map' ? mapControls : undefined} />
           </div>
           {actionButton && <div className={classes.actionButton}>{createElement(actionButton)}</div>}
         </div>

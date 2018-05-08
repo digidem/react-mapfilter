@@ -100,7 +100,7 @@ class MapView extends React.Component {
     moveMap: noop,
     interactive: true,
     labelPoints: false,
-    controls: []
+    mapControls: []
   }
 
   static propTypes = {
@@ -127,7 +127,7 @@ class MapView extends React.Component {
     /* map zoom */
     zoom: PropTypes.number,
     interactive: PropTypes.bool,
-    controls: PropTypes.arrayOf(PropTypes.shape({
+    mapControls: PropTypes.arrayOf(PropTypes.shape({
       onAdd: PropTypes.func.isRequired,
       onRemove: PropTypes.func.isRequired
     }))
@@ -199,7 +199,7 @@ class MapView extends React.Component {
   // The first time our component mounts, render a new map into `mapDiv`
   // with settings from props.
   componentDidMount () {
-    const { center, interactive, mapStyle, zoom } = this.props
+    const { center, interactive, mapStyle, zoom, mapControls } = this.props
 
     const mapDiv = document.createElement('div')
     mapDiv.style.height = '100%'
@@ -229,6 +229,9 @@ class MapView extends React.Component {
     this.geojson = this.getGeoJson(this.props)
 
     map.once('load', () => {
+      mapControls.forEach(function (control) {
+        map.addControl.bind(map)(control)
+      })
       if (interactive) {
         map.on('moveend', this.handleMapMoveOrZoom)
         map.on('click', this.handleMapClick)
