@@ -164,7 +164,13 @@ function mapDispatchToProps (dispatch) {
   }
 }
 
+function mapStateToProps (state) {
+  return {
+    filters: state.filters, filterFields: state.filterFields
+  }
+}
+
 export default compose(
-  connect(state => state, mapDispatchToProps),
+  connect(mapStateToProps, mapDispatchToProps),
   withStyles(styles)
 )(Settings)
