@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import VisibilityOffIcon from 'material-ui-icons/VisibilityOff'
-import PrintIcon from 'material-ui-icons/Print'
+import VisibilityOffIcon from '@material-ui/icons/VisibilityOff'
+import PrintIcon from '@material-ui/icons/Print'
 import {defineMessages, FormattedMessage} from 'react-intl'
 
 import Toolbar, {ToolbarButton} from '../Toolbar'

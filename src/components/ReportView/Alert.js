@@ -1,6 +1,6 @@
 import React from 'react'
 import assign from 'object-assign'
-import Typography from 'material-ui/Typography'
+import Typography from '@material-ui/core/Typography'
 
 const styles = {
   alert: {

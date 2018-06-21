@@ -1,8 +1,8 @@
 import React from 'react'
 import {compose} from 'redux'
 import {connect} from 'react-redux'
-import Typography from 'material-ui/Typography'
-import { withStyles } from 'material-ui/styles'
+import Typography from '@material-ui/core/Typography'
+import { withStyles } from '@material-ui/core/styles'
 import classNames from 'classnames'
 
 import Image from '../Image'

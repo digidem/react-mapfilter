@@ -1,12 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Paper from 'material-ui/Paper'
-import Button from 'material-ui/Button'
-import IconButton from 'material-ui/IconButton'
-import CloseIcon from 'material-ui-icons/Close'
-import { withStyles } from 'material-ui/styles'
-import EditIcon from 'material-ui-icons/ModeEdit'
-import Dialog, { DialogActions, DialogTitle } from 'material-ui/Dialog'
+import Paper from '@material-ui/core/Paper'
+import Button from '@material-ui/core/Button'
+import IconButton from '@material-ui/core/IconButton'
+import CloseIcon from '@material-ui/icons/Close'
+import { withStyles } from '@material-ui/core/styles'
+import EditIcon from '@material-ui/icons/ModeEdit'
+import Dialog from '@material-ui/core/Dialog'
+import DialogActions from '@material-ui/core/DialogActions'
+import DialogTitle from '@material-ui/core/DialogTitle'
 import {FormattedMessage, defineMessages} from 'react-intl'
 import assign from 'object-assign'
 import {unflatten} from 'flat'
@@ -167,15 +169,15 @@ class FeatureDetail extends React.Component {
         onValueChange={this.handleValueChange}
       />
       {editMode
-      ? <EditActions
-        classes={classes}
-        onCancelClick={this.handleCancelClick}
-        onSaveClick={this.handleSaveClick}
-        onDeleteClick={() => this.setState({confirmDelete: true})} />
-      : <ViewActions
-        classes={classes}
-        onEditClick={this.handleEditClick}
-        onCloseClick={onRequestClose} />}
+        ? <EditActions
+          classes={classes}
+          onCancelClick={this.handleCancelClick}
+          onSaveClick={this.handleSaveClick}
+          onDeleteClick={() => this.setState({confirmDelete: true})} />
+        : <ViewActions
+          classes={classes}
+          onEditClick={this.handleEditClick}
+          onCloseClick={onRequestClose} />}
       <Dialog ignoreBackdropClick open={this.state.confirmDelete} maxWidth='xs' fullWidth>
         <DialogTitle>Delete Feature?</DialogTitle>
         <DialogActions>

@@ -1,11 +1,12 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import Checkbox from 'material-ui/Checkbox'
-import CheckBoxIcon from 'material-ui-icons/CheckBox'
-import CheckBoxOutlineBlankIcon from 'material-ui-icons/CheckBoxOutlineBlank'
-import { FormGroup, FormControlLabel } from 'material-ui/Form'
-import ListIcon from 'material-ui-icons/List'
-import { withStyles } from 'material-ui/styles'
+import Checkbox from '@material-ui/core/Checkbox'
+import CheckBoxIcon from '@material-ui/icons/CheckBox'
+import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank'
+import FormGroup from '@material-ui/core/FormGroup'
+import FormControlLabel from '@material-ui/core/FormControlLabel'
+import ListIcon from '@material-ui/icons/List'
+import { withStyles } from '@material-ui/core/styles'
 import {injectIntl} from 'react-intl'
 
 import FilterSection from './FilterSection'
@@ -138,7 +139,7 @@ class DiscreteFilter extends React.PureComponent {
                 classes={{root: classes.formControlRoot, label: classes.formControlLabel}}
                 control={
                   <Checkbox
-                    classes={{default: classes.checkboxButton}}
+                    classes={{root: classes.checkboxButton}}
                     checked={checked.indexOf(v.value) > -1}
                     icon={<CheckBoxOutlineBlankIcon classes={{root: classes.checkboxIcon}} />}
                     checkedIcon={<CheckBoxIcon classes={{root: classes.checkboxIcon}} />}

@@ -1,10 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Popover from 'material-ui/Popover'
-import List, {ListItem, ListItemText, ListItemSecondaryAction} from 'material-ui/List'
-import Switch from 'material-ui/Switch'
-import Button from 'material-ui/Button'
-import {withStyles} from 'material-ui/styles'
+import Popover from '@material-ui/core/Popover'
+import List from '@material-ui/core/List'
+import ListItem from '@material-ui/core/ListItem'
+import ListItemText from '@material-ui/core/ListItemText'
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction'
+import Switch from '@material-ui/core/Switch'
+import Button from '@material-ui/core/Button'
+import {withStyles} from '@material-ui/core/styles'
 
 import FormattedFieldname from '../shared/FormattedFieldname'
 

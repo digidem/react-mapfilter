@@ -2,12 +2,12 @@ import PropTypes from 'prop-types'
 import ReactDOM from 'react-dom'
 import React from 'react'
 import makePure from 'recompose/pure'
-import DateIcon from 'material-ui-icons/DateRange'
-import Button from 'material-ui/Button'
-import { withStyles } from 'material-ui/styles'
-import IconButton from 'material-ui/IconButton'
-import EditIcon from 'material-ui-icons/Edit'
-import Popover from 'material-ui/Popover'
+import DateIcon from '@material-ui/icons/DateRange'
+import Button from '@material-ui/core/Button'
+import { withStyles } from '@material-ui/core/styles'
+import IconButton from '@material-ui/core/IconButton'
+import EditIcon from '@material-ui/icons/Edit'
+import Popover from '@material-ui/core/Popover'
 import {DateRange} from 'react-date-range'
 import moment from 'moment'
 import {injectIntl} from 'react-intl'
@@ -145,7 +145,7 @@ class DateFilter extends React.PureComponent {
         <IconButton
           onClick={this.showDatePopover}
           className={classes.iconButton}>
-          <EditIcon color='#757575' className={classes.editIcon} />
+          <EditIcon nativeColor='#757575' className={classes.editIcon} />
         </IconButton>
         <Popover
           open={this.state.open}

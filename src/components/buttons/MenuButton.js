@@ -1,9 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import IconButton from 'material-ui/IconButton'
-import Tooltip from 'material-ui/Tooltip'
-import MenuIcon from 'material-ui-icons/MoreVert'
-import Menu, {MenuItem} from 'material-ui/Menu'
+import IconButton from '@material-ui/core/IconButton'
+import Tooltip from '@material-ui/core/Tooltip'
+import MenuIcon from '@material-ui/icons/MoreVert'
+import Menu from '@material-ui/core/Menu'
+import MenuItem from '@material-ui/core/MenuItem'
 import { injectIntl, defineMessages } from 'react-intl'
 import { saveAs } from 'file-saver'
 import { csvFormat } from 'd3-dsv'
@@ -79,7 +80,7 @@ class MenuButton extends React.Component {
           aria-haspopup='true'
           onClick={this.handleClick}
           aria-label={name}>
-          <MenuIcon color='white' />
+          <MenuIcon nativeColor='white' />
         </IconButton>
       </Tooltip>
       <Menu
@@ -88,7 +89,7 @@ class MenuButton extends React.Component {
         id='toolbar-menu'
         anchorEl={this.state.anchorEl}
         onClick={this.handleRequestClose}
-        onRequestClose={this.handleRequestClose}>
+        onClose={this.handleRequestClose}>
         <MenuItem onClick={() => openSettings('general')}>{formatMessage(messages.settings)}</MenuItem>
         <MenuItem onClick={this.handleExportGeoJSONClick}>{formatMessage(messages.exportGeoJSON)}</MenuItem>
         <MenuItem onClick={this.handleExportCSVClick}>{formatMessage(messages.exportCSV)}</MenuItem>

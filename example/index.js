@@ -2,9 +2,9 @@ const React = require('react')
 const ReactDOM = require('react-dom')
 const MapFilter = require('../src/index.js').default
 const createHistory = require('history').createBrowserHistory
-const { MuiThemeProvider, createMuiTheme } = require('material-ui/styles')
-const blue = require('material-ui/colors/blue').default
-const pink = require('material-ui/colors/pink').default
+const { MuiThemeProvider, createMuiTheme } = require('@material-ui/core/styles')
+const blue = require('@material-ui/core/colors/blue').default
+const pink = require('@material-ui/core/colors/pink').default
 const mapboxgl = require('mapbox-gl')
 
 const theme = createMuiTheme({

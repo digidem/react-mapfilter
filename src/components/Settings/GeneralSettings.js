@@ -2,15 +2,14 @@
 import React from 'react'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
-import { withStyles } from 'material-ui/styles'
-import List, {
-  ListItem,
-  ListItemSecondaryAction,
-  ListItemText
-} from 'material-ui/List'
-import Input from 'material-ui/Input'
-import { FormControl } from 'material-ui/Form'
-import Select from 'material-ui/Select'
+import { withStyles } from '@material-ui/core/styles'
+import List from '@material-ui/core/List'
+import ListItem from '@material-ui/core/ListItem'
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction'
+import ListItemText from '@material-ui/core/ListItemText'
+import Input from '@material-ui/core/Input'
+import FormControl from '@material-ui/core/FormControl'
+import Select from '@material-ui/core/Select'
 
 import getFieldAnalysis from '../../selectors/field_analysis'
 import getFieldMapping from '../../selectors/field_mapping'

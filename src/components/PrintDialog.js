@@ -1,13 +1,13 @@
 import React from 'react'
-import Button from 'material-ui/Button'
-import Dialog, {
-  DialogActions,
-  DialogContent,
-  DialogTitle
-} from 'material-ui/Dialog'
-import Input, { InputLabel } from 'material-ui/Input'
-import { FormControl } from 'material-ui/Form'
-import Select from 'material-ui/Select'
+import Button from '@material-ui/core/Button'
+import Dialog from '@material-ui/core/Dialog'
+import DialogActions from '@material-ui/core/DialogActions'
+import DialogContent from '@material-ui/core/DialogContent'
+import DialogTitle from '@material-ui/core/DialogTitle'
+import InputLabel from '@material-ui/core/InputLabel'
+import Input from '@material-ui/core/Input'
+import FormControl from '@material-ui/core/FormControl'
+import Select from '@material-ui/core/Select'
 import {defineMessages, FormattedMessage} from 'react-intl'
 
 const messages = defineMessages({
@@ -29,8 +29,8 @@ const messages = defineMessages({
   }
 })
 
-const PrintDialog = ({open, onRequestClose, onChangePaperSize, paperSize}) => (
-  <Dialog open={open} onRequestClose={onRequestClose} fullWidth maxWidth='xs' className='d-print-none'>
+const PrintDialog = ({open, onClose, onChangePaperSize, paperSize}) => (
+  <Dialog open={open} onClose={onClose} fullWidth maxWidth='xs' className='d-print-none'>
     <DialogTitle>
       <FormattedMessage {...messages.title} />
     </DialogTitle>
@@ -51,10 +51,10 @@ const PrintDialog = ({open, onRequestClose, onChangePaperSize, paperSize}) => (
       </FormControl>
     </DialogContent>
     <DialogActions>
-      <Button onClick={onRequestClose} color='primary'>
+      <Button onClick={onClose} color='primary'>
         <FormattedMessage {...messages.cancel} />
       </Button>
-      <Button onClick={() => { window.print(); onRequestClose() }} color='primary'>
+      <Button onClick={() => { window.print(); onClose() }} color='primary'>
         <FormattedMessage {...messages.print} />
       </Button>
     </DialogActions>

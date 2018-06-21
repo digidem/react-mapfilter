@@ -5,7 +5,7 @@ import mapboxgl from 'mapbox-gl'
 import deepEqual from 'deep-equal'
 import assign from 'object-assign'
 import featureFilter from 'feature-filter-geojson'
-import { withStyles } from 'material-ui/styles'
+import { withStyles } from '@material-ui/core/styles'
 
 import * as MFPropTypes from '../../util/prop_types'
 import { getBoundsOrWorld } from '../../util/map_helpers'
@@ -238,7 +238,6 @@ class MapView extends React.Component {
         map.addControl.bind(map)(control)
       })
     })
-
 
     // If no map center or zoom passed, set map extent to extent of marker layer
     if (!center || !zoom) {

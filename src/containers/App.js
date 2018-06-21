@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { withStyles } from 'material-ui/styles'
+import { withStyles } from '@material-ui/core/styles'
 import { bindActionCreators } from 'redux'
 import find from 'lodash/find'
 import assign from 'object-assign'
@@ -9,7 +9,7 @@ import ViewContainer from './ViewContainer'
 import AppBar from '../components/AppBar'
 import * as actionCreators from '../action_creators'
 
-import Dialog from 'material-ui/Dialog'
+import Dialog from '@material-ui/core/Dialog'
 import ConnectFilterPane from './ConnectFilterPane'
 import FeatureDetail from './ConnectFeatureDetail'
 import Settings from '../components/Settings'
@@ -134,7 +134,7 @@ class App extends React.Component {
           {actionButton && <div className={classes.actionButton}>{createElement(actionButton)}</div>}
         </div>
         <Dialog
-          onRequestClose={closeModal}
+          onClose={closeModal}
           open={activeModal === 'feature'}
           fullWidth
           maxWidth='md'
@@ -142,14 +142,14 @@ class App extends React.Component {
           <FeatureDetail onRequestClose={closeModal} />}
         </Dialog>
         <Dialog
-          onRequestClose={closeModal}
+          onClose={closeModal}
           open={activeModal === 'settings'}
           fullWidth
           classes={{root: classes.modalRoot, paper: classes.modalPaper}}>
           <Settings activeTabId={settingsTab} onRequestClose={closeModal} />}
         </Dialog>
         <PrintDialog
-          onRequestClose={cancelPrint}
+          onClose={cancelPrint}
           open={willPrint}
           onChangePaperSize={changePaperSize}
           paperSize={paperSize} />

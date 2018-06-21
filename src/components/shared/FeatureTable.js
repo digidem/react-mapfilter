@@ -1,22 +1,21 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { createSelector } from 'reselect'
-import Typography from 'material-ui/Typography'
-import { withStyles } from 'material-ui/styles'
+import Typography from '@material-ui/core/Typography'
+import { withStyles } from '@material-ui/core/styles'
 import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer'
-import Table, {
-  TableBody,
-  TableCell,
-  TableRow
-} from 'material-ui/Table'
+import Table from '@material-ui/core/Table'
+import TableBody from '@material-ui/core/TableBody'
+import TableCell from '@material-ui/core/TableCell'
+import TableRow from '@material-ui/core/TableRow'
 import classNames from 'classnames'
 
 import FormattedValue from '../shared/FormattedValue'
 import FormattedFieldname from '../shared/FormattedFieldname'
-import TextField from 'material-ui/TextField'
-import Input from 'material-ui/Input'
-import { MenuItem } from 'material-ui/Menu'
-import MUISelect from 'material-ui/Select'
+import TextField from '@material-ui/core/TextField'
+import Input from '@material-ui/core/Input'
+import MenuItem from '@material-ui/core/MenuItem'
+import MUISelect from '@material-ui/core/Select'
 import Select from '../shared/Select'
 import MultiSelect from '../shared/MultiSelect'
 import makePure from 'recompose/pure'
@@ -160,15 +159,15 @@ const FeatureTable = (props) => {
                 </TableCell>
                 <TableCell padding='dense' className={classNames(classes.col2, {[classes.col2Edit]: editMode})}>
                   {editMode
-                  ? <ValueCellEdit
-                    value={row.value}
-                    type={row.type}
-                    rowKey={row.key}
-                    coordFormat={coordFormat}
-                    classes={classes}
-                    onChange={onValueChange}
-                    fieldMetadata={fieldAnalysis.properties[row.key]} />
-                  : <ValueCell value={row.value} type={row.type} coordFormat={coordFormat} classes={classes} />}
+                    ? <ValueCellEdit
+                      value={row.value}
+                      type={row.type}
+                      rowKey={row.key}
+                      coordFormat={coordFormat}
+                      classes={classes}
+                      onChange={onValueChange}
+                      fieldMetadata={fieldAnalysis.properties[row.key]} />
+                    : <ValueCell value={row.value} type={row.type} coordFormat={coordFormat} classes={classes} />}
                 </TableCell>
               </TableRow>
             ))}

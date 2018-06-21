@@ -1,11 +1,10 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import List, {
-  ListItem,
-  ListItemSecondaryAction,
-  ListItemText
-} from 'material-ui/List'
-import Switch from 'material-ui/Switch'
+import List from '@material-ui/core/List'
+import ListItem from '@material-ui/core/ListItem'
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction'
+import ListItemText from '@material-ui/core/ListItemText'
+import Switch from '@material-ui/core/Switch'
 
 import FormattedFieldname from '../shared/FormattedFieldname'
 

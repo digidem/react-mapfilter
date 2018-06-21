@@ -1,13 +1,16 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { withStyles } from 'material-ui/styles'
+import { withStyles } from '@material-ui/core/styles'
 
-import { ListItem, ListItemIcon, ListItemText, ListItemSecondaryAction } from 'material-ui/List'
-import IconButton from 'material-ui/IconButton'
-import Collapse from 'material-ui/transitions/Collapse'
-import ExpandMoreIcon from 'material-ui-icons/ExpandMore'
-import ExpandLessIcon from 'material-ui-icons/ExpandLess'
-// import ColorIcon from 'material-ui-icons/ColorLens'
+import ListItem from '@material-ui/core/ListItem'
+import ListItemIcon from '@material-ui/core/ListItemIcon'
+import ListItemText from '@material-ui/core/ListItemText'
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction'
+import IconButton from '@material-ui/core/IconButton'
+import Collapse from '@material-ui/core/Collapse'
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
+import ExpandLessIcon from '@material-ui/icons/ExpandLess'
+// import ColorIcon from '@material-ui/icons/ColorLens'
 
 import ShowAllButton from './ShowAllButton'
 
