@@ -1,23 +1,20 @@
-## Unreleased 1/19/2016
+# Changelog
 
-- [ADDED] File download (SHP, CSV)
-- [ADDED] Generic template loading [#26](../../pull/26)
-- [MERGED] Template translations from Forest Defenders [#25](../../pull/25)
-- [ADDED] Github authentication via Auth0 [#24](../../pull/24)
+All notable changes to this project will be documented in this file.
 
-## v0.2.2 7/18/2015
+The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
+and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-- [FIXED] Clicking Print Cancel twice did not work [#23](../../issues/23)
+## [1.1.0] - 2018-06-21
 
-## v0.2.1 7/16/2015
+### Added
 
-- [FIXED] Add a space after the caption label
-- [FIXED] Some fields were not appearing if they contained a `.`
+- Limit max map zoom when fitting to data - avoid zoom 22 when only one point is shown
 
-## v0.2.0 7/16/2015
+### Fixed
 
-- [ADDED] Add coordinates to info pane + print template [#19](../../issues/19)
-- [FIXED] Remove non-functional info-bar with info about current view [bcd9320](https://github.com/digidem/mapfilter/commit/7db41b5d3ad3bc8cf1c332f36502f9e64bcd9320)
-- [FIXED] Add icon to info pane view [#20](../../issues/20)
-- [FIXED] Remove print button & change button text [#18](../../issues/18)
-- [FIXED] Fix Dates "Select All" link [#17](../../issues/17)
+- Update to latest material-ui and fix layout
+- Make mapPosition a true controllable prop (previously only affected map position on initial render)
+- Fix unfound images appearing in media view when photo was undefined for an observation
+
+[1.0.0]: https://github.com/digidem/react-mapfilter/compare/v1.0.0...v1.1.0
