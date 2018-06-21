@@ -136,6 +136,7 @@ class MapView extends React.Component {
   state = {}
 
   handleMapMoveOrZoom = (e) => {
+    if (e.internal) return
     this.props.moveMap({
       center: this.map.getCenter().toArray(),
       zoom: this.map.getZoom(),
@@ -295,7 +296,7 @@ class MapView extends React.Component {
     var shouldMapMove = !deepEqual(this.map.getCenter().toArray(), nextProps.center)
 
     if (shouldMapZoom || shouldMapMove) {
-      this.map.flyTo({center: nextProps.center, zoom: nextProps.zoom})
+      this.map.flyTo({center: nextProps.center, zoom: nextProps.zoom}, {internal: true})
     }
 
     let shouldDataUpdate = nextProps.features !== props.features ||
