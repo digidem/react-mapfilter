@@ -53,7 +53,8 @@ class Example extends React.Component {
     this.unlisten = history.listen(this.handleHistoryChange)
     this.state = {
       ui: uiFromPath(history.location.pathname),
-      features: features
+      features: features,
+      mapPosition: {center: [-59.43943162023362, 2.6563784112334616], zoom: 10}
     }
   }
   handleHistoryChange = (location, action) => {
@@ -69,9 +70,14 @@ class Example extends React.Component {
   handleChangeFeatures = (_) => {
     this.setState({features: _})
   }
+  handleChangeMapPosition = (pos) => {
+    this.setState({mapPosition: pos})
+  }
   render () {
     return <MuiThemeProvider theme={theme}>
       <MapFilter
+        mapPosition={this.state.mapPosition}
+        onChangeMapPosition={this.handleChangeMapPosition}
         resizer={resizer}
         features={this.state.features}
         fieldOrder={{caption: 1, public: 0}}

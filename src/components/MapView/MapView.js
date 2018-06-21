@@ -291,6 +291,13 @@ class MapView extends React.Component {
       })
     }
 
+    var shouldMapZoom = this.map.getZoom() !== nextProps.zoom
+    var shouldMapMove = !deepEqual(this.map.getCenter().toArray(), nextProps.center)
+
+    if (shouldMapZoom || shouldMapMove) {
+      this.map.flyTo({center: nextProps.center, zoom: nextProps.zoom})
+    }
+
     let shouldDataUpdate = nextProps.features !== props.features ||
       nextProps.fieldMapping !== props.fieldMapping ||
       nextProps.colorIndex !== props.colorIndex ||
