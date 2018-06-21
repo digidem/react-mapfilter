@@ -194,6 +194,9 @@ class MapView extends React.Component {
 
   centerMap (geojson) {
     this.map.fitBounds(getBoundsOrWorld(geojson), {padding: 15, duration: 0})
+    if (this.map.getZoom() > 13) {
+      this.map.setZoom(13)
+    }
   }
 
   // The first time our component mounts, render a new map into `mapDiv`
