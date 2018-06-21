@@ -1,0 +1,7 @@
+[
+  {
+    "id": "filter.show_all",
+    "description": "Button text to turn off filters for a field",
+    "defaultMessage": "Show All"
+  }
+]
