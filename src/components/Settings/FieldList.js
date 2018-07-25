@@ -6,7 +6,7 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction'
 import ListItemText from '@material-ui/core/ListItemText'
 import Switch from '@material-ui/core/Switch'
 
-import FormattedFieldname from '../shared/FormattedFieldname'
+import FormattedFieldname from '../Shared/FormattedFieldname'
 
 class FieldList extends React.Component {
   static propTypes = {

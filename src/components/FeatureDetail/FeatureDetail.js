@@ -14,7 +14,7 @@ import assign from 'object-assign'
 import {unflatten} from 'flat'
 
 import MediaCarousel from './MediaCarousel'
-import FeatureTable from '../shared/FeatureTable'
+import FeatureTable from '../Shared/FeatureTable'
 import {FIELD_TYPE_SPACE_DELIMITED, FORMATS_DEC_DEG} from '../../constants'
 
 const styles = {

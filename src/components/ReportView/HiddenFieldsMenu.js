@@ -9,7 +9,7 @@ import Switch from '@material-ui/core/Switch'
 import Button from '@material-ui/core/Button'
 import {withStyles} from '@material-ui/core/styles'
 
-import FormattedFieldname from '../shared/FormattedFieldname'
+import FormattedFieldname from '../Shared/FormattedFieldname'
 
 const styles = (theme) => ({
   actions: {

@@ -7,8 +7,8 @@ import Typography from '@material-ui/core/Typography'
 import Image from '../Image'
 import MarkerIcon from './MarkerIcon'
 import * as MFPropTypes from '../../util/prop_types'
-import FormattedValue from '../shared/FormattedValue'
-import FeatureTable from '../shared/FeatureTable'
+import FormattedValue from '../Shared/FormattedValue'
+import FeatureTable from '../Shared/FeatureTable'
 
 const styles = {
   root: {

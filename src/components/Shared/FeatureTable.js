@@ -10,14 +10,14 @@ import TableCell from '@material-ui/core/TableCell'
 import TableRow from '@material-ui/core/TableRow'
 import classNames from 'classnames'
 
-import FormattedValue from '../shared/FormattedValue'
-import FormattedFieldname from '../shared/FormattedFieldname'
+import FormattedValue from '../Shared/FormattedValue'
+import FormattedFieldname from '../Shared/FormattedFieldname'
 import TextField from '@material-ui/core/TextField'
 import Input from '@material-ui/core/Input'
 import MenuItem from '@material-ui/core/MenuItem'
 import MUISelect from '@material-ui/core/Select'
-import Select from '../shared/Select'
-import MultiSelect from '../shared/MultiSelect'
+import Select from '../Shared/Select'
+import MultiSelect from '../Shared/MultiSelect'
 import makePure from 'recompose/pure'
 
 import {

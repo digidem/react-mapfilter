@@ -13,7 +13,7 @@ import Select from '@material-ui/core/Select'
 
 import getFieldAnalysis from '../../selectors/field_analysis'
 import getFieldMapping from '../../selectors/field_mapping'
-import FormattedFieldname from '../shared/FormattedFieldname'
+import FormattedFieldname from '../Shared/FormattedFieldname'
 import { changeCoordinates, updateFieldMapping } from '../../action_creators'
 import {
   FILTER_TYPE_DISCRETE,

@@ -6,7 +6,7 @@ import { withStyles } from '@material-ui/core/styles'
 import classNames from 'classnames'
 
 import Image from '../Image'
-import FormattedValue from '../shared/FormattedValue'
+import FormattedValue from '../Shared/FormattedValue'
 import getFeaturesById from '../../selectors/features_by_id'
 import getFieldMapping from '../../selectors/field_mapping'
 import getColorIndex from '../../selectors/color_index'
