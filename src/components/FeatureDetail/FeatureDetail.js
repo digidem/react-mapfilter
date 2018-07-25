@@ -62,8 +62,9 @@ const messages = defineMessages({
   }
 })
 
-const ViewActions = ({onCloseClick, onEditClick, classes}) => (
+const ViewActions = ({onCloseClick, onEditClick, detailViewButtons, classes}) => (
   <DialogActions>
+    {detailViewButtons}
     <Button
       variant='raised'
       icon={<EditIcon />}
@@ -152,7 +153,7 @@ class FeatureDetail extends React.Component {
 
   render () {
     const {feature, onRequestClose, fieldOrder, classes, media,
-      coordFormat, fieldAnalysis} = this.props
+      detailViewButtons, coordFormat, fieldAnalysis} = this.props
     const {editMode, feature: editedFeature} = this.state
     if (!feature) return null
     return <Paper className={classes.root} elevation={24}>
@@ -175,6 +176,9 @@ class FeatureDetail extends React.Component {
           onSaveClick={this.handleSaveClick}
           onDeleteClick={() => this.setState({confirmDelete: true})} />
         : <ViewActions
+          detailViewButtons={detailViewButtons.map(function (button) {
+            return React.cloneElement(button, {feature, onRequestClose})
+          })}
           classes={classes}
           onEditClick={this.handleEditClick}
           onCloseClick={onRequestClose} />}
@@ -210,6 +214,7 @@ FeatureDetail.propTypes = {
 
 FeatureDetail.defaultProps = {
   coordFormat: FORMATS_DEC_DEG,
+  detailViewButtons: [],
   media: [],
   fieldOrder: {}
 }

@@ -16,6 +16,7 @@ export default connect(
       media: getMedia(feature, fieldAnalysis),
       coordFormat: state.settings.coordFormat,
       feature: feature,
+      detailViewButtons: ownProps.detailViewButtons,
       fieldAnalysis: fieldAnalysis,
       fieldOrder: state.fieldOrder
     }

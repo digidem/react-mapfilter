@@ -114,7 +114,7 @@ class App extends React.Component {
 
   render () {
     const {activeView, activeModal, actionButton, classes, views, switchView, closeModal, appBarMenuItems,
-      settingsTab, appBarButtons, appBarTitle, willPrint, paperSize, cancelPrint, changePaperSize, mapControls} = this.props
+      detailViewButtons, settingsTab, appBarButtons, appBarTitle, willPrint, paperSize, cancelPrint, changePaperSize, mapControls} = this.props
     const ViewComponent = getViewComponent(activeView, views)
 
     return (
@@ -139,7 +139,7 @@ class App extends React.Component {
           fullWidth
           maxWidth='md'
           classes={{root: classes.modalRoot, paper: classes.modalPaper, paperWidthMd: classes.modalPaperMd}}>
-          <FeatureDetail onRequestClose={closeModal} />}
+          <FeatureDetail detailViewButtons={detailViewButtons} onRequestClose={closeModal} />}
         </Dialog>
         <Dialog
           onClose={closeModal}

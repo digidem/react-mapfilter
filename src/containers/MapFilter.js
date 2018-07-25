@@ -130,6 +130,10 @@ class MapFilter extends React.Component {
      */
     onChangeFeatures: PropTypes.func.isRequired,
     /**
+     * An array of buttons for the detail view
+     */
+    detailViewButtons: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.element, PropTypes.func])),
+    /**
      * Configure which fields are used for the title and subtitle field.
      */
     fieldMapping: MFPropTypes.fieldMapping,
@@ -247,10 +251,11 @@ class MapFilter extends React.Component {
   }
 
   render () {
-    const {actionButton, views, appBarButtons, appBarTitle, locale, mapControls} = this.props
+    const {actionButton, detailViewButtons, views, appBarButtons, appBarTitle, locale, mapControls} = this.props
     return <Provider store={this.store}>
       <IntlProvider locale={locale} >
-        <App actionButton={actionButton} views={views} appBarButtons={appBarButtons} appBarTitle={appBarTitle} mapControls={mapControls} />
+        <App detailViewButtons={detailViewButtons}
+          actionButton={actionButton} views={views} appBarButtons={appBarButtons} appBarTitle={appBarTitle} mapControls={mapControls} />
       </IntlProvider>
     </Provider>
   }
