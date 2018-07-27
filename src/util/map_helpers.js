@@ -12,7 +12,7 @@ export function getBoundsOrWorld (fc) {
   // If we don't have data, default to the extent of the whole world
   // NB. Web mercator goes to infinity at lat 90! Use lat 85.
   if (!fc || !fc.features || !fc.features.length) {
-    return [-180, -85, 180, 85]
+    return [180, 85, -180, -85]
   }
   return extent({
     type: 'FeatureCollection',
