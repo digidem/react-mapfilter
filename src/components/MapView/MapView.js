@@ -95,6 +95,8 @@ const noop = (x) => x
 
 class MapView extends React.Component {
   static defaultProps = {
+    center: [0, 0],
+    zoom: 0,
     features: [],
     showFeatureDetail: noop,
     moveMap: noop,
