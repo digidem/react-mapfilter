@@ -1,0 +1,2 @@
+// @flow
+export const UNDEFINED = '@@MAPFILTER/FIELD_VALUES/UNDEFINED'

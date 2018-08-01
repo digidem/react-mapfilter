@@ -1,0 +1,13 @@
+{
+  "src": {
+    "ReportView": {
+      "HiddenFieldsMenu": {
+        "showAll": "Mostrar Todos"
+      },
+      "HiddenFieldsButton": {
+        "printLabel": "",
+        "hideFieldsLabel": ""
+      }
+    }
+  }
+}

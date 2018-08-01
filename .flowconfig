@@ -1,0 +1,13 @@
+[ignore]
+<PROJECT_ROOT>/node_modules/@mapbox/jsonlint-lines-primitives/test/.*
+<PROJECT_ROOT>/node_modules/config-chain/test/.*
+
+[include]
+
+[libs]
+
+[lints]
+
+[options]
+
+[strict]

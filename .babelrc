@@ -1,0 +1,25 @@
+{
+  "presets": [
+    "flow",
+    "react",
+    [
+      "env",
+      {
+        "targets": {
+          "browsers": ["last 2 versions", "not ie < 11"]
+        },
+        "shippedProposals": true
+      }
+    ]
+  ],
+  "plugins": [
+    [
+      "react-intl-auto",
+      {
+        "filebase": true
+      }
+    ],
+    "transform-class-properties",
+    "transform-object-rest-spread"
+  ]
+}
