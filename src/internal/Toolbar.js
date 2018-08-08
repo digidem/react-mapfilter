@@ -7,9 +7,15 @@ import { withStyles } from '@material-ui/core/styles'
 const styles = {
   root: {
     zIndex: 10,
-    position: 'relative',
+    position: 'sticky',
+    top: 0,
+    left: 0,
+    right: 0,
     padding: 8,
-    flexDirection: 'row'
+    flexDirection: 'row',
+    '@media only print': {
+      display: 'none'
+    }
   }
 }
 

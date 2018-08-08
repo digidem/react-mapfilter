@@ -1,10 +1,27 @@
 // @flow
+import { defineMessages } from 'react-intl'
+import { NULL, UNDEFINED } from '../constants/field_values'
+
+const msgs = defineMessages({
+  true: 'Yes',
+  false: 'No',
+  null: '[No Value]',
+  undefined: '[No Value]'
+})
 
 export function translateOrPretty(
-  fieldname: string = '',
+  value: string | boolean | void | null,
   translations?: { [fieldname: string]: string } = {}
 ) {
-  return translations[fieldname] || titleCase(fieldname.replace(/_/g, ' '))
+  if (typeof value === 'boolean') {
+    let valueString = value ? 'true' : 'false'
+    return translations[valueString] || msgs[valueString].defaultMessage
+  } else if (typeof value === 'undefined' || value === UNDEFINED) {
+    return translations.undefined || msgs.undefined.defaultMessage
+  } else if (value === null || value === NULL) {
+    return translations.null || msgs.null.defaultMessage
+  }
+  return translations[value] || titleCase(value.replace(/_/g, ' '))
 }
 
 export function sentenceCase(s: string = '') {

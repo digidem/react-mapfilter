@@ -1,23 +1,41 @@
 import React from 'react'
 
 import { storiesOf } from '@storybook/react'
-import { action } from '@storybook/addon-actions'
-import { linkTo } from '@storybook/addon-links'
+// import { action } from '@storybook/addon-actions'
+// import { linkTo } from '@storybook/addon-links'
+import insertCss from 'insert-css'
 
-import { Button, Welcome } from '@storybook/react/demo'
+import ReportView from './ReportView'
 
-storiesOf('Welcome', module).add('to Storybook', () => (
-  <Welcome showApp={linkTo('Button')} />
-))
+insertCss(`
+  body {
+    margin: 0px;
+  }
+  .wrapper {
+    width: calc(100% - 60px);
+    height: calc(100% - 60px);
+    margin: 20px;
+    position: absolute;
+    border: 1px dotted red;
+  }
+  @media only print {
+    .wrapper {
+      width: auto;
+      height; auto;
+      position: static;
+      margin: 0;
+      border: none;
+    }
+  }
+`)
 
-storiesOf('Button', module)
-  .add('with text', () => (
-    <Button onClick={action('clicked')}>Hello Button</Button>
-  ))
-  .add('with some emoji', () => (
-    <Button onClick={action('clicked')}>
-      <span role="img" aria-label="so cool">
-        😀 😎 👍 💯
-      </span>
-    </Button>
+storiesOf('ReportView', module)
+  .addDecorator(story => <div className="wrapper">{story()}</div>)
+  .add('default', () => (
+    <ReportView
+      renderTest
+      features={Array(50)
+        .fill(null)
+        .map((v, i) => ({ id: i, height: 200 + Math.random() * 200 }))}
+    />
   ))
