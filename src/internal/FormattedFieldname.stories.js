@@ -9,27 +9,27 @@ import FormattedFieldname from './FormattedFieldname'
 import FieldTranslationProvider from '../FieldTranslationProvider'
 
 storiesOf('internal/FormattedFieldname', module)
-  .add('Plain text', () => <FormattedFieldname fieldKey="foo" />)
-  .add('Nested fieldname', () => <FormattedFieldname fieldKey="foo.bar.qux" />)
+  .add('Plain text', () => <FormattedFieldname fieldkey="foo" />)
+  .add('Nested fieldname', () => <FormattedFieldname fieldkey="foo.bar.qux" />)
   .add('Underscores to spaces', () => (
-    <FormattedFieldname fieldKey="foo_bob.bar.qux_hub" />
+    <FormattedFieldname fieldkey="foo_bob.bar.qux_hub" />
   ))
   .add('With translations', () => (
     <FieldTranslationProvider
       value={{ fieldnameTranslations: { foo: 'Foo Translation' } }}>
-      <FormattedFieldname fieldKey="foo" />
+      <FormattedFieldname fieldkey="foo" />
     </FieldTranslationProvider>
   ))
   .add('Nested with translations', () => (
     <FieldTranslationProvider
       value={{ fieldnameTranslations: { bar: 'Bar translation' } }}>
-      <FormattedFieldname fieldKey="foo.bar" />
+      <FormattedFieldname fieldkey="foo.bar" />
     </FieldTranslationProvider>
   ))
   .add('Nested with translations reverse', () => (
     <FieldTranslationProvider
       value={{ fieldnameTranslations: { bar: 'Bar translation' } }}>
-      <FormattedFieldname fieldKey="bar.foo" />
+      <FormattedFieldname fieldkey="bar.foo" />
     </FieldTranslationProvider>
   ))
   .add('With full key translation', () => (
@@ -37,6 +37,6 @@ storiesOf('internal/FormattedFieldname', module)
       value={{
         fieldnameTranslations: { 'foo.bar.quux': 'foo.bar.qux Translation' }
       }}>
-      <FormattedFieldname fieldKey="foo.bar.quux" />
+      <FormattedFieldname fieldkey="foo.bar.quux" />
     </FieldTranslationProvider>
   ))

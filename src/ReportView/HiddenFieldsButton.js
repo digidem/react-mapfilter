@@ -1,86 +1,134 @@
-import PropTypes from 'prop-types'
+// @flow
 import React from 'react'
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff'
+import Popover from '@material-ui/core/Popover'
+import List from '@material-ui/core/List'
+import ListItem from '@material-ui/core/ListItem'
+import ListItemText from '@material-ui/core/ListItemText'
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction'
+import Switch from '@material-ui/core/Switch'
+import Button from '@material-ui/core/Button'
+import { withStyles } from '@material-ui/core/styles'
 import { defineMessages, FormattedMessage } from 'react-intl'
 
-import { ToolbarButton } from '../Toolbar'
-import HiddenFieldsMenu from './HiddenFieldsMenu'
-import { fieldAnalysis as fieldAnalysisPropType } from '../../util/prop_types'
+import ToolbarButton from '../internal/ToolbarButton'
+import FormattedFieldname from '../internal/FormattedFieldname'
 
-const messages = defineMessages({
+const msgs = defineMessages({
   // Button label for hide fields menu
   hideFieldsLabel: `{count, plural,
     =0 {Hide Fields}
     one {# Hidden Field}
     other {# Hidden Fields}
   }`,
-  // Button label for print
-  printLabel: 'Print'
+  // Show all fields in report view
+  showAll: 'Show All',
+  // Hide all fields in report view
+  hideAll: 'Hide All'
 })
 
-class ReportToolbar extends React.Component {
+const styles = theme => ({
+  actions: {
+    margin: `${theme.spacing.unit}px ${theme.spacing.unit / 2}px`
+  },
+  button: {
+    margin: `0 ${theme.spacing.unit / 2}px`
+  },
+  fieldname: {
+    maxWidth: 250,
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
+    whiteSpace: 'nowrap',
+    direction: 'rtl'
+  }
+})
+
+type Props = {
+  fieldState: { [fieldkey: string]: boolean },
+  showAllFields: () => void,
+  hideAllFields: () => void,
+  toggleFieldVisibility: (fieldkey: string) => void,
+  classes: { [className: string]: string }
+}
+
+type State = {
+  dialogOpen: boolean,
+  buttonEl?: HTMLElement
+}
+
+class HiddenFieldsButton extends React.Component<Props, State> {
   state = {
-    hideFieldsOpen: false
+    dialogOpen: false,
+    buttonEl: undefined
   }
 
-  handleHideFieldsButtonClick = event => {
+  toggleMenu = (event: SyntheticInputEvent<HTMLButtonElement>) => {
     this.setState({
-      hideFieldsOpen: !this.state.hideFieldsOpen,
-      hideFieldsButtonEl: event.currentTarget
+      dialogOpen: !this.state.dialogOpen,
+      buttonEl: event.currentTarget
     })
   }
 
   render() {
     const {
-      fieldAnalysis,
-      hiddenFields,
-      onToggleFieldVisibility,
-      requestPrint,
-      onShowAll,
-      onHideAll
+      classes,
+      fieldState,
+      toggleFieldVisibility,
+      showAllFields,
+      hideAllFields
     } = this.props
-    const fields = getFieldList(fieldAnalysis, hiddenFields)
-    const hiddenCount = Object.keys(hiddenFields).filter(
-      key => hiddenFields[key]
-    ).length
+    const { dialogOpen, buttonEl } = this.state
+    const fieldkeys = Object.keys(fieldState)
+    const hiddenCount = fieldkeys.filter(key => fieldState[key]).length
     return (
       <React.Fragment>
-        <ToolbarButton onClick={this.handleHideFieldsButtonClick}>
+        <ToolbarButton onClick={this.toggleMenu}>
           <VisibilityOffIcon />
           <FormattedMessage
-            {...messages.hideFieldsLabel}
+            {...msgs.hideFieldsLabel}
             values={{ count: hiddenCount }}
           />
         </ToolbarButton>
-        <HiddenFieldsMenu
-          anchorEl={this.state.hideFieldsButtonEl}
-          open={this.state.hideFieldsOpen}
-          fields={fields}
-          onShowAll={onShowAll}
-          onHideAll={onHideAll}
-          onToggle={onToggleFieldVisibility}
-          onRequestClose={() => this.setState({ hideFieldsOpen: false })}
-        />
+        <Popover
+          anchorEl={buttonEl}
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+          open={dialogOpen}
+          onClose={this.toggleMenu}
+          PaperProps={{
+            style: {
+              maxHeight: '50vh',
+              minWidth: 200,
+              maxWidth: '50vw'
+            }
+          }}>
+          <div className={classes.actions}>
+            <Button dense onClick={showAllFields} className={classes.button}>
+              <FormattedMessage {...msgs.showAll} />
+            </Button>
+            <Button dense onClick={hideAllFields} className={classes.button}>
+              <FormattedMessage {...msgs.hideAll} />
+            </Button>
+          </div>
+          <List dense>
+            {fieldkeys.map(fieldkey => (
+              <ListItem key={fieldkey} button={false}>
+                <ListItemText
+                  className={classes.fieldname}
+                  primary={<FormattedFieldname fieldkey={fieldkey} />}
+                />
+                <ListItemSecondaryAction>
+                  <Switch
+                    onClick={() => toggleFieldVisibility(fieldkey)}
+                    checked={!fieldState[fieldkey]}
+                  />
+                </ListItemSecondaryAction>
+              </ListItem>
+            ))}
+          </List>
+        </Popover>
       </React.Fragment>
     )
   }
 }
 
-ReportToolbar.defaultProps = {
-  hiddenFields: {}
-}
-
-ReportToolbar.propTypes = {
-  fieldAnalysis: fieldAnalysisPropType.isRequired,
-  hiddenFields: PropTypes.objectOf(PropTypes.bool),
-  requestPrint: PropTypes.func.isRequired
-}
-
-function getFieldList(fieldAnalysis, hiddenFields) {
-  return Object.keys(fieldAnalysis.properties).map(key => ({
-    key: key,
-    hidden: !!hiddenFields[key]
-  }))
-}
-
-export default ReportToolbar
+export default withStyles(styles)(HiddenFieldsButton)
