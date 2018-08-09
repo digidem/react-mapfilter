@@ -14,7 +14,7 @@
  */
 
 declare module 'react-virtualized-auto-sizer' {
-  declare module.exports: any
+  declare module.exports: any;
 }
 
 /**
@@ -23,21 +23,17 @@ declare module 'react-virtualized-auto-sizer' {
  * needed.
  */
 declare module 'react-virtualized-auto-sizer/dist/index.cjs' {
-  declare module.exports: any
+  declare module.exports: any;
 }
 
 declare module 'react-virtualized-auto-sizer/dist/index.esm' {
-  declare module.exports: any
+  declare module.exports: any;
 }
 
 // Filename aliases
 declare module 'react-virtualized-auto-sizer/dist/index.cjs.js' {
-  declare module.exports: $Exports<
-    'react-virtualized-auto-sizer/dist/index.cjs'
-  >
+  declare module.exports: $Exports<'react-virtualized-auto-sizer/dist/index.cjs'>;
 }
 declare module 'react-virtualized-auto-sizer/dist/index.esm.js' {
-  declare module.exports: $Exports<
-    'react-virtualized-auto-sizer/dist/index.esm'
-  >
+  declare module.exports: $Exports<'react-virtualized-auto-sizer/dist/index.esm'>;
 }

@@ -14,7 +14,7 @@
  */
 
 declare module 'eslint-plugin-monorepo' {
-  declare module.exports: any
+  declare module.exports: any;
 }
 
 /**
@@ -23,51 +23,45 @@ declare module 'eslint-plugin-monorepo' {
  * needed.
  */
 declare module 'eslint-plugin-monorepo/lib/configs/index' {
-  declare module.exports: any
+  declare module.exports: any;
 }
 
 declare module 'eslint-plugin-monorepo/lib/configs/recommended' {
-  declare module.exports: any
+  declare module.exports: any;
 }
 
 declare module 'eslint-plugin-monorepo/lib/index' {
-  declare module.exports: any
+  declare module.exports: any;
 }
 
 declare module 'eslint-plugin-monorepo/lib/rules/index' {
-  declare module.exports: any
+  declare module.exports: any;
 }
 
 declare module 'eslint-plugin-monorepo/lib/rules/no-internal-import' {
-  declare module.exports: any
+  declare module.exports: any;
 }
 
 declare module 'eslint-plugin-monorepo/lib/rules/no-relative-import' {
-  declare module.exports: any
+  declare module.exports: any;
 }
 
 // Filename aliases
 declare module 'eslint-plugin-monorepo/lib/configs/index.js' {
-  declare module.exports: $Exports<'eslint-plugin-monorepo/lib/configs/index'>
+  declare module.exports: $Exports<'eslint-plugin-monorepo/lib/configs/index'>;
 }
 declare module 'eslint-plugin-monorepo/lib/configs/recommended.js' {
-  declare module.exports: $Exports<
-    'eslint-plugin-monorepo/lib/configs/recommended'
-  >
+  declare module.exports: $Exports<'eslint-plugin-monorepo/lib/configs/recommended'>;
 }
 declare module 'eslint-plugin-monorepo/lib/index.js' {
-  declare module.exports: $Exports<'eslint-plugin-monorepo/lib/index'>
+  declare module.exports: $Exports<'eslint-plugin-monorepo/lib/index'>;
 }
 declare module 'eslint-plugin-monorepo/lib/rules/index.js' {
-  declare module.exports: $Exports<'eslint-plugin-monorepo/lib/rules/index'>
+  declare module.exports: $Exports<'eslint-plugin-monorepo/lib/rules/index'>;
 }
 declare module 'eslint-plugin-monorepo/lib/rules/no-internal-import.js' {
-  declare module.exports: $Exports<
-    'eslint-plugin-monorepo/lib/rules/no-internal-import'
-  >
+  declare module.exports: $Exports<'eslint-plugin-monorepo/lib/rules/no-internal-import'>;
 }
 declare module 'eslint-plugin-monorepo/lib/rules/no-relative-import.js' {
-  declare module.exports: $Exports<
-    'eslint-plugin-monorepo/lib/rules/no-relative-import'
-  >
+  declare module.exports: $Exports<'eslint-plugin-monorepo/lib/rules/no-relative-import'>;
 }

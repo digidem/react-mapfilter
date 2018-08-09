@@ -14,7 +14,7 @@
  */
 
 declare module 'pretty-quick' {
-  declare module.exports: any
+  declare module.exports: any;
 }
 
 /**
@@ -23,59 +23,59 @@ declare module 'pretty-quick' {
  * needed.
  */
 declare module 'pretty-quick/bin/pretty-quick' {
-  declare module.exports: any
+  declare module.exports: any;
 }
 
 declare module 'pretty-quick/dist/createIgnorer' {
-  declare module.exports: any
+  declare module.exports: any;
 }
 
 declare module 'pretty-quick/dist/formatFiles' {
-  declare module.exports: any
+  declare module.exports: any;
 }
 
 declare module 'pretty-quick/dist/index' {
-  declare module.exports: any
+  declare module.exports: any;
 }
 
 declare module 'pretty-quick/dist/isSupportedExtension' {
-  declare module.exports: any
+  declare module.exports: any;
 }
 
 declare module 'pretty-quick/dist/scms/git' {
-  declare module.exports: any
+  declare module.exports: any;
 }
 
 declare module 'pretty-quick/dist/scms/hg' {
-  declare module.exports: any
+  declare module.exports: any;
 }
 
 declare module 'pretty-quick/dist/scms/index' {
-  declare module.exports: any
+  declare module.exports: any;
 }
 
 // Filename aliases
 declare module 'pretty-quick/bin/pretty-quick.js' {
-  declare module.exports: $Exports<'pretty-quick/bin/pretty-quick'>
+  declare module.exports: $Exports<'pretty-quick/bin/pretty-quick'>;
 }
 declare module 'pretty-quick/dist/createIgnorer.js' {
-  declare module.exports: $Exports<'pretty-quick/dist/createIgnorer'>
+  declare module.exports: $Exports<'pretty-quick/dist/createIgnorer'>;
 }
 declare module 'pretty-quick/dist/formatFiles.js' {
-  declare module.exports: $Exports<'pretty-quick/dist/formatFiles'>
+  declare module.exports: $Exports<'pretty-quick/dist/formatFiles'>;
 }
 declare module 'pretty-quick/dist/index.js' {
-  declare module.exports: $Exports<'pretty-quick/dist/index'>
+  declare module.exports: $Exports<'pretty-quick/dist/index'>;
 }
 declare module 'pretty-quick/dist/isSupportedExtension.js' {
-  declare module.exports: $Exports<'pretty-quick/dist/isSupportedExtension'>
+  declare module.exports: $Exports<'pretty-quick/dist/isSupportedExtension'>;
 }
 declare module 'pretty-quick/dist/scms/git.js' {
-  declare module.exports: $Exports<'pretty-quick/dist/scms/git'>
+  declare module.exports: $Exports<'pretty-quick/dist/scms/git'>;
 }
 declare module 'pretty-quick/dist/scms/hg.js' {
-  declare module.exports: $Exports<'pretty-quick/dist/scms/hg'>
+  declare module.exports: $Exports<'pretty-quick/dist/scms/hg'>;
 }
 declare module 'pretty-quick/dist/scms/index.js' {
-  declare module.exports: $Exports<'pretty-quick/dist/scms/index'>
+  declare module.exports: $Exports<'pretty-quick/dist/scms/index'>;
 }

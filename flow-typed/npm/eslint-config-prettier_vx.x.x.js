@@ -14,7 +14,7 @@
  */
 
 declare module 'eslint-config-prettier' {
-  declare module.exports: any
+  declare module.exports: any;
 }
 
 /**
@@ -23,44 +23,44 @@ declare module 'eslint-config-prettier' {
  * needed.
  */
 declare module 'eslint-config-prettier/bin/cli' {
-  declare module.exports: any
+  declare module.exports: any;
 }
 
 declare module 'eslint-config-prettier/bin/validators' {
-  declare module.exports: any
+  declare module.exports: any;
 }
 
 declare module 'eslint-config-prettier/flowtype' {
-  declare module.exports: any
+  declare module.exports: any;
 }
 
 declare module 'eslint-config-prettier/react' {
-  declare module.exports: any
+  declare module.exports: any;
 }
 
 declare module 'eslint-config-prettier/standard' {
-  declare module.exports: any
+  declare module.exports: any;
 }
 
 // Filename aliases
 declare module 'eslint-config-prettier/bin/cli.js' {
-  declare module.exports: $Exports<'eslint-config-prettier/bin/cli'>
+  declare module.exports: $Exports<'eslint-config-prettier/bin/cli'>;
 }
 declare module 'eslint-config-prettier/bin/validators.js' {
-  declare module.exports: $Exports<'eslint-config-prettier/bin/validators'>
+  declare module.exports: $Exports<'eslint-config-prettier/bin/validators'>;
 }
 declare module 'eslint-config-prettier/flowtype.js' {
-  declare module.exports: $Exports<'eslint-config-prettier/flowtype'>
+  declare module.exports: $Exports<'eslint-config-prettier/flowtype'>;
 }
 declare module 'eslint-config-prettier/index' {
-  declare module.exports: $Exports<'eslint-config-prettier'>
+  declare module.exports: $Exports<'eslint-config-prettier'>;
 }
 declare module 'eslint-config-prettier/index.js' {
-  declare module.exports: $Exports<'eslint-config-prettier'>
+  declare module.exports: $Exports<'eslint-config-prettier'>;
 }
 declare module 'eslint-config-prettier/react.js' {
-  declare module.exports: $Exports<'eslint-config-prettier/react'>
+  declare module.exports: $Exports<'eslint-config-prettier/react'>;
 }
 declare module 'eslint-config-prettier/standard.js' {
-  declare module.exports: $Exports<'eslint-config-prettier/standard'>
+  declare module.exports: $Exports<'eslint-config-prettier/standard'>;
 }
