@@ -12,7 +12,7 @@ const msgs = defineMessages({
 export function translateOrPretty(
   value: string | boolean | void | null,
   translations?: { [fieldname: string]: string } = {}
-) {
+): string {
   if (typeof value === 'boolean') {
     let valueString = value ? 'true' : 'false'
     return translations[valueString] || msgs[valueString].defaultMessage

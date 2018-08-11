@@ -12,8 +12,8 @@ insertCss(`
     margin: 0px;
   }
   .wrapper {
-    width: calc(100% - 60px);
-    height: calc(100% - 60px);
+    width: calc(100vw - 60px);
+    height: calc(100vh - 60px);
     margin: 20px;
     position: absolute;
     border: 1px dotted red;
@@ -29,9 +29,51 @@ insertCss(`
   }
 `)
 
+const featuresFixture = [
+  {
+    type: 'Feature',
+    geometry: null,
+    properties: {
+      string: 'hello',
+      number: 1,
+      boolean: true,
+      array: ['foo', 'bar'],
+      nested: {
+        foo: 'bar',
+        qux: {
+          deepNested: 'hello'
+        }
+      },
+      null: null,
+      undefined: undefined
+    }
+  },
+  {
+    type: 'Feature',
+    geometry: {
+      type: 'Point',
+      coordinates: [-70, 2]
+    },
+    properties: {
+      string: 'hello',
+      number: 1,
+      boolean: true,
+      array: ['foo', 'bar'],
+      nested: {
+        foo: 'bar',
+        qux: {
+          deepNested: 'hello'
+        }
+      },
+      null: null,
+      undefined: undefined
+    }
+  }
+]
+
 storiesOf('ReportView', module)
   .addDecorator(story => <div className="wrapper">{story()}</div>)
-  .add('default', () => (
+  .add('Layout test', () => (
     <ReportView
       renderTest
       features={Array(50)
@@ -39,3 +81,4 @@ storiesOf('ReportView', module)
         .map((v, i) => ({ id: i, height: 200 + Math.random() * 200 }))}
     />
   ))
+  .add('default', () => <ReportView features={featuresFixture} />)

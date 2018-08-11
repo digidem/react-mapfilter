@@ -1,8 +1,15 @@
 // @flow
 import * as React from 'react'
+import { defineMessages, FormattedMessage } from 'react-intl'
 
 import { Consumer as FieldTranslationConsumer } from './FieldTranslationContext'
 import { translateOrPretty } from '../utils/strings'
+import { LOCATION } from '../constants/special_fieldkeys'
+
+const msgs = defineMessages({
+  // Location fieldname
+  location: 'Location'
+})
 
 const styles = {
   groupText: {
@@ -25,6 +32,7 @@ type Props = {
  * to Title Case */
 const FormattedFieldname = ({ fieldkey, children }: Props) => {
   if (!fieldkey) return null
+  if (fieldkey === LOCATION) return <FormattedMessage {...msgs.location} />
   return (
     <FieldTranslationConsumer>
       {({ fieldnameTranslations: translations }) => {

@@ -7,8 +7,10 @@ import withPropsCombinations from 'react-storybook-addon-props-combinations'
 
 import FormattedValue from './FormattedValue'
 import FieldTranslationProvider from '../FieldTranslationProvider'
+import SettingsProvider from '../SettingsProvider'
 import * as fieldTypes from '../constants/field_types'
 import { UNDEFINED, NULL } from '../constants/field_values'
+import * as COORD_FORMATS from '../constants/coord_formats'
 
 storiesOf('internal/FormattedValue', module).add(
   'plain values',
@@ -71,20 +73,31 @@ const translations = {
   }
 }
 
-storiesOf('internal/FormattedValue', module).add('translations', () => (
-  <FieldTranslationProvider value={{ valueTranslations: translations }}>
-    {withPropsCombinations(FormattedValue, {
-      value: [
-        'hello world',
-        true,
-        false,
-        ['foo', 'bar'],
-        undefined,
-        UNDEFINED,
-        null,
-        NULL
-      ],
-      fieldkey: ['testFieldkey']
-    })()}
-  </FieldTranslationProvider>
-))
+storiesOf('internal/FormattedValue', module)
+  .add('translations', () => (
+    <FieldTranslationProvider value={{ valueTranslations: translations }}>
+      {withPropsCombinations(FormattedValue, {
+        value: [
+          'hello world',
+          true,
+          false,
+          ['foo', 'bar'],
+          undefined,
+          UNDEFINED,
+          null,
+          NULL
+        ],
+        fieldkey: ['testFieldkey']
+      })()}
+    </FieldTranslationProvider>
+  ))
+  .add('deg-min-sec Location', () => (
+    <SettingsProvider value={{ coordFormat: COORD_FORMATS.DEG_MIN_SEC }}>
+      <FormattedValue value={[2.1234, 5.541]} type={fieldTypes.LOCATION} />
+    </SettingsProvider>
+  ))
+  .add('decimal deg Location', () => (
+    <SettingsProvider value={{ coordFormat: COORD_FORMATS.DEC_DEG }}>
+      <FormattedValue value={[2.1234, 5.541]} type={fieldTypes.LOCATION} />
+    </SettingsProvider>
+  ))

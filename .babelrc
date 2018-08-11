@@ -1,25 +1,42 @@
+// This file is formatted as JSON5 https://github.com/json5/json5
 {
-  "presets": [
-    "flow",
-    "react",
+  presets: [
+    // Strips flow type annotations
+    'flow',
+    // Transforms JSX
+    'react',
+    // Transforms ES6 code and import/export statements
     [
-      "env",
+      'env',
       {
-        "targets": {
-          "browsers": ["last 2 versions", "not ie < 11"]
-        },
-        "shippedProposals": true
+        targets: { browsers: ['last 2 versions', 'not ie < 11'] },
+        shippedProposals: true
       }
     ]
   ],
-  "plugins": [
-    [
-      "react-intl-auto",
-      {
-        "filebase": true
-      }
-    ],
-    "transform-class-properties",
-    "transform-object-rest-spread"
-  ]
+  plugins: [
+    ['react-intl-auto', { filebase: true, removePrefix: 'src' }],
+    'transform-class-properties',
+    'transform-object-rest-spread'
+  ],
+  env: {
+    development: {
+      plugins: [
+        // Allows simpler defineMessages with react-intl
+        // https://github.com/akameco/babel-plugin-react-intl-auto
+        ['react-intl-auto', { filebase: true, removePrefix: 'src' }],
+        // Turns flow type annotations into React.PropTypes for runtime
+        // type checking. Deadcode wraps in NODE_ENV checks
+        ['flow-react-proptypes', { deadCode: true }],
+        // Adds line numbers to stack traces
+        // https://www.npmjs.com/package/babel-plugin-transform-react-jsx-source
+        'transform-react-jsx-source',
+        // Allows directly declaring props and methods on a class instead of
+        // binding them to `this` in the constructor
+        'transform-class-properties',
+        // Allows short hand of Object.assign({}, a) as {...a}
+        'transform-object-rest-spread'
+      ]
+    }
+  }
 }

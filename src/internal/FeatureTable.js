@@ -1,38 +1,32 @@
+// @flow
 import React from 'react'
-import PropTypes from 'prop-types'
-import { createSelector } from 'reselect'
+import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer'
 import Typography from '@material-ui/core/Typography'
 import { withStyles } from '@material-ui/core/styles'
-import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer'
 import Table from '@material-ui/core/Table'
 import TableBody from '@material-ui/core/TableBody'
 import TableCell from '@material-ui/core/TableCell'
 import TableRow from '@material-ui/core/TableRow'
+// import TextField from '@material-ui/core/TextField'
+// import Input from '@material-ui/core/Input'
+// import MenuItem from '@material-ui/core/MenuItem'
+// import MUISelect from '@material-ui/core/Select'
+// import makePure from 'recompose/pure'
 import classNames from 'classnames'
+import union from 'lodash/union'
+import memoizeOne from 'memoize-one'
 
-import FormattedValue from '../Shared/FormattedValue'
-import FormattedFieldname from '../Shared/FormattedFieldname'
-import TextField from '@material-ui/core/TextField'
-import Input from '@material-ui/core/Input'
-import MenuItem from '@material-ui/core/MenuItem'
-import MUISelect from '@material-ui/core/Select'
-import Select from '../Shared/Select'
-import MultiSelect from '../Shared/MultiSelect'
-import makePure from 'recompose/pure'
+import FormattedValue from '../internal/FormattedValue'
+import FormattedFieldname from '../internal/FormattedFieldname'
+// import Select from '../internal/Select'
+// import MultiSelect from '../internal/MultiSelect'
+import { flattenFeature } from '../utils/features'
 
-import {
-  FIELD_TYPE_LOCATION,
-  FIELD_TYPE_STRING,
-  FIELD_TYPE_ARRAY,
-  FIELD_TYPE_BOOLEAN,
-  FIELD_TYPE_UUID,
-  FIELD_TYPE_MIXED,
-  FIELD_TYPE_IMAGE,
-  FIELD_TYPE_VIDEO,
-  FIELD_TYPE_MEDIA,
-  FIELD_TYPE_AUDIO,
-  UNDEFINED_KEY
-} from '../../constants'
+// import * as FIELD_TYPES from '../constants/field_types'
+import * as VALUE_TYPES from '../constants/field_values'
+import * as FIELDKEYS from '../constants/special_fieldkeys'
+
+import type { FieldOrder, PointFeature, FieldTypes } from '../types'
 
 const styles = {
   root: {
@@ -77,226 +71,243 @@ const styles = {
   }
 }
 
-const shouldNotWrap = {
-  [FIELD_TYPE_UUID]: true,
-  [FIELD_TYPE_MIXED]: true,
-  [FIELD_TYPE_IMAGE]: true,
-  [FIELD_TYPE_VIDEO]: true,
-  [FIELD_TYPE_MEDIA]: true,
-  [FIELD_TYPE_AUDIO]: true
+// const shouldNotWrap = {
+//   [FIELD_TYPES.UUID]: true,
+//   [FIELD_TYPES.IMAGE_URL]: true,
+//   [FIELD_TYPES.VIDEO_URL]: true,
+//   [FIELD_TYPES.MEDIA_URL]: true,
+//   [FIELD_TYPES.AUDIO_URL]: true
+// }
+
+// const ValueCellEdit = makePure(
+//   ({
+//     value,
+//     type,
+//     rowKey,
+//     coordFormat,
+//     fieldMetadata = {},
+//     onChange,
+//     classes
+//   }) => {
+//     const suggestions =
+//       Array.isArray(fieldMetadata.values) &&
+//       fieldMetadata.values.map(d => d.value)
+//     const isDiscreteField =
+//       type === FIELD_TYPES.STRING &&
+//       fieldMetadata.values &&
+//       fieldMetadata.values.length / fieldMetadata.count < 0.8
+//     if (isDiscreteField) {
+//       return (
+//         <Select
+//           value={value}
+//           onChange={(e, { newValue, type }) => onChange(rowKey, newValue)}
+//           suggestions={suggestions}
+//           style={styles.selectField}
+//         />
+//       )
+//     }
+//     if (type === FIELD_TYPES.BOOLEAN) {
+//       return (
+//         <MUISelect
+//           MenuProps={{ MenuListProps: { dense: true } }}
+//           fullWidth
+//           autoWidth
+//           value={value + ''}
+//           onChange={e => {
+//             const newValue =
+//               e.target.value === 'true'
+//                 ? true
+//                 : e.target.value === 'false'
+//                   ? false
+//                   : undefined
+//             onChange(rowKey, newValue)
+//           }}
+//           input={<Input className={classes.input} />}
+//           style={styles.muiSelect}>
+//           <MenuItem value="undefined" />
+//           <MenuItem value="true">Yes</MenuItem>
+//           <MenuItem value="false">No</MenuItem>
+//         </MUISelect>
+//       )
+//     }
+//     if (type === FIELD_TYPES.STRING) {
+//       return (
+//         <TextField
+//           InputClassName={classes.input}
+//           fullWidth
+//           multiline
+//           value={value}
+//           onChange={e => onChange(rowKey, e.target.value)}
+//           style={styles.textField}
+//         />
+//       )
+//     }
+//     if (type === FIELD_TYPES.ARRAY) {
+//       return (
+//         <MultiSelect
+//           value={value}
+//           onChange={(e, { newValue, type }) => onChange(rowKey, newValue)}
+//           suggestions={suggestions}
+//           style={styles.selectField}
+//         />
+//       )
+//     }
+//     return (
+//       <ValueCell
+//         value={value}
+//         type={type}
+//         coordFormat={coordFormat}
+//         editMode
+//         classes={classes}
+//       />
+//     )
+//   }
+// )
+
+type Props = {
+  editMode: boolean,
+  classes: { [className: $Keys<typeof styles>]: string },
+  hiddenFields: Array<string>,
+  fieldTypes: FieldTypes,
+  feature: PointFeature,
+  fieldOrder: FieldOrder,
+  onValueChange: () => any,
+  width: number | string
 }
 
-const ValueCell = ({ value, type, coordFormat, editMode, classes }) => (
-  <Typography
-    className={classNames({
-      [classes.col2TextEdit]: editMode,
-      [classes.col2TextNoWrap]: shouldNotWrap[type]
-    })}>
-    <FormattedValue value={value} type={type} coordFormat={coordFormat} />
-  </Typography>
-)
+class FeatureTable extends React.Component<Props> {
+  static defaultProps = {
+    editMode: false,
+    hiddenFields: [],
+    fieldTypes: {},
+    fieldOrder: {},
+    onValueChange: () => null,
+    width: 600
+  }
 
-const ValueCellEdit = makePure(
-  ({
-    value,
-    type,
-    rowKey,
-    coordFormat,
-    fieldMetadata = {},
-    onChange,
-    classes
-  }) => {
-    const suggestions =
-      Array.isArray(fieldMetadata.values) &&
-      fieldMetadata.values.map(d => d.value)
-    const isDiscreteField =
-      type === FIELD_TYPE_STRING &&
-      fieldMetadata.values &&
-      fieldMetadata.values.length / fieldMetadata.count < 0.8
-    if (isDiscreteField) {
-      return (
-        <Select
-          value={value}
-          onChange={(e, { newValue, type }) => onChange(rowKey, newValue)}
-          suggestions={suggestions}
-          style={styles.selectField}
-        />
-      )
-    }
-    if (type === FIELD_TYPE_BOOLEAN) {
-      return (
-        <MUISelect
-          MenuProps={{ MenuListProps: { dense: true } }}
-          fullWidth
-          autoWidth
-          value={value + ''}
-          onChange={e => {
-            const newValue =
-              e.target.value === 'true'
-                ? true
-                : e.target.value === 'false'
-                  ? false
-                  : undefined
-            onChange(rowKey, newValue)
-          }}
-          input={<Input className={classes.input} />}
-          style={styles.muiSelect}>
-          <MenuItem value="undefined" />
-          <MenuItem value="true">Yes</MenuItem>
-          <MenuItem value="false">No</MenuItem>
-        </MUISelect>
-      )
-    }
-    if (type === FIELD_TYPE_STRING || type === FIELD_TYPE_MIXED) {
-      return (
-        <TextField
-          InputClassName={classes.input}
-          fullWidth
-          multiline
-          value={value}
-          onChange={e => onChange(rowKey, e.target.value)}
-          style={styles.textField}
-        />
-      )
-    }
-    if (type === FIELD_TYPE_ARRAY) {
-      return (
-        <MultiSelect
-          value={value}
-          onChange={(e, { newValue, type }) => onChange(rowKey, newValue)}
-          suggestions={suggestions}
-          style={styles.selectField}
-        />
-      )
-    }
+  getRows = memoizeOne(getRows)
+
+  renderEditableCell(fieldkey, value) {
+    return null
+  }
+
+  renderCell(fieldkey, value) {
+    const { fieldTypes } = this.props
     return (
-      <ValueCell
-        value={value}
-        type={type}
-        coordFormat={coordFormat}
-        editMode
-        classes={classes}
-      />
+      <Typography>
+        <FormattedValue
+          fieldkey={fieldkey}
+          value={value}
+          type={fieldTypes[fieldkey]}
+        />
+      </Typography>
     )
   }
-)
 
-const FeatureTable = props => {
-  const { editMode, classes, coordFormat, fieldAnalysis, onValueChange } = props
-  const rows = getRows(props)
-  return (
-    <AutoSizer disableHeight>
-      {({ width }) => (
-        <Table className={classes.root} style={{ width: width }}>
-          <TableBody>
-            {rows.map((row, i) => (
-              <TableRow
-                key={i}
-                className={classes.row}
-                style={{ zIndex: rows.length - i }}>
-                <TableCell
-                  padding="dense"
-                  className={classes.col1}
-                  style={{ maxWidth: width / 3 - 36 }}>
-                  <Typography className={classes.col1Text}>
-                    <FormattedFieldname fieldname={row.key} />
-                  </Typography>
-                </TableCell>
-                <TableCell
-                  padding="dense"
-                  className={classNames(classes.col2, {
-                    [classes.col2Edit]: editMode
-                  })}>
-                  {editMode ? (
-                    <ValueCellEdit
-                      value={row.value}
-                      type={row.type}
-                      rowKey={row.key}
-                      coordFormat={coordFormat}
-                      classes={classes}
-                      onChange={onValueChange}
-                      fieldMetadata={fieldAnalysis.properties[row.key]}
-                    />
-                  ) : (
-                    <ValueCell
-                      value={row.value}
-                      type={row.type}
-                      coordFormat={coordFormat}
-                      classes={classes}
-                    />
-                  )}
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      )}
-    </AutoSizer>
-  )
-}
-
-FeatureTable.propTypes = {
-  hiddenFields: PropTypes.object.isRequired,
-  fieldOrder: PropTypes.object.isRequired
-}
-
-FeatureTable.defaultProps = {
-  hiddenFields: {},
-  fieldOrder: {}
+  render() {
+    const {
+      classes,
+      editMode,
+      feature,
+      fieldOrder,
+      fieldTypes,
+      hiddenFields,
+      width
+    } = this.props
+    const rows = this.getRows(
+      editMode,
+      feature,
+      fieldOrder,
+      fieldTypes,
+      hiddenFields
+    )
+    return (
+      <Table className={classes.root} style={{ width: width }}>
+        <TableBody>
+          {rows.map((row, i) => (
+            <TableRow
+              key={i}
+              className={classes.row}
+              style={{ zIndex: rows.length - i }}>
+              <TableCell
+                padding="dense"
+                className={classes.col1}
+                style={{ maxWidth: width / 3 - 36 }}>
+                <Typography className={classes.col1Text}>
+                  <FormattedFieldname fieldkey={row.fieldkey} />
+                </Typography>
+              </TableCell>
+              <TableCell
+                padding="dense"
+                className={classNames(classes.col2, {
+                  [classes.col2Edit]: editMode
+                })}>
+                {editMode
+                  ? this.renderEditableCell(row.fieldkey, row.value)
+                  : this.renderCell(row.fieldkey, row.value)}
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+        {(console.log('autosizer', width), null)}
+      </Table>
+    )
+  }
 }
 
 // TODO: Does not actually work and memoize anything because props.feature
 // changes every edit
-const getRows = createSelector(
-  props => props.feature,
-  props => props.fieldAnalysis,
-  props => props.hiddenFields,
-  props => props.fieldOrder,
-  props => props.editMode,
-  (feature, fieldAnalysis, hiddenFields, fieldOrder, editMode) => {
-    const rows = Object.keys(fieldAnalysis.properties)
-      .map(key => ({
-        key: key,
-        value: feature.properties[key],
-        type: fieldAnalysis.properties[key].type,
-        visible: !hiddenFields[key]
-      }))
-      .filter(
-        row =>
-          editMode ||
-          (!hiddenFields[row.key] &&
-            (typeof row.value !== 'string' || row.value.length) &&
-            typeof row.value !== 'undefined' &&
-            row.value !== UNDEFINED_KEY)
-      )
+function getRows(
+  editMode: boolean = false,
+  feature: PointFeature,
+  fieldOrder: { [fieldkey: string]: number } = {},
+  fieldTypes: FieldTypes,
+  hiddenFields: Array<string> = []
+) {
+  const flattenedFeature = flattenFeature(feature)
+  const fieldkeys = union(
+    Object.keys(flattenedFeature.properties || {}),
+    Object.keys(fieldTypes)
+  )
+  const rows = fieldkeys
+    .map(fieldkey => ({
+      fieldkey: fieldkey,
+      value: (flattenedFeature.properties || {})[fieldkey]
+    }))
+    .filter(
+      row =>
+        editMode ||
+        (hiddenFields.indexOf(row.fieldkey) === -1 &&
+          (typeof row.value !== 'string' || row.value.length) &&
+          row.value !== undefined &&
+          row.value !== null &&
+          row.value !== VALUE_TYPES.UNDEFINED)
+    )
 
-    if (feature.geometry) {
-      rows.unshift({
-        key: 'location',
-        value: feature.geometry && feature.geometry.coordinates,
-        type: FIELD_TYPE_LOCATION,
-        visible: !hiddenFields.location
-      })
-    }
-
-    // Sort rows by `fieldOrder` from state, if an order is set, if not then sort lexically.
-    return rows.sort((a, b) => {
-      var orderA =
-        typeof fieldOrder[a.key] !== 'undefined' ? fieldOrder[a.key] : Infinity
-      var orderB =
-        typeof fieldOrder[b.key] !== 'undefined' ? fieldOrder[b.key] : Infinity
-      if (orderA === Infinity && orderB === Infinity) {
-        return lexicalSort(a, b)
-      } else {
-        return orderA - orderB
-      }
+  if (feature.geometry) {
+    rows.unshift({
+      fieldkey: FIELDKEYS.LOCATION,
+      value: feature.geometry.coordinates
     })
   }
-)
+
+  // Sort rows by `fieldOrder` from state, if an order is set, if not then sort lexically.
+  return rows.sort((a, b) => {
+    var orderA =
+      fieldOrder[a.fieldkey] !== undefined ? fieldOrder[a.fieldkey] : Infinity
+    var orderB =
+      fieldOrder[b.fieldkey] !== undefined ? fieldOrder[b.fieldkey] : Infinity
+    if (orderA === Infinity && orderB === Infinity) {
+      return lexicalSort(a, b)
+    } else {
+      return orderA - orderB
+    }
+  })
+}
 
 function lexicalSort(a, b) {
-  var nameA = a.key.toUpperCase() // ignore upper and lowercase
-  var nameB = b.key.toUpperCase() // ignore upper and lowercase
+  var nameA = a.fieldkey.toUpperCase() // ignore upper and lowercase
+  var nameB = b.fieldkey.toUpperCase() // ignore upper and lowercase
   if (nameA < nameB) {
     return -1
   }

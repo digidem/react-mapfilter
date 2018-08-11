@@ -120,9 +120,14 @@ declare module "react-intl" {
   declare function addLocaleData(
     data: $npm$ReactIntl$LocaleData | Array<$npm$ReactIntl$LocaleData>
   ): void;
+
   declare function defineMessages<T: { [key: string]: string }>(
     messageDescriptors: T
-  ): $ObjMap<T, () => $npm$ReactIntl$MessageDescriptor>
+  ): $ObjMap<T, <V>(value: V) => {
+    id: string,
+    description?: string,
+    defaultMessage: V
+  }>
 
 
   declare type InjectIntlProvidedProps = {

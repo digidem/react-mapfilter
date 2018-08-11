@@ -1,16 +1,17 @@
-// flow-typed signature: c2e1b132d2729c977d6b3e54e0134de5
-// flow-typed version: 1709d3212d/@storybook/react_v3.x.x/flow_>=v0.28.x
+// flow-typed signature: a9c5357026f492c3622bca8c992bd97b
+// flow-typed version: 20e8db2d87/@storybook/react_v3.x.x/flow_>=v0.28.x
 
 type NodeModule = typeof module;
 
 declare module '@storybook/react' {
-  declare type Renderable = React$Element<any>;
-  declare type RenderFunction = () => Renderable;
+  declare type Renderable = React$Node;
+  declare type RenderFunction = (context: Context) => Renderable;
+  declare type Context = { kind: string, story: string };
 
   declare type StoryDecorator = (
     story: RenderFunction,
-    context: { kind: string, story: string }
-  ) => Renderable | null;
+    context: Context
+  ) => Renderable;
 
   declare interface Story {
     add(storyName: string, callback: RenderFunction): Story,
@@ -32,6 +33,7 @@ declare module '@storybook/react' {
   declare function setAddon(addon: Object): void;
   declare function storiesOf(name: string, module: NodeModule): Story;
   declare function storiesOf<T>(name: string, module: NodeModule): Story & T;
+  declare function forceReRender(): void;
 
   declare function getStorybook(): Array<StoryBucket>;
 }

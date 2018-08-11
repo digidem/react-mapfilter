@@ -1,5 +1,5 @@
-// flow-typed signature: 6ff3e06b16497093e7d668efbf9eccce
-// flow-typed version: 99f32d7d00/@material-ui/core_v1.x.x/flow_>=v0.58.x
+// flow-typed signature: 63e847cde7f057e6df213c255d5cd4a8
+// flow-typed version: 50dbc499f3/@material-ui/core_v1.x.x/flow_>=v0.58.x
 
 declare module "@material-ui/core/AppBar/AppBar" {
   declare type Color = "inherit" | "primary" | "secondary" | "default";
@@ -1397,8 +1397,9 @@ declare module "@material-ui/core/Popover/Popover" {
 }
 
 declare module "@material-ui/core/CircularProgress/CircularProgress" {
-  declare type Color = "primary" | "accent" | "inherit";
+  declare type Color = "primary" | "secondary" | "inherit";
   declare type Mode = "determinate" | "indeterminate";
+  declare type Variant = "determinate" | "indeterminate" | "static";
 
   declare module.exports: React$ComponentType<{
     classes?: Object,
@@ -1407,10 +1408,11 @@ declare module "@material-ui/core/CircularProgress/CircularProgress" {
     max?: number,
     min?: number,
     mode?: Mode,
-    size?: number,
+    size?: number | string,
     style?: Object,
     thickness?: number,
-    value?: number
+    value?: number,
+    variant?: Variant
   }>;
 }
 
@@ -1848,17 +1850,12 @@ declare module "@material-ui/core/styles/withStyles" {
   declare module.exports: (
     stylesOrCreator: Object,
     options?: Options
-  ) => <
-    OwnProps: {},
-    Props: $Supertype<
-      OwnProps & {
-        classes: { +[string]: string },
-        innerRef: React$Ref<React$ElementType>
-      }
-    >
-  >(
+  ) => <Props: {}>(
     Component: React$ComponentType<Props>
-  ) => React$ComponentType<OwnProps>;
+  ) => React$ComponentType<$Diff<Props, {
+    classes?: Object,
+    innerRef?: React$Ref<React$ElementType>
+  }>>;
 }
 
 declare module "@material-ui/core/styles/withTheme" {

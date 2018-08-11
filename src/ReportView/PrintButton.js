@@ -12,27 +12,15 @@ import FormControl from '@material-ui/core/FormControl'
 import Select from '@material-ui/core/Select'
 import { defineMessages, FormattedMessage } from 'react-intl'
 
-import ToolbarButton from '../internal/ToolbarButton'
+import ToolbarButton from '../ToolbarButton'
 
 import type { PaperSize } from '../types'
 
 const messages = defineMessages({
-  title: {
-    id: 'printDialog.title',
-    defaultMessage: 'Print settings'
-  },
-  paperSize: {
-    id: 'printDialog.paperSizeLabel',
-    defaultMessage: 'Paper size'
-  },
-  cancel: {
-    id: 'printDialog.cancelButtonLabel',
-    defaultMessage: 'Cancel'
-  },
-  print: {
-    id: 'printDialog.printButtonLabel',
-    defaultMessage: 'Print'
-  }
+  dialogTitle: 'Print settings',
+  paperSize: 'Paper size',
+  close: 'Close',
+  print: 'Print'
 })
 
 type Props = {
@@ -48,6 +36,29 @@ type State = {
 class PrintButton extends React.Component<Props, State> {
   state = {
     dialogOpen: false
+  }
+
+  componentDidMount() {
+    window.addEventListener('keydown', this.handleKeyDown)
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('keydown', this.handleKeyDown)
+  }
+
+  handleKeyDown = (event: SyntheticKeyboardEvent<HTMLElement>) => {
+    if (!(event.key === 'p' && event.metaKey)) return
+    event.preventDefault()
+    window.addEventListener('keyup', this.handleKeyUp)
+  }
+
+  handleKeyUp = (event: SyntheticKeyboardEvent<HTMLElement>) => {
+    window.removeEventListener('keyup', this.handleKeyUp)
+    if (this.state.dialogOpen) {
+      this.props.requestPrint()
+    } else {
+      this.openDialog()
+    }
   }
 
   openDialog = () => this.setState({ dialogOpen: true })
@@ -74,7 +85,7 @@ class PrintButton extends React.Component<Props, State> {
           maxWidth="xs"
           className="d-print-none">
           <DialogTitle>
-            <FormattedMessage {...messages.title} />
+            <FormattedMessage {...messages.dialogTitle} />
           </DialogTitle>
           <DialogContent>
             <FormControl>
@@ -93,7 +104,7 @@ class PrintButton extends React.Component<Props, State> {
           </DialogContent>
           <DialogActions>
             <Button onClick={this.closeDialog} color="primary">
-              <FormattedMessage {...messages.cancel} />
+              <FormattedMessage {...messages.close} />
             </Button>
             <Button
               onClick={() => {

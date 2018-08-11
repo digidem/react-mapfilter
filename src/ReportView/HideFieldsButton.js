@@ -11,7 +11,7 @@ import Button from '@material-ui/core/Button'
 import { withStyles } from '@material-ui/core/styles'
 import { defineMessages, FormattedMessage } from 'react-intl'
 
-import ToolbarButton from '../internal/ToolbarButton'
+import ToolbarButton from '../ToolbarButton'
 import FormattedFieldname from '../internal/FormattedFieldname'
 
 const msgs = defineMessages({
@@ -34,17 +34,19 @@ const styles = theme => ({
   button: {
     margin: `0 ${theme.spacing.unit / 2}px`
   },
+  listItem: {
+    paddingRight: 48
+  },
   fieldname: {
     maxWidth: 250,
     textOverflow: 'ellipsis',
     overflow: 'hidden',
-    whiteSpace: 'nowrap',
-    direction: 'rtl'
+    whiteSpace: 'nowrap'
   }
 })
 
 type Props = {
-  fieldState: { [fieldkey: string]: boolean },
+  fieldState: { [fieldkey: string]: 'visible' | 'hidden' },
   showAllFields: () => void,
   hideAllFields: () => void,
   toggleFieldVisibility: (fieldkey: string) => void,
@@ -56,10 +58,14 @@ type State = {
   buttonEl?: HTMLElement
 }
 
-class HiddenFieldsButton extends React.Component<Props, State> {
+class HideFieldsButton extends React.Component<Props, State> {
   state = {
     dialogOpen: false,
     buttonEl: undefined
+  }
+
+  static defaultProps = {
+    fieldState: {}
   }
 
   toggleMenu = (event: SyntheticInputEvent<HTMLButtonElement>) => {
@@ -79,7 +85,8 @@ class HiddenFieldsButton extends React.Component<Props, State> {
     } = this.props
     const { dialogOpen, buttonEl } = this.state
     const fieldkeys = Object.keys(fieldState)
-    const hiddenCount = fieldkeys.filter(key => fieldState[key]).length
+    const hiddenCount = fieldkeys.filter(key => fieldState[key] === 'hidden')
+      .length
     return (
       <React.Fragment>
         <ToolbarButton onClick={this.toggleMenu}>
@@ -102,16 +109,22 @@ class HiddenFieldsButton extends React.Component<Props, State> {
             }
           }}>
           <div className={classes.actions}>
-            <Button dense onClick={showAllFields} className={classes.button}>
+            <Button
+              size="small"
+              onClick={showAllFields}
+              className={classes.button}>
               <FormattedMessage {...msgs.showAll} />
             </Button>
-            <Button dense onClick={hideAllFields} className={classes.button}>
+            <Button
+              size="small"
+              onClick={hideAllFields}
+              className={classes.button}>
               <FormattedMessage {...msgs.hideAll} />
             </Button>
           </div>
           <List dense>
             {fieldkeys.map(fieldkey => (
-              <ListItem key={fieldkey} button={false}>
+              <ListItem key={fieldkey} className={classes.listItem}>
                 <ListItemText
                   className={classes.fieldname}
                   primary={<FormattedFieldname fieldkey={fieldkey} />}
@@ -119,7 +132,7 @@ class HiddenFieldsButton extends React.Component<Props, State> {
                 <ListItemSecondaryAction>
                   <Switch
                     onClick={() => toggleFieldVisibility(fieldkey)}
-                    checked={!fieldState[fieldkey]}
+                    checked={fieldState[fieldkey] === 'visible'}
                   />
                 </ListItemSecondaryAction>
               </ListItem>
@@ -131,4 +144,4 @@ class HiddenFieldsButton extends React.Component<Props, State> {
   }
 }
 
-export default withStyles(styles)(HiddenFieldsButton)
+export default withStyles(styles)(HideFieldsButton)

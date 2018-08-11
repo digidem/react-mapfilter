@@ -1,14 +1,29 @@
 {
-  "src": {
-    "ReportView": {
-      "HiddenFieldsMenu": {
-        "showAll": "Show All"
-      },
-      "HiddenFieldsButton": {
-        "printLabel": "Print",
-        "hideFieldsLabel":
-          "{count, plural, =0 {Hide Fields} one {# Hidden Field} other {# Hidden Fields}}"
-      }
+  "utils": {
+    "strings": {
+      "true": "Yes",
+      "null": "[No Value]",
+      "false": "No",
+      "undefined": "[No Value]"
+    }
+  },
+  "ReportView": {
+    "PrintButton": {
+      "print": "Print",
+      "close": "Close",
+      "paperSize": "Paper size",
+      "dialogTitle": "Print settings"
+    },
+    "HideFieldsButton": {
+      "showAll": "Show All",
+      "hideAll": "Hide All",
+      "hideFieldsLabel":
+        "{count, plural, =0 {Hide Fields} one {# Hidden Field} other {# Hidden Fields}}"
+    }
+  },
+  "internal": {
+    "FormattedFieldname": {
+      "location": "Location"
     }
   }
 }
