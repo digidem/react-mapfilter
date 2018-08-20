@@ -112,7 +112,7 @@ const urlRegex = makeUrlRegex({exact: true})
 
 // Max number of unique text values for a field to still be a filterable discrete field
 const MAX_DISCRETE_VALUES = {
-  [FIELD_TYPE_STRING]: 15,
+  [FIELD_TYPE_STRING]: 20,
   [FIELD_TYPE_NUMBER]: 5
 }
 
@@ -266,7 +266,7 @@ function getFilterType (f) {
       return FILTER_TYPE_DISCRETE
     case FIELD_TYPE_STRING:
       // Strings with lots of words we count as text fields, not discrete fields
-      if (f.wordStats.mean > 1) {
+      if (f.wordStats.mean > 3) {
         return FILTER_TYPE_TEXT
       }
     // eslint-disable-next-line no-fallthrough
