@@ -70,11 +70,11 @@ const getViewMessage = (viewId) => ({
 })
 
 function AppBar ({activeView, views, onChangeTab, buttons, title, menuItems, classes}) {
-  title = typeof title === 'string' ? <Typography type='title' color='inherit'>{title}</Typography> : title
+  title = typeof title === 'string' ? <Typography variant='title' color='inherit'>{title}</Typography> : title
   return (
     <MuiAppBar position='static' className={classes.root}>
       <Toolbar className={classNames(classes.toolbar, classes.heights)}>
-        <div>{title}</div>
+        {title}
         <Tabs
           value={activeView}
           onChange={(e, value) => onChangeTab(value)}
