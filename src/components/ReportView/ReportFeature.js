@@ -68,8 +68,8 @@ const ReportFeature = ({
           <MarkerIcon color={color} className={classes.markerIcon} label={label} />
         </div>
         <div className={classes.headerContent}>
-          <Typography type='title'><FormattedValue value={title} type={titleType} /></Typography>
-          <Typography type='subheading'><FormattedValue value={subtitle} type={subtitleType} /></Typography>
+          <Typography variant='title'><FormattedValue value={title} type={titleType} /></Typography>
+          <Typography variant='subheading'><FormattedValue value={subtitle} type={subtitleType} /></Typography>
         </div>
       </div>
       {media &&

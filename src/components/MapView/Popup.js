@@ -95,10 +95,10 @@ class Popup extends React.Component {
     return <div className={classNames(classes.wrapper, {[classes.wrapperImage]: media})} style={{transform}} ref={el => (this._el = el)}>
       {media && <Image src={media} className={classes.image} />}
       <div className={classes.titleBox}>
-        {title && <Typography type='title' className={classes.title}>
+        {title && <Typography variant='title' className={classes.title}>
           <FormattedValue value={title} type={titleType} />
         </Typography>}
-        {subtitle && <Typography type='subheading' className={classes.subheading}>
+        {subtitle && <Typography variant='subheading' className={classes.subheading}>
           <FormattedValue value={subtitle} type={subtitleType} />
         </Typography>}
       </div>

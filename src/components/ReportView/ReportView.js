@@ -203,8 +203,8 @@ class ReportView extends React.Component {
           <Paper className={classes.reportPaper + ' ' + classes.reportPaperMap} elevation={1}>
             <div className={classes.reportPage + ' ' + classes.reportPageMap}>
               <header className={classes.mapHeader}>
-                <Typography type='title'>Monitoring Report</Typography>
-                <Typography type='subheading' style={{marginBottom: '0.5em'}}>{featuresSlice.length} locations</Typography>
+                <Typography variant='title'>Monitoring Report</Typography>
+                <Typography variant='subheading' style={{marginBottom: '0.5em'}}>{featuresSlice.length} locations</Typography>
               </header>
               <div className={classes.mapContainer}>
                 <MapView
