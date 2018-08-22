@@ -251,10 +251,10 @@ class MapFilter extends React.Component {
   }
 
   render () {
-    const {actionButton, detailViewButtons, views, appBarButtons, appBarTitle, locale, mapControls} = this.props
+    const {actionButton, detailViewButtons, views, appBarButtons, appBarMenuItems, appBarTitle, locale, mapControls} = this.props
     return <Provider store={this.store}>
       <IntlProvider locale={locale} >
-        <App detailViewButtons={detailViewButtons}
+        <App detailViewButtons={detailViewButtons} appBarMenuItems={appBarMenuItems}
           actionButton={actionButton} views={views} appBarButtons={appBarButtons} appBarTitle={appBarTitle} mapControls={mapControls} />
       </IntlProvider>
     </Provider>

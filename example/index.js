@@ -6,6 +6,7 @@ const { MuiThemeProvider, createMuiTheme } = require('@material-ui/core/styles')
 const blue = require('@material-ui/core/colors/blue').default
 const pink = require('@material-ui/core/colors/pink').default
 const mapboxgl = require('mapbox-gl')
+const MenuItem = require('@material-ui/core/MenuItem').default
 
 const theme = createMuiTheme({
   palette: {
@@ -46,6 +47,12 @@ function resizer (src, size) {
     .replace('{url}', src)
 }
 
+const MyMenuItem = () => (
+  <MenuItem onClick={() => console.log('click myMenu')}>
+    Custom Menu Item
+  </MenuItem>
+)
+
 class Example extends React.Component {
   constructor (props) {
     super(props)
@@ -84,7 +91,8 @@ class Example extends React.Component {
         ui={this.state.ui}
         mapControls={[new mapboxgl.FullscreenControl()]}
         onChangeUi={this.handleChangeUi}
-        onChangeFeatures={this.handleChangeFeatures} />
+        onChangeFeatures={this.handleChangeFeatures}
+        appBarMenuItems={[MyMenuItem]} />
     </MuiThemeProvider>
   }
 }

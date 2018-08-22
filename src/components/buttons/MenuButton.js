@@ -11,6 +11,7 @@ import { csvFormat } from 'd3-dsv'
 import assign from 'object-assign'
 
 import * as MFPropTypes from '../../util/prop_types'
+import CustomContainer from '../../containers/ViewContainer'
 
 const messages = defineMessages({
   settings: {
@@ -71,7 +72,7 @@ class MenuButton extends React.Component {
   }
 
   render () {
-    const {intl: {formatMessage}, openSettings} = this.props
+    const {intl: {formatMessage}, openSettings, menuItems} = this.props
     const name = formatMessage(messages.menu)
     return <div>
       <Tooltip title={name}>
@@ -93,9 +94,16 @@ class MenuButton extends React.Component {
         <MenuItem onClick={() => openSettings('general')}>{formatMessage(messages.settings)}</MenuItem>
         <MenuItem onClick={this.handleExportGeoJSONClick}>{formatMessage(messages.exportGeoJSON)}</MenuItem>
         <MenuItem onClick={this.handleExportCSVClick}>{formatMessage(messages.exportCSV)}</MenuItem>
+        {menuItems.length === 0 ? null : menuItems.map((menuItem, i) => (
+          <CustomContainer key={i} component={menuItem} />
+        )) }
       </Menu>
     </div>
   }
+}
+
+MenuButton.defaultProps = {
+  menuItems: []
 }
 
 MenuButton.propTypes = {
