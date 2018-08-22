@@ -31,8 +31,7 @@ const titleFieldTypes = {
 
 const styles = {
   select: {
-    paddingTop: 8,
-    minWidth: 200
+    width: 200
   }
 }
 

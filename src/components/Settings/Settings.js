@@ -35,6 +35,7 @@ const styles = {
   },
   tab: {
     justifyContent: 'left',
+    textAlign: 'left',
     paddingLeft: 16,
     paddingRight: 16,
     fontSize: 13,
