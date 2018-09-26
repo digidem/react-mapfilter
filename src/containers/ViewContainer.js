@@ -19,11 +19,13 @@ import getFieldMapping from '../selectors/field_mapping'
 import getColorIndex from '../selectors/color_index'
 import getVisibleFields from '../selectors/visible_fields'
 
-const ViewContainer = (props) => createElement(props.component, omit(props, 'component'))
+const ViewContainer = (props) => createElement(props.component, omit(props, 'component'), props.children)
 
 function mapStateToProps (state, ownProps) {
+  var component = ownProps.component
   return {
-    viewState: state.viewStates[ownProps.component.MfViewId],
+    children: component.props && component.props.children,
+    viewState: state.viewStates[component.MfViewId],
     willPrint: state.print.willPrint,
     paperSize: state.print.paperSize,
     center: state.mapPosition.center,
