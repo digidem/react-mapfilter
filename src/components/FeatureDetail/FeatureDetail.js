@@ -66,12 +66,14 @@ const ViewActions = ({onCloseClick, onEditClick, detailViewButtons, classes}) =>
   <DialogActions>
     {detailViewButtons}
     <Button
+      id='FeatureDetail-edit'
       variant='raised'
       icon={<EditIcon />}
       onClick={onEditClick}>
       <FormattedMessage {...messages.editButton} />
     </Button>
     <Button
+      id='FeatureDetail-close'
       variant='raised'
       color='primary'
       onClick={onCloseClick}>
@@ -83,12 +85,14 @@ const ViewActions = ({onCloseClick, onEditClick, detailViewButtons, classes}) =>
 const EditActions = ({onCancelClick, onSaveClick, onDeleteClick, classes}) => (
   <DialogActions>
     <Button
+      id='FeatureDetail-delete'
       color='accent'
       variant='raised'
       onClick={onDeleteClick}>
       <FormattedMessage {...messages.deleteButton} />
     </Button>
     <Button
+      id='FeatureDetail-cancel-edit'
       variant='raised'
       onClick={onCancelClick}
       className={classes.button}>
@@ -96,6 +100,7 @@ const EditActions = ({onCancelClick, onSaveClick, onDeleteClick, classes}) => (
     </Button>
     <Button
       raised
+      id='FeatureDetail-save-edit'
       color='primary'
       onClick={onSaveClick}>
       <FormattedMessage {...messages.saveButton} />
@@ -185,10 +190,10 @@ class FeatureDetail extends React.Component {
       <Dialog ignoreBackdropClick open={this.state.confirmDelete} maxWidth='xs' fullWidth>
         <DialogTitle>Delete Feature?</DialogTitle>
         <DialogActions>
-          <Button onClick={() => this.setState({confirmDelete: false})} color='primary'>
+          <Button id='DeleteConfirm-cancel' onClick={() => this.setState({confirmDelete: false})} color='primary'>
             Cancel
           </Button>
-          <Button onClick={this.handleDeleteConfirm} color='primary'>
+          <Button id='DeleteConfirm-ok'onClick={this.handleDeleteConfirm} color='primary'>
             Ok
           </Button>
         </DialogActions>
