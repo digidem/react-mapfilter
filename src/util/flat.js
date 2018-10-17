@@ -30,17 +30,13 @@ function flatten (target, opts) {
         ? prev + delimiter + key
         : key
 
-      var objectKeyLength = Object.keys(value).length
-
-      if (!isarray && !isbuffer && isobject && objectKeyLength &&
+      if (!isarray && !isbuffer && isobject && Object.keys(value).length &&
         (!opts.maxDepth || currentDepth < maxDepth)) {
         return step(value, newKey, currentDepth + 1)
       }
 
       // Remove any empty objects
-      if (!(isobject && !objectKeyLength)) {
-        output[newKey] = value
-      }
+      output[newKey] = value
     })
   }
 
