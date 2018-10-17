@@ -12,6 +12,7 @@ import assign from 'object-assign'
 
 import * as MFPropTypes from '../../util/prop_types'
 import CustomContainer from '../../containers/ViewContainer'
+import {FIELD_TYPE_DATE, UNDEFINED_KEY} from '../../constants'
 
 const messages = defineMessages({
   settings: {
@@ -55,18 +56,32 @@ class MenuButton extends React.Component {
   }
 
   handleExportCSVClick = () => {
+    const {fieldAnalysis} = this.props
+    const columns = []
     const rows = this.props.features
       .map(function (feature) {
+        const row = Object.assign({}, feature.properties)
+        Object.keys(row).forEach(key => {
+          if (fieldAnalysis.properties[key] && fieldAnalysis.properties[key].type === FIELD_TYPE_DATE) {
+            row[key] = new Date(row[key]).toISOString()
+          }
+          if (row[key] === UNDEFINED_KEY) {
+            row[key] = ''
+          }
+          if (columns.indexOf(key) === -1) {
+            columns.push(key)
+          }
+        })
         if (feature.geometry && feature.geometry.type === 'Point') {
-          return assign({}, feature.properties, {
+          return assign({}, row, {
             lon: feature.geometry.coordinates[0],
             lat: feature.geometry.coordinates[1]
           })
         }
-        return feature.properties
+        return row
       })
       .filter(Boolean)
-    const csv = csvFormat(rows)
+    const csv = csvFormat(rows, columns.sort().concat(['lon', 'lat']))
     const blob = new window.Blob([csv], {type: 'text/csv'})
     saveAs(blob, 'data.csv')
   }
