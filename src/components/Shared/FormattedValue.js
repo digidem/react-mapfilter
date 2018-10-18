@@ -8,6 +8,7 @@ import {parseDate} from '../../util/filter_helpers'
 import {createMessage as msg} from '../../util/intl_helpers'
 import {
   FIELD_TYPE_DATE,
+  FIELD_TYPE_ARRAY,
   FIELD_TYPE_LOCATION,
   FIELD_TYPE_NUMBER,
   FORMATS_UTM,
@@ -31,6 +32,8 @@ const FormattedValue = ({value, type, coordFormat = FORMATS_DEG_MIN_SEC}) => {
         year='numeric'
         month='long'
         day='2-digit' />
+    case FIELD_TYPE_ARRAY:
+      return (value || []).map(v => <FormattedMessage {...msg('field_value')(value)} />)
     case FIELD_TYPE_LOCATION:
       return <span>{formatLocation(value, coordFormat)}</span>
     case FIELD_TYPE_NUMBER:
