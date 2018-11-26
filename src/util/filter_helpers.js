@@ -23,7 +23,8 @@ export function parseDate (value) {
     var m = value.match(shortDateRegExp)
     value = (new Date(m[1], m[2] - 1, m[3])).toISOString()
   }
-  return isodate.parse(value) || dehumanizeDate(value)
+  var dateString = dehumanizeDate(value)
+  return dateString == null ? false : new Date(dateString)
 }
 
 export function isDate (v) {
