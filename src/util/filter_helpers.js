@@ -14,17 +14,16 @@ import {
 const shortDateRegExp = /^(\d{4})-(\d{2})-(\d{2})$/
 
 /**
- * Attempt to parse a datestring, returning `false` if it can't be parsed
+ * Attempt to parse a datestring, returning `null` if it can't be parsed
  * @param {string} possibleDate [description]
- * @return {date|boolean} returns a Date object or `false` if not a date.
+ * @return {date|null} returns a Date object or `null` if not a date.
  */
 export function parseDate (value) {
   if (shortDateRegExp.test(value)) {
     var m = value.match(shortDateRegExp)
     value = (new Date(m[1], m[2] - 1, m[3])).toISOString()
   }
-  var dateString = dehumanizeDate(value)
-  return dateString == null ? false : new Date(dateString)
+  return isodate.parse(value) || dehumanizeDate(value)
 }
 
 export function isDate (v) {

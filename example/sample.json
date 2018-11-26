@@ -41,7 +41,10 @@
         "region": "South Central",
         "today": "2014-03-11",
         "village": "Parikowaro Naawa",
-        "empty": ["https://s3.amazonaws.com/images.digital-democracy.org/mapfilter-sample/sample-6.jpg"]
+        "empty": [
+          "https://s3.amazonaws.com/images.digital-democracy.org/mapfilter-sample/sample-6.jpg"
+        ],
+        "start": "2014-03-11T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -81,7 +84,8 @@
         "region": "South Central",
         "today": "2014-06-28",
         "village": "Potari Naawa",
-        "empty": []
+        "empty": [],
+        "start": "2014-06-28T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -114,7 +118,8 @@
         "region": "South Central",
         "today": "2014-09-21",
         "village": "Shii",
-        "empty": []
+        "empty": [],
+        "start": "2014-09-21T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -151,7 +156,8 @@
         "region": "South Central",
         "today": "2014-11-30",
         "village": "Potari Naawa",
-        "empty": []
+        "empty": [],
+        "start": "2014-11-30T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -187,7 +193,8 @@
         "region": "Deep South",
         "today": "2014-09-23",
         "village": "Aishara Toon",
-        "empty": []
+        "empty": [],
+        "start": "2014-09-23T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -224,7 +231,8 @@
         "region": "South Central",
         "today": "2014-12-21",
         "village": "Shii",
-        "empty": []
+        "empty": [],
+        "start": "2014-12-21T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -261,7 +269,8 @@
         "region": "Deep South",
         "today": "2014-06-23",
         "village": "Katoonarub",
-        "empty": []
+        "empty": [],
+        "start": "2014-06-23T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -298,7 +307,8 @@
         "region": "South Central",
         "today": "2014-11-01",
         "village": "Achawib",
-        "empty": []
+        "empty": [],
+        "start": "2014-11-01T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -335,7 +345,8 @@
         "region": "Deep South",
         "today": "2014-04-14",
         "village": "Karaodaz Naawa",
-        "empty": []
+        "empty": [],
+        "start": "2014-04-14T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -372,7 +383,8 @@
         "region": "Deep South",
         "today": "2014-02-28",
         "village": "Katoonarub",
-        "empty": []
+        "empty": [],
+        "start": "2014-02-28T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -409,7 +421,8 @@
         "region": "Deep South",
         "today": "2014-09-19",
         "village": "Aishara Toon",
-        "empty": []
+        "empty": [],
+        "start": "2014-09-19T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -446,7 +459,8 @@
         "region": "South Central",
         "today": "2014-01-04",
         "village": "Shorinab",
-        "empty": []
+        "empty": [],
+        "start": "2014-01-04T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -479,7 +493,8 @@
         "region": "South Central",
         "today": "2014-07-05",
         "village": "Achawib",
-        "empty": []
+        "empty": [],
+        "start": "2014-07-05T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -516,7 +531,8 @@
         "region": "South Central",
         "today": "2014-11-25",
         "village": "Marora Naawa",
-        "empty": []
+        "empty": [],
+        "start": "2014-11-25T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -553,7 +569,8 @@
         "region": "South Central",
         "today": "2014-11-14",
         "village": "Achawib",
-        "empty": []
+        "empty": [],
+        "start": "2014-11-14T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -590,7 +607,8 @@
         "region": "Deep South",
         "today": "2014-06-22",
         "village": "Parikowaro Naawa",
-        "empty": []
+        "empty": [],
+        "start": "2014-06-22T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -627,7 +645,8 @@
         "region": "South Central",
         "today": "2014-01-13",
         "village": "Karaodaz Naawa",
-        "empty": []
+        "empty": [],
+        "start": "2014-01-13T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -664,7 +683,8 @@
         "region": "South Central",
         "today": "2014-01-11",
         "village": "Aishara Toon",
-        "empty": []
+        "empty": [],
+        "start": "2014-01-11T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -701,7 +721,8 @@
         "region": "South Central",
         "today": "2014-06-30",
         "village": "Potari Naawa",
-        "empty": []
+        "empty": [],
+        "start": "2014-06-30T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -738,7 +759,8 @@
         "region": "South Central",
         "today": "2014-09-14",
         "village": "Katoonarub",
-        "empty": []
+        "empty": [],
+        "start": "2014-09-14T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -775,7 +797,8 @@
         "region": "Deep South",
         "today": "2014-05-13",
         "village": "Marora Naawa",
-        "empty": []
+        "empty": [],
+        "start": "2014-05-13T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -812,7 +835,8 @@
         "region": "South Central",
         "today": "2014-01-29",
         "village": "Achawib",
-        "empty": []
+        "empty": [],
+        "start": "2014-01-29T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -849,7 +873,8 @@
         "region": "Deep South",
         "today": "2014-04-03",
         "village": "Marora Naawa",
-        "empty": []
+        "empty": [],
+        "start": "2014-04-03T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -886,7 +911,8 @@
         "region": "Deep South",
         "today": "2014-02-03",
         "village": "Sawari Wao",
-        "empty": []
+        "empty": [],
+        "start": "2014-02-03T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -923,7 +949,8 @@
         "region": "South Central",
         "today": "2014-12-19",
         "village": "Shii",
-        "empty": []
+        "empty": [],
+        "start": "2014-12-19T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -960,7 +987,8 @@
         "region": "Deep South",
         "today": "2014-06-28",
         "village": "Shorinab",
-        "empty": []
+        "empty": [],
+        "start": "2014-06-28T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -997,7 +1025,8 @@
         "region": "South Central",
         "today": "2014-09-24",
         "village": "Parikowaro Naawa",
-        "empty": []
+        "empty": [],
+        "start": "2014-09-24T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -1034,7 +1063,8 @@
         "region": "South Central",
         "today": "2014-06-19",
         "village": "Parikowaro Naawa",
-        "empty": []
+        "empty": [],
+        "start": "2014-06-19T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -1071,7 +1101,8 @@
         "region": "South Central",
         "today": "2014-02-21",
         "village": "Potari Naawa",
-        "empty": []
+        "empty": [],
+        "start": "2014-02-21T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -1108,7 +1139,8 @@
         "region": "South Central",
         "today": "2014-03-10",
         "village": "Sawari Wao",
-        "empty": []
+        "empty": [],
+        "start": "2014-03-10T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -1145,7 +1177,8 @@
         "region": "South Central",
         "today": "2014-11-22",
         "village": "Shii",
-        "empty": []
+        "empty": [],
+        "start": "2014-11-22T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -1182,7 +1215,8 @@
         "region": "South Central",
         "today": "2014-04-10",
         "village": "Achawib",
-        "empty": []
+        "empty": [],
+        "start": "2014-04-10T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -1219,7 +1253,8 @@
         "region": "Deep South",
         "today": "2014-04-06",
         "village": "Parikowaro Naawa",
-        "empty": []
+        "empty": [],
+        "start": "2014-04-06T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -1256,7 +1291,8 @@
         "region": "South Central",
         "today": "2014-06-09",
         "village": "Soburun",
-        "empty": []
+        "empty": [],
+        "start": "2014-06-09T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -1293,7 +1329,8 @@
         "region": "South Central",
         "today": "2014-06-02",
         "village": "Potari Naawa",
-        "empty": []
+        "empty": [],
+        "start": "2014-06-02T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -1330,7 +1367,8 @@
         "region": "South Central",
         "today": "2014-03-04",
         "village": "Karaodaz Naawa",
-        "empty": []
+        "empty": [],
+        "start": "2014-03-04T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -1367,7 +1405,8 @@
         "region": "South Central",
         "today": "2014-11-18",
         "village": "Marora Naawa",
-        "empty": []
+        "empty": [],
+        "start": "2014-11-18T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -1404,7 +1443,8 @@
         "region": "Deep South",
         "today": "2014-12-06",
         "village": "Zoopo Naawa",
-        "empty": []
+        "empty": [],
+        "start": "2014-12-06T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -1441,7 +1481,8 @@
         "region": "Deep South",
         "today": "2014-12-12",
         "village": "Shorinab",
-        "empty": []
+        "empty": [],
+        "start": "2014-12-12T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -1478,7 +1519,8 @@
         "region": "Deep South",
         "today": "2014-03-05",
         "village": "Parobaz",
-        "empty": []
+        "empty": [],
+        "start": "2014-03-05T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -1515,7 +1557,8 @@
         "region": "South Central",
         "today": "2014-07-21",
         "village": "Aishara Toon",
-        "empty": []
+        "empty": [],
+        "start": "2014-07-21T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -1552,7 +1595,8 @@
         "region": "Deep South",
         "today": "2014-10-30",
         "village": "Awaru Wao Naawa",
-        "empty": []
+        "empty": [],
+        "start": "2014-10-30T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -1589,7 +1633,8 @@
         "region": "South Central",
         "today": "2014-08-26",
         "village": "Awaru Wao Naawa",
-        "empty": []
+        "empty": [],
+        "start": "2014-08-26T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -1626,7 +1671,8 @@
         "region": "South Central",
         "today": "2014-10-12",
         "village": "Parobaz",
-        "empty": []
+        "empty": [],
+        "start": "2014-10-12T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -1663,7 +1709,8 @@
         "region": "South Central",
         "today": "2014-06-29",
         "village": "Zoopo Naawa",
-        "empty": []
+        "empty": [],
+        "start": "2014-06-29T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -1700,7 +1747,8 @@
         "region": "Deep South",
         "today": "2014-05-18",
         "village": "Sawari Wao",
-        "empty": []
+        "empty": [],
+        "start": "2014-05-18T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -1737,7 +1785,8 @@
         "region": "Deep South",
         "today": "2014-09-22",
         "village": "Achawib",
-        "empty": []
+        "empty": [],
+        "start": "2014-09-22T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -1774,7 +1823,8 @@
         "region": "Deep South",
         "today": "2014-07-28",
         "village": "Karaodaz Naawa",
-        "empty": []
+        "empty": [],
+        "start": "2014-07-28T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -1811,7 +1861,8 @@
         "region": "South Central",
         "today": "2014-10-23",
         "village": "Potari Naawa",
-        "empty": []
+        "empty": [],
+        "start": "2014-10-23T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -1848,7 +1899,8 @@
         "region": "South Central",
         "today": "2014-01-13",
         "village": "Marora Naawa",
-        "empty": []
+        "empty": [],
+        "start": "2014-01-13T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -1885,7 +1937,8 @@
         "region": "South Central",
         "today": "2014-11-27",
         "village": "Sawari Wao",
-        "empty": []
+        "empty": [],
+        "start": "2014-11-27T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -1922,7 +1975,8 @@
         "region": "South Central",
         "today": "2014-08-07",
         "village": "Katoonarub",
-        "empty": []
+        "empty": [],
+        "start": "2014-08-07T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -1959,7 +2013,8 @@
         "region": "Deep South",
         "today": "2014-09-28",
         "village": "Achawib",
-        "empty": []
+        "empty": [],
+        "start": "2014-09-28T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -1996,7 +2051,8 @@
         "region": "South Central",
         "today": "2014-02-16",
         "village": "Marora Naawa",
-        "empty": []
+        "empty": [],
+        "start": "2014-02-16T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -2033,7 +2089,8 @@
         "region": "South Central",
         "today": "2014-02-10",
         "village": "Soburun",
-        "empty": []
+        "empty": [],
+        "start": "2014-02-10T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -2070,7 +2127,8 @@
         "region": "South Central",
         "today": "2014-03-22",
         "village": "Parobaz",
-        "empty": []
+        "empty": [],
+        "start": "2014-03-22T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -2107,7 +2165,8 @@
         "region": "South Central",
         "today": "2014-01-13",
         "village": "Sawari Wao",
-        "empty": []
+        "empty": [],
+        "start": "2014-01-13T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -2144,7 +2203,8 @@
         "region": "Deep South",
         "today": "2014-03-21",
         "village": "Shii",
-        "empty": []
+        "empty": [],
+        "start": "2014-03-21T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -2181,7 +2241,8 @@
         "region": "South Central",
         "today": "2014-10-12",
         "village": "Shii",
-        "empty": []
+        "empty": [],
+        "start": "2014-10-12T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -2218,7 +2279,8 @@
         "region": "South Central",
         "today": "2014-01-02",
         "village": "Potari Naawa",
-        "empty": []
+        "empty": [],
+        "start": "2014-01-02T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -2255,7 +2317,8 @@
         "region": "South Central",
         "today": "2014-09-04",
         "village": "Marora Naawa",
-        "empty": []
+        "empty": [],
+        "start": "2014-09-04T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -2292,7 +2355,8 @@
         "region": "South Central",
         "today": "2014-07-31",
         "village": "Marora Naawa",
-        "empty": []
+        "empty": [],
+        "start": "2014-07-31T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -2329,7 +2393,8 @@
         "region": "South Central",
         "today": "2014-09-28",
         "village": "Karaodaz Naawa",
-        "empty": []
+        "empty": [],
+        "start": "2014-09-28T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -2366,7 +2431,8 @@
         "region": "South Central",
         "today": "2014-03-10",
         "village": "Parobaz",
-        "empty": []
+        "empty": [],
+        "start": "2014-03-10T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -2403,7 +2469,8 @@
         "region": "Deep South",
         "today": "2014-07-02",
         "village": "Zoopo Naawa",
-        "empty": []
+        "empty": [],
+        "start": "2014-07-02T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -2440,7 +2507,8 @@
         "region": "South Central",
         "today": "2014-06-06",
         "village": "Sawari Wao",
-        "empty": []
+        "empty": [],
+        "start": "2014-06-06T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -2477,7 +2545,8 @@
         "region": "Deep South",
         "today": "2014-03-14",
         "village": "Sawari Wao",
-        "empty": []
+        "empty": [],
+        "start": "2014-03-14T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -2514,7 +2583,8 @@
         "region": "Deep South",
         "today": "2014-06-29",
         "village": "Marora Naawa",
-        "empty": []
+        "empty": [],
+        "start": "2014-06-29T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -2551,7 +2621,8 @@
         "region": "South Central",
         "today": "2014-01-25",
         "village": "Shorinab",
-        "empty": []
+        "empty": [],
+        "start": "2014-01-25T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -2588,7 +2659,8 @@
         "region": "South Central",
         "today": "2014-03-05",
         "village": "Potari Naawa",
-        "empty": []
+        "empty": [],
+        "start": "2014-03-05T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -2625,7 +2697,8 @@
         "region": "South Central",
         "today": "2014-05-11",
         "village": "Sawari Wao",
-        "empty": []
+        "empty": [],
+        "start": "2014-05-11T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -2662,7 +2735,8 @@
         "region": "Deep South",
         "today": "2014-12-15",
         "village": "Parikowaro Naawa",
-        "empty": []
+        "empty": [],
+        "start": "2014-12-15T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -2699,7 +2773,8 @@
         "region": "Deep South",
         "today": "2014-03-12",
         "village": "Potari Naawa",
-        "empty": []
+        "empty": [],
+        "start": "2014-03-12T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -2736,7 +2811,8 @@
         "region": "South Central",
         "today": "2014-12-29",
         "village": "Achawib",
-        "empty": []
+        "empty": [],
+        "start": "2014-12-29T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -2773,7 +2849,8 @@
         "region": "Deep South",
         "today": "2014-08-22",
         "village": "Potari Naawa",
-        "empty": []
+        "empty": [],
+        "start": "2014-08-22T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -2810,7 +2887,8 @@
         "region": "South Central",
         "today": "2014-03-21",
         "village": "Marora Naawa",
-        "empty": []
+        "empty": [],
+        "start": "2014-03-21T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -2847,7 +2925,8 @@
         "region": "Deep South",
         "today": "2014-03-23",
         "village": "Shorinab",
-        "empty": []
+        "empty": [],
+        "start": "2014-03-23T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -2884,7 +2963,8 @@
         "region": "South Central",
         "today": "2014-05-29",
         "village": "Marora Naawa",
-        "empty": []
+        "empty": [],
+        "start": "2014-05-29T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -2921,7 +3001,8 @@
         "region": "Deep South",
         "today": "2014-04-20",
         "village": "Sawari Wao",
-        "empty": []
+        "empty": [],
+        "start": "2014-04-20T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -2958,7 +3039,8 @@
         "region": "South Central",
         "today": "2014-01-16",
         "village": "Parikowaro Naawa",
-        "empty": []
+        "empty": [],
+        "start": "2014-01-16T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -2995,7 +3077,8 @@
         "region": "South Central",
         "today": "2014-04-06",
         "village": "Shorinab",
-        "empty": []
+        "empty": [],
+        "start": "2014-04-06T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -3032,7 +3115,8 @@
         "region": "Deep South",
         "today": "2014-03-12",
         "village": "Achawib",
-        "empty": []
+        "empty": [],
+        "start": "2014-03-12T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -3069,7 +3153,8 @@
         "region": "South Central",
         "today": "2014-09-08",
         "village": "Zoopo Naawa",
-        "empty": []
+        "empty": [],
+        "start": "2014-09-08T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -3106,7 +3191,8 @@
         "region": "South Central",
         "today": "2014-05-17",
         "village": "Karaodaz Naawa",
-        "empty": []
+        "empty": [],
+        "start": "2014-05-17T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -3143,7 +3229,8 @@
         "region": "Deep South",
         "today": "2014-02-08",
         "village": "Zoopo Naawa",
-        "empty": []
+        "empty": [],
+        "start": "2014-02-08T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -3180,7 +3267,8 @@
         "region": "Deep South",
         "today": "2014-08-22",
         "village": "Aishara Toon",
-        "empty": []
+        "empty": [],
+        "start": "2014-08-22T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -3217,7 +3305,8 @@
         "region": "Deep South",
         "today": "2014-03-12",
         "village": "Potari Naawa",
-        "empty": []
+        "empty": [],
+        "start": "2014-03-12T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -3254,7 +3343,8 @@
         "region": "South Central",
         "today": "2014-09-20",
         "village": "Sawari Wao",
-        "empty": []
+        "empty": [],
+        "start": "2014-09-20T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -3291,7 +3381,8 @@
         "region": "Deep South",
         "today": "2014-11-02",
         "village": "Potari Naawa",
-        "empty": []
+        "empty": [],
+        "start": "2014-11-02T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -3328,7 +3419,8 @@
         "region": "Deep South",
         "today": "2014-04-17",
         "village": "Potari Naawa",
-        "empty": []
+        "empty": [],
+        "start": "2014-04-17T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -3365,7 +3457,8 @@
         "region": "Deep South",
         "today": "2014-01-22",
         "village": "Zoopo Naawa",
-        "empty": []
+        "empty": [],
+        "start": "2014-01-22T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -3402,7 +3495,8 @@
         "region": "Deep South",
         "today": "2014-05-08",
         "village": "Achawib",
-        "empty": []
+        "empty": [],
+        "start": "2014-05-08T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -3439,7 +3533,8 @@
         "region": "Deep South",
         "today": "2014-03-07",
         "village": "Parikowaro Naawa",
-        "empty": []
+        "empty": [],
+        "start": "2014-03-07T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -3476,7 +3571,8 @@
         "region": "Deep South",
         "today": "2014-02-21",
         "village": "Karaodaz Naawa",
-        "empty": []
+        "empty": [],
+        "start": "2014-02-21T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -3513,7 +3609,8 @@
         "region": "South Central",
         "today": "2014-04-18",
         "village": "Awaru Wao Naawa",
-        "empty": []
+        "empty": [],
+        "start": "2014-04-18T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -3550,7 +3647,8 @@
         "region": "Deep South",
         "today": "2014-09-28",
         "village": "Zoopo Naawa",
-        "empty": []
+        "empty": [],
+        "start": "2014-09-28T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -3587,7 +3685,8 @@
         "region": "South Central",
         "today": "2014-03-22",
         "village": "Shii",
-        "empty": []
+        "empty": [],
+        "start": "2014-03-22T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -3624,7 +3723,8 @@
         "region": "Deep South",
         "today": "2014-11-25",
         "village": "Karaodaz Naawa",
-        "empty": []
+        "empty": [],
+        "start": "2014-11-25T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -3661,7 +3761,8 @@
         "region": "Deep South",
         "today": "2014-07-19",
         "village": "Soburun",
-        "empty": []
+        "empty": [],
+        "start": "2014-07-19T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -3698,7 +3799,8 @@
         "region": "Deep South",
         "today": "2014-09-26",
         "village": "Shii",
-        "empty": []
+        "empty": [],
+        "start": "2014-09-26T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -3735,7 +3837,8 @@
         "region": "Deep South",
         "today": "2014-03-25",
         "village": "Awaru Wao Naawa",
-        "empty": []
+        "empty": [],
+        "start": "2014-03-25T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -3772,7 +3875,8 @@
         "region": "South Central",
         "today": "2014-06-21",
         "village": "Karaodaz Naawa",
-        "empty": []
+        "empty": [],
+        "start": "2014-06-21T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -3809,7 +3913,8 @@
         "region": "Deep South",
         "today": "2014-12-11",
         "village": "Shii",
-        "empty": []
+        "empty": [],
+        "start": "2014-12-11T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -3846,7 +3951,8 @@
         "region": "Deep South",
         "today": "2014-05-04",
         "village": "Parobaz",
-        "empty": []
+        "empty": [],
+        "start": "2014-05-04T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -3883,7 +3989,8 @@
         "region": "South Central",
         "today": "2014-01-15",
         "village": "Shorinab",
-        "empty": []
+        "empty": [],
+        "start": "2014-01-15T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -3920,7 +4027,8 @@
         "region": "South Central",
         "today": "2014-09-21",
         "village": "Achawib",
-        "empty": []
+        "empty": [],
+        "start": "2014-09-21T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -3957,7 +4065,8 @@
         "region": "South Central",
         "today": "2014-01-16",
         "village": "Parobaz",
-        "empty": []
+        "empty": [],
+        "start": "2014-01-16T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -3994,7 +4103,8 @@
         "region": "Deep South",
         "today": "2014-08-20",
         "village": "Marora Naawa",
-        "empty": []
+        "empty": [],
+        "start": "2014-08-20T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -4031,7 +4141,8 @@
         "region": "South Central",
         "today": "2014-06-06",
         "village": "Karaodaz Naawa",
-        "empty": []
+        "empty": [],
+        "start": "2014-06-06T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -4068,7 +4179,8 @@
         "region": "Deep South",
         "today": "2014-04-29",
         "village": "Katoonarub",
-        "empty": []
+        "empty": [],
+        "start": "2014-04-29T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -4105,7 +4217,8 @@
         "region": "South Central",
         "today": "2014-08-19",
         "village": "Sawari Wao",
-        "empty": []
+        "empty": [],
+        "start": "2014-08-19T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -4142,7 +4255,8 @@
         "region": "Deep South",
         "today": "2014-06-20",
         "village": "Aishara Toon",
-        "empty": []
+        "empty": [],
+        "start": "2014-06-20T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -4179,7 +4293,8 @@
         "region": "Deep South",
         "today": "2014-01-22",
         "village": "Parobaz",
-        "empty": []
+        "empty": [],
+        "start": "2014-01-22T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -4216,7 +4331,8 @@
         "region": "South Central",
         "today": "2014-01-10",
         "village": "Shii",
-        "empty": []
+        "empty": [],
+        "start": "2014-01-10T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -4253,7 +4369,8 @@
         "region": "Deep South",
         "today": "2014-05-26",
         "village": "Marora Naawa",
-        "empty": []
+        "empty": [],
+        "start": "2014-05-26T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -4290,7 +4407,8 @@
         "region": "Deep South",
         "today": "2014-04-07",
         "village": "Shorinab",
-        "empty": []
+        "empty": [],
+        "start": "2014-04-07T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -4327,7 +4445,8 @@
         "region": "South Central",
         "today": "2014-05-18",
         "village": "Katoonarub",
-        "empty": []
+        "empty": [],
+        "start": "2014-05-18T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -4364,7 +4483,8 @@
         "region": "South Central",
         "today": "2014-10-14",
         "village": "Parobaz",
-        "empty": []
+        "empty": [],
+        "start": "2014-10-14T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -4401,7 +4521,8 @@
         "region": "Deep South",
         "today": "2014-12-07",
         "village": "Marora Naawa",
-        "empty": []
+        "empty": [],
+        "start": "2014-12-07T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -4438,7 +4559,8 @@
         "region": "Deep South",
         "today": "2014-04-02",
         "village": "Parikowaro Naawa",
-        "empty": []
+        "empty": [],
+        "start": "2014-04-02T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -4475,7 +4597,8 @@
         "region": "Deep South",
         "today": "2014-06-07",
         "village": "Zoopo Naawa",
-        "empty": []
+        "empty": [],
+        "start": "2014-06-07T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -4512,7 +4635,8 @@
         "region": "South Central",
         "today": "2014-06-08",
         "village": "Awaru Wao Naawa",
-        "empty": []
+        "empty": [],
+        "start": "2014-06-08T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -4549,7 +4673,8 @@
         "region": "South Central",
         "today": "2014-12-24",
         "village": "Marora Naawa",
-        "empty": []
+        "empty": [],
+        "start": "2014-12-24T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -4586,7 +4711,8 @@
         "region": "South Central",
         "today": "2014-02-19",
         "village": "Shii",
-        "empty": []
+        "empty": [],
+        "start": "2014-02-19T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -4623,7 +4749,8 @@
         "region": "South Central",
         "today": "2014-03-17",
         "village": "Aishara Toon",
-        "empty": []
+        "empty": [],
+        "start": "2014-03-17T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -4660,7 +4787,8 @@
         "region": "Deep South",
         "today": "2014-08-21",
         "village": "Achawib",
-        "empty": []
+        "empty": [],
+        "start": "2014-08-21T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -4697,7 +4825,8 @@
         "region": "Deep South",
         "today": "2014-10-06",
         "village": "Karaodaz Naawa",
-        "empty": []
+        "empty": [],
+        "start": "2014-10-06T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -4734,7 +4863,8 @@
         "region": "South Central",
         "today": "2014-05-14",
         "village": "Shorinab",
-        "empty": []
+        "empty": [],
+        "start": "2014-05-14T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -4771,7 +4901,8 @@
         "region": "Deep South",
         "today": "2014-02-14",
         "village": "Karaodaz Naawa",
-        "empty": []
+        "empty": [],
+        "start": "2014-02-14T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -4808,7 +4939,8 @@
         "region": "Deep South",
         "today": "2014-03-12",
         "village": "Awaru Wao Naawa",
-        "empty": []
+        "empty": [],
+        "start": "2014-03-12T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -4845,7 +4977,8 @@
         "region": "South Central",
         "today": "2014-11-14",
         "village": "Achawib",
-        "empty": []
+        "empty": [],
+        "start": "2014-11-14T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -4882,7 +5015,8 @@
         "region": "South Central",
         "today": "2014-05-30",
         "village": "Shii",
-        "empty": []
+        "empty": [],
+        "start": "2014-05-30T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -4919,7 +5053,8 @@
         "region": "Deep South",
         "today": "2014-06-06",
         "village": "Zoopo Naawa",
-        "empty": []
+        "empty": [],
+        "start": "2014-06-06T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -4956,7 +5091,8 @@
         "region": "Deep South",
         "today": "2014-01-16",
         "village": "Potari Naawa",
-        "empty": []
+        "empty": [],
+        "start": "2014-01-16T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -4993,7 +5129,8 @@
         "region": "South Central",
         "today": "2014-05-12",
         "village": "Karaodaz Naawa",
-        "empty": []
+        "empty": [],
+        "start": "2014-05-12T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -5030,7 +5167,8 @@
         "region": "South Central",
         "today": "2014-08-20",
         "village": "Parikowaro Naawa",
-        "empty": []
+        "empty": [],
+        "start": "2014-08-20T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -5067,7 +5205,8 @@
         "region": "Deep South",
         "today": "2014-04-13",
         "village": "Shii",
-        "empty": []
+        "empty": [],
+        "start": "2014-04-13T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -5104,7 +5243,8 @@
         "region": "Deep South",
         "today": "2014-04-11",
         "village": "Achawib",
-        "empty": []
+        "empty": [],
+        "start": "2014-04-11T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -5141,7 +5281,8 @@
         "region": "Deep South",
         "today": "2014-08-05",
         "village": "Katoonarub",
-        "empty": []
+        "empty": [],
+        "start": "2014-08-05T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -5178,7 +5319,8 @@
         "region": "South Central",
         "today": "2014-03-16",
         "village": "Awaru Wao Naawa",
-        "empty": []
+        "empty": [],
+        "start": "2014-03-16T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -5215,7 +5357,8 @@
         "region": "Deep South",
         "today": "2014-01-04",
         "village": "Zoopo Naawa",
-        "empty": []
+        "empty": [],
+        "start": "2014-01-04T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -5252,7 +5395,8 @@
         "region": "Deep South",
         "today": "2014-01-10",
         "village": "Parikowaro Naawa",
-        "empty": []
+        "empty": [],
+        "start": "2014-01-10T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -5289,7 +5433,8 @@
         "region": "Deep South",
         "today": "2014-02-16",
         "village": "Zoopo Naawa",
-        "empty": []
+        "empty": [],
+        "start": "2014-02-16T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -5326,7 +5471,8 @@
         "region": "South Central",
         "today": "2014-06-07",
         "village": "Zoopo Naawa",
-        "empty": []
+        "empty": [],
+        "start": "2014-06-07T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -5363,7 +5509,8 @@
         "region": "South Central",
         "today": "2014-06-12",
         "village": "Parobaz",
-        "empty": []
+        "empty": [],
+        "start": "2014-06-12T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -5400,7 +5547,8 @@
         "region": "Deep South",
         "today": "2014-05-28",
         "village": "Aishara Toon",
-        "empty": []
+        "empty": [],
+        "start": "2014-05-28T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -5437,7 +5585,8 @@
         "region": "Deep South",
         "today": "2014-06-02",
         "village": "Shii",
-        "empty": []
+        "empty": [],
+        "start": "2014-06-02T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -5474,7 +5623,8 @@
         "region": "Deep South",
         "today": "2014-02-09",
         "village": "Soburun",
-        "empty": []
+        "empty": [],
+        "start": "2014-02-09T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -5511,7 +5661,8 @@
         "region": "Deep South",
         "today": "2014-12-31",
         "village": "Awaru Wao Naawa",
-        "empty": []
+        "empty": [],
+        "start": "2014-12-31T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -5548,7 +5699,8 @@
         "region": "Deep South",
         "today": "2014-02-26",
         "village": "Shii",
-        "empty": []
+        "empty": [],
+        "start": "2014-02-26T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -5585,7 +5737,8 @@
         "region": "Deep South",
         "today": "2014-01-20",
         "village": "Parobaz",
-        "empty": []
+        "empty": [],
+        "start": "2014-01-20T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -5622,7 +5775,8 @@
         "region": "South Central",
         "today": "2014-07-15",
         "village": "Zoopo Naawa",
-        "empty": []
+        "empty": [],
+        "start": "2014-07-15T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -5659,7 +5813,8 @@
         "region": "South Central",
         "today": "2014-01-30",
         "village": "Shorinab",
-        "empty": []
+        "empty": [],
+        "start": "2014-01-30T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -5696,7 +5851,8 @@
         "region": "Deep South",
         "today": "2014-02-02",
         "village": "Katoonarub",
-        "empty": []
+        "empty": [],
+        "start": "2014-02-02T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -5733,7 +5889,8 @@
         "region": "South Central",
         "today": "2014-05-04",
         "village": "Marora Naawa",
-        "empty": []
+        "empty": [],
+        "start": "2014-05-04T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -5770,7 +5927,8 @@
         "region": "Deep South",
         "today": "2014-01-31",
         "village": "Marora Naawa",
-        "empty": []
+        "empty": [],
+        "start": "2014-01-31T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -5807,7 +5965,8 @@
         "region": "Deep South",
         "today": "2014-02-18",
         "village": "Potari Naawa",
-        "empty": []
+        "empty": [],
+        "start": "2014-02-18T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -5844,7 +6003,8 @@
         "region": "South Central",
         "today": "2014-01-12",
         "village": "Aishara Toon",
-        "empty": []
+        "empty": [],
+        "start": "2014-01-12T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -5881,7 +6041,8 @@
         "region": "South Central",
         "today": "2014-04-16",
         "village": "Achawib",
-        "empty": []
+        "empty": [],
+        "start": "2014-04-16T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -5918,7 +6079,8 @@
         "region": "Deep South",
         "today": "2014-02-06",
         "village": "Shii",
-        "empty": []
+        "empty": [],
+        "start": "2014-02-06T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -5955,7 +6117,8 @@
         "region": "South Central",
         "today": "2014-09-15",
         "village": "Karaodaz Naawa",
-        "empty": []
+        "empty": [],
+        "start": "2014-09-15T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -5992,7 +6155,8 @@
         "region": "South Central",
         "today": "2014-07-21",
         "village": "Parikowaro Naawa",
-        "empty": []
+        "empty": [],
+        "start": "2014-07-21T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -6029,7 +6193,8 @@
         "region": "Deep South",
         "today": "2014-01-28",
         "village": "Awaru Wao Naawa",
-        "empty": []
+        "empty": [],
+        "start": "2014-01-28T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -6066,7 +6231,8 @@
         "region": "South Central",
         "today": "2014-06-28",
         "village": "Shorinab",
-        "empty": []
+        "empty": [],
+        "start": "2014-06-28T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -6103,7 +6269,8 @@
         "region": "Deep South",
         "today": "2014-04-06",
         "village": "Sawari Wao",
-        "empty": []
+        "empty": [],
+        "start": "2014-04-06T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -6140,7 +6307,8 @@
         "region": "Deep South",
         "today": "2014-01-10",
         "village": "Achawib",
-        "empty": []
+        "empty": [],
+        "start": "2014-01-10T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -6177,7 +6345,8 @@
         "region": "Deep South",
         "today": "2014-05-15",
         "village": "Awaru Wao Naawa",
-        "empty": []
+        "empty": [],
+        "start": "2014-05-15T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -6214,7 +6383,8 @@
         "region": "South Central",
         "today": "2014-02-05",
         "village": "Parobaz",
-        "empty": []
+        "empty": [],
+        "start": "2014-02-05T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -6251,7 +6421,8 @@
         "region": "Deep South",
         "today": "2014-11-13",
         "village": "Shorinab",
-        "empty": []
+        "empty": [],
+        "start": "2014-11-13T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -6288,7 +6459,8 @@
         "region": "South Central",
         "today": "2014-01-12",
         "village": "Shii",
-        "empty": []
+        "empty": [],
+        "start": "2014-01-12T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -6325,7 +6497,8 @@
         "region": "Deep South",
         "today": "2014-10-14",
         "village": "Zoopo Naawa",
-        "empty": []
+        "empty": [],
+        "start": "2014-10-14T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -6362,7 +6535,8 @@
         "region": "Deep South",
         "today": "2014-06-11",
         "village": "Awaru Wao Naawa",
-        "empty": []
+        "empty": [],
+        "start": "2014-06-11T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -6399,7 +6573,8 @@
         "region": "South Central",
         "today": "2014-08-28",
         "village": "Achawib",
-        "empty": []
+        "empty": [],
+        "start": "2014-08-28T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -6436,7 +6611,8 @@
         "region": "Deep South",
         "today": "2014-07-15",
         "village": "Aishara Toon",
-        "empty": []
+        "empty": [],
+        "start": "2014-07-15T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -6473,7 +6649,8 @@
         "region": "Deep South",
         "today": "2014-03-25",
         "village": "Awaru Wao Naawa",
-        "empty": []
+        "empty": [],
+        "start": "2014-03-25T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -6510,7 +6687,8 @@
         "region": "South Central",
         "today": "2014-10-25",
         "village": "Sawari Wao",
-        "empty": []
+        "empty": [],
+        "start": "2014-10-25T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -6547,7 +6725,8 @@
         "region": "Deep South",
         "today": "2014-06-25",
         "village": "Potari Naawa",
-        "empty": []
+        "empty": [],
+        "start": "2014-06-25T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -6584,7 +6763,8 @@
         "region": "Deep South",
         "today": "2014-04-01",
         "village": "Parikowaro Naawa",
-        "empty": []
+        "empty": [],
+        "start": "2014-04-01T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -6621,7 +6801,8 @@
         "region": "Deep South",
         "today": "2014-06-30",
         "village": "Shii",
-        "empty": []
+        "empty": [],
+        "start": "2014-06-30T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -6658,7 +6839,8 @@
         "region": "Deep South",
         "today": "2014-06-12",
         "village": "Parikowaro Naawa",
-        "empty": []
+        "empty": [],
+        "start": "2014-06-12T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -6695,7 +6877,8 @@
         "region": "South Central",
         "today": "2014-02-25",
         "village": "Shii",
-        "empty": []
+        "empty": [],
+        "start": "2014-02-25T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -6732,7 +6915,8 @@
         "region": "South Central",
         "today": "2014-11-15",
         "village": "Soburun",
-        "empty": []
+        "empty": [],
+        "start": "2014-11-15T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -6769,7 +6953,8 @@
         "region": "South Central",
         "today": "2014-06-05",
         "village": "Potari Naawa",
-        "empty": []
+        "empty": [],
+        "start": "2014-06-05T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -6806,7 +6991,8 @@
         "region": "Deep South",
         "today": "2014-07-13",
         "village": "Aishara Toon",
-        "empty": []
+        "empty": [],
+        "start": "2014-07-13T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -6843,7 +7029,8 @@
         "region": "South Central",
         "today": "2014-09-16",
         "village": "Marora Naawa",
-        "empty": []
+        "empty": [],
+        "start": "2014-09-16T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -6880,7 +7067,8 @@
         "region": "South Central",
         "today": "2014-11-30",
         "village": "Karaodaz Naawa",
-        "empty": []
+        "empty": [],
+        "start": "2014-11-30T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -6917,7 +7105,8 @@
         "region": "South Central",
         "today": "2014-09-23",
         "village": "Zoopo Naawa",
-        "empty": []
+        "empty": [],
+        "start": "2014-09-23T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -6954,7 +7143,8 @@
         "region": "South Central",
         "today": "2014-01-27",
         "village": "Soburun",
-        "empty": []
+        "empty": [],
+        "start": "2014-01-27T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -6991,7 +7181,8 @@
         "region": "South Central",
         "today": "2014-12-05",
         "village": "Soburun",
-        "empty": []
+        "empty": [],
+        "start": "2014-12-05T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -7028,7 +7219,8 @@
         "region": "South Central",
         "today": "2014-05-22",
         "village": "Aishara Toon",
-        "empty": []
+        "empty": [],
+        "start": "2014-05-22T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -7065,7 +7257,8 @@
         "region": "South Central",
         "today": "2014-04-12",
         "village": "Sawari Wao",
-        "empty": []
+        "empty": [],
+        "start": "2014-04-12T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -7102,7 +7295,8 @@
         "region": "South Central",
         "today": "2014-03-23",
         "village": "Aishara Toon",
-        "empty": []
+        "empty": [],
+        "start": "2014-03-23T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -7139,7 +7333,8 @@
         "region": "South Central",
         "today": "2014-06-19",
         "village": "Shorinab",
-        "empty": []
+        "empty": [],
+        "start": "2014-06-19T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -7176,7 +7371,8 @@
         "region": "Deep South",
         "today": "2014-01-07",
         "village": "Potari Naawa",
-        "empty": []
+        "empty": [],
+        "start": "2014-01-07T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -7213,7 +7409,8 @@
         "region": "Deep South",
         "today": "2014-03-13",
         "village": "Sawari Wao",
-        "empty": []
+        "empty": [],
+        "start": "2014-03-13T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -7250,7 +7447,8 @@
         "region": "South Central",
         "today": "2014-05-22",
         "village": "Katoonarub",
-        "empty": []
+        "empty": [],
+        "start": "2014-05-22T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -7287,7 +7485,8 @@
         "region": "South Central",
         "today": "2014-11-20",
         "village": "Aishara Toon",
-        "empty": []
+        "empty": [],
+        "start": "2014-11-20T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -7324,7 +7523,8 @@
         "region": "Deep South",
         "today": "2014-02-12",
         "village": "Shii",
-        "empty": []
+        "empty": [],
+        "start": "2014-02-12T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -7361,7 +7561,8 @@
         "region": "Deep South",
         "today": "2014-03-24",
         "village": "Katoonarub",
-        "empty": []
+        "empty": [],
+        "start": "2014-03-24T00:00:00.000Z"
       },
       "type": "Feature"
     },
@@ -7398,7 +7599,8 @@
         "region": "South Central",
         "today": "2014-04-17",
         "village": "Parobaz",
-        "empty": []
+        "empty": [],
+        "start": "2014-04-17T00:00:00.000Z"
       },
       "type": "Feature"
     }
