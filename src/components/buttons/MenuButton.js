@@ -14,6 +14,7 @@ import moment from 'moment'
 import * as MFPropTypes from '../../util/prop_types'
 import CustomContainer from '../../containers/ViewContainer'
 import {FIELD_TYPE_DATE, UNDEFINED_KEY} from '../../constants'
+import { unflatten } from '../../util/flat';
 
 const messages = defineMessages({
   settings: {
@@ -48,9 +49,16 @@ class MenuButton extends React.Component {
   }
 
   handleExportGeoJSONClick = () => {
+    const features = this.props.features.map(f => {
+      const newProps = {}
+      for (var prop in f.properties) {
+        if (f.properties[prop] !== UNDEFINED_KEY) newProps[prop] = f.properties[prop]
+      }
+      return Object.assign({}, f, {properties: unflatten(newProps)})
+    })
     const geojson = {
       type: 'FeatureCollection',
-      features: this.props.features
+      features: features
     }
     const blob = new window.Blob([JSON.stringify(geojson, null, 2)], {type: 'application/json'})
     saveAs(blob, 'data.geojson')
