@@ -28,7 +28,11 @@ const getFilterableFeatures = createSelector(
 
       for (var fieldName in fieldAnalysis.properties) {
         field = fieldAnalysis.properties[fieldName]
-        value = typeof f.properties[fieldName] !== 'undefined' ? f.properties[fieldName] : UNDEFINED_KEY
+        value = f.properties[fieldName]
+        if (typeof value === 'undefined') {
+          newProps[fieldName] = UNDEFINED_KEY
+          continue
+        }
         if (isArrayLike(field.type)) {
           // We can't filter arrays, so we flatten them
           if (!Array.isArray(value)) {

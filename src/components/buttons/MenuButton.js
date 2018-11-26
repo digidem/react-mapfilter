@@ -9,6 +9,7 @@ import { injectIntl, defineMessages } from 'react-intl'
 import { saveAs } from 'file-saver'
 import { csvFormat } from 'd3-dsv'
 import assign from 'object-assign'
+import moment from 'moment'
 
 import * as MFPropTypes from '../../util/prop_types'
 import CustomContainer from '../../containers/ViewContainer'
@@ -63,7 +64,11 @@ class MenuButton extends React.Component {
         const row = Object.assign({}, feature.properties)
         Object.keys(row).forEach(key => {
           if (fieldAnalysis.properties[key] && fieldAnalysis.properties[key].type === FIELD_TYPE_DATE) {
-            row[key] = new Date(row[key]).toISOString()
+            if (typeof row[key] === 'number' && !Number.isNaN(row[key])) {
+              row[key] = moment(row[key]).format('YYYY-MM-DD HH:mm:ss')
+            } else {
+              row[key] = ''
+            }
           }
           if (row[key] === UNDEFINED_KEY) {
             row[key] = ''
