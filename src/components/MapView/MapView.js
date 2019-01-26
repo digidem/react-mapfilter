@@ -233,10 +233,10 @@ class MapView extends React.Component {
 
     map.once('load', () => {
       if (interactive) {
-        map.on('moveend', this.handleMapMoveOrZoom)
         map.on('click', this.handleMapClick)
         map.on('mousemove', this.handleMouseMove)
       }
+      map.on('moveend', this.handleMapMoveOrZoom)
       this.setupLayers(this.props)
     })
     map.once('style.load', () => {

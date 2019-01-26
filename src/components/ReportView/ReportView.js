@@ -5,6 +5,7 @@ import Typography from '@material-ui/core/Typography'
 import { withStyles } from '@material-ui/core/styles'
 import omit from 'lodash/omit'
 import assign from 'object-assign'
+import memoize from 'memoize-one'
 
 import ReportToolbar from './ReportToolbar'
 import ReportFeature from './ReportFeature'
@@ -182,9 +183,11 @@ class ReportView extends React.Component {
     })
   }
 
+  memoizedSlice = memoize((arr, begin, end) => arr.slice(begin, end))
+
   render () {
     const { filteredFeatures, featuresById, showFeatureDetail, fieldAnalysis, classes, requestPrint, paperSize, viewState } = this.props
-    const featuresSlice = filteredFeatures.length > MAX_REPORT_LEN ? filteredFeatures.slice(0, MAX_REPORT_LEN) : filteredFeatures
+    const featuresSlice = this.memoizedSlice(filteredFeatures, 0, MAX_REPORT_LEN)
     return (<div>
       <ReportToolbar
         hiddenFields={viewState.hiddenFields}
