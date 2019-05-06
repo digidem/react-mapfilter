@@ -106,5 +106,8 @@
   },
   "field_value.undefined": {
     "message": "[Ningún valor]"
+  },
+  "field_value.timestamp": {
+    "message": "Marca de Tiempo"
   }
 }
