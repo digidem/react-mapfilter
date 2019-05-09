@@ -88,12 +88,7 @@ const getFieldAnalysis = createSelector(
         // Add count of undefined values
         field.values[UNDEFINED_KEY] = (field.values[UNDEFINED_KEY] || 0) + (features.length - field.count)
       }
-      if (field.filterType !== FILTER_TYPE_DISCRETE) {
-        // Free up memory if we're not going to use field.values
-        field.values = null
-      } else {
-        field.values = parseMapValues(field.values)
-      }
+      field.values = parseMapValues(field.values)
       field.type = fieldTypes[fieldname] || field.type
     }
 
@@ -112,7 +107,7 @@ const urlRegex = makeUrlRegex({exact: true})
 
 // Max number of unique text values for a field to still be a filterable discrete field
 const MAX_DISCRETE_VALUES = {
-  [FIELD_TYPE_STRING]: 20,
+  [FIELD_TYPE_STRING]: 100,
   [FIELD_TYPE_NUMBER]: 5
 }
 
