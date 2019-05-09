@@ -153,7 +153,7 @@ const isNumberOrArray = {
 
 function analyzeField (field, value, i) {
   var type = getType(value)
-  field.type = typeReduce(field.type, type)
+  if (value) field.type = typeReduce(field.type, type)
   field.count = (field.count || 0) + 1
   if (!isFilterable[field.type]) return
   if (type === FIELD_TYPE_STRING) {
