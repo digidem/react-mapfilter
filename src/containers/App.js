@@ -35,6 +35,7 @@ const styles = theme => ({
   },
   inner: {
     display: 'flex',
+    minHeight: 0, // need this so overflow scrolls. Don't you love css.
     flex: 1,
     '@media print': {
       display: 'block'
