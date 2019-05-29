@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import IconButton from '@material-ui/core/IconButton'
 import Tooltip from '@material-ui/core/Tooltip'
 import MenuIcon from '@material-ui/icons/MoreVert'
+import featureFilter from 'feature-filter-geojson'
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
 import { injectIntl, defineMessages } from 'react-intl'
@@ -49,7 +50,8 @@ class MenuButton extends React.Component {
   }
 
   handleExportGeoJSONClick = () => {
-    const features = this.props.features.map(f => {
+    const ff = featureFilter(this.props.filter)
+    const features = this.props.features.filter(ff).map(f => {
       const newProps = {}
       for (var prop in f.properties) {
         if (f.properties[prop] !== UNDEFINED_KEY) newProps[prop] = f.properties[prop]
@@ -65,9 +67,10 @@ class MenuButton extends React.Component {
   }
 
   handleExportCSVClick = () => {
-    const {fieldAnalysis} = this.props
+    const { fieldAnalysis, filter } = this.props
     const columns = []
-    const rows = this.props.features
+    const ff = featureFilter(filter)
+    const rows = this.props.features.filter(ff)
       .map(function (feature) {
         const row = Object.assign({}, feature.properties)
         Object.keys(row).forEach(key => {
