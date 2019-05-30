@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import IconButton from '@material-ui/core/IconButton'
 import Tooltip from '@material-ui/core/Tooltip'
 import MenuIcon from '@material-ui/icons/MoreVert'
+import featureFilter from 'feature-filter-geojson'
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
 import { injectIntl, defineMessages } from 'react-intl'
@@ -11,10 +12,15 @@ import { csvFormat } from 'd3-dsv'
 import assign from 'object-assign'
 import moment from 'moment'
 
+import formatLocation from '../../util/formatLocation'
+import { unflatten } from '../../util/flat'
 import * as MFPropTypes from '../../util/prop_types'
 import CustomContainer from '../../containers/ViewContainer'
-import {FIELD_TYPE_DATE, UNDEFINED_KEY} from '../../constants'
-import { unflatten } from '../../util/flat';
+import {
+  FORMATS_UTM,
+  FIELD_TYPE_DATE,
+  UNDEFINED_KEY
+} from '../../constants'
 
 const messages = defineMessages({
   settings: {
@@ -48,11 +54,25 @@ class MenuButton extends React.Component {
     this.setState({open: false})
   }
 
+  _convertValue (prop, value) {
+    const { fieldAnalysis } = this.props
+    if (fieldAnalysis.properties[prop] && fieldAnalysis.properties[prop].type === FIELD_TYPE_DATE) {
+      if (typeof value === 'number' && !Number.isNaN(value)) {
+        return moment(value).format('YYYY-MM-DD HH:mm:ss')
+      } else {
+        return ''
+      }
+    }
+    if (value === UNDEFINED_KEY) return ''
+    return value
+  }
+
   handleExportGeoJSONClick = () => {
-    const features = this.props.features.map(f => {
+    const ff = featureFilter(this.props.filter)
+    const features = this.props.features.filter(ff).map(f => {
       const newProps = {}
       for (var prop in f.properties) {
-        if (f.properties[prop] !== UNDEFINED_KEY) newProps[prop] = f.properties[prop]
+        newProps[prop] = this._convertValue(prop, f.properties[prop])
       }
       return Object.assign({}, f, {properties: unflatten(newProps)})
     })
@@ -65,36 +85,27 @@ class MenuButton extends React.Component {
   }
 
   handleExportCSVClick = () => {
-    const {fieldAnalysis} = this.props
     const columns = []
-    const rows = this.props.features
-      .map(function (feature) {
+    const ff = featureFilter(this.props.filter)
+    const rows = this.props.features.filter(ff)
+      .map((feature) => {
         const row = Object.assign({}, feature.properties)
         Object.keys(row).forEach(key => {
-          if (fieldAnalysis.properties[key] && fieldAnalysis.properties[key].type === FIELD_TYPE_DATE) {
-            if (typeof row[key] === 'number' && !Number.isNaN(row[key])) {
-              row[key] = moment(row[key]).format('YYYY-MM-DD HH:mm:ss')
-            } else {
-              row[key] = ''
-            }
-          }
-          if (row[key] === UNDEFINED_KEY) {
-            row[key] = ''
-          }
-          if (columns.indexOf(key) === -1) {
-            columns.push(key)
-          }
+          row[key] = this._convertValue(key, row[key])
+          if (columns.indexOf(key) === -1) columns.push(key)
         })
         if (feature.geometry && feature.geometry.type === 'Point') {
+          var coords = feature.geometry.coordinates
           return assign({}, row, {
-            lon: feature.geometry.coordinates[0],
-            lat: feature.geometry.coordinates[1]
+            lon: coords[0],
+            lat: coords[1],
+            UTM: formatLocation(coords, FORMATS_UTM)
           })
         }
         return row
       })
       .filter(Boolean)
-    const csv = csvFormat(rows, columns.sort().concat(['lon', 'lat']))
+    const csv = csvFormat(rows, columns.sort().concat(['UTM', 'lon', 'lat']))
     const blob = new window.Blob([csv], {type: 'text/csv'})
     saveAs(blob, 'data.csv')
   }
