@@ -1,9 +1,19 @@
 # Changelog
 
-All notable changes to this project will be documented in this file.
+All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
-and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
+### [1.3.1](https://github.com/digidem/react-mapfilter/compare/v1.3.0...v1.3.1) (2019-06-02)
+
+
+### Bug Fixes
+
+* **FeatureDetail:** Fix feature details not showing because missing formatLocation ([745225c](https://github.com/digidem/react-mapfilter/commit/745225c))
+* **filter pane:** fix filter pane not scrolling when many filters ([e32784b](https://github.com/digidem/react-mapfilter/commit/e32784b))
+* **filters:** Show filters even for fields with many different values (100s) ([377cc78](https://github.com/digidem/react-mapfilter/commit/377cc78))
+* **filters:** stop date filters disappearing if one observation has no date ([e1a4491](https://github.com/digidem/react-mapfilter/commit/e1a4491))
+* **media view:** pin react-virtualized to 9.21.0 to avoid breaking change in 9.21.1 ([bd5f6c9](https://github.com/digidem/react-mapfilter/commit/bd5f6c9))
+
+
 
 ## [1.1.0] - 2018-06-21
 
