@@ -1,7 +1,7 @@
 import React from 'react'
 import {FormattedMessage, FormattedDate} from 'react-intl'
 
-import { formatLocation } from '../../util/formatLocation'
+import formatLocation from '../../util/formatLocation'
 import { parseDate } from '../../util/filter_helpers'
 import { createMessage as msg } from '../../util/intl_helpers'
 import {
