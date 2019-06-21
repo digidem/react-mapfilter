@@ -3,26 +3,29 @@ import React from 'react'
 import { storiesOf } from '@storybook/react'
 
 import FeatureTable from './FeatureTable'
-import FieldTranslationProvider from '../FieldTranslationProvider'
+import {
+  FieldnameTranslationProvider,
+  ValueTranslationProvider
+} from '../Providers'
 
-const translations = {
-  fieldnameTranslations: {
-    field1: 'Field one translation',
-    field2: 'Field two translation',
-    'nested.foo': 'nested field translation'
+const fieldnameTranslations = {
+  field1: 'Field one translation',
+  field2: 'Field two translation',
+  'nested.foo': 'nested field translation'
+}
+const valueTranslations = {
+  field1: {
+    hello: 'Hello translation'
   },
-  valueTranslations: {
-    field1: {
-      hello: 'Hello translation'
-    },
-    field2: { foo: 'Foo translation' },
-    'nested.foo': { bar: 'bar translation' }
-  }
+  field2: { foo: 'Foo translation' },
+  'nested.foo': { bar: 'bar translation' }
 }
 
 storiesOf('internal/FeatureTable', module)
   .add('empty', () => (
-    <FeatureTable feature={{ type: 'Feature', geometry: null }} />
+    <FeatureTable
+      feature={{ type: 'Feature', properties: null, geometry: null }}
+    />
   ))
   .add('basic', () => (
     <FeatureTable
@@ -32,7 +35,7 @@ storiesOf('internal/FeatureTable', module)
         properties: {
           string: 'hello',
           number: 1,
-          boolean: true,
+          bool: true,
           array: ['foo', 'bar'],
           nested: {
             foo: 'bar',
@@ -47,25 +50,30 @@ storiesOf('internal/FeatureTable', module)
     />
   ))
   .add('translations', () => (
-    <FieldTranslationProvider value={translations}>
-      <FeatureTable
-        feature={{
-          type: 'Feature',
-          geometry: null,
-          properties: {
-            field1: 'hello',
-            field2: ['foo', 'bar'],
-            nested: {
-              foo: 'bar'
+    <FieldnameTranslationProvider value={fieldnameTranslations}>
+      <ValueTranslationProvider value={valueTranslations}>
+        <FeatureTable
+          feature={{
+            type: 'Feature',
+            geometry: null,
+            properties: {
+              field1: 'hello',
+              field2: ['foo', 'bar'],
+              nested: {
+                foo: 'bar'
+              }
             }
-          }
-        }}
-      />
-    </FieldTranslationProvider>
+          }}
+        />
+      </ValueTranslationProvider>
+    </FieldnameTranslationProvider>
   ))
   .add('coordinates', () => (
     <FeatureTable
       feature={{
+        type: 'Feature',
+        properties: null,
+        // $FlowFixMe - yeah just ignore this for now
         geometry: {
           type: 'Point',
           coordinates: [-70, 2]

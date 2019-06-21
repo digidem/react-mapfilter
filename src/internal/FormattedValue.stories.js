@@ -6,10 +6,8 @@ import withPropsCombinations from 'react-storybook-addon-props-combinations'
 // import { action } from '@storybook/addon-actions'
 
 import FormattedValue from './FormattedValue'
-import FieldTranslationProvider from '../FieldTranslationProvider'
-import SettingsProvider from '../SettingsProvider'
-import * as fieldTypes from '../constants/field_types'
-import { UNDEFINED, NULL } from '../constants/field_values'
+import { ValueTranslationProvider, SettingsProvider } from '../Providers'
+import * as VALUE_TYPES from '../constants/value_types'
 import * as COORD_FORMATS from '../constants/coord_formats'
 
 storiesOf('internal/FormattedValue', module).add(
@@ -26,9 +24,7 @@ storiesOf('internal/FormattedValue', module).add(
       [1, 2],
       ['foo', 'bar'],
       undefined,
-      UNDEFINED,
-      null,
-      NULL
+      null
     ]
   })
 )
@@ -47,17 +43,15 @@ storiesOf('internal/FormattedValue', module).add(
       [1, 2],
       ['foo', 'bar'],
       undefined,
-      UNDEFINED,
-      null,
-      NULL
+      null
     ],
     type: [
-      fieldTypes.STRING,
-      fieldTypes.BOOLEAN,
-      fieldTypes.NUMBER,
-      fieldTypes.ARRAY,
-      fieldTypes.LOCATION,
-      fieldTypes.DATE
+      VALUE_TYPES.STRING,
+      VALUE_TYPES.BOOLEAN,
+      VALUE_TYPES.NUMBER,
+      VALUE_TYPES.ARRAY,
+      VALUE_TYPES.LOCATION,
+      VALUE_TYPES.DATE
     ]
   })
 )
@@ -75,21 +69,12 @@ const translations = {
 
 storiesOf('internal/FormattedValue', module)
   .add('translations', () => (
-    <FieldTranslationProvider value={{ valueTranslations: translations }}>
+    <ValueTranslationProvider value={translations}>
       {withPropsCombinations(FormattedValue, {
-        value: [
-          'hello world',
-          true,
-          false,
-          ['foo', 'bar'],
-          undefined,
-          UNDEFINED,
-          null,
-          NULL
-        ],
+        value: ['hello world', true, false, ['foo', 'bar'], undefined, null],
         fieldkey: ['testFieldkey']
       })()}
-    </FieldTranslationProvider>
+    </ValueTranslationProvider>
   ))
   .add('deg-min-sec Location', () => (
     <SettingsProvider value={{ coordFormat: COORD_FORMATS.DEG_MIN_SEC }}>

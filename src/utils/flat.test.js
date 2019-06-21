@@ -118,6 +118,25 @@ test('Flatten', function(t) {
   )
 
   t.deepEqual(
+    flatten(
+      {
+        hello: {
+          world: {
+            again: 'good morning'
+          }
+        }
+      },
+      {
+        delimiter: '\uffff'
+      }
+    ),
+    {
+      'hello\uffffworld\uffffagain': 'good morning'
+    },
+    'Unicode Delimiter'
+  )
+
+  t.deepEqual(
     flatten({
       hello: {
         empty: {

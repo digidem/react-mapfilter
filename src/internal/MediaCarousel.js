@@ -1,29 +1,19 @@
 // @flow
-import React from 'react'
-import PropTypes from 'prop-types'
-import { withStyles } from '@material-ui/core/styles'
+import React, { useState } from 'react'
+import { makeStyles } from '@material-ui/styles'
 import IconButton from '@material-ui/core/IconButton'
 import NavigateNextIcon from '@material-ui/icons/NavigateNext'
 import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore'
 import classNames from 'classnames'
-import Carousel from 're-carousel'
+import SwipeableViews from 'react-swipeable-views'
+import AutoSizer from 'react-virtualized-auto-sizer'
 
-import Image from '../Image'
+import Image from './Image'
 
 const styles = {
-  root: {
-    position: 'relative',
-    height: '100%',
-    padding: '67% 0 0 0'
-  },
-  img: {
-    width: '100%',
-    height: '100%',
-    top: 0,
-    left: 0,
-    position: 'absolute',
-    objectFit: 'cover',
-    transform: 'translate3d(0,0,0)'
+  container: {
+    backgroundColor: 'black',
+    position: 'relative'
   },
   widget: {
     position: 'absolute',
@@ -32,100 +22,180 @@ const styles = {
     width: '100%',
     display: 'flex'
   },
-  nextPrevWidget: {
-    justifyContent: 'space-between',
-    alignItems: 'center'
+  buttonPrevContainer: {
+    position: 'absolute',
+    left: 0,
+    top: 0,
+    bottom: 0,
+    display: 'flex',
+    alignItems: 'center',
+    pointerEvents: 'none'
+  },
+  buttonNextContainer: {
+    position: 'absolute',
+    right: 0,
+    top: 0,
+    bottom: 0,
+    display: 'flex',
+    alignItems: 'center',
+    pointerEvents: 'none'
   },
   dotsWidget: {
+    position: 'absolute',
+    bottom: 0,
+    width: '100%',
+    display: 'flex',
     alignItems: 'flex-end',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    marginBottom: 6,
+    pointerEvents: 'none'
   },
   button: {
     color: 'white',
-    zIndex: 400
+    zIndex: 400,
+    pointerEvents: 'auto',
+    '&:hover': {
+      cursor: 'pointer'
+    }
   },
   dot: {
     zIndex: 400,
-    width: '8px',
-    height: '8px',
+    width: '12px',
+    height: '12px',
     borderRadius: '50%',
+    backgroundClip: 'content-box',
+    border: 'solid 4px transparent',
     backgroundColor: 'rgba(255,255,255,0.5)',
-    margin: '10px 4px'
+    pointerEvents: 'auto',
+    '&:hover': {
+      cursor: 'pointer'
+    }
   },
   dotHighlight: {
     backgroundColor: 'rgba(255,255,255,1)'
   }
 }
 
-const NextPrevButtons = ({
-  index,
-  total,
-  prevHandler,
-  nextHandler,
-  classes,
-  loop
-}) => {
-  if (total < 2) return null
-  const showNext = total > 1 && (!!loop || index < total - 1)
-  const showPrev = total > 1 && (!!loop || index > 0)
+const useStyles = makeStyles(styles)
+
+const NextPrevButtons = ({ index, total, onChangeIndex }) => {
+  if (total <= 1) return null
+  const cx = useStyles()
+  const showNext = total > 1 && index < total - 1
+  const showPrev = total > 1 && index > 0
   return (
-    <div className={classNames(classes.widget, classes.nextPrevWidget)}>
-      <div>
+    <>
+      <div className={cx.buttonPrevContainer}>
         {showPrev && (
-          <IconButton onClick={prevHandler} className={classes.button}>
+          <IconButton
+            onClick={() => onChangeIndex(index - 1)}
+            className={cx.button}>
             <NavigateBeforeIcon />
           </IconButton>
         )}
       </div>
-      <div>
+      <div className={cx.buttonNextContainer}>
         {showNext && (
-          <IconButton onClick={nextHandler} className={classes.button}>
+          <IconButton
+            onClick={() => onChangeIndex(index + 1)}
+            className={cx.button}>
             <NavigateNextIcon />
           </IconButton>
         )}
       </div>
-    </div>
+    </>
   )
 }
 
-const Dots = ({ index, total, prevHandler, nextHandler, classes, loop }) =>
-  total > 1 && (
-    <div className={classNames(classes.widget, classes.dotsWidget)}>
+const Dots = ({
+  index,
+  total,
+  onChangeIndex
+}: {
+  index: number,
+  total: number,
+  onChangeIndex: (index: number) => any
+}) => {
+  if (total <= 1) return null
+  const cx = useStyles()
+  return (
+    <div className={cx.dotsWidget}>
       {Array(total)
         .fill()
         .map((_, i) => (
           <div
             key={i}
-            className={classNames(classes.dot, {
-              [classes.dotHighlight]: index === i
+            role="button"
+            className={classNames(cx.dot, {
+              [cx.dotHighlight]: index === i
             })}
+            onClick={() => onChangeIndex(i)}
           />
         ))}
     </div>
   )
+}
 
-const withStylesNextPrevButtons = withStyles(styles)(NextPrevButtons)
-const withStylesDots = withStyles(styles)(Dots)
-
-const MediaCarousel = ({ media, classes }) => (
-  <Carousel
-    className={classes.root}
-    widgets={[withStylesNextPrevButtons, withStylesDots]}
-    duration={500}
-    loop>
-    {media.map((m, i) => (
-      <Image key={i} className={classes.img} src={m.value} />
-    ))}
-  </Carousel>
+const MediaItem = ({
+  src,
+  type,
+  width,
+  height
+}: {
+  src: string,
+  type: 'image',
+  width: number,
+  height: number
+}) => (
+  <div style={{ width, height, position: 'relative' }}>
+    <Image
+      style={{ width, height, objectFit: 'contain', display: 'block' }}
+      src={src}
+    />
+  </div>
 )
 
-MediaCarousel.propTypes = {
-  media: PropTypes.array,
-  classes: PropTypes.object.isRequired
+type MediaItemType = {| src: string, type: 'image' |}
+
+const MediaCarousel = ({
+  media,
+  style
+}: {
+  /** An array of objects with props `src`: url of media iteam and `type`: type
+   * of media item (currently only supports `image`) */
+  media: Array<MediaItemType>,
+  style?: {}
+}) => {
+  const [index, setIndex] = useState(0)
+  const cx = useStyles()
+  return (
+    <div style={style} className={cx.container}>
+      <AutoSizer style={{ width: '100%', height: '100%' }}>
+        {({ width, height }) => (
+          <SwipeableViews
+            enableMouseEvents
+            index={index}
+            onChangeIndex={setIndex}>
+            {media.map((m, i) => (
+              <MediaItem
+                key={i}
+                src={m.src}
+                type={m.type}
+                width={width}
+                height={height}
+              />
+            ))}
+          </SwipeableViews>
+        )}
+      </AutoSizer>
+      <Dots index={index} total={media.length} onChangeIndex={setIndex} />
+      <NextPrevButtons
+        index={index}
+        total={media.length}
+        onChangeIndex={setIndex}
+      />
+    </div>
+  )
 }
 
-MediaCarousel.defaultProps = {
-  media: []
-}
-
-export default withStyles(styles)(MediaCarousel)
+export default MediaCarousel

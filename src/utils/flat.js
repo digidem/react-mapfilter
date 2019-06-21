@@ -1,5 +1,6 @@
 // @flow
 // Adapted from https://github.com/hughsk/flat
+// **Does not flatten arrays of primitives**
 
 var isBuffer = require('is-buffer')
 
@@ -12,7 +13,7 @@ export function flatten(
   {
     delimiter = '.',
     maxDepth = Infinity
-  }: { delimiter: string, maxDepth: number } = {}
+  }: { delimiter?: string, maxDepth?: number } = {}
 ) {
   var output = {}
   var didFlatten = false

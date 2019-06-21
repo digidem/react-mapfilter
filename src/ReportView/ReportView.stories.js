@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { storiesOf } from '@storybook/react'
-// import { action } from '@storybook/addon-actions'
+import { action } from '@storybook/addon-actions'
 // import { linkTo } from '@storybook/addon-links'
 import insertCss from 'insert-css'
 
@@ -76,6 +76,7 @@ storiesOf('ReportView', module)
   .add('Layout test', () => (
     <ReportView
       renderTest
+      onClickFeature={action('onClickFeature')}
       features={Array(50)
         .fill(null)
         .map((v, i) => ({ id: i, height: 200 + Math.random() * 200 }))}

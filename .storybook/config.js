@@ -1,13 +1,13 @@
 import React from 'react'
 import { configure, addDecorator } from '@storybook/react'
 // import { withInfo } from '@storybook/addon-info'
-import docs from 'storybook-addon-docgen'
 import { setIntlConfig, withIntl } from 'storybook-addon-intl'
 // Load the locale data for all your defined locales
 import { addLocaleData } from 'react-intl'
 import enLocaleData from 'react-intl/locale-data/en'
 import esLocaleData from 'react-intl/locale-data/es'
 import frLocaleData from 'react-intl/locale-data/fr'
+import { withPropsTable } from 'storybook-addon-react-docgen'
 
 addLocaleData(enLocaleData)
 addLocaleData(esLocaleData)
@@ -25,6 +25,7 @@ setIntlConfig({
 
 // Register decorator
 addDecorator(withIntl)
+addDecorator(withPropsTable)
 
 // addDecorator((story, context) =>
 //   withInfo({
@@ -36,7 +37,8 @@ addDecorator(withIntl)
 // automatically import all files ending in *.stories.js
 const req = require.context('../src', true, /\.stories\.js$/)
 function loadStories() {
-  req.keys().forEach(filename => req(filename))
+  require('./index')
+  // req.keys().forEach(filename => req(filename))
 }
 
 configure(loadStories, module)

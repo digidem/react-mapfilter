@@ -2,7 +2,7 @@
 import * as React from 'react'
 import { defineMessages, FormattedMessage } from 'react-intl'
 
-import { Consumer as FieldTranslationConsumer } from './FieldTranslationContext'
+import { FieldnameTranslationConsumer } from './Context'
 import { translateOrPretty } from '../utils/strings'
 import { LOCATION } from '../constants/special_fieldkeys'
 
@@ -34,8 +34,8 @@ const FormattedFieldname = ({ fieldkey, children }: Props) => {
   if (!fieldkey) return null
   if (fieldkey === LOCATION) return <FormattedMessage {...msgs.location} />
   return (
-    <FieldTranslationConsumer>
-      {({ fieldnameTranslations: translations }) => {
+    <FieldnameTranslationConsumer>
+      {translations => {
         let element
         const parts = fieldkey.split('.')
         if (translations[fieldkey] || parts.length === 1) {
@@ -60,7 +60,7 @@ const FormattedFieldname = ({ fieldkey, children }: Props) => {
           return element
         }
       }}
-    </FieldTranslationConsumer>
+    </FieldnameTranslationConsumer>
   )
 }
 

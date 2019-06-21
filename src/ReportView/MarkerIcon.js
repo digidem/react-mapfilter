@@ -1,5 +1,5 @@
 // @flow
-import React from 'react'
+import * as React from 'react'
 import assign from 'object-assign'
 
 const styles = {
@@ -19,7 +19,18 @@ const styles = {
   }
 }
 
-const MarkerIcon = ({ style = {}, color = '#000000', label }) => {
+type Props = {
+  style: Object,
+  color: string,
+  label: string
+}
+
+/* A circle icon with an optional label, for map & reports */
+const MarkerIcon: React.StatelessFunctionalComponent<Props> = ({
+  style = {},
+  color = '#000000',
+  label
+}) => {
   return (
     <svg
       version="1.1"

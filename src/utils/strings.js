@@ -1,6 +1,6 @@
 // @flow
 import { defineMessages } from 'react-intl'
-import { NULL, UNDEFINED } from '../constants/field_values'
+import { NULL, UNDEFINED } from '../constants/value_types'
 
 const msgs = defineMessages({
   true: 'Yes',
@@ -11,34 +11,30 @@ const msgs = defineMessages({
 
 export function translateOrPretty(
   value: string | boolean | void | null,
-  translations?: { [fieldname: string]: string } = {}
+  translations?: { [value: string]: string } = {}
 ): string {
   if (typeof value === 'boolean') {
     let valueString = value ? 'true' : 'false'
     return translations[valueString] || msgs[valueString].defaultMessage
-  } else if (typeof value === 'undefined' || value === UNDEFINED) {
+  } else if (typeof value === 'undefined') {
     return translations.undefined || msgs.undefined.defaultMessage
-  } else if (value === null || value === NULL) {
+  } else if (value === null) {
     return translations.null || msgs.null.defaultMessage
   }
   return translations[value] || titleCase(value.replace(/_/g, ' '))
 }
 
-export function sentenceCase(s: string = '') {
+export function sentenceCase(str: string = '') {
   // Matches the first letter in the string and the first letter that follows a
   // period (and 1 or more spaces) and transforms that letter to uppercase.
-  return s.replace(/(^[a-z])|(\.\s*[a-z])/g, function(s) {
-    return s.toUpperCase()
-  })
+  return str.replace(/(^[a-z])|(\.\s*[a-z])/g, str => str.toUpperCase())
 }
 
 export function titleCase(str: string) {
   return str
     .toLowerCase()
     .split(' ')
-    .map(function(word) {
-      return capitalize(word)
-    })
+    .map(word => capitalize(word))
     .join(' ')
 }
 
@@ -46,6 +42,6 @@ export function capitalize(str: string) {
   return str.charAt(0).toUpperCase() + str.slice(1)
 }
 
-export function t(s: string = '') {
-  return sentenceCase(s.replace(/_/g, ' '))
+export function t(str: string = '') {
+  return sentenceCase(str.replace(/_/g, ' '))
 }

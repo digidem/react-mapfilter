@@ -1850,9 +1850,9 @@ declare module "@material-ui/core/styles/withStyles" {
   declare module.exports: (
     stylesOrCreator: Object,
     options?: Options
-  ) => <Props: {}>(
-    Component: React$ComponentType<Props>
-  ) => React$ComponentType<$Diff<Props, {
+  ) => <Props: {}, Component: React$ComponentType<Props>>(
+    Component: Component
+  ) => React$ComponentType<$Diff<React$ElementConfig<Component>, {
     classes?: Object,
     innerRef?: React$Ref<React$ElementType>
   }>>;

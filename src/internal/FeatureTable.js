@@ -1,6 +1,5 @@
 // @flow
-import React from 'react'
-import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer'
+import * as React from 'react'
 import Typography from '@material-ui/core/Typography'
 import { withStyles } from '@material-ui/core/styles'
 import Table from '@material-ui/core/Table'
@@ -13,20 +12,18 @@ import TableRow from '@material-ui/core/TableRow'
 // import MUISelect from '@material-ui/core/Select'
 // import makePure from 'recompose/pure'
 import classNames from 'classnames'
-import union from 'lodash/union'
 import memoizeOne from 'memoize-one'
 
-import FormattedValue from '../internal/FormattedValue'
+import FormattedValue from './FormattedValue'
 import FormattedFieldname from '../internal/FormattedFieldname'
 // import Select from '../internal/Select'
 // import MultiSelect from '../internal/MultiSelect'
 import { flattenFeature } from '../utils/features'
 
 // import * as FIELD_TYPES from '../constants/field_types'
-import * as VALUE_TYPES from '../constants/field_values'
 import * as FIELDKEYS from '../constants/special_fieldkeys'
 
-import type { FieldOrder, PointFeature, FieldTypes } from '../types'
+import type { PointFeature, Classes } from '../types'
 
 const styles = {
   root: {
@@ -164,25 +161,36 @@ const styles = {
 //   }
 // )
 
+// eslint-disable-next-line no-unused-vars
+type FieldDefinition = {
+  // key on Feature.properties that this field applies to
+  key: string,
+  // the type of field to show (defaults to a guess based on valueType)
+  type: string,
+  // the type of the value
+  valueType: string,
+  // label to show for the field key (can be translated)
+  label: string,
+  // whether new options may be created, or must be an option from the list
+  strict: boolean,
+  // an ordered list of options to show for a select or multi-select field
+  // where value is the value to be set, and label is the translation to show
+  options: Array<string | {| value: number | string | boolean, label: string |}>
+}
+
 type Props = {
   editMode: boolean,
-  classes: { [className: $Keys<typeof styles>]: string },
-  hiddenFields: Array<string>,
-  fieldTypes: FieldTypes,
+  classes: Classes<typeof styles>,
   feature: PointFeature,
-  fieldOrder: FieldOrder,
   onValueChange: () => any,
-  width: number | string
+  width: number
 }
 
 class FeatureTable extends React.Component<Props> {
   static defaultProps = {
     editMode: false,
-    hiddenFields: [],
-    fieldTypes: {},
-    fieldOrder: {},
     onValueChange: () => null,
-    width: 600
+    width: 800
   }
 
   getRows = memoizeOne(getRows)
@@ -192,35 +200,16 @@ class FeatureTable extends React.Component<Props> {
   }
 
   renderCell(fieldkey, value) {
-    const { fieldTypes } = this.props
     return (
       <Typography>
-        <FormattedValue
-          fieldkey={fieldkey}
-          value={value}
-          type={fieldTypes[fieldkey]}
-        />
+        <FormattedValue fieldkey={fieldkey} value={value} />
       </Typography>
     )
   }
 
   render() {
-    const {
-      classes,
-      editMode,
-      feature,
-      fieldOrder,
-      fieldTypes,
-      hiddenFields,
-      width
-    } = this.props
-    const rows = this.getRows(
-      editMode,
-      feature,
-      fieldOrder,
-      fieldTypes,
-      hiddenFields
-    )
+    const { classes, editMode, feature, width } = this.props
+    const rows = this.getRows(feature, editMode)
     return (
       <Table className={classes.root} style={{ width: width }}>
         <TableBody>
@@ -249,7 +238,6 @@ class FeatureTable extends React.Component<Props> {
             </TableRow>
           ))}
         </TableBody>
-        {(console.log('autosizer', width), null)}
       </Table>
     )
   }
@@ -258,64 +246,35 @@ class FeatureTable extends React.Component<Props> {
 // TODO: Does not actually work and memoize anything because props.feature
 // changes every edit
 function getRows(
-  editMode: boolean = false,
   feature: PointFeature,
-  fieldOrder: { [fieldkey: string]: number } = {},
-  fieldTypes: FieldTypes,
-  hiddenFields: Array<string> = []
-) {
+  // If true then render "empty" fields, i.e. fields with no value
+  withEmpty: boolean = false
+): Array<{ fieldkey: string, value: any }> {
   const flattenedFeature = flattenFeature(feature)
-  const fieldkeys = union(
-    Object.keys(flattenedFeature.properties || {}),
-    Object.keys(fieldTypes)
-  )
+  const fieldkeys = Object.keys(flattenedFeature.properties || {})
   const rows = fieldkeys
     .map(fieldkey => ({
       fieldkey: fieldkey,
       value: (flattenedFeature.properties || {})[fieldkey]
     }))
-    .filter(
-      row =>
-        editMode ||
-        (hiddenFields.indexOf(row.fieldkey) === -1 &&
-          (typeof row.value !== 'string' || row.value.length) &&
-          row.value !== undefined &&
-          row.value !== null &&
-          row.value !== VALUE_TYPES.UNDEFINED)
-    )
+    .filter(row => withEmpty || !isEmptyValue(row.value))
 
+  // We add the location as the first row
   if (feature.geometry) {
     rows.unshift({
       fieldkey: FIELDKEYS.LOCATION,
       value: feature.geometry.coordinates
     })
   }
-
-  // Sort rows by `fieldOrder` from state, if an order is set, if not then sort lexically.
-  return rows.sort((a, b) => {
-    var orderA =
-      fieldOrder[a.fieldkey] !== undefined ? fieldOrder[a.fieldkey] : Infinity
-    var orderB =
-      fieldOrder[b.fieldkey] !== undefined ? fieldOrder[b.fieldkey] : Infinity
-    if (orderA === Infinity && orderB === Infinity) {
-      return lexicalSort(a, b)
-    } else {
-      return orderA - orderB
-    }
-  })
+  return rows
 }
 
-function lexicalSort(a, b) {
-  var nameA = a.fieldkey.toUpperCase() // ignore upper and lowercase
-  var nameB = b.fieldkey.toUpperCase() // ignore upper and lowercase
-  if (nameA < nameB) {
-    return -1
-  }
-  if (nameA > nameB) {
-    return 1
-  }
-  // names must be equal
-  return 0
+function isEmptyValue(value) {
+  return (
+    (typeof value === 'string' && value.length === 0) ||
+    value === undefined ||
+    value === null
+  )
 }
 
 export default withStyles(styles)(FeatureTable)

@@ -6,7 +6,7 @@ import { storiesOf } from '@storybook/react'
 // import { action } from '@storybook/addon-actions'
 
 import FormattedFieldname from './FormattedFieldname'
-import FieldTranslationProvider from '../FieldTranslationProvider'
+import { FieldnameTranslationProvider } from '../Providers'
 
 storiesOf('internal/FormattedFieldname', module)
   .add('Plain text', () => <FormattedFieldname fieldkey="foo" />)
@@ -15,28 +15,25 @@ storiesOf('internal/FormattedFieldname', module)
     <FormattedFieldname fieldkey="foo_bob.bar.qux_hub" />
   ))
   .add('With translations', () => (
-    <FieldTranslationProvider
-      value={{ fieldnameTranslations: { foo: 'Foo Translation' } }}>
+    <FieldnameTranslationProvider value={{ foo: 'Foo Translation' }}>
       <FormattedFieldname fieldkey="foo" />
-    </FieldTranslationProvider>
+    </FieldnameTranslationProvider>
   ))
   .add('Nested with translations', () => (
-    <FieldTranslationProvider
-      value={{ fieldnameTranslations: { bar: 'Bar translation' } }}>
+    <FieldnameTranslationProvider value={{ bar: 'Bar translation' }}>
       <FormattedFieldname fieldkey="foo.bar" />
-    </FieldTranslationProvider>
+    </FieldnameTranslationProvider>
   ))
   .add('Nested with translations reverse', () => (
-    <FieldTranslationProvider
-      value={{ fieldnameTranslations: { bar: 'Bar translation' } }}>
+    <FieldnameTranslationProvider value={{ bar: 'Bar translation' }}>
       <FormattedFieldname fieldkey="bar.foo" />
-    </FieldTranslationProvider>
+    </FieldnameTranslationProvider>
   ))
   .add('With full key translation', () => (
-    <FieldTranslationProvider
+    <FieldnameTranslationProvider
       value={{
-        fieldnameTranslations: { 'foo.bar.quux': 'foo.bar.qux Translation' }
+        'foo.bar.quux': 'foo.bar.qux Translation'
       }}>
       <FormattedFieldname fieldkey="foo.bar.quux" />
-    </FieldTranslationProvider>
+    </FieldnameTranslationProvider>
   ))

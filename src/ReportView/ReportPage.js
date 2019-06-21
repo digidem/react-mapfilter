@@ -110,9 +110,9 @@ const styles = {
 type Props = {
   classes: { [className: $Keys<typeof styles>]: string },
   // Called when page is clicked
-  onClick: (event: SyntheticMouseEvent<HTMLElement>) => void,
+  onClick?: (event: SyntheticMouseEvent<HTMLElement>) => void,
   paperSize: 'a4' | 'letter',
-  fixedHeight: boolean,
+  fixedHeight?: boolean,
   children: React.Node,
   style: Object
 }
@@ -121,13 +121,14 @@ const ReportPage = ({
   classes,
   onClick,
   paperSize,
-  fixedHeight,
+  fixedHeight = false,
   children,
   style
 }: Props) => (
   <div className={classes.root} style={style}>
     <Paper
       className={classes.reportPaper + ' ' + classes[paperSize]}
+      style={onClick ? { cursor: 'pointer' } : null}
       onClick={onClick}
       elevation={1}>
       <div

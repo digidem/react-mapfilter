@@ -5,7 +5,7 @@ import { action } from '@storybook/addon-actions'
 // import { linkTo } from '@storybook/addon-links'
 
 import HideFieldsButton from './HideFieldsButton'
-import FieldTranslationProvider from '../FieldTranslationProvider'
+import { FieldnameTranslationProvider } from '../Providers'
 
 const fieldState = {
   foo: 'visible',
@@ -46,14 +46,15 @@ storiesOf('ReportView/HideFieldsButton', module)
     />
   ))
   .add('with translation', () => (
-    <FieldTranslationProvider value={{ fieldnameTranslations: translations }}>
+    <FieldnameTranslationProvider
+      value={{ fieldnameTranslations: translations }}>
       <HideFieldsButton
         fieldState={fieldState}
         toggleFieldVisibility={action('toggle-field')}
         showAllFields={action('show-all')}
         hideAllFields={action('hide-all')}
       />
-    </FieldTranslationProvider>
+    </FieldnameTranslationProvider>
   ))
   .add('with state', () => (
     <HideFieldsState>

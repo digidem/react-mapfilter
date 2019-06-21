@@ -5,39 +5,37 @@ import roundTo from 'round-to'
 import { fromLatLon } from 'utm'
 import sexagesimal from '@mapbox/sexagesimal'
 
-import { Consumer as FieldTranslationConsumer } from './FieldTranslationContext'
-import { Consumer as SettingsConsumer } from './SettingsContext'
-import { guessType, parseDate, coerceValue } from '../utils/field_types'
+import { SettingsConsumer, ValueTranslationConsumer } from './Context'
+import { guessValueType, parseDate, coerceValue } from '../utils/field_types'
 import { translateOrPretty } from '../utils/strings'
 
-import * as FIELD_TYPES from '../constants/field_types'
+import * as VALUE_TYPES from '../constants/value_types'
 import * as COORD_FORMATS from '../constants/coord_formats'
-import { NULL, UNDEFINED } from '../constants/field_values.js'
 import { LOCATION } from '../constants/special_fieldkeys'
 
 type Props = {
   // The field (prop) name including a dot-separated heirarchy e.g.
   // `{ foo: { bar: 'qux' } }` has a fieldkey `foo.bar`
   // The fieldkey is used to look up any user (custom) translations which are
-  // passed in by using the FieldTranslationProvider
+  // passed in by using the FieldnameTranslationProvider
   fieldkey?: string,
   // The field value to format
   value: any,
   // The field type, this can be defined for a dataset, but the actual field
   // value could be a different type, e.g. a field with type "date" could have a
   // field with value undefined or a string which is not a valid date
-  type?: $Values<typeof FIELD_TYPES>
+  type?: $Values<typeof VALUE_TYPES>
 }
 
 /**
  * Format a value from a form, either by guessing the type or trying to coerce
  * the value to a type specified by `fieldType`. An optional `fieldkey` is used
- * to look up a translated value which can be passed by FieldTranslationProvider
+ * to look up a translated value which can be passed by FieldnameTranslationProvider
  */
 const FormattedValue = ({ fieldkey, value, type: fieldType }: Props) => {
-  if (fieldkey === LOCATION) fieldType = FIELD_TYPES.LOCATION
+  if (fieldkey === LOCATION) fieldType = VALUE_TYPES.LOCATION
   // The type of the value could be different than the type of the field
-  let valueType = guessType(value)
+  let valueType = guessValueType(value)
   let coercedValue
 
   if (valueType !== fieldType && fieldType) {
@@ -49,7 +47,7 @@ const FormattedValue = ({ fieldkey, value, type: fieldType }: Props) => {
   }
 
   switch (valueType) {
-    case FIELD_TYPES.DATE:
+    case VALUE_TYPES.DATE:
       const parsedDate = parseDate(value)
       if (parsedDate === null) return value
       return (
@@ -60,37 +58,37 @@ const FormattedValue = ({ fieldkey, value, type: fieldType }: Props) => {
           day="2-digit"
         />
       )
-    case FIELD_TYPES.LOCATION:
+    case VALUE_TYPES.LOCATION:
       return (
         <SettingsConsumer>
           {({ coordFormat }) => formatLocation(value, coordFormat)}
         </SettingsConsumer>
       )
-    case FIELD_TYPES.NUMBER:
-    case FIELD_TYPES.UUID:
+    case VALUE_TYPES.NUMBER:
+    case VALUE_TYPES.UUID:
       return value
-    case FIELD_TYPES.IMAGE_URL:
-    case FIELD_TYPES.VIDEO_URL:
-    case FIELD_TYPES.MEDIA_URL:
-    case FIELD_TYPES.AUDIO_URL:
-    case FIELD_TYPES.URL:
+    case VALUE_TYPES.IMAGE_URL:
+    case VALUE_TYPES.VIDEO_URL:
+    case VALUE_TYPES.MEDIA_URL:
+    case VALUE_TYPES.AUDIO_URL:
+    case VALUE_TYPES.URL:
       return (
         <a href={value} target="_blank" rel="noopener noreferrer">
           {value}
         </a>
       )
-    case FIELD_TYPES.STRING:
-    case FIELD_TYPES.BOOLEAN:
+    case VALUE_TYPES.STRING:
+    case VALUE_TYPES.BOOLEAN:
     case NULL:
     case UNDEFINED:
       return (
-        <FieldTranslationConsumer>
-          {({ valueTranslations: translations }) =>
+        <ValueTranslationConsumer>
+          {translations =>
             translateOrPretty(value, fieldkey ? translations[fieldkey] : {})
           }
-        </FieldTranslationConsumer>
+        </ValueTranslationConsumer>
       )
-    case FIELD_TYPES.ARRAY:
+    case VALUE_TYPES.ARRAY:
       return value.map((v, i) => (
         <React.Fragment key={i}>
           <FormattedValue fieldkey={fieldkey} value={v} />

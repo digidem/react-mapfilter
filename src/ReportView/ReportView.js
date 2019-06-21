@@ -15,19 +15,16 @@ import ReportPage from './ReportPage'
 import HideFieldsButton from './HideFieldsButton'
 import PrintButton from './PrintButton'
 import Toolbar from '../internal/Toolbar'
+import MediaCarousel from '../internal/MediaCarousel'
 import FeatureTable from '../internal/FeatureTable'
 import createAction from '../utils/create_action'
 import { flattenFeature, filterFeatures } from '../utils/features'
+import { cm, inch } from '../utils/dom'
 
-import type {
-  PointFeature,
-  Filter,
-  FieldTypes,
-  FieldState,
-  PaperSize
-} from '../types'
+import type { PointFeature, Filter, FieldState, PaperSize } from '../types'
 
 const isDev = process.env.NODE_ENV !== 'production'
+const BORDER_SIZE = 0.5 * inch()
 
 const styles = {
   root: {
@@ -53,12 +50,12 @@ const styles = {
   },
   letter: {
     '&$reportWrapper': {
-      minWidth: '8.5in'
+      minWidth: 8.5 * inch()
     }
   },
   a4: {
     '&$reportWrapper': {
-      minWidth: '210mm'
+      minWidth: 21 * cm()
     }
   },
   scrollWrapper: {
@@ -99,8 +96,8 @@ const styles = {
 }
 
 const TABLE_WIDTHS = {
-  a4: 'calc(210mm - 1in)',
-  letter: 'calc(8.5in - 1in)'
+  a4: 21 * cm() - 2 * BORDER_SIZE,
+  letter: 8.5 * inch() - 2 * BORDER_SIZE
 }
 
 const VIEW_ID = 'report'
@@ -108,7 +105,6 @@ const VIEW_ID = 'report'
 
 type Props = {
   features: Array<PointFeature>,
-  fieldTypes: FieldTypes,
   filter: Filter,
   renderTest: boolean,
   onClickFeature: (feature: PointFeature) => void,
@@ -126,29 +122,25 @@ export const showAllFields = createAction(
 )
 
 export const hideAllFields = (allFieldkeys: Array<string>) =>
-  createAction(
-    (state: State, props: Props): $Shape<State> => ({
-      hiddenFields: allFieldkeys
-    })
-  )
+  createAction((state: State, props: Props): $Shape<State> => ({
+    hiddenFields: allFieldkeys
+  }))
 
 export const toggleFieldVisibility = (fieldkey: string) =>
-  createAction(
-    (state: State, props: Props): $Shape<State> => {
-      // NB: Must not mutate hiddenFields or memoize functions will not work
-      const { hiddenFields } = state
-      const idx = hiddenFields.indexOf(fieldkey)
-      if (idx > -1) {
-        return {
-          hiddenFields: hiddenFields
-            .slice(0, idx)
-            .concat(hiddenFields.slice(idx + 1))
-        }
-      } else {
-        return { hiddenFields: hiddenFields.concat([fieldkey]) }
+  createAction((state: State, props: Props): $Shape<State> => {
+    // NB: Must not mutate hiddenFields or memoize functions will not work
+    const { hiddenFields } = state
+    const idx = hiddenFields.indexOf(fieldkey)
+    if (idx > -1) {
+      return {
+        hiddenFields: hiddenFields
+          .slice(0, idx)
+          .concat(hiddenFields.slice(idx + 1))
       }
+    } else {
+      return { hiddenFields: hiddenFields.concat([fieldkey]) }
     }
-  )
+  })
 
 export const requestPrint = createAction(
   (state: State, props: Props): $Shape<State> => ({ print: true })
@@ -179,16 +171,17 @@ class ReportView extends React.Component<Props, State> {
   static id = VIEW_ID
 
   static defaultProps = {
-    fieldTypes: {},
     features: [],
     filter: [],
-    onClickFeature: () => null,
+    onClickFeature: () => {},
     renderTest: false
   }
 
   getAllFieldkeys = memoizeOne(getAllFieldkeys)
 
   getFieldState = memoizeOne(getFieldState)
+
+  getMedia = memoizeOne(getMedia)
 
   filterFeatures = memoizeOne(filterFeatures)
 
@@ -274,6 +267,7 @@ class ReportView extends React.Component<Props, State> {
   }) {
     const { classes, features, filter, onClickFeature, renderTest } = this.props
     const filteredFeatures = this.filterFeatures(features, filter)
+    const feature = filteredFeatures[index]
     const { paperSize } = this.state
     style = { ...style, width: 'auto' }
     // For dev and testing we render placeholders, removed in production
@@ -282,12 +276,12 @@ class ReportView extends React.Component<Props, State> {
         <ReportPage
           key={key}
           style={style}
-          onClick={() => onClickFeature(filteredFeatures[index])}
+          onClick={() => onClickFeature(feature)}
           paperSize={paperSize}>
           <div
             style={
               // $FlowFixMe
-              { height: (filteredFeatures[index].height || 200) + 'mm' }
+              { height: (feature.height || 200) + 'mm' }
             }
             className={classes.placeholder}
           />
@@ -299,10 +293,11 @@ class ReportView extends React.Component<Props, State> {
       <ReportPage
         key={key}
         style={style}
-        onClick={() => onClickFeature(filteredFeatures[index])}
+        onClick={() => onClickFeature(feature)}
         paperSize={paperSize}>
+        <MediaCarousel media={getMedia(feature)} />
         <FeatureTable
-          feature={filteredFeatures[index]}
+          feature={feature}
           hiddenFields={this.state.hiddenFields}
           width={TABLE_WIDTHS[paperSize]}
         />

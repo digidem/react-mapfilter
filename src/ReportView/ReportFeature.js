@@ -77,10 +77,10 @@ const ReportFeature = ({
           />
         </div>
         <div className={classes.headerContent}>
-          <Typography type="title">
+          <Typography variant="title">
             <FormattedValue value={title} type={titleType} />
           </Typography>
-          <Typography type="subheading">
+          <Typography variant="subheading">
             <FormattedValue value={subtitle} type={subtitleType} />
           </Typography>
         </div>
