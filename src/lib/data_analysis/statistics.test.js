@@ -1,7 +1,7 @@
 import test from 'tape'
 
 import fixture from '../../../fixtures/example_fc.json'
-import createMemoizedStats, { diffArrays, statReduce } from './field_statistics'
+import createMemoizedStats, { diffArrays, statReduce } from './statistics'
 
 test('diffArrays: added and removed', function(t) {
   const A = {}
@@ -118,5 +118,37 @@ test('field stats', t => {
   const expected = require('../../../stats.json')
   // JSON stringify -> parse to just skip the values Maps (not saved in fixture)
   t.deepEqual(JSON.parse(JSON.stringify(stats)), expected)
+  t.end()
+})
+
+test('field stats updated', t => {
+  const dataFixture = fixture.features.slice(0, 10).map(i => i.properties)
+  const getStats = createMemoizedStats()
+  const stats = getStats(dataFixture)
+  const updatedStats = getStats(
+    dataFixture.concat([
+      {
+        number: 7
+      }
+    ])
+  )
+  const expected = require('../../../stats.json')
+  const updatedExpected = {
+    ...expected,
+    number: {
+      ...expected.number,
+      number: {
+        count: 10,
+        min: 1,
+        max: 7,
+        values: {},
+        variance: 2.09,
+        mean: 4.9
+      }
+    }
+  }
+  // JSON stringify -> parse to just skip the values Maps (not saved in fixture)
+  t.deepEqual(JSON.parse(JSON.stringify(stats)), expected)
+  t.deepEqual(JSON.parse(JSON.stringify(updatedStats)), updatedExpected)
   t.end()
 })

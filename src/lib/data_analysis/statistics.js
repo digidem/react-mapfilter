@@ -4,17 +4,16 @@ import isodate from '@segment/isodate'
 import isObject from 'isobject'
 
 import { flatten } from '../../utils/flat'
-import guessValueType from './guess_type'
+import { guessValueType } from './value_types'
 import * as valueTypes from '../../constants/value_types'
 
 import type {
   JSONObject,
+  Statistics,
   FieldStatistic,
   StringStatistic,
   NumberStatistic
 } from '../../types'
-
-type Statistics = { [fieldname: string]: FieldStatistic }
 
 function defaultStats(): FieldStatistic {
   return {
@@ -50,9 +49,10 @@ function defaultStats(): FieldStatistic {
 
 export default function createMemoizedStats() {
   let stats: Statistics = {}
-  const dataMemo = []
+  let dataMemo = []
 
-  return function getFieldStatistics(data: Array<JSONObject>) {
+  return function getStats(data: Array<JSONObject>): Statistics {
+    if (data === dataMemo) return stats
     const { added, removed } = diffArrays(dataMemo, data)
     if (!added.length && !removed.length) return cloneDeep(stats)
     if (removed.length) {
@@ -64,6 +64,7 @@ export default function createMemoizedStats() {
       // Only added items -> only need to process new items
       added.forEach(item => addItemStats(item, stats))
     }
+    dataMemo = data
     return cloneDeep(stats)
   }
 }

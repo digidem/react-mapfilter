@@ -1,10 +1,10 @@
 // @flow
 import React, { useState } from 'react'
-import { makeStyles } from '@material-ui/styles'
+import { makeStyles } from '../utils/styles'
 import IconButton from '@material-ui/core/IconButton'
 import NavigateNextIcon from '@material-ui/icons/NavigateNext'
 import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore'
-import classNames from 'classnames'
+import clsx from 'clsx'
 import SwipeableViews from 'react-swipeable-views'
 import AutoSizer from 'react-virtualized-auto-sizer'
 
@@ -126,7 +126,7 @@ const Dots = ({
           <div
             key={i}
             role="button"
-            className={classNames(cx.dot, {
+            className={clsx(cx.dot, {
               [cx.dotHighlight]: index === i
             })}
             onClick={() => onChangeIndex(i)}

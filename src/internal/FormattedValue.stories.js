@@ -6,55 +6,55 @@ import withPropsCombinations from 'react-storybook-addon-props-combinations'
 // import { action } from '@storybook/addon-actions'
 
 import FormattedValue from './FormattedValue'
-import { ValueTranslationProvider, SettingsProvider } from '../Providers'
-import * as VALUE_TYPES from '../constants/value_types'
-import * as COORD_FORMATS from '../constants/coord_formats'
+import { ValueTranslationContext } from './Context'
+import * as fieldTypes from '../constants/field_types'
 
-storiesOf('internal/FormattedValue', module).add(
-  'plain values',
-  withPropsCombinations(FormattedValue, {
-    value: [
-      'hello world',
-      '2018-08-03T13:56:53.928Z',
-      '2018-08-03',
-      true,
-      false,
-      0,
-      42,
-      [1, 2],
-      ['foo', 'bar'],
-      undefined,
-      null
-    ]
-  })
-)
-
-storiesOf('internal/FormattedValue', module).add(
-  'type coercion',
-  withPropsCombinations(FormattedValue, {
-    value: [
-      'hello world',
-      '2018-08-03T13:56:53.928Z',
-      '2018-08-03',
-      true,
-      false,
-      0,
-      42,
-      [1, 2],
-      ['foo', 'bar'],
-      undefined,
-      null
-    ],
-    type: [
-      VALUE_TYPES.STRING,
-      VALUE_TYPES.BOOLEAN,
-      VALUE_TYPES.NUMBER,
-      VALUE_TYPES.ARRAY,
-      VALUE_TYPES.LOCATION,
-      VALUE_TYPES.DATE
-    ]
-  })
-)
+storiesOf('internal/FormattedValue', module)
+  .add('text from string', () => (
+    <FormattedValue value="hello world" fieldType={fieldTypes.TEXT} />
+  ))
+  .add('text from bool', () => (
+    <FormattedValue value={true} fieldType={fieldTypes.TEXT} />
+  ))
+  .add('text from number', () => (
+    <FormattedValue value={2} fieldType={fieldTypes.TEXT} />
+  ))
+  .add('text from null', () => (
+    <FormattedValue value={null} fieldType={fieldTypes.TEXT} />
+  ))
+  .add('date', () => (
+    <FormattedValue
+      value={new Date('2018-08-03T13:56:53.928Z')}
+      fieldType={fieldTypes.DATE}
+    />
+  ))
+  .add('date null', () => (
+    <FormattedValue value={null} fieldType={fieldTypes.DATE} />
+  ))
+  .add('datetime', () => (
+    <FormattedValue
+      value={new Date('2018-08-03T13:56:53.928Z')}
+      fieldType={fieldTypes.DATETIME}
+    />
+  ))
+  .add('datetime null', () => (
+    <FormattedValue value={null} fieldType={fieldTypes.DATETIME} />
+  ))
+  .add('number', () => (
+    <FormattedValue value={2} fieldType={fieldTypes.NUMBER} />
+  ))
+  .add('select one boolean', () => (
+    <FormattedValue value={true} fieldType={fieldTypes.SELECT_ONE} />
+  ))
+  .add('select one string', () => (
+    <FormattedValue value="hello world" fieldType={fieldTypes.SELECT_ONE} />
+  ))
+  .add('select multiple', () => (
+    <FormattedValue
+      value={['foo', true, 2, null]}
+      fieldType={fieldTypes.SELECT_MULTIPLE}
+    />
+  ))
 
 const translations = {
   testFieldkey: {
@@ -67,22 +67,25 @@ const translations = {
   }
 }
 
-storiesOf('internal/FormattedValue', module)
-  .add('translations', () => (
-    <ValueTranslationProvider value={translations}>
-      {withPropsCombinations(FormattedValue, {
-        value: ['hello world', true, false, ['foo', 'bar'], undefined, null],
-        fieldkey: ['testFieldkey']
-      })()}
-    </ValueTranslationProvider>
-  ))
-  .add('deg-min-sec Location', () => (
-    <SettingsProvider value={{ coordFormat: COORD_FORMATS.DEG_MIN_SEC }}>
-      <FormattedValue value={[2.1234, 5.541]} type={fieldTypes.LOCATION} />
-    </SettingsProvider>
-  ))
-  .add('decimal deg Location', () => (
-    <SettingsProvider value={{ coordFormat: COORD_FORMATS.DEC_DEG }}>
-      <FormattedValue value={[2.1234, 5.541]} type={fieldTypes.LOCATION} />
-    </SettingsProvider>
-  ))
+storiesOf('internal/FormattedValue', module).add('text translations', () => (
+  <ValueTranslationContext.Provider value={translations}>
+    {withPropsCombinations(FormattedValue, {
+      value: ['hello world', true, false, null],
+      fieldkey: ['testFieldkey'],
+      fieldType: [fieldTypes.TEXT]
+    })()}
+  </ValueTranslationContext.Provider>
+))
+
+storiesOf('internal/FormattedValue', module).add(
+  'select multiple translations',
+  () => (
+    <ValueTranslationContext.Provider value={translations}>
+      <FormattedValue
+        value={['foo', 'bar']}
+        fieldType={fieldTypes.SELECT_MULTIPLE}
+        fieldkey="testFieldkey"
+      />
+    </ValueTranslationContext.Provider>
+  )
+)

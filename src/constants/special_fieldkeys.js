@@ -1,4 +1,0 @@
-// @flow
-export const LOCATION = '@@MAPFILTER/FIELDKEYS/LOCATION'
-export const ID = '@@MAPFILTER/FIELDKEYS/ID'
-export const COLOR = '@@MAPFILTER/FIELDKEYS/COLOR'

@@ -12,7 +12,9 @@ import type {
 
 // export type StyleProp = CSSProperties<string | number>
 
+// Almost JSON value, but we can also have 'undefined' as a value
 export type JSONValue =
+  | void
   | null
   | number
   | string
@@ -119,6 +121,8 @@ export type FieldStatistic = {|
   |}
 |}
 
+export type Statistics = { [fieldname: string]: FieldStatistic }
+
 type MediaType =
   | typeof valueTypes.IMAGE_URL
   | typeof valueTypes.AUDIO_URL
@@ -142,3 +146,94 @@ export type FieldDefinition = {
     string | {| value: number | string | boolean, label: string |}
   >
 }
+
+export type Coordinates = {
+  altitude?: number,
+  heading?: number,
+  longitude: number,
+  speed?: number,
+  latitude: number,
+  accuracy?: number
+}
+
+type BaseField = {|
+  id: string,
+  key: string,
+  label?: string,
+  get: (obj: {}) => any,
+  set: (obj: {}, value: any) => {},
+  // Displayed as a placeholder or hint for the field: use for additional
+  // context or example responses for the user
+  placeholder?: string,
+  // If a field definition contains the property "universal": true, this field will appear in the "Add Field" list for all presets
+  universal?: boolean,
+  // Displayed, but cannot be edited
+  readonly?: boolean,
+  // Spaces are replaced with underscores
+  snake_case?: boolean
+|}
+
+// type FieldType =
+//   | 'text'
+//   | 'number'
+//   | 'select_one'
+//   | 'select_multiple'
+//   | 'date'
+//   | 'datetime'
+
+export type TextField = {|
+  ...$Exact<BaseField>,
+  type: 'text',
+  appearance?: 'single' | 'multiline'
+|}
+
+export type LinkField = {|
+  ...$Exact<BaseField>,
+  type: 'link'
+|}
+
+export type NumberField = {|
+  ...$Exact<BaseField>,
+  type: 'number',
+  min_value?: Date,
+  max_value?: Date
+|}
+
+export type SelectableFieldValue = number | string | boolean | null
+
+export type SelectOptions = Array<
+  SelectableFieldValue | {| value: SelectableFieldValue, label: string |}
+>
+
+export type SelectOneField = {|
+  ...$Exact<BaseField>,
+  type: 'select_one',
+  options: SelectOptions,
+  // User can enter their own reponse if not on the list (defaults to true on
+  // desktop, false on mobile)
+  other?: boolean
+|}
+
+export type SelectMultipleField = {|
+  ...$Exact<SelectOneField>,
+  type: 'select_multiple'
+|}
+
+export type DateField = {|
+  ...$Exact<NumberField>,
+  type: 'date'
+|}
+
+export type DateTimeField = {|
+  ...$Exact<NumberField>,
+  type: 'datetime'
+|}
+
+export type Field =
+  | TextField
+  | NumberField
+  | SelectOneField
+  | SelectMultipleField
+  | DateField
+  | DateTimeField
+  | LinkField

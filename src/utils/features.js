@@ -4,7 +4,6 @@ import QuickLRU from 'quick-lru'
 import ff from 'feature-filter-geojson'
 
 import { flatten } from './flat'
-import {} from './field_types'
 import type {
   PointFeature,
   PointFeatureWithId,

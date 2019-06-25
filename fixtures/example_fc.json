@@ -20,7 +20,7 @@
           "instanceId": "uuid:7b8f0c7d-0d08-4029-ab66-eca3517e8aea"
         },
         "number": 1,
-        "other": "a_very_long_option_to_test_text_ellipsis_formatting",
+        "other": "a_very_long_option_to_test_text_ellipsis_formatting_if_it_extends_over_the_edge",
         "people": "burch_andrews",
         "pictures": [
           {
@@ -36,7 +36,8 @@
         "today": "2014-03-11",
         "village": "Parikowaro Naawa",
         "empty": [
-          "https://s3.amazonaws.com/images.digital-democracy.org/mapfilter-sample/sample-6.jpg"
+          "https://s3.amazonaws.com/images.digital-democracy.org/mapfilter-sample/sample-6.jpg",
+          "https://s3.amazonaws.com/images.digital-democracy.org/mapfilter-sample/sample-17.jpg"
         ],
         "start": "2014-03-11T00:00:00.000Z"
       },

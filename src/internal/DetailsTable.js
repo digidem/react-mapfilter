@@ -1,29 +1,30 @@
 // @flow
 import * as React from 'react'
 import Typography from '@material-ui/core/Typography'
-import { withStyles } from '@material-ui/core/styles'
+import { makeStyles } from '../utils/styles'
 import Table from '@material-ui/core/Table'
 import TableBody from '@material-ui/core/TableBody'
 import TableCell from '@material-ui/core/TableCell'
 import TableRow from '@material-ui/core/TableRow'
+import AutoSizer from 'react-virtualized-auto-sizer'
+import clsx from 'clsx'
+
 // import TextField from '@material-ui/core/TextField'
 // import Input from '@material-ui/core/Input'
 // import MenuItem from '@material-ui/core/MenuItem'
 // import MUISelect from '@material-ui/core/Select'
 // import makePure from 'recompose/pure'
-import classNames from 'classnames'
-import memoizeOne from 'memoize-one'
 
 import FormattedValue from './FormattedValue'
 import FormattedFieldname from '../internal/FormattedFieldname'
+import { LINK } from '../constants/field_types'
 // import Select from '../internal/Select'
 // import MultiSelect from '../internal/MultiSelect'
-import { flattenFeature } from '../utils/features'
 
 // import * as FIELD_TYPES from '../constants/field_types'
-import * as FIELDKEYS from '../constants/special_fieldkeys'
 
-import type { PointFeature, Classes } from '../types'
+import type { Field } from '../types'
+import type { FormattedValueProps } from './FormattedValue'
 
 const styles = {
   root: {
@@ -67,6 +68,8 @@ const styles = {
     fontSize: 'inherit'
   }
 }
+
+const useStyles = makeStyles(styles)
 
 // const shouldNotWrap = {
 //   [FIELD_TYPES.UUID]: true,
@@ -161,112 +164,72 @@ const styles = {
 //   }
 // )
 
-// eslint-disable-next-line no-unused-vars
-type FieldDefinition = {
-  // key on Feature.properties that this field applies to
-  key: string,
-  // the type of field to show (defaults to a guess based on valueType)
-  type: string,
-  // the type of the value
-  valueType: string,
-  // label to show for the field key (can be translated)
-  label: string,
-  // whether new options may be created, or must be an option from the list
-  strict: boolean,
-  // an ordered list of options to show for a select or multi-select field
-  // where value is the value to be set, and label is the translation to show
-  options: Array<string | {| value: number | string | boolean, label: string |}>
-}
-
-type Props = {
-  editMode: boolean,
-  classes: Classes<typeof styles>,
-  feature: PointFeature,
-  onValueChange: () => any,
-  width: number
-}
-
-class FeatureTable extends React.Component<Props> {
-  static defaultProps = {
-    editMode: false,
-    onValueChange: () => null,
-    width: 800
-  }
-
-  getRows = memoizeOne(getRows)
-
-  renderEditableCell(fieldkey, value) {
-    return null
-  }
-
-  renderCell(fieldkey, value) {
-    return (
-      <Typography>
-        <FormattedValue fieldkey={fieldkey} value={value} />
+const Label = ({ style, fieldkey }: { style: {}, fieldkey: string }) => {
+  const classes = useStyles()
+  return (
+    <TableCell className={classes.col1} style={style}>
+      <Typography className={classes.col1Text}>
+        <FormattedFieldname fieldkey={fieldkey} />
       </Typography>
-    )
-  }
-
-  render() {
-    const { classes, editMode, feature, width } = this.props
-    const rows = this.getRows(feature, editMode)
-    return (
-      <Table className={classes.root} style={{ width: width }}>
-        <TableBody>
-          {rows.map((row, i) => (
-            <TableRow
-              key={i}
-              className={classes.row}
-              style={{ zIndex: rows.length - i }}>
-              <TableCell
-                padding="dense"
-                className={classes.col1}
-                style={{ maxWidth: width / 3 - 36 }}>
-                <Typography className={classes.col1Text}>
-                  <FormattedFieldname fieldkey={row.fieldkey} />
-                </Typography>
-              </TableCell>
-              <TableCell
-                padding="dense"
-                className={classNames(classes.col2, {
-                  [classes.col2Edit]: editMode
-                })}>
-                {editMode
-                  ? this.renderEditableCell(row.fieldkey, row.value)
-                  : this.renderCell(row.fieldkey, row.value)}
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    )
-  }
+    </TableCell>
+  )
 }
 
-// TODO: Does not actually work and memoize anything because props.feature
-// changes every edit
-function getRows(
-  feature: PointFeature,
-  // If true then render "empty" fields, i.e. fields with no value
-  withEmpty: boolean = false
-): Array<{ fieldkey: string, value: any }> {
-  const flattenedFeature = flattenFeature(feature)
-  const fieldkeys = Object.keys(flattenedFeature.properties || {})
-  const rows = fieldkeys
-    .map(fieldkey => ({
-      fieldkey: fieldkey,
-      value: (flattenedFeature.properties || {})[fieldkey]
-    }))
-    .filter(row => withEmpty || !isEmptyValue(row.value))
+const Value = (props: FormattedValueProps) => {
+  const classes = useStyles()
+  const isLink = props.fieldType === LINK
+  return (
+    <TableCell className={classes.col2}>
+      <Typography className={clsx({ [classes.col2TextNoWrap]: isLink })}>
+        {/* $FlowFixMe */}
+        <FormattedValue {...props} />
+      </Typography>
+    </TableCell>
+  )
+}
 
-  // We add the location as the first row
-  if (feature.geometry) {
-    rows.unshift({
-      fieldkey: FIELDKEYS.LOCATION,
-      value: feature.geometry.coordinates
-    })
-  }
-  return rows
+type Props = {|
+  editing?: boolean,
+  tags?: Object,
+  fields?: Array<Field>,
+  onChange?: (updateTags: {}) => any
+|}
+
+const DetailsTable = ({ fields = [], tags = {} }: Props) => {
+  const classes = useStyles()
+  return (
+    <AutoSizer disableHeight>
+      {({ width }) => (
+        <Table className={classes.root} style={{ width: width }}>
+          <TableBody>
+            {fields
+              .map((field, i) => {
+                const value = field.get(tags)
+                if (isEmptyValue(value)) return null
+                return (
+                  <TableRow
+                    key={i}
+                    className={classes.row}
+                    style={{ zIndex: fields.length - i }}>
+                    <Label
+                      fieldkey={field.key}
+                      style={{ maxWidth: width / 3 - 36 }}
+                    />
+                    {/* $FlowFixMe */}
+                    <Value
+                      value={value}
+                      fieldType={field.type}
+                      fieldkey={field.key}
+                    />
+                  </TableRow>
+                )
+              })
+              .filter(Boolean)}
+          </TableBody>
+        </Table>
+      )}
+    </AutoSizer>
+  )
 }
 
 function isEmptyValue(value) {
@@ -277,4 +240,4 @@ function isEmptyValue(value) {
   )
 }
 
-export default withStyles(styles)(FeatureTable)
+export default DetailsTable

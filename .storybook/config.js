@@ -2,16 +2,7 @@ import React from 'react'
 import { configure, addDecorator } from '@storybook/react'
 // import { withInfo } from '@storybook/addon-info'
 import { setIntlConfig, withIntl } from 'storybook-addon-intl'
-// Load the locale data for all your defined locales
-import { addLocaleData } from 'react-intl'
-import enLocaleData from 'react-intl/locale-data/en'
-import esLocaleData from 'react-intl/locale-data/es'
-import frLocaleData from 'react-intl/locale-data/fr'
 import { withPropsTable } from 'storybook-addon-react-docgen'
-
-addLocaleData(enLocaleData)
-addLocaleData(esLocaleData)
-addLocaleData(frLocaleData)
 
 const getMessages = locale => {}
 

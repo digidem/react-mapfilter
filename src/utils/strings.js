@@ -1,6 +1,5 @@
 // @flow
 import { defineMessages } from 'react-intl'
-import { NULL, UNDEFINED } from '../constants/value_types'
 
 const msgs = defineMessages({
   true: 'Yes',
@@ -10,18 +9,20 @@ const msgs = defineMessages({
 })
 
 export function translateOrPretty(
-  value: string | boolean | void | null,
+  value: string | boolean | number | null,
   translations?: { [value: string]: string } = {}
 ): string {
-  if (typeof value === 'boolean') {
+  if (typeof value === 'number') return value + ''
+  else if (typeof value === 'boolean') {
     let valueString = value ? 'true' : 'false'
     return translations[valueString] || msgs[valueString].defaultMessage
-  } else if (typeof value === 'undefined') {
-    return translations.undefined || msgs.undefined.defaultMessage
   } else if (value === null) {
     return translations.null || msgs.null.defaultMessage
   }
-  return translations[value] || titleCase(value.replace(/_/g, ' '))
+  if (translations[value]) return translations[value]
+  const words = value.split('_')
+  if (words.length < 4) return titleCase(words.join(' '))
+  else return sentenceCase(words.join(' '))
 }
 
 export function sentenceCase(str: string = '') {

@@ -6,34 +6,41 @@ import { storiesOf } from '@storybook/react'
 // import { action } from '@storybook/addon-actions'
 
 import FormattedFieldname from './FormattedFieldname'
-import { FieldnameTranslationProvider } from '../Providers'
+import { FieldnameTranslationContext } from './Context'
 
 storiesOf('internal/FormattedFieldname', module)
   .add('Plain text', () => <FormattedFieldname fieldkey="foo" />)
-  .add('Nested fieldname', () => <FormattedFieldname fieldkey="foo.bar.qux" />)
-  .add('Underscores to spaces', () => (
-    <FormattedFieldname fieldkey="foo_bob.bar.qux_hub" />
-  ))
+  .add('Nested fieldname', () => {
+    const key = 'foo\uffffbar\uffffqux'
+    return <FormattedFieldname fieldkey={key} />
+  })
+  .add('Underscores to spaces', () => {
+    const key = 'foo_bob\uffffbar\uffffqux_hub'
+    return <FormattedFieldname fieldkey={key} />
+  })
   .add('With translations', () => (
-    <FieldnameTranslationProvider value={{ foo: 'Foo Translation' }}>
+    <FieldnameTranslationContext.Provider value={{ foo: 'Foo Translation' }}>
       <FormattedFieldname fieldkey="foo" />
-    </FieldnameTranslationProvider>
+    </FieldnameTranslationContext.Provider>
   ))
-  .add('Nested with translations', () => (
-    <FieldnameTranslationProvider value={{ bar: 'Bar translation' }}>
-      <FormattedFieldname fieldkey="foo.bar" />
-    </FieldnameTranslationProvider>
-  ))
+  .add('Nested with translations', () => {
+    const key = 'foo\uffffbar'
+    return (
+      <FieldnameTranslationContext.Provider value={{ bar: 'Bar translation' }}>
+        <FormattedFieldname fieldkey={key} />
+      </FieldnameTranslationContext.Provider>
+    )
+  })
   .add('Nested with translations reverse', () => (
-    <FieldnameTranslationProvider value={{ bar: 'Bar translation' }}>
-      <FormattedFieldname fieldkey="bar.foo" />
-    </FieldnameTranslationProvider>
+    <FieldnameTranslationContext.Provider value={{ bar: 'Bar translation' }}>
+      <FormattedFieldname fieldkey={'bar\ufffffoo'} />
+    </FieldnameTranslationContext.Provider>
   ))
   .add('With full key translation', () => (
-    <FieldnameTranslationProvider
+    <FieldnameTranslationContext.Provider
       value={{
         'foo.bar.quux': 'foo.bar.qux Translation'
       }}>
-      <FormattedFieldname fieldkey="foo.bar.quux" />
-    </FieldnameTranslationProvider>
+      <FormattedFieldname fieldkey={'foo\uffffbar\uffffquux'} />
+    </FieldnameTranslationContext.Provider>
   ))

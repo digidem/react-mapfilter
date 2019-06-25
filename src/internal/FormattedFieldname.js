@@ -1,15 +1,8 @@
 // @flow
 import * as React from 'react'
-import { defineMessages, FormattedMessage } from 'react-intl'
 
-import { FieldnameTranslationConsumer } from './Context'
+import { FieldnameTranslationContext } from './Context'
 import { translateOrPretty } from '../utils/strings'
-import { LOCATION } from '../constants/special_fieldkeys'
-
-const msgs = defineMessages({
-  // Location fieldname
-  location: 'Location'
-})
 
 const styles = {
   groupText: {
@@ -32,36 +25,30 @@ type Props = {
  * to Title Case */
 const FormattedFieldname = ({ fieldkey, children }: Props) => {
   if (!fieldkey) return null
-  if (fieldkey === LOCATION) return <FormattedMessage {...msgs.location} />
-  return (
-    <FieldnameTranslationConsumer>
-      {translations => {
-        let element
-        const parts = fieldkey.split('.')
-        if (translations[fieldkey] || parts.length === 1) {
-          const fieldText = translateOrPretty(fieldkey, translations)
-          element = <span title={fieldText}>{fieldText}</span>
-        } else {
-          const fieldname = parts.pop()
-          const groupText =
-            parts.map(str => translateOrPretty(str, translations)).join(' / ') +
-            ' / '
-          const fieldText = translateOrPretty(fieldname, translations)
-          element = (
-            <span title={groupText + fieldText}>
-              <span style={styles.groupText}>{groupText}</span>
-              <span>{fieldText}</span>
-            </span>
-          )
-        }
-        if (typeof children === 'function') {
-          return children(element)
-        } else {
-          return element
-        }
-      }}
-    </FieldnameTranslationConsumer>
-  )
+  const translations = React.useContext(FieldnameTranslationContext)
+  let element
+  const parts = fieldkey.split('\uffff')
+  const dotPropFieldKey = parts.join('.')
+  if (translations[dotPropFieldKey] || parts.length === 1) {
+    const fieldText = translateOrPretty(dotPropFieldKey, translations)
+    element = <span title={fieldText}>{fieldText}</span>
+  } else {
+    const fieldname = parts.pop()
+    const groupText =
+      parts.map(str => translateOrPretty(str, translations)).join(' / ') + ' / '
+    const fieldText = translateOrPretty(fieldname, translations)
+    element = (
+      <span title={groupText + fieldText}>
+        <span style={styles.groupText}>{groupText}</span>
+        <span>{fieldText}</span>
+      </span>
+    )
+  }
+  if (typeof children === 'function') {
+    return children(element)
+  } else {
+    return element
+  }
 }
 
 export default FormattedFieldname

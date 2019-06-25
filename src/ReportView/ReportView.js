@@ -16,7 +16,7 @@ import HideFieldsButton from './HideFieldsButton'
 import PrintButton from './PrintButton'
 import Toolbar from '../internal/Toolbar'
 import MediaCarousel from '../internal/MediaCarousel'
-import FeatureTable from '../internal/FeatureTable'
+import DetailsTable from '../internal/DetailsTable'
 import createAction from '../utils/create_action'
 import { flattenFeature, filterFeatures } from '../utils/features'
 import { cm, inch } from '../utils/dom'
@@ -296,7 +296,7 @@ class ReportView extends React.Component<Props, State> {
         onClick={() => onClickFeature(feature)}
         paperSize={paperSize}>
         <MediaCarousel media={getMedia(feature)} />
-        <FeatureTable
+        <DetailsTable
           feature={feature}
           hiddenFields={this.state.hiddenFields}
           width={TABLE_WIDTHS[paperSize]}

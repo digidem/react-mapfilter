@@ -8,7 +8,7 @@ import Image from '../Image'
 import MarkerIcon from './MarkerIcon'
 import * as MFPropTypes from '../../util/prop_types'
 import FormattedValue from '../Shared/FormattedValue'
-import FeatureTable from '../Shared/FeatureTable'
+import DetailsTable from '../Shared/DetailsTable'
 
 const styles = {
   root: {
@@ -90,7 +90,7 @@ const ReportFeature = ({
           <Image className={classes.img} src={media} />
         </div>
       )}
-      <FeatureTable
+      <DetailsTable
         feature={feature}
         fieldAnalysis={fieldAnalysis}
         fieldOrder={fieldOrder}

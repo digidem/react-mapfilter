@@ -22,7 +22,7 @@ const styles = {
 type Props = {
   style: Object,
   color: string,
-  label: string
+  label?: string
 }
 
 /* A circle icon with an optional label, for map & reports */

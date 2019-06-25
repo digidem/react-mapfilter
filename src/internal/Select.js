@@ -1,243 +1,243 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import Autosuggest from 'react-autosuggest'
+// @flow
+import React from 'react'
+import Downshift from 'downshift'
 import TextField from '@material-ui/core/TextField'
+import Popper from '@material-ui/core/Popper'
 import Paper from '@material-ui/core/Paper'
 import MenuItem from '@material-ui/core/MenuItem'
-import IsolatedScroll from 'react-isolated-scroll'
-import match from 'autosuggest-highlight/match'
-import parse from 'autosuggest-highlight/parse'
-import omit from 'lodash/omit'
-import isEqual from 'lodash/isEqual'
-import assign from 'object-assign'
-import { withStyles } from '@material-ui/core/styles'
+import matchSorter from 'match-sorter'
 
-const ITEM_HEIGHT = 48
+// import Autosuggest from 'react-autosuggest'
 
-const styleSheet = theme => ({
+// import IsolatedScroll from 'react-isolated-scroll'
+// import match from 'autosuggest-highlight/match'
+// import parse from 'autosuggest-highlight/parse'
+// import omit from 'lodash/omit'
+// import isEqual from 'lodash/isEqual'
+// import assign from 'object-assign'
+import { makeStyles } from '../utils/styles'
+
+import type { SelectableFieldValue } from '../types'
+
+const useStyles = makeStyles(theme => ({
+  root: {
+    flexGrow: 1,
+    height: 250
+  },
   container: {
     flexGrow: 1,
-    position: 'relative',
-    fontSize: 14
+    position: 'relative'
   },
-  suggestionsContainerOpen: {
+  paper: {
     position: 'absolute',
-    marginTop: theme.spacing.unit,
-    marginBottom: theme.spacing.unit * 3,
+    zIndex: 1,
+    marginTop: theme.spacing(1),
     left: 0,
-    right: 0,
-    zIndex: 99
+    right: 0
   },
-  suggestionsContainerInner: {
-    maxHeight: ITEM_HEIGHT * 6.5,
-    overflowY: 'auto'
+  chip: {
+    margin: theme.spacing(0.5, 0.25)
   },
-  suggestion: {
-    display: 'block',
-    fontSize: 14
+  inputRoot: {
+    flexWrap: 'wrap'
   },
-  suggestionsList: {
-    margin: 0,
-    padding: 0,
-    listStyleType: 'none'
+  inputInput: {
+    width: 'auto',
+    flexGrow: 1
   },
-  textField: {
-    width: '100%'
-  },
-  input: {
-    fontSize: 'inherit'
+  divider: {
+    height: theme.spacing(2)
   }
-})
+}))
 
-function renderInput(props) {
-  const { classes, home, value, inputRef, ref, style } = props
-  const inputProps = assign(
-    {},
-    omit(props, ['classes', 'home', 'value', 'inputRef', 'ref', 'style']),
-    { className: classes.input }
-  )
-  function callRef(el) {
-    inputRef(el)
-    ref(el)
-  }
+function renderInput(inputProps) {
+  const { InputProps, classes, ref, ...other } = inputProps
+
   return (
     <TextField
-      style={style}
-      autoFocus={home}
-      className={classes.textField}
-      value={value}
-      inputRef={callRef}
-      InputProps={inputProps}
+      InputProps={{
+        inputRef: ref,
+        classes: {
+          root: classes.inputRoot,
+          input: classes.inputInput
+        },
+        ...InputProps
+      }}
+      {...other}
     />
   )
 }
 
-function renderSuggestion(suggestion, { query, isHighlighted }) {
-  const matches = match(suggestion, query)
-  const parts = parse(suggestion, matches)
+type Suggestion = {|
+  label: string,
+  value: SelectableFieldValue
+|}
+
+type RenderSuggestionProps = {|
+  highlightedIndex: number | null,
+  index: number,
+  itemProps: any,
+  selectedItem: string,
+  suggestion: Suggestion
+|}
+
+function renderSuggestion(suggestionProps: RenderSuggestionProps) {
+  const {
+    suggestion,
+    index,
+    itemProps,
+    highlightedIndex,
+    selectedItem
+  } = suggestionProps
+  const isHighlighted = highlightedIndex === index
+  const isSelected = (selectedItem || '').indexOf(suggestion.label) > -1
 
   return (
     <MenuItem
-      dense
+      {...itemProps}
+      key={suggestion.label}
       selected={isHighlighted}
       component="div"
-      style={{ fontSize: 14 }}>
-      <div>
-        {parts.map((part, index) => {
-          return part.highlight ? (
-            <span key={index} style={{ fontWeight: 500 }}>
-              {part.text}
-            </span>
-          ) : (
-            <strong key={index} style={{ fontWeight: 300 }}>
-              {part.text}
-            </strong>
-          )
-        })}
-      </div>
+      style={{
+        fontWeight: isSelected ? 500 : 400,
+        textOverflow: 'ellipsis'
+      }}>
+      {suggestion.label}
     </MenuItem>
   )
 }
 
-function getSuggestionValue(suggestion) {
-  return suggestion
-}
-
-function shouldRenderSuggestions() {
-  return true
-}
-
-function getSuggestions(value, suggestions) {
-  const inputValue = value.trim().toLowerCase()
-  const inputLength = inputValue.length
-  let count = 0
-
-  return inputLength === 0
+function getSuggestions(
+  value: string,
+  suggestions: Array<Suggestion>
+): Array<Suggestion> {
+  return value.length === 0
     ? suggestions
-    : suggestions.filter(suggestion => {
-        const keep =
-          count < 5 &&
-          suggestion.toLowerCase().slice(0, inputLength) === inputValue
-
-        if (keep) {
-          count += 1
-        }
-
-        return keep
+    : matchSorter(suggestions, value, {
+        keys: [
+          item => item.label,
+          item => (typeof item.value === 'string' ? item.value : undefined)
+        ]
       })
 }
 
-class Select extends Component {
-  state = {
-    suggestions: this.props.suggestions
-  }
+type Props = {|
+  value: SelectableFieldValue,
+  placeholder?: string,
+  onChange: (value: SelectableFieldValue) => any,
+  suggestions: Array<Suggestion>
+|}
 
-  componentWillReceiveProps(nextProps) {
-    if (!isEqual(nextProps.suggestions, this.props.suggestions)) {
-      this.setState({ suggestions: nextProps.suggestions })
-    }
-  }
+/**
+ * A multi-select field that allows the user to enter a value that is not on the
+ * list. Allows the selection of non-string values from a list, but the labels
+ * for each item must be unique for this to work reliably
+ */
+export const SelectOne = ({
+  value,
+  placeholder,
+  onChange,
+  suggestions
+}: Props) => {
+  let popperNode
+  const classes = useStyles()
 
-  renderSuggestionsContainer = ({ containerProps, children }) => {
-    const callRef = isolatedScroll => {
-      if (isolatedScroll !== null) {
-        containerProps.ref(isolatedScroll.component)
-      }
-    }
-    return (
-      <Paper {...containerProps}>
-        <IsolatedScroll
-          ref={callRef}
-          className={this.props.classes.suggestionsContainerInner}>
-          {children}
-        </IsolatedScroll>
-      </Paper>
+  const matchingSuggestion = suggestions.find(item =>
+    lowerCaseEqual(item.value, value)
+  )
+  const displayValue = matchingSuggestion ? matchingSuggestion.label : value
+
+  function onStateChange(changes) {
+    let newValue
+    if (changes.hasOwnProperty('selectedItem')) {
+      newValue = changes.selectedItem
+    } else if (changes.hasOwnProperty('inputValue')) {
+      newValue = changes.inputValue
+    } else return
+    const matchingSuggestion = suggestions.find(item =>
+      lowerCaseEqual(item.label === newValue)
     )
+    onChange(matchingSuggestion ? matchingSuggestion.value : newValue)
   }
 
-  getSuggestions = ({ value }) => {
-    this.setState({
-      suggestions: this.justFocussed
-        ? this.props.suggestions
-        : getSuggestions(value, this.props.suggestions)
-    })
-  }
+  return (
+    <Downshift
+      id="downshift-popper"
+      selectedItem={typeof displayValue === 'string' ? displayValue : ''}
+      onStateChange={onStateChange}>
+      {({
+        clearSelection,
+        getInputProps,
+        getItemProps,
+        getLabelProps,
+        getMenuProps,
+        highlightedIndex,
+        inputValue,
+        isOpen,
+        openMenu,
+        selectedItem
+      }) => {
+        const { onBlur, onFocus, ...inputProps } = getInputProps({
+          onChange: event => {
+            if (event.target.value === '') {
+              clearSelection()
+            }
+          },
+          onFocus: openMenu,
+          placeholder: placeholder
+        })
 
-  resetSuggestions = () => {
-    this.setState({
-      suggestions: this.props.suggestions
-    })
-  }
+        return (
+          <div className={classes.container}>
+            {renderInput({
+              fullWidth: true,
+              classes,
+              InputProps: { onBlur, onFocus },
+              InputLabelProps: getLabelProps({ shrink: true }),
+              inputProps,
+              ref: node => {
+                popperNode = node
+              }
+            })}
 
-  selectInputText = e => {
-    e.target.select()
-    this.justFocussed = true
-    // Naughty? But it works... *WARNING* relies on an internal method of react-autosuggest
-    this.autosuggest && this.autosuggest.revealSuggestions()
-  }
-
-  handleChange = (e, d) => {
-    this.justFocussed = false
-    this.props.onChange(e, d)
-  }
-
-  render() {
-    const {
-      classes,
-      className,
-      value,
-      onSuggestionSelected,
-      onKeyDown,
-      style
-    } = this.props
-    return (
-      <Autosuggest
-        ref={el => (this.autosuggest = el)}
-        theme={{
-          container: classes.container + ' ' + className,
-          suggestionsContainerOpen: classes.suggestionsContainerOpen,
-          suggestionsList: classes.suggestionsList,
-          suggestion: classes.suggestion
-        }}
-        shouldRenderSuggestions={shouldRenderSuggestions}
-        renderInputComponent={renderInput}
-        suggestions={this.state.suggestions}
-        onSuggestionsFetchRequested={this.getSuggestions}
-        onSuggestionsClearRequested={this.resetSuggestions}
-        onSuggestionSelected={onSuggestionSelected}
-        renderSuggestionsContainer={this.renderSuggestionsContainer}
-        getSuggestionValue={getSuggestionValue}
-        renderSuggestion={renderSuggestion}
-        inputProps={{
-          inputRef: el => (this.input = el),
-          style,
-          classes,
-          value,
-          onChange: this.handleChange,
-          onFocus: this.selectInputText,
-          onClick: this.selectInputText,
-          onKeyDown: onKeyDown
-        }}
-      />
-    )
-  }
+            <Popper open={isOpen} anchorEl={popperNode}>
+              <div
+                {...(isOpen
+                  ? getMenuProps({}, { suppressRefError: true })
+                  : {})}>
+                <Paper
+                  square
+                  style={{
+                    marginTop: 8,
+                    width: popperNode ? popperNode.clientWidth : undefined,
+                    maxHeight: 400,
+                    overflow: 'scroll'
+                  }}>
+                  {getSuggestions(inputValue, suggestions).map(
+                    (suggestion, index) =>
+                      renderSuggestion({
+                        suggestion,
+                        index,
+                        itemProps: getItemProps({ item: suggestion.label }),
+                        highlightedIndex,
+                        selectedItem
+                      })
+                  )}
+                </Paper>
+              </div>
+            </Popper>
+          </div>
+        )
+      }}
+    </Downshift>
+  )
 }
 
-Select.propTypes = {
-  classes: PropTypes.object.isRequired,
-  suggestions: PropTypes.arrayOf(PropTypes.string),
-  value: PropTypes.string,
-  onChange: PropTypes.func.isRequired,
-  onSuggestionSelected: PropTypes.func,
-  onKeyDown: PropTypes.func,
-  style: PropTypes.object
+// for two values, if strings, compare lower case, otherwise strict equal
+function lowerCaseEqual(a: any, b: any) {
+  if (typeof a === 'string' && typeof b === 'string') {
+    return a.toLowerCase() === b.toLowerCase()
+  } else {
+    return a === b
+  }
 }
-
-Select.defaultProps = {
-  onSuggestionSelected: () => null,
-  onKeyDown: () => null,
-  value: '',
-  classes: {}
-}
-
-export default withStyles(styleSheet)(Select)

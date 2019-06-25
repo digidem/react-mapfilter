@@ -9,12 +9,12 @@ function arrayContainsObjects(arr) {
 }
 
 export function flatten(
-  target: Object,
+  target: {},
   {
     delimiter = '.',
     maxDepth = Infinity
   }: { delimiter?: string, maxDepth?: number } = {}
-) {
+): {} {
   var output = {}
   var didFlatten = false
 

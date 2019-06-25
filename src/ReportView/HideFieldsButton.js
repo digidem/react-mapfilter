@@ -1,5 +1,5 @@
 // @flow
-import React from 'react'
+import * as React from 'react'
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff'
 import Popover from '@material-ui/core/Popover'
 import List from '@material-ui/core/List'
@@ -8,11 +8,10 @@ import ListItemText from '@material-ui/core/ListItemText'
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction'
 import Switch from '@material-ui/core/Switch'
 import Button from '@material-ui/core/Button'
-import { withStyles } from '@material-ui/core/styles'
+import { makeStyles } from '../utils/styles'
 import { defineMessages, FormattedMessage } from 'react-intl'
 
 import ToolbarButton from '../ToolbarButton'
-import FormattedFieldname from '../internal/FormattedFieldname'
 
 const msgs = defineMessages({
   // Button label for hide fields menu
@@ -27,121 +26,120 @@ const msgs = defineMessages({
   hideAll: 'Hide All'
 })
 
-const styles = theme => ({
-  actions: {
-    margin: `${theme.spacing.unit}px ${theme.spacing.unit / 2}px`
-  },
-  button: {
-    margin: `0 ${theme.spacing.unit / 2}px`
-  },
-  listItem: {
-    paddingRight: 48
-  },
-  fieldname: {
-    maxWidth: 250,
-    textOverflow: 'ellipsis',
-    overflow: 'hidden',
-    whiteSpace: 'nowrap'
+const useStyles = makeStyles(theme => {
+  return {
+    actions: {
+      margin: `${theme.spacing.unit}px ${theme.spacing.unit / 2}px`
+    },
+    button: {
+      margin: `0 ${theme.spacing.unit / 2}px`
+    },
+    listItem: {
+      paddingRight: 48
+    },
+    fieldname: {
+      maxWidth: 250,
+      textOverflow: 'ellipsis',
+      overflow: 'hidden',
+      whiteSpace: 'nowrap'
+    }
   }
 })
 
-type Props = {
-  fieldState: { [fieldkey: string]: 'visible' | 'hidden' },
-  showAllFields: () => void,
-  hideAllFields: () => void,
-  toggleFieldVisibility: (fieldkey: string) => void,
-  classes: { [className: string]: string }
-}
+type FieldState = Array<{|
+  fieldkey: string,
+  hidden: boolean,
+  label: React.Node
+|}>
 
-type State = {
-  dialogOpen: boolean,
-  buttonEl?: HTMLElement
-}
+type Props = {|
+  fieldState: FieldState,
+  onFieldStateUpdate: FieldState => any
+|}
 
-class HideFieldsButton extends React.Component<Props, State> {
-  state = {
-    dialogOpen: false,
-    buttonEl: undefined
+const HideFieldsButton = ({ fieldState, onFieldStateUpdate }: Props) => {
+  const classes = useStyles()
+  const [anchorEl, setAnchorEl] = React.useState(null)
+
+  function handleClick(event) {
+    setAnchorEl(event.currentTarget)
   }
 
-  static defaultProps = {
-    fieldState: {}
+  function handleClose() {
+    setAnchorEl(null)
   }
 
-  toggleMenu = (event: SyntheticInputEvent<HTMLButtonElement>) => {
-    this.setState({
-      dialogOpen: !this.state.dialogOpen,
-      buttonEl: event.currentTarget
-    })
+  function toggleFieldVisibility(fieldkey: string) {
+    const newState = fieldState
+      .slice()
+      .map(f => (f.fieldkey === fieldkey ? { ...f, hidden: !f.hidden } : f))
+    onFieldStateUpdate(newState)
   }
 
-  render() {
-    const {
-      classes,
-      fieldState,
-      toggleFieldVisibility,
-      showAllFields,
-      hideAllFields
-    } = this.props
-    const { dialogOpen, buttonEl } = this.state
-    const fieldkeys = Object.keys(fieldState)
-    const hiddenCount = fieldkeys.filter(key => fieldState[key] === 'hidden')
-      .length
-    return (
-      <React.Fragment>
-        <ToolbarButton onClick={this.toggleMenu}>
-          <VisibilityOffIcon />
-          <FormattedMessage
-            {...msgs.hideFieldsLabel}
-            values={{ count: hiddenCount }}
-          />
-        </ToolbarButton>
-        <Popover
-          anchorEl={buttonEl}
-          anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
-          open={dialogOpen}
-          onClose={this.toggleMenu}
-          PaperProps={{
-            style: {
-              maxHeight: '50vh',
-              minWidth: 200,
-              maxWidth: '50vw'
-            }
-          }}>
-          <div className={classes.actions}>
-            <Button
-              size="small"
-              onClick={showAllFields}
-              className={classes.button}>
-              <FormattedMessage {...msgs.showAll} />
-            </Button>
-            <Button
-              size="small"
-              onClick={hideAllFields}
-              className={classes.button}>
-              <FormattedMessage {...msgs.hideAll} />
-            </Button>
-          </div>
-          <List dense>
-            {fieldkeys.map(fieldkey => (
-              <ListItem key={fieldkey} className={classes.listItem}>
-                <ListItemText
-                  className={classes.fieldname}
-                  primary={<FormattedFieldname fieldkey={fieldkey} />}
+  function showAllFields() {
+    const newState = fieldState.slice().map(f => ({ ...f, hidden: false }))
+    onFieldStateUpdate(newState)
+  }
+
+  function hideAllFields() {
+    const newState = fieldState.slice().map(f => ({ ...f, hidden: true }))
+    onFieldStateUpdate(newState)
+  }
+
+  const open = Boolean(anchorEl)
+
+  const hiddenCount = fieldState.filter(f => f.hidden).length
+  return (
+    <React.Fragment>
+      <ToolbarButton onClick={handleClick}>
+        <VisibilityOffIcon />
+        <FormattedMessage
+          {...msgs.hideFieldsLabel}
+          values={{ count: hiddenCount }}
+        />
+      </ToolbarButton>
+      <Popover
+        anchorEl={anchorEl}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+        open={open}
+        onClose={handleClose}
+        PaperProps={{
+          style: {
+            maxHeight: '50vh',
+            minWidth: 200,
+            maxWidth: '50vw'
+          }
+        }}>
+        <div className={classes.actions}>
+          <Button
+            size="small"
+            onClick={showAllFields}
+            className={classes.button}>
+            <FormattedMessage {...msgs.showAll} />
+          </Button>
+          <Button
+            size="small"
+            onClick={hideAllFields}
+            className={classes.button}>
+            <FormattedMessage {...msgs.hideAll} />
+          </Button>
+        </div>
+        <List dense>
+          {fieldState.map(f => (
+            <ListItem key={f.fieldkey} className={classes.listItem}>
+              <ListItemText className={classes.fieldname} primary={f.label} />
+              <ListItemSecondaryAction>
+                <Switch
+                  onClick={() => toggleFieldVisibility(f.fieldkey)}
+                  checked={!f.hidden}
                 />
-                <ListItemSecondaryAction>
-                  <Switch
-                    onClick={() => toggleFieldVisibility(fieldkey)}
-                    checked={fieldState[fieldkey] === 'visible'}
-                  />
-                </ListItemSecondaryAction>
-              </ListItem>
-            ))}
-          </List>
-        </Popover>
-      </React.Fragment>
-    )
-  }
+              </ListItemSecondaryAction>
+            </ListItem>
+          ))}
+        </List>
+      </Popover>
+    </React.Fragment>
+  )
 }
 
-export default withStyles(styles)(HideFieldsButton)
+export default HideFieldsButton
