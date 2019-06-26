@@ -1,5 +1,4 @@
 // @flow
-import urlRegex from 'url-regex'
 import { flatten } from '../../utils/flat'
 import * as valueTypes from '../../constants/value_types'
 import {
@@ -46,7 +45,7 @@ const mediaTypes = [
  * editing the properties of the object.
  */
 export function getFields(
-  cur: JSONObject = {},
+  cur?: JSONObject = {},
   stats?: Statistics
 ): Array<Field> {
   const flattened = flatten(cur, { delimiter: '\uffff' })
@@ -56,15 +55,8 @@ export function getFields(
   return keys.sort().reduce((acc, key) => {
     const value = flattened[key]
     const fieldStats = stats && stats[key]
-    if (isArrayWithLinks(value)) {
-      value.forEach((v, i) => {
-        const field = getField(key + '\uffff' + i, v, fieldStats)
-        if (field) acc.push(field)
-      })
-    } else {
-      const field = getField(key, value, fieldStats)
-      if (field) acc.push(field)
-    }
+    const field = getField(key, value, fieldStats)
+    if (field) acc.push(field)
     return acc
   }, [])
 }
@@ -294,13 +286,4 @@ function createDateTimeField(
       return set(obj, keyArray, dateString)
     }
   }
-}
-
-function isArrayWithLinks(value) {
-  return (
-    Array.isArray(value) &&
-    value.some(
-      v => typeof v === 'string' && urlRegex({ exact: true }).test(value)
-    )
-  )
 }

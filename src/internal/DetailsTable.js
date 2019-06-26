@@ -23,7 +23,7 @@ import { LINK } from '../constants/field_types'
 
 // import * as FIELD_TYPES from '../constants/field_types'
 
-import type { Field } from '../types'
+import type { Field, JSONObject } from '../types'
 import type { FormattedValueProps } from './FormattedValue'
 
 const styles = {
@@ -189,45 +189,56 @@ const Value = (props: FormattedValueProps) => {
 }
 
 type Props = {|
-  editing?: boolean,
-  tags?: Object,
+  tags?: JSONObject,
+  editMode?: boolean,
   fields?: Array<Field>,
-  onChange?: (updateTags: {}) => any
+  onChange?: (newTags: {}) => any,
+  width?: number
 |}
 
-const DetailsTable = ({ fields = [], tags = {} }: Props) => {
+const DetailsTable = ({ fields = [], tags = {}, width }: Props) => {
   const classes = useStyles()
+
+  function renderTable(width) {
+    return (
+      <Table className={classes.root} style={{ width: width }}>
+        <TableBody>
+          {fields
+            .map((field, i) => {
+              const value = field.get(tags)
+              if (isEmptyValue(value)) return null
+              return (
+                <TableRow
+                  key={i}
+                  className={classes.row}
+                  style={{ zIndex: fields.length - i }}>
+                  <Label
+                    fieldkey={field.key}
+                    style={{ maxWidth: width / 3 - 36 }}
+                  />
+                  {/* $FlowFixMe */}
+                  <Value
+                    value={value}
+                    fieldType={field.type}
+                    fieldkey={field.key}
+                  />
+                </TableRow>
+              )
+            })
+            .filter(Boolean)}
+        </TableBody>
+      </Table>
+    )
+  }
+
+  if (typeof width === 'number') return renderTable(width)
+  console.log('render autosize')
   return (
     <AutoSizer disableHeight>
-      {({ width }) => (
-        <Table className={classes.root} style={{ width: width }}>
-          <TableBody>
-            {fields
-              .map((field, i) => {
-                const value = field.get(tags)
-                if (isEmptyValue(value)) return null
-                return (
-                  <TableRow
-                    key={i}
-                    className={classes.row}
-                    style={{ zIndex: fields.length - i }}>
-                    <Label
-                      fieldkey={field.key}
-                      style={{ maxWidth: width / 3 - 36 }}
-                    />
-                    {/* $FlowFixMe */}
-                    <Value
-                      value={value}
-                      fieldType={field.type}
-                      fieldkey={field.key}
-                    />
-                  </TableRow>
-                )
-              })
-              .filter(Boolean)}
-          </TableBody>
-        </Table>
-      )}
+      {({ width }) => {
+        console.log('width', width)
+        return renderTable(width)
+      }}
     </AutoSizer>
   )
 }

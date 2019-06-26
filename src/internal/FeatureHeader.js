@@ -31,7 +31,7 @@ type Props = {
   iconColor?: string,
   name: React.Node,
   coords?: Coordinates,
-  createdAt: Date,
+  createdAt?: Date,
   onClose?: () => any
 }
 
@@ -44,6 +44,21 @@ const FeatureHeader = ({
   onClose
 }: Props) => {
   const classes = useStyles()
+  const subheaderParts = []
+  if (createdAt)
+    subheaderParts.push(
+      <FormattedTime
+        value={createdAt}
+        year="numeric"
+        month="long"
+        day="2-digit"
+      />
+    )
+  if (coords) {
+    if (subheaderParts.length) subheaderParts.push(' \u2014 ')
+    subheaderParts.push(<FormattedLocation {...coords} />)
+  }
+
   return (
     <CardHeader
       classes={{ action: classes.action }}
@@ -67,22 +82,7 @@ const FeatureHeader = ({
           {name}
         </Typography>
       }
-      subheader={
-        <>
-          <FormattedTime
-            value={createdAt}
-            year="numeric"
-            month="long"
-            day="2-digit"
-          />
-          {coords && (
-            <>
-              {' \u2014 '}
-              <FormattedLocation {...coords} />
-            </>
-          )}
-        </>
-      }
+      subheader={subheaderParts}
     />
   )
 }

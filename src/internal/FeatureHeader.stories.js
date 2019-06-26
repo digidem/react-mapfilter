@@ -30,6 +30,11 @@ storiesOf('internal/FeatureHeader', module)
       />
     </Wrapper>
   ))
+  .add('no location or date', () => (
+    <Wrapper>
+      <FeatureHeader name="Observation" onClose={action('close')} />
+    </Wrapper>
+  ))
   .add('label', () => (
     <Wrapper>
       <FeatureHeader

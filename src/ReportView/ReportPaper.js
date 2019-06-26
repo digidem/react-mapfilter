@@ -2,7 +2,6 @@
 import * as React from 'react'
 import Paper from '@material-ui/core/Paper'
 import { makeStyles } from '../utils/styles'
-import memoize from 'memoize-one'
 import insertCss from 'insert-css'
 
 const useStyles = makeStyles({
@@ -15,12 +14,13 @@ const useStyles = makeStyles({
     },
     '&:last-child': {
       pageBreakAfter: 'avoid !important'
-    }
+    },
+    boxSizing: 'border-box'
   },
   reportPaper: {
     position: 'relative',
     overflow: 'hidden',
-    backgroundColor: 'rgb(245,245,245)',
+    // backgroundColor: 'rgb(245,245,245)',
     '@media only print': {
       boxShadow: 'none !important',
       borderRadius: '0 !important',
@@ -34,7 +34,7 @@ const useStyles = makeStyles({
       // Hides the page-break <hr> if it appears within the bottom-margin
       content: "''",
       position: 'absolute',
-      backgroundColor: 'rgb(245,245,245)',
+      backgroundColor: 'rgb(255,255,255)',
       width: '100%',
       height: '0.5in',
       bottom: 0
@@ -77,10 +77,7 @@ const useStyles = makeStyles({
     '&$reportPageContents': {
       minHeight: '10in',
       '@media only print': {
-        minHeight: 'auto',
-        '&.fixed-height': {
-          height: 'calc(10in - 2px)'
-        }
+        minHeight: 'auto'
       }
     }
   },
@@ -101,10 +98,7 @@ const useStyles = makeStyles({
     '&$reportPageContents': {
       minHeight: 'calc(297mm - 1in)',
       '@media only print': {
-        minHeight: 'auto',
-        '&.fixed-height': {
-          height: 'calc(297mm - 1in - 2px)'
-        }
+        minHeight: 'auto'
       }
     }
   },
@@ -118,13 +112,6 @@ const useStyles = makeStyles({
   }
 })
 
-// This is global to the app - we add this once for every time the paper size
-// changes, but only once. CSS header will grow, but should be ok unless the
-// user changes paper size hundreds of times without reloading the appp
-const addPageCss = memoize(paperSize => {
-  insertCss(`@page {margin: 0.5in; size: ${paperSize};}`)
-})
-
 type Props = {
   // Called when page is clicked
   onClick?: (event: SyntheticMouseEvent<HTMLElement>) => void,
@@ -135,7 +122,12 @@ type Props = {
 
 const ReportPaper = ({ onClick, paperSize, children, style }: Props) => {
   const classes = useStyles()
-  addPageCss(paperSize)
+  // This is global to the app - we add this once for every time the paper size
+  // changes, but only once. CSS header will grow, but should be ok unless the
+  // user changes paper size hundreds of times without reloading the appp
+  React.useMemo(() => insertCss(`@page {margin: 0.5in; size: ${paperSize};}`), [
+    paperSize
+  ])
   return (
     <div className={classes.root} style={style}>
       <Paper

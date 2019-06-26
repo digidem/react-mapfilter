@@ -2,7 +2,6 @@
 import isodate from '@segment/isodate'
 import sexagesimal from '@mapbox/sexagesimal'
 import url from 'url'
-import urlRegex from 'url-regex'
 import path from 'path'
 
 import * as valueTypes from '../../constants/value_types'
@@ -189,5 +188,5 @@ function withinBounds(lon: number, lat: number) {
 }
 
 function isUrl(url: string): boolean {
-  return urlRegex({ exact: true }).test(url)
+  return url.startsWith('https://') || url.startsWith('http://')
 }

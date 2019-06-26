@@ -1,32 +1,25 @@
 // @flow
 import React from 'react'
-import { withStyles } from '@material-ui/core/styles'
-import insertCss from 'insert-css'
-import memoizeOne from 'memoize-one'
+import { makeStyles } from '@material-ui/styles'
 import {
   AutoSizer,
   List,
   CellMeasurer,
   CellMeasurerCache
 } from 'react-virtualized'
+import type { Observation } from 'mapeo-schema'
 
 // import ReportFeature from './ReportFeature'
-import ReportPage from './ReportPage'
-import HideFieldsButton from './HideFieldsButton'
-import PrintButton from './PrintButton'
-import Toolbar from '../internal/Toolbar'
-import MediaCarousel from '../internal/MediaCarousel'
-import DetailsTable from '../internal/DetailsTable'
-import createAction from '../utils/create_action'
-import { flattenFeature, filterFeatures } from '../utils/features'
+import ReportPageContent from './ReportPageContent'
+import ReportPaper from './ReportPaper'
 import { cm, inch } from '../utils/dom'
+import { getFields as defaultGetFieldsFromTags } from '../lib/data_analysis'
 
-import type { PointFeature, Filter, FieldState, PaperSize } from '../types'
+import type { Field, PaperSize } from '../types'
 
-const isDev = process.env.NODE_ENV !== 'production'
-const BORDER_SIZE = 0.5 * inch()
+// const BORDER_SIZE = 0.5 * inch()
 
-const styles = {
+const useStyles = makeStyles({
   root: {
     width: '100%',
     height: '100%',
@@ -67,22 +60,6 @@ const styles = {
       position: 'static'
     }
   },
-  placeholder: {
-    position: 'relative',
-    height: '100mm',
-    width: '100%',
-    border: '1px dotted blue',
-    boxSizing: 'border-box',
-    backgroundColor: 'beige'
-  },
-  placeholderMap: {
-    width: '100%',
-    border: '1px dotted blue',
-    boxSizing: 'border-box',
-    backgroundColor: 'aqua',
-    height: '100%',
-    position: 'absolute'
-  },
   '@global': {
     '@media only print': {
       tr: {
@@ -93,222 +70,123 @@ const styles = {
       }
     }
   }
-}
+})
 
-const TABLE_WIDTHS = {
-  a4: 21 * cm() - 2 * BORDER_SIZE,
-  letter: 8.5 * inch() - 2 * BORDER_SIZE
-}
+// const TABLE_WIDTHS = {
+//   a4: 21 * cm() - 2 * BORDER_SIZE,
+//   letter: 8.5 * inch() - 2 * BORDER_SIZE
+// }
 
-const VIEW_ID = 'report'
-// const LABEL_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+// const LABEL_CHARS =
+// 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+
+function defaultGetFields(obs: Observation) {
+  return defaultGetFieldsFromTags(obs.tags)
+}
 
 type Props = {
-  features: Array<PointFeature>,
-  filter: Filter,
-  renderTest: boolean,
-  onClickFeature: (feature: PointFeature) => void,
-  classes: { [className: $Keys<typeof styles>]: string }
+  /** Array of observations to render */
+  observations: Array<Observation>,
+  /** Called with id of observation clicked */
+  onClick?: (id: string) => void,
+  /** Get an array of fields to render for an observation - defaults to
+   * automatically determining fields */
+  getFields?: (observation: Observation) => Array<Field>,
+  /** Get the name of an observation (rendered as the page title). defaults to
+   * 'Observation' */
+  getName?: (observation: Observation) => string,
+  /** If you want an image to appear for each observation, pass a function that
+   * returns a URL for the image to display. */
+  getImageSrc?: (observation: Observation) => string | void,
+  /** Paper size for report */
+  paperSize?: PaperSize,
+  /** Render for printing (for screen display only visible observations are
+   * rendered, for performance reasons) */
+  print?: boolean
 }
 
-type State = {
-  hiddenFields: Array<string>,
-  paperSize: PaperSize,
-  print: boolean
-}
+const ReportView = ({
+  observations,
+  onClick = () => {},
+  getFields = defaultGetFields,
+  getName = () => 'Observation',
+  getImageSrc = () => {},
+  paperSize = 'a4',
+  print = false
+}: Props) => {
+  const classes = useStyles()
 
-export const showAllFields = createAction(
-  (state: State, props: Props): $Shape<State> => ({ hiddenFields: [] })
-)
-
-export const hideAllFields = (allFieldkeys: Array<string>) =>
-  createAction((state: State, props: Props): $Shape<State> => ({
-    hiddenFields: allFieldkeys
-  }))
-
-export const toggleFieldVisibility = (fieldkey: string) =>
-  createAction((state: State, props: Props): $Shape<State> => {
-    // NB: Must not mutate hiddenFields or memoize functions will not work
-    const { hiddenFields } = state
-    const idx = hiddenFields.indexOf(fieldkey)
-    if (idx > -1) {
-      return {
-        hiddenFields: hiddenFields
-          .slice(0, idx)
-          .concat(hiddenFields.slice(idx + 1))
-      }
-    } else {
-      return { hiddenFields: hiddenFields.concat([fieldkey]) }
-    }
-  })
-
-export const requestPrint = createAction(
-  (state: State, props: Props): $Shape<State> => ({ print: true })
-)
-
-const getAllFieldkeys = (features: Array<PointFeature>): Array<string> => {
-  const fields = {}
-  features.map(flattenFeature).forEach(f => {
-    Object.keys(f.properties || {}).forEach(key => (fields[key] = true))
-  })
-  return Object.keys(fields)
-}
-
-// A memoized function that returns an object with the union of all field keys
-// accross all features, with whether fields are hidden or visible
-export const getFieldState: (
-  fieldkeys: Array<string>,
-  hiddenFields: Array<string>
-) => FieldState = (fieldkeys, hiddenFields) => {
-  const fieldState = {}
-  fieldkeys.forEach(
-    key => (fieldState[key] = hiddenFields.includes(key) ? 'hidden' : 'visible')
+  const cacheRef = React.useRef(
+    new CellMeasurerCache({
+      fixedWidth: true,
+      minHeight: 200
+    })
   )
-  return fieldState
-}
+  const cache = cacheRef.current
 
-class ReportView extends React.Component<Props, State> {
-  static id = VIEW_ID
+  console.log(cache)
 
-  static defaultProps = {
-    features: [],
-    filter: [],
-    onClickFeature: () => {},
-    renderTest: false
-  }
-
-  getAllFieldkeys = memoizeOne(getAllFieldkeys)
-
-  getFieldState = memoizeOne(getFieldState)
-
-  getMedia = memoizeOne(getMedia)
-
-  filterFeatures = memoizeOne(filterFeatures)
-
-  cache = new CellMeasurerCache({
-    fixedWidth: true,
-    minHeight: 11 * 72
-  })
-
-  state = {
-    hiddenFields: [],
-    paperSize: 'a4',
-    print: false
-  }
-
-  handleShowAll = () => this.setState(showAllFields)
-
-  handleHideAll = () =>
-    this.setState(hideAllFields(this.getAllFieldkeys(this.props.features)))
-
-  handleRequestPrint = () => this.setState(requestPrint)
-
-  handleChangePaperSize = (paperSize: PaperSize) => this.setState({ paperSize })
-
-  handleToggleFieldVisibility = fieldkey =>
-    this.setState(toggleFieldVisibility(fieldkey))
-
-  componentDidMount() {
-    const { paperSize } = this.state
-    insertCss(`@page {margin: 0.5in; size: ${paperSize};}`)
-  }
-
-  componentDidUpdate(_, prevState) {
-    const { paperSize, print } = this.state
-    if (prevState.paperSize !== paperSize) {
-      // TODO: This will continue to grow the CSS, but probably fine.
-      insertCss(`@page {margin: 0.5in; size: ${paperSize};}`)
-    }
-    if (print) {
-      window.print()
-      // this.setState({ print: false })
-    }
-  }
-
-  renderPage = ({ index, key, style, parent }) => (
-    <CellMeasurer
-      cache={this.cache}
-      columnIndex={0}
-      key={key}
-      parent={parent}
-      rowIndex={index}>
-      {index === 0
-        ? this.renderMapPage({ index, key, style })
-        : this.renderFeaturePage({ index: index - 1, key, style })}
-    </CellMeasurer>
-  )
-
-  renderMapPage({ key, style }: { key?: string, style?: Object } = {}) {
-    const { classes, renderTest } = this.props
-    // const filteredFeatures = this.filterFeatures(features, filter)
-    const { paperSize } = this.state
-    style = { ...style, width: 'auto' }
-
-    // For dev and testing we render placeholders, removed in production
-    if (true || (renderTest && isDev)) {
-      return (
-        <ReportPage key={key} style={style} fixedHeight paperSize={paperSize}>
-          <div className={classes.placeholderMap} />
-        </ReportPage>
-      )
-    }
-
-    return null
-  }
-
-  renderFeaturePage({
-    index,
-    key,
-    style
-  }: {
-    index: number,
-    key?: string,
-    style?: Object
-  }) {
-    const { classes, features, filter, onClickFeature, renderTest } = this.props
-    const filteredFeatures = this.filterFeatures(features, filter)
-    const feature = filteredFeatures[index]
-    const { paperSize } = this.state
-    style = { ...style, width: 'auto' }
-    // For dev and testing we render placeholders, removed in production
-    if (renderTest && isDev) {
-      return (
-        <ReportPage
-          key={key}
-          style={style}
-          onClick={() => onClickFeature(feature)}
-          paperSize={paperSize}>
-          <div
-            style={
-              // $FlowFixMe
-              { height: (feature.height || 200) + 'mm' }
-            }
-            className={classes.placeholder}
-          />
-        </ReportPage>
-      )
-    }
-
+  function renderPage({ index, key, style, parent }) {
+    console.log(style)
     return (
-      <ReportPage
+      <CellMeasurer
+        cache={cache}
+        columnIndex={0}
         key={key}
-        style={style}
-        onClick={() => onClickFeature(feature)}
-        paperSize={paperSize}>
-        <MediaCarousel media={getMedia(feature)} />
-        <DetailsTable
-          feature={feature}
-          hiddenFields={this.state.hiddenFields}
-          width={TABLE_WIDTHS[paperSize]}
-        />
-      </ReportPage>
+        parent={parent}
+        rowIndex={index}>
+        <div style={style}>
+          {index === 0
+            ? renderMapPage({ index, key })
+            : renderFeaturePage({ index: index - 1, key })}
+        </div>
+      </CellMeasurer>
     )
   }
 
-  renderVirtualList() {
-    const { classes, features, filter } = this.props
-    const filteredFeatures = this.filterFeatures(features, filter)
-    const { paperSize } = this.state
+  function renderMapPage({ key }: { key?: string } = {}) {
+    return (
+      <ReportPaper key={key} paperSize={paperSize}>
+        <div />
+      </ReportPaper>
+    )
+  }
+
+  function renderFeaturePage({ index, key }: { index: number, key?: string }) {
+    const observation = observations[index]
+    const coords =
+      typeof observation.lon === 'number' && typeof observation.lat === 'number'
+        ? {
+            longitude: observation.lon,
+            latitude: observation.lat
+          }
+        : undefined
+    const createdAt =
+      typeof observation.created_at === 'string'
+        ? new Date(observation.created_at)
+        : undefined
+    const fields = getFields(observation)
+    const name = getName(observation)
+    console.log('render', createdAt)
+    return (
+      <ReportPaper
+        key={key}
+        paperSize={paperSize}
+        onClick={() => onClick(observation.id)}>
+        <ReportPageContent
+          name={name}
+          createdAt={createdAt}
+          coords={coords}
+          fields={fields}
+          imageSrc={getImageSrc(observation)}
+          tags={observation.tags}
+          paperSize={paperSize}
+        />
+      </ReportPaper>
+    )
+  }
+
+  function renderVirtualList() {
     return (
       <AutoSizer>
         {({ height, width }) => (
@@ -317,61 +195,38 @@ class ReportView extends React.Component<Props, State> {
             containerStyle={{ overflowX: 'scroll' }}
             height={height}
             width={width}
-            rowCount={filteredFeatures.length + 1 /* for additional map page */}
-            rowRenderer={this.renderPage}
-            deferredMeasurementCache={this.cache}
-            rowHeight={this.cache.rowHeight}
-            overscanRowCount={1}
-            estimatedRowSize={11 * 72}
+            rowCount={observations.length + 1 /* for additional map page */}
+            rowRenderer={renderPage}
+            deferredMeasurementCache={cache}
+            rowHeight={cache.rowHeight}
+            overscanRowCount={3}
+            estimatedRowSize={
+              200 /* paperSize === 'a4' ? 29.7 * cm() : 11 * inch()} */
+            }
           />
         )}
       </AutoSizer>
     )
   }
 
-  renderPrintList() {
-    const { features, filter } = this.props
-    const filteredFeatures = this.filterFeatures(features, filter)
+  function renderPrintList() {
     return (
       <React.Fragment>
-        {this.renderMapPage()}
-        {filteredFeatures.map((feature, index) =>
-          this.renderFeaturePage({ index, key: index + '' })
+        {renderMapPage()}
+        {observations.map((_, index) =>
+          renderFeaturePage({ index, key: index + '' })
         )}
       </React.Fragment>
     )
   }
 
-  render() {
-    const { classes, features } = this.props
-    const { paperSize, print, hiddenFields } = this.state
-    const fieldState = this.getFieldState(
-      this.getAllFieldkeys(features),
-      hiddenFields
-    )
-    return (
-      <div className={classes.root}>
-        <Toolbar>
-          {!!Object.keys(fieldState).length && (
-            <HideFieldsButton
-              fieldState={fieldState}
-              toggleFieldVisibility={this.handleToggleFieldVisibility}
-              showAllFields={this.handleShowAll}
-              hideAllFields={this.handleHideAll}
-            />
-          )}
-          <PrintButton
-            requestPrint={this.handleRequestPrint}
-            changePaperSize={this.handleChangePaperSize}
-            paperSize={paperSize}
-          />
-        </Toolbar>
-        <div className={classes.scrollWrapper}>
-          {print ? this.renderPrintList() : this.renderVirtualList()}
-        </div>
+  return (
+    <div className={classes.root}>
+      <div className={classes.scrollWrapper}>
+        {print ? renderPrintList() : renderVirtualList()}
       </div>
-    )
-  }
+    </div>
+  )
 }
 
-export default withStyles(styles)(ReportView)
+export default ReportView
