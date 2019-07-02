@@ -1,11 +1,8 @@
 // @flow
-import { flatten } from '../../utils/flat'
 import * as valueTypes from '../../constants/value_types'
-import {
-  guessValueType,
-  coerceValue as throwableCoerceValue
-} from './value_types'
-import { get, set } from '../../utils/dot_prop'
+import { guessValueType } from './value_types'
+import { flatObjectEntries } from '../../utils/flat_object_entries'
+import { get } from '../../utils/get_set'
 
 import type {
   JSONObject,
@@ -20,15 +17,8 @@ import type {
   DateTimeField,
   SelectOptions,
   SelectOneField,
-  SelectMultipleField,
-  SelectableFieldValue
+  SelectMultipleField
 } from '../../types'
-
-function coerceValue(...args) {
-  try {
-    return throwableCoerceValue.apply(null, args)
-  } catch (e) {}
-}
 
 export { default as createMemoizedStats } from './statistics'
 
@@ -37,6 +27,10 @@ const mediaTypes = [
   valueTypes.AUDIO_URL,
   valueTypes.IMAGE_URL
 ]
+
+function compareKeys(a, b) {
+  return JSON.stringify(a[0]).localeCompare(JSON.stringify(b[0]))
+}
 
 /**
  * Takes a JSON object and optional array of JSON objects and returns an array
@@ -48,23 +42,19 @@ export function getFields(
   cur?: JSONObject = {},
   stats?: Statistics
 ): Array<Field> {
-  const flattened = flatten(cur, { delimiter: '\uffff' })
-  const keys: Array<string> = stats
-    ? Object.keys(stats)
-    : Object.keys(flattened)
-  return keys.sort().reduce((acc, key) => {
-    const value = flattened[key]
+  const entries = stats ? flatStatsEntries(stats) : flatObjectEntries(cur)
+  return entries.sort(compareKeys).reduce((acc, [keyArray]) => {
+    const key = JSON.stringify(keyArray)
+    const value = get(cur, keyArray)
     const fieldStats = stats && stats[key]
-    const field = getField(key, value, fieldStats)
+    const field = getField(keyArray, value, fieldStats)
     if (field) acc.push(field)
     return acc
   }, [])
 }
 
 export function getMedia(cur: JSONObject = {}): MediaArray {
-  const flattened = flatten(cur, { delimiter: '\uffff' })
-  return Object.keys(flattened).reduce((acc, key) => {
-    const value = flattened[key]
+  return flatObjectEntries(cur).reduce((acc, [keyArray, value]) => {
     const type = guessValueType(value)
     if (mediaTypes.includes(type)) {
       // $FlowFixMe flow does not understand type is only media type here
@@ -75,7 +65,7 @@ export function getMedia(cur: JSONObject = {}): MediaArray {
 }
 
 export function getField(
-  key: string,
+  keyArray: Array<string | number>,
   value: any,
   fieldStats?: FieldStatistic
 ): Field | void {
@@ -83,26 +73,26 @@ export function getField(
   // Initial implementation does not try to guess from statistics
   switch (valueType) {
     case valueTypes.BOOLEAN:
-      return createSelectOneField(key, [true, false])
+      return createSelectOneField(keyArray, [true, false])
     case valueTypes.STRING:
       const options = getOptions(fieldStats)
-      if (options.length) return createSelectOneField(key, options)
-      else return createTextField(key)
+      if (options.length) return createSelectOneField(keyArray, options)
+      else return createTextField(keyArray)
     case valueTypes.NUMBER:
-      return createNumberField(key)
+      return createNumberField(keyArray)
     case valueTypes.ARRAY:
-      return createSelectMultipleField(key, value, { readonly: true })
+      return createSelectMultipleField(keyArray, value, { readonly: true })
     case valueTypes.DATE:
-      return createDateField(key)
+      return createDateField(keyArray)
     case valueTypes.DATETIME:
-      return createDateTimeField(key)
+      return createDateTimeField(keyArray)
     case valueTypes.URL:
     case valueTypes.IMAGE_URL:
     case valueTypes.AUDIO_URL:
     case valueTypes.VIDEO_URL:
-      return createLinkField(key)
+      return createLinkField(keyArray)
     default:
-      return createTextField(key, { readonly: true })
+      return createTextField(keyArray, { readonly: true })
   }
 }
 
@@ -122,7 +112,7 @@ function getOptions(fieldStats?: FieldStatistic): SelectOptions {
 }
 
 function createTextField(
-  key: string,
+  keyArray: Array<string | number>,
   {
     readonly = false,
     appearance = 'single',
@@ -133,106 +123,72 @@ function createTextField(
     snakeCase?: boolean
   } = {}
 ): TextField {
-  const keyArray = key.split('\uffff')
   return {
-    id: key,
-    key: key,
+    id: JSON.stringify([...arguments]),
+    key: keyArray,
     readonly: readonly,
     appearance: appearance,
-    type: 'text',
-    get: (obj: {}) => {
-      const val = get(obj, keyArray)
-      return coerceValue(val, valueTypes.STRING)
-    },
-    set: (obj: {}, value: string) => {
-      if (snakeCase) value = value.replace(' ', '_').toLowerCase()
-      return set(obj, keyArray, value)
-    }
+    type: 'text'
   }
 }
 
-function createLinkField(key: string): LinkField {
-  const keyArray = key.split('\uffff')
+function createLinkField(keyArray: Array<string | number>): LinkField {
   return {
-    id: key,
-    key: key,
+    id: JSON.stringify([...arguments]),
+    key: keyArray,
     readonly: true,
-    type: 'link',
-    get: (obj: {}) => coerceValue(get(obj, keyArray), valueTypes.STRING),
-    set: (obj: {}, value: string) => set(obj, keyArray, value)
+    type: 'link'
   }
 }
 
 function createNumberField(
-  key: string,
+  keyArray: Array<string | number>,
   { readonly = false }: { readonly?: boolean } = {}
 ): NumberField {
-  const keyArray = key.split('\uffff')
   return {
-    id: key,
-    key: key,
-    label: key,
+    id: JSON.stringify([...arguments]),
+    key: keyArray,
     readonly: readonly,
-    type: 'number',
-    get: (obj: {}) => coerceValue(get(obj, keyArray), valueTypes.NUMBER),
-    set: (obj: {}, value: number) => set(obj, keyArray, value)
+    type: 'number'
   }
 }
 
 function createSelectOneField(
-  key: string,
+  keyArray: Array<string | number>,
   options: SelectOptions,
   {
     readonly = false,
     snakeCase = false
   }: { readonly?: boolean, snakeCase?: boolean } = {}
 ): SelectOneField {
-  const keyArray = key.split('\uffff')
   return {
-    id: key,
-    key: key,
-    label: key,
+    id: JSON.stringify([...arguments]),
+    key: keyArray,
     readonly: readonly,
     type: 'select_one',
-    options: options,
-    get: (obj: {}) => get(obj, keyArray),
-    set: (obj: {}, value: SelectableFieldValue) => {
-      if (snakeCase && typeof value === 'string')
-        value = value.replace(' ', '_').toLowerCase()
-      return set(obj, keyArray, value)
-    }
+    options: options
   }
 }
 
 function createSelectMultipleField(
-  key: string,
+  keyArray: Array<string | number>,
   options: SelectOptions,
   {
     readonly = false,
     snakeCase = false
   }: { readonly?: boolean, snakeCase?: boolean } = {}
 ): SelectMultipleField {
-  const keyArray = key.split('\uffff')
   return {
-    id: key,
-    key: key,
-    label: key,
+    id: JSON.stringify([...arguments]),
+    key: keyArray,
     readonly: readonly,
     type: 'select_multiple',
-    options: options,
-    get: (obj: {}) => coerceValue(get(obj, keyArray), valueTypes.ARRAY),
-    set: (obj: {}, value: Array<SelectableFieldValue>) => {
-      if (snakeCase)
-        value.map(item =>
-          typeof item === 'string' ? item.replace(' ', '_').toLowerCase() : item
-        )
-      return set(obj, keyArray, value)
-    }
+    options: options
   }
 }
 
 function createDateField(
-  key: string,
+  keyArray: Array<string | number>,
   {
     readonly = false,
     min,
@@ -244,24 +200,16 @@ function createDateField(
     max?: number
   } = {}
 ): DateField {
-  const keyArray = key.split('\uffff')
   return {
-    id: key,
-    key: key,
-    label: key,
+    id: JSON.stringify([...arguments]),
+    key: keyArray,
     readonly: readonly,
-    type: 'date',
-    get: (obj: {}) => coerceValue(get(obj, keyArray), valueTypes.DATE),
-    set: (obj: {}, value: Date) => {
-      const dateString =
-        value.getFullYear() + '-' + value.getMonth() + '-' + value.getDate()
-      return set(obj, keyArray, dateString)
-    }
+    type: 'date'
   }
 }
 
 function createDateTimeField(
-  key: string,
+  keyArray: Array<string | number>,
   {
     readonly = false,
     min,
@@ -273,17 +221,17 @@ function createDateTimeField(
     max?: number
   } = {}
 ): DateTimeField {
-  const keyArray = key.split('\uffff')
   return {
-    id: key,
-    key: key,
-    label: key,
+    id: JSON.stringify([...arguments]),
+    key: keyArray,
     readonly: readonly,
-    type: 'datetime',
-    get: (obj: {}) => coerceValue(get(obj, keyArray), valueTypes.DATETIME),
-    set: (obj: {}, value: Date) => {
-      const dateString = value.toISOString()
-      return set(obj, keyArray, dateString)
-    }
+    type: 'datetime'
   }
+}
+
+function flatStatsEntries(
+  stats: Statistics
+): Array<[Array<string | number>, FieldStatistic]> {
+  // $FlowFixMe
+  return Object.entries(stats).map(([key, value]) => [JSON.parse(key), value])
 }

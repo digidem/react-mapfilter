@@ -124,10 +124,7 @@ const ReportView = ({
   )
   const cache = cacheRef.current
 
-  console.log(cache)
-
   function renderPage({ index, key, style, parent }) {
-    console.log(style)
     return (
       <CellMeasurer
         cache={cache}
@@ -167,7 +164,6 @@ const ReportView = ({
         : undefined
     const fields = getFields(observation)
     const name = getName(observation)
-    console.log('render', createdAt)
     return (
       <ReportPaper
         key={key}

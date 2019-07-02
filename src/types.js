@@ -156,21 +156,23 @@ export type Coordinates = {
   accuracy?: number
 }
 
+export type Key = string | Array<string | number>
+
 type BaseField = {|
+  // A unique id used to reference the field from presets
   id: string,
-  key: string,
+  // They key in a tags object that this field applies to. For nested
+  // properties, key can be an array e.g. for tags = { foo: { bar: 1 } } the key
+  // is ['foo', 'bar']
+  key: Key,
   label?: string,
-  get: (obj: {}) => any,
-  set: (obj: {}, value: any) => {},
   // Displayed as a placeholder or hint for the field: use for additional
   // context or example responses for the user
   placeholder?: string,
   // If a field definition contains the property "universal": true, this field will appear in the "Add Field" list for all presets
   universal?: boolean,
   // Displayed, but cannot be edited
-  readonly?: boolean,
-  // Spaces are replaced with underscores
-  snake_case?: boolean
+  readonly?: boolean
 |}
 
 // type FieldType =
@@ -184,7 +186,9 @@ type BaseField = {|
 export type TextField = {|
   ...$Exact<BaseField>,
   type: 'text',
-  appearance?: 'single' | 'multiline'
+  appearance?: 'single' | 'multiline',
+  // Spaces are replaced with underscores
+  snake_case?: boolean
 |}
 
 export type LinkField = {|
@@ -211,7 +215,9 @@ export type SelectOneField = {|
   options: SelectOptions,
   // User can enter their own reponse if not on the list (defaults to true on
   // desktop, false on mobile)
-  other?: boolean
+  other?: boolean,
+  // Spaces are replaced with underscores
+  snake_case?: boolean
 |}
 
 export type SelectMultipleField = {|

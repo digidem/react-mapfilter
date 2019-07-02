@@ -3,6 +3,7 @@ import * as React from 'react'
 
 import { FieldnameTranslationContext } from './Context'
 import { translateOrPretty } from '../utils/strings'
+import type { Field } from '../types'
 
 const styles = {
   groupText: {
@@ -12,9 +13,7 @@ const styles = {
 }
 
 type Props = {
-  /* The field name, including a dot-delimited group, e.g. a field { foo: { bar:
-  { qux: 'value' }}} would have a fieldkey `foo.bar.qux` */
-  fieldkey: string,
+  field: Field,
   /* Optionally if you pass a function children, it will be called with the
   translated string as a React.Node */
   children?: (translatedMessage: React.Node) => React.Node
@@ -23,7 +22,9 @@ type Props = {
 /** Takes a field key and either looks up a translation from Context or attempts
  * to pretty-print the fieldname by replacing `_` with spaces and transforming
  * to Title Case */
-const FormattedFieldname = ({ fieldkey, children }: Props) => {
+const FormattedFieldname = ({ field, children }: Props) => {
+  if (field.label) return field.label
+  const fieldkey = field.key
   if (!fieldkey) return null
   const translations = React.useContext(FieldnameTranslationContext)
   let element

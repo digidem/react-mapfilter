@@ -1,9 +1,8 @@
 // @flow
 import cloneDeep from 'clone-deep'
 import isodate from '@segment/isodate'
-import isObject from 'isobject'
 
-import { flatten } from '../../utils/flat'
+import { flatObjectEntries } from '../../utils/flat_object_entries'
 import { guessValueType } from './value_types'
 import * as valueTypes from '../../constants/value_types'
 
@@ -70,12 +69,10 @@ export default function createMemoizedStats() {
 }
 
 function addItemStats(item: JSONObject = {}, stats: Statistics) {
-  const flattened = flatten(item, { delimiter: '\uffff' })
-  Object.keys(flattened).forEach(function(key) {
-    // flattened item can include empty objects, which we just ignore
-    if (isObject(flattened[key])) return
+  flatObjectEntries(item).forEach(function([path, value]) {
+    const key = JSON.stringify(path)
     if (!stats[key]) stats[key] = defaultStats()
-    addFieldStats(flattened[key], stats[key])
+    addFieldStats(value, stats[key])
   })
 }
 

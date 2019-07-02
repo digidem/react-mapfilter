@@ -155,21 +155,23 @@ const MediaItem = ({
   </div>
 )
 
-type MediaItemType = {| src: string, type: 'image' |}
+type MediaItemType = {| url: string, type?: 'image' |}
 
 const MediaCarousel = ({
   media,
-  style
+  style,
+  className
 }: {
   /** An array of objects with props `src`: url of media iteam and `type`: type
    * of media item (currently only supports `image`) */
   media: Array<MediaItemType>,
-  style?: {}
+  style?: {},
+  className?: string
 }) => {
   const [index, setIndex] = useState(0)
   const cx = useStyles()
   return (
-    <div style={style} className={cx.container}>
+    <div style={style} className={clsx(cx.container, className)}>
       <AutoSizer style={{ width: '100%', height: '100%' }}>
         {({ width, height }) => (
           <SwipeableViews
@@ -179,8 +181,8 @@ const MediaCarousel = ({
             {media.map((m, i) => (
               <MediaItem
                 key={i}
-                src={m.src}
-                type={m.type}
+                src={m.url}
+                type={m.type || 'image'}
                 width={width}
                 height={height}
               />

@@ -1,5 +1,5 @@
 {
-  "area": {
+  "[\"area\"]": {
     "string": {
       "count": 10,
       "values": {},
@@ -36,7 +36,7 @@
     "undefined": 0,
     "location": 0
   },
-  "caption": {
+  "[\"caption\"]": {
     "string": {
       "count": 10,
       "values": {},
@@ -73,7 +73,7 @@
     "undefined": 0,
     "location": 0
   },
-  "happening": {
+  "[\"happening\"]": {
     "string": {
       "count": 0,
       "values": {}
@@ -144,7 +144,7 @@
       }
     }
   },
-  "id": {
+  "[\"id\"]": {
     "string": {
       "count": 10,
       "values": {},
@@ -181,7 +181,7 @@
     "undefined": 0,
     "location": 0
   },
-  "impacts": {
+  "[\"impacts\"]": {
     "string": {
       "count": 10,
       "values": {},
@@ -218,7 +218,7 @@
     "undefined": 0,
     "location": 0
   },
-  "meta￿deepnested_TestingWhatHappens￿whatalongfieldname": {
+  "[\"meta\",\"deepnested_TestingWhatHappens\",\"whatalongfieldname\"]": {
     "string": {
       "count": 10,
       "values": {},
@@ -255,10 +255,18 @@
     "undefined": 0,
     "location": 0
   },
-  "meta￿instanceId": {
+  "[\"meta\",\"instanceId\"]": {
     "string": {
-      "count": 0,
-      "values": {}
+      "count": 10,
+      "values": {},
+      "lengthMin": 41,
+      "lengthMax": 41,
+      "lengthVariance": 0,
+      "lengthMean": 41,
+      "wordsMin": 1,
+      "wordsMax": 1,
+      "wordsVariance": 0,
+      "wordsMean": 1
     },
     "number": {
       "count": 0,
@@ -276,7 +284,7 @@
       "count": 0,
       "values": {}
     },
-    "url": 10,
+    "url": 0,
     "image": 0,
     "audio": 0,
     "video": 0,
@@ -284,7 +292,7 @@
     "undefined": 0,
     "location": 0
   },
-  "number": {
+  "[\"number\"]": {
     "string": {
       "count": 0,
       "values": {}
@@ -317,14 +325,14 @@
     "undefined": 0,
     "location": 0
   },
-  "other": {
+  "[\"other\"]": {
     "string": {
       "count": 10,
       "values": {},
       "lengthMin": 4,
-      "lengthMax": 51,
-      "lengthVariance": 198.81,
-      "lengthMean": 8.7,
+      "lengthMax": 79,
+      "lengthVariance": 506.25,
+      "lengthMean": 11.5,
       "wordsMin": 1,
       "wordsMax": 1,
       "wordsVariance": 0,
@@ -354,7 +362,7 @@
     "undefined": 0,
     "location": 0
   },
-  "people": {
+  "[\"people\"]": {
     "string": {
       "count": 9,
       "values": {},
@@ -391,7 +399,7 @@
     "undefined": 0,
     "location": 0
   },
-  "pictures￿0￿url": {
+  "[\"pictures\",0,\"url\"]": {
     "string": {
       "count": 0,
       "values": {}
@@ -420,7 +428,7 @@
     "undefined": 0,
     "location": 0
   },
-  "pictures￿1￿url": {
+  "[\"pictures\",1,\"url\"]": {
     "string": {
       "count": 0,
       "values": {}
@@ -449,7 +457,7 @@
     "undefined": 0,
     "location": 0
   },
-  "placename": {
+  "[\"placename\"]": {
     "string": {
       "count": 10,
       "values": {},
@@ -486,7 +494,7 @@
     "undefined": 0,
     "location": 0
   },
-  "public": {
+  "[\"public\"]": {
     "string": {
       "count": 0,
       "values": {}
@@ -515,7 +523,7 @@
     "undefined": 0,
     "location": 0
   },
-  "region": {
+  "[\"region\"]": {
     "string": {
       "count": 10,
       "values": {},
@@ -552,7 +560,7 @@
     "undefined": 0,
     "location": 0
   },
-  "today": {
+  "[\"today\"]": {
     "string": {
       "count": 0,
       "values": {}
@@ -585,7 +593,7 @@
     "undefined": 0,
     "location": 0
   },
-  "village": {
+  "[\"village\"]": {
     "string": {
       "count": 10,
       "values": {},
@@ -622,7 +630,7 @@
     "undefined": 0,
     "location": 0
   },
-  "empty": {
+  "[\"empty\"]": {
     "string": {
       "count": 0,
       "values": {}
@@ -651,9 +659,9 @@
     "undefined": 0,
     "location": 0,
     "array": {
-      "count": 10,
-      "lengthMin": 0,
-      "lengthMax": 1,
+      "count": 1,
+      "lengthMin": 2,
+      "lengthMax": 2,
       "valueStats": {
         "string": {
           "count": 0,
@@ -676,7 +684,7 @@
           "values": {}
         },
         "url": 0,
-        "image": 1,
+        "image": 2,
         "audio": 0,
         "video": 0,
         "null": 0,
@@ -685,7 +693,7 @@
       }
     }
   },
-  "start": {
+  "[\"start\"]": {
     "string": {
       "count": 0,
       "values": {}
@@ -718,7 +726,7 @@
     "undefined": 0,
     "location": 0
   },
-  "group1￿foo": {
+  "[\"group1\",\"foo\"]": {
     "string": {
       "count": 1,
       "values": {},
@@ -755,7 +763,7 @@
     "undefined": 0,
     "location": 0
   },
-  "picture￿url": {
+  "[\"picture\",\"url\"]": {
     "string": {
       "count": 0,
       "values": {}

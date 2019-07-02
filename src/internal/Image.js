@@ -27,7 +27,6 @@ const styles = {
 const pixelRatio = window.devicePixelRatio || 1
 
 const ImageLoader = withStyles(styles)(({ classes, preview, style }) => {
-  console.log('loader', preview, style)
   return (
     <div
       className={classes.wrapper}

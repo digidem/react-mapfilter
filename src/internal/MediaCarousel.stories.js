@@ -10,9 +10,9 @@ storiesOf('internal/MediaCarousel', module)
     <MediaCarousel
       style={{ width: 600, height: 400, outline: 'solid 1px blue' }}
       media={[
-        { src: 'http://via.placeholder.com/600', type: 'image' },
-        { src: 'http://via.placeholder.com/600', type: 'image' },
-        { src: 'http://via.placeholder.com/600', type: 'image' }
+        { url: 'http://via.placeholder.com/600', type: 'image' },
+        { url: 'http://via.placeholder.com/600', type: 'image' },
+        { url: 'http://via.placeholder.com/600', type: 'image' }
       ]}
     />
   ))
@@ -25,7 +25,7 @@ storiesOf('internal/MediaCarousel', module)
         media={Array(9)
           .fill()
           .map((_, i) => ({
-            src: `https://lorempixel.com/{size}/{size}/nature/${i}`,
+            url: `https://lorempixel.com/{size}/{size}/nature/${i}`,
             type: 'image'
           }))}
       />

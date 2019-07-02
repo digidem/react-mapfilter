@@ -35,7 +35,7 @@ const styles = {
     position: 'relative'
   },
   col1: {
-    padding: '14px 12px 14px 24px'
+    // padding: '14px 12px 14px 24px'
   },
   col1Text: {
     fontWeight: 500,
@@ -45,7 +45,7 @@ const styles = {
     direction: 'rtl'
   },
   col2: {
-    padding: '14px 24px 14px 12px !important',
+    // padding: '14px 24px 14px 12px !important',
     width: '100%',
     maxWidth: 0,
     whiteSpace: 'initial',
@@ -164,12 +164,12 @@ const useStyles = makeStyles(styles)
 //   }
 // )
 
-const Label = ({ style, fieldkey }: { style: {}, fieldkey: string }) => {
+const Label = ({ style, field }: { style: {}, field: Field }) => {
   const classes = useStyles()
   return (
     <TableCell className={classes.col1} style={style}>
       <Typography className={classes.col1Text}>
-        <FormattedFieldname fieldkey={fieldkey} />
+        <FormattedFieldname field={field} />
       </Typography>
     </TableCell>
   )
@@ -201,7 +201,7 @@ const DetailsTable = ({ fields = [], tags = {}, width }: Props) => {
 
   function renderTable(width) {
     return (
-      <Table className={classes.root} style={{ width: width }}>
+      <Table className={classes.root} style={{ width: width }} size="small">
         <TableBody>
           {fields
             .map((field, i) => {
@@ -212,10 +212,7 @@ const DetailsTable = ({ fields = [], tags = {}, width }: Props) => {
                   key={i}
                   className={classes.row}
                   style={{ zIndex: fields.length - i }}>
-                  <Label
-                    fieldkey={field.key}
-                    style={{ maxWidth: width / 3 - 36 }}
-                  />
+                  <Label field={field} style={{ maxWidth: width / 3 - 36 }} />
                   {/* $FlowFixMe */}
                   <Value
                     value={value}
@@ -232,11 +229,9 @@ const DetailsTable = ({ fields = [], tags = {}, width }: Props) => {
   }
 
   if (typeof width === 'number') return renderTable(width)
-  console.log('render autosize')
   return (
     <AutoSizer disableHeight>
       {({ width }) => {
-        console.log('width', width)
         return renderTable(width)
       }}
     </AutoSizer>

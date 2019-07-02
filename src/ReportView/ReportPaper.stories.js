@@ -6,7 +6,7 @@ import { action } from '@storybook/addon-actions'
 
 import ReportPaper from './ReportPaper'
 
-storiesOf('ReportView/ReportPaper', module)
+storiesOf('ReportView/components/ReportPaper', module)
   .add('empty', () => (
     <ReportPaper paperSize="a4">
       <h1>Hello World</h1>

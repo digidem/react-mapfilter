@@ -1,5 +1,5 @@
 import test from 'tape'
-
+import fs from 'fs'
 import fixture from '../../../fixtures/example_fc.json'
 import createMemoizedStats, { diffArrays, statReduce } from './statistics'
 
@@ -115,7 +115,8 @@ test('field stats', t => {
   const dataFixture = fixture.features.slice(0, 10).map(i => i.properties)
   const getStats = createMemoizedStats()
   const stats = getStats(dataFixture)
-  const expected = require('../../../stats.json')
+  const expected = require('../../../fixtures/stats.json')
+  // fs.writeFileSync('./actual-stats.json', JSON.stringify(stats, null, 2))
   // JSON stringify -> parse to just skip the values Maps (not saved in fixture)
   t.deepEqual(JSON.parse(JSON.stringify(stats)), expected)
   t.end()
@@ -132,11 +133,12 @@ test('field stats updated', t => {
       }
     ])
   )
-  const expected = require('../../../stats.json')
+  const expected = require('../../../fixtures/stats.json')
+  const key = JSON.stringify(['number'])
   const updatedExpected = {
     ...expected,
-    number: {
-      ...expected.number,
+    [key]: {
+      ...expected[key],
       number: {
         count: 10,
         min: 1,

@@ -13,7 +13,7 @@ const initialFieldState = [
   { fieldkey: 'qux', hidden: false, label: 'Qux' }
 ]
 
-storiesOf('ReportView/HideFieldsButton', module)
+storiesOf('ReportView/components/HideFieldsButton', module)
   .add('default', () => (
     <HideFieldsButton
       fieldState={initialFieldState}

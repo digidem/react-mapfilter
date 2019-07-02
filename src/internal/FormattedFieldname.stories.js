@@ -9,31 +9,31 @@ import FormattedFieldname from './FormattedFieldname'
 import { FieldnameTranslationContext } from './Context'
 
 storiesOf('internal/FormattedFieldname', module)
-  .add('Plain text', () => <FormattedFieldname fieldkey="foo" />)
+  .add('Plain text', () => <FormattedFieldname field={{ key: 'foo' }} />)
   .add('Nested fieldname', () => {
     const key = 'foo\uffffbar\uffffqux'
-    return <FormattedFieldname fieldkey={key} />
+    return <FormattedFieldname field={{ key: key }} />
   })
   .add('Underscores to spaces', () => {
     const key = 'foo_bob\uffffbar\uffffqux_hub'
-    return <FormattedFieldname fieldkey={key} />
+    return <FormattedFieldname field={{ key: key }} />
   })
   .add('With translations', () => (
     <FieldnameTranslationContext.Provider value={{ foo: 'Foo Translation' }}>
-      <FormattedFieldname fieldkey="foo" />
+      <FormattedFieldname field={{ key: 'foo' }} />
     </FieldnameTranslationContext.Provider>
   ))
   .add('Nested with translations', () => {
     const key = 'foo\uffffbar'
     return (
       <FieldnameTranslationContext.Provider value={{ bar: 'Bar translation' }}>
-        <FormattedFieldname fieldkey={key} />
+        <FormattedFieldname field={{ key: key }} />
       </FieldnameTranslationContext.Provider>
     )
   })
   .add('Nested with translations reverse', () => (
     <FieldnameTranslationContext.Provider value={{ bar: 'Bar translation' }}>
-      <FormattedFieldname fieldkey={'bar\ufffffoo'} />
+      <FormattedFieldname field={{ key: 'bar\ufffffoo' }} />
     </FieldnameTranslationContext.Provider>
   ))
   .add('With full key translation', () => (
@@ -41,6 +41,6 @@ storiesOf('internal/FormattedFieldname', module)
       value={{
         'foo.bar.quux': 'foo.bar.qux Translation'
       }}>
-      <FormattedFieldname fieldkey={'foo\uffffbar\uffffquux'} />
+      <FormattedFieldname field={{ key: 'foo\uffffbar\uffffquux' }} />
     </FieldnameTranslationContext.Provider>
   ))
