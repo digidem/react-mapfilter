@@ -30,6 +30,16 @@
         '@babel/plugin-proposal-object-rest-spread'
       ]
     },
+    test: {
+      plugins: [
+        ['react-intl-auto', { filebase: true, removePrefix: 'src' }],
+        // Strips out flow types
+        '@babel/plugin-transform-flow-strip-types',
+        ['@babel/plugin-transform-runtime', { corejs: 3 }],
+        ['@babel/plugin-proposal-class-properties', { loose: true }],
+        '@babel/plugin-proposal-object-rest-spread'
+      ]
+    },
     development: {
       plugins: [
         // Reduces bundle size by sharing babel helpers between files

@@ -1,63 +1,60 @@
-import test from 'tape'
 import fixture from '../../../fixtures/example_fc.json'
 import createMemoizedStats, { diffArrays, statReduce } from './statistics'
 
-test('diffArrays: added and removed', function(t) {
+test('diffArrays: added and removed', function() {
   const A = {}
   const B = {}
   const C = {}
   const D = {}
   const oldArray = [A, B]
   const newArray = [B, C, D]
-  t.deepEqual(diffArrays(oldArray, newArray), { removed: [A], added: [C, D] })
-  t.end()
+  expect(diffArrays(oldArray, newArray)).toEqual({
+    removed: [A],
+    added: [C, D]
+  })
 })
 
-test('diffArrays: same', function(t) {
+test('diffArrays: same', function() {
   const A = {}
   const B = {}
   const oldArray = [A, B]
   const newArray = [A, B]
-  t.deepEqual(diffArrays(oldArray, newArray), { removed: [], added: [] })
-  t.end()
+  expect(diffArrays(oldArray, newArray)).toEqual({ removed: [], added: [] })
 })
 
-test('diffArrays: only added', function(t) {
+test('diffArrays: only added', function() {
   const A = {}
   const B = {}
   const C = {}
   const D = {}
   const oldArray = [A, B]
   const newArray = [A, B, C, D]
-  t.deepEqual(diffArrays(oldArray, newArray), { removed: [], added: [C, D] })
-  t.end()
+  expect(diffArrays(oldArray, newArray)).toEqual({ removed: [], added: [C, D] })
 })
 
-test('diffArrays: only removed', function(t) {
+test('diffArrays: only removed', function() {
   const A = {}
   const B = {}
   const C = {}
   const oldArray = [A, B, C]
   const newArray = [A, B]
-  t.deepEqual(diffArrays(oldArray, newArray), { removed: [C], added: [] })
-  t.end()
+  expect(diffArrays(oldArray, newArray)).toEqual({ removed: [C], added: [] })
 })
 
-test('diffArrays: completely different', function(t) {
+test('diffArrays: completely different', function() {
   const A = {}
   const B = {}
   const C = {}
   const D = {}
   const oldArray = [A, B]
   const newArray = [C, D]
-  t.deepEqual(diffArrays(oldArray, newArray), {
+  expect(diffArrays(oldArray, newArray)).toEqual({
     removed: [A, B],
     added: [C, D]
   })
-  t.end()
 })
 
-test('statReduce basic', t => {
+test('statReduce basic', () => {
   const initialStats = {
     min: 9,
     max: 12,
@@ -65,15 +62,10 @@ test('statReduce basic', t => {
     variance: 2.25
   }
   const newStats = statReduce(initialStats, 15, 2)
-  t.deepEqual(
-    newStats,
-    { min: 9, max: 15, mean: 12, variance: 6 },
-    'stats match'
-  )
-  t.end()
+  expect(newStats).toEqual({ min: 9, max: 15, mean: 12, variance: 6 })
 })
 
-test('statReduce 11th value', t => {
+test('statReduce 11th value', () => {
   const initialStats = {
     min: 2,
     max: 16,
@@ -82,14 +74,13 @@ test('statReduce 11th value', t => {
   }
   const newStats = statReduce(initialStats, 18, 10)
   // calculations of correct values from Excel, using population variance
-  t.equal(newStats.min, 2, 'min correct')
-  t.equal(newStats.max, 18, 'max correct')
-  t.equal(newStats.variance.toFixed(8), '22.41322314', 'variance correct')
-  t.equal(newStats.mean.toFixed(8), '11.63636364', 'mean correct')
-  t.end()
+  expect(newStats.min).toBe(2)
+  expect(newStats.max).toBe(18)
+  expect(newStats.variance.toFixed(8)).toBe('22.41322314')
+  expect(newStats.mean.toFixed(8)).toBe('11.63636364')
 })
 
-test('statReduce date', t => {
+test('statReduce date', () => {
   const initialStats = {
     min: +new Date(2019, 0, 1),
     max: +new Date(2019, 5, 1),
@@ -97,31 +88,25 @@ test('statReduce date', t => {
     variance: 42528657960000000000
   }
   const newStats = statReduce(initialStats, new Date(2019, 5, 15), 2)
-  t.deepEqual(
-    newStats,
-    {
-      min: +new Date(2019, 0, 1),
-      max: +new Date(2019, 5, 15),
-      mean: 1555399200000,
-      variance: 41634296640000000000
-    },
-    'stats match'
-  )
-  t.end()
+  expect(newStats).toEqual({
+    min: +new Date(2019, 0, 1),
+    max: +new Date(2019, 5, 15),
+    mean: 1555399200000,
+    variance: 41634296640000000000
+  })
 })
 
-test('field stats', t => {
+test('field stats', () => {
   const dataFixture = fixture.features.slice(0, 10).map(i => i.properties)
   const getStats = createMemoizedStats()
   const stats = getStats(dataFixture)
   const expected = require('../../../fixtures/stats.json')
   // fs.writeFileSync('./actual-stats.json', JSON.stringify(stats, null, 2))
   // JSON stringify -> parse to just skip the values Maps (not saved in fixture)
-  t.deepEqual(JSON.parse(JSON.stringify(stats)), expected)
-  t.end()
+  expect(JSON.parse(JSON.stringify(stats))).toEqual(expected)
 })
 
-test('field stats updated', t => {
+test('field stats updated', () => {
   const dataFixture = fixture.features.slice(0, 10).map(i => i.properties)
   const getStats = createMemoizedStats()
   const stats = getStats(dataFixture)
@@ -149,7 +134,6 @@ test('field stats updated', t => {
     }
   }
   // JSON stringify -> parse to just skip the values Maps (not saved in fixture)
-  t.deepEqual(JSON.parse(JSON.stringify(stats)), expected)
-  t.deepEqual(JSON.parse(JSON.stringify(updatedStats)), updatedExpected)
-  t.end()
+  expect(JSON.parse(JSON.stringify(stats))).toEqual(expected)
+  expect(JSON.parse(JSON.stringify(updatedStats))).toEqual(updatedExpected)
 })

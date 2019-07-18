@@ -43,3 +43,18 @@ npm run storybook
 ```
 
 [Storybook](https://storybook.js.org/) is pretty cool. It allows us to test out components with mocked properties. It has "hot loading" which means that if you have it open and make changes to code, the changes will appear automatically and quickly. It's really useful for seeing what your component looks like as you code it, and it works well for manual testing of components and interaction. Run `npm run storybook` in your terminal then open http://localhost:6006/ to see the "stories" for most of the components here. Keep it open to see the changes as you code.
+
+### Tests
+
+```sh
+npm test
+```
+
+Tests are run with [Jest](https://jestjs.io) and use
+[react-testing-library](https://testing-library.com). We try to avoid snapshot
+tests and testing implementation details. If you are developing you might find
+it useful to continuously run tests when files change:
+
+```sh
+npm test -- --watch
+```

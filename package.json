@@ -13,7 +13,7 @@
     "extract-messages": "extract-messages -l=en,es -o messages -d en 'src/**/!(*.test|*.stories).js'",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "test": "tap --node-arg='-r' --node-arg='@babel/register' 'src/**/*.test.js'"
+    "test": "jest"
   },
   "husky": {
     "hooks": {
@@ -48,6 +48,7 @@
     "eslint-config-standard": "^13.0.1",
     "eslint-plugin-flowtype": "^3.10.3",
     "eslint-plugin-import": "^2.17.3",
+    "eslint-plugin-jest": "^22.10.0",
     "eslint-plugin-node": "^9.1.0",
     "eslint-plugin-prettier": "^3.1.0",
     "eslint-plugin-promise": "^4.1.1",
@@ -59,6 +60,7 @@
     "flow-geojson": "^2.0.7",
     "flow-typed": "^2.6.0",
     "husky": "^3.0.0",
+    "jest": "^24.8.0",
     "precinct": "^6.1.2",
     "prettier": "^1.18.2",
     "pretty-quick": "^1.11.1",

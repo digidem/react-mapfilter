@@ -1,6 +1,4 @@
 // @flow
-import test from 'tape'
-
 import * as valueTypes from '../../constants/value_types'
 import { guessValueType, coerceValue } from './value_types'
 
@@ -33,26 +31,14 @@ const guessTestData = [
   ['http://127.0.0.1:8000/image.JPEG', valueTypes.IMAGE_URL],
   ['http://127.0.0.1:8000/video.mp4', valueTypes.VIDEO_URL],
   ['http://127.0.0.1:8000/audio.wav', valueTypes.AUDIO_URL],
-  ['66° 30′ 360″ N 32° 3′ 45″ W', valueTypes.LOCATION],
-  [[66.234, 12.5123], valueTypes.LOCATION],
-  ['66W 12N', valueTypes.LOCATION],
-  ['-77.23 2.24 10 200', valueTypes.LOCATION],
-  ['-77.23 2.24 10', valueTypes.STRING],
   [new Date().toISOString(), valueTypes.DATETIME],
   ['2017-02-12', valueTypes.DATE]
 ]
 
-test('guessValueType', function(t) {
-  t.plan(guessTestData.length)
+test('guessValueType', function() {
+  expect.assertions(guessTestData.length)
   guessTestData.forEach(function(input) {
-    t.equal(
-      guessValueType(input[0]),
-      input[1],
-      'INPUT: ' +
-        (JSON.stringify(input[0]) || '`undefined`') +
-        ' EXPECTED: ' +
-        input[1]
-    )
+    expect(guessValueType(input[0])).toBe(input[1])
   })
 })
 
@@ -62,7 +48,7 @@ const coerceTestData = [
   [1.234, valueTypes.STRING, '1.234'],
   [true, valueTypes.STRING, 'yes'],
   [false, valueTypes.STRING, 'no'],
-  [['foo', 'bar'], valueTypes.STRING, 'foo bar'],
+  [['foo', 'bar'], valueTypes.STRING, 'foo,bar'],
   [[], valueTypes.STRING, ''],
   [null, valueTypes.STRING, null],
   [undefined, valueTypes.STRING, undefined],
@@ -119,30 +105,18 @@ const coerceTestData = [
   ['2017-02-12', valueTypes.DATE, new Date('2017-02-12T12:00:00Z')]
 ]
 
-test('coerceTestData', function(t) {
-  t.plan(coerceTestData.length)
+test('coerceTestData', function() {
+  expect.assertions(coerceTestData.length)
   coerceTestData.forEach(function(input) {
     if (input[2] === Error) {
-      t.throws(
-        // $FlowFixMe
-        coerceValue.bind(null, input[0], input[1]),
+      expect(coerceValue.bind(null, input[0], input[1])).toThrow(
         'Cannot coerce ' +
           (JSON.stringify(input[0]) || '`undefined`') +
           ' to ' +
           input[1]
       )
     } else {
-      t.deepEqual(
-        // $FlowFixMe
-        coerceValue(input[0], input[1]),
-        input[2],
-        'INPUT: ' +
-          (JSON.stringify(input[0]) || '`undefined`') +
-          ', ' +
-          input[1] +
-          ' EXPECTED: ' +
-          (JSON.stringify(input[2]) || '`undefined`')
-      )
+      expect(coerceValue(input[0], input[1])).toEqual(input[2])
     }
   })
 })

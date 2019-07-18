@@ -1,77 +1,74 @@
-import test from 'tape'
 import { get, set } from './get_set'
 
-test('get', t => {
+test('get', () => {
   const fixture1 = { foo: { bar: 1 } }
-  t.is(get(fixture1), fixture1)
+  expect(get(fixture1)).toBe(fixture1)
   fixture1[''] = 'foo'
-  t.is(get(fixture1, ['']), 'foo')
-  t.is(get(fixture1, ['foo']), fixture1.foo)
-  t.is(get(fixture1, 'foo'), fixture1.foo)
-  t.is(get({ foo: 1 }, ['foo']), 1)
-  t.is(get({ foo: null }, ['foo']), null)
-  t.is(get({ foo: undefined }, ['foo']), undefined)
-  t.is(get({ foo: { bar: true } }, ['foo', 'bar']), true)
-  t.is(get({ foo: { bar: { baz: true } } }, ['foo', 'bar', 'baz']), true)
-  t.is(get({ foo: { bar: { baz: null } } }, ['foo', 'bar', 'baz']), null)
-  t.is(get({ foo: { bar: 'a' } }, ['foo', 'fake']), undefined)
-  t.is(get({ foo: { bar: 'a' } }, ['foo', 'fake', 'fake2']), undefined)
-  t.is(
-    get({ foo: { bar: 'a' } }, ['foo', 'fake', 'fake2'], 'some value'),
-    'some value'
-  )
-  t.is(get({ '\\': true }, ['\\']), true)
-  t.is(get({ '\\foo': true }, ['\\foo']), true)
-  t.is(get({ 'bar\\': true }, ['bar\\']), true)
-  t.is(get({ 'foo\\bar': true }, ['foo\\bar']), true)
-  t.is(get({ foo: 1 }, ['foo', 'bar']), undefined)
+  expect(get(fixture1, [''])).toBe('foo')
+  expect(get(fixture1, ['foo'])).toBe(fixture1.foo)
+  expect(get(fixture1, 'foo')).toBe(fixture1.foo)
+  expect(get({ foo: 1 }, ['foo'])).toBe(1)
+  expect(get({ foo: null }, ['foo'])).toBe(null)
+  expect(get({ foo: undefined }, ['foo'])).toBe(undefined)
+  expect(get({ foo: { bar: true } }, ['foo', 'bar'])).toBe(true)
+  expect(get({ foo: { bar: { baz: true } } }, ['foo', 'bar', 'baz'])).toBe(true)
+  expect(get({ foo: { bar: { baz: null } } }, ['foo', 'bar', 'baz'])).toBe(null)
+  expect(get({ foo: { bar: 'a' } }, ['foo', 'fake'])).toBe(undefined)
+  expect(get({ foo: { bar: 'a' } }, ['foo', 'fake', 'fake2'])).toBe(undefined)
+  expect(
+    get({ foo: { bar: 'a' } }, ['foo', 'fake', 'fake2'], 'some value')
+  ).toBe('some value')
+  expect(get({ '\\': true }, ['\\'])).toBe(true)
+  expect(get({ '\\foo': true }, ['\\foo'])).toBe(true)
+  expect(get({ 'bar\\': true }, ['bar\\'])).toBe(true)
+  expect(get({ 'foo\\bar': true }, ['foo\\bar'])).toBe(true)
+  expect(get({ foo: 1 }, ['foo', 'bar'])).toBe(undefined)
 
   const fixture2 = {}
   Object.defineProperty(fixture2, 'foo', {
     value: 'bar',
     enumerable: false
   })
-  t.is(get(fixture2, ['foo']), undefined)
-  t.is(get({}, ['hasOwnProperty']), undefined)
+  expect(get(fixture2, ['foo'])).toBe(undefined)
+  expect(get({}, ['hasOwnProperty'])).toBe(undefined)
 
   function fn() {}
   fn.foo = { bar: 1 }
-  t.is(get(fn), fn)
-  t.is(get(fn, ['foo']), fn.foo)
-  t.is(get(fn, ['foo', 'bar']), 1)
+  expect(get(fn)).toBe(fn)
+  expect(get(fn, ['foo'])).toBe(fn.foo)
+  expect(get(fn, ['foo', 'bar'])).toBe(1)
 
   const f3 = { foo: null }
-  t.is(get(f3, ['foo', 'bar']), undefined)
-  t.is(get(f3, ['foo', 'bar'], 'some value'), 'some value')
+  expect(get(f3, ['foo', 'bar'])).toBe(undefined)
+  expect(get(f3, ['foo', 'bar'], 'some value')).toBe('some value')
 
-  t.is(get({ 'foo.baz': { bar: true } }, ['foo.baz', 'bar']), true)
-  t.is(get({ 'fo.ob.az': { bar: true } }, ['fo.ob.az', 'bar']), true)
+  expect(get({ 'foo.baz': { bar: true } }, ['foo.baz', 'bar'])).toBe(true)
+  expect(get({ 'fo.ob.az': { bar: true } }, ['fo.ob.az', 'bar'])).toBe(true)
 
-  t.is(get(null, ['foo', 'bar'], false), false)
-  t.is(get('foo', ['foo', 'bar'], false), false)
-  t.is(get([], ['foo', 'bar'], false), false)
-  t.is(get(undefined, ['foo', 'bar'], false), false)
+  expect(get(null, ['foo', 'bar'], false)).toBe(false)
+  expect(get('foo', ['foo', 'bar'], false)).toBe(false)
+  expect(get([], ['foo', 'bar'], false)).toBe(false)
+  expect(get(undefined, ['foo', 'bar'], false)).toBe(false)
 
-  t.is(get({ foo: { bar: 'qux' } }, ['foo', 'bar']), 'qux')
-  t.is(get({ foo: { bar: ['qux'] } }, ['foo', 'bar', 0]), 'qux')
-  t.is(get({ foo: { bar: ['qux'] } }, ['foo', 'bar', 2]), undefined)
-  t.is(get({ foo: { 'bar.qux': 'hello' } }, ['foo', 'bar.qux']), 'hello')
+  expect(get({ foo: { bar: 'qux' } }, ['foo', 'bar'])).toBe('qux')
+  expect(get({ foo: { bar: ['qux'] } }, ['foo', 'bar', 0])).toBe('qux')
+  expect(get({ foo: { bar: ['qux'] } }, ['foo', 'bar', 2])).toBe(undefined)
+  expect(get({ foo: { 'bar.qux': 'hello' } }, ['foo', 'bar.qux'])).toBe('hello')
 
   const nestedArr = ['baz', 'qux']
-  t.is(get({ foo: { bar: nestedArr } }, ['foo', 'bar']), nestedArr)
+  expect(get({ foo: { bar: nestedArr } }, ['foo', 'bar'])).toBe(nestedArr)
   const nestedObj = { baz: true }
-  t.is(get({ foo: { bar: nestedObj } }, ['foo', 'bar']), nestedObj)
-
-  t.end()
+  expect(get({ foo: { bar: nestedObj } }, ['foo', 'bar'])).toBe(nestedObj)
 })
 
-test('set', t => {
+test('set', () => {
   const fixture1 = { foo: { bar: 1 } }
-  t.deepEqual(set(fixture1, ['foo', 'bar'], 2), { foo: { bar: 2 } })
-  t.deepEqual(set(fixture1, 'quz', 2), { foo: { bar: 1 }, quz: 2 })
-  t.deepEqual(set(fixture1, ['foo', 'bar', 0], 2), { foo: { bar: [2] } })
-  t.deepEqual(set(fixture1, ['foo', 'baz', 0], 'qux'), {
+  expect(set(fixture1, ['foo', 'bar'], 2)).toEqual({ foo: { bar: 2 } })
+  expect(set(fixture1, 'quz', 2)).toEqual({ foo: { bar: 1 }, quz: 2 })
+  expect(set(fixture1, ['foo', 'baz', 0], 2)).toEqual({
+    foo: { bar: 1, baz: [2] }
+  })
+  expect(set(fixture1, ['foo', 'baz', 0], 'qux')).toEqual({
     foo: { bar: 1, baz: ['qux'] }
   })
-  t.end()
 })
