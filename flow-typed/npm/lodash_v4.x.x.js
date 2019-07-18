@@ -1,5 +1,5 @@
-// flow-typed signature: 8b15b6ecab988d6153afcfcf2876bbed
-// flow-typed version: 07f4c5ae3d/lodash_v4.x.x/flow_>=v0.63.x
+// flow-typed signature: 7aab58aebe77066617c1bebd8202ce62
+// flow-typed version: f125eacb94/lodash_v4.x.x/flow_>=v0.63.x
 
 declare module "lodash" {
   declare type Path = $ReadOnlyArray<string | number> | string | number;
@@ -147,6 +147,11 @@ declare module "lodash" {
     length?: number,
     omission?: string,
     separator?: RegExp | string
+  };
+
+  declare type Cancelable = {
+    cancel: () => void,
+    flush: () => mixed
   };
 
   declare type DebounceOptions = {
@@ -785,7 +790,11 @@ declare module "lodash" {
     curry: Curry;
     curry(func: Function, arity?: number): Function;
     curryRight(func: Function, arity?: number): Function;
-    debounce<F: (...any[]) => any>(func: F, wait?: number, options?: DebounceOptions): F;
+    debounce<F: (...any[]) => any>(
+      func: F,
+      wait?: number,
+      options?: DebounceOptions
+    ): F & Cancelable;
     defer(func: (...any[]) => any, ...args?: Array<any>): TimeoutID;
     delay(func: Function, wait: number, ...args?: Array<any>): TimeoutID;
     flip<R>(func: (...any[]) => R): (...any[]) => R;
@@ -805,7 +814,7 @@ declare module "lodash" {
       func: F,
       wait?: number,
       options?: ThrottleOptions
-    ): F;
+    ): F & Cancelable;
     unary<F: (...any[]) => any>(func: F): F;
     wrap(value?: any, wrapper?: ?Function): Function;
 
@@ -1404,7 +1413,9 @@ declare module "lodash" {
     // NaN is a number instead of its own type, otherwise it would behave like null/void
     defaultTo<T1: number, T2>(value: T1, defaultValue: T2): T1 | T2;
     flow: $ComposeReverse & ((funcs: Array<Function>) => Function);
+    flow: $ComposeReverse & ((...funcs: Array<Function>) => Function);
     flowRight: $Compose & ((funcs: Array<Function>) => Function);
+    flowRight: $Compose & ((...funcs: Array<Function>) => Function);
     identity<T>(value: T): T;
     iteratee(func?: any): Function;
     matches(source?: ?Object): Function;
@@ -3172,10 +3183,15 @@ declare module "lodash/fp" {
     defaultTo<T1: number, T2>(defaultValue: T2): (value: T1) => T1 | T2;
     defaultTo<T1: number, T2>(defaultValue: T2, value: T1): T1 | T2;
     flow: $ComposeReverse & ((funcs: Array<Function>) => Function);
+    flow: $ComposeReverse & ((...funcs: Array<Function>) => Function);
     pipe: $ComposeReverse & ((funcs: Array<Function>) => Function);
+    pipe: $ComposeReverse & ((...funcs: Array<Function>) => Function);
     flowRight: $Compose & ((funcs: Array<Function>) => Function);
+    flowRight: $Compose & ((...funcs: Array<Function>) => Function);
     compose: $Compose & ((funcs: Array<Function>) => Function);
+    compose: $Compose & ((...funcs: Array<Function>) => Function);
     compose(funcs: Array<Function>): Function;
+    compose(...funcs: Array<Function>): Function;
     identity<T>(value: T): T;
     iteratee(func: any): Function;
     matches(source: Object): (object: Object) => boolean;
