@@ -1,28 +1,29 @@
 // @flow
-import { defineMessages } from 'react-intl'
-
-const msgs = defineMessages({
-  true: 'Yes',
-  false: 'No',
-  null: '[No Value]',
-  undefined: '[No Value]'
-})
-
-export function translateOrPretty(
-  value: string | boolean | number | null,
-  translations?: { [value: string]: string } = {}
-): string {
-  if (typeof value === 'number') return value + ''
-  else if (typeof value === 'boolean') {
-    let valueString = value ? 'true' : 'false'
-    return translations[valueString] || msgs[valueString].defaultMessage
-  } else if (value === null) {
-    return translations.null || msgs.null.defaultMessage
-  }
-  if (translations[value]) return translations[value]
-  const words = value.split('_')
-  if (words.length < 4) return titleCase(words.join(' '))
-  else return sentenceCase(words.join(' '))
+import type { Field } from '../types'
+import type { IntlShape } from 'react-intl'
+/**
+ * Either returns the translated user-defined label for a field, or creates a
+ * label from the field key by replacing _ and - with spaces and formatting in
+ * title case
+ */
+export function getFieldLabel(
+  field: Field,
+  intl: IntlShape
+): string | string[] {
+  const languageTag = intl.locale || 'en'
+  // two-letter or three-letter ISO language code
+  const languageCode = languageTag.split('-')[0]
+  // choose most specific label translation available e.g. language tag with
+  // country code first, then just language code, then label without language
+  // specified
+  const label =
+    field['label:' + languageTag] ||
+    field['label:' + languageCode] ||
+    field.label
+  if (label) return label
+  const fieldkey = typeof field.key === 'string' ? [field.key] : [...field.key]
+  const labelArray = fieldkey.map(s => titleCase(s + ''))
+  return labelArray.length === 1 ? labelArray[0] : labelArray
 }
 
 export function sentenceCase(str: string = '') {
@@ -31,18 +32,18 @@ export function sentenceCase(str: string = '') {
   return str.replace(/(^[a-z])|(\.\s*[a-z])/g, str => str.toUpperCase())
 }
 
+/**
+ * For a string written in camel_case or snake-case, or space-separated, return
+ * string formatted in title case
+ */
 export function titleCase(str: string) {
   return str
     .toLowerCase()
-    .split(' ')
+    .split(/\s|_|-/)
     .map(word => capitalize(word))
     .join(' ')
 }
 
 export function capitalize(str: string) {
   return str.charAt(0).toUpperCase() + str.slice(1)
-}
-
-export function t(str: string = '') {
-  return sentenceCase(str.replace(/_/g, ' '))
 }

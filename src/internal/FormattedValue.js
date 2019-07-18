@@ -2,96 +2,86 @@
 import * as React from 'react'
 import { FormattedDate, FormattedTime } from 'react-intl'
 
-import { ValueTranslationContext } from './Context'
-import { translateOrPretty } from '../utils/strings'
-
+import { coerceValue } from '../lib/data_analysis/value_types'
 import * as fieldTypes from '../constants/field_types'
-import type { SelectableFieldValue } from '../types'
+import * as valueTypes from '../constants/value_types'
+import type { Primitive, Field } from '../types'
 
-export type FormattedValueProps =
-  | {|
-      fieldkey?: string,
-      value: Date | null,
-      fieldType: typeof fieldTypes.DATE
-    |}
-  | {|
-      fieldkey?: string,
-      value: Date | null,
-      fieldType: typeof fieldTypes.DATETIME
-    |}
-  | {|
-      fieldkey?: string,
-      value: SelectableFieldValue,
-      fieldType:
-        | typeof fieldTypes.TEXT
-        | typeof fieldTypes.LINK
-        | typeof fieldTypes.SELECT_ONE
-    |}
-  | {|
-      fieldkey?: string,
-      value: number | null,
-      fieldType: typeof fieldTypes.NUMBER
-    |}
-  | {|
-      fieldkey?: string,
-      value: Array<SelectableFieldValue>,
-      fieldType: typeof fieldTypes.SELECT_MULTIPLE
-    |}
+type Props = {
+  value: Primitive | Array<Primitive>,
+  fieldType: $ElementType<Field, 'type'>
+}
 
 /**
  * Format a value from a form, either by guessing the type or trying to coerce
  * the value to a type specified by `fieldType`. An optional `fieldkey` is used
  * to look up a translated value which can be passed by FieldnameTranslationProvider
  */
-const FormattedValue = (props: FormattedValueProps) => {
-  const translations = props.fieldkey
-    ? React.useContext(ValueTranslationContext)[props.fieldkey]
-    : {}
-
-  if (props.fieldType === fieldTypes.DATE)
-    if (props.value === undefined || props.value === null)
-      return translateOrPretty(props.value, translations)
-    else
-      return (
-        <FormattedDate
-          value={props.value}
-          year="numeric"
-          month="long"
-          day="2-digit"
-        />
-      )
-  if (props.fieldType === fieldTypes.DATETIME)
-    if (props.value === undefined || props.value === null)
-      return translateOrPretty(props.value, translations)
-    else
-      return (
-        <FormattedTime
-          value={props.value}
-          year="numeric"
-          month="long"
-          day="2-digit"
-        />
-      )
-  else if (props.fieldType === fieldTypes.NUMBER)
-    if (props.value === undefined || props.value === null)
-      return translateOrPretty(props.value, translations)
-    else return props.value + ''
-  else if (props.fieldType === fieldTypes.LINK)
-    return (
-      <a href={props.value} target="_blank" rel="noopener noreferrer">
-        {props.value}
-      </a>
-    )
-  else if (
-    props.fieldType === fieldTypes.TEXT ||
-    props.fieldType === fieldTypes.SELECT_ONE
-  )
-    return translateOrPretty(props.value, translations)
-  else if (props.fieldType === fieldTypes.SELECT_MULTIPLE)
-    return props.value
-      .map(item => translateOrPretty(item, translations))
-      .join(', ')
-  else return props.value
+const FormattedValue = ({ value, fieldType }: Props) => {
+  if (value === undefined || value === null) return null
+  try {
+    switch (fieldType) {
+      case fieldTypes.SELECT_MULTIPLE:
+        const valueAsArray = coerceValue(value, valueTypes.ARRAY).filter(
+          v => v != null
+        )
+        return flatMap<React.Node>(valueAsArray, (v, i) => [
+          <FormattedValue key={i} value={v} fieldType={fieldTypes.TEXT} />,
+          ','
+        ])
+      case fieldTypes.NUMBER:
+        const valueAsNumber = coerceValue(value, valueTypes.NUMBER)
+        return valueAsNumber + ''
+      case fieldTypes.TEXT:
+      case fieldTypes.SELECT_ONE:
+        if (typeof value === 'boolean') return value ? 'yes' : 'no'
+        const valueAsString = coerceValue(value, valueTypes.STRING)
+        return valueAsString
+      case fieldTypes.DATE:
+        const valueAsDate = coerceValue(value, valueTypes.DATE)
+        return (
+          <FormattedDate
+            value={valueAsDate}
+            year="numeric"
+            month="long"
+            day="2-digit"
+          />
+        )
+      case fieldTypes.DATETIME:
+        const valueAsDatetime = coerceValue(value, valueTypes.DATETIME)
+        return (
+          <FormattedTime
+            value={valueAsDatetime}
+            year="numeric"
+            month="long"
+            day="2-digit"
+          />
+        )
+      case fieldTypes.LINK:
+        const valueAsUrl = coerceValue(value, valueTypes.URL)
+        return (
+          <a href={valueAsUrl} target="_blank" rel="noopener noreferrer">
+            {valueAsUrl}
+          </a>
+        )
+    }
+    return null
+  } catch (e) {
+    const valueAsString = coerceValue(value, valueTypes.STRING)
+    return valueAsString || null
+  }
 }
 
 export default FormattedValue
+
+function flatMap<U>(
+  arr: Array<any>,
+  callbackfn: (
+    value: any,
+    index: number,
+    array: $ReadOnlyArray<any>
+  ) => $ReadOnlyArray<U>
+): Array<U> {
+  // $FlowFixMe
+  return arr.flatMap(callbackfn)
+}

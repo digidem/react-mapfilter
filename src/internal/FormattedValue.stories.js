@@ -6,7 +6,6 @@ import withPropsCombinations from 'react-storybook-addon-props-combinations'
 // import { action } from '@storybook/addon-actions'
 
 import FormattedValue from './FormattedValue'
-import { ValueTranslationContext } from './Context'
 import * as fieldTypes from '../constants/field_types'
 
 storiesOf('internal/FormattedValue', module)
@@ -22,9 +21,21 @@ storiesOf('internal/FormattedValue', module)
   .add('text from null', () => (
     <FormattedValue value={null} fieldType={fieldTypes.TEXT} />
   ))
+  .add('link', () => (
+    <FormattedValue
+      value="http://www.example.com"
+      fieldType={fieldTypes.LINK}
+    />
+  ))
+  .add('link but not link', () => (
+    <FormattedValue value="not a link" fieldType={fieldTypes.LINK} />
+  ))
+  .add('link from null', () => (
+    <FormattedValue value={null} fieldType={fieldTypes.LINK} />
+  ))
   .add('date', () => (
     <FormattedValue
-      value={new Date('2018-08-03T13:56:53.928Z')}
+      value={+new Date('2018-08-03T13:56:53.928Z')}
       fieldType={fieldTypes.DATE}
     />
   ))
@@ -33,7 +44,7 @@ storiesOf('internal/FormattedValue', module)
   ))
   .add('datetime', () => (
     <FormattedValue
-      value={new Date('2018-08-03T13:56:53.928Z')}
+      value={+new Date('2018-08-03T13:56:53.928Z')}
       fieldType={fieldTypes.DATETIME}
     />
   ))
@@ -55,37 +66,10 @@ storiesOf('internal/FormattedValue', module)
       fieldType={fieldTypes.SELECT_MULTIPLE}
     />
   ))
-
-const translations = {
-  testFieldkey: {
-    'hello world': 'Hola mundo',
-    true: 'Sí',
-    false: 'Falso',
-    null: 'Sin valor',
-    undefined: 'Sin Valor',
-    foo: 'Translated foo'
-  }
-}
-
-storiesOf('internal/FormattedValue', module).add('text translations', () => (
-  <ValueTranslationContext.Provider value={translations}>
-    {withPropsCombinations(FormattedValue, {
+  .add('combinations', () =>
+    withPropsCombinations(FormattedValue, {
       value: ['hello world', true, false, null],
       fieldkey: ['testFieldkey'],
       fieldType: [fieldTypes.TEXT]
-    })()}
-  </ValueTranslationContext.Provider>
-))
-
-storiesOf('internal/FormattedValue', module).add(
-  'select multiple translations',
-  () => (
-    <ValueTranslationContext.Provider value={translations}>
-      <FormattedValue
-        value={['foo', 'bar']}
-        fieldType={fieldTypes.SELECT_MULTIPLE}
-        fieldkey="testFieldkey"
-      />
-    </ValueTranslationContext.Provider>
+    })()
   )
-)

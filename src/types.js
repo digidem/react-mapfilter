@@ -129,24 +129,6 @@ type MediaType =
   | typeof valueTypes.VIDEO_URL
 export type MediaArray = Array<{ src: string, type: MediaType }>
 
-export type FieldDefinition = {
-  // key on Feature.properties that this field applies to
-  key: string,
-  // the type of the value
-  valueType: $Values<typeof valueTypes>,
-  // the type of field to show (defaults to a guess based on valueType)
-  fieldType: string,
-  // label to show for the field key (can be translated)
-  label?: string,
-  // whether new options may be created, or must be an option from the list
-  strict?: boolean,
-  // an ordered list of options to show for a select or multi-select field
-  // where value is the value to be set, and label is the translation to show
-  options?: Array<
-    string | {| value: number | string | boolean, label: string |}
-  >
-}
-
 export type Coordinates = {
   altitude?: number,
   heading?: number,
@@ -183,25 +165,25 @@ type BaseField = {|
 //   | 'date'
 //   | 'datetime'
 
-export type TextField = {|
-  ...$Exact<BaseField>,
+export type TextField = {
+  ...BaseField,
   type: 'text',
   appearance?: 'single' | 'multiline',
   // Spaces are replaced with underscores
   snake_case?: boolean
-|}
+}
 
-export type LinkField = {|
-  ...$Exact<BaseField>,
+export type LinkField = {
+  ...BaseField,
   type: 'link'
-|}
+}
 
-export type NumberField = {|
-  ...$Exact<BaseField>,
+export type NumberField = {
+  ...BaseField,
   type: 'number',
-  min_value?: Date,
-  max_value?: Date
-|}
+  min_value?: number,
+  max_value?: number
+}
 
 export type SelectableFieldValue = number | string | boolean | null
 
@@ -209,8 +191,8 @@ export type SelectOptions = Array<
   SelectableFieldValue | {| value: SelectableFieldValue, label: string |}
 >
 
-export type SelectOneField = {|
-  ...$Exact<BaseField>,
+export type SelectOneField = {
+  ...BaseField,
   type: 'select_one',
   options: SelectOptions,
   // User can enter their own reponse if not on the list (defaults to true on
@@ -218,22 +200,22 @@ export type SelectOneField = {|
   other?: boolean,
   // Spaces are replaced with underscores
   snake_case?: boolean
-|}
+}
 
-export type SelectMultipleField = {|
+export type SelectMultipleField = {
   ...$Exact<SelectOneField>,
   type: 'select_multiple'
-|}
+}
 
-export type DateField = {|
+export type DateField = {
   ...$Exact<NumberField>,
   type: 'date'
-|}
+}
 
-export type DateTimeField = {|
+export type DateTimeField = {
   ...$Exact<NumberField>,
   type: 'datetime'
-|}
+}
 
 export type Field =
   | TextField
@@ -243,3 +225,118 @@ export type Field =
   | DateField
   | DateTimeField
   | LinkField
+
+export type MessageDescriptor = {
+  id: string,
+  description?: string | {},
+  defaultMessage?: string
+}
+
+type IntlConfig = {|
+  locale?: string,
+  timeZone?: string,
+  textComponent?: any,
+  messages?: { [key: string]: string },
+  defaultLocale: string,
+  onError?: (err: string) => void
+|}
+
+type FormatDateOptions = {|
+  localeMatcher?: 'lookup' | 'best fit',
+  timeZone?: string,
+  hour12?: boolean,
+  hourCycle?: 'h11' | 'h12' | 'h23' | 'h24',
+  formatMatcher?: 'basic' | 'best fit',
+  weekday?: 'long' | 'short' | 'narrow',
+  era?: 'long' | 'short' | 'narrow',
+  year?: 'numeric' | '2-digit',
+  month?: 'numeric' | '2-digit' | 'long' | 'short' | 'narrow',
+  day?: 'numeric' | '2-digit',
+  hour?: 'numeric' | '2-digit',
+  minute?: 'numeric' | '2-digit',
+  second?: 'numeric' | '2-digit',
+  timeZoneName?: 'long' | 'short'
+|}
+
+type oneToTwenty =
+  | 1
+  | 2
+  | 3
+  | 4
+  | 5
+  | 6
+  | 7
+  | 8
+  | 9
+  | 10
+  | 11
+  | 12
+  | 13
+  | 14
+  | 15
+  | 16
+  | 17
+  | 18
+  | 19
+  | 20
+
+type FormatNumberOptions = {|
+  localeMatcher?: 'lookup' | 'best fit',
+  style?: 'decimal' | 'currency' | 'percent',
+  currenty?: string,
+  currencyDisplay?: 'symbol' | 'code' | 'name',
+  useGrouping?: boolean,
+  minimumIntegerDigits?: oneToTwenty | 21,
+  minimumFractionDigits?: 0 | oneToTwenty,
+  maximumFractionDigits?: 0 | oneToTwenty,
+  minimumSignificantDigits?: oneToTwenty | 21,
+  maximumSignificantDigits?: oneToTwenty | 21
+|}
+
+type FormatRelativeOptions = {|
+  localeMatcher?: 'lookup' | 'best fit',
+  numeric?: 'always' | 'auto',
+  type?: 'long' | 'short' | 'narrow'
+|}
+
+type Unit =
+  | 'second'
+  | 'minute'
+  | 'hour'
+  | 'day'
+  | 'week'
+  | 'month'
+  | 'quarter'
+  | 'year'
+
+type FormatPluralOptions = {
+  type?: 'cardinal' | 'ordinal'
+}
+
+export type Primitive = string | boolean | null | void | number
+
+type MessageValues = { [key: string]: Primitive }
+type IntlFormatters = {|
+  formatDate: (value: number | Date, opts?: FormatDateOptions) => string,
+  formatTime: (value: number | Date, opts?: FormatDateOptions) => string,
+  formatRelativeTime: (
+    value: number,
+    unit: Unit,
+    opts?: FormatRelativeOptions
+  ) => string,
+  formatNumber: (value: number, opts?: FormatNumberOptions) => string,
+  formatPlural: (value: number, opts?: FormatPluralOptions) => string,
+  formatMessage: (
+    descriptor: MessageDescriptor,
+    values?: MessageValues
+  ) => string,
+  formatHTMLMessage: (
+    descriptor: MessageDescriptor,
+    values?: MessageValues
+  ) => string
+|}
+
+export type IntlShape = {|
+  ...IntlConfig,
+  ...IntlFormatters
+|}

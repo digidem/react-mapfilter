@@ -74,14 +74,21 @@ export function getField(
   switch (valueType) {
     case valueTypes.BOOLEAN:
       return createSelectOneField(keyArray, [true, false])
-    case valueTypes.STRING:
+    case valueTypes.STRING: {
       const options = getOptions(fieldStats)
       if (options.length) return createSelectOneField(keyArray, options)
       else return createTextField(keyArray)
+    }
     case valueTypes.NUMBER:
       return createNumberField(keyArray)
-    case valueTypes.ARRAY:
-      return createSelectMultipleField(keyArray, value, { readonly: true })
+    case valueTypes.ARRAY: {
+      const options = getOptions(fieldStats)
+      return createSelectMultipleField(
+        keyArray,
+        options.length ? options : value,
+        { readonly: true }
+      )
+    }
     case valueTypes.DATE:
       return createDateField(keyArray)
     case valueTypes.DATETIME:

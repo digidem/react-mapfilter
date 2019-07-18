@@ -6,41 +6,39 @@ import { storiesOf } from '@storybook/react'
 // import { action } from '@storybook/addon-actions'
 
 import FormattedFieldname from './FormattedFieldname'
-import { FieldnameTranslationContext } from './Context'
 
 storiesOf('internal/FormattedFieldname', module)
-  .add('Plain text', () => <FormattedFieldname field={{ key: 'foo' }} />)
-  .add('Nested fieldname', () => {
-    const key = 'foo\uffffbar\uffffqux'
-    return <FormattedFieldname field={{ key: key }} />
-  })
-  .add('Underscores to spaces', () => {
-    const key = 'foo_bob\uffffbar\uffffqux_hub'
-    return <FormattedFieldname field={{ key: key }} />
-  })
-  .add('With translations', () => (
-    <FieldnameTranslationContext.Provider value={{ foo: 'Foo Translation' }}>
-      <FormattedFieldname field={{ key: 'foo' }} />
-    </FieldnameTranslationContext.Provider>
+  .add('Plain text', () => (
+    <FormattedFieldname field={{ id: '1', type: 'text', key: 'foo' }} />
   ))
-  .add('Nested with translations', () => {
-    const key = 'foo\uffffbar'
+  .add('Nested fieldname', () => {
+    const key = ['foo', 'bar', 'qux']
+    return <FormattedFieldname field={{ id: '1', type: 'text', key: key }} />
+  })
+  .add('Underscores and dashes to spaces', () => {
+    const key = ['foo_bob', 'bar', 'qux-hub']
+    return <FormattedFieldname field={{ id: '1', type: 'text', key: key }} />
+  })
+  .add('With label', () => {
+    const key = ['foo_bob', 'bar', 'qux_hub']
     return (
-      <FieldnameTranslationContext.Provider value={{ bar: 'Bar translation' }}>
-        <FormattedFieldname field={{ key: key }} />
-      </FieldnameTranslationContext.Provider>
+      <FormattedFieldname
+        field={{ id: '1', type: 'text', key: key, label: 'A Field Label' }}
+      />
     )
   })
-  .add('Nested with translations reverse', () => (
-    <FieldnameTranslationContext.Provider value={{ bar: 'Bar translation' }}>
-      <FormattedFieldname field={{ key: 'bar\ufffffoo' }} />
-    </FieldnameTranslationContext.Provider>
-  ))
-  .add('With full key translation', () => (
-    <FieldnameTranslationContext.Provider
-      value={{
-        'foo.bar.quux': 'foo.bar.qux Translation'
-      }}>
-      <FormattedFieldname field={{ key: 'foo\uffffbar\uffffquux' }} />
-    </FieldnameTranslationContext.Provider>
-  ))
+  .add('Translated label', () => {
+    const key = ['foo', 'bar']
+    return (
+      <FormattedFieldname
+        field={{
+          id: '1',
+          type: 'text',
+          key: key,
+          label: 'English label',
+          'label:es-PE': 'Peruvian-Spanish label',
+          'label:es': 'Etiqueta Español'
+        }}
+      />
+    )
+  })

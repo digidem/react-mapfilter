@@ -7,14 +7,6 @@ import Paper from '@material-ui/core/Paper'
 import MenuItem from '@material-ui/core/MenuItem'
 import matchSorter from 'match-sorter'
 
-// import Autosuggest from 'react-autosuggest'
-
-// import IsolatedScroll from 'react-isolated-scroll'
-// import match from 'autosuggest-highlight/match'
-// import parse from 'autosuggest-highlight/parse'
-// import omit from 'lodash/omit'
-// import isEqual from 'lodash/isEqual'
-// import assign from 'object-assign'
 import { makeStyles } from '../utils/styles'
 
 import type { SelectableFieldValue } from '../types'
@@ -153,10 +145,13 @@ export const SelectOne = ({
       newValue = changes.selectedItem
     } else if (changes.hasOwnProperty('inputValue')) {
       newValue = changes.inputValue
-    } else return
+    } else {
+      return
+    }
     const matchingSuggestion = suggestions.find(item =>
       lowerCaseEqual(item.label === newValue)
     )
+    newValue = newValue === undefined ? null : newValue
     onChange(matchingSuggestion ? matchingSuggestion.value : newValue)
   }
 
@@ -167,14 +162,18 @@ export const SelectOne = ({
       onStateChange={onStateChange}>
       {({
         clearSelection,
+        // $FlowFixMe
         getInputProps,
         getItemProps,
         getLabelProps,
         getMenuProps,
+        // $FlowFixMe
         highlightedIndex,
+        // $FlowFixMe
         inputValue,
         isOpen,
         openMenu,
+        // $FlowFixMe
         selectedItem
       }) => {
         const { onBlur, onFocus, ...inputProps } = getInputProps({

@@ -17,14 +17,15 @@ import clsx from 'clsx'
 
 import FormattedValue from './FormattedValue'
 import FormattedFieldname from '../internal/FormattedFieldname'
+import { get } from '../utils/get_set'
 import { LINK } from '../constants/field_types'
+
 // import Select from '../internal/Select'
 // import MultiSelect from '../internal/MultiSelect'
 
 // import * as FIELD_TYPES from '../constants/field_types'
 
-import type { Field, JSONObject } from '../types'
-import type { FormattedValueProps } from './FormattedValue'
+import type { Field, JSONObject, Primitive } from '../types'
 
 const styles = {
   root: {
@@ -70,6 +71,15 @@ const styles = {
 }
 
 const useStyles = makeStyles(styles)
+
+// function coerceValue(
+//   value: Primitive | Array<Primitive>,
+//   type: $Values<typeof valueTypes>
+// ) {
+//   try {
+//     return throwableCoerceValue(value, type)
+//   } catch (e) {}
+// }
 
 // const shouldNotWrap = {
 //   [FIELD_TYPES.UUID]: true,
@@ -175,13 +185,18 @@ const Label = ({ style, field }: { style: {}, field: Field }) => {
   )
 }
 
-const Value = (props: FormattedValueProps) => {
+type ValueProps = {
+  value: Primitive | Array<Primitive>,
+  fieldType: $ElementType<Field, 'type'>,
+  fieldkey: $ElementType<Field, 'key'>
+}
+
+const Value = (props: ValueProps) => {
   const classes = useStyles()
   const isLink = props.fieldType === LINK
   return (
     <TableCell className={classes.col2}>
       <Typography className={clsx({ [classes.col2TextNoWrap]: isLink })}>
-        {/* $FlowFixMe */}
         <FormattedValue {...props} />
       </Typography>
     </TableCell>
@@ -205,7 +220,7 @@ const DetailsTable = ({ fields = [], tags = {}, width }: Props) => {
         <TableBody>
           {fields
             .map((field, i) => {
-              const value = field.get(tags)
+              const value: Primitive | Array<Primitive> = get(tags, field.key)
               if (isEmptyValue(value)) return null
               return (
                 <TableRow
@@ -213,7 +228,6 @@ const DetailsTable = ({ fields = [], tags = {}, width }: Props) => {
                   className={classes.row}
                   style={{ zIndex: fields.length - i }}>
                   <Label field={field} style={{ maxWidth: width / 3 - 36 }} />
-                  {/* $FlowFixMe */}
                   <Value
                     value={value}
                     fieldType={field.type}

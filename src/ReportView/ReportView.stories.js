@@ -37,9 +37,7 @@ storiesOf('ReportView', module)
           key: 'caption',
           label: 'Image caption',
           type: 'text',
-          appearance: 'multiline',
-          get: tags => tags.caption,
-          set: (tags, value) => (tags.caption = value)
+          appearance: 'multiline'
         }
       ]}
     />

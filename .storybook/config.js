@@ -8,7 +8,7 @@ const getMessages = locale => {}
 
 // Set intl configuration
 setIntlConfig({
-  locales: ['en', 'es', 'fr'],
+  locales: ['en', 'es-PE', 'es-ES', 'es', 'fr'],
   defaultLocale: 'en',
   textComponent: React.Fragment,
   getMessages

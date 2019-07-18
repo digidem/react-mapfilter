@@ -5,7 +5,7 @@ import url from 'url'
 import path from 'path'
 
 import * as valueTypes from '../../constants/value_types'
-type Primitive = boolean | null | void | string | number
+import type { Primitive } from '../../types'
 
 // Match dates of the form 1999-12-31
 const shortDateRegExp = /^(\d{4})-(\d{2})-(\d{2})$/
@@ -25,13 +25,10 @@ const AUDIO_EXTS = ['3gpp', 'wav', 'wma', 'mp3', 'm4a', 'aiff', 'ogg']
  * - primitive types (excluding Symbol)
  * - dates
  * - urls (guessing contentType from extension)
- * - locations (as [lon, lat] arrays, sexaguessimal coordinates, or location
- *   strings from ODK collect)
  */
 export function guessValueType(
   value: Primitive | Array<Primitive>
 ): $Values<typeof valueTypes> {
-  if (parseLocation(value) !== null) return valueTypes.LOCATION
   if (Array.isArray(value)) return valueTypes.ARRAY
   if (value === null) return valueTypes.NULL
   if (typeof value !== 'string') return TYPES[typeof value]
@@ -56,23 +53,83 @@ export function guessValueType(
   return valueTypes.STRING
 }
 
+type NonNullishPrimitive = number | boolean | string
+type Value = NonNullishPrimitive | Array<Primitive>
+// This seems rather complicated, but all these declares tell Flow that the
+// returned type of the function depends on the `type` argument passed to the
+// coerceValue function
+/* eslint-disable no-redeclare */
+declare function coerceValue(
+  value: null,
+  type: $Values<typeof valueTypes>
+): null
+declare function coerceValue(
+  value: void,
+  type: $Values<typeof valueTypes>
+): void
+declare function coerceValue(value: Value, type: typeof valueTypes.NULL): null
+declare function coerceValue(
+  value: Value,
+  type: typeof valueTypes.UNDEFINED
+): void
+declare function coerceValue(
+  value: Value,
+  type: typeof valueTypes.LOCATION
+): [number, number]
+declare function coerceValue(
+  value: Value,
+  type: typeof valueTypes.ARRAY
+): Array<Primitive>
+declare function coerceValue(
+  value: Value,
+  type: typeof valueTypes.BOOLEAN
+): boolean
+declare function coerceValue(
+  value: Value,
+  type: typeof valueTypes.NUMBER
+): number
+declare function coerceValue(
+  value: Value,
+  type: typeof valueTypes.STRING
+): string
+declare function coerceValue(
+  value: Value,
+  type: typeof valueTypes.DATE | typeof valueTypes.DATETIME
+): Date
+declare function coerceValue(
+  value: Value,
+  type:
+    | typeof valueTypes.IMAGE_URL
+    | typeof valueTypes.URL
+    | typeof valueTypes.VIDEO_URL
+    | typeof valueTypes.AUDIO_URL
+): string
+/* eslint-enable no-redeclare */
+
 /**
  * Attempts to coerce a value to `type`, throws if it can't coerce
  */
-export function coerceValue(
-  value: void | Primitive | Array<Primitive> | [number, number],
-  type: $Values<typeof valueTypes>
-): Date | void | Primitive | [number, number] | Array<Primitive> {
+// eslint-disable-next-line no-redeclare
+export function coerceValue(value, type) {
   if (value === undefined || value === null) return value
   switch (type) {
+    case valueTypes.UNDEFINED:
+      return
+    case valueTypes.NULL:
+      return null
     case valueTypes.LOCATION:
       const parsedLocation = parseLocation(value)
       if (parsedLocation) return parsedLocation
       throw new Error('Cannot coerce ' + JSON.stringify(value) + ' to ' + type)
     case valueTypes.ARRAY:
       if (Array.isArray(value)) return value
-      // $FlowFixMe If string then assume space separated list
-      if (typeof value === 'string') return value.split(' ')
+      // If string assume either comma-separated or space-separated - choose the
+      // one that results in the largest number of values
+      if (typeof value === 'string') {
+        const spaceSplit = value.split(' ')
+        const commaSplit = value.split(',')
+        return commaSplit.length >= spaceSplit.length ? commaSplit : spaceSplit
+      }
       throw new Error('Cannot coerce ' + JSON.stringify(value) + ' to ' + type)
     case valueTypes.BOOLEAN:
       if (typeof value === 'boolean') return value
@@ -92,7 +149,8 @@ export function coerceValue(
       if (typeof value === 'string') return value
       if (typeof value === 'boolean') return value ? 'yes' : 'no'
       if (typeof value === 'number') return value + ''
-      if (Array.isArray(value)) return value.join(' ')
+      if (Array.isArray(value))
+        return value.map(v => coerceValue(v, valueTypes.STRING)).join(',')
       throw new Error('Cannot coerce ' + JSON.stringify(value) + ' to ' + type)
     case valueTypes.DATE: {
       // returns midday (local timezone) dates
@@ -128,7 +186,7 @@ export function coerceValue(
     case valueTypes.URL:
     case valueTypes.VIDEO_URL:
     case valueTypes.AUDIO_URL:
-      if (typeof value === 'string') return value
+      if (typeof value === 'string' && isUrl(value)) return value
       throw new Error('Cannot coerce ' + JSON.stringify(value) + ' to ' + type)
   }
   throw new Error('Cannot coerce ' + JSON.stringify(value) + ' to ' + type)
