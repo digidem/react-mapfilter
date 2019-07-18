@@ -38,9 +38,9 @@ export function flatObjectEntries(object: {}): Array<
     const keys = Array.isArray(object)
       ? object.map((_, i) => i)
       : Object.keys(object)
-    for (let key of keys) {
-      let value = object[key]
-      let newKey = prev.concat([key])
+    for (const key of keys) {
+      const value = object[key]
+      const newKey = prev.concat([key])
 
       if (isObj(value) && !isArrayOfPrimitives(value)) {
         step(value, newKey, currentDepth + 1)

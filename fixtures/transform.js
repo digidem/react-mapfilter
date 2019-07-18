@@ -1,6 +1,7 @@
 const fc = require('./example_fc.json')
 const omit = require('lodash/omit')
 const fs = require('fs')
+const path = require('path')
 
 const observations = fc.features.map(f => ({
   id: f.id,
@@ -23,6 +24,6 @@ function randomId() {
 }
 
 fs.writeFileSync(
-  __dirname + '/observations.json',
+  path.join(__dirname, '/observations.json'),
   JSON.stringify(observations, null, 2)
 )

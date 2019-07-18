@@ -141,9 +141,9 @@ export const SelectOne = ({
 
   function onStateChange(changes) {
     let newValue
-    if (changes.hasOwnProperty('selectedItem')) {
+    if (Object.prototype.hasOwnProperty.call(changes, 'selectedItem')) {
       newValue = changes.selectedItem
-    } else if (changes.hasOwnProperty('inputValue')) {
+    } else if (Object.prototype.hasOwnProperty.call(changes, 'inputValue')) {
       newValue = changes.inputValue
     } else {
       return

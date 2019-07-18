@@ -25,5 +25,11 @@
   "rules": {
     "react/prop-types": 0,
     "react/display-name": 0
+  },
+  "settings": {
+    "react": {
+      "version": "detect",
+      "flowVersion": "0.102"
+    }
   }
 }

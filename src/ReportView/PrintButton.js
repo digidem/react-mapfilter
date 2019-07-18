@@ -62,7 +62,9 @@ class PrintButton extends React.Component<Props, State> {
   }
 
   openDialog = () => this.setState({ dialogOpen: true })
+
   closeDialog = () => this.setState({ dialogOpen: false })
+
   handleChangePaperSize = (e: SyntheticInputEvent<HTMLSelectElement>) => {
     // $FlowFixMe - Flow doesn't recognize value being one of options
     const value: PaperSize = e.currentTarget.value

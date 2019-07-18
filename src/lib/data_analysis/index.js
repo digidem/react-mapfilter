@@ -110,7 +110,7 @@ function getOptions(fieldStats?: FieldStatistic): SelectOptions {
   const options = []
   if (!fieldStats) return options
 
-  for (let value of fieldStats.string.values.keys()) {
+  for (const value of fieldStats.string.values.keys()) {
     if (value.length > MAX_OPTION_LENGTH) continue
     options.push(value)
   }

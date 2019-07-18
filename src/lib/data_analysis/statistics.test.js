@@ -1,5 +1,4 @@
 import test from 'tape'
-import fs from 'fs'
 import fixture from '../../../fixtures/example_fc.json'
 import createMemoizedStats, { diffArrays, statReduce } from './statistics'
 
