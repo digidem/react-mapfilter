@@ -25,10 +25,10 @@ const FormattedValue = ({ value, fieldType }: Props) => {
         const valueAsArray = coerceValue(value, valueTypes.ARRAY).filter(
           v => v != null
         )
-        return flatMap<React.Node>(valueAsArray, (v, i) => [
-          <FormattedValue key={i} value={v} fieldType={fieldTypes.TEXT} />,
-          ','
-        ])
+        const values = valueAsArray.map<React.Node>((v, i) => (
+          <FormattedValue key={i} value={v} fieldType={fieldTypes.TEXT} />
+        ))
+        return joinReactChildren(values, ', ')
       case fieldTypes.NUMBER:
         const valueAsNumber = coerceValue(value, valueTypes.NUMBER)
         return valueAsNumber + ''
@@ -74,14 +74,14 @@ const FormattedValue = ({ value, fieldType }: Props) => {
 
 export default FormattedValue
 
-function flatMap<U>(
-  arr: Array<any>,
-  callbackfn: (
-    value: any,
-    index: number,
-    array: $ReadOnlyArray<any>
-  ) => $ReadOnlyArray<U>
-): Array<U> {
-  // $FlowFixMe
-  return arr.flatMap(callbackfn)
+function joinReactChildren(
+  children: Array<React.Node>,
+  separator: React.Node
+): Array<React.Node> {
+  const joinedChildren = []
+  for (let i = 0; i < children.length; i++) {
+    joinedChildren.push(children[i])
+    if (i < children.length - 1) joinedChildren.push(separator)
+  }
+  return joinedChildren
 }
