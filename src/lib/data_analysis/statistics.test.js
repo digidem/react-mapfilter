@@ -82,17 +82,21 @@ test('statReduce 11th value', () => {
 
 test('statReduce date', () => {
   const initialStats = {
-    min: +new Date(2019, 0, 1),
-    max: +new Date(2019, 5, 1),
+    min: Date.parse('2019-01-01T00:00:00.000Z'),
+    max: Date.parse('2019-06-01T00:00:00.000Z'),
     mean: 1552822200000,
     variance: 42528657960000000000
   }
-  const newStats = statReduce(initialStats, new Date(2019, 5, 15), 2)
+  const newStats = statReduce(
+    initialStats,
+    Date.parse('2019-06-15T00:00:00.000Z'),
+    2
+  )
   expect(newStats).toEqual({
-    min: +new Date(2019, 0, 1),
-    max: +new Date(2019, 5, 15),
-    mean: 1555399200000,
-    variance: 41634296640000000000
+    min: Date.parse('2019-01-01T00:00:00.000Z'),
+    max: Date.parse('2019-06-15T00:00:00.000Z'),
+    mean: 1555400400000,
+    variance: 41646669120000000000
   })
 })
 
