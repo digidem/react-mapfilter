@@ -7,7 +7,6 @@ import TableBody from '@material-ui/core/TableBody'
 import TableCell from '@material-ui/core/TableCell'
 import TableRow from '@material-ui/core/TableRow'
 import AutoSizer from 'react-virtualized-auto-sizer'
-import clsx from 'clsx'
 
 // import TextField from '@material-ui/core/TextField'
 // import Input from '@material-ui/core/Input'
@@ -18,7 +17,6 @@ import clsx from 'clsx'
 import FormattedValue from './FormattedValue'
 import FormattedFieldname from '../internal/FormattedFieldname'
 import { get } from '../utils/get_set'
-import { LINK } from '../constants/field_types'
 
 // import Select from '../internal/Select'
 // import MultiSelect from '../internal/MultiSelect'
@@ -60,9 +58,8 @@ const styles = {
     paddingTop: 5,
     paddingBottom: 5
   },
-  col2TextNoWrap: {
+  col2Text: {
     overflow: 'hidden',
-    whiteSpace: 'nowrap',
     textOverflow: 'ellipsis'
   },
   input: {
@@ -187,16 +184,14 @@ const Label = ({ style, field }: { style: {}, field: Field }) => {
 
 type ValueProps = {
   value: Primitive | Array<Primitive>,
-  fieldType: $ElementType<Field, 'type'>,
-  fieldkey: $ElementType<Field, 'key'>
+  field: Field
 }
 
 const Value = (props: ValueProps) => {
   const classes = useStyles()
-  const isLink = props.fieldType === LINK
   return (
     <TableCell className={classes.col2}>
-      <Typography className={clsx({ [classes.col2TextNoWrap]: isLink })}>
+      <Typography className={classes.col2Text}>
         <FormattedValue {...props} />
       </Typography>
     </TableCell>
@@ -228,11 +223,7 @@ const DetailsTable = ({ fields = [], tags = {}, width }: Props) => {
                   className={classes.row}
                   style={{ zIndex: fields.length - i }}>
                   <Label field={field} style={{ maxWidth: width / 3 - 36 }} />
-                  <Value
-                    value={value}
-                    fieldType={field.type}
-                    fieldkey={field.key}
-                  />
+                  <Value value={value} field={field} />
                 </TableRow>
               )
             })

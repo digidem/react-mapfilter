@@ -2,14 +2,29 @@
 import * as React from 'react'
 import { FormattedDate, FormattedTime } from 'react-intl'
 
+import { makeStyles } from '../utils/styles'
 import { coerceValue } from '../lib/data_analysis/value_types'
 import * as fieldTypes from '../constants/field_types'
 import * as valueTypes from '../constants/value_types'
 import type { Primitive, Field } from '../types'
 
+const useStyles = makeStyles({
+  link: {
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
+    whiteSpace: 'nowrap'
+  }
+})
+
 type Props = {
   value: Primitive | Array<Primitive>,
-  fieldType: $ElementType<Field, 'type'>
+  field: Field
+}
+
+const defaultTextField: Field = {
+  id: 'default_text_field',
+  key: [],
+  type: fieldTypes.TEXT
 }
 
 /**
@@ -17,16 +32,17 @@ type Props = {
  * the value to a type specified by `fieldType`. An optional `fieldkey` is used
  * to look up a translated value which can be passed by FieldnameTranslationProvider
  */
-const FormattedValue = ({ value, fieldType }: Props) => {
+const FormattedValue = ({ value, field }: Props) => {
+  const classes = useStyles()
   if (value === undefined || value === null) return null
   try {
-    switch (fieldType) {
+    switch (field.type) {
       case fieldTypes.SELECT_MULTIPLE:
         const valueAsArray = coerceValue(value, valueTypes.ARRAY).filter(
           v => v != null
         )
         const values = valueAsArray.map<React.Node>((v, i) => (
-          <FormattedValue key={i} value={v} fieldType={fieldTypes.TEXT} />
+          <FormattedValue key={i} value={v} field={defaultTextField} />
         ))
         return joinReactChildren(values, ', ')
       case fieldTypes.NUMBER:
@@ -60,7 +76,11 @@ const FormattedValue = ({ value, fieldType }: Props) => {
       case fieldTypes.LINK:
         const valueAsUrl = coerceValue(value, valueTypes.URL)
         return (
-          <a href={valueAsUrl} target="_blank" rel="noopener noreferrer">
+          <a
+            href={valueAsUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={classes.link}>
             {valueAsUrl}
           </a>
         )

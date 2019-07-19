@@ -10,60 +10,93 @@ import * as fieldTypes from '../constants/field_types'
 
 storiesOf('internal/FormattedValue', module)
   .add('text from string', () => (
-    <FormattedValue value="hello world" fieldType={fieldTypes.TEXT} />
+    <FormattedValue
+      value="hello world"
+      field={{ id: '', key: [], type: fieldTypes.TEXT }}
+    />
   ))
   .add('text from bool', () => (
-    <FormattedValue value={true} fieldType={fieldTypes.TEXT} />
+    <FormattedValue
+      value={true}
+      field={{ id: '', key: [], type: fieldTypes.TEXT }}
+    />
   ))
   .add('text from number', () => (
-    <FormattedValue value={2} fieldType={fieldTypes.TEXT} />
+    <FormattedValue
+      value={2}
+      field={{ id: '', key: [], type: fieldTypes.TEXT }}
+    />
   ))
   .add('text from null', () => (
-    <FormattedValue value={null} fieldType={fieldTypes.TEXT} />
+    <FormattedValue
+      value={null}
+      field={{ id: '', key: [], type: fieldTypes.TEXT }}
+    />
   ))
   .add('link', () => (
     <FormattedValue
       value="http://www.example.com"
-      fieldType={fieldTypes.LINK}
+      field={{ id: '', key: [], type: fieldTypes.LINK }}
     />
   ))
   .add('link but not link', () => (
-    <FormattedValue value="not a link" fieldType={fieldTypes.LINK} />
+    <FormattedValue
+      value="not a link"
+      field={{ id: '', key: [], type: fieldTypes.LINK }}
+    />
   ))
   .add('link from null', () => (
-    <FormattedValue value={null} fieldType={fieldTypes.LINK} />
+    <FormattedValue
+      value={null}
+      field={{ id: '', key: [], type: fieldTypes.LINK }}
+    />
   ))
   .add('date', () => (
     <FormattedValue
       value={+new Date('2018-08-03T13:56:53.928Z')}
-      fieldType={fieldTypes.DATE}
+      field={{ id: '', key: [], type: fieldTypes.DATE }}
     />
   ))
   .add('date null', () => (
-    <FormattedValue value={null} fieldType={fieldTypes.DATE} />
+    <FormattedValue
+      value={null}
+      field={{ id: '', key: [], type: fieldTypes.DATE }}
+    />
   ))
   .add('datetime', () => (
     <FormattedValue
       value={+new Date('2018-08-03T13:56:53.928Z')}
-      fieldType={fieldTypes.DATETIME}
+      field={{ id: '', key: [], type: fieldTypes.DATETIME }}
     />
   ))
   .add('datetime null', () => (
-    <FormattedValue value={null} fieldType={fieldTypes.DATETIME} />
+    <FormattedValue
+      value={null}
+      field={{ id: '', key: [], type: fieldTypes.DATETIME }}
+    />
   ))
   .add('number', () => (
-    <FormattedValue value={2} fieldType={fieldTypes.NUMBER} />
+    <FormattedValue
+      value={2}
+      field={{ id: '', key: [], type: fieldTypes.NUMBER }}
+    />
   ))
   .add('select one boolean', () => (
-    <FormattedValue value={true} fieldType={fieldTypes.SELECT_ONE} />
+    <FormattedValue
+      value={true}
+      field={{ id: '', key: [], type: fieldTypes.SELECT_ONE, options: [] }}
+    />
   ))
   .add('select one string', () => (
-    <FormattedValue value="hello world" fieldType={fieldTypes.SELECT_ONE} />
+    <FormattedValue
+      value="hello world"
+      field={{ id: '', key: [], type: fieldTypes.SELECT_ONE, options: [] }}
+    />
   ))
   .add('select multiple', () => (
     <FormattedValue
       value={['foo', true, 2, null]}
-      fieldType={fieldTypes.SELECT_MULTIPLE}
+      field={{ id: '', key: [], type: fieldTypes.SELECT_MULTIPLE, options: [] }}
     />
   ))
   .add('combinations', () =>
