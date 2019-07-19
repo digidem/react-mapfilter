@@ -49,7 +49,7 @@
         ['react-intl-auto', { filebase: true, removePrefix: 'src' }],
         // Turns flow type annotations into React.PropTypes for runtime
         // type checking. Deadcode wraps in NODE_ENV checks
-        ['flow-react-proptypes', { deadCode: true }],
+        // ['flow-react-proptypes', { deadCode: true }],
         // Converts flow annotations into comment syntax
         // https://flow.org/en/docs/types/comments/
         '@babel/plugin-transform-flow-comments',
