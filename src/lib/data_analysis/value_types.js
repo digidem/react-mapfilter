@@ -2,7 +2,7 @@
 import isodate from '@segment/isodate'
 import sexagesimal from '@mapbox/sexagesimal'
 import url from 'url'
-import path from 'path'
+import mime from 'mime/lite'
 
 import * as valueTypes from '../../constants/value_types'
 import type { Primitive } from '../../types'
@@ -15,10 +15,6 @@ const TYPES = {
   number: valueTypes.NUMBER,
   undefined: valueTypes.UNDEFINED
 }
-
-const IMAGE_EXTS = ['jpg', 'tif', 'jpeg', 'png', 'tiff', 'webp']
-const VIDEO_EXTS = ['mov', 'mp4', 'avi', 'webm']
-const AUDIO_EXTS = ['3gpp', 'wav', 'wma', 'mp3', 'm4a', 'aiff', 'ogg']
 
 /**
  * Guess the type of a value:
@@ -36,13 +32,11 @@ export function guessValueType(
   if (isUrl(value)) {
     // eslint-disable-next-line node/no-deprecated-api
     const parsedUrl = url.parse(value)
-    const ext = path
-      .extname(parsedUrl.pathname || '')
-      .slice(1)
-      .toLowerCase()
-    if (IMAGE_EXTS.indexOf(ext) > -1) return valueTypes.IMAGE_URL
-    if (VIDEO_EXTS.indexOf(ext) > -1) return valueTypes.VIDEO_URL
-    if (AUDIO_EXTS.indexOf(ext) > -1) return valueTypes.AUDIO_URL
+    const mimeType = mime.getType(parsedUrl.pathname)
+    if (!mimeType) return valueTypes.URL
+    if (mimeType.split('/')[0] === 'image') return valueTypes.IMAGE_URL
+    if (mimeType.split('/')[0] === 'video') return valueTypes.VIDEO_URL
+    if (mimeType.split('/')[0] === 'audio') return valueTypes.AUDIO_URL
     return valueTypes.URL
   }
 
