@@ -6,12 +6,14 @@ const path = require('path')
 const observations = fc.features.map(f => ({
   id: f.id,
   lon: f.geometry && f.geometry.coordinates[0],
-  lat: f.geometry && f.geometry.coordinates[0],
+  lat: f.geometry && f.geometry.coordinates[1],
   created_at: f.properties.start,
-  attachments: Array(randomInt(5)).fill({
-    id: randomId() + '.jpg',
-    type: 'image'
-  }),
+  attachments: Array(randomInt(5))
+    .fill()
+    .map(() => ({
+      id: randomId() + '.jpg',
+      type: 'image/jpg'
+    })),
   tags: omit(f.properties, ['id', 'picture', 'pictures'])
 }))
 

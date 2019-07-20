@@ -2,28 +2,12 @@
   {
     "id": "7b8f0c7d-0d08-4029-ab66-eca3517e8aea",
     "lon": -59.98021487775259,
-    "lat": -59.98021487775259,
+    "lat": 2.8771639400161804,
     "created_at": "2014-03-11T00:00:00.000Z",
     "attachments": [
       {
-        "id": "3fa6c4f4.jpg",
-        "type": "image"
-      },
-      {
-        "id": "3fa6c4f4.jpg",
-        "type": "image"
-      },
-      {
-        "id": "3fa6c4f4.jpg",
-        "type": "image"
-      },
-      {
-        "id": "3fa6c4f4.jpg",
-        "type": "image"
-      },
-      {
-        "id": "3fa6c4f4.jpg",
-        "type": "image"
+        "id": "c43bd5b1.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -46,36 +30,38 @@
       "region": "South Central",
       "today": "2014-03-11",
       "village": "Parikowaro Naawa",
-      "empty": ["option one", "option two"],
-      "file": "https://s3.amazonaws.com/images.digital-democracy.org/mapfilter-sample/sample-17.jpg",
+      "empty": [
+        "https://s3.amazonaws.com/images.digital-democracy.org/mapfilter-sample/sample-6.jpg",
+        "https://s3.amazonaws.com/images.digital-democracy.org/mapfilter-sample/sample-17.jpg"
+      ],
       "start": "2014-03-11T00:00:00.000Z"
     }
   },
   {
     "id": "f506db2b-4aa9-4d27-bd49-c126d823c894",
     "lon": -59.95241390238516,
-    "lat": -59.95241390238516,
+    "lat": 2.496874688565731,
     "created_at": "2014-06-28T00:00:00.000Z",
     "attachments": [
       {
-        "id": "d132aaa4.jpg",
-        "type": "image"
+        "id": "7c8a37aa.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "d132aaa4.jpg",
-        "type": "image"
+        "id": "254f62cf.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "d132aaa4.jpg",
-        "type": "image"
+        "id": "49746ae.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "d132aaa4.jpg",
-        "type": "image"
+        "id": "5389d71b.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "d132aaa4.jpg",
-        "type": "image"
+        "id": "8197ec64.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -106,24 +92,20 @@
   {
     "id": "273c33fa-56e3-48ee-b6da-ee9ad2c99d58",
     "lon": -59.45723251556046,
-    "lat": -59.45723251556046,
+    "lat": 3.080924287578091,
     "created_at": "2014-09-21T00:00:00.000Z",
     "attachments": [
       {
-        "id": "124bfbad.jpg",
-        "type": "image"
+        "id": "7aea2128.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "124bfbad.jpg",
-        "type": "image"
+        "id": "e1ebb474.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "124bfbad.jpg",
-        "type": "image"
-      },
-      {
-        "id": "124bfbad.jpg",
-        "type": "image"
+        "id": "f5af176f.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -149,24 +131,28 @@
   {
     "id": "ebacecc0-9e2f-44a2-8dc7-7edad5d52fb0",
     "lon": -59.63859404693358,
-    "lat": -59.63859404693358,
+    "lat": 2.675879372190684,
     "created_at": "2014-11-30T00:00:00.000Z",
     "attachments": [
       {
-        "id": "d7fecd7e.jpg",
-        "type": "image"
+        "id": "1e6104e.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "d7fecd7e.jpg",
-        "type": "image"
+        "id": "ec0d767a.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "d7fecd7e.jpg",
-        "type": "image"
+        "id": "569e431.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "d7fecd7e.jpg",
-        "type": "image"
+        "id": "33524fc7.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "942a8227.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -194,20 +180,20 @@
   {
     "id": "ffcddc7c-f77e-41b6-a0fe-2d72a0d0e408",
     "lon": -59.00231853686273,
-    "lat": -59.00231853686273,
+    "lat": 3.0144752009306104,
     "created_at": "2014-09-23T00:00:00.000Z",
     "attachments": [
       {
-        "id": "7f728051.jpg",
-        "type": "image"
+        "id": "b65d8080.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "7f728051.jpg",
-        "type": "image"
+        "id": "42fe6dbc.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "7f728051.jpg",
-        "type": "image"
+        "id": "d5bba80d.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -234,12 +220,16 @@
   {
     "id": "2574eb7c-3a27-46df-ad74-c89749fe9c93",
     "lon": -59.67617975897156,
-    "lat": -59.67617975897156,
+    "lat": 2.4460790829267354,
     "created_at": "2014-12-21T00:00:00.000Z",
     "attachments": [
       {
-        "id": "46806df.jpg",
-        "type": "image"
+        "id": "a7136bb4.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "b8ebc0e7.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -267,12 +257,24 @@
   {
     "id": "7d991e3a-0a5a-4974-bdbd-b692e3128bae",
     "lon": -59.10590095655061,
-    "lat": -59.10590095655061,
+    "lat": 2.5369701396208257,
     "created_at": "2014-06-23T00:00:00.000Z",
     "attachments": [
       {
-        "id": "d8df4b9b.jpg",
-        "type": "image"
+        "id": "39f72067.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "be94ee72.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "b78dda91.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "6dd5172f.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -300,12 +302,24 @@
   {
     "id": "64833de5-ecb5-4321-8afc-cd0a6b19becc",
     "lon": -59.38852911791764,
-    "lat": -59.38852911791764,
+    "lat": 2.4786259801127017,
     "created_at": "2014-11-01T00:00:00.000Z",
     "attachments": [
       {
-        "id": "f0121346.jpg",
-        "type": "image"
+        "id": "21037e49.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "e8465918.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "3a24f11e.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "49b2146c.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -333,20 +347,24 @@
   {
     "id": "7bbc0adc-bff9-4df7-833d-1863c7be9c6a",
     "lon": -59.756967511959374,
-    "lat": -59.756967511959374,
+    "lat": 2.5825075732078404,
     "created_at": "2014-04-14T00:00:00.000Z",
     "attachments": [
       {
-        "id": "32ee78ba.jpg",
-        "type": "image"
+        "id": "7d5aa466.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "32ee78ba.jpg",
-        "type": "image"
+        "id": "c2929455.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "32ee78ba.jpg",
-        "type": "image"
+        "id": "c8cd8ef3.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "6fac144f.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -374,12 +392,16 @@
   {
     "id": "78e3bb1c-95a7-4934-a03d-c6f7f2fc3c33",
     "lon": -59.95306350965984,
-    "lat": -59.95306350965984,
+    "lat": 3.055614271340892,
     "created_at": "2014-02-28T00:00:00.000Z",
     "attachments": [
       {
-        "id": "7803457b.jpg",
-        "type": "image"
+        "id": "7846f6ed.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "655cd785.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -407,20 +429,20 @@
   {
     "id": "7379afac-5597-4a9c-8bad-a6c38f2b22fe",
     "lon": -59.720132077112794,
-    "lat": -59.720132077112794,
+    "lat": 2.6337976056616754,
     "created_at": "2014-09-19T00:00:00.000Z",
     "attachments": [
       {
-        "id": "8a5736d7.jpg",
-        "type": "image"
+        "id": "b9935423.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "8a5736d7.jpg",
-        "type": "image"
+        "id": "823a8065.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "8a5736d7.jpg",
-        "type": "image"
+        "id": "928dfc74.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -448,24 +470,28 @@
   {
     "id": "2562a8cf-d8de-4fd8-a2da-7c7c1474a1e4",
     "lon": -59.68034057924524,
-    "lat": -59.68034057924524,
+    "lat": 2.9709168329369278,
     "created_at": "2014-01-04T00:00:00.000Z",
     "attachments": [
       {
-        "id": "29a1e9dc.jpg",
-        "type": "image"
+        "id": "17452ae.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "29a1e9dc.jpg",
-        "type": "image"
+        "id": "ee273634.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "29a1e9dc.jpg",
-        "type": "image"
+        "id": "b4efdd72.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "29a1e9dc.jpg",
-        "type": "image"
+        "id": "683e5f46.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "72071582.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -493,12 +519,28 @@
   {
     "id": "e62ef24b-7b36-4a35-9c40-8f9049341d40",
     "lon": -59.75345570431091,
-    "lat": -59.75345570431091,
+    "lat": 2.6599821822252125,
     "created_at": "2014-07-05T00:00:00.000Z",
     "attachments": [
       {
-        "id": "cf5f57cc.jpg",
-        "type": "image"
+        "id": "c727f1bb.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "8981c3d6.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "7ab27272.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "3c831d6a.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "1155e862.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -524,16 +566,12 @@
   {
     "id": "31e6c066-f9ce-4ed1-8d55-b65b82af7f27",
     "lon": -59.49987417925149,
-    "lat": -59.49987417925149,
+    "lat": 2.9967476189136506,
     "created_at": "2014-11-25T00:00:00.000Z",
     "attachments": [
       {
-        "id": "4cd57946.jpg",
-        "type": "image"
-      },
-      {
-        "id": "4cd57946.jpg",
-        "type": "image"
+        "id": "bfa83841.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -561,16 +599,24 @@
   {
     "id": "49605270-fd1d-48b9-926f-a98b43409e1b",
     "lon": -59.89131696289405,
-    "lat": -59.89131696289405,
+    "lat": 2.189248635340482,
     "created_at": "2014-11-14T00:00:00.000Z",
     "attachments": [
       {
-        "id": "db5fc01c.jpg",
-        "type": "image"
+        "id": "9099fb1.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "db5fc01c.jpg",
-        "type": "image"
+        "id": "c28f0953.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "bed8c38.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "28fd564a.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -598,12 +644,20 @@
   {
     "id": "42ac8bec-18dc-4d02-985f-d13e2fcba938",
     "lon": -59.83455586270429,
-    "lat": -59.83455586270429,
+    "lat": 2.599920679954812,
     "created_at": "2014-06-22T00:00:00.000Z",
     "attachments": [
       {
-        "id": "cba442a.jpg",
-        "type": "image"
+        "id": "2d266ca5.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "8f7149f1.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "7c9145b9.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -631,20 +685,16 @@
   {
     "id": "91d45d89-c7f6-46ec-9da3-d7fcf3603daf",
     "lon": -59.3218189785257,
-    "lat": -59.3218189785257,
+    "lat": 2.1056221431586892,
     "created_at": "2014-01-13T00:00:00.000Z",
     "attachments": [
       {
-        "id": "40a672c6.jpg",
-        "type": "image"
+        "id": "f565e63a.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "40a672c6.jpg",
-        "type": "image"
-      },
-      {
-        "id": "40a672c6.jpg",
-        "type": "image"
+        "id": "9d1237ff.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -672,12 +722,24 @@
   {
     "id": "071f7115-6b12-4aae-82d9-1b5ff456efc9",
     "lon": -59.48783681844361,
-    "lat": -59.48783681844361,
+    "lat": 2.153082915954292,
     "created_at": "2014-01-11T00:00:00.000Z",
     "attachments": [
       {
-        "id": "8d52de67.jpg",
-        "type": "image"
+        "id": "7b7ba656.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "5daa3cc5.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "8ab66b46.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "35147a0f.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -705,20 +767,16 @@
   {
     "id": "3b147905-3772-40ed-93c1-5759041b57f7",
     "lon": -59.74596204725094,
-    "lat": -59.74596204725094,
+    "lat": 2.406794447125867,
     "created_at": "2014-06-30T00:00:00.000Z",
     "attachments": [
       {
-        "id": "154d45bd.jpg",
-        "type": "image"
+        "id": "9f80d289.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "154d45bd.jpg",
-        "type": "image"
-      },
-      {
-        "id": "154d45bd.jpg",
-        "type": "image"
+        "id": "79de700a.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -746,16 +804,24 @@
   {
     "id": "0c98efaa-fba3-4b7c-af8f-de8a44d80478",
     "lon": -59.36303565418348,
-    "lat": -59.36303565418348,
+    "lat": 2.2247418231796474,
     "created_at": "2014-09-14T00:00:00.000Z",
     "attachments": [
       {
-        "id": "b7bee9b.jpg",
-        "type": "image"
+        "id": "13d82b99.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "b7bee9b.jpg",
-        "type": "image"
+        "id": "863e71b3.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "c2630d5d.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "1ded7b3f.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -783,24 +849,16 @@
   {
     "id": "1a8b74c9-f345-4441-9627-62f350691309",
     "lon": -59.51033521676436,
-    "lat": -59.51033521676436,
+    "lat": 2.828818231727928,
     "created_at": "2014-05-13T00:00:00.000Z",
     "attachments": [
       {
-        "id": "58ddc8b5.jpg",
-        "type": "image"
+        "id": "b59ee8ea.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "58ddc8b5.jpg",
-        "type": "image"
-      },
-      {
-        "id": "58ddc8b5.jpg",
-        "type": "image"
-      },
-      {
-        "id": "58ddc8b5.jpg",
-        "type": "image"
+        "id": "b820b3c.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -828,12 +886,20 @@
   {
     "id": "eeb39eac-eb78-4725-9be2-a4e30c996252",
     "lon": -59.03629338229075,
-    "lat": -59.03629338229075,
+    "lat": 2.579581890627742,
     "created_at": "2014-01-29T00:00:00.000Z",
     "attachments": [
       {
-        "id": "1cbdabb6.jpg",
-        "type": "image"
+        "id": "5b99a9d9.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "d2c5fda.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "ade8a44f.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -861,28 +927,20 @@
   {
     "id": "ee694132-64e5-4598-9c82-c0c0840ede87",
     "lon": -59.84528287430294,
-    "lat": -59.84528287430294,
+    "lat": 2.861326178442687,
     "created_at": "2014-04-03T00:00:00.000Z",
     "attachments": [
       {
-        "id": "d8fe6817.jpg",
-        "type": "image"
+        "id": "6526bf41.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "d8fe6817.jpg",
-        "type": "image"
+        "id": "dd944fa5.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "d8fe6817.jpg",
-        "type": "image"
-      },
-      {
-        "id": "d8fe6817.jpg",
-        "type": "image"
-      },
-      {
-        "id": "d8fe6817.jpg",
-        "type": "image"
+        "id": "928d4e6.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -910,24 +968,12 @@
   {
     "id": "262c4241-e701-44c8-8c9a-a9913fada5f1",
     "lon": -59.84418470459059,
-    "lat": -59.84418470459059,
+    "lat": 2.5857863418292255,
     "created_at": "2014-02-03T00:00:00.000Z",
     "attachments": [
       {
-        "id": "700f7d55.jpg",
-        "type": "image"
-      },
-      {
-        "id": "700f7d55.jpg",
-        "type": "image"
-      },
-      {
-        "id": "700f7d55.jpg",
-        "type": "image"
-      },
-      {
-        "id": "700f7d55.jpg",
-        "type": "image"
+        "id": "bb82b119.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -955,20 +1001,20 @@
   {
     "id": "766039dd-3c77-4843-81fb-5f8c748bfa2e",
     "lon": -59.64568074932322,
-    "lat": -59.64568074932322,
+    "lat": 2.6788275019731373,
     "created_at": "2014-12-19T00:00:00.000Z",
     "attachments": [
       {
-        "id": "e941da45.jpg",
-        "type": "image"
+        "id": "e6ba61bc.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "e941da45.jpg",
-        "type": "image"
+        "id": "63ed4e04.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "e941da45.jpg",
-        "type": "image"
+        "id": "3b82ee7d.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -996,28 +1042,16 @@
   {
     "id": "0296923d-94db-4746-9687-56ffce39560b",
     "lon": -59.16581757366657,
-    "lat": -59.16581757366657,
+    "lat": 2.961407095566392,
     "created_at": "2014-06-28T00:00:00.000Z",
     "attachments": [
       {
-        "id": "949f6717.jpg",
-        "type": "image"
+        "id": "b4a2018e.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "949f6717.jpg",
-        "type": "image"
-      },
-      {
-        "id": "949f6717.jpg",
-        "type": "image"
-      },
-      {
-        "id": "949f6717.jpg",
-        "type": "image"
-      },
-      {
-        "id": "949f6717.jpg",
-        "type": "image"
+        "id": "f0dbb4f3.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -1045,24 +1079,28 @@
   {
     "id": "f09cf04a-197e-4c36-b74a-0b047365fd04",
     "lon": -59.04214419843629,
-    "lat": -59.04214419843629,
+    "lat": 2.754610226629302,
     "created_at": "2014-09-24T00:00:00.000Z",
     "attachments": [
       {
-        "id": "29e4801d.jpg",
-        "type": "image"
+        "id": "a02ce07.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "29e4801d.jpg",
-        "type": "image"
+        "id": "3865b551.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "29e4801d.jpg",
-        "type": "image"
+        "id": "fd2d548.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "29e4801d.jpg",
-        "type": "image"
+        "id": "9b8ace80.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "381a2ea.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -1090,28 +1128,12 @@
   {
     "id": "59d68a74-ff30-48d7-a69c-53c501534acf",
     "lon": -59.84593734052032,
-    "lat": -59.84593734052032,
+    "lat": 2.481322689820081,
     "created_at": "2014-06-19T00:00:00.000Z",
     "attachments": [
       {
-        "id": "7fe12688.jpg",
-        "type": "image"
-      },
-      {
-        "id": "7fe12688.jpg",
-        "type": "image"
-      },
-      {
-        "id": "7fe12688.jpg",
-        "type": "image"
-      },
-      {
-        "id": "7fe12688.jpg",
-        "type": "image"
-      },
-      {
-        "id": "7fe12688.jpg",
-        "type": "image"
+        "id": "b0371767.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -1139,28 +1161,28 @@
   {
     "id": "a0b776d9-ddcb-4a6e-af04-1a2d675b9235",
     "lon": -59.445433230604976,
-    "lat": -59.445433230604976,
+    "lat": 2.6851729335263372,
     "created_at": "2014-02-21T00:00:00.000Z",
     "attachments": [
       {
-        "id": "4aadda6f.jpg",
-        "type": "image"
+        "id": "a3f7157c.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "4aadda6f.jpg",
-        "type": "image"
+        "id": "8b3b87c6.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "4aadda6f.jpg",
-        "type": "image"
+        "id": "2b0ce587.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "4aadda6f.jpg",
-        "type": "image"
+        "id": "7d328bef.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "4aadda6f.jpg",
-        "type": "image"
+        "id": "828397d6.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -1188,28 +1210,20 @@
   {
     "id": "81db426c-455f-4439-8d1e-9228d3f5a168",
     "lon": -59.170450523495674,
-    "lat": -59.170450523495674,
+    "lat": 2.8891736186575145,
     "created_at": "2014-03-10T00:00:00.000Z",
     "attachments": [
       {
-        "id": "c9e3888c.jpg",
-        "type": "image"
+        "id": "b7da08ba.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "c9e3888c.jpg",
-        "type": "image"
+        "id": "ddd9456e.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "c9e3888c.jpg",
-        "type": "image"
-      },
-      {
-        "id": "c9e3888c.jpg",
-        "type": "image"
-      },
-      {
-        "id": "c9e3888c.jpg",
-        "type": "image"
+        "id": "62b55b0f.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -1237,24 +1251,16 @@
   {
     "id": "4e10e24d-d3be-4f55-93df-ec3369e352e2",
     "lon": -59.812517672311515,
-    "lat": -59.812517672311515,
+    "lat": 2.4066814329940827,
     "created_at": "2014-11-22T00:00:00.000Z",
     "attachments": [
       {
-        "id": "235edf93.jpg",
-        "type": "image"
+        "id": "4b9567f9.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "235edf93.jpg",
-        "type": "image"
-      },
-      {
-        "id": "235edf93.jpg",
-        "type": "image"
-      },
-      {
-        "id": "235edf93.jpg",
-        "type": "image"
+        "id": "ed8ac93e.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -1282,24 +1288,20 @@
   {
     "id": "ec130655-9f7d-4654-b7bd-0c067bf929d1",
     "lon": -59.011556793702766,
-    "lat": -59.011556793702766,
+    "lat": 2.255175801133737,
     "created_at": "2014-04-10T00:00:00.000Z",
     "attachments": [
       {
-        "id": "f069f235.jpg",
-        "type": "image"
+        "id": "56c21872.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "f069f235.jpg",
-        "type": "image"
+        "id": "bcf5eac8.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "f069f235.jpg",
-        "type": "image"
-      },
-      {
-        "id": "f069f235.jpg",
-        "type": "image"
+        "id": "36b17c6.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -1327,20 +1329,28 @@
   {
     "id": "cf0c6319-e382-493d-89e2-89750a8cf650",
     "lon": -59.15391008090228,
-    "lat": -59.15391008090228,
+    "lat": 2.5939164684619755,
     "created_at": "2014-04-06T00:00:00.000Z",
     "attachments": [
       {
-        "id": "22ae8fc.jpg",
-        "type": "image"
+        "id": "a621ad4d.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "22ae8fc.jpg",
-        "type": "image"
+        "id": "901c12c.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "22ae8fc.jpg",
-        "type": "image"
+        "id": "7ff5bdc3.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "f854c6f8.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "82cc560e.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -1368,24 +1378,28 @@
   {
     "id": "bc2753d8-b548-4bc4-a862-544e6c1fa4db",
     "lon": -59.27545058960095,
-    "lat": -59.27545058960095,
+    "lat": 2.5491659831255675,
     "created_at": "2014-06-09T00:00:00.000Z",
     "attachments": [
       {
-        "id": "b2be27c.jpg",
-        "type": "image"
+        "id": "15c0b8e4.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "b2be27c.jpg",
-        "type": "image"
+        "id": "de6931a5.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "b2be27c.jpg",
-        "type": "image"
+        "id": "fe98538b.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "b2be27c.jpg",
-        "type": "image"
+        "id": "9c3e2101.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "223ec109.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -1413,12 +1427,16 @@
   {
     "id": "9a4be4d7-98d6-4b56-a82b-dfadbea2049b",
     "lon": -59.58869764441624,
-    "lat": -59.58869764441624,
+    "lat": 2.122154209204018,
     "created_at": "2014-06-02T00:00:00.000Z",
     "attachments": [
       {
-        "id": "69f03395.jpg",
-        "type": "image"
+        "id": "d6f5e27e.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "63257386.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -1446,20 +1464,20 @@
   {
     "id": "784c349e-3af0-4c7f-8710-bf08a79f06b5",
     "lon": -59.90112408599816,
-    "lat": -59.90112408599816,
+    "lat": 2.601748087350279,
     "created_at": "2014-03-04T00:00:00.000Z",
     "attachments": [
       {
-        "id": "c5c04b8.jpg",
-        "type": "image"
+        "id": "3e4e1dbe.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "c5c04b8.jpg",
-        "type": "image"
+        "id": "fe5fb26e.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "c5c04b8.jpg",
-        "type": "image"
+        "id": "df541fc2.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -1487,24 +1505,28 @@
   {
     "id": "f54f847e-9947-4d06-9d17-ba97ab3d442f",
     "lon": -59.34014166239649,
-    "lat": -59.34014166239649,
+    "lat": 2.4856459804810584,
     "created_at": "2014-11-18T00:00:00.000Z",
     "attachments": [
       {
-        "id": "a103d20f.jpg",
-        "type": "image"
+        "id": "58996b65.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "a103d20f.jpg",
-        "type": "image"
+        "id": "a8d9137e.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "a103d20f.jpg",
-        "type": "image"
+        "id": "9a78b08d.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "a103d20f.jpg",
-        "type": "image"
+        "id": "50f6793c.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "a84ac263.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -1532,20 +1554,12 @@
   {
     "id": "0019a1a5-e09b-49fb-bb48-52de581785f8",
     "lon": -59.211536928778514,
-    "lat": -59.211536928778514,
+    "lat": 2.2638132752850653,
     "created_at": "2014-12-06T00:00:00.000Z",
     "attachments": [
       {
-        "id": "6778d503.jpg",
-        "type": "image"
-      },
-      {
-        "id": "6778d503.jpg",
-        "type": "image"
-      },
-      {
-        "id": "6778d503.jpg",
-        "type": "image"
+        "id": "cf2a14b9.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -1573,16 +1587,12 @@
   {
     "id": "96802c5b-fd5a-4dee-abfa-1aa29408fd92",
     "lon": -59.466282413108274,
-    "lat": -59.466282413108274,
+    "lat": 2.985849247686565,
     "created_at": "2014-12-12T00:00:00.000Z",
     "attachments": [
       {
-        "id": "adebd966.jpg",
-        "type": "image"
-      },
-      {
-        "id": "adebd966.jpg",
-        "type": "image"
+        "id": "db8a24b1.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -1610,12 +1620,24 @@
   {
     "id": "3b82b0b6-08eb-4f71-bb84-9bc6be1de9a3",
     "lon": -59.01086777378805,
-    "lat": -59.01086777378805,
+    "lat": 2.8937133505474777,
     "created_at": "2014-03-05T00:00:00.000Z",
     "attachments": [
       {
-        "id": "730aedb7.jpg",
-        "type": "image"
+        "id": "ef22204e.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "e1a22418.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "96f93c2c.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "3ce34f10.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -1643,20 +1665,16 @@
   {
     "id": "3a4ea137-3142-4f05-bc2d-e0042e171f68",
     "lon": -59.345425345003605,
-    "lat": -59.345425345003605,
+    "lat": 2.597758137062192,
     "created_at": "2014-07-21T00:00:00.000Z",
     "attachments": [
       {
-        "id": "64a4ab3f.jpg",
-        "type": "image"
+        "id": "1006f7cb.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "64a4ab3f.jpg",
-        "type": "image"
-      },
-      {
-        "id": "64a4ab3f.jpg",
-        "type": "image"
+        "id": "e09c0988.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -1684,16 +1702,12 @@
   {
     "id": "bd82f5e4-201c-4a59-aba2-10d804f52a75",
     "lon": -59.80160998669453,
-    "lat": -59.80160998669453,
+    "lat": 2.175497412122786,
     "created_at": "2014-10-30T00:00:00.000Z",
     "attachments": [
       {
-        "id": "3a764e47.jpg",
-        "type": "image"
-      },
-      {
-        "id": "3a764e47.jpg",
-        "type": "image"
+        "id": "b17a14f8.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -1721,12 +1735,20 @@
   {
     "id": "bd67d08e-f3b3-4b60-af92-9c6f5750593c",
     "lon": -59.86806549364701,
-    "lat": -59.86806549364701,
+    "lat": 2.893249580077827,
     "created_at": "2014-08-26T00:00:00.000Z",
     "attachments": [
       {
-        "id": "95e6d88b.jpg",
-        "type": "image"
+        "id": "cd043baa.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "21598c11.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "a8f69ee2.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -1754,28 +1776,16 @@
   {
     "id": "f9c66267-9d22-4203-93f4-67806f38497b",
     "lon": -59.219728608615696,
-    "lat": -59.219728608615696,
+    "lat": 2.8270592965651304,
     "created_at": "2014-10-12T00:00:00.000Z",
     "attachments": [
       {
-        "id": "2dd18228.jpg",
-        "type": "image"
+        "id": "768cbb81.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "2dd18228.jpg",
-        "type": "image"
-      },
-      {
-        "id": "2dd18228.jpg",
-        "type": "image"
-      },
-      {
-        "id": "2dd18228.jpg",
-        "type": "image"
-      },
-      {
-        "id": "2dd18228.jpg",
-        "type": "image"
+        "id": "24318822.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -1803,24 +1813,20 @@
   {
     "id": "82d9edc7-5702-4086-9f4d-92e7145a53b5",
     "lon": -59.05402565654367,
-    "lat": -59.05402565654367,
+    "lat": 2.9906688794959337,
     "created_at": "2014-06-29T00:00:00.000Z",
     "attachments": [
       {
-        "id": "46279f75.jpg",
-        "type": "image"
+        "id": "9fc9a585.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "46279f75.jpg",
-        "type": "image"
+        "id": "4d1206a6.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "46279f75.jpg",
-        "type": "image"
-      },
-      {
-        "id": "46279f75.jpg",
-        "type": "image"
+        "id": "31f1410b.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -1848,16 +1854,20 @@
   {
     "id": "42821554-dfd5-41f3-b118-538ffc87b6bd",
     "lon": -59.44661287497729,
-    "lat": -59.44661287497729,
+    "lat": 2.948077350994572,
     "created_at": "2014-05-18T00:00:00.000Z",
     "attachments": [
       {
-        "id": "4a9b19a7.jpg",
-        "type": "image"
+        "id": "b453fb1a.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "4a9b19a7.jpg",
-        "type": "image"
+        "id": "eae34ad4.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "9681cebd.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -1885,24 +1895,20 @@
   {
     "id": "c5b4e489-e317-4a71-bf9d-b26a9d481d03",
     "lon": -59.12545053451322,
-    "lat": -59.12545053451322,
+    "lat": 2.7806241993326695,
     "created_at": "2014-09-22T00:00:00.000Z",
     "attachments": [
       {
-        "id": "5819eb8e.jpg",
-        "type": "image"
+        "id": "d91bd702.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "5819eb8e.jpg",
-        "type": "image"
+        "id": "f39b1a5f.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "5819eb8e.jpg",
-        "type": "image"
-      },
-      {
-        "id": "5819eb8e.jpg",
-        "type": "image"
+        "id": "f82e2c43.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -1930,20 +1936,16 @@
   {
     "id": "6035ebdd-5699-49b4-a20c-2bab5df1d72a",
     "lon": -59.915303035406396,
-    "lat": -59.915303035406396,
+    "lat": 2.9521061337087304,
     "created_at": "2014-07-28T00:00:00.000Z",
     "attachments": [
       {
-        "id": "8354fe74.jpg",
-        "type": "image"
+        "id": "46294bde.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "8354fe74.jpg",
-        "type": "image"
-      },
-      {
-        "id": "8354fe74.jpg",
-        "type": "image"
+        "id": "c8f60366.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -1971,28 +1973,12 @@
   {
     "id": "2553928b-9bc2-4b0a-89c6-967e5b7451f7",
     "lon": -59.447405386250466,
-    "lat": -59.447405386250466,
+    "lat": 2.436182774277404,
     "created_at": "2014-10-23T00:00:00.000Z",
     "attachments": [
       {
-        "id": "fb11ff59.jpg",
-        "type": "image"
-      },
-      {
-        "id": "fb11ff59.jpg",
-        "type": "image"
-      },
-      {
-        "id": "fb11ff59.jpg",
-        "type": "image"
-      },
-      {
-        "id": "fb11ff59.jpg",
-        "type": "image"
-      },
-      {
-        "id": "fb11ff59.jpg",
-        "type": "image"
+        "id": "577f0634.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -2020,20 +2006,28 @@
   {
     "id": "9b44046b-be12-4544-8f55-4f075e0d6c98",
     "lon": -59.64305043616332,
-    "lat": -59.64305043616332,
+    "lat": 2.6794316534884275,
     "created_at": "2014-01-13T00:00:00.000Z",
     "attachments": [
       {
-        "id": "bca87f68.jpg",
-        "type": "image"
+        "id": "1ae5b0f.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "bca87f68.jpg",
-        "type": "image"
+        "id": "e0ca0e82.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "bca87f68.jpg",
-        "type": "image"
+        "id": "925b5924.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "4136ae9c.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "38b07ef5.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -2061,12 +2055,12 @@
   {
     "id": "b34652b0-a8ce-4396-bdd9-712c8c3bfea1",
     "lon": -59.03926588851027,
-    "lat": -59.03926588851027,
+    "lat": 2.560054287221283,
     "created_at": "2014-11-27T00:00:00.000Z",
     "attachments": [
       {
-        "id": "eaa7a4d0.jpg",
-        "type": "image"
+        "id": "93825a7c.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -2094,28 +2088,16 @@
   {
     "id": "b6671069-3182-4b3b-a05d-7389df5bb5f0",
     "lon": -59.88188870786689,
-    "lat": -59.88188870786689,
+    "lat": 2.4058191474992783,
     "created_at": "2014-08-07T00:00:00.000Z",
     "attachments": [
       {
-        "id": "4cfeaa9c.jpg",
-        "type": "image"
+        "id": "f5e4da87.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "4cfeaa9c.jpg",
-        "type": "image"
-      },
-      {
-        "id": "4cfeaa9c.jpg",
-        "type": "image"
-      },
-      {
-        "id": "4cfeaa9c.jpg",
-        "type": "image"
-      },
-      {
-        "id": "4cfeaa9c.jpg",
-        "type": "image"
+        "id": "542f8eda.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -2143,20 +2125,24 @@
   {
     "id": "1b7136af-f824-4e6d-b477-2198d9751b9e",
     "lon": -59.99857552163303,
-    "lat": -59.99857552163303,
+    "lat": 2.5287779214791954,
     "created_at": "2014-09-28T00:00:00.000Z",
     "attachments": [
       {
-        "id": "1f7b477c.jpg",
-        "type": "image"
+        "id": "ca9d331b.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "1f7b477c.jpg",
-        "type": "image"
+        "id": "6a77aeaf.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "1f7b477c.jpg",
-        "type": "image"
+        "id": "40191b40.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "2dcf965a.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -2184,28 +2170,20 @@
   {
     "id": "b84d357a-9b82-4c8e-bee7-d40717be229b",
     "lon": -59.35134224849753,
-    "lat": -59.35134224849753,
+    "lat": 2.4705189088359476,
     "created_at": "2014-02-16T00:00:00.000Z",
     "attachments": [
       {
-        "id": "9e982bd8.jpg",
-        "type": "image"
+        "id": "feff2784.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "9e982bd8.jpg",
-        "type": "image"
+        "id": "10f24ceb.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "9e982bd8.jpg",
-        "type": "image"
-      },
-      {
-        "id": "9e982bd8.jpg",
-        "type": "image"
-      },
-      {
-        "id": "9e982bd8.jpg",
-        "type": "image"
+        "id": "b405bd33.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -2233,12 +2211,16 @@
   {
     "id": "d7d44041-2ef2-4038-bf52-53a322a816af",
     "lon": -59.17905146908015,
-    "lat": -59.17905146908015,
+    "lat": 2.643628352927044,
     "created_at": "2014-02-10T00:00:00.000Z",
     "attachments": [
       {
-        "id": "97a475e9.jpg",
-        "type": "image"
+        "id": "2995d5bb.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "7131ed1f.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -2266,28 +2248,12 @@
   {
     "id": "3b42e5ec-ff3f-4ce7-8250-7e0cd336c6d2",
     "lon": -59.161754802800715,
-    "lat": -59.161754802800715,
+    "lat": 2.296455245371908,
     "created_at": "2014-03-22T00:00:00.000Z",
     "attachments": [
       {
-        "id": "3847b5fc.jpg",
-        "type": "image"
-      },
-      {
-        "id": "3847b5fc.jpg",
-        "type": "image"
-      },
-      {
-        "id": "3847b5fc.jpg",
-        "type": "image"
-      },
-      {
-        "id": "3847b5fc.jpg",
-        "type": "image"
-      },
-      {
-        "id": "3847b5fc.jpg",
-        "type": "image"
+        "id": "794f15ad.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -2315,20 +2281,12 @@
   {
     "id": "cff58b4a-4708-4d84-99fc-621ed9640711",
     "lon": -59.83253376884386,
-    "lat": -59.83253376884386,
+    "lat": 2.4068188077304513,
     "created_at": "2014-01-13T00:00:00.000Z",
     "attachments": [
       {
-        "id": "aa555acf.jpg",
-        "type": "image"
-      },
-      {
-        "id": "aa555acf.jpg",
-        "type": "image"
-      },
-      {
-        "id": "aa555acf.jpg",
-        "type": "image"
+        "id": "eab5b595.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -2356,24 +2314,20 @@
   {
     "id": "84679099-0eab-4868-b18c-92fe14bb35d4",
     "lon": -59.22364106797613,
-    "lat": -59.22364106797613,
+    "lat": 2.2097483946941794,
     "created_at": "2014-03-21T00:00:00.000Z",
     "attachments": [
       {
-        "id": "de85875e.jpg",
-        "type": "image"
+        "id": "717175cd.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "de85875e.jpg",
-        "type": "image"
+        "id": "988df336.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "de85875e.jpg",
-        "type": "image"
-      },
-      {
-        "id": "de85875e.jpg",
-        "type": "image"
+        "id": "1eb262b0.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -2401,28 +2355,24 @@
   {
     "id": "7d2adca5-53a1-419b-9eae-70b7b49acde2",
     "lon": -59.45737082906999,
-    "lat": -59.45737082906999,
+    "lat": 2.4405755273997785,
     "created_at": "2014-10-12T00:00:00.000Z",
     "attachments": [
       {
-        "id": "cc0a618a.jpg",
-        "type": "image"
+        "id": "1151d905.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "cc0a618a.jpg",
-        "type": "image"
+        "id": "4c57ec61.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "cc0a618a.jpg",
-        "type": "image"
+        "id": "728d79d6.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "cc0a618a.jpg",
-        "type": "image"
-      },
-      {
-        "id": "cc0a618a.jpg",
-        "type": "image"
+        "id": "a4c98507.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -2450,24 +2400,20 @@
   {
     "id": "da3e6046-bf53-4993-a808-541e5c55a0a3",
     "lon": -59.87742767110467,
-    "lat": -59.87742767110467,
+    "lat": 2.5376949293073268,
     "created_at": "2014-01-02T00:00:00.000Z",
     "attachments": [
       {
-        "id": "9c9fd4bd.jpg",
-        "type": "image"
+        "id": "d2fb387.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "9c9fd4bd.jpg",
-        "type": "image"
+        "id": "7f397fcd.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "9c9fd4bd.jpg",
-        "type": "image"
-      },
-      {
-        "id": "9c9fd4bd.jpg",
-        "type": "image"
+        "id": "d2420146.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -2495,24 +2441,24 @@
   {
     "id": "6c96c20c-9830-4e7f-929a-f3695e971d21",
     "lon": -59.01129959174432,
-    "lat": -59.01129959174432,
+    "lat": 2.7152290999889375,
     "created_at": "2014-09-04T00:00:00.000Z",
     "attachments": [
       {
-        "id": "36918370.jpg",
-        "type": "image"
+        "id": "c37b41b1.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "36918370.jpg",
-        "type": "image"
+        "id": "4680b09d.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "36918370.jpg",
-        "type": "image"
+        "id": "5694076b.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "36918370.jpg",
-        "type": "image"
+        "id": "d379ed81.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -2540,20 +2486,20 @@
   {
     "id": "54617f0f-2a11-4759-908b-4588a5b4517f",
     "lon": -59.192968126619235,
-    "lat": -59.192968126619235,
+    "lat": 2.5112625259440393,
     "created_at": "2014-07-31T00:00:00.000Z",
     "attachments": [
       {
-        "id": "22b39d8b.jpg",
-        "type": "image"
+        "id": "3c6b6d50.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "22b39d8b.jpg",
-        "type": "image"
+        "id": "90818397.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "22b39d8b.jpg",
-        "type": "image"
+        "id": "95f21385.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -2581,16 +2527,16 @@
   {
     "id": "0de64385-4bb1-4b6b-b4e4-258c8458f96d",
     "lon": -59.75809289002791,
-    "lat": -59.75809289002791,
+    "lat": 2.9216436901129783,
     "created_at": "2014-09-28T00:00:00.000Z",
     "attachments": [
       {
-        "id": "c430a696.jpg",
-        "type": "image"
+        "id": "c2b2b02d.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "c430a696.jpg",
-        "type": "image"
+        "id": "5943162d.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -2618,16 +2564,28 @@
   {
     "id": "88be8269-daad-47f8-a776-06b69dff1df4",
     "lon": -59.174116192618385,
-    "lat": -59.174116192618385,
+    "lat": 2.80305806491524,
     "created_at": "2014-03-10T00:00:00.000Z",
     "attachments": [
       {
-        "id": "99bf1000.jpg",
-        "type": "image"
+        "id": "2eae306.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "99bf1000.jpg",
-        "type": "image"
+        "id": "14187ee6.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "a2f82755.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "149978f3.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "4ca21cb1.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -2655,16 +2613,20 @@
   {
     "id": "4d14f2ee-c851-4683-80a0-77a91470510a",
     "lon": -59.496984323486686,
-    "lat": -59.496984323486686,
+    "lat": 2.6419021523557604,
     "created_at": "2014-07-02T00:00:00.000Z",
     "attachments": [
       {
-        "id": "e63f0ea7.jpg",
-        "type": "image"
+        "id": "4b96c827.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "e63f0ea7.jpg",
-        "type": "image"
+        "id": "d4d7565a.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "76f2e026.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -2692,12 +2654,28 @@
   {
     "id": "8b1aa3fb-ba56-489a-ba7c-5f2eb857f105",
     "lon": -59.67362249200232,
-    "lat": -59.67362249200232,
+    "lat": 2.6632976293563844,
     "created_at": "2014-06-06T00:00:00.000Z",
     "attachments": [
       {
-        "id": "fbb84db5.jpg",
-        "type": "image"
+        "id": "6403ed6.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "b32302bf.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "3dbf9b1f.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "c58f7a71.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "ca57347c.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -2725,12 +2703,12 @@
   {
     "id": "cf6a0995-3b45-4cdc-9a57-78223343fe15",
     "lon": -59.40065990225412,
-    "lat": -59.40065990225412,
+    "lat": 2.3182204879354686,
     "created_at": "2014-03-14T00:00:00.000Z",
     "attachments": [
       {
-        "id": "1448f9f8.jpg",
-        "type": "image"
+        "id": "bd260ce3.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -2758,20 +2736,20 @@
   {
     "id": "d4eb292e-e6c1-4b96-8642-3500b4ef296a",
     "lon": -59.94428211846389,
-    "lat": -59.94428211846389,
+    "lat": 2.8673513288609684,
     "created_at": "2014-06-29T00:00:00.000Z",
     "attachments": [
       {
-        "id": "6b49061e.jpg",
-        "type": "image"
+        "id": "cb70ebfd.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "6b49061e.jpg",
-        "type": "image"
+        "id": "f122b1d9.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "6b49061e.jpg",
-        "type": "image"
+        "id": "31e07e14.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -2799,20 +2777,28 @@
   {
     "id": "84340f81-f6da-42dd-a159-6523210f5f7b",
     "lon": -59.17076483205892,
-    "lat": -59.17076483205892,
+    "lat": 2.446708742901683,
     "created_at": "2014-01-25T00:00:00.000Z",
     "attachments": [
       {
-        "id": "266fe83e.jpg",
-        "type": "image"
+        "id": "f1733160.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "266fe83e.jpg",
-        "type": "image"
+        "id": "48d96b9f.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "266fe83e.jpg",
-        "type": "image"
+        "id": "4100d059.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "916f4fd9.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "9103488a.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -2840,12 +2826,28 @@
   {
     "id": "3c221c47-dc27-44e1-8fb8-9d9c7851ccc1",
     "lon": -59.53614972019568,
-    "lat": -59.53614972019568,
+    "lat": 3.0333297666162253,
     "created_at": "2014-03-05T00:00:00.000Z",
     "attachments": [
       {
-        "id": "ece7bca9.jpg",
-        "type": "image"
+        "id": "ec02e66b.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "f466de13.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "7272ff8.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "2c14ddbd.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "f2d4eda3.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -2873,24 +2875,24 @@
   {
     "id": "9e5d8c58-d0dc-41e3-bffe-1d1b98cde6aa",
     "lon": -59.59072736208327,
-    "lat": -59.59072736208327,
+    "lat": 2.758957645529881,
     "created_at": "2014-05-11T00:00:00.000Z",
     "attachments": [
       {
-        "id": "754eb770.jpg",
-        "type": "image"
+        "id": "340e9d11.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "754eb770.jpg",
-        "type": "image"
+        "id": "2426cfc9.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "754eb770.jpg",
-        "type": "image"
+        "id": "496d18d8.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "754eb770.jpg",
-        "type": "image"
+        "id": "cfad819b.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -2918,24 +2920,16 @@
   {
     "id": "bf4dd0a0-95b8-479a-a881-580b263816ae",
     "lon": -59.83631350635551,
-    "lat": -59.83631350635551,
+    "lat": 2.1720310581382365,
     "created_at": "2014-12-15T00:00:00.000Z",
     "attachments": [
       {
-        "id": "6b9e324c.jpg",
-        "type": "image"
+        "id": "389a4929.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "6b9e324c.jpg",
-        "type": "image"
-      },
-      {
-        "id": "6b9e324c.jpg",
-        "type": "image"
-      },
-      {
-        "id": "6b9e324c.jpg",
-        "type": "image"
+        "id": "dd696617.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -2963,20 +2957,24 @@
   {
     "id": "1e349d5c-d7e7-4eaf-bb81-1c895cac4e65",
     "lon": -59.00297057139687,
-    "lat": -59.00297057139687,
+    "lat": 2.863412719592452,
     "created_at": "2014-03-12T00:00:00.000Z",
     "attachments": [
       {
-        "id": "533b2654.jpg",
-        "type": "image"
+        "id": "83516ed5.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "533b2654.jpg",
-        "type": "image"
+        "id": "26fc6d49.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "533b2654.jpg",
-        "type": "image"
+        "id": "1b48deee.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "ff29eff2.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -3004,12 +3002,12 @@
   {
     "id": "929dfa4f-ab23-48ac-88a9-ec0afbf70eb8",
     "lon": -59.45966267911717,
-    "lat": -59.45966267911717,
+    "lat": 2.7252269835677,
     "created_at": "2014-12-29T00:00:00.000Z",
     "attachments": [
       {
-        "id": "eae68238.jpg",
-        "type": "image"
+        "id": "13b6e401.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -3037,16 +3035,24 @@
   {
     "id": "073166d9-3a77-4673-bbe7-d9618763c9cc",
     "lon": -59.29615650582127,
-    "lat": -59.29615650582127,
+    "lat": 2.5315086170099677,
     "created_at": "2014-08-22T00:00:00.000Z",
     "attachments": [
       {
-        "id": "56791767.jpg",
-        "type": "image"
+        "id": "ea851e80.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "56791767.jpg",
-        "type": "image"
+        "id": "d0815abf.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "f4480e1e.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "f5303654.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -3074,12 +3080,24 @@
   {
     "id": "210f1d77-dc2c-4241-8853-a958d3f5abde",
     "lon": -59.20435508596711,
-    "lat": -59.20435508596711,
+    "lat": 3.0899785190355034,
     "created_at": "2014-03-21T00:00:00.000Z",
     "attachments": [
       {
-        "id": "694979a.jpg",
-        "type": "image"
+        "id": "dda3e9d3.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "d860c39d.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "833b7d67.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "253cbcf3.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -3107,12 +3125,20 @@
   {
     "id": "e9dd1f19-4b15-4057-9cd3-826014ee4e81",
     "lon": -59.2135819834657,
-    "lat": -59.2135819834657,
+    "lat": 2.8885258209425957,
     "created_at": "2014-03-23T00:00:00.000Z",
     "attachments": [
       {
-        "id": "956ffd0d.jpg",
-        "type": "image"
+        "id": "e09288de.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "640b1e0c.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "44655d87.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -3140,20 +3166,24 @@
   {
     "id": "fec78c1a-e6cb-4875-b570-dd691aeb9532",
     "lon": -59.113906553946435,
-    "lat": -59.113906553946435,
+    "lat": 3.0428531902376563,
     "created_at": "2014-05-29T00:00:00.000Z",
     "attachments": [
       {
-        "id": "dbfb523f.jpg",
-        "type": "image"
+        "id": "136f04d.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "dbfb523f.jpg",
-        "type": "image"
+        "id": "1619515.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "dbfb523f.jpg",
-        "type": "image"
+        "id": "f78a1d7.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "bb42a325.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -3181,16 +3211,28 @@
   {
     "id": "fc5e6ff1-712d-43fa-81e4-18998b4eefc2",
     "lon": -59.87735786684789,
-    "lat": -59.87735786684789,
+    "lat": 2.381216122210026,
     "created_at": "2014-04-20T00:00:00.000Z",
     "attachments": [
       {
-        "id": "c508724.jpg",
-        "type": "image"
+        "id": "93535d37.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "c508724.jpg",
-        "type": "image"
+        "id": "b1af6a1e.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "4199a6af.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "2dd761bf.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "af9604b.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -3218,24 +3260,16 @@
   {
     "id": "5311cd0a-99ad-48fc-8b01-4057afc79bed",
     "lon": -59.60294225602411,
-    "lat": -59.60294225602411,
+    "lat": 2.7756277745589615,
     "created_at": "2014-01-16T00:00:00.000Z",
     "attachments": [
       {
-        "id": "32e31f10.jpg",
-        "type": "image"
+        "id": "bc4fcf5a.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "32e31f10.jpg",
-        "type": "image"
-      },
-      {
-        "id": "32e31f10.jpg",
-        "type": "image"
-      },
-      {
-        "id": "32e31f10.jpg",
-        "type": "image"
+        "id": "c4ae74a6.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -3263,28 +3297,20 @@
   {
     "id": "533895c5-4722-4f18-b8de-136521d78436",
     "lon": -59.315389732597396,
-    "lat": -59.315389732597396,
+    "lat": 2.35152200111188,
     "created_at": "2014-04-06T00:00:00.000Z",
     "attachments": [
       {
-        "id": "8842b19.jpg",
-        "type": "image"
+        "id": "60d5fccc.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "8842b19.jpg",
-        "type": "image"
+        "id": "94ffc69e.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "8842b19.jpg",
-        "type": "image"
-      },
-      {
-        "id": "8842b19.jpg",
-        "type": "image"
-      },
-      {
-        "id": "8842b19.jpg",
-        "type": "image"
+        "id": "4f1af837.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -3312,16 +3338,24 @@
   {
     "id": "8564111e-1f3a-4b0c-91ff-ce06e524ae6b",
     "lon": -59.69154882081784,
-    "lat": -59.69154882081784,
+    "lat": 2.2003633411601187,
     "created_at": "2014-03-12T00:00:00.000Z",
     "attachments": [
       {
-        "id": "ce9c2a31.jpg",
-        "type": "image"
+        "id": "6a8c31ef.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "ce9c2a31.jpg",
-        "type": "image"
+        "id": "b5f1b39e.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "ec1ec06.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "56c393ff.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -3349,20 +3383,20 @@
   {
     "id": "562a00f3-5174-48e6-81dd-1284083a640c",
     "lon": -59.87788357678801,
-    "lat": -59.87788357678801,
+    "lat": 2.671913629770279,
     "created_at": "2014-09-08T00:00:00.000Z",
     "attachments": [
       {
-        "id": "ad3dcbe0.jpg",
-        "type": "image"
+        "id": "19a4ee20.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "ad3dcbe0.jpg",
-        "type": "image"
+        "id": "675086a1.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "ad3dcbe0.jpg",
-        "type": "image"
+        "id": "6a714475.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -3390,16 +3424,16 @@
   {
     "id": "682bfc00-8f25-4b80-b640-18e705f8ec12",
     "lon": -59.2263469544705,
-    "lat": -59.2263469544705,
+    "lat": 2.1474900943227113,
     "created_at": "2014-05-17T00:00:00.000Z",
     "attachments": [
       {
-        "id": "a8ef1e0a.jpg",
-        "type": "image"
+        "id": "5e71c51e.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "a8ef1e0a.jpg",
-        "type": "image"
+        "id": "36bd922c.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -3427,28 +3461,12 @@
   {
     "id": "553d2c23-732c-4c24-935c-5342b0d49694",
     "lon": -59.553819477325305,
-    "lat": -59.553819477325305,
+    "lat": 2.315879283612594,
     "created_at": "2014-02-08T00:00:00.000Z",
     "attachments": [
       {
-        "id": "7096d6af.jpg",
-        "type": "image"
-      },
-      {
-        "id": "7096d6af.jpg",
-        "type": "image"
-      },
-      {
-        "id": "7096d6af.jpg",
-        "type": "image"
-      },
-      {
-        "id": "7096d6af.jpg",
-        "type": "image"
-      },
-      {
-        "id": "7096d6af.jpg",
-        "type": "image"
+        "id": "533b38e8.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -3476,24 +3494,28 @@
   {
     "id": "400963a3-b9a1-47a9-ae3d-8026366ce8d6",
     "lon": -59.1875415223185,
-    "lat": -59.1875415223185,
+    "lat": 2.5568077684380115,
     "created_at": "2014-08-22T00:00:00.000Z",
     "attachments": [
       {
-        "id": "ca2add28.jpg",
-        "type": "image"
+        "id": "6888f5ee.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "ca2add28.jpg",
-        "type": "image"
+        "id": "157006f9.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "ca2add28.jpg",
-        "type": "image"
+        "id": "6055cd95.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "ca2add28.jpg",
-        "type": "image"
+        "id": "2ce25fb9.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "5dbad0e6.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -3521,20 +3543,12 @@
   {
     "id": "b56e58b2-c68d-42fb-947d-24892c4dbdba",
     "lon": -59.88228734815493,
-    "lat": -59.88228734815493,
+    "lat": 2.724008160084486,
     "created_at": "2014-03-12T00:00:00.000Z",
     "attachments": [
       {
-        "id": "2ef88b36.jpg",
-        "type": "image"
-      },
-      {
-        "id": "2ef88b36.jpg",
-        "type": "image"
-      },
-      {
-        "id": "2ef88b36.jpg",
-        "type": "image"
+        "id": "e360bd8a.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -3562,12 +3576,16 @@
   {
     "id": "994a0bb4-20fa-4325-b8ed-b1ebfbc0b4b6",
     "lon": -59.68981477455236,
-    "lat": -59.68981477455236,
+    "lat": 2.215407023113221,
     "created_at": "2014-09-20T00:00:00.000Z",
     "attachments": [
       {
-        "id": "c73c7fa7.jpg",
-        "type": "image"
+        "id": "5776f00b.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "f16f1745.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -3595,24 +3613,24 @@
   {
     "id": "c6dfeeb9-328b-481e-a110-b7fd49ab1743",
     "lon": -59.891588889295235,
-    "lat": -59.891588889295235,
+    "lat": 2.432556505687535,
     "created_at": "2014-11-02T00:00:00.000Z",
     "attachments": [
       {
-        "id": "7f330101.jpg",
-        "type": "image"
+        "id": "84d42892.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "7f330101.jpg",
-        "type": "image"
+        "id": "3cd82918.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "7f330101.jpg",
-        "type": "image"
+        "id": "8a0de3a7.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "7f330101.jpg",
-        "type": "image"
+        "id": "c142f11b.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -3640,24 +3658,28 @@
   {
     "id": "6b38a6e3-b7df-4c4e-a1b0-fbcf8d773d54",
     "lon": -59.779452027287334,
-    "lat": -59.779452027287334,
+    "lat": 2.1833937390707434,
     "created_at": "2014-04-17T00:00:00.000Z",
     "attachments": [
       {
-        "id": "c0555903.jpg",
-        "type": "image"
+        "id": "4ad887d6.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "c0555903.jpg",
-        "type": "image"
+        "id": "1d4bbc85.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "c0555903.jpg",
-        "type": "image"
+        "id": "6a328d30.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "c0555903.jpg",
-        "type": "image"
+        "id": "ef2bc8a.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "a7bfb5fd.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -3685,12 +3707,24 @@
   {
     "id": "a3a01a56-ec69-46bd-8d8e-f3a6d8b1f4ad",
     "lon": -59.80472228419967,
-    "lat": -59.80472228419967,
+    "lat": 2.2885432300623507,
     "created_at": "2014-01-22T00:00:00.000Z",
     "attachments": [
       {
-        "id": "6e1fa9ce.jpg",
-        "type": "image"
+        "id": "60913c99.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "8357b0c5.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "9a47f904.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "6054f98c.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -3718,16 +3752,16 @@
   {
     "id": "6d98187c-3a0b-4928-b390-fd6c79faa0af",
     "lon": -59.67482964252122,
-    "lat": -59.67482964252122,
+    "lat": 2.7071716642472894,
     "created_at": "2014-05-08T00:00:00.000Z",
     "attachments": [
       {
-        "id": "a3d28d6c.jpg",
-        "type": "image"
+        "id": "d98a55fe.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "a3d28d6c.jpg",
-        "type": "image"
+        "id": "13ab2116.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -3755,24 +3789,24 @@
   {
     "id": "cb54f547-4906-42b5-88e4-b03697113ba7",
     "lon": -59.88014235952869,
-    "lat": -59.88014235952869,
+    "lat": 3.0094066084362567,
     "created_at": "2014-03-07T00:00:00.000Z",
     "attachments": [
       {
-        "id": "b4c2cea7.jpg",
-        "type": "image"
+        "id": "dbf86749.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "b4c2cea7.jpg",
-        "type": "image"
+        "id": "992cdfdb.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "b4c2cea7.jpg",
-        "type": "image"
+        "id": "d5510427.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "b4c2cea7.jpg",
-        "type": "image"
+        "id": "77ab1de8.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -3800,12 +3834,20 @@
   {
     "id": "7c208f4d-ce2d-4e64-8299-6dd71d91f0ea",
     "lon": -59.63028427166864,
-    "lat": -59.63028427166864,
+    "lat": 2.115143120661378,
     "created_at": "2014-02-21T00:00:00.000Z",
     "attachments": [
       {
-        "id": "ecc0ba5.jpg",
-        "type": "image"
+        "id": "955b2541.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "b34d9ef1.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "85bea83b.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -3833,24 +3875,12 @@
   {
     "id": "7d2dff22-5e92-4e0b-b057-a18f5245f65b",
     "lon": -59.69929304905236,
-    "lat": -59.69929304905236,
+    "lat": 2.6134638706222177,
     "created_at": "2014-04-18T00:00:00.000Z",
     "attachments": [
       {
-        "id": "5b8becad.jpg",
-        "type": "image"
-      },
-      {
-        "id": "5b8becad.jpg",
-        "type": "image"
-      },
-      {
-        "id": "5b8becad.jpg",
-        "type": "image"
-      },
-      {
-        "id": "5b8becad.jpg",
-        "type": "image"
+        "id": "2546e4.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -3878,12 +3908,12 @@
   {
     "id": "64f769f5-8e27-47cd-b43f-3844e3c83403",
     "lon": -59.629726607585326,
-    "lat": -59.629726607585326,
+    "lat": 2.618608421087265,
     "created_at": "2014-09-28T00:00:00.000Z",
     "attachments": [
       {
-        "id": "e7dd6e41.jpg",
-        "type": "image"
+        "id": "4981fd29.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -3911,24 +3941,16 @@
   {
     "id": "0c4df540-cacd-468f-af4a-46810bdce07e",
     "lon": -59.01627418841235,
-    "lat": -59.01627418841235,
+    "lat": 2.1223139943555,
     "created_at": "2014-03-22T00:00:00.000Z",
     "attachments": [
       {
-        "id": "ee957bc1.jpg",
-        "type": "image"
+        "id": "7ee7730b.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "ee957bc1.jpg",
-        "type": "image"
-      },
-      {
-        "id": "ee957bc1.jpg",
-        "type": "image"
-      },
-      {
-        "id": "ee957bc1.jpg",
-        "type": "image"
+        "id": "e895068b.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -3956,24 +3978,20 @@
   {
     "id": "d7a38465-3372-4e5b-b0a2-14f74bec99cb",
     "lon": -59.15709319477901,
-    "lat": -59.15709319477901,
+    "lat": 2.109883148595691,
     "created_at": "2014-11-25T00:00:00.000Z",
     "attachments": [
       {
-        "id": "3f8e00be.jpg",
-        "type": "image"
+        "id": "5cce626c.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "3f8e00be.jpg",
-        "type": "image"
+        "id": "b30197a7.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "3f8e00be.jpg",
-        "type": "image"
-      },
-      {
-        "id": "3f8e00be.jpg",
-        "type": "image"
+        "id": "63741016.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -4001,28 +4019,20 @@
   {
     "id": "7638fa9b-70cb-43ea-9647-cd39db468709",
     "lon": -59.676105013815686,
-    "lat": -59.676105013815686,
+    "lat": 2.242072325805202,
     "created_at": "2014-07-19T00:00:00.000Z",
     "attachments": [
       {
-        "id": "293ec4ac.jpg",
-        "type": "image"
+        "id": "271d25ea.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "293ec4ac.jpg",
-        "type": "image"
+        "id": "62a9f380.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "293ec4ac.jpg",
-        "type": "image"
-      },
-      {
-        "id": "293ec4ac.jpg",
-        "type": "image"
-      },
-      {
-        "id": "293ec4ac.jpg",
-        "type": "image"
+        "id": "ebdbf223.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -4050,24 +4060,20 @@
   {
     "id": "b37ec611-864a-49c7-af8a-e5810637c1e1",
     "lon": -59.82946873130277,
-    "lat": -59.82946873130277,
+    "lat": 2.90574834975414,
     "created_at": "2014-09-26T00:00:00.000Z",
     "attachments": [
       {
-        "id": "a55e73ec.jpg",
-        "type": "image"
+        "id": "f66d7a64.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "a55e73ec.jpg",
-        "type": "image"
+        "id": "7d8217cd.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "a55e73ec.jpg",
-        "type": "image"
-      },
-      {
-        "id": "a55e73ec.jpg",
-        "type": "image"
+        "id": "b5b00daa.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -4095,20 +4101,16 @@
   {
     "id": "ee70edbc-07cd-4a0a-b435-27084f50ce61",
     "lon": -59.82300513680093,
-    "lat": -59.82300513680093,
+    "lat": 2.4282873949501664,
     "created_at": "2014-03-25T00:00:00.000Z",
     "attachments": [
       {
-        "id": "3a6290b2.jpg",
-        "type": "image"
+        "id": "1966f1ab.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "3a6290b2.jpg",
-        "type": "image"
-      },
-      {
-        "id": "3a6290b2.jpg",
-        "type": "image"
+        "id": "2379a880.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -4136,28 +4138,20 @@
   {
     "id": "2c4b7628-e256-4a87-8552-ad8e8bd2a94b",
     "lon": -59.52612611022778,
-    "lat": -59.52612611022778,
+    "lat": 2.3985606810543687,
     "created_at": "2014-06-21T00:00:00.000Z",
     "attachments": [
       {
-        "id": "22f8cb.jpg",
-        "type": "image"
+        "id": "678e1110.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "22f8cb.jpg",
-        "type": "image"
+        "id": "88cd8ee8.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "22f8cb.jpg",
-        "type": "image"
-      },
-      {
-        "id": "22f8cb.jpg",
-        "type": "image"
-      },
-      {
-        "id": "22f8cb.jpg",
-        "type": "image"
+        "id": "500a8ba0.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -4185,12 +4179,20 @@
   {
     "id": "6c9c9e06-c40d-47bd-a650-3b1ecf76a082",
     "lon": -59.29449783475138,
-    "lat": -59.29449783475138,
+    "lat": 3.0245376356411726,
     "created_at": "2014-12-11T00:00:00.000Z",
     "attachments": [
       {
-        "id": "6e58028d.jpg",
-        "type": "image"
+        "id": "75b1795b.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "945338d8.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "73961f4b.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -4218,16 +4220,20 @@
   {
     "id": "02e5711d-ae70-4a53-85e3-729390a23982",
     "lon": -59.29349982365966,
-    "lat": -59.29349982365966,
+    "lat": 3.0996206478681416,
     "created_at": "2014-05-04T00:00:00.000Z",
     "attachments": [
       {
-        "id": "db805c37.jpg",
-        "type": "image"
+        "id": "b376acc1.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "db805c37.jpg",
-        "type": "image"
+        "id": "f449c34c.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "1d3804c.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -4255,24 +4261,12 @@
   {
     "id": "84aa9b24-6857-45e8-a74c-668f148a4a17",
     "lon": -59.385352035518736,
-    "lat": -59.385352035518736,
+    "lat": 2.1977798351086677,
     "created_at": "2014-01-15T00:00:00.000Z",
     "attachments": [
       {
-        "id": "40ecd7a3.jpg",
-        "type": "image"
-      },
-      {
-        "id": "40ecd7a3.jpg",
-        "type": "image"
-      },
-      {
-        "id": "40ecd7a3.jpg",
-        "type": "image"
-      },
-      {
-        "id": "40ecd7a3.jpg",
-        "type": "image"
+        "id": "36889f59.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -4300,28 +4294,24 @@
   {
     "id": "f25ed9d4-57b1-4d7f-9d6d-cdb243aff4aa",
     "lon": -59.11364095937461,
-    "lat": -59.11364095937461,
+    "lat": 2.458828856609762,
     "created_at": "2014-09-21T00:00:00.000Z",
     "attachments": [
       {
-        "id": "c6fadfec.jpg",
-        "type": "image"
+        "id": "813e0432.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "c6fadfec.jpg",
-        "type": "image"
+        "id": "77ccdcad.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "c6fadfec.jpg",
-        "type": "image"
+        "id": "e8156269.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "c6fadfec.jpg",
-        "type": "image"
-      },
-      {
-        "id": "c6fadfec.jpg",
-        "type": "image"
+        "id": "1646ed51.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -4349,24 +4339,24 @@
   {
     "id": "3c509655-af16-46cb-a571-06e97d20072a",
     "lon": -59.69725493132137,
-    "lat": -59.69725493132137,
+    "lat": 2.9286302129272372,
     "created_at": "2014-01-16T00:00:00.000Z",
     "attachments": [
       {
-        "id": "fbff3c88.jpg",
-        "type": "image"
+        "id": "8771d141.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "fbff3c88.jpg",
-        "type": "image"
+        "id": "576e2724.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "fbff3c88.jpg",
-        "type": "image"
+        "id": "e73e6631.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "fbff3c88.jpg",
-        "type": "image"
+        "id": "2411af25.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -4394,20 +4384,24 @@
   {
     "id": "ebea6c68-275f-4f26-991a-06d8d464fda6",
     "lon": -59.694915662752464,
-    "lat": -59.694915662752464,
+    "lat": 2.329925661813468,
     "created_at": "2014-08-20T00:00:00.000Z",
     "attachments": [
       {
-        "id": "2df488d8.jpg",
-        "type": "image"
+        "id": "fe3dd82f.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "2df488d8.jpg",
-        "type": "image"
+        "id": "acd3e329.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "2df488d8.jpg",
-        "type": "image"
+        "id": "6de67489.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "ec630a60.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -4435,24 +4429,12 @@
   {
     "id": "4aeb77e4-bb53-4233-b8e4-6def8b265782",
     "lon": -59.465975222410634,
-    "lat": -59.465975222410634,
+    "lat": 2.5671998939011247,
     "created_at": "2014-06-06T00:00:00.000Z",
     "attachments": [
       {
-        "id": "5c8afb7d.jpg",
-        "type": "image"
-      },
-      {
-        "id": "5c8afb7d.jpg",
-        "type": "image"
-      },
-      {
-        "id": "5c8afb7d.jpg",
-        "type": "image"
-      },
-      {
-        "id": "5c8afb7d.jpg",
-        "type": "image"
+        "id": "5586923c.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -4480,24 +4462,20 @@
   {
     "id": "760eb8df-0817-4fe9-8e8a-74f73b87afc3",
     "lon": -59.83894081530161,
-    "lat": -59.83894081530161,
+    "lat": 2.2157295007724316,
     "created_at": "2014-04-29T00:00:00.000Z",
     "attachments": [
       {
-        "id": "9700289b.jpg",
-        "type": "image"
+        "id": "1ebd7ee4.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "9700289b.jpg",
-        "type": "image"
+        "id": "7b01110a.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "9700289b.jpg",
-        "type": "image"
-      },
-      {
-        "id": "9700289b.jpg",
-        "type": "image"
+        "id": "4c2d641a.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -4525,28 +4503,20 @@
   {
     "id": "9a6a787d-ac4d-41df-8118-18fcbd990b51",
     "lon": -59.78847100958228,
-    "lat": -59.78847100958228,
+    "lat": 2.21071459739469,
     "created_at": "2014-08-19T00:00:00.000Z",
     "attachments": [
       {
-        "id": "2f133daa.jpg",
-        "type": "image"
+        "id": "7d9b6b81.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "2f133daa.jpg",
-        "type": "image"
+        "id": "ef96660c.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "2f133daa.jpg",
-        "type": "image"
-      },
-      {
-        "id": "2f133daa.jpg",
-        "type": "image"
-      },
-      {
-        "id": "2f133daa.jpg",
-        "type": "image"
+        "id": "d5fe47c1.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -4574,20 +4544,20 @@
   {
     "id": "dc583493-1d72-4871-b70e-ddd663cd85d6",
     "lon": -59.08693260862492,
-    "lat": -59.08693260862492,
+    "lat": 2.6842221402563156,
     "created_at": "2014-06-20T00:00:00.000Z",
     "attachments": [
       {
-        "id": "8b7bcddf.jpg",
-        "type": "image"
+        "id": "56de6f6a.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "8b7bcddf.jpg",
-        "type": "image"
+        "id": "db374dfe.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "8b7bcddf.jpg",
-        "type": "image"
+        "id": "b31c5e17.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -4615,24 +4585,24 @@
   {
     "id": "47cba659-2e9c-4e40-88f7-c3bc9c673c92",
     "lon": -59.225731153041124,
-    "lat": -59.225731153041124,
+    "lat": 2.555623447196558,
     "created_at": "2014-01-22T00:00:00.000Z",
     "attachments": [
       {
-        "id": "6942089c.jpg",
-        "type": "image"
+        "id": "9e20f468.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "6942089c.jpg",
-        "type": "image"
+        "id": "dc0aeaaa.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "6942089c.jpg",
-        "type": "image"
+        "id": "bc481101.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "6942089c.jpg",
-        "type": "image"
+        "id": "9d940d87.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -4660,20 +4630,24 @@
   {
     "id": "477188f5-039b-4bf7-874e-eee7daacacc6",
     "lon": -59.00525249866769,
-    "lat": -59.00525249866769,
+    "lat": 2.6545053777750582,
     "created_at": "2014-01-10T00:00:00.000Z",
     "attachments": [
       {
-        "id": "671f0794.jpg",
-        "type": "image"
+        "id": "5d8a010.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "671f0794.jpg",
-        "type": "image"
+        "id": "75cde3bf.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "671f0794.jpg",
-        "type": "image"
+        "id": "d9c8ab07.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "52d9c6a0.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -4701,16 +4675,16 @@
   {
     "id": "e82a189f-859c-431d-8857-2fc94e5dd67b",
     "lon": -59.820894073462114,
-    "lat": -59.820894073462114,
+    "lat": 2.6943828695453704,
     "created_at": "2014-05-26T00:00:00.000Z",
     "attachments": [
       {
-        "id": "b9f43f8e.jpg",
-        "type": "image"
+        "id": "316d14ca.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "b9f43f8e.jpg",
-        "type": "image"
+        "id": "c02ebda9.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -4738,24 +4712,28 @@
   {
     "id": "e8e68814-b430-489d-a8da-79ce2093f700",
     "lon": -59.9179556556046,
-    "lat": -59.9179556556046,
+    "lat": 2.6525520809460432,
     "created_at": "2014-04-07T00:00:00.000Z",
     "attachments": [
       {
-        "id": "f17c9827.jpg",
-        "type": "image"
+        "id": "1254fbf7.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "f17c9827.jpg",
-        "type": "image"
+        "id": "e77f2e60.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "f17c9827.jpg",
-        "type": "image"
+        "id": "42f0cf47.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "f17c9827.jpg",
-        "type": "image"
+        "id": "cae08f24.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "403b2d77.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -4783,16 +4761,20 @@
   {
     "id": "1a829b96-5286-46a5-b6ce-016c3bbbefcd",
     "lon": -59.47973478958011,
-    "lat": -59.47973478958011,
+    "lat": 2.3895155767910183,
     "created_at": "2014-05-18T00:00:00.000Z",
     "attachments": [
       {
-        "id": "a6766985.jpg",
-        "type": "image"
+        "id": "538d65ee.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "a6766985.jpg",
-        "type": "image"
+        "id": "20824e2b.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "6ec1319.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -4820,24 +4802,28 @@
   {
     "id": "332cd7c3-72e6-4d78-b032-2592a6a85d96",
     "lon": -59.86929471464828,
-    "lat": -59.86929471464828,
+    "lat": 2.955937818530947,
     "created_at": "2014-10-14T00:00:00.000Z",
     "attachments": [
       {
-        "id": "e0fce0e.jpg",
-        "type": "image"
+        "id": "485f616a.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "e0fce0e.jpg",
-        "type": "image"
+        "id": "9f62d2ad.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "e0fce0e.jpg",
-        "type": "image"
+        "id": "73170c48.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "e0fce0e.jpg",
-        "type": "image"
+        "id": "c27ca9e8.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "19e8aa3.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -4865,24 +4851,20 @@
   {
     "id": "d81160c4-e37e-4109-8860-2de776f30e21",
     "lon": -59.00114780291915,
-    "lat": -59.00114780291915,
+    "lat": 3.065483279665932,
     "created_at": "2014-12-07T00:00:00.000Z",
     "attachments": [
       {
-        "id": "5870ebbc.jpg",
-        "type": "image"
+        "id": "9e6967b6.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "5870ebbc.jpg",
-        "type": "image"
+        "id": "69d3de6d.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "5870ebbc.jpg",
-        "type": "image"
-      },
-      {
-        "id": "5870ebbc.jpg",
-        "type": "image"
+        "id": "6aa55e46.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -4910,16 +4892,28 @@
   {
     "id": "95e5942d-e641-4ac5-805b-b1c868e56f33",
     "lon": -59.5749187883921,
-    "lat": -59.5749187883921,
+    "lat": 2.13962734551169,
     "created_at": "2014-04-02T00:00:00.000Z",
     "attachments": [
       {
-        "id": "2746694b.jpg",
-        "type": "image"
+        "id": "8b81b1e7.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "2746694b.jpg",
-        "type": "image"
+        "id": "ba34780f.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "1dedc1e4.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "9f9fb777.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "35809919.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -4947,24 +4941,16 @@
   {
     "id": "2e2f0393-9b97-461d-b252-42996aacd266",
     "lon": -59.49908869503997,
-    "lat": -59.49908869503997,
+    "lat": 2.2830809619277717,
     "created_at": "2014-06-07T00:00:00.000Z",
     "attachments": [
       {
-        "id": "ccc4a0d4.jpg",
-        "type": "image"
+        "id": "b8e6a788.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "ccc4a0d4.jpg",
-        "type": "image"
-      },
-      {
-        "id": "ccc4a0d4.jpg",
-        "type": "image"
-      },
-      {
-        "id": "ccc4a0d4.jpg",
-        "type": "image"
+        "id": "6649504.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -4992,16 +4978,20 @@
   {
     "id": "8c1f3402-bc08-4f14-a7ae-40cc69787f72",
     "lon": -59.39807371236384,
-    "lat": -59.39807371236384,
+    "lat": 3.021289789257571,
     "created_at": "2014-06-08T00:00:00.000Z",
     "attachments": [
       {
-        "id": "64e1a1df.jpg",
-        "type": "image"
+        "id": "6281f67a.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "64e1a1df.jpg",
-        "type": "image"
+        "id": "9cf6b5a8.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "7c68f371.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -5029,24 +5019,20 @@
   {
     "id": "eb589949-f394-4a0b-8c45-f1b25b45137a",
     "lon": -59.07225079508498,
-    "lat": -59.07225079508498,
+    "lat": 2.3787368851713837,
     "created_at": "2014-12-24T00:00:00.000Z",
     "attachments": [
       {
-        "id": "f5f12acb.jpg",
-        "type": "image"
+        "id": "95e082ab.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "f5f12acb.jpg",
-        "type": "image"
+        "id": "9f7878f0.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "f5f12acb.jpg",
-        "type": "image"
-      },
-      {
-        "id": "f5f12acb.jpg",
-        "type": "image"
+        "id": "d6ca106f.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -5074,16 +5060,28 @@
   {
     "id": "1370f911-813e-4e21-83d1-d504477fcd72",
     "lon": -59.20901022409089,
-    "lat": -59.20901022409089,
+    "lat": 2.9491875738836826,
     "created_at": "2014-02-19T00:00:00.000Z",
     "attachments": [
       {
-        "id": "b4dbe653.jpg",
-        "type": "image"
+        "id": "e166f201.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "b4dbe653.jpg",
-        "type": "image"
+        "id": "7a1d9467.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "89dc2820.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "5e236595.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "d5ec8804.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -5111,20 +5109,16 @@
   {
     "id": "5a0e23e9-d7b6-4c32-896c-3b2fe7d24d9f",
     "lon": -59.48304891819134,
-    "lat": -59.48304891819134,
+    "lat": 3.046758957579732,
     "created_at": "2014-03-17T00:00:00.000Z",
     "attachments": [
       {
-        "id": "a3385b44.jpg",
-        "type": "image"
+        "id": "826bf1dd.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "a3385b44.jpg",
-        "type": "image"
-      },
-      {
-        "id": "a3385b44.jpg",
-        "type": "image"
+        "id": "fb11848e.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -5152,28 +5146,16 @@
   {
     "id": "60ae7017-edf1-480f-aa06-16691f495d51",
     "lon": -59.452984353294596,
-    "lat": -59.452984353294596,
+    "lat": 2.7909586424008013,
     "created_at": "2014-08-21T00:00:00.000Z",
     "attachments": [
       {
-        "id": "a79c88b4.jpg",
-        "type": "image"
+        "id": "4d7ec46a.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "a79c88b4.jpg",
-        "type": "image"
-      },
-      {
-        "id": "a79c88b4.jpg",
-        "type": "image"
-      },
-      {
-        "id": "a79c88b4.jpg",
-        "type": "image"
-      },
-      {
-        "id": "a79c88b4.jpg",
-        "type": "image"
+        "id": "7f9236f3.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -5201,16 +5183,16 @@
   {
     "id": "f31372e0-bad0-46d2-8d12-1c1fb9227afa",
     "lon": -59.49151730700396,
-    "lat": -59.49151730700396,
+    "lat": 2.307498722476885,
     "created_at": "2014-10-06T00:00:00.000Z",
     "attachments": [
       {
-        "id": "aa66cbeb.jpg",
-        "type": "image"
+        "id": "a2eb0785.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "aa66cbeb.jpg",
-        "type": "image"
+        "id": "95234bd2.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -5238,20 +5220,20 @@
   {
     "id": "5ca1557f-8095-486d-9fdc-e2a1258caf8b",
     "lon": -59.95647707604803,
-    "lat": -59.95647707604803,
+    "lat": 2.365750813065097,
     "created_at": "2014-05-14T00:00:00.000Z",
     "attachments": [
       {
-        "id": "c3f8dc03.jpg",
-        "type": "image"
+        "id": "c9852839.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "c3f8dc03.jpg",
-        "type": "image"
+        "id": "54356428.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "c3f8dc03.jpg",
-        "type": "image"
+        "id": "3c7ed963.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -5279,12 +5261,28 @@
   {
     "id": "314ddddc-f94a-49fe-885a-c7996fe10478",
     "lon": -59.73410914535634,
-    "lat": -59.73410914535634,
+    "lat": 2.2623084510210902,
     "created_at": "2014-02-14T00:00:00.000Z",
     "attachments": [
       {
-        "id": "a6e0ab5b.jpg",
-        "type": "image"
+        "id": "12ad491a.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "531649f.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "ed3f77fc.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "aadef064.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "92b1fd8a.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -5312,16 +5310,12 @@
   {
     "id": "75f28459-a1b3-4257-88e9-dcda498df426",
     "lon": -59.49636513972655,
-    "lat": -59.49636513972655,
+    "lat": 2.6169630746822805,
     "created_at": "2014-03-12T00:00:00.000Z",
     "attachments": [
       {
-        "id": "37005ace.jpg",
-        "type": "image"
-      },
-      {
-        "id": "37005ace.jpg",
-        "type": "image"
+        "id": "9065721c.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -5349,12 +5343,12 @@
   {
     "id": "03cf7bf7-aa96-4c4c-af6d-5e097bd32567",
     "lon": -59.49350761808455,
-    "lat": -59.49350761808455,
+    "lat": 2.8090360044967384,
     "created_at": "2014-11-14T00:00:00.000Z",
     "attachments": [
       {
-        "id": "6799fa96.jpg",
-        "type": "image"
+        "id": "a9e899d3.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -5382,24 +5376,28 @@
   {
     "id": "e2b15c0c-9af1-4254-926d-7cb278b3ed9f",
     "lon": -59.9787996544037,
-    "lat": -59.9787996544037,
+    "lat": 2.5643065915443004,
     "created_at": "2014-05-30T00:00:00.000Z",
     "attachments": [
       {
-        "id": "25386bc2.jpg",
-        "type": "image"
+        "id": "b584730.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "25386bc2.jpg",
-        "type": "image"
+        "id": "d68a7d17.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "25386bc2.jpg",
-        "type": "image"
+        "id": "617a25b5.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "25386bc2.jpg",
-        "type": "image"
+        "id": "41430b0a.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "887d6ba1.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -5427,16 +5425,20 @@
   {
     "id": "a15a33a3-6494-467e-9757-1d263bc52010",
     "lon": -59.79629339161329,
-    "lat": -59.79629339161329,
+    "lat": 2.5537010760977865,
     "created_at": "2014-06-06T00:00:00.000Z",
     "attachments": [
       {
-        "id": "594b2168.jpg",
-        "type": "image"
+        "id": "d2869d0.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "594b2168.jpg",
-        "type": "image"
+        "id": "f1a28d42.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "b0f022ac.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -5464,20 +5466,16 @@
   {
     "id": "cb6f6503-1b33-4167-bd7c-21b9767a7a0d",
     "lon": -59.68400786491111,
-    "lat": -59.68400786491111,
+    "lat": 2.9360178796574474,
     "created_at": "2014-01-16T00:00:00.000Z",
     "attachments": [
       {
-        "id": "cf637368.jpg",
-        "type": "image"
+        "id": "834a806a.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "cf637368.jpg",
-        "type": "image"
-      },
-      {
-        "id": "cf637368.jpg",
-        "type": "image"
+        "id": "bc8754cb.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -5505,24 +5503,16 @@
   {
     "id": "08a48870-9a15-4b33-be48-30d023e8c13c",
     "lon": -59.084345910232514,
-    "lat": -59.084345910232514,
+    "lat": 2.416682941513136,
     "created_at": "2014-05-12T00:00:00.000Z",
     "attachments": [
       {
-        "id": "5f886709.jpg",
-        "type": "image"
+        "id": "37ebc89d.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "5f886709.jpg",
-        "type": "image"
-      },
-      {
-        "id": "5f886709.jpg",
-        "type": "image"
-      },
-      {
-        "id": "5f886709.jpg",
-        "type": "image"
+        "id": "7f675012.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -5550,20 +5540,12 @@
   {
     "id": "efbb62cd-d30d-412e-8cf7-10ff2932e324",
     "lon": -59.716992255998775,
-    "lat": -59.716992255998775,
+    "lat": 2.854366410896182,
     "created_at": "2014-08-20T00:00:00.000Z",
     "attachments": [
       {
-        "id": "53923867.jpg",
-        "type": "image"
-      },
-      {
-        "id": "53923867.jpg",
-        "type": "image"
-      },
-      {
-        "id": "53923867.jpg",
-        "type": "image"
+        "id": "caec6256.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -5591,24 +5573,12 @@
   {
     "id": "4d7f8759-994c-4e79-886c-5366a0f87f5f",
     "lon": -59.525297817075625,
-    "lat": -59.525297817075625,
+    "lat": 2.321473904559389,
     "created_at": "2014-04-13T00:00:00.000Z",
     "attachments": [
       {
-        "id": "42d97dd4.jpg",
-        "type": "image"
-      },
-      {
-        "id": "42d97dd4.jpg",
-        "type": "image"
-      },
-      {
-        "id": "42d97dd4.jpg",
-        "type": "image"
-      },
-      {
-        "id": "42d97dd4.jpg",
-        "type": "image"
+        "id": "aee97d42.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -5636,24 +5606,20 @@
   {
     "id": "ba2d611d-fbe5-4484-8303-7a25f72ee837",
     "lon": -59.64734050119296,
-    "lat": -59.64734050119296,
+    "lat": 2.275773893017322,
     "created_at": "2014-04-11T00:00:00.000Z",
     "attachments": [
       {
-        "id": "9a8717e6.jpg",
-        "type": "image"
+        "id": "9644788b.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "9a8717e6.jpg",
-        "type": "image"
+        "id": "2f88b344.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "9a8717e6.jpg",
-        "type": "image"
-      },
-      {
-        "id": "9a8717e6.jpg",
-        "type": "image"
+        "id": "9b268ffe.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -5681,24 +5647,12 @@
   {
     "id": "9749a03a-92e0-496c-aed1-c8a5b95a5f6b",
     "lon": -59.464553573867306,
-    "lat": -59.464553573867306,
+    "lat": 2.7850561131723226,
     "created_at": "2014-08-05T00:00:00.000Z",
     "attachments": [
       {
-        "id": "e23120ae.jpg",
-        "type": "image"
-      },
-      {
-        "id": "e23120ae.jpg",
-        "type": "image"
-      },
-      {
-        "id": "e23120ae.jpg",
-        "type": "image"
-      },
-      {
-        "id": "e23120ae.jpg",
-        "type": "image"
+        "id": "dc5336d2.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -5726,12 +5680,20 @@
   {
     "id": "d28cdadd-a815-4476-8939-b104ef4c87e2",
     "lon": -59.79906748794019,
-    "lat": -59.79906748794019,
+    "lat": 2.8732367829885335,
     "created_at": "2014-03-16T00:00:00.000Z",
     "attachments": [
       {
-        "id": "5ef03e55.jpg",
-        "type": "image"
+        "id": "a622c3e2.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "e8787971.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "e523e85d.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -5759,16 +5721,12 @@
   {
     "id": "8feccc13-fc61-4a06-8f7d-05b586385c12",
     "lon": -59.1744934534654,
-    "lat": -59.1744934534654,
+    "lat": 2.89962764820084,
     "created_at": "2014-01-04T00:00:00.000Z",
     "attachments": [
       {
-        "id": "d98bf7e1.jpg",
-        "type": "image"
-      },
-      {
-        "id": "d98bf7e1.jpg",
-        "type": "image"
+        "id": "7ed0c2a0.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -5796,16 +5754,20 @@
   {
     "id": "eba78fcc-2745-4199-928d-13b68a5806c7",
     "lon": -59.947360353777185,
-    "lat": -59.947360353777185,
+    "lat": 3.0730208129622043,
     "created_at": "2014-01-10T00:00:00.000Z",
     "attachments": [
       {
-        "id": "bf8d4c26.jpg",
-        "type": "image"
+        "id": "1a9b1ba6.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "bf8d4c26.jpg",
-        "type": "image"
+        "id": "d88a4150.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "76bee040.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -5833,20 +5795,28 @@
   {
     "id": "769cbecf-f85c-4f30-9105-2f87e1935033",
     "lon": -59.92621297086589,
-    "lat": -59.92621297086589,
+    "lat": 3.0897834898438306,
     "created_at": "2014-02-16T00:00:00.000Z",
     "attachments": [
       {
-        "id": "49fdc4a9.jpg",
-        "type": "image"
+        "id": "7cb023e5.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "49fdc4a9.jpg",
-        "type": "image"
+        "id": "8d6ed60f.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "49fdc4a9.jpg",
-        "type": "image"
+        "id": "5ae7f997.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "38a5a652.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "1bdd277c.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -5874,24 +5844,16 @@
   {
     "id": "6b414e00-9c0b-4c17-be6b-b32e81bb953d",
     "lon": -59.650696485769004,
-    "lat": -59.650696485769004,
+    "lat": 2.482710920413956,
     "created_at": "2014-06-07T00:00:00.000Z",
     "attachments": [
       {
-        "id": "9ac33a92.jpg",
-        "type": "image"
+        "id": "adf318ad.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "9ac33a92.jpg",
-        "type": "image"
-      },
-      {
-        "id": "9ac33a92.jpg",
-        "type": "image"
-      },
-      {
-        "id": "9ac33a92.jpg",
-        "type": "image"
+        "id": "548cf7ff.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -5919,12 +5881,20 @@
   {
     "id": "72320aba-613e-466e-b29f-ea73d215c971",
     "lon": -59.485143375815824,
-    "lat": -59.485143375815824,
+    "lat": 2.3943805544637145,
     "created_at": "2014-06-12T00:00:00.000Z",
     "attachments": [
       {
-        "id": "ecb50530.jpg",
-        "type": "image"
+        "id": "7b733d58.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "e8172c2c.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "cfb26b0e.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -5952,28 +5922,16 @@
   {
     "id": "3a7990ed-4d61-4452-a9b9-c71573e9fb1a",
     "lon": -59.9791889928747,
-    "lat": -59.9791889928747,
+    "lat": 2.2101552126929165,
     "created_at": "2014-05-28T00:00:00.000Z",
     "attachments": [
       {
-        "id": "d322e28a.jpg",
-        "type": "image"
+        "id": "14a521b8.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "d322e28a.jpg",
-        "type": "image"
-      },
-      {
-        "id": "d322e28a.jpg",
-        "type": "image"
-      },
-      {
-        "id": "d322e28a.jpg",
-        "type": "image"
-      },
-      {
-        "id": "d322e28a.jpg",
-        "type": "image"
+        "id": "dc75cfaf.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -6001,12 +5959,12 @@
   {
     "id": "232cf6f1-09d3-4556-a678-81d15fc5eb45",
     "lon": -59.823618854396045,
-    "lat": -59.823618854396045,
+    "lat": 2.5496714151464404,
     "created_at": "2014-06-02T00:00:00.000Z",
     "attachments": [
       {
-        "id": "ca0c9b2a.jpg",
-        "type": "image"
+        "id": "dec9ad25.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -6034,24 +5992,24 @@
   {
     "id": "e0895b1c-1aaf-4e88-8f56-7a5bf17c80d0",
     "lon": -59.733567324699834,
-    "lat": -59.733567324699834,
+    "lat": 3.0427118862513454,
     "created_at": "2014-02-09T00:00:00.000Z",
     "attachments": [
       {
-        "id": "da29e7df.jpg",
-        "type": "image"
+        "id": "f93ff443.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "da29e7df.jpg",
-        "type": "image"
+        "id": "f0845b5a.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "da29e7df.jpg",
-        "type": "image"
+        "id": "14315ea.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "da29e7df.jpg",
-        "type": "image"
+        "id": "26a215d2.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -6079,28 +6037,24 @@
   {
     "id": "a76896ab-201b-41f2-aca8-ba0b37b9b4dd",
     "lon": -59.56480317097157,
-    "lat": -59.56480317097157,
+    "lat": 3.039822276122868,
     "created_at": "2014-12-31T00:00:00.000Z",
     "attachments": [
       {
-        "id": "ff2fda00.jpg",
-        "type": "image"
+        "id": "45612f84.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "ff2fda00.jpg",
-        "type": "image"
+        "id": "db4dd47e.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "ff2fda00.jpg",
-        "type": "image"
+        "id": "44229354.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "ff2fda00.jpg",
-        "type": "image"
-      },
-      {
-        "id": "ff2fda00.jpg",
-        "type": "image"
+        "id": "c789ee40.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -6128,12 +6082,20 @@
   {
     "id": "bd9d1801-24af-48d5-90ea-989401d09c38",
     "lon": -59.16856022388674,
-    "lat": -59.16856022388674,
+    "lat": 2.1109489543829114,
     "created_at": "2014-02-26T00:00:00.000Z",
     "attachments": [
       {
-        "id": "206bd391.jpg",
-        "type": "image"
+        "id": "f625fdb7.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "5a1abddb.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "41a089b6.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -6161,20 +6123,12 @@
   {
     "id": "ff02b76d-50f4-4eb6-be56-508ac689148f",
     "lon": -59.196993600577116,
-    "lat": -59.196993600577116,
+    "lat": 2.673383993236348,
     "created_at": "2014-01-20T00:00:00.000Z",
     "attachments": [
       {
-        "id": "58de41e2.jpg",
-        "type": "image"
-      },
-      {
-        "id": "58de41e2.jpg",
-        "type": "image"
-      },
-      {
-        "id": "58de41e2.jpg",
-        "type": "image"
+        "id": "ad8c4816.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -6202,24 +6156,12 @@
   {
     "id": "f81ff1c7-4cdf-4816-aa81-11c1c54f193a",
     "lon": -59.988525587832555,
-    "lat": -59.988525587832555,
+    "lat": 2.6252162020187826,
     "created_at": "2014-07-15T00:00:00.000Z",
     "attachments": [
       {
-        "id": "96674adf.jpg",
-        "type": "image"
-      },
-      {
-        "id": "96674adf.jpg",
-        "type": "image"
-      },
-      {
-        "id": "96674adf.jpg",
-        "type": "image"
-      },
-      {
-        "id": "96674adf.jpg",
-        "type": "image"
+        "id": "d848710f.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -6247,20 +6189,28 @@
   {
     "id": "6c15a946-17d2-4fbf-8655-ab04f8a0c423",
     "lon": -59.822976416675374,
-    "lat": -59.822976416675374,
+    "lat": 2.606227614823729,
     "created_at": "2014-01-30T00:00:00.000Z",
     "attachments": [
       {
-        "id": "2d4bab74.jpg",
-        "type": "image"
+        "id": "bf85785f.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "2d4bab74.jpg",
-        "type": "image"
+        "id": "ea69f7dc.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "2d4bab74.jpg",
-        "type": "image"
+        "id": "d6a9431d.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "21457264.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "fc275320.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -6288,24 +6238,28 @@
   {
     "id": "cee13874-9c7d-49f1-b573-988957cdbc56",
     "lon": -59.710791242774576,
-    "lat": -59.710791242774576,
+    "lat": 2.2865486772730947,
     "created_at": "2014-02-02T00:00:00.000Z",
     "attachments": [
       {
-        "id": "3fc050ba.jpg",
-        "type": "image"
+        "id": "26bd247e.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "3fc050ba.jpg",
-        "type": "image"
+        "id": "8ca5e177.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "3fc050ba.jpg",
-        "type": "image"
+        "id": "cce6c531.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "3fc050ba.jpg",
-        "type": "image"
+        "id": "85497076.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "cf9d6bd2.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -6333,28 +6287,12 @@
   {
     "id": "30558b33-03f8-4cbf-85a7-3131e52ac034",
     "lon": -59.774185561342165,
-    "lat": -59.774185561342165,
+    "lat": 3.0181147317867727,
     "created_at": "2014-05-04T00:00:00.000Z",
     "attachments": [
       {
-        "id": "5d61f932.jpg",
-        "type": "image"
-      },
-      {
-        "id": "5d61f932.jpg",
-        "type": "image"
-      },
-      {
-        "id": "5d61f932.jpg",
-        "type": "image"
-      },
-      {
-        "id": "5d61f932.jpg",
-        "type": "image"
-      },
-      {
-        "id": "5d61f932.jpg",
-        "type": "image"
+        "id": "8f62a52.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -6382,20 +6320,28 @@
   {
     "id": "b2be3f3f-d818-42d6-b74f-22a5b24950ea",
     "lon": -59.66976370476186,
-    "lat": -59.66976370476186,
+    "lat": 2.295489870151505,
     "created_at": "2014-01-31T00:00:00.000Z",
     "attachments": [
       {
-        "id": "b7c34b89.jpg",
-        "type": "image"
+        "id": "d64f5e19.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "b7c34b89.jpg",
-        "type": "image"
+        "id": "64005ac9.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "b7c34b89.jpg",
-        "type": "image"
+        "id": "347a0e4.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "5818466f.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "8d77a56d.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -6423,12 +6369,28 @@
   {
     "id": "1f7fcb67-e46a-4c4d-bd53-4bd01bd25cbd",
     "lon": -59.71122265420854,
-    "lat": -59.71122265420854,
+    "lat": 2.728093247069046,
     "created_at": "2014-02-18T00:00:00.000Z",
     "attachments": [
       {
-        "id": "8d807772.jpg",
-        "type": "image"
+        "id": "49cc8a1.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "98e9e51f.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "78fb8fca.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "ba1173a5.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "b3468f77.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -6456,20 +6418,24 @@
   {
     "id": "fc756391-5c64-4c1e-b9d9-a8570dc876f0",
     "lon": -59.57600732031278,
-    "lat": -59.57600732031278,
+    "lat": 2.887652667379007,
     "created_at": "2014-01-12T00:00:00.000Z",
     "attachments": [
       {
-        "id": "91a66a87.jpg",
-        "type": "image"
+        "id": "53e6b2cf.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "91a66a87.jpg",
-        "type": "image"
+        "id": "3847a10f.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "91a66a87.jpg",
-        "type": "image"
+        "id": "f8b848b0.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "4f0cc6a4.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -6497,28 +6463,12 @@
   {
     "id": "52c651b3-c4e7-4abe-9a67-4813ab7d25c5",
     "lon": -59.39175410778262,
-    "lat": -59.39175410778262,
+    "lat": 2.2688113352283836,
     "created_at": "2014-04-16T00:00:00.000Z",
     "attachments": [
       {
-        "id": "186c8e9a.jpg",
-        "type": "image"
-      },
-      {
-        "id": "186c8e9a.jpg",
-        "type": "image"
-      },
-      {
-        "id": "186c8e9a.jpg",
-        "type": "image"
-      },
-      {
-        "id": "186c8e9a.jpg",
-        "type": "image"
-      },
-      {
-        "id": "186c8e9a.jpg",
-        "type": "image"
+        "id": "a0f3cdf2.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -6546,12 +6496,12 @@
   {
     "id": "4c39347f-7b21-4700-8084-f4cbc34cd5b9",
     "lon": -59.179845846490934,
-    "lat": -59.179845846490934,
+    "lat": 2.4347242132294924,
     "created_at": "2014-02-06T00:00:00.000Z",
     "attachments": [
       {
-        "id": "5ea40fa3.jpg",
-        "type": "image"
+        "id": "4fd3b3b8.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -6579,20 +6529,28 @@
   {
     "id": "8d49c768-eb93-4d81-b7ac-aef9ea2789ac",
     "lon": -59.59226483735256,
-    "lat": -59.59226483735256,
+    "lat": 2.474404916772619,
     "created_at": "2014-09-15T00:00:00.000Z",
     "attachments": [
       {
-        "id": "7e5a2b22.jpg",
-        "type": "image"
+        "id": "ddcbc390.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "7e5a2b22.jpg",
-        "type": "image"
+        "id": "257ae6f.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "7e5a2b22.jpg",
-        "type": "image"
+        "id": "ca1464af.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "d7719629.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "2b76573d.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -6620,20 +6578,28 @@
   {
     "id": "33c9fa9b-9773-4afb-a913-5b1e72996515",
     "lon": -59.99780995445326,
-    "lat": -59.99780995445326,
+    "lat": 2.4673180958721788,
     "created_at": "2014-07-21T00:00:00.000Z",
     "attachments": [
       {
-        "id": "1f7933be.jpg",
-        "type": "image"
+        "id": "1d11dcbb.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "1f7933be.jpg",
-        "type": "image"
+        "id": "b062b90c.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "1f7933be.jpg",
-        "type": "image"
+        "id": "75cffa46.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "d2b9b1a2.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "e323d100.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -6661,12 +6627,28 @@
   {
     "id": "1abade08-b049-4f8e-847c-22c3f9c38ab9",
     "lon": -59.10926979291253,
-    "lat": -59.10926979291253,
+    "lat": 2.7447531622834505,
     "created_at": "2014-01-28T00:00:00.000Z",
     "attachments": [
       {
-        "id": "c5ca75c8.jpg",
-        "type": "image"
+        "id": "ff9195d4.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "4a948b7c.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "497245fb.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "e1ac81f.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "f9ecdf98.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -6694,20 +6676,28 @@
   {
     "id": "35a68ccb-eafb-48e1-94df-72f9a186145a",
     "lon": -59.46559368818998,
-    "lat": -59.46559368818998,
+    "lat": 2.2940910352859647,
     "created_at": "2014-06-28T00:00:00.000Z",
     "attachments": [
       {
-        "id": "3bf22aee.jpg",
-        "type": "image"
+        "id": "7b4d10b7.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "3bf22aee.jpg",
-        "type": "image"
+        "id": "c1aa5a2a.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "3bf22aee.jpg",
-        "type": "image"
+        "id": "eb461ca7.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "2964ddf4.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "740b3285.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -6735,12 +6725,12 @@
   {
     "id": "ade06157-53fc-4f0e-b4af-5909cde3c317",
     "lon": -59.58421396277845,
-    "lat": -59.58421396277845,
+    "lat": 2.9829863546416164,
     "created_at": "2014-04-06T00:00:00.000Z",
     "attachments": [
       {
-        "id": "49d2233.jpg",
-        "type": "image"
+        "id": "761949ac.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -6768,16 +6758,20 @@
   {
     "id": "aa8211c5-4737-481f-81ee-487dedfc0482",
     "lon": -59.276304146740586,
-    "lat": -59.276304146740586,
+    "lat": 2.620272491965443,
     "created_at": "2014-01-10T00:00:00.000Z",
     "attachments": [
       {
-        "id": "c6490b06.jpg",
-        "type": "image"
+        "id": "9c634af4.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "c6490b06.jpg",
-        "type": "image"
+        "id": "acfa2ac6.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "45b9d05e.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -6805,12 +6799,20 @@
   {
     "id": "048e9b3a-a644-4b34-87cc-7d09e0c5bfc9",
     "lon": -59.42483776016161,
-    "lat": -59.42483776016161,
+    "lat": 2.590566272987053,
     "created_at": "2014-05-15T00:00:00.000Z",
     "attachments": [
       {
-        "id": "d3941ceb.jpg",
-        "type": "image"
+        "id": "d7201b5f.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "daf6b663.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "50682895.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -6838,12 +6840,28 @@
   {
     "id": "59f34047-6c90-4757-93f5-9733c7441ce8",
     "lon": -59.218886031070724,
-    "lat": -59.218886031070724,
+    "lat": 2.9194032767787577,
     "created_at": "2014-02-05T00:00:00.000Z",
     "attachments": [
       {
-        "id": "bbf3bb14.jpg",
-        "type": "image"
+        "id": "d48aa26b.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "b31769ae.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "c873abec.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "24b33a1d.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "1e026f83.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -6871,28 +6889,16 @@
   {
     "id": "01997343-e13a-4a6b-a1fc-92b0f941aafb",
     "lon": -59.17605002573691,
-    "lat": -59.17605002573691,
+    "lat": 2.422227076860145,
     "created_at": "2014-11-13T00:00:00.000Z",
     "attachments": [
       {
-        "id": "910cb8a4.jpg",
-        "type": "image"
+        "id": "3b5bf6d2.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "910cb8a4.jpg",
-        "type": "image"
-      },
-      {
-        "id": "910cb8a4.jpg",
-        "type": "image"
-      },
-      {
-        "id": "910cb8a4.jpg",
-        "type": "image"
-      },
-      {
-        "id": "910cb8a4.jpg",
-        "type": "image"
+        "id": "775c42fe.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -6920,20 +6926,28 @@
   {
     "id": "8b2ad0e8-80b3-4456-8cc9-8aac66bcbe41",
     "lon": -59.95564281567931,
-    "lat": -59.95564281567931,
+    "lat": 2.1321299876086415,
     "created_at": "2014-01-12T00:00:00.000Z",
     "attachments": [
       {
-        "id": "d980b207.jpg",
-        "type": "image"
+        "id": "2543a980.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "d980b207.jpg",
-        "type": "image"
+        "id": "1ad33ca8.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "d980b207.jpg",
-        "type": "image"
+        "id": "1f133a23.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "8f6fb2e0.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "da4ab6df.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -6961,16 +6975,28 @@
   {
     "id": "a7d250f1-c161-4ae4-8bfa-24dea6f9bced",
     "lon": -59.051293982658535,
-    "lat": -59.051293982658535,
+    "lat": 2.469188223266974,
     "created_at": "2014-10-14T00:00:00.000Z",
     "attachments": [
       {
-        "id": "9117054b.jpg",
-        "type": "image"
+        "id": "7d311b39.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "9117054b.jpg",
-        "type": "image"
+        "id": "367c84be.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "d2394662.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "bf17c668.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "6079cb1b.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -6998,24 +7024,12 @@
   {
     "id": "b0696130-eb33-4d2c-addb-2a7b34642763",
     "lon": -59.419472477864474,
-    "lat": -59.419472477864474,
+    "lat": 2.611553770629689,
     "created_at": "2014-06-11T00:00:00.000Z",
     "attachments": [
       {
-        "id": "4debaac8.jpg",
-        "type": "image"
-      },
-      {
-        "id": "4debaac8.jpg",
-        "type": "image"
-      },
-      {
-        "id": "4debaac8.jpg",
-        "type": "image"
-      },
-      {
-        "id": "4debaac8.jpg",
-        "type": "image"
+        "id": "dd2ef576.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -7043,12 +7057,28 @@
   {
     "id": "b33b6efb-3cb8-408e-bfe1-52f46ed84270",
     "lon": -59.48956978623755,
-    "lat": -59.48956978623755,
+    "lat": 2.428576479572803,
     "created_at": "2014-08-28T00:00:00.000Z",
     "attachments": [
       {
-        "id": "196de475.jpg",
-        "type": "image"
+        "id": "e043b5b8.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "77e0490b.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "a83a8fda.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "4a5d87b5.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "c757de3a.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -7076,24 +7106,16 @@
   {
     "id": "72716000-ef5c-401b-ad7c-0db0c7e9c91f",
     "lon": -59.87027347786352,
-    "lat": -59.87027347786352,
+    "lat": 2.9053459546063096,
     "created_at": "2014-07-15T00:00:00.000Z",
     "attachments": [
       {
-        "id": "35152bb1.jpg",
-        "type": "image"
+        "id": "f5e2f719.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "35152bb1.jpg",
-        "type": "image"
-      },
-      {
-        "id": "35152bb1.jpg",
-        "type": "image"
-      },
-      {
-        "id": "35152bb1.jpg",
-        "type": "image"
+        "id": "2fd89556.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -7121,24 +7143,16 @@
   {
     "id": "6fc1bb1a-a5d8-42ec-b0ce-a1179281fdc7",
     "lon": -59.18824922037311,
-    "lat": -59.18824922037311,
+    "lat": 2.4773769489489497,
     "created_at": "2014-03-25T00:00:00.000Z",
     "attachments": [
       {
-        "id": "1870b0ea.jpg",
-        "type": "image"
+        "id": "d1d9d380.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "1870b0ea.jpg",
-        "type": "image"
-      },
-      {
-        "id": "1870b0ea.jpg",
-        "type": "image"
-      },
-      {
-        "id": "1870b0ea.jpg",
-        "type": "image"
+        "id": "5f2f6615.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -7166,16 +7180,16 @@
   {
     "id": "6d9d97f7-07a9-4481-b8f3-a525019ceeba",
     "lon": -59.18605890288018,
-    "lat": -59.18605890288018,
+    "lat": 2.974155292985961,
     "created_at": "2014-10-25T00:00:00.000Z",
     "attachments": [
       {
-        "id": "7692f08f.jpg",
-        "type": "image"
+        "id": "ec4d09e7.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "7692f08f.jpg",
-        "type": "image"
+        "id": "ddeca45c.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -7203,12 +7217,20 @@
   {
     "id": "6d61be02-a5dd-4b1f-a90c-0d084c48d468",
     "lon": -59.70219884882681,
-    "lat": -59.70219884882681,
+    "lat": 3.062771021295339,
     "created_at": "2014-06-25T00:00:00.000Z",
     "attachments": [
       {
-        "id": "bc20f81b.jpg",
-        "type": "image"
+        "id": "83478a52.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "540a07.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "241fef4.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -7236,12 +7258,24 @@
   {
     "id": "cf189604-1f26-479a-9a81-ce2347b6360b",
     "lon": -59.07002073270269,
-    "lat": -59.07002073270269,
+    "lat": 2.9849382360931487,
     "created_at": "2014-04-01T00:00:00.000Z",
     "attachments": [
       {
-        "id": "2a945b99.jpg",
-        "type": "image"
+        "id": "ef67a6e2.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "8f56dd80.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "6407e17a.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "26973cd6.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -7269,28 +7303,16 @@
   {
     "id": "629d8411-e1ff-46c2-8013-5f78c20ea0a0",
     "lon": -59.24066446535289,
-    "lat": -59.24066446535289,
+    "lat": 2.701860509021208,
     "created_at": "2014-06-30T00:00:00.000Z",
     "attachments": [
       {
-        "id": "325682ef.jpg",
-        "type": "image"
+        "id": "58e7554b.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "325682ef.jpg",
-        "type": "image"
-      },
-      {
-        "id": "325682ef.jpg",
-        "type": "image"
-      },
-      {
-        "id": "325682ef.jpg",
-        "type": "image"
-      },
-      {
-        "id": "325682ef.jpg",
-        "type": "image"
+        "id": "5659b0b0.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -7318,16 +7340,28 @@
   {
     "id": "344edfae-4f49-4065-9857-cc052ba7f8dc",
     "lon": -59.728414905490354,
-    "lat": -59.728414905490354,
+    "lat": 2.9364927899092437,
     "created_at": "2014-06-12T00:00:00.000Z",
     "attachments": [
       {
-        "id": "fa426cca.jpg",
-        "type": "image"
+        "id": "acf24d98.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "fa426cca.jpg",
-        "type": "image"
+        "id": "5f190dcb.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "4150f159.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "b2ff6a63.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "8501f63b.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -7355,28 +7389,20 @@
   {
     "id": "25c614be-8520-4e10-8f11-ecee3a47e8d1",
     "lon": -59.9493670896627,
-    "lat": -59.9493670896627,
+    "lat": 2.4000979851931334,
     "created_at": "2014-02-25T00:00:00.000Z",
     "attachments": [
       {
-        "id": "ce0f6fc0.jpg",
-        "type": "image"
+        "id": "2f6a51b0.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "ce0f6fc0.jpg",
-        "type": "image"
+        "id": "a75251ef.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "ce0f6fc0.jpg",
-        "type": "image"
-      },
-      {
-        "id": "ce0f6fc0.jpg",
-        "type": "image"
-      },
-      {
-        "id": "ce0f6fc0.jpg",
-        "type": "image"
+        "id": "fc9a82f6.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -7404,24 +7430,16 @@
   {
     "id": "711c18b8-ee66-4bb5-a00c-9be657665e43",
     "lon": -59.36459992360324,
-    "lat": -59.36459992360324,
+    "lat": 2.8022923019248993,
     "created_at": "2014-11-15T00:00:00.000Z",
     "attachments": [
       {
-        "id": "75967353.jpg",
-        "type": "image"
+        "id": "3c71abb2.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "75967353.jpg",
-        "type": "image"
-      },
-      {
-        "id": "75967353.jpg",
-        "type": "image"
-      },
-      {
-        "id": "75967353.jpg",
-        "type": "image"
+        "id": "1f79c893.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -7449,24 +7467,28 @@
   {
     "id": "76cd7dd7-44a9-4834-8ea3-e0af837f8eef",
     "lon": -59.190697039011866,
-    "lat": -59.190697039011866,
+    "lat": 2.711914767185226,
     "created_at": "2014-06-05T00:00:00.000Z",
     "attachments": [
       {
-        "id": "64a58494.jpg",
-        "type": "image"
+        "id": "9f4186b0.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "64a58494.jpg",
-        "type": "image"
+        "id": "721b1e91.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "64a58494.jpg",
-        "type": "image"
+        "id": "b99a61f4.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "64a58494.jpg",
-        "type": "image"
+        "id": "a93a5c45.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "4902662f.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -7494,12 +7516,24 @@
   {
     "id": "064e86c7-e5f7-40e4-a0cd-2f476fc05aec",
     "lon": -59.87760691274889,
-    "lat": -59.87760691274889,
+    "lat": 2.4471580776385964,
     "created_at": "2014-07-13T00:00:00.000Z",
     "attachments": [
       {
-        "id": "bbbb2ded.jpg",
-        "type": "image"
+        "id": "41225626.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "597a1184.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "e5aeca90.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "f4c24f37.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -7527,20 +7561,28 @@
   {
     "id": "2283ce00-815c-4a98-ab27-71e1d904588c",
     "lon": -59.028234833618626,
-    "lat": -59.028234833618626,
+    "lat": 2.7421193210408092,
     "created_at": "2014-09-16T00:00:00.000Z",
     "attachments": [
       {
-        "id": "c472c992.jpg",
-        "type": "image"
+        "id": "1584a19d.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "c472c992.jpg",
-        "type": "image"
+        "id": "c2adbf3a.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "c472c992.jpg",
-        "type": "image"
+        "id": "e3a96e96.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "d000cba5.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "e0c0a69f.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -7568,20 +7610,24 @@
   {
     "id": "612896d4-ce16-4f58-9079-031185c3ce26",
     "lon": -59.48532371525653,
-    "lat": -59.48532371525653,
+    "lat": 2.533720740256831,
     "created_at": "2014-11-30T00:00:00.000Z",
     "attachments": [
       {
-        "id": "5094d77b.jpg",
-        "type": "image"
+        "id": "9b947bce.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "5094d77b.jpg",
-        "type": "image"
+        "id": "762c12ff.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "5094d77b.jpg",
-        "type": "image"
+        "id": "2286654a.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "783ba98f.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -7609,24 +7655,24 @@
   {
     "id": "72b80750-91a3-47c1-9207-aa6e3177205a",
     "lon": -59.10479023377411,
-    "lat": -59.10479023377411,
+    "lat": 2.9043488960247488,
     "created_at": "2014-09-23T00:00:00.000Z",
     "attachments": [
       {
-        "id": "ce52b480.jpg",
-        "type": "image"
+        "id": "dc7fbec4.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "ce52b480.jpg",
-        "type": "image"
+        "id": "4b1f5cb9.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "ce52b480.jpg",
-        "type": "image"
+        "id": "93ac5a75.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "ce52b480.jpg",
-        "type": "image"
+        "id": "dc965168.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -7654,28 +7700,24 @@
   {
     "id": "def01a81-8401-42f5-bd8b-0a80c0eeb76d",
     "lon": -59.71188458614051,
-    "lat": -59.71188458614051,
+    "lat": 3.0267346251290292,
     "created_at": "2014-01-27T00:00:00.000Z",
     "attachments": [
       {
-        "id": "44426b50.jpg",
-        "type": "image"
+        "id": "578cb4f0.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "44426b50.jpg",
-        "type": "image"
+        "id": "b583b02.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "44426b50.jpg",
-        "type": "image"
+        "id": "e8f2b564.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "44426b50.jpg",
-        "type": "image"
-      },
-      {
-        "id": "44426b50.jpg",
-        "type": "image"
+        "id": "463a49d0.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -7703,12 +7745,16 @@
   {
     "id": "de54376b-f789-4bbe-a373-a8a1323564ca",
     "lon": -59.69986598496325,
-    "lat": -59.69986598496325,
+    "lat": 2.253811196098104,
     "created_at": "2014-12-05T00:00:00.000Z",
     "attachments": [
       {
-        "id": "68e4c492.jpg",
-        "type": "image"
+        "id": "cca2fb9d.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "2881c4b9.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -7736,12 +7782,12 @@
   {
     "id": "5906ef0d-cd64-4e63-86f9-eaa5e02d084f",
     "lon": -59.25167944794521,
-    "lat": -59.25167944794521,
+    "lat": 2.907382412487641,
     "created_at": "2014-05-22T00:00:00.000Z",
     "attachments": [
       {
-        "id": "418baeb2.jpg",
-        "type": "image"
+        "id": "7c5214fd.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -7769,28 +7815,16 @@
   {
     "id": "944f2876-9ccb-41a9-a424-e3198fa2cd57",
     "lon": -59.541716570965946,
-    "lat": -59.541716570965946,
+    "lat": 2.514230372523889,
     "created_at": "2014-04-12T00:00:00.000Z",
     "attachments": [
       {
-        "id": "6f2a2d73.jpg",
-        "type": "image"
+        "id": "c6a0786.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "6f2a2d73.jpg",
-        "type": "image"
-      },
-      {
-        "id": "6f2a2d73.jpg",
-        "type": "image"
-      },
-      {
-        "id": "6f2a2d73.jpg",
-        "type": "image"
-      },
-      {
-        "id": "6f2a2d73.jpg",
-        "type": "image"
+        "id": "fb4b028e.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -7818,28 +7852,12 @@
   {
     "id": "afbd58b6-201c-4e8f-9666-d3106f87e488",
     "lon": -59.783645186340436,
-    "lat": -59.783645186340436,
+    "lat": 2.5341821195557714,
     "created_at": "2014-03-23T00:00:00.000Z",
     "attachments": [
       {
-        "id": "5eccebb4.jpg",
-        "type": "image"
-      },
-      {
-        "id": "5eccebb4.jpg",
-        "type": "image"
-      },
-      {
-        "id": "5eccebb4.jpg",
-        "type": "image"
-      },
-      {
-        "id": "5eccebb4.jpg",
-        "type": "image"
-      },
-      {
-        "id": "5eccebb4.jpg",
-        "type": "image"
+        "id": "7ce71ec5.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -7867,16 +7885,20 @@
   {
     "id": "b3df7100-a892-492e-8298-bcdb08eec658",
     "lon": -59.92536165332422,
-    "lat": -59.92536165332422,
+    "lat": 2.976830098219216,
     "created_at": "2014-06-19T00:00:00.000Z",
     "attachments": [
       {
-        "id": "b6809f38.jpg",
-        "type": "image"
+        "id": "57234c73.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "b6809f38.jpg",
-        "type": "image"
+        "id": "68fce418.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "b92d80e.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -7904,12 +7926,16 @@
   {
     "id": "6588d30b-0300-4e67-8e42-8f7aa61a5b5d",
     "lon": -59.423651413060725,
-    "lat": -59.423651413060725,
+    "lat": 2.872016653092578,
     "created_at": "2014-01-07T00:00:00.000Z",
     "attachments": [
       {
-        "id": "811aff4e.jpg",
-        "type": "image"
+        "id": "3c46ac2f.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "afcd7167.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -7937,12 +7963,16 @@
   {
     "id": "ce4401bd-0b7f-421c-8f96-b5634c0794bb",
     "lon": -59.624520163750276,
-    "lat": -59.624520163750276,
+    "lat": 2.472305407654494,
     "created_at": "2014-03-13T00:00:00.000Z",
     "attachments": [
       {
-        "id": "122d6248.jpg",
-        "type": "image"
+        "id": "5351457.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "b1e11de9.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -7970,20 +8000,24 @@
   {
     "id": "841b38d9-9612-4111-b85e-755f752258fe",
     "lon": -59.66850574919954,
-    "lat": -59.66850574919954,
+    "lat": 2.5585705352947117,
     "created_at": "2014-05-22T00:00:00.000Z",
     "attachments": [
       {
-        "id": "8c522416.jpg",
-        "type": "image"
+        "id": "ac7c9387.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "8c522416.jpg",
-        "type": "image"
+        "id": "65877144.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "8c522416.jpg",
-        "type": "image"
+        "id": "6ba24e61.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "b730d868.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -8011,16 +8045,16 @@
   {
     "id": "17c42d95-0bf5-4cf0-93e0-35dbc05d81cb",
     "lon": -59.80231480230577,
-    "lat": -59.80231480230577,
+    "lat": 2.269299620203674,
     "created_at": "2014-11-20T00:00:00.000Z",
     "attachments": [
       {
-        "id": "c0e47be9.jpg",
-        "type": "image"
+        "id": "afc24463.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "c0e47be9.jpg",
-        "type": "image"
+        "id": "83f86fea.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -8048,20 +8082,24 @@
   {
     "id": "78271406-5307-413a-b453-3ee4d9cb7776",
     "lon": -59.79845950519666,
-    "lat": -59.79845950519666,
+    "lat": 2.4826766363345087,
     "created_at": "2014-02-12T00:00:00.000Z",
     "attachments": [
       {
-        "id": "8b52446c.jpg",
-        "type": "image"
+        "id": "9e7868d1.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "8b52446c.jpg",
-        "type": "image"
+        "id": "7e2280e7.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "8b52446c.jpg",
-        "type": "image"
+        "id": "48401330.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "1fb2d82a.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -8089,16 +8127,28 @@
   {
     "id": "f709edb1-215c-455b-a53f-ca0febbfa97d",
     "lon": -59.55047673196532,
-    "lat": -59.55047673196532,
+    "lat": 2.7195242737885565,
     "created_at": "2014-03-24T00:00:00.000Z",
     "attachments": [
       {
-        "id": "fe94c2b5.jpg",
-        "type": "image"
+        "id": "62da5e8.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "fe94c2b5.jpg",
-        "type": "image"
+        "id": "859b7735.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "82fb5c09.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "5ff16b3f.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "id": "bbf8ebc7.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {
@@ -8126,27 +8176,27 @@
   {
     "id": "69af38b4-a4b2-4fb7-a702-f9dd9b9ebaa2",
     "lon": -59.97162444493733,
-    "lat": -59.97162444493733,
+    "lat": 2.2830180289689452,
     "attachments": [
       {
-        "id": "c806435.jpg",
-        "type": "image"
+        "id": "43858831.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "c806435.jpg",
-        "type": "image"
+        "id": "60bc780b.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "c806435.jpg",
-        "type": "image"
+        "id": "e4e4b190.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "c806435.jpg",
-        "type": "image"
+        "id": "c4712685.jpg",
+        "type": "image/jpg"
       },
       {
-        "id": "c806435.jpg",
-        "type": "image"
+        "id": "a695d36e.jpg",
+        "type": "image/jpg"
       }
     ],
     "tags": {

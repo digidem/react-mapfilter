@@ -3,12 +3,9 @@ import React, { useMemo } from 'react'
 import mime from 'mime/lite'
 
 import ImageGrid from './ImageGrid'
+import { isImageAttachment } from '../utils/helpers'
 import type { Observation } from 'mapeo-schema'
-
-type Attachment = $ElementType<
-  $NonMaybeType<$ElementType<Observation, 'attachments'>>,
-  number
->
+import type { Attachment } from '../types'
 
 type AttachmentWithObservationId = {
   ...$Exact<Attachment>,
@@ -34,14 +31,9 @@ const MediaView = ({ observations, onClick, getMediaUrl }: Props) => {
       const images = []
       for (const obs of observations) {
         for (const attachment of obs.attachments || []) {
-          const mimeType = attachment.type || mime.getType(attachment.id)
           // Only return attachments with images, and check we can actually get
           // an image src for each one before adding it
-          if (
-            mimeType &&
-            mimeType.split('/')[0] === 'image' &&
-            getMediaUrl(attachment)
-          )
+          if (isImageAttachment(attachment) && getMediaUrl(attachment))
             images.push({ ...attachment, observationId: obs.id })
         }
       }

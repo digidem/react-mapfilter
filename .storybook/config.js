@@ -15,8 +15,8 @@ setIntlConfig({
 })
 
 // Register decorator
-addDecorator(withIntl)
 addDecorator(withPropsTable)
+addDecorator(withIntl)
 
 // addDecorator((story, context) =>
 //   withInfo({

@@ -1,6 +1,6 @@
 // @flow
 import * as valueTypes from './constants/value_types'
-
+import type { Observation } from 'mapeo-schema'
 // import type { Properties as CSSProperties } from 'csstype'
 
 import type {
@@ -9,6 +9,11 @@ import type {
   Point2D,
   Point3D
 } from 'flow-geojson'
+
+export type Attachment = $ElementType<
+  $NonMaybeType<$ElementType<Observation, 'attachments'>>,
+  number
+>
 
 // export type StyleProp = CSSProperties<string | number>
 
