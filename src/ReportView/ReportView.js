@@ -1,5 +1,5 @@
 // @flow
-import React from 'react'
+import React, { useCallback } from 'react'
 import { makeStyles } from '@material-ui/styles'
 import {
   AutoSizer,
@@ -13,11 +13,12 @@ import type { Observation } from 'mapeo-schema'
 import ReportPageContent from './ReportPageContent'
 import ReportPaper from './ReportPaper'
 import { cm, inch } from '../utils/dom'
+import { getLastImage } from '../utils/helpers'
 import { getFields as defaultGetFieldsFromTags } from '../lib/data_analysis'
 
-import type { Field, PaperSize } from '../types'
+import type { PaperSize, GetMediaUrl, PresetWithFields } from '../types'
 
-// const BORDER_SIZE = 0.5 * inch()
+const BORDER_SIZE = 0.5 * inch()
 
 const useStyles = makeStyles({
   root: {
@@ -80,24 +81,19 @@ const useStyles = makeStyles({
 // const LABEL_CHARS =
 // 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
 
-function defaultGetFields(obs: Observation) {
-  return defaultGetFieldsFromTags(obs.tags)
-}
-
 type Props = {
   /** Array of observations to render */
   observations: Array<Observation>,
   /** Called with id of observation clicked */
   onClick?: (id: string) => void,
-  /** Get an array of fields to render for an observation - defaults to
-   * automatically determining fields */
-  getFields?: (observation: Observation) => Array<Field>,
-  /** Get the name of an observation (rendered as the page title). defaults to
-   * 'Observation' */
-  getName?: (observation: Observation) => string,
-  /** If you want an image to appear for each observation, pass a function that
-   * returns a URL for the image to display. */
-  getImageSrc?: (observation: Observation) => string | void,
+  /** A function called with an observation that should return a matching preset
+   * with field definitions */
+  getPreset?: Observation => ?PresetWithFields,
+  /** A function called with an observation attachment that should return a URL
+   * to retrieve the attachment. If called with `options.width` and
+   * `options.height`, the function should return a URL to a resized image, if
+   * available */
+  getMediaUrl: GetMediaUrl,
   /** Paper size for report */
   paperSize?: PaperSize,
   /** Render for printing (for screen display only visible observations are
@@ -108,13 +104,26 @@ type Props = {
 const ReportView = ({
   observations,
   onClick = () => {},
-  getFields = defaultGetFields,
-  getName = () => 'Observation',
-  getImageSrc = () => {},
+  getPreset,
+  getMediaUrl,
   paperSize = 'a4',
   print = false
 }: Props) => {
   const classes = useStyles()
+
+  const fallbackGetPreset = useCallback(
+    (observation: Observation) => {
+      if (getPreset) return getPreset(observation)
+      return {
+        id: observation.id,
+        name: 'Observation',
+        geometry: ['point'],
+        tags: {},
+        fields: defaultGetFieldsFromTags(observation.tags)
+      }
+    },
+    [getPreset]
+  )
 
   const cacheRef = React.useRef(
     new CellMeasurerCache({
@@ -123,6 +132,17 @@ const ReportView = ({
     })
   )
   const cache = cacheRef.current
+
+  const paperWidthPx = paperSize === 'a4' ? 21 * cm() : 8.5 * inch()
+
+  function getLastImageUrl(observation: Observation): string | void {
+    const lastImageAttachment = getLastImage(observation)
+    if (!lastImageAttachment) return
+    return getMediaUrl(lastImageAttachment, {
+      width: paperWidthPx - 2 * BORDER_SIZE,
+      height: paperWidthPx - 2 * BORDER_SIZE
+    })
+  }
 
   function renderPage({ index, key, style, parent }) {
     return (
@@ -162,8 +182,9 @@ const ReportView = ({
       typeof observation.created_at === 'string'
         ? new Date(observation.created_at)
         : undefined
-    const fields = getFields(observation)
-    const name = getName(observation)
+    const preset = fallbackGetPreset(observation) || {}
+    const fields = preset.fields
+    const name = preset.name || 'Observation'
     return (
       <ReportPaper
         key={key}
@@ -174,7 +195,7 @@ const ReportView = ({
           createdAt={createdAt}
           coords={coords}
           fields={fields}
-          imageSrc={getImageSrc(observation)}
+          imageSrc={getLastImageUrl(observation)}
           tags={observation.tags}
           paperSize={paperSize}
         />

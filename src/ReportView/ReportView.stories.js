@@ -15,14 +15,18 @@ const imageBaseUrl =
 storiesOf('ReportView', module)
   // .addDecorator(story => <div className="wrapper">{story()}</div>)
   .add('Without Images', () => (
-    <ReportView observations={exampleObservations} onClick={action('click')} />
+    <ReportView
+      observations={exampleObservations}
+      onClick={action('click')}
+      getMediaUrl={() => {}}
+    />
   ))
   .add('Images', () => (
     <ReportView
       observations={exampleObservations}
       onClick={action('click')}
-      getImageSrc={obs =>
-        imageBaseUrl + ((obs.id.charCodeAt(0) % 17) + 1) + '.jpg'
+      getMediaUrl={({ id }, { width = 200, height = 200 } = {}) =>
+        imageBaseUrl + ((parseInt(id, 16) % 17) + 1) + '.jpg'
       }
     />
   ))
@@ -30,8 +34,8 @@ storiesOf('ReportView', module)
     <ReportView
       observations={exampleObservations}
       onClick={action('click')}
-      getImageSrc={obs =>
-        imageBaseUrl + ((obs.id.charCodeAt(0) % 17) + 1) + '.jpg'
+      getMediaUrl={({ id }, { width = 200, height = 200 } = {}) =>
+        imageBaseUrl + ((parseInt(id, 16) % 17) + 1) + '.jpg'
       }
       getFields={obs => [
         {
@@ -48,8 +52,8 @@ storiesOf('ReportView', module)
     <ReportView
       observations={exampleObservations.slice(0, 50)}
       onClick={action('click')}
-      getImageSrc={obs =>
-        imageBaseUrl + ((obs.id.charCodeAt(0) % 17) + 1) + '.jpg'
+      getMediaUrl={({ id }, { width = 200, height = 200 } = {}) =>
+        imageBaseUrl + ((parseInt(id, 16) % 17) + 1) + '.jpg'
       }
       print
     />

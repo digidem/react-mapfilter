@@ -11,11 +11,11 @@ import ReactMapboxGl from 'react-mapbox-gl'
 import mapboxgl from 'mapbox-gl'
 import type { Observation } from 'mapeo-schema'
 
-import { isImageAttachment } from '../utils/helpers'
+import { getLastImage } from '../utils/helpers'
 import { makeStyles } from '../utils/styles'
 import ObservationLayer from './ObservationLayer'
 import Popup from './Popup'
-import type { Attachment, PresetWithFields } from '../types'
+import type { PresetWithFields, GetMediaUrl } from '../types'
 
 type Props = {
   /** Array of observations to render */
@@ -29,10 +29,7 @@ type Props = {
    * to retrieve the attachment. If called with `options.width` and
    * `options.height`, the function should return a URL to a resized image, if
    * available */
-  getMediaUrl: (
-    attachment: Attachment,
-    options?: { width: number, height: number }
-  ) => string | void,
+  getMediaUrl: GetMediaUrl,
   /** Mapbox access token */
   mapboxAccessToken: string,
   mapStyle?: any
@@ -121,11 +118,9 @@ const MapView = (
   }, [])
 
   function getLastImageUrl(observation: Observation): string | void {
-    const imageAttachments = (observation.attachments || []).filter(
-      isImageAttachment
-    )
-    if (!imageAttachments) return
-    return getMediaUrl(imageAttachments[imageAttachments.length - 1], {
+    const lastImageAttachment = getLastImage(observation)
+    if (!lastImageAttachment) return
+    return getMediaUrl(lastImageAttachment, {
       width: Popup.imageSize,
       height: Popup.imageSize
     })
