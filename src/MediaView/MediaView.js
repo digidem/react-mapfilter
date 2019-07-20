@@ -1,6 +1,5 @@
 // @flow
 import React, { useMemo } from 'react'
-import mime from 'mime/lite'
 
 import ImageGrid from './ImageGrid'
 import { isImageAttachment } from '../utils/helpers'
@@ -17,14 +16,19 @@ type Props = {
   observations: Array<Observation>,
   /** Called with id of observation clicked */
   onClick: (observationId: string, attachmentId?: string) => void,
-  /** Should return a url to display the attachment, optionally scaled according
-   *  to options.width and options.height */
+  /** A function called with an observation attachment that should return a URL
+   * to retrieve the attachment. If called with `options.width` and
+   * `options.height`, the function should return a URL to a resized image, if
+   * available */
   getMediaUrl: (
     attachment: Attachment,
     options?: { width: number, height: number }
   ) => string | void
 }
 
+/**
+ * Displays a grid of all photos attached to observations.
+ */
 const MediaView = ({ observations, onClick, getMediaUrl }: Props) => {
   const images = useMemo(
     function getImageAttachments(): Array<AttachmentWithObservationId> {

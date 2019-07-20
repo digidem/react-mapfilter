@@ -2,7 +2,7 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
-import { withKnobs, radios, button } from '@storybook/addon-knobs'
+import { withKnobs, radios } from '@storybook/addon-knobs'
 
 import MapView from './MapView'
 import fixtureObs from '../../fixtures/observations.json'

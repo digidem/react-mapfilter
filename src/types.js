@@ -1,6 +1,6 @@
 // @flow
 import * as valueTypes from './constants/value_types'
-import type { Observation } from 'mapeo-schema'
+import type { Observation, Preset } from 'mapeo-schema'
 // import type { Properties as CSSProperties } from 'csstype'
 
 import type {
@@ -10,6 +10,9 @@ import type {
   Point3D
 } from 'flow-geojson'
 
+/**
+ * Observation Attachment
+ */
 export type Attachment = $ElementType<
   $NonMaybeType<$ElementType<Observation, 'attachments'>>,
   number
@@ -345,3 +348,15 @@ export type IntlShape = {|
   ...IntlConfig,
   ...IntlFormatters
 |}
+
+/** A function that receives an observation attachment and should return a URL
+ * to retrieve the attachment */
+export type GetMediaUrl = (
+  attachment: Attachment,
+  options?: { width: number, height: number }
+) => string | void
+
+export type PresetWithFields = {
+  ...$Exact<Preset>,
+  fields: Field[]
+}

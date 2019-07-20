@@ -7,24 +7,28 @@ import React, {
   useImperativeHandle
 } from 'react'
 import { useIntl } from 'react-intl'
-import ReactMapboxGl, { ZoomControl } from 'react-mapbox-gl'
+import ReactMapboxGl from 'react-mapbox-gl'
 import mapboxgl from 'mapbox-gl'
-import type { Observation, Preset } from 'mapeo-schema'
+import type { Observation } from 'mapeo-schema'
 
 import { isImageAttachment } from '../utils/helpers'
 import { makeStyles } from '../utils/styles'
 import ObservationLayer from './ObservationLayer'
 import Popup from './Popup'
-import type { Attachment } from '../types'
+import type { Attachment, PresetWithFields } from '../types'
 
 type Props = {
   /** Array of observations to render */
   observations: Array<Observation>,
   /** Called with id of observation clicked */
   onClick?: (id: string) => void,
-  getPreset?: Observation => Preset,
-  /** Should return a url to display the attachment, optionally scaled according
-   *  to options.width and options.height */
+  /** A function called with an observation that should return a matching preset
+   * with field definitions */
+  getPreset?: Observation => PresetWithFields,
+  /** A function called with an observation attachment that should return a URL
+   * to retrieve the attachment. If called with `options.width` and
+   * `options.height`, the function should return a URL to a resized image, if
+   * available */
   getMediaUrl: (
     attachment: Attachment,
     options?: { width: number, height: number }
@@ -67,7 +71,6 @@ const MapView = (
 
   useImperativeHandle(ref, () => ({
     fitBounds: (...args: any) => {
-      console.log('called fit bounds', map.current)
       if (!map.current) return
       map.current.fitBounds.apply(map.current, args)
     }

@@ -2,7 +2,7 @@
 import React from 'react'
 
 import { storiesOf } from '@storybook/react'
-// import { action } from '@storybook/addon-actions'
+import { action } from '@storybook/addon-actions'
 // import { linkTo } from '@storybook/addon-links'
 
 import ReportView from './ReportView'
@@ -15,11 +15,12 @@ const imageBaseUrl =
 storiesOf('ReportView', module)
   // .addDecorator(story => <div className="wrapper">{story()}</div>)
   .add('Without Images', () => (
-    <ReportView observations={exampleObservations} />
+    <ReportView observations={exampleObservations} onClick={action('click')} />
   ))
   .add('Images', () => (
     <ReportView
       observations={exampleObservations}
+      onClick={action('click')}
       getImageSrc={obs =>
         imageBaseUrl + ((obs.id.charCodeAt(0) % 17) + 1) + '.jpg'
       }
@@ -28,6 +29,7 @@ storiesOf('ReportView', module)
   .add('Custom fields', () => (
     <ReportView
       observations={exampleObservations}
+      onClick={action('click')}
       getImageSrc={obs =>
         imageBaseUrl + ((obs.id.charCodeAt(0) % 17) + 1) + '.jpg'
       }
@@ -45,6 +47,7 @@ storiesOf('ReportView', module)
   .add('Print view', () => (
     <ReportView
       observations={exampleObservations.slice(0, 50)}
+      onClick={action('click')}
       getImageSrc={obs =>
         imageBaseUrl + ((obs.id.charCodeAt(0) % 17) + 1) + '.jpg'
       }
