@@ -3,9 +3,10 @@ import * as React from 'react'
 import Paper from '@material-ui/core/Paper'
 import { makeStyles } from '../utils/styles'
 import insertCss from 'insert-css'
+import clsx from 'clsx'
 
 const useStyles = makeStyles({
-  root: {
+  container: {
     padding: 20,
     pageBreakAfter: 'always',
     position: 'relative',
@@ -17,7 +18,7 @@ const useStyles = makeStyles({
     },
     boxSizing: 'border-box'
   },
-  reportPaper: {
+  paper: {
     position: 'relative',
     overflow: 'hidden',
     // backgroundColor: 'rgb(245,245,245)',
@@ -51,7 +52,7 @@ const useStyles = makeStyles({
       display: 'none'
     }
   },
-  reportPageContents: {
+  content: {
     position: 'relative',
     margin: '0.5in',
     backgroundColor: 'white',
@@ -61,7 +62,7 @@ const useStyles = makeStyles({
     }
   },
   letter: {
-    '&$reportPaper': {
+    '&$paper': {
       minWidth: '8.5in',
       maxWidth: '8.5in',
       '@media only print': {
@@ -74,15 +75,15 @@ const useStyles = makeStyles({
     '& $pageBreak': {
       top: '10.5in'
     },
-    '&$reportPageContents': {
+    '&$content': {
       minHeight: '10in',
       '@media only print': {
-        minHeight: 'auto'
+        minHeight: 'calc(11in - 1in - 2px)'
       }
     }
   },
   a4: {
-    '&$reportPaper': {
+    '&$paper': {
       minWidth: '210mm',
       maxWidth: '210mm',
       '@media only print': {
@@ -95,10 +96,10 @@ const useStyles = makeStyles({
     '& $pageBreak': {
       top: 'calc(297mm - 0.5in)'
     },
-    '&$reportPageContents': {
+    '&$content': {
       minHeight: 'calc(297mm - 1in)',
       '@media only print': {
-        minHeight: 'auto'
+        minHeight: 'calc(297mm - 1in - 2px)'
       }
     }
   },
@@ -117,11 +118,18 @@ type Props = {
   onClick?: (event: SyntheticMouseEvent<HTMLElement>) => void,
   paperSize: 'a4' | 'letter',
   children: React.Node,
-  style?: Object
+  style?: Object,
+  classes?: Object
 }
 
-const ReportPaper = ({ onClick, paperSize, children, style }: Props) => {
-  const classes = useStyles()
+const ReportPaper = ({
+  onClick,
+  paperSize,
+  children,
+  style,
+  classes = {}
+}: Props) => {
+  const cx = useStyles()
   // This is global to the app - we add this once for every time the paper size
   // changes, but only once. CSS header will grow, but should be ok unless the
   // user changes paper size hundreds of times without reloading the appp
@@ -129,16 +137,16 @@ const ReportPaper = ({ onClick, paperSize, children, style }: Props) => {
     paperSize
   ])
   return (
-    <div className={classes.root} style={style}>
+    <div className={clsx(cx.container, classes.container)} style={style}>
       <Paper
-        className={classes.reportPaper + ' ' + classes[paperSize]}
+        className={clsx(cx.paper, cx[paperSize], classes.paper)}
         style={onClick ? { cursor: 'pointer' } : null}
         onClick={onClick}
         elevation={1}>
-        <div className={classes.reportPageContents + ' ' + classes[paperSize]}>
+        <div className={clsx(cx.content, cx[paperSize], classes.content)}>
           {children}
         </div>
-        <hr className={classes.pageBreak} />
+        <hr className={cx.pageBreak} />
       </Paper>
     </div>
   )

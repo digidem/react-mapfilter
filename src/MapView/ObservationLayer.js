@@ -12,7 +12,8 @@ type Props = {
   observations: Array<Observation>,
   onMouseMove: any => any,
   onMouseLeave: any => any,
-  onClick?: (id: string) => any
+  onClick?: (id: string) => any,
+  print?: boolean
 }
 
 type FeaturePoint2D = FeatureTemplate<Point2D>
@@ -117,7 +118,8 @@ const ObservationLayer = ({
   observations,
   onClick = noop,
   onMouseLeave,
-  onMouseMove
+  onMouseMove,
+  print = false
 }: Props) => {
   const hovered = useRef(null)
   const map = useContext(MapContext)
@@ -129,6 +131,7 @@ const ObservationLayer = ({
 
   const handleMouseMove = useCallback(
     e => {
+      if (print) return
       map.getCanvas().style.cursor = e.features.length ? 'pointer' : ''
       if (e.features.length === 0) return
       if (hovered.current) {
@@ -144,11 +147,12 @@ const ObservationLayer = ({
       )
       onMouseMove(e)
     },
-    [map, onMouseMove]
+    [map, onMouseMove, print]
   )
 
   const handleMouseLeave = useCallback(
     e => {
+      if (print) return
       if (hovered.current) {
         map.setFeatureState(
           { source: observationSourceId, id: hovered.current },
@@ -159,15 +163,16 @@ const ObservationLayer = ({
       map.getCanvas().style.cursor = ''
       onMouseLeave(e)
     },
-    [map, onMouseLeave]
+    [map, onMouseLeave, print]
   )
 
   const handleClick = useCallback(
     e => {
+      if (print) return
       if (e.features.length === 0) return
       onClick(e.features[0].properties.id)
     },
-    [onClick]
+    [onClick, print]
   )
 
   return (

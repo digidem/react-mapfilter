@@ -16,6 +16,7 @@ storiesOf('ReportView', module)
   // .addDecorator(story => <div className="wrapper">{story()}</div>)
   .add('Without Images', () => (
     <ReportView
+      mapboxAccessToken="pk.eyJ1IjoiZ21hY2xlbm5hbiIsImEiOiJSaWVtd2lRIn0.ASYMZE2HhwkAw4Vt7SavEg"
       observations={exampleObservations}
       onClick={action('click')}
       getMediaUrl={() => {}}
@@ -23,6 +24,7 @@ storiesOf('ReportView', module)
   ))
   .add('Images', () => (
     <ReportView
+      mapboxAccessToken="pk.eyJ1IjoiZ21hY2xlbm5hbiIsImEiOiJSaWVtd2lRIn0.ASYMZE2HhwkAw4Vt7SavEg"
       observations={exampleObservations}
       onClick={action('click')}
       getMediaUrl={({ id }, { width = 200, height = 200 } = {}) =>
@@ -32,6 +34,7 @@ storiesOf('ReportView', module)
   ))
   .add('Custom fields', () => (
     <ReportView
+      mapboxAccessToken="pk.eyJ1IjoiZ21hY2xlbm5hbiIsImEiOiJSaWVtd2lRIn0.ASYMZE2HhwkAw4Vt7SavEg"
       observations={exampleObservations}
       onClick={action('click')}
       getMediaUrl={({ id }, { width = 200, height = 200 } = {}) =>
@@ -50,6 +53,7 @@ storiesOf('ReportView', module)
   ))
   .add('Print view', () => (
     <ReportView
+      mapboxAccessToken="pk.eyJ1IjoiZ21hY2xlbm5hbiIsImEiOiJSaWVtd2lRIn0.ASYMZE2HhwkAw4Vt7SavEg"
       observations={exampleObservations.slice(0, 50)}
       onClick={action('click')}
       getMediaUrl={({ id }, { width = 200, height = 200 } = {}) =>

@@ -32,7 +32,8 @@ type Props = {
   getMediaUrl: GetMediaUrl,
   /** Mapbox access token */
   mapboxAccessToken: string,
-  mapStyle?: any
+  mapStyle?: any,
+  print?: boolean
 }
 
 type Instance = {
@@ -57,7 +58,8 @@ const MapView = (
     getPreset,
     getMediaUrl,
     onClick,
-    mapStyle = 'mapbox://styles/mapbox/outdoors-v10'
+    mapStyle = 'mapbox://styles/mapbox/outdoors-v10',
+    print = false
   }: Props,
   ref
 ) => {
@@ -145,6 +147,7 @@ const MapView = (
         onClick={onClick}
         onMouseLeave={handleMouseLeave}
         onMouseMove={handleMouseMove}
+        print={print}
       />
       {hovered && (
         <Popup

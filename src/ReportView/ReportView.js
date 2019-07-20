@@ -12,6 +12,7 @@ import type { Observation } from 'mapeo-schema'
 // import ReportFeature from './ReportFeature'
 import ReportPageContent from './ReportPageContent'
 import ReportPaper from './ReportPaper'
+import MapView from '../MapView'
 import { cm, inch } from '../utils/dom'
 import { getLastImage } from '../utils/helpers'
 import { getFields as defaultGetFieldsFromTags } from '../lib/data_analysis'
@@ -42,6 +43,9 @@ const useStyles = makeStyles({
       minWidth: 'auto'
     }
   },
+  paperContentMap: {
+    display: 'flex'
+  },
   letter: {
     '&$reportWrapper': {
       minWidth: 8.5 * inch()
@@ -67,6 +71,9 @@ const useStyles = makeStyles({
         pageBreakInside: 'avoid'
       },
       '.d-print-none': {
+        display: 'none'
+      },
+      '.mapboxgl-ctrl-group, .mapboxgl-ctrl-attrib': {
         display: 'none'
       }
     }
@@ -98,7 +105,9 @@ type Props = {
   paperSize?: PaperSize,
   /** Render for printing (for screen display only visible observations are
    * rendered, for performance reasons) */
-  print?: boolean
+  print?: boolean,
+  /** Mapbox access token */
+  mapboxAccessToken: string
 }
 
 const ReportView = ({
@@ -107,7 +116,8 @@ const ReportView = ({
   getPreset,
   getMediaUrl,
   paperSize = 'a4',
-  print = false
+  print = false,
+  mapboxAccessToken
 }: Props) => {
   const classes = useStyles()
 
@@ -163,8 +173,16 @@ const ReportView = ({
 
   function renderMapPage({ key }: { key?: string } = {}) {
     return (
-      <ReportPaper key={key} paperSize={paperSize}>
-        <div />
+      <ReportPaper
+        key={key}
+        paperSize={paperSize}
+        classes={{ content: classes.paperContentMap }}>
+        <MapView
+          observations={observations}
+          getMediaUrl={getMediaUrl}
+          mapboxAccessToken={mapboxAccessToken}
+          print
+        />
       </ReportPaper>
     )
   }
