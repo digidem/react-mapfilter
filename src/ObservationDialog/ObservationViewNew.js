@@ -10,7 +10,6 @@ import CloseIcon from '@material-ui/icons/Close'
 // import clone from 'clone-deep'
 
 import { getFields as defaultGetFieldsFromTags } from '../lib/data_analysis'
-import MediaCarousel from '../internal/MediaCarousel'
 import type { Observation } from 'mapeo-schema'
 import type { Field } from '../types'
 
@@ -94,8 +93,6 @@ const ObservationView = ({
   //   setTags(newTags)
   // }
 
-  const media = getMedia(observation)
-
   return (
     <div className={classes.root}>
       <AppBar className={classes.appBar}>
@@ -127,15 +124,7 @@ const ObservationView = ({
         </Toolbar>
       </AppBar>
       <div className={classes.contents}>
-        <div className={classes.media}>
-          <MediaCarousel
-            style={{
-              width: '100%',
-              height: '100%'
-            }}
-            media={media}
-          />
-        </div>
+        <div className={classes.media}></div>
         <div className={classes.details}>Hello world</div>
       </div>
     </div>

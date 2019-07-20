@@ -11,8 +11,3 @@ export const defaultSettings: SettingsContextType = {
 export const SettingsContext: React.Context<SettingsContextType> = React.createContext(
   defaultSettings
 )
-
-type ResizerContextType = (url: string, size: number) => string
-export const ResizerContext: React.Context<ResizerContextType> = React.createContext(
-  (url, size) => url
-)

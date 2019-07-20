@@ -9,6 +9,7 @@ import SwipeableViews from 'react-swipeable-views'
 import AutoSizer from 'react-virtualized-auto-sizer'
 
 import Image from './Image'
+import type { Attachment, GetMediaUrl } from '../types'
 
 const styles = {
   container: {
@@ -79,8 +80,8 @@ const styles = {
 const useStyles = makeStyles(styles)
 
 const NextPrevButtons = ({ index, total, onChangeIndex }) => {
-  if (total <= 1) return null
   const cx = useStyles()
+  if (total <= 1) return null
   const showNext = total > 1 && index < total - 1
   const showPrev = total > 1 && index > 0
   return (
@@ -116,8 +117,8 @@ const Dots = ({
   total: number,
   onChangeIndex: (index: number) => any
 }) => {
-  if (total <= 1) return null
   const cx = useStyles()
+  if (total <= 1) return null
   return (
     <div className={cx.dotsWidget}>
       {Array(total)
@@ -155,16 +156,19 @@ const MediaItem = ({
   </div>
 )
 
-type MediaItemType = {| url: string, type?: 'image' |}
-
 const MediaCarousel = ({
-  media,
+  attachments,
+  getMediaUrl,
   style,
   className
 }: {
-  /** An array of objects with props `src`: url of media iteam and `type`: type
-   * of media item (currently only supports `image`) */
-  media: Array<MediaItemType>,
+  /** Array of observation attachments to show */
+  attachments: Attachment[],
+  /** A function called with an observation attachment that should return a URL
+   * to retrieve the attachment. If called with `options.width` and
+   * `options.height`, the function should return a URL to a resized image, if
+   * available */
+  getMediaUrl: GetMediaUrl,
   style?: {},
   className?: string
 }) => {
@@ -178,22 +182,27 @@ const MediaCarousel = ({
             enableMouseEvents
             index={index}
             onChangeIndex={setIndex}>
-            {media.map((m, i) => (
-              <MediaItem
-                key={i}
-                src={m.url}
-                type={m.type || 'image'}
-                width={width}
-                height={height}
-              />
-            ))}
+            {attachments.reduce((acc, attachment, i) => {
+              const src = getMediaUrl(attachment, { width, height })
+              if (!src) return acc
+              acc.push(
+                <MediaItem
+                  key={i}
+                  src={src}
+                  type={'image'}
+                  width={width}
+                  height={height}
+                />
+              )
+              return acc
+            }, [])}
           </SwipeableViews>
         )}
       </AutoSizer>
-      <Dots index={index} total={media.length} onChangeIndex={setIndex} />
+      <Dots index={index} total={attachments.length} onChangeIndex={setIndex} />
       <NextPrevButtons
         index={index}
-        total={media.length}
+        total={attachments.length}
         onChangeIndex={setIndex}
       />
     </div>
