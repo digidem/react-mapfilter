@@ -1,9 +1,9 @@
 // @flow
 import * as React from 'react'
-import { withStyles } from '@material-ui/core/styles'
+import { makeStyles } from './utils/styles'
 import Button from '@material-ui/core/Button'
 
-const styles = {
+const useStyles = makeStyles({
   root: {
     color: 'rgba(0, 0, 0, 0.67)',
     padding: '3px 5px',
@@ -16,14 +16,14 @@ const styles = {
       paddingRight: 6
     }
   }
-}
+})
 
 type Props = {
-  children: React.Node,
-  classes: { [className: $Keys<typeof styles>]: string }
+  children: React.Node
 }
 
-const ToolbarButton = ({ children, classes, ...otherProps }: Props) => {
+const ToolbarButton = ({ children, ...otherProps }: Props) => {
+  const classes = useStyles()
   return (
     <Button className={classes.root} {...otherProps}>
       {children}
@@ -33,4 +33,4 @@ const ToolbarButton = ({ children, classes, ...otherProps }: Props) => {
 
 ToolbarButton.muiName = 'Button'
 
-export default withStyles(styles)(ToolbarButton)
+export default ToolbarButton

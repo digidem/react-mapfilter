@@ -3,10 +3,10 @@ import React from 'react'
 import Img from 'react-image'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import BrokenImageIcon from '@material-ui/icons/BrokenImage'
+import { makeStyles } from '../utils/styles'
 // import * as CSS from 'csstype'
-import { withStyles } from '@material-ui/styles'
 
-const styles = {
+const useStyles = makeStyles({
   wrapper: {
     width: '100%',
     height: '100%',
@@ -19,21 +19,19 @@ const styles = {
     backgroundPosition: 'center',
     backgroundRepeat: 'no-repeat'
   }
-}
-
-const ImageLoader = withStyles(styles)(({ classes, style }) => {
-  return (
-    <div className={classes.wrapper} style={{ ...style, color: 'white' }}>
-      <CircularProgress color="inherit" />
-    </div>
-  )
 })
 
-const BrokenImage = withStyles(styles)(({ classes, style }) => (
+const ImageLoader = ({ classes, style }) => (
+  <div className={classes.wrapper} style={{ ...style, color: 'white' }}>
+    <CircularProgress color="inherit" />
+  </div>
+)
+
+const BrokenImage = ({ classes, style }) => (
   <div className={classes.wrapper} style={style}>
     <BrokenImageIcon color="white" />
   </div>
-))
+)
 
 type Props = {
   style?: { [prop: string]: string | number },
@@ -42,13 +40,14 @@ type Props = {
 }
 
 const Image = ({ style, src, className }: Props) => {
+  const classes = useStyles()
   return (
     <Img
       src={src}
       style={{ objectFit: 'contain', display: 'block', ...style }}
       className={className}
-      loader={<ImageLoader style={style} />}
-      unloader={<BrokenImage style={style} />}
+      loader={<ImageLoader style={style} classes={classes} />}
+      unloader={<BrokenImage style={style} classes={classes} />}
     />
   )
 }

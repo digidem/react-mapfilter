@@ -2,9 +2,9 @@
 
 import * as React from 'react'
 import AppBar from '@material-ui/core/AppBar'
-import { withStyles } from '@material-ui/core/styles'
+import { makeStyles } from '../utils/styles'
 
-const styles = {
+const useStyles = makeStyles({
   root: {
     zIndex: 10,
     position: 'sticky',
@@ -17,20 +17,22 @@ const styles = {
       display: 'none'
     }
   }
-}
+})
 
 type Props = {
-  children: React.Node,
-  classes: { [className: $Keys<typeof styles>]: string }
+  children: React.Node
 }
 
-const Toolbar = ({ children, classes }: Props) => (
-  <AppBar
-    elevation={3}
-    color="default"
-    className={classes.root + ' d-print-none'}>
-    {children}
-  </AppBar>
-)
+const Toolbar = ({ children }: Props) => {
+  const classes = useStyles()
+  return (
+    <AppBar
+      elevation={3}
+      color="default"
+      className={classes.root + ' d-print-none'}>
+      {children}
+    </AppBar>
+  )
+}
 
-export default withStyles(styles)(Toolbar)
+export default Toolbar
