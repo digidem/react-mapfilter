@@ -18,7 +18,7 @@ const useStyles = makeStyles({
 })
 
 type Props = {|
-  name: string,
+  name?: string,
   iconLabel?: string,
   iconColor?: string,
   coords?: Coordinates,

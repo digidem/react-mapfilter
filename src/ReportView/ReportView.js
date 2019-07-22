@@ -7,6 +7,7 @@ import {
   CellMeasurer,
   CellMeasurerCache
 } from 'react-virtualized'
+import { IntlProvider } from 'react-intl'
 import type { Observation } from 'mapeo-schema'
 
 // import ReportFeature from './ReportFeature'
@@ -145,7 +146,6 @@ const ReportView = ({
       if (getPreset) return getPreset(observation)
       return {
         id: observation.id,
-        name: 'Observation',
         geometry: ['point'],
         tags: {},
         fields: defaultGetFieldsFromTags(observation.tags)
@@ -223,14 +223,13 @@ const ReportView = ({
         : undefined
     const preset = fallbackGetPreset(observation) || {}
     const fields = preset.fields
-    const name = preset.name || 'Observation'
     return (
       <ReportPaper
         key={key}
         paperSize={paperSize}
         onClick={() => onClick(observation.id)}>
         <ReportPageContent
-          name={name}
+          name={typeof preset.name === 'string' ? preset.name : undefined}
           createdAt={createdAt}
           coords={coords}
           fields={fields}
@@ -277,11 +276,13 @@ const ReportView = ({
   }
 
   return (
-    <div className={classes.root}>
-      <div className={classes.scrollWrapper}>
-        {print ? renderPrintList() : renderVirtualList()}
+    <IntlProvider>
+      <div className={classes.root}>
+        <div className={classes.scrollWrapper}>
+          {print ? renderPrintList() : renderVirtualList()}
+        </div>
       </div>
-    </div>
+    </IntlProvider>
   )
 }
 

@@ -58,3 +58,30 @@ it useful to continuously run tests when files change:
 ```sh
 npm test -- --watch
 ```
+
+### Translations
+
+[`react-intl`](https://github.com/formatjs/react-intl) is used for translations
+and internationalization. Any strings should be defined at the top of each
+module using
+[`defineMessage`](https://github.com/formatjs/react-intl/blob/master/docs/API.md#definemessages)
+but unlike with the react-intl docs message descriptors are of the format `[id]: message` and this is transformed at build-time to the message descriptor format
+using
+[babel-plugin-react-intl-auto](https://github.com/akameco/babel-plugin-react-intl-auto).
+This plugin adds the component name and path to the id, so you do not need to
+worry about creating globally unique ids.
+
+Messages for translation are in the folder [`messages`](messages). `en.json`
+files are generated from the default messages in the code, and should not be
+modified, but translations can be added to other files and they will not be
+over-written.
+
+To extract updated messages if you change any of the message definitions in the
+code:
+
+```sh
+npm run extract-messages
+```
+
+This script will run on a commit hook to ensure any updated messages are always
+included in the commit.

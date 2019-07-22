@@ -1,0 +1,30 @@
+{
+  "ReportView.HideFieldsButton.hideAll": {
+    "description": "Hide all fields in report view",
+    "message": ""
+  },
+  "ReportView.HideFieldsButton.hideFieldsLabel": {
+    "description": "Button label for hide fields menu",
+    "message": ""
+  },
+  "ReportView.HideFieldsButton.showAll": {
+    "description": "Show all fields in report view",
+    "message": ""
+  },
+  "ReportView.PrintButton.close": {
+    "description": "Button bob to close print settings dialog",
+    "message": ""
+  },
+  "ReportView.PrintButton.dialogTitle": {
+    "description": "Title of print settings dialog",
+    "message": ""
+  },
+  "ReportView.PrintButton.paperSize": {
+    "description": "Label for paper size selection field",
+    "message": ""
+  },
+  "ReportView.PrintButton.print": {
+    "description": "Button label to print a report",
+    "message": ""
+  }
+}

@@ -19,45 +19,54 @@
       }
     ]
   ],
+  plugins: [
+    // Reduces bundle size by sharing babel helpers between files
+    ['@babel/plugin-transform-runtime', { corejs: 3 }],
+    // Allows simpler defineMessages with react-intl
+    // https://github.com/akameco/babel-plugin-react-intl-auto
+    ['react-intl-auto', { filebase: true, removePrefix: 'src' }],
+    // Turns flow type annotations into React.PropTypes for runtime
+    // type checking. Deadcode wraps in NODE_ENV checks
+    // ['flow-react-proptypes', { deadCode: true }],
+    // Converts flow annotations into comment syntax
+    // https://flow.org/en/docs/types/comments/
+    '@babel/plugin-transform-flow-comments',
+    // Allows directly declaring props and methods on a class instead of
+    // binding them to `this` in the constructor
+    ['@babel/plugin-proposal-class-properties', { loose: true }],
+    // Allows short hand of Object.assign({}, a) as {...a}
+    '@babel/plugin-proposal-object-rest-spread'
+  ],
   env: {
-    production: {
+    esm: {
       plugins: [
         ['react-intl-auto', { filebase: true, removePrefix: 'src' }],
-        // Strips out flow types
-        '@babel/plugin-transform-flow-strip-types',
-        ['@babel/plugin-transform-runtime', { corejs: 3 }],
-        ['@babel/plugin-proposal-class-properties', { loose: true }],
-        '@babel/plugin-proposal-object-rest-spread'
+        // Creates shorter message hashes to reduce bundle size
+        'react-intl-id-hash'
+      ],
+      presets: [
+        [
+          '@babel/preset-env',
+          {
+            targets: {
+              electron: '2.0.0',
+              node: '8',
+              browsers: ['last 2 versions', 'not ie < 11']
+            },
+            modules: false,
+            // Only use polyfills necessary for target env
+            useBuiltIns: 'usage',
+            corejs: 3,
+            shippedProposals: true
+          }
+        ]
       ]
     },
-    test: {
+    cjs: {
       plugins: [
         ['react-intl-auto', { filebase: true, removePrefix: 'src' }],
-        // Strips out flow types
-        '@babel/plugin-transform-flow-strip-types',
-        ['@babel/plugin-transform-runtime', { corejs: 3 }],
-        ['@babel/plugin-proposal-class-properties', { loose: true }],
-        '@babel/plugin-proposal-object-rest-spread'
-      ]
-    },
-    development: {
-      plugins: [
-        // Reduces bundle size by sharing babel helpers between files
-        ['@babel/plugin-transform-runtime', { corejs: 3 }],
-        // Allows simpler defineMessages with react-intl
-        // https://github.com/akameco/babel-plugin-react-intl-auto
-        ['react-intl-auto', { filebase: true, removePrefix: 'src' }],
-        // Turns flow type annotations into React.PropTypes for runtime
-        // type checking. Deadcode wraps in NODE_ENV checks
-        // ['flow-react-proptypes', { deadCode: true }],
-        // Converts flow annotations into comment syntax
-        // https://flow.org/en/docs/types/comments/
-        '@babel/plugin-transform-flow-comments',
-        // Allows directly declaring props and methods on a class instead of
-        // binding them to `this` in the constructor
-        ['@babel/plugin-proposal-class-properties', { loose: true }],
-        // Allows short hand of Object.assign({}, a) as {...a}
-        '@babel/plugin-proposal-object-rest-spread'
+        // Creates shorter message hashes to reduce bundle size
+        'react-intl-id-hash'
       ]
     }
   }

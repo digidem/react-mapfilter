@@ -1,6 +1,6 @@
 // @flow
 import React from 'react'
-
+import { IntlProvider } from 'react-intl'
 import { storiesOf } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
 // import { linkTo } from '@storybook/addon-links'
@@ -8,14 +8,24 @@ import { action } from '@storybook/addon-actions'
 import FeatureHeader from './FeatureHeader'
 
 const Wrapper = ({ children }) => (
-  <div style={{ width: 600, outline: 'solid 1px aqua' }}>{children}</div>
+  <IntlProvider>
+    <div style={{ width: 600, outline: 'solid 1px aqua' }}>{children}</div>
+  </IntlProvider>
 )
 
 storiesOf('internal/FeatureHeader', module)
   .add('default', () => (
     <Wrapper>
       <FeatureHeader
-        name="Observation"
+        coords={{ longitude: -51, latitude: 23 }}
+        createdAt={new Date()}
+      />
+    </Wrapper>
+  ))
+  .add('custom name', () => (
+    <Wrapper>
+      <FeatureHeader
+        name="My Thing"
         coords={{ longitude: -51, latitude: 23 }}
         createdAt={new Date()}
       />
@@ -23,22 +33,17 @@ storiesOf('internal/FeatureHeader', module)
   ))
   .add('no location', () => (
     <Wrapper>
-      <FeatureHeader
-        name="Observation"
-        createdAt={new Date()}
-        onClose={action('close')}
-      />
+      <FeatureHeader createdAt={new Date()} onClose={action('close')} />
     </Wrapper>
   ))
   .add('no location or date', () => (
     <Wrapper>
-      <FeatureHeader name="Observation" onClose={action('close')} />
+      <FeatureHeader onClose={action('close')} />
     </Wrapper>
   ))
   .add('label', () => (
     <Wrapper>
       <FeatureHeader
-        name="Observation"
         iconLabel="C"
         iconColor="red"
         createdAt={new Date()}

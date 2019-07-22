@@ -2,7 +2,7 @@
 import * as React from 'react'
 import CardHeader from '@material-ui/core/CardHeader'
 import { makeStyles } from '../utils/styles'
-import { FormattedTime } from 'react-intl'
+import { FormattedTime, FormattedMessage } from 'react-intl'
 
 import IconButton from '@material-ui/core/IconButton'
 import CloseIcon from '@material-ui/icons/Close'
@@ -11,6 +11,7 @@ import Avatar from '@material-ui/core/Avatar'
 import Typography from '@material-ui/core/Typography'
 
 import FormattedLocation from '../internal/FormattedLocation'
+import msgs from '../messages'
 import type { Coordinates } from '../types'
 
 const useStyles = makeStyles({
@@ -29,7 +30,7 @@ const useStyles = makeStyles({
 type Props = {
   iconLabel?: string,
   iconColor?: string,
-  name: React.Node,
+  name?: React.Node,
   coords?: Coordinates,
   createdAt?: Date,
   onClose?: () => any
@@ -79,7 +80,7 @@ const FeatureHeader = ({
       }
       title={
         <Typography variant="h5" component="h2">
-          {name}
+          {name || <FormattedMessage {...msgs.defaultObservationName} />}
         </Typography>
       }
       subheader={subheaderParts}
