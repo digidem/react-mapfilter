@@ -1,5 +1,5 @@
 // @flow
-import React, { useCallback } from 'react'
+import React, { useCallback, useState } from 'react'
 import { makeStyles } from '@material-ui/styles'
 import {
   AutoSizer,
@@ -17,7 +17,12 @@ import { cm, inch } from '../utils/dom'
 import { getLastImage } from '../utils/helpers'
 import { getFields as defaultGetFieldsFromTags } from '../lib/data_analysis'
 
-import type { PaperSize, GetMediaUrl, PresetWithFields } from '../types'
+import type {
+  PaperSize,
+  GetMediaUrl,
+  PresetWithFields,
+  CameraOptions
+} from '../types'
 
 const BORDER_SIZE = 0.5 * inch()
 
@@ -93,6 +98,17 @@ type Props = {
   observations: Array<Observation>,
   /** Called with id of observation clicked */
   onClick?: (id: string) => void,
+  /** Called with
+   * [CameraOptions](https://docs.mapbox.com/mapbox-gl-js/api/#cameraoptions)
+   * with properties `center`, `zoom`, `bearing`, `pitch` */
+  onMapMove?: CameraOptions => any,
+  /** Initial position of the map - an object with properties `center`, `zoom`,
+   * `bearing`, `pitch`. If this is not set then the map will by default zoom to
+   * the bounds of the observations. If you are going to unmount and re-mount
+   * this component (e.g. within tabs) then you will want to use onMove to store
+   * the position in state, and pass it as initialPosition for when the map
+   * re-mounts. */
+  initialMapPosition?: $Shape<CameraOptions>,
   /** A function called with an observation that should return a matching preset
    * with field definitions */
   getPreset?: Observation => ?PresetWithFields,
@@ -113,6 +129,8 @@ type Props = {
 const ReportView = ({
   observations,
   onClick = () => {},
+  onMapMove,
+  initialMapPosition,
   getPreset,
   getMediaUrl,
   paperSize = 'a4',
@@ -120,6 +138,7 @@ const ReportView = ({
   mapboxAccessToken
 }: Props) => {
   const classes = useStyles()
+  const [mapPosition, setMapPosition] = useState()
 
   const fallbackGetPreset = useCallback(
     (observation: Observation) => {
@@ -180,6 +199,8 @@ const ReportView = ({
         <MapView
           observations={observations}
           getMediaUrl={getMediaUrl}
+          initialMapPosition={initialMapPosition || mapPosition}
+          onMapMove={onMapMove || setMapPosition}
           mapboxAccessToken={mapboxAccessToken}
           print
         />
