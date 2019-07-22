@@ -360,3 +360,10 @@ export type PresetWithFields = {
   ...$Exact<Preset>,
   fields: Field[]
 }
+
+export type CameraOptions = {
+  center: [number, number],
+  zoom: number,
+  bearing: number,
+  pitch: number
+}
