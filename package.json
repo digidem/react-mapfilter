@@ -1,6 +1,7 @@
 {
   "name": "react-mapfilter",
-  "main": "src/index.js",
+  "main": "commonjs/index.js",
+  "module": "esm/index.js",
   "scripts": {
     "check": "npm run check:used && npm run check:unused",
     "check:used": "dependency-check ./package.json --detective precinct",
@@ -9,8 +10,10 @@
     "lint": "eslint '**/*.js'",
     "flow": "flow",
     "flow-typed": "flow-typed install -s -i peer",
-    "build": "babel 'src/**/!(*.test|*.stories).js' -d commonjs",
     "build:translations": "node scripts/build-translations.js",
+    "build:esm": "rimraf esm && BABEL_ENV=esm babel src --ignore 'src/**/*.test.js','src/**/*.stories.js' --out-dir esm --source-maps",
+    "build:cjs": "rimraf commonjs && BABEL_ENV=cjs babel src --ignore 'src/**/*.test.js','src/**/*.stories.js' --out-dir commonjs --source-maps",
+    "build": "npm run build:translations & npm run build:esm & npm run build:cjs",
     "extract-messages": "node scripts/extract-messages.js",
     "prepublish": "npm run build",
     "storybook": "start-storybook -p 6006",
@@ -19,7 +22,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "pretty-quick --staged && npm run extract-messages"
+      "pre-commit": "npm run extract-messages && pretty-quick --staged"
     }
   },
   "devDependencies": {
