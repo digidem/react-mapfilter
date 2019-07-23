@@ -48,7 +48,8 @@ type Props = {
 }
 
 type Instance = {
-  fitBounds: () => any
+  fitBounds: () => any,
+  flyTo: () => any
 }
 
 const useStyles = makeStyles({
@@ -87,6 +88,10 @@ const MapView = (
     fitBounds: (...args: any) => {
       if (!map.current) return
       map.current.fitBounds.apply(map.current, args)
+    },
+    flyTo: (...args: any) => {
+      if (!map.current) return
+      map.current.flyTo.apply(map.current, args)
     }
   }))
 
@@ -101,6 +106,7 @@ const MapView = (
     // eslint-disable-next-line react-hooks/exhaustive-deps
     []
   )
+  console.log(initialBounds)
 
   // We don't allow the map to be a controlled component - position can only be
   // set when the map is initially mounted and after that state is internal
