@@ -35,12 +35,21 @@
     // binding them to `this` in the constructor
     ['@babel/plugin-proposal-class-properties', { loose: true }],
     // Allows short hand of Object.assign({}, a) as {...a}
-    '@babel/plugin-proposal-object-rest-spread'
+    // useBuiltIns should be fine for our use-case, but could cause un-expected
+    // results if trying to spread objects with a prototype chains. See
+    // https://exploringjs.com/es6/ch_oop-besides-classes.html#sec_assigning-vs-defining-properties
+    [
+      '@babel/plugin-proposal-object-rest-spread',
+      { loose: true, useBuiltIns: true }
+    ]
   ],
   env: {
     esm: {
       plugins: [
-        ['react-intl-auto', { filebase: true, removePrefix: 'src' }],
+        [
+          'react-intl-auto',
+          { filebase: true, extractComments: false, removePrefix: 'src' }
+        ],
         // Creates shorter message hashes to reduce bundle size
         'react-intl-id-hash'
       ],
@@ -49,9 +58,9 @@
           '@babel/preset-env',
           {
             targets: {
-              electron: '2.0.0',
-              node: '8',
-              browsers: ['last 2 versions', 'not ie < 11']
+              // Our main target for these modules is the mapeo-desktop electron
+              // application.
+              electron: '2.0.0'
             },
             modules: false,
             // Only use polyfills necessary for target env
@@ -64,7 +73,10 @@
     },
     cjs: {
       plugins: [
-        ['react-intl-auto', { filebase: true, removePrefix: 'src' }],
+        [
+          'react-intl-auto',
+          { filebase: true, extractComments: false, removePrefix: 'src' }
+        ],
         // Creates shorter message hashes to reduce bundle size
         'react-intl-id-hash'
       ]
