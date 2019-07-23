@@ -1,6 +1,6 @@
 {
   "messages.defaultObservationName": {
     "description": "Name to show for an observation when it does not match any preset",
-    "message": ""
+    "message": "Observación"
   }
 }
