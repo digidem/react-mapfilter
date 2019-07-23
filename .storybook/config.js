@@ -4,11 +4,24 @@ import { configure, addDecorator } from '@storybook/react'
 import { setIntlConfig, withIntl } from 'storybook-addon-intl'
 import { withPropsTable } from 'storybook-addon-react-docgen'
 
-const getMessages = locale => {}
+const translations = {
+  ReportView: {
+    en: require('../translations/ReportView/en.json'),
+    es: require('../translations/ReportView/es.json'),
+    fr: require('../translations/ReportView/fr.json')
+  }
+}
+
+const getMessages = locale => {
+  console.log(translations.ReportView[locale])
+  return {
+    ...translations.ReportView[locale]
+  }
+}
 
 // Set intl configuration
 setIntlConfig({
-  locales: ['en', 'es-PE', 'es-ES', 'es', 'fr'],
+  locales: ['en', 'es', 'fr'],
   defaultLocale: 'en',
   textComponent: React.Fragment,
   getMessages
