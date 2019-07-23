@@ -22,25 +22,29 @@ async function writeJson(file, data) {
   await writeFile(file, JSON.stringify(data, null, 2))
 }
 
-rimraf.sync('translations')
+rimraf.sync('translations/*')
 
+// "shared" strings are included in translations for all components
 glob('messages/!(shared)/*.json', async function(er, files) {
-  const msgs = await Promise.all(
+  const allMsgs = await Promise.all(
     files.map(async file => {
       const msgs = await readJson(file)
       return [file, msgs]
     })
   )
   await Promise.all(
-    msgs.map(async ([file, msgs]) => {
+    allMsgs.map(async ([file, msgs]) => {
       const sharedMsgs = await readJson(
         'messages/shared/' + path.basename(file)
       )
       const translations = {}
       Object.keys(msgs).forEach(key => {
+        // For production message ids are hashed, so we need to hash the ids of
+        // translations too
         const hashedKey = murmurHash(key)
         translations[hashedKey] = msgs[key].message
       })
+      // Merge shared translations into the translations for each component
       Object.keys(sharedMsgs).forEach(key => {
         const hashedKey = murmurHash(key)
         translations[hashedKey] = sharedMsgs[key].message
