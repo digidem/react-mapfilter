@@ -55,6 +55,14 @@ type Instance = {
 const useStyles = makeStyles({
   container: {
     flex: 1
+  },
+  '@global': {
+    // The "Improve Map" link does not work when Mapeo Desktop is used offline,
+    // and since the data the user is looking at is mainly data that is not in
+    // OpenStreetMap, this link does not make much sense to the user.
+    '.mapbox-improve-map': {
+      display: 'none'
+    }
   }
 })
 
