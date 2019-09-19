@@ -1,53 +1,38 @@
 // @flow
 import React from 'react'
-import { IntlProvider } from 'react-intl'
-import { storiesOf } from '@storybook/react'
+import { storiesOf, addDecorator } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
 // import { linkTo } from '@storybook/addon-links'
 
 import FeatureHeader from './FeatureHeader'
 
-const Wrapper = ({ children }) => (
-  <IntlProvider>
-    <div style={{ width: 600, outline: 'solid 1px aqua' }}>{children}</div>
-  </IntlProvider>
-)
+addDecorator(storyFn => (
+  <div style={{ width: 600, outline: 'solid 1px aqua' }}>{storyFn()}</div>
+))
 
 storiesOf('internal/FeatureHeader', module)
   .add('default', () => (
-    <Wrapper>
-      <FeatureHeader
-        coords={{ longitude: -51, latitude: 23 }}
-        createdAt={new Date()}
-      />
-    </Wrapper>
+    <FeatureHeader
+      coords={{ longitude: -51, latitude: 23 }}
+      createdAt={new Date()}
+    />
   ))
   .add('custom name', () => (
-    <Wrapper>
-      <FeatureHeader
-        name="My Thing"
-        coords={{ longitude: -51, latitude: 23 }}
-        createdAt={new Date()}
-      />
-    </Wrapper>
+    <FeatureHeader
+      name="My Thing"
+      coords={{ longitude: -51, latitude: 23 }}
+      createdAt={new Date()}
+    />
   ))
   .add('no location', () => (
-    <Wrapper>
-      <FeatureHeader createdAt={new Date()} onClose={action('close')} />
-    </Wrapper>
+    <FeatureHeader createdAt={new Date()} onClose={action('close')} />
   ))
-  .add('no location or date', () => (
-    <Wrapper>
-      <FeatureHeader onClose={action('close')} />
-    </Wrapper>
-  ))
+  .add('no location or date', () => <FeatureHeader onClose={action('close')} />)
   .add('label', () => (
-    <Wrapper>
-      <FeatureHeader
-        iconLabel="C"
-        iconColor="red"
-        createdAt={new Date()}
-        onClose={action('close')}
-      />
-    </Wrapper>
+    <FeatureHeader
+      iconLabel="C"
+      iconColor="red"
+      createdAt={new Date()}
+      onClose={action('close')}
+    />
   ))
