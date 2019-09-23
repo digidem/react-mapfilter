@@ -29,7 +29,7 @@ const FormattedValue = ({value, type, coordFormat = FORMATS_DEG_MIN_SEC}) => {
         month='long'
         day='2-digit' />
     case FIELD_TYPE_ARRAY:
-      return (value || []).map(v => <FormattedMessage {...msg('field_value')(value)} />)
+      return (value || []).map((v, idx) => <FormattedMessage key={idx} {...msg('field_value')(value)} />)
     case FIELD_TYPE_LOCATION:
       return <span>{formatLocation(value, coordFormat)}</span>
     case FIELD_TYPE_NUMBER:
