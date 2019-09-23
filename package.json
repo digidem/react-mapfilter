@@ -1,7 +1,7 @@
 {
   "name": "react-mapfilter",
   "description": "A React Component for viewing and filtering GeoJSON",
-  "version": "1.3.1",
+  "version": "2.0.0",
   "main": "es5/index.js",
   "peerDependencies": {
     "react": "^15.4.1 || ^16",
