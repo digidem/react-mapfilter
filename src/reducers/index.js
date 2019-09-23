@@ -1,5 +1,4 @@
 import {combineReducers} from 'redux'
-import {intlReducer} from 'react-intl-redux'
 
 import features from './features'
 import filters from './filters'
@@ -26,7 +25,6 @@ export default combineReducers({
   fieldMapping,
   fieldOrder,
   fieldTypes,
-  intl: intlReducer,
   resizer,
   settings,
   viewStates

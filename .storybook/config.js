@@ -3,14 +3,6 @@
 import { addDecorator, configure } from '@storybook/react'
 import { setIntlConfig, withIntl } from 'storybook-addon-intl'
 
-// Load the locale data for all your defined locales
-import { addLocaleData } from 'react-intl'
-import enLocaleData from 'react-intl/locale-data/en'
-import esLocaleData from 'react-intl/locale-data/es'
-
-addLocaleData(enLocaleData)
-addLocaleData(esLocaleData)
-
 const getMessages = function () {
   return {}
 }

@@ -3,13 +3,9 @@ import React from 'react'
 import { Provider } from 'react-redux'
 import { createStore, applyMiddleware, compose } from 'redux'
 import thunk from 'redux-thunk'
-import {IntlProvider} from 'react-intl-redux'
-import {addLocaleData} from 'react-intl'
+import {IntlProvider} from 'react-intl'
 import pick from 'lodash/pick'
 import merge from 'lodash/merge'
-import en from 'react-intl/locale-data/en'
-import es from 'react-intl/locale-data/es'
-import fr from 'react-intl/locale-data/fr'
 import shallowEqual from 'shallow-equal/objects'
 import {persistStore, autoRehydrate} from 'redux-persist'
 import localForage from 'localforage'
@@ -25,8 +21,6 @@ import stateReconciler from '../util/stateReconciler'
 
 import esStrings from '../../locales/es.json'
 import frStrings from '../../locales/fr.json'
-
-addLocaleData([...en, ...es, ...fr])
 
 var translations = {
   es: {
@@ -188,7 +182,7 @@ class MapFilter extends React.Component {
      * Either a React Element (`<MyMenuItem myProp='hello' />`)
      * or a React Component (`MyMenuItem`)
      */
-    appBarMenuItems: PropTypes.oneOfType([PropTypes.element, PropTypes.func]),
+    appBarMenuItems: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.element, PropTypes.func])),
     /**
      * A locale string that is optional, overriding the default navigator locale.
      */
