@@ -13,7 +13,6 @@ const translations = {
 }
 
 const getMessages = locale => {
-  console.log(translations.ReportView[locale])
   return {
     ...translations.ReportView[locale]
   }
@@ -39,10 +38,4 @@ addDecorator(withIntl)
 // )
 
 // automatically import all files ending in *.stories.js
-const req = require.context('../src', true, /\.stories\.js$/)
-function loadStories() {
-  // require('./index')
-  req.keys().forEach(filename => req(filename))
-}
-
-configure(loadStories, module)
+configure(require.context('../src', true, /\.stories\.js$/), module)

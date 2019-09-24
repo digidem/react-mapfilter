@@ -1,6 +1,5 @@
 // @flow
 import React, { useState } from 'react'
-import { storiesOf } from '@storybook/react'
 
 import { SelectOne } from './Select'
 
@@ -49,10 +48,18 @@ const StateContainer = ({ children }) => {
   return children(state, setState)
 }
 
-storiesOf('internal/SelectOne', module).add('default', () => (
+export default {
+  title: 'internal/SelectOne'
+}
+
+export const defaultStory = () => (
   <StateContainer>
     {(value, setValue) => (
       <SelectOne suggestions={countries} value={value} onChange={setValue} />
     )}
   </StateContainer>
-))
+)
+
+defaultStory.story = {
+  name: 'default'
+}

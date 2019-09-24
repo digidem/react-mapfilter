@@ -1,7 +1,6 @@
 // @flow
 import React, { useState } from 'react'
 
-import { storiesOf } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
 // import { linkTo } from '@storybook/addon-links'
 
@@ -13,22 +12,34 @@ const initialFieldState = [
   { fieldkey: 'qux', hidden: false, label: 'Qux' }
 ]
 
-storiesOf('ReportView/components/HideFieldsButton', module)
-  .add('default', () => (
-    <HideFieldsButton
-      fieldState={initialFieldState}
-      onFieldStateUpdate={action('field-state-update')}
-    />
-  ))
-  .add('with state', () => {
-    const WithState = () => {
-      const [fieldState, setFieldState] = useState(initialFieldState)
-      return (
-        <HideFieldsButton
-          fieldState={fieldState}
-          onFieldStateUpdate={setFieldState}
-        />
-      )
-    }
-    return <WithState />
-  })
+export default {
+  title: 'ReportView/components/HideFieldsButton'
+}
+
+export const defaultStory = () => (
+  <HideFieldsButton
+    fieldState={initialFieldState}
+    onFieldStateUpdate={action('field-state-update')}
+  />
+)
+
+defaultStory.story = {
+  name: 'default'
+}
+
+export const withState = () => {
+  const WithState = () => {
+    const [fieldState, setFieldState] = useState(initialFieldState)
+    return (
+      <HideFieldsButton
+        fieldState={fieldState}
+        onFieldStateUpdate={setFieldState}
+      />
+    )
+  }
+  return <WithState />
+}
+
+withState.story = {
+  name: 'with state'
+}
