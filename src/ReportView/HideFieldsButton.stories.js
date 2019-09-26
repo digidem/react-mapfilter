@@ -7,9 +7,9 @@ import { action } from '@storybook/addon-actions'
 import HideFieldsButton from './HideFieldsButton'
 
 const initialFieldState = [
-  { fieldkey: 'foo', hidden: false, label: 'Foo' },
-  { fieldkey: 'bar', hidden: true, label: 'Bar' },
-  { fieldkey: 'qux', hidden: false, label: 'Qux' }
+  { id: 'foo', hidden: false, label: 'Foo' },
+  { id: 'bar', hidden: true, label: 'Bar' },
+  { id: 'qux', hidden: false, label: 'Qux' }
 ]
 
 export default {

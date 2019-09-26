@@ -17,7 +17,7 @@ const getMedia = ({ id }) => ({
 })
 
 export default {
-  title: 'ReportView'
+  title: 'ReportView/Content'
 }
 
 export const withoutImages = () => (
@@ -29,10 +29,6 @@ export const withoutImages = () => (
   />
 )
 
-withoutImages.story = {
-  name: 'Without Images'
-}
-
 export const images = () => (
   <ReportView
     mapboxAccessToken="pk.eyJ1IjoiZ21hY2xlbm5hbiIsImEiOiJSaWVtd2lRIn0.ASYMZE2HhwkAw4Vt7SavEg"
@@ -41,10 +37,6 @@ export const images = () => (
     getMedia={getMedia}
   />
 )
-
-images.story = {
-  name: 'Images'
-}
 
 export const customFields = () => (
   <ReportView
@@ -64,10 +56,6 @@ export const customFields = () => (
   />
 )
 
-customFields.story = {
-  name: 'Custom fields'
-}
-
 export const printView = () => (
   <ReportView
     mapboxAccessToken="pk.eyJ1IjoiZ21hY2xlbm5hbiIsImEiOiJSaWVtd2lRIn0.ASYMZE2HhwkAw4Vt7SavEg"
@@ -77,7 +65,3 @@ export const printView = () => (
     print
   />
 )
-
-printView.story = {
-  name: 'Print view'
-}

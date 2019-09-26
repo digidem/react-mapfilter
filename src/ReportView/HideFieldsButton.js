@@ -47,7 +47,7 @@ const useStyles = makeStyles(theme => {
 })
 
 type FieldState = Array<{|
-  fieldkey: string,
+  id: string,
   hidden: boolean,
   label: React.Node
 |}>
@@ -69,10 +69,10 @@ const HideFieldsButton = ({ fieldState, onFieldStateUpdate }: Props) => {
     setAnchorEl(null)
   }
 
-  function toggleFieldVisibility(fieldkey: string) {
+  function toggleFieldVisibility(id: string) {
     const newState = fieldState
       .slice()
-      .map(f => (f.fieldkey === fieldkey ? { ...f, hidden: !f.hidden } : f))
+      .map(f => (f.id === id ? { ...f, hidden: !f.hidden } : f))
     onFieldStateUpdate(newState)
   }
 
@@ -126,11 +126,11 @@ const HideFieldsButton = ({ fieldState, onFieldStateUpdate }: Props) => {
         </div>
         <List dense>
           {fieldState.map(f => (
-            <ListItem key={f.fieldkey} className={classes.listItem}>
+            <ListItem key={f.id} className={classes.listItem}>
               <ListItemText className={classes.fieldname} primary={f.label} />
               <ListItemSecondaryAction>
                 <Switch
-                  onClick={() => toggleFieldVisibility(f.fieldkey)}
+                  onClick={() => toggleFieldVisibility(f.id)}
                   checked={!f.hidden}
                 />
               </ListItemSecondaryAction>

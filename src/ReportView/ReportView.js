@@ -28,9 +28,7 @@ const BORDER_SIZE = 0.5 * inch()
 
 const useStyles = makeStyles({
   root: {
-    width: '100%',
-    height: '100%',
-    position: 'absolute',
+    flex: 1,
     display: 'flex',
     flexDirection: 'column',
     backgroundColor: 'rgba(236, 236, 236, 1)',
@@ -111,7 +109,7 @@ type Props = {
   initialMapPosition?: $Shape<CameraOptions>,
   /** A function called with an observation that should return a matching preset
    * with field definitions */
-  getPreset?: Observation => ?PresetWithFields,
+  getPreset?: Observation => PresetWithFields | void,
   /**
    * For a given attachment, return `src` and `type`
    */
