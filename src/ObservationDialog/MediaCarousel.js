@@ -157,7 +157,7 @@ const MediaItem = ({
 const MediaCarousel = ({
   items,
   style,
-  initialIndex = 0,
+  initialIndex,
   className
 }: {
   /** Array of media items to show, only type=`image` is currently supported */
@@ -167,7 +167,10 @@ const MediaCarousel = ({
   initialIndex?: number,
   className?: string
 }) => {
-  const [index, setIndex] = useState(initialIndex)
+  const [index, setIndex] = useState(
+    // Initially display the *last* image unless initialIndex is set
+    initialIndex === undefined ? items.length - 1 : initialIndex
+  )
   const cx = useStyles()
   return (
     <div style={style} className={clsx(cx.container, className)}>
