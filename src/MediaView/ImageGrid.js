@@ -7,15 +7,6 @@ import getScrollBarWidth from 'get-scrollbar-width'
 import { makeStyles } from '../utils/styles'
 import type { Observation } from 'mapeo-schema'
 
-type Attachment = $ElementType<
-  $NonMaybeType<$ElementType<Observation, 'attachments'>>,
-  number
->
-
-type AttachmentWithObservationId = {
-  ...$Exact<Attachment>,
-  observationId: $ElementType<Observation, 'id'>
-}
 const useStyles = makeStyles({
   image: {
     border: '1px solid white',
@@ -32,15 +23,13 @@ const useStyles = makeStyles({
 type Props = {
   /** Array of image attachments to render. Each attachment should have an id
    * and and observationId, which points to the parent observation */
-  images: Array<AttachmentWithObservationId>,
-  /** Called with id of observation clicked and id of the attachment clicked */
-  onImageClick: (observationId: string, attachmentId?: string) => void,
-  /** Should return a url to display the attachment, optionally scaled according
-   *  to options.width and options.height */
-  getMediaUrl: (
-    attachment: Attachment,
-    options?: { width: number, height: number }
-  ) => string | void,
+  images: Array<{
+    index: number,
+    src: string,
+    observationId: $ElementType<Observation, 'id'>
+  }>,
+  /** Called with id of observation clicked and index of the attachment clicked */
+  onImageClick: (observationId: string, index?: number) => void,
   /** Optional default size for grid items */
   defaultSize?: number
 }
@@ -48,13 +37,7 @@ type Props = {
 /**
  * Renders a grid of images
  */
-const ImageGrid = ({
-  images,
-  onImageClick,
-  getMediaUrl,
-  defaultSize = 200
-}: Props) => {
-  const pixelRatio = window.devicePixelRatio || 1
+const ImageGrid = ({ images, onImageClick, defaultSize = 200 }: Props) => {
   const scrollbarWidth = useMemo(() => getScrollBarWidth(), [])
   const classes = useStyles()
 
@@ -89,17 +72,14 @@ const ImageGrid = ({
               }) => {
                 const image = images[rowIndex * columnsCount + columnIndex]
                 if (!image) return null
-                const imgSize = cellSize * pixelRatio
-                const imageUrl = getMediaUrl(image, {
-                  width: imgSize,
-                  height: imgSize
-                })
                 return (
                   <img
-                    src={imageUrl}
+                    src={image.src}
                     className={classes.image}
                     style={style}
-                    onClick={() => onImageClick(image.observationId, image.id)}
+                    onClick={() =>
+                      onImageClick(image.observationId, image.index)
+                    }
                   />
                 )
               }}
