@@ -11,7 +11,7 @@ import Button from '@material-ui/core/Button'
 import { makeStyles } from '../utils/styles'
 import { defineMessages, FormattedMessage } from 'react-intl'
 
-import ToolbarButton from '../ToolbarButton'
+import ToolbarButton from '../internal/ToolbarButton'
 
 const msgs = defineMessages({
   // Button label for hide fields menu

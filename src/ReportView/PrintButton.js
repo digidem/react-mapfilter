@@ -12,7 +12,7 @@ import FormControl from '@material-ui/core/FormControl'
 import Select from '@material-ui/core/Select'
 import { defineMessages, FormattedMessage } from 'react-intl'
 
-import ToolbarButton from '../ToolbarButton'
+import ToolbarButton from '../internal/ToolbarButton'
 
 import type { PaperSize } from '../types'
 

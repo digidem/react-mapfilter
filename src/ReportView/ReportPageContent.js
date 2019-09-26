@@ -3,7 +3,7 @@ import React from 'react'
 import { makeStyles } from '@material-ui/styles'
 import FeatureHeader from '../internal/FeatureHeader'
 import Image from '../internal/Image'
-import DetailsTable from '../internal/DetailsTable'
+import DetailsTable from './DetailsTable'
 import { cm, inch } from '../utils/dom'
 
 import type { Coordinates, Field, JSONObject, PaperSize } from '../types'

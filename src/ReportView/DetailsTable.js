@@ -8,7 +8,7 @@ import TableCell from '@material-ui/core/TableCell'
 import TableRow from '@material-ui/core/TableRow'
 import AutoSizer from 'react-virtualized-auto-sizer'
 
-import FormattedValue from './FormattedValue'
+import FormattedValue from '../internal/FormattedValue'
 import FormattedFieldname from '../internal/FormattedFieldname'
 import { get } from '../utils/get_set'
 
