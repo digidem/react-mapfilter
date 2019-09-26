@@ -59,6 +59,8 @@ type Props = {
   open?: boolean,
   onRequestClose: () => void,
   observation: Observation,
+  // The initial image to show in the media carousel
+  initialImageIndex?: number,
   onSave: (observation: Observation) => void,
   getPreset?: Observation => PresetWithFields | void,
   /**
@@ -159,6 +161,7 @@ const DialogContent = ({
   onRequestClose,
   onSave,
   observation,
+  initialImageIndex,
   getPreset = defaultGetPreset,
   getMedia = defaultGetMedia
 }: {
@@ -221,7 +224,11 @@ const DialogContent = ({
       </IconButton>
       {mediaItems.length > 0 && (
         <div className={cx.mediaWrapper}>
-          <MediaCarousel items={mediaItems} className={cx.media} />
+          <MediaCarousel
+            items={mediaItems}
+            initialIndex={initialImageIndex}
+            className={cx.media}
+          />
         </div>
       )}
       <FeatureHeader
