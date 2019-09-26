@@ -356,7 +356,12 @@ const useStyles = makeStyles(theme => ({
     zIndex: 999,
     left: 0,
     top: 0,
-    color: 'white'
+    color: 'white',
+    backgroundColor: 'rgba(0,0,0,0.4)',
+    borderRadius: '0 0 4px 0',
+    '&:hover': {
+      backgroundColor: 'rgba(0,0,0,0.5)'
+    }
   },
   descriptionField: {
     boxSizing: 'border-box',
