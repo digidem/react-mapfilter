@@ -246,7 +246,7 @@ const DialogContent = ({
         className={cx.descriptionField}
       />
       {preset.fields.length > 0 && (
-        <ExpansionPanel>
+        <ExpansionPanel TransitionProps={{ unmountOnExit: true }}>
           <ExpansionPanelSummary
             expandIcon={<ExpandMoreIcon />}
             aria-controls="panel1a-content"
