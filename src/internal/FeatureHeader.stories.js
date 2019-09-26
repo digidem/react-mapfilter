@@ -1,17 +1,17 @@
 // @flow
 import React from 'react'
-import { addDecorator } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
 // import { linkTo } from '@storybook/addon-links'
 
 import FeatureHeader from './FeatureHeader'
 
-addDecorator(storyFn => (
-  <div style={{ width: 600, outline: 'solid 1px aqua' }}>{storyFn()}</div>
-))
-
 export default {
-  title: 'internal/FeatureHeader'
+  title: 'internal/FeatureHeader',
+  decorators: [
+    (storyFn: any) => (
+      <div style={{ width: 600, outline: 'solid 1px aqua' }}>{storyFn()}</div>
+    )
+  ]
 }
 
 export const defaultStory = () => (
