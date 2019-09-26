@@ -1,27 +1,29 @@
 // @flow
-import type { Field } from '../types'
-import type { IntlShape } from 'react-intl'
+import type { Field, Key } from '../types'
 /**
  * Either returns the translated user-defined label for a field, or creates a
  * label from the field key by replacing _ and - with spaces and formatting in
  * title case
  */
-export function getFieldLabel(
+export function getLocalizedFieldProp(
   field: Field,
-  intl: IntlShape
-): string | string[] {
-  const languageTag = intl.locale || 'en'
+  prop: 'label' | 'placeholder',
+  languageTag: string = 'en'
+): string {
   // two-letter or three-letter ISO language code
   const languageCode = languageTag.split('-')[0]
   // choose most specific label translation available e.g. language tag with
   // country code first, then just language code, then label without language
   // specified
   const label =
-    field['label:' + languageTag] ||
-    field['label:' + languageCode] ||
-    field.label
-  if (label) return label
-  const fieldkey = typeof field.key === 'string' ? [field.key] : [...field.key]
+    field[prop + ':' + languageTag] ||
+    field[prop + ':' + languageCode] ||
+    field[prop]
+  return label
+}
+
+export function fieldKeyToLabel(key: Key): string | string[] {
+  const fieldkey = typeof key === 'string' ? [key] : [...key]
   const labelArray = fieldkey.map(s => titleCase(s + ''))
   return labelArray.length === 1 ? labelArray[0] : labelArray
 }

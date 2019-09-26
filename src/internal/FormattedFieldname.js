@@ -2,12 +2,11 @@
 import * as React from 'react'
 import { useIntl } from 'react-intl'
 
-import { getFieldLabel } from '../utils/strings'
+import { getLocalizedFieldProp, fieldKeyToLabel } from '../utils/strings'
 import type { Field } from '../types'
 
 const styles = {
   groupText: {
-    fontSize: '0.875em',
     color: 'rgba(0, 0, 0, 0.541176)'
   }
 }
@@ -18,8 +17,9 @@ type Props = {
 
 /** Formats a field name nicely */
 const FormattedFieldname = ({ field }: Props) => {
-  const intl = useIntl()
-  const label = getFieldLabel(field, intl)
+  const { locale } = useIntl()
+  const label =
+    getLocalizedFieldProp(field, 'label', locale) || fieldKeyToLabel(field.key)
   if (typeof label === 'string') {
     return <span title={label}>{label}</span>
   } else {

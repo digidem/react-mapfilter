@@ -8,9 +8,6 @@ import clsx from 'clsx'
 import SwipeableViews from 'react-swipeable-views'
 import AutoSizer from 'react-virtualized-auto-sizer'
 
-import Image from './Image'
-import type { Attachment, GetMediaUrl } from '../types'
-
 const styles = {
   container: {
     backgroundColor: 'black',
@@ -56,7 +53,8 @@ const styles = {
     zIndex: 400,
     pointerEvents: 'auto',
     '&:hover': {
-      cursor: 'pointer'
+      cursor: 'pointer',
+      backgroundColor: 'rgba(0, 0, 0, 0.35)'
     }
   },
   dot: {
@@ -149,7 +147,7 @@ const MediaItem = ({
   height: number
 }) => (
   <div style={{ width, height, position: 'relative' }}>
-    <Image
+    <img
       style={{ width, height, objectFit: 'contain', display: 'block' }}
       src={src}
     />
@@ -157,18 +155,12 @@ const MediaItem = ({
 )
 
 const MediaCarousel = ({
-  attachments,
-  getMediaUrl,
+  items,
   style,
   className
 }: {
-  /** Array of observation attachments to show */
-  attachments: Attachment[],
-  /** A function called with an observation attachment that should return a URL
-   * to retrieve the attachment. If called with `options.width` and
-   * `options.height`, the function should return a URL to a resized image, if
-   * available */
-  getMediaUrl: GetMediaUrl,
+  /** Array of media items to show, only type=`image` is currently supported */
+  items: Array<{ type: 'image', src: string }>,
   style?: {},
   className?: string
 }) => {
@@ -182,27 +174,22 @@ const MediaCarousel = ({
             enableMouseEvents
             index={index}
             onChangeIndex={setIndex}>
-            {attachments.reduce((acc, attachment, i) => {
-              const src = getMediaUrl(attachment, { width, height })
-              if (!src) return acc
-              acc.push(
-                <MediaItem
-                  key={i}
-                  src={src}
-                  type={'image'}
-                  width={width}
-                  height={height}
-                />
-              )
-              return acc
-            }, [])}
+            {items.map(({ src, type }, idx) => (
+              <MediaItem
+                key={idx}
+                src={src}
+                type={type}
+                width={width}
+                height={height}
+              />
+            ))}
           </SwipeableViews>
         )}
       </AutoSizer>
-      <Dots index={index} total={attachments.length} onChangeIndex={setIndex} />
+      <Dots index={index} total={items.length} onChangeIndex={setIndex} />
       <NextPrevButtons
         index={index}
-        total={attachments.length}
+        total={items.length}
         onChangeIndex={setIndex}
       />
     </div>

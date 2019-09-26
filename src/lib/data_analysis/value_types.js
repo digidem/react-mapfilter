@@ -153,6 +153,8 @@ export function coerceValue(value, type) {
         throw new Error(
           'Cannot coerce ' + JSON.stringify(value) + ' to ' + type
         )
+      // TODO: Needs to construct date from components, otherwise it will be
+      // assumed to be in UTC timezone
       if (isShortDate(value))
         return new Date(+new Date(value) + 12 * 60 * 60 * 1000)
       const parsedDateValue = Date.parse(value)

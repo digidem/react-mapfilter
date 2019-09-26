@@ -351,10 +351,10 @@ export type IntlShape = {|
 
 /** A function that receives an observation attachment and should return a URL
  * to retrieve the attachment */
-export type GetMediaUrl = (
+export type GetMedia = (
   attachment: Attachment,
   options?: { width: number, height: number }
-) => string | void
+) => { src: string, type: 'image' | 'video' | 'audio' } | void
 
 export type PresetWithFields = {
   ...$Exact<Preset>,

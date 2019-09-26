@@ -2,7 +2,7 @@ import React from 'react'
 import { configure, addDecorator } from '@storybook/react'
 // import { withInfo } from '@storybook/addon-info'
 import { setIntlConfig, withIntl } from 'storybook-addon-intl'
-import { withPropsTable } from 'storybook-addon-react-docgen'
+// import { withPropsTable } from 'storybook-addon-react-docgen'
 
 const translations = {
   ReportView: {
@@ -27,7 +27,7 @@ setIntlConfig({
 })
 
 // Register decorator
-addDecorator(withPropsTable)
+// addDecorator(withPropsTable)
 addDecorator(withIntl)
 
 // addDecorator((story, context) =>

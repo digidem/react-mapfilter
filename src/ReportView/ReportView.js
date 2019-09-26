@@ -1,5 +1,5 @@
 // @flow
-import React, { useCallback, useState } from 'react'
+import React, { useState } from 'react'
 import { makeStyles } from '@material-ui/styles'
 import {
   AutoSizer,
@@ -15,12 +15,11 @@ import ReportPageContent from './ReportPageContent'
 import ReportPaper from './ReportPaper'
 import MapView from '../MapView'
 import { cm, inch } from '../utils/dom'
-import { getLastImage } from '../utils/helpers'
-import { getFields as defaultGetFieldsFromTags } from '../lib/data_analysis'
+import { getLastImage, defaultGetPreset } from '../utils/helpers'
 
 import type {
   PaperSize,
-  GetMediaUrl,
+  GetMedia,
   PresetWithFields,
   CameraOptions
 } from '../types'
@@ -113,11 +112,10 @@ type Props = {
   /** A function called with an observation that should return a matching preset
    * with field definitions */
   getPreset?: Observation => ?PresetWithFields,
-  /** A function called with an observation attachment that should return a URL
-   * to retrieve the attachment. If called with `options.width` and
-   * `options.height`, the function should return a URL to a resized image, if
-   * available */
-  getMediaUrl: GetMediaUrl,
+  /**
+   * For a given attachment, return `src` and `type`
+   */
+  getMedia: GetMedia,
   /** Paper size for report */
   paperSize?: PaperSize,
   /** Render for printing (for screen display only visible observations are
@@ -132,27 +130,14 @@ const ReportView = ({
   onClick = () => {},
   onMapMove,
   initialMapPosition,
-  getPreset,
-  getMediaUrl,
+  getPreset = defaultGetPreset,
+  getMedia,
   paperSize = 'a4',
   print = false,
   mapboxAccessToken
 }: Props) => {
   const classes = useStyles()
   const [mapPosition, setMapPosition] = useState()
-
-  const fallbackGetPreset = useCallback(
-    (observation: Observation) => {
-      if (getPreset) return getPreset(observation)
-      return {
-        id: observation.id,
-        geometry: ['point'],
-        tags: {},
-        fields: defaultGetFieldsFromTags(observation.tags)
-      }
-    },
-    [getPreset]
-  )
 
   const cacheRef = React.useRef(
     new CellMeasurerCache({
@@ -167,10 +152,11 @@ const ReportView = ({
   function getLastImageUrl(observation: Observation): string | void {
     const lastImageAttachment = getLastImage(observation)
     if (!lastImageAttachment) return
-    return getMediaUrl(lastImageAttachment, {
+    const media = getMedia(lastImageAttachment, {
       width: paperWidthPx - 2 * BORDER_SIZE,
       height: paperWidthPx - 2 * BORDER_SIZE
     })
+    if (media) return media.src
   }
 
   function renderPage({ index, key, style, parent }) {
@@ -198,7 +184,7 @@ const ReportView = ({
         classes={{ content: classes.paperContentMap }}>
         <MapView
           observations={observations}
-          getMediaUrl={getMediaUrl}
+          getMedia={getMedia}
           initialMapPosition={initialMapPosition || mapPosition}
           onMapMove={onMapMove || setMapPosition}
           mapboxAccessToken={mapboxAccessToken}
@@ -221,7 +207,7 @@ const ReportView = ({
       typeof observation.created_at === 'string'
         ? new Date(observation.created_at)
         : undefined
-    const preset = fallbackGetPreset(observation) || {}
+    const preset = getPreset(observation) || {}
     const fields = preset.fields
     return (
       <ReportPaper

@@ -11,6 +11,11 @@ const exampleObservations = require('../../fixtures/observations.json')
 const imageBaseUrl =
   'https://images.digital-democracy.org/mapfilter-sample/sample-'
 
+const getMedia = ({ id }) => ({
+  src: imageBaseUrl + ((parseInt(id, 16) % 17) + 1) + '.jpg',
+  type: 'image'
+})
+
 export default {
   title: 'ReportView'
 }
@@ -20,7 +25,7 @@ export const withoutImages = () => (
     mapboxAccessToken="pk.eyJ1IjoiZ21hY2xlbm5hbiIsImEiOiJSaWVtd2lRIn0.ASYMZE2HhwkAw4Vt7SavEg"
     observations={exampleObservations}
     onClick={action('click')}
-    getMediaUrl={() => {}}
+    getMedia={() => {}}
   />
 )
 
@@ -33,9 +38,7 @@ export const images = () => (
     mapboxAccessToken="pk.eyJ1IjoiZ21hY2xlbm5hbiIsImEiOiJSaWVtd2lRIn0.ASYMZE2HhwkAw4Vt7SavEg"
     observations={exampleObservations}
     onClick={action('click')}
-    getMediaUrl={({ id }, { width = 200, height = 200 } = {}) =>
-      imageBaseUrl + ((parseInt(id, 16) % 17) + 1) + '.jpg'
-    }
+    getMedia={getMedia}
   />
 )
 
@@ -48,9 +51,7 @@ export const customFields = () => (
     mapboxAccessToken="pk.eyJ1IjoiZ21hY2xlbm5hbiIsImEiOiJSaWVtd2lRIn0.ASYMZE2HhwkAw4Vt7SavEg"
     observations={exampleObservations}
     onClick={action('click')}
-    getMediaUrl={({ id }, { width = 200, height = 200 } = {}) =>
-      imageBaseUrl + ((parseInt(id, 16) % 17) + 1) + '.jpg'
-    }
+    getMedia={getMedia}
     getFields={obs => [
       {
         id: 'myField',
@@ -72,9 +73,7 @@ export const printView = () => (
     mapboxAccessToken="pk.eyJ1IjoiZ21hY2xlbm5hbiIsImEiOiJSaWVtd2lRIn0.ASYMZE2HhwkAw4Vt7SavEg"
     observations={exampleObservations.slice(0, 50)}
     onClick={action('click')}
-    getMediaUrl={({ id }, { width = 200, height = 200 } = {}) =>
-      imageBaseUrl + ((parseInt(id, 16) % 17) + 1) + '.jpg'
-    }
+    getMedia={getMedia}
     print
   />
 )

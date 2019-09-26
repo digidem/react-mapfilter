@@ -6,6 +6,7 @@ import { fromLatLon } from 'utm'
 import * as coordFormats from '../constants/coord_formats'
 import { SettingsContext } from './Context'
 import type { Coordinates } from '../types'
+import { leftPad } from '../utils/helpers'
 
 const FormattedLocation = ({ latitude, longitude }: Coordinates) => {
   const { coordFormat } = useContext(SettingsContext)
@@ -44,19 +45,4 @@ function formatDecDeg({ latitude, longitude }) {
   return `${latitude >= 0 ? '+' : ''}${latitude.toFixed(6)}°, ${
     longitude >= 0 ? '+' : ''
   }${longitude.toFixed(6)}°`
-}
-
-function leftPad(str: string, len: number, char: string): string {
-  // doesn't need to pad
-  len = len - str.length
-  if (len <= 0) return str
-
-  var pad = ''
-  while (true) {
-    if (len & 1) pad += char
-    len >>= 1
-    if (len) char += char
-    else break
-  }
-  return pad + str
 }

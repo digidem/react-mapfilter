@@ -8,20 +8,9 @@ import TableCell from '@material-ui/core/TableCell'
 import TableRow from '@material-ui/core/TableRow'
 import AutoSizer from 'react-virtualized-auto-sizer'
 
-// import TextField from '@material-ui/core/TextField'
-// import Input from '@material-ui/core/Input'
-// import MenuItem from '@material-ui/core/MenuItem'
-// import MUISelect from '@material-ui/core/Select'
-// import makePure from 'recompose/pure'
-
 import FormattedValue from './FormattedValue'
 import FormattedFieldname from '../internal/FormattedFieldname'
 import { get } from '../utils/get_set'
-
-// import Select from '../internal/Select'
-// import MultiSelect from '../internal/MultiSelect'
-
-// import * as FIELD_TYPES from '../constants/field_types'
 
 import type { Field, JSONObject, Primitive } from '../types'
 

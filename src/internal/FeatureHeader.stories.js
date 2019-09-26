@@ -37,17 +37,13 @@ customName.story = {
   name: 'custom name'
 }
 
-export const noLocation = () => (
-  <FeatureHeader createdAt={new Date()} onClose={action('close')} />
-)
+export const noLocation = () => <FeatureHeader createdAt={new Date()} />
 
 noLocation.story = {
   name: 'no location'
 }
 
-export const noLocationOrDate = () => (
-  <FeatureHeader onClose={action('close')} />
-)
+export const noLocationOrDate = () => <FeatureHeader />
 
 noLocationOrDate.story = {
   name: 'no location or date'

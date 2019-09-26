@@ -1,15 +1,20 @@
 // @flow
-import React from 'react'
+import React, { useRef, useMemo } from 'react'
 import Downshift from 'downshift'
-import TextField from '@material-ui/core/TextField'
+import TextField from './TextField'
 import Popper from '@material-ui/core/Popper'
 import Paper from '@material-ui/core/Paper'
 import MenuItem from '@material-ui/core/MenuItem'
 import matchSorter from 'match-sorter'
-
+import { useIntl, defineMessages } from 'react-intl'
 import { makeStyles } from '../utils/styles'
 
-import type { SelectableFieldValue } from '../types'
+import type { SelectableFieldValue, SelectOptions } from '../types'
+
+const m = defineMessages({
+  yes: 'Yes',
+  no: 'No'
+})
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -17,8 +22,7 @@ const useStyles = makeStyles(theme => ({
     height: 250
   },
   container: {
-    flexGrow: 1,
-    position: 'relative'
+    width: '100%'
   },
   paper: {
     position: 'absolute',
@@ -113,12 +117,12 @@ function getSuggestions(
       })
 }
 
-type Props = {|
+type Props = {
   value: SelectableFieldValue,
   placeholder?: string,
   onChange: (value: SelectableFieldValue) => any,
-  suggestions: Array<Suggestion>
-|}
+  options: SelectOptions
+}
 
 /**
  * A multi-select field that allows the user to enter a value that is not on the
@@ -129,10 +133,28 @@ export const SelectOne = ({
   value,
   placeholder,
   onChange,
-  suggestions
+  options,
+  ...otherProps
 }: Props) => {
-  let popperNode
+  const popperNode = useRef()
   const classes = useStyles()
+  const { formatMessage: t } = useIntl()
+
+  const suggestions: Array<Suggestion> = useMemo(
+    () =>
+      options
+        .map(opt => {
+          if (opt === true) return { value: true, label: t(m.yes) }
+          if (opt === false) return { value: false, label: t(m.no) }
+          if (typeof opt === 'number') return { value: opt, label: opt + '' }
+          if (typeof opt === 'string') return { value: opt, label: opt }
+          // TODO: not sure how to handle this - this is "no answer" I think?
+          if (opt === null) return { value: null, label: '' }
+          return opt
+        })
+        .sort((a, b) => a.label.localeCompare(b.label)),
+    [options, t]
+  )
 
   const matchingSuggestion = suggestions.find(item =>
     lowerCaseEqual(item.value, value)
@@ -195,11 +217,15 @@ export const SelectOne = ({
               InputLabelProps: getLabelProps({ shrink: true }),
               inputProps,
               ref: node => {
-                popperNode = node
-              }
+                popperNode.current = node
+              },
+              ...otherProps
             })}
 
-            <Popper open={isOpen} anchorEl={popperNode}>
+            <Popper
+              open={isOpen}
+              anchorEl={popperNode.current}
+              style={{ zIndex: 9999 }}>
               <div
                 {...(isOpen
                   ? getMenuProps({}, { suppressRefError: true })
@@ -207,8 +233,13 @@ export const SelectOne = ({
                 <Paper
                   square
                   style={{
+                    // TODO: When the popover is rendered above the input, when
+                    // the list is less than 400px, the bottom is no longer
+                    // aligned with the input field
                     marginTop: 8,
-                    width: popperNode ? popperNode.clientWidth : undefined,
+                    width: popperNode.current
+                      ? popperNode.current.clientWidth
+                      : undefined,
                     maxHeight: 400,
                     overflow: 'scroll'
                   }}>

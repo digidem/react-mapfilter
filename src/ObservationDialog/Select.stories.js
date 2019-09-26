@@ -1,5 +1,5 @@
 // @flow
-import React, { useState } from 'react'
+import * as React from 'react'
 
 import { SelectOne } from './Select'
 
@@ -43,19 +43,28 @@ const countries = [
   { label: 'Brunei Darussalam' }
 ].map(item => ({ label: item.label, value: item.value || item.label }))
 
-const StateContainer = ({ children }) => {
-  const [state, setState] = useState('')
+const StateContainer = ({
+  children
+}: {
+  children: (any, (any) => any) => React.Node
+}) => {
+  const [state, setState] = React.useState('')
   return children(state, setState)
 }
 
 export default {
-  title: 'internal/SelectOne'
+  title: 'ObservationDialog/SelectOne'
 }
 
 export const defaultStory = () => (
   <StateContainer>
     {(value, setValue) => (
-      <SelectOne suggestions={countries} value={value} onChange={setValue} />
+      <SelectOne
+        label="Select Country"
+        options={countries}
+        value={value}
+        onChange={setValue}
+      />
     )}
   </StateContainer>
 )

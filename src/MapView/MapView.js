@@ -11,11 +11,11 @@ import ReactMapboxGl from 'react-mapbox-gl'
 import mapboxgl from 'mapbox-gl'
 import type { Observation } from 'mapeo-schema'
 
-import { getLastImage } from '../utils/helpers'
+import { getLastImage, defaultGetPreset } from '../utils/helpers'
 import { makeStyles } from '../utils/styles'
 import ObservationLayer from './ObservationLayer'
 import Popup from './Popup'
-import type { PresetWithFields, GetMediaUrl, CameraOptions } from '../types'
+import type { PresetWithFields, GetMedia, CameraOptions } from '../types'
 
 type Props = {
   /** Array of observations to render */
@@ -36,11 +36,10 @@ type Props = {
   /** A function called with an observation that should return a matching preset
    * with field definitions */
   getPreset?: Observation => PresetWithFields,
-  /** A function called with an observation attachment that should return a URL
-   * to retrieve the attachment. If called with `options.width` and
-   * `options.height`, the function should return a URL to a resized image, if
-   * available */
-  getMediaUrl: GetMediaUrl,
+  /**
+   * For a given attachment, return `src` and `type`
+   */
+  getMedia: GetMedia,
   /** Mapbox access token */
   mapboxAccessToken: string,
   mapStyle?: any,
@@ -77,8 +76,8 @@ const MapView = (
   {
     observations,
     mapboxAccessToken,
-    getPreset,
-    getMediaUrl,
+    getPreset = defaultGetPreset,
+    getMedia,
     onClick,
     initialMapPosition = {},
     onMapMove = noop,
@@ -189,17 +188,16 @@ const MapView = (
   function getLastImageUrl(observation: Observation): string | void {
     const lastImageAttachment = getLastImage(observation)
     if (!lastImageAttachment) return
-    return getMediaUrl(lastImageAttachment, {
+    const media = getMedia(lastImageAttachment, {
       width: Popup.imageSize,
       height: Popup.imageSize
     })
+    if (media) return media.src
   }
 
   function getName(observation: Observation): string {
-    if (!getPreset) return 'Observation'
     const preset = getPreset(observation)
-    if (!preset || !preset.name) return 'Observation'
-    return preset.name
+    return (preset && preset.name) || 'Observation'
   }
 
   return (
