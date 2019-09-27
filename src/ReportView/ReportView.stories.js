@@ -4,8 +4,7 @@ import React from 'react'
 import { action } from '@storybook/addon-actions'
 // import { linkTo } from '@storybook/addon-links'
 
-import ReportView from './ReportViewContent'
-import { defaultGetPreset } from '../utils/helpers'
+import ReportView from './ReportView'
 
 const exampleObservations = require('../../fixtures/observations.json')
 
@@ -18,55 +17,21 @@ const getMedia = ({ id }) => ({
 })
 
 export default {
-  title: 'ReportView/Content'
+  title: 'ReportView',
+  component: ReportView,
+  decorators: [
+    (storyFn: any) => (
+      <div style={{ width: '100vw', height: '100vh' }}>{storyFn()}</div>
+    )
+  ]
 }
 
-export const withoutImages = () => (
+export const basic = () => (
   <ReportView
-    getPreset={defaultGetPreset}
+    apiUrl="http://localhost:5000/"
     mapboxAccessToken="pk.eyJ1IjoiZ21hY2xlbm5hbiIsImEiOiJSaWVtd2lRIn0.ASYMZE2HhwkAw4Vt7SavEg"
-    observations={exampleObservations}
-    onClick={action('click')}
-    getMedia={() => {}}
-  />
-)
-
-export const images = () => (
-  <ReportView
-    getPreset={defaultGetPreset}
-    mapboxAccessToken="pk.eyJ1IjoiZ21hY2xlbm5hbiIsImEiOiJSaWVtd2lRIn0.ASYMZE2HhwkAw4Vt7SavEg"
-    observations={exampleObservations}
-    onClick={action('click')}
+    observations={exampleObservations.slice(0, 10)}
+    onUpdateObservation={action('update')}
     getMedia={getMedia}
-  />
-)
-
-export const customFields = () => (
-  <ReportView
-    getPreset={defaultGetPreset}
-    mapboxAccessToken="pk.eyJ1IjoiZ21hY2xlbm5hbiIsImEiOiJSaWVtd2lRIn0.ASYMZE2HhwkAw4Vt7SavEg"
-    observations={exampleObservations}
-    onClick={action('click')}
-    getMedia={getMedia}
-    getFields={obs => [
-      {
-        id: 'myField',
-        key: 'caption',
-        label: 'Image caption',
-        type: 'text',
-        appearance: 'multiline'
-      }
-    ]}
-  />
-)
-
-export const printView = () => (
-  <ReportView
-    getPreset={defaultGetPreset}
-    mapboxAccessToken="pk.eyJ1IjoiZ21hY2xlbm5hbiIsImEiOiJSaWVtd2lRIn0.ASYMZE2HhwkAw4Vt7SavEg"
-    observations={exampleObservations.slice(0, 50)}
-    onClick={action('click')}
-    getMedia={getMedia}
-    print
   />
 )

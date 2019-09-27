@@ -2,11 +2,12 @@
 import React from 'react'
 import { action } from '@storybook/addon-actions'
 
-import MediaView from './'
+import MediaView from './MediaViewContent'
 import fixtureObs from '../../fixtures/observations.json'
+import { defaultGetPreset } from '../utils/helpers'
 
 export default {
-  title: 'MediaView'
+  title: 'MediaView/Content'
 }
 
 export const defaultStory = () => {
@@ -21,9 +22,9 @@ export const defaultStory = () => {
   return (
     <MediaView
       observations={fixtureObs}
-      onUpdateObservation={action('update')}
+      onClick={action('click')}
       getMedia={getMedia}
-      apiUrl="http://localhost:5000/"
+      getPreset={defaultGetPreset}
     />
   )
 }
