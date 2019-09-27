@@ -1,71 +1,35 @@
 // @flow
-import React, { useState, useMemo } from 'react'
+import React from 'react'
 
-import MediaView from './MediaView'
-import ObservationDialog from '../ObservationDialog'
-import getStats from '../stats'
-import { defaultGetPreset } from '../utils/helpers'
+import MediaViewContent from './MediaViewContent'
+import ViewWrapper, { type CommonViewProps } from '../ViewWrapper'
 
-import type { Observation } from 'mapeo-schema'
-import type { PresetWithFields, GetMedia } from '../types'
-
-type Props = {
-  /** Array of observations to render */
-  observations: Array<Observation>,
-  /** Called when an observation is editing/updated */
-  onUpdateObservation: (observation: Observation) => void,
-  /** A function called with an observation that should return a matching preset
-   * with field definitions */
-  getPreset?: Observation => PresetWithFields | void,
-  /**
-   * For a given attachment, return `src` and `type`
-   */
-  getMedia: GetMedia
-}
-
-const noop = obs => {}
-
-const WrappedMediaView = ({
+const MapView = ({
+  observations,
   onUpdateObservation,
-  getPreset = noop,
+  getPreset,
+  filter,
+  apiUrl,
   ...otherProps
-}: Props) => {
-  const { observations, getMedia } = otherProps
-  const stats = useMemo(() => getStats(observations), [observations])
-  const [editingObservation, setEditingObservation] = useState(null)
-  const [editingInitialImageIndex, setEditingInitialImageIndex] = useState()
-
-  const getPresetWithFallback = (
-    observation: Observation
-  ): PresetWithFields => {
-    const preset = getPreset(observation)
-    if (preset) return preset
-    return defaultGetPreset(observation, stats)
-  }
-
-  const handleObservationClick = (observationId, imageIndex) => {
-    setEditingInitialImageIndex(imageIndex)
-    setEditingObservation(observations.find(obs => obs.id === observationId))
-  }
-
+}: CommonViewProps) => {
   return (
-    <>
-      <MediaView
-        {...otherProps}
-        getPreset={getPresetWithFallback}
-        onClick={handleObservationClick}
-      />
-      <ObservationDialog
-        open={!!editingObservation}
-        observation={editingObservation}
-        initialImageIndex={editingInitialImageIndex}
-        getPreset={getPresetWithFallback}
-        getMedia={getMedia}
-        onRequestClose={() => setEditingObservation(false)}
-        onSave={onUpdateObservation}
-      />
-    </>
+    <ViewWrapper
+      observations={observations}
+      onUpdateObservation={onUpdateObservation}
+      getPreset={getPreset}
+      filter={filter}
+      apiUrl={apiUrl}>
+      {({ onClickObservation, filteredObservations, getPreset, getMedia }) => (
+        <MediaViewContent
+          onClick={onClickObservation}
+          observations={filteredObservations}
+          getPreset={getPreset}
+          getMedia={getMedia}
+          {...otherProps}
+        />
+      )}
+    </ViewWrapper>
   )
 }
 
-export default WrappedMediaView
+export default MapView

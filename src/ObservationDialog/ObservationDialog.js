@@ -32,7 +32,12 @@ import { defaultGetPreset } from '../utils/helpers'
 import { get, set } from '../utils/get_set'
 import Field from './Field'
 import type { Observation } from 'mapeo-schema'
-import type { PresetWithFields, GetMedia, Attachment, Key } from '../types'
+import type {
+  PresetWithAdditionalFields,
+  GetMedia,
+  Attachment,
+  Key
+} from '../types'
 
 const m = defineMessages({
   confirmTitle: 'Close without saving changes?',
@@ -62,7 +67,7 @@ type Props = {
   // The initial image to show in the media carousel
   initialImageIndex?: number,
   onSave: (observation: Observation) => void,
-  getPreset?: Observation => PresetWithFields | void,
+  getPreset?: Observation => PresetWithAdditionalFields | void,
   /**
    * For a given attachment, return `src` and `type`
    */

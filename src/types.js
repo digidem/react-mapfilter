@@ -361,9 +361,26 @@ export type PresetWithFields = {
   fields: Field[]
 }
 
+export type PresetWithAdditionalFields = {
+  ...$Exact<PresetWithFields>,
+  additionalFields: Field[]
+}
+
 export type CameraOptions = {
   center: [number, number],
   zoom: number,
   bearing: number,
   pitch: number
+}
+
+export type CommonViewContentProps = {
+  /** Array of observations to render */
+  observations: Array<Observation>,
+  /** Called with id of observation clicked, optionally with image index */
+  onClick: (id: string, imageIndex?: number) => void,
+  getPreset: Observation => PresetWithAdditionalFields,
+  /**
+   * For a given attachment, return `src` and `type`
+   */
+  getMedia: GetMedia
 }

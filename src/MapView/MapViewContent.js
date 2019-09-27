@@ -11,17 +11,13 @@ import ReactMapboxGl from 'react-mapbox-gl'
 import mapboxgl from 'mapbox-gl'
 import type { Observation } from 'mapeo-schema'
 
-import { getLastImage, defaultGetPreset } from '../utils/helpers'
+import { getLastImage } from '../utils/helpers'
 import { makeStyles } from '../utils/styles'
 import ObservationLayer from './ObservationLayer'
 import Popup from './Popup'
-import type { PresetWithFields, GetMedia, CameraOptions } from '../types'
+import type { CameraOptions, CommonViewContentProps } from '../types'
 
-type Props = {
-  /** Array of observations to render */
-  observations: Array<Observation>,
-  /** Called with id of observation clicked */
-  onClick?: (id: string) => any,
+export type MapViewContentProps = {
   /** Called with
    * [CameraOptions](https://docs.mapbox.com/mapbox-gl-js/api/#cameraoptions)
    * with properties `center`, `zoom`, `bearing`, `pitch` */
@@ -33,16 +29,15 @@ type Props = {
    * the position in state, and pass it as initialPosition for when the map
    * re-mounts. */
   initialMapPosition?: $Shape<CameraOptions>,
-  /** A function called with an observation that should return a matching preset
-   * with field definitions */
-  getPreset?: Observation => PresetWithFields,
-  /**
-   * For a given attachment, return `src` and `type`
-   */
-  getMedia: GetMedia,
   /** Mapbox access token */
   mapboxAccessToken: string,
-  mapStyle?: any,
+  /** Mapbox style url */
+  mapStyle?: any
+}
+
+type Props = {
+  ...$Exact<MapViewContentProps>,
+  ...$Exact<CommonViewContentProps>,
   print?: boolean
 }
 
@@ -72,11 +67,11 @@ const fitBoundsOptions = {
 
 const noop = () => {}
 
-const MapView = (
+const MapViewContent = (
   {
     observations,
     mapboxAccessToken,
-    getPreset = defaultGetPreset,
+    getPreset,
     getMedia,
     onClick,
     initialMapPosition = {},
@@ -237,7 +232,7 @@ const MapView = (
   )
 }
 
-export default React.forwardRef<Props, Instance>(MapView)
+export default React.forwardRef<Props, Instance>(MapViewContent)
 
 function getBounds(
   observations: Observation[]

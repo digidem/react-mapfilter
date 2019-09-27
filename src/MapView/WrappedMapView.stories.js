@@ -1,3 +1,4 @@
+// @flow
 import React from 'react'
 import { action } from '@storybook/addon-actions'
 import { withKnobs, radios } from '@storybook/addon-knobs'
@@ -38,6 +39,7 @@ export const defaultStory = () => {
   return (
     <div style={{ width: '100vw', height: '100vh', display: 'flex' }}>
       <MapView
+        apiUrl="http://localhost:5000"
         observations={filteredObs}
         onUpdateObservation={action('update')}
         getMedia={getMediaUrl}

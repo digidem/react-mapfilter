@@ -4,7 +4,8 @@ import React from 'react'
 import { action } from '@storybook/addon-actions'
 // import { linkTo } from '@storybook/addon-links'
 
-import ReportView from './ReportView'
+import ReportView from './ReportViewContent'
+import { defaultGetPreset } from '../utils/helpers'
 
 const exampleObservations = require('../../fixtures/observations.json')
 
@@ -22,6 +23,7 @@ export default {
 
 export const withoutImages = () => (
   <ReportView
+    getPreset={defaultGetPreset}
     mapboxAccessToken="pk.eyJ1IjoiZ21hY2xlbm5hbiIsImEiOiJSaWVtd2lRIn0.ASYMZE2HhwkAw4Vt7SavEg"
     observations={exampleObservations}
     onClick={action('click')}
@@ -31,6 +33,7 @@ export const withoutImages = () => (
 
 export const images = () => (
   <ReportView
+    getPreset={defaultGetPreset}
     mapboxAccessToken="pk.eyJ1IjoiZ21hY2xlbm5hbiIsImEiOiJSaWVtd2lRIn0.ASYMZE2HhwkAw4Vt7SavEg"
     observations={exampleObservations}
     onClick={action('click')}
@@ -40,6 +43,7 @@ export const images = () => (
 
 export const customFields = () => (
   <ReportView
+    getPreset={defaultGetPreset}
     mapboxAccessToken="pk.eyJ1IjoiZ21hY2xlbm5hbiIsImEiOiJSaWVtd2lRIn0.ASYMZE2HhwkAw4Vt7SavEg"
     observations={exampleObservations}
     onClick={action('click')}
@@ -58,6 +62,7 @@ export const customFields = () => (
 
 export const printView = () => (
   <ReportView
+    getPreset={defaultGetPreset}
     mapboxAccessToken="pk.eyJ1IjoiZ21hY2xlbm5hbiIsImEiOiJSaWVtd2lRIn0.ASYMZE2HhwkAw4Vt7SavEg"
     observations={exampleObservations.slice(0, 50)}
     onClick={action('click')}

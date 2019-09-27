@@ -2,10 +2,10 @@ import React from 'react'
 import { action } from '@storybook/addon-actions'
 import { withKnobs, radios } from '@storybook/addon-knobs'
 
-import MapView from './MapView'
+import MapView from './MapViewContent'
 import fixtureObs from '../../fixtures/observations.json'
 
-function getMediaUrl({ id }, { width = 200, height = 200 } = {}) {
+function getMedia({ id }, { width = 200, height = 200 } = {}) {
   const size = Math.floor(width / 100) * 100
   const idx = parseInt(id, 16)
   return {
@@ -40,7 +40,7 @@ export const defaultStory = () => {
       <MapView
         observations={filteredObs}
         onClick={action('click')}
-        getMedia={getMediaUrl}
+        getMedia={getMedia}
         mapboxAccessToken="pk.eyJ1IjoiZ21hY2xlbm5hbiIsImEiOiJSaWVtd2lRIn0.ASYMZE2HhwkAw4Vt7SavEg"
       />
     </div>
@@ -64,7 +64,7 @@ export const initialPosition = () => {
       <MapView
         observations={filteredObs}
         onClick={action('click')}
-        getMediaUrl={getMediaUrl}
+        getMedia={getMedia}
         mapboxAccessToken="pk.eyJ1IjoiZ21hY2xlbm5hbiIsImEiOiJSaWVtd2lRIn0.ASYMZE2HhwkAw4Vt7SavEg"
         initialMapPosition={{
           center: [0.16, 51.45],
@@ -106,7 +106,7 @@ export const imperativeMethods = () => {
           ref={ref}
           observations={filteredObs}
           onClick={action('click')}
-          getMediaUrl={getMediaUrl}
+          getMediaUrl={getMedia}
           mapboxAccessToken="pk.eyJ1IjoiZ21hY2xlbm5hbiIsImEiOiJSaWVtd2lRIn0.ASYMZE2HhwkAw4Vt7SavEg"
         />
         <div

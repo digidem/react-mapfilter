@@ -13,89 +13,13 @@ import type { Observation } from 'mapeo-schema'
 // import ReportFeature from './ReportFeature'
 import ReportPageContent from './ReportPageContent'
 import ReportPaper from './ReportPaper'
-import MapView from '../MapView/MapView'
+import MapView from '../MapView/MapViewContent'
 import { cm, inch } from '../utils/dom'
 import { getLastImage, defaultGetPreset } from '../utils/helpers'
 
-import type {
-  PaperSize,
-  GetMedia,
-  PresetWithFields,
-  CameraOptions
-} from '../types'
+import type { PaperSize, CameraOptions, CommonViewContentProps } from '../types'
 
-const BORDER_SIZE = 0.5 * inch()
-
-const useStyles = makeStyles({
-  root: {
-    flex: 1,
-    display: 'flex',
-    flexDirection: 'column',
-    backgroundColor: 'rgba(236, 236, 236, 1)',
-    '@media only print': {
-      width: 'auto',
-      height: 'auto',
-      position: 'static',
-      backgroundColor: 'inherit',
-      display: 'block'
-    }
-  },
-  reportWrapper: {
-    '@media only print': {
-      padding: 0,
-      minWidth: 'auto'
-    }
-  },
-  paperContentMap: {
-    display: 'flex'
-  },
-  letter: {
-    '&$reportWrapper': {
-      minWidth: 8.5 * inch()
-    }
-  },
-  a4: {
-    '&$reportWrapper': {
-      minWidth: 21 * cm()
-    }
-  },
-  scrollWrapper: {
-    flex: '1 1 auto',
-    overflow: 'scroll',
-    '@media only print': {
-      overflow: 'auto',
-      flex: 'initial',
-      position: 'static'
-    }
-  },
-  '@global': {
-    '@media only print': {
-      tr: {
-        pageBreakInside: 'avoid'
-      },
-      '.d-print-none': {
-        display: 'none'
-      },
-      '.mapboxgl-ctrl-group, .mapboxgl-ctrl-attrib': {
-        display: 'none'
-      }
-    }
-  }
-})
-
-// const TABLE_WIDTHS = {
-//   a4: 21 * cm() - 2 * BORDER_SIZE,
-//   letter: 8.5 * inch() - 2 * BORDER_SIZE
-// }
-
-// const LABEL_CHARS =
-// 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
-
-type Props = {
-  /** Array of observations to render */
-  observations: Array<Observation>,
-  /** Called with id of observation clicked */
-  onClick?: (id: string) => void,
+export type ReportViewContentProps = {
   /** Called with
    * [CameraOptions](https://docs.mapbox.com/mapbox-gl-js/api/#cameraoptions)
    * with properties `center`, `zoom`, `bearing`, `pitch` */
@@ -107,13 +31,6 @@ type Props = {
    * the position in state, and pass it as initialPosition for when the map
    * re-mounts. */
   initialMapPosition?: $Shape<CameraOptions>,
-  /** A function called with an observation that should return a matching preset
-   * with field definitions */
-  getPreset?: Observation => PresetWithFields | void,
-  /**
-   * For a given attachment, return `src` and `type`
-   */
-  getMedia: GetMedia,
   /** Paper size for report */
   paperSize?: PaperSize,
   /** Render for printing (for screen display only visible observations are
@@ -123,7 +40,15 @@ type Props = {
   mapboxAccessToken: string
 }
 
-const ReportView = ({
+type Props = {
+  ...$Exact<ReportViewContentProps>,
+  ...$Exact<CommonViewContentProps>
+}
+
+const BORDER_SIZE = 0.5 * inch()
+const noop = () => {}
+
+const ReportViewContent = ({
   observations,
   onClick = () => {},
   onMapMove,
@@ -181,6 +106,8 @@ const ReportView = ({
         paperSize={paperSize}
         classes={{ content: classes.paperContentMap }}>
         <MapView
+          onClick={noop}
+          getPreset={getPreset}
           observations={observations}
           getMedia={getMedia}
           initialMapPosition={initialMapPosition || mapPosition}
@@ -206,7 +133,7 @@ const ReportView = ({
         ? new Date(observation.created_at)
         : undefined
     const preset = getPreset(observation) || {}
-    const fields = preset.fields
+    const fields = preset.fields.concat(preset.additionalFields)
     return (
       <ReportPaper
         key={key}
@@ -270,4 +197,61 @@ const ReportView = ({
   )
 }
 
-export default ReportView
+export default ReportViewContent
+
+const useStyles = makeStyles({
+  root: {
+    flex: 1,
+    display: 'flex',
+    flexDirection: 'column',
+    backgroundColor: 'rgba(236, 236, 236, 1)',
+    '@media only print': {
+      width: 'auto',
+      height: 'auto',
+      position: 'static',
+      backgroundColor: 'inherit',
+      display: 'block'
+    }
+  },
+  reportWrapper: {
+    '@media only print': {
+      padding: 0,
+      minWidth: 'auto'
+    }
+  },
+  paperContentMap: {
+    display: 'flex'
+  },
+  letter: {
+    '&$reportWrapper': {
+      minWidth: 8.5 * inch()
+    }
+  },
+  a4: {
+    '&$reportWrapper': {
+      minWidth: 21 * cm()
+    }
+  },
+  scrollWrapper: {
+    flex: '1 1 auto',
+    overflow: 'scroll',
+    '@media only print': {
+      overflow: 'auto',
+      flex: 'initial',
+      position: 'static'
+    }
+  },
+  '@global': {
+    '@media only print': {
+      tr: {
+        pageBreakInside: 'avoid'
+      },
+      '.d-print-none': {
+        display: 'none'
+      },
+      '.mapboxgl-ctrl-group, .mapboxgl-ctrl-attrib': {
+        display: 'none'
+      }
+    }
+  }
+})

@@ -23,6 +23,7 @@ export const defaultStory = () => {
       observations={fixtureObs}
       onUpdateObservation={action('update')}
       getMedia={getMedia}
+      apiUrl="http://localhost:5000/"
     />
   )
 }

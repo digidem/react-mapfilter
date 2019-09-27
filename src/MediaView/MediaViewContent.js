@@ -3,25 +3,16 @@ import React, { useMemo } from 'react'
 
 import ImageGrid from './ImageGrid'
 import { isImageAttachment } from '../utils/helpers'
-import type { Observation } from 'mapeo-schema'
-import type { GetMedia } from '../types'
-
-type Props = {
-  /** Array of observations to render */
-  observations: Array<Observation>,
-  /** Called with id of observation clicked */
-  onClick: (observationId: string, index?: number) => void,
-  /** A function called with an observation attachment that should return a URL
-   * to retrieve the attachment. If called with `options.width` and
-   * `options.height`, the function should return a URL to a resized image, if
-   * available */
-  getMedia: GetMedia
-}
+import type { CommonViewContentProps } from '../types'
 
 /**
  * Displays a grid of all photos attached to observations.
  */
-const MediaView = ({ observations, onClick, getMedia }: Props) => {
+const MediaViewContent = ({
+  observations,
+  onClick,
+  getMedia
+}: CommonViewContentProps) => {
   const images = useMemo(() => {
     const images = []
     for (const obs of observations) {
@@ -45,4 +36,4 @@ const MediaView = ({ observations, onClick, getMedia }: Props) => {
   return <ImageGrid images={images} onImageClick={onClick} />
 }
 
-export default MediaView
+export default MediaViewContent

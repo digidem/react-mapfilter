@@ -28,6 +28,7 @@ export default {
 
 export const basic = () => (
   <ReportView
+    apiUrl="http://localhost:5000/"
     mapboxAccessToken="pk.eyJ1IjoiZ21hY2xlbm5hbiIsImEiOiJSaWVtd2lRIn0.ASYMZE2HhwkAw4Vt7SavEg"
     observations={exampleObservations.slice(0, 10)}
     onUpdateObservation={action('update')}

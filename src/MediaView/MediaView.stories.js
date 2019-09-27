@@ -2,8 +2,9 @@
 import React from 'react'
 import { action } from '@storybook/addon-actions'
 
-import MediaView from './MediaView'
+import MediaView from './MediaViewContent'
 import fixtureObs from '../../fixtures/observations.json'
+import { defaultGetPreset } from '../utils/helpers'
 
 export default {
   title: 'MediaView/Content'
@@ -23,6 +24,7 @@ export const defaultStory = () => {
       observations={fixtureObs}
       onClick={action('click')}
       getMedia={getMedia}
+      getPreset={defaultGetPreset}
     />
   )
 }

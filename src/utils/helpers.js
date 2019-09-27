@@ -3,7 +3,11 @@ import mime from 'mime/lite'
 import type { Observation } from 'mapeo-schema'
 
 import { getFields as getFieldsFromTags } from '../lib/data_analysis'
-import type { PresetWithFields, Attachment, Statistics } from '../types'
+import type {
+  PresetWithAdditionalFields,
+  Attachment,
+  Statistics
+} from '../types'
 
 export function isObj(value: any): boolean {
   const type = typeof value
@@ -26,13 +30,14 @@ export function getLastImage(observation: Observation): Attachment | void {
 export function defaultGetPreset(
   observation: Observation,
   stats?: Statistics
-): PresetWithFields {
+): PresetWithAdditionalFields {
   return {
     id: observation.id,
     geometry: ['point'],
     name: (observation.tags && observation.tags.name) || '',
     tags: {},
-    fields: getFieldsFromTags(observation.tags, stats)
+    fields: [],
+    additionalFields: getFieldsFromTags(observation.tags, stats)
   }
 }
 
