@@ -22,12 +22,14 @@ const getStats = createMemoizedStats()
 
 const getPreset = observation => {
   const stats = getStats(exampleObservations.map(obs => obs.tags || {}))
+  const fields = getFields(observation.tags, stats)
   return {
     id: observation.id,
     geometry: ['point'],
     name: (observation.tags && observation.tags.name) || '',
     tags: {},
-    fields: getFields(observation.tags, stats)
+    fields: fields.slice(0, 5),
+    additionalFields: fields.slice(5)
   }
 }
 
