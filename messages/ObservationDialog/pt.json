@@ -1,0 +1,36 @@
+{
+  "ObservationDialog.ObservationDialog.additionalHeader": {
+    "description": "Header for section with additional fields that are not defined in the preset",
+    "message": ""
+  },
+  "ObservationDialog.ObservationDialog.cancelEditButton": {
+    "description": "Cancel button once observation has been edited",
+    "message": ""
+  },
+  "ObservationDialog.ObservationDialog.confirmButtonCancel": {
+    "message": ""
+  },
+  "ObservationDialog.ObservationDialog.confirmButtonConfirm": {
+    "message": ""
+  },
+  "ObservationDialog.ObservationDialog.confirmDescription": {
+    "message": ""
+  },
+  "ObservationDialog.ObservationDialog.confirmTitle": {
+    "message": ""
+  },
+  "ObservationDialog.ObservationDialog.detailsHeader": {
+    "description": "Header for section that includes the additional details for an observation",
+    "message": ""
+  },
+  "ObservationDialog.ObservationDialog.saveEditButton": {
+    "description": "Save edit button",
+    "message": ""
+  },
+  "ObservationDialog.Select.no": {
+    "message": ""
+  },
+  "ObservationDialog.Select.yes": {
+    "message": ""
+  }
+}

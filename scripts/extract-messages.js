@@ -2,8 +2,13 @@
 
 const extract = require('@digidem/extract-react-intl-messages')
 
-const LOCALES = ['en', 'es', 'fr']
-const COMPONENT_NAMES = ['ReportView']
+const LOCALES = ['en', 'es', 'fr', 'pt']
+const COMPONENT_NAMES = [
+  'ReportView',
+  'MapView',
+  'MediaView',
+  'ObservationDialog'
+]
 
 const opts = {
   defaultLocale: 'en',
