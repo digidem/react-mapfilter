@@ -1,4 +1,5 @@
 // @flow
+import * as React from 'react'
 import * as valueTypes from './constants/value_types'
 import type { Observation, Preset } from 'mapeo-schema'
 // import type { Properties as CSSProperties } from 'csstype'
@@ -69,8 +70,11 @@ export type FlattenedPointFeature = FeatureTemplate<
 export type PaperSize = 'a4' | 'letter'
 
 // Used to store state about field visibility in views
-export type FieldState = { [fieldkey: string]: 'hidden' | 'visible' }
-
+export type FieldState = Array<{|
+  id: string,
+  hidden: boolean,
+  label: React.Node
+|}>
 export type Filter = Array<string | Array<Filter>>
 
 export type ValueTypes = { [fieldkey: string]: $Values<typeof valueTypes> }

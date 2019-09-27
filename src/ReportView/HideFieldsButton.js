@@ -12,7 +12,7 @@ import { makeStyles } from '../utils/styles'
 import { defineMessages, FormattedMessage } from 'react-intl'
 
 import ToolbarButton from '../internal/ToolbarButton'
-
+import type { FieldState } from '../types'
 const msgs = defineMessages({
   // Button label for hide fields menu
   hideFieldsLabel: `{count, plural,
@@ -45,12 +45,6 @@ const useStyles = makeStyles(theme => {
     }
   }
 })
-
-type FieldState = Array<{|
-  id: string,
-  hidden: boolean,
-  label: React.Node
-|}>
 
 type Props = {|
   fieldState: FieldState,

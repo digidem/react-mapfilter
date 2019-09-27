@@ -14,7 +14,7 @@ import { fieldKeyToLabel } from '../utils/strings'
 import getStats from '../stats'
 
 import type { Observation } from 'mapeo-schema'
-import type { PresetWithAdditionalFields } from '../types'
+import type { PresetWithAdditionalFields, FieldState, Field } from '../types'
 
 type Props = {
   ...$Exact<CommonViewProps>,
@@ -90,18 +90,10 @@ const ReportView = ({
           const preset = getPreset(observation)
           return {
             ...preset,
-            fields: preset.fields.filter(field => {
-              const state = fieldState.find(
-                fs => fs.id === JSON.stringify(field.key)
-              )
-              return state ? !state.hidden : true
-            }),
-            additionalFields: preset.additionalFields.filter(field => {
-              const state = fieldState.find(
-                fs => fs.id === JSON.stringify(field.key)
-              )
-              return state ? !state.hidden : true
-            })
+            fields: preset.fields.filter(hiddenFieldsFilter(fieldState)),
+            additionalFields: preset.additionalFields.filter(
+              hiddenFieldsFilter(fieldState)
+            )
           }
         }
         return (
@@ -134,6 +126,13 @@ const ReportView = ({
 }
 
 export default ReportView
+
+function hiddenFieldsFilter(fieldState: FieldState) {
+  return function(field: Field): boolean {
+    const state = fieldState.find(fs => fs.id === JSON.stringify(field.key))
+    return state ? !state.hidden : true
+  }
+}
 
 const useStyles = makeStyles(theme => ({
   root: {
