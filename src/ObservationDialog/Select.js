@@ -107,14 +107,15 @@ function getSuggestions(
   value: string,
   suggestions: Array<Suggestion>
 ): Array<Suggestion> {
-  return value.length === 0
-    ? suggestions
-    : matchSorter(suggestions, value, {
-        keys: [
-          item => item.label,
-          item => (typeof item.value === 'string' ? item.value : undefined)
-        ]
-      })
+  if (value.length === 0) return suggestions
+  const matched = matchSorter(suggestions, value, {
+    keys: [
+      item => item.label,
+      item => (typeof item.value === 'string' ? item.value : undefined)
+    ]
+  })
+  if (matched && matched.length === 1 && matched[0].value === value) return []
+  return matched
 }
 
 type Props = {
