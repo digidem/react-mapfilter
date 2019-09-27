@@ -10,19 +10,16 @@ export default {
 }
 
 export const defaultStory = () => {
-  function getMedia({ id }, { width = 200, height = 200 } = {}) {
-    const size = Math.floor(width / 100) * 100
+  function getMediaUrl(id) {
+    const size = 400
     const idx = parseInt(id, 16)
-    return {
-      src: `https://picsum.photos/id/${+idx % 80}/${size}/${size}`,
-      type: 'image'
-    }
+    return `https://picsum.photos/id/${+idx % 80}/${size}/${size}`
   }
   return (
     <MediaView
       observations={fixtureObs}
       onUpdateObservation={action('update')}
-      getMedia={getMedia}
+      getMediaUrl={getMediaUrl}
       apiUrl="http://localhost:5000/"
     />
   )

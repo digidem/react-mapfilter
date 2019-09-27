@@ -31,18 +31,20 @@ export type ReportViewContentProps = {
    * the position in state, and pass it as initialPosition for when the map
    * re-mounts. */
   initialMapPosition?: $Shape<CameraOptions>,
-  /** Paper size for report */
-  paperSize?: PaperSize,
-  /** Render for printing (for screen display only visible observations are
-   * rendered, for performance reasons) */
-  print?: boolean,
   /** Mapbox access token */
-  mapboxAccessToken: string
+  mapboxAccessToken: string,
+  /** Mapbox style url */
+  mapStyle?: any
 }
 
 type Props = {
   ...$Exact<ReportViewContentProps>,
-  ...$Exact<CommonViewContentProps>
+  ...$Exact<CommonViewContentProps>,
+  /** Paper size for report */
+  paperSize?: PaperSize,
+  /** Render for printing (for screen display only visible observations are
+   * rendered, for performance reasons) */
+  print?: boolean
 }
 
 const BORDER_SIZE = 0.5 * inch()
@@ -57,7 +59,8 @@ const ReportViewContent = ({
   getMedia,
   paperSize = 'a4',
   print = false,
-  mapboxAccessToken
+  mapboxAccessToken,
+  mapStyle
 }: Props) => {
   const classes = useStyles()
   const [mapPosition, setMapPosition] = useState()
@@ -106,6 +109,7 @@ const ReportViewContent = ({
         paperSize={paperSize}
         classes={{ content: classes.paperContentMap }}>
         <MapView
+          mapStyle={mapStyle}
           onClick={noop}
           getPreset={getPreset}
           observations={observations}

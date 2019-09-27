@@ -11,10 +11,7 @@ const exampleObservations = require('../../fixtures/observations.json')
 const imageBaseUrl =
   'https://images.digital-democracy.org/mapfilter-sample/sample-'
 
-const getMedia = ({ id }) => ({
-  src: imageBaseUrl + ((parseInt(id, 16) % 17) + 1) + '.jpg',
-  type: 'image'
-})
+const getMediaUrl = id => imageBaseUrl + ((parseInt(id, 16) % 17) + 1) + '.jpg'
 
 export default {
   title: 'ReportView',
@@ -28,10 +25,9 @@ export default {
 
 export const basic = () => (
   <ReportView
-    apiUrl="http://localhost:5000/"
+    getMediaUrl={getMediaUrl}
     mapboxAccessToken="pk.eyJ1IjoiZ21hY2xlbm5hbiIsImEiOiJSaWVtd2lRIn0.ASYMZE2HhwkAw4Vt7SavEg"
     observations={exampleObservations.slice(0, 10)}
     onUpdateObservation={action('update')}
-    getMedia={getMedia}
   />
 )

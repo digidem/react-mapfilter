@@ -14,7 +14,7 @@ const MapView = ({
   onUpdateObservation,
   getPreset,
   filter,
-  apiUrl,
+  getMediaUrl,
   ...otherProps
 }: Props) => {
   return (
@@ -23,7 +23,7 @@ const MapView = ({
       onUpdateObservation={onUpdateObservation}
       getPreset={getPreset}
       filter={filter}
-      apiUrl={apiUrl}>
+      getMediaUrl={getMediaUrl}>
       {({ onClickObservation, filteredObservations, getPreset, getMedia }) => (
         <MapViewContent
           onClick={onClickObservation}

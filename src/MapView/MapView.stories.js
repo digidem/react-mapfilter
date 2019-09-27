@@ -6,13 +6,10 @@ import { withKnobs, radios } from '@storybook/addon-knobs'
 import MapView from './MapView'
 import fixtureObs from '../../fixtures/observations.json'
 
-function getMediaUrl({ id }, { width = 200, height = 200 } = {}) {
-  const size = Math.floor(width / 100) * 100
+function getMediaUrl(id, size) {
+  const pixels = size === 'thumbnail' ? 400 : 1000
   const idx = parseInt(id, 16)
-  return {
-    src: `https://picsum.photos/id/${+idx % 80}/${size}/${size}`,
-    type: 'image'
-  }
+  return `https://picsum.photos/id/${+idx % 80}/${pixels}/${pixels}`
 }
 
 function getFilteredObservations(filter) {
@@ -39,10 +36,9 @@ export const defaultStory = () => {
   return (
     <div style={{ width: '100vw', height: '100vh', display: 'flex' }}>
       <MapView
-        apiUrl="http://localhost:5000"
         observations={filteredObs}
         onUpdateObservation={action('update')}
-        getMedia={getMediaUrl}
+        getMediaUrl={getMediaUrl}
         mapboxAccessToken="pk.eyJ1IjoiZ21hY2xlbm5hbiIsImEiOiJSaWVtd2lRIn0.ASYMZE2HhwkAw4Vt7SavEg"
       />
     </div>

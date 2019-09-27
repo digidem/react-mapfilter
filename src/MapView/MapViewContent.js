@@ -139,7 +139,7 @@ const MapViewContent = (
         logoPosition: 'bottom-right',
         scrollZoom: !print
       }),
-    [mapboxAccessToken]
+    [mapboxAccessToken, print]
   )
 
   const handleStyleLoad = useCallback(mapInstance => {

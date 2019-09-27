@@ -360,6 +360,13 @@ export type GetMedia = (
   options?: { width: number, height: number }
 ) => { src: string, type: 'image' | 'video' | 'audio' } | void
 
+export type GetMediaUrl = (
+  attachmentId: string,
+  size: 'thumbnail' | 'preview' | 'original'
+) => string
+
+export type GetIconUrl = (iconId: string) => string
+
 export type PresetWithFields = {
   ...$Exact<Preset>,
   fields: Field[]

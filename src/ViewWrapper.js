@@ -12,19 +12,21 @@ import type {
   PresetWithFields,
   PresetWithAdditionalFields,
   GetMedia,
-  Filter
+  Filter,
+  GetIconUrl,
+  GetMediaUrl
 } from './types'
 
 export type CommonViewProps = {
   /** Array of observations to render */
-  observations: Array<Observation>,
+  observations?: Array<Observation>,
   /** Called when an observation is editing/updated */
-  onUpdateObservation: (observation: Observation) => void,
+  onUpdateObservation?: (observation: Observation) => void,
   /** A function called with an observation that should return a matching preset
    * with field definitions */
   getPreset?: Observation => PresetWithFields | void,
-  /** Base URL for mapeo-core */
-  apiUrl: string,
+  getMediaUrl: GetMediaUrl,
+  getIconUrl?: GetIconUrl,
   /** Filter to apply to observations */
   filter?: Filter
 }
@@ -42,10 +44,10 @@ type Props = {
 const noop = obs => {}
 
 const WrappedMapView = ({
-  observations,
-  onUpdateObservation,
+  observations = [],
+  onUpdateObservation = noop,
   getPreset = noop,
-  apiUrl,
+  getMediaUrl,
   filter,
   children,
   ...otherProps
@@ -95,13 +97,11 @@ const WrappedMapView = ({
           ? 'preview'
           : 'original'
       return {
-        src: `${(apiUrl || '').replace(/\/$/, '')}/media/${size}/${
-          attachment.id
-        }`,
+        src: getMediaUrl(attachment.id, size),
         type: 'image'
       }
     },
-    [apiUrl]
+    [getMediaUrl]
   )
 
   const filterFunction = React.useMemo(() => createFilter(filter), [filter])

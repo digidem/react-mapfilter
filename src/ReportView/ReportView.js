@@ -26,10 +26,10 @@ const ReportView = ({
   onUpdateObservation,
   getPreset,
   filter,
-  apiUrl,
+  getMediaUrl,
   ...otherProps
 }: Props) => {
-  const stats = useMemo(() => getStats(observations), [observations])
+  const stats = useMemo(() => getStats(observations || []), [observations])
   const cx = useStyles()
   const [paperSize, setPaperSize] = useState('a4')
   const [print, setPrint] = useState(false)
@@ -81,7 +81,7 @@ const ReportView = ({
       onUpdateObservation={onUpdateObservation}
       getPreset={getPreset}
       filter={filter}
-      apiUrl={apiUrl}>
+      getMediaUrl={getMediaUrl}>
       {({ onClickObservation, filteredObservations, getPreset, getMedia }) => {
         // Get preset with fields filtered out
         const getPresetWithFilteredFields = (
