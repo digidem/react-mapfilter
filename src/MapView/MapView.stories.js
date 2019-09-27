@@ -12,31 +12,30 @@ function getMediaUrl(id, size) {
   return `https://picsum.photos/id/${+idx % 80}/${pixels}/${pixels}`
 }
 
-function getFilteredObservations(filter) {
-  return filter === '**all**'
-    ? fixtureObs
-    : fixtureObs.filter(
-        o => o.tags.happening && o.tags.happening.includes(filter)
-      )
-}
-
 export default {
   title: 'MapView',
   decorators: [withKnobs]
 }
 
+const filters = {
+  All: [],
+  Mining: ['==', 'happening', 'mining'],
+  Fishing: ['==', 'happening', 'fishing']
+}
+
 export const defaultStory = () => {
   const options = {
-    All: '**all**',
-    Mining: 'mining'
+    All: 'All',
+    Mining: 'Mining',
+    Fishing: 'Fishing'
   }
-  const value = radios('Filter', options, '**all**')
-  const filteredObs = getFilteredObservations(value)
+  const value = radios('Filter', options, 'All')
 
   return (
     <div style={{ width: '100vw', height: '100vh', display: 'flex' }}>
       <MapView
-        observations={filteredObs}
+        observations={fixtureObs}
+        filter={filters[value]}
         onUpdateObservation={action('update')}
         getMediaUrl={getMediaUrl}
         mapboxAccessToken="pk.eyJ1IjoiZ21hY2xlbm5hbiIsImEiOiJSaWVtd2lRIn0.ASYMZE2HhwkAw4Vt7SavEg"
