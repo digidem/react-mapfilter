@@ -13,7 +13,7 @@ import type { Observation } from 'mapeo-schema'
 // import ReportFeature from './ReportFeature'
 import ReportPageContent from './ReportPageContent'
 import ReportPaper from './ReportPaper'
-import MapView from '../MapView'
+import MapView from '../MapView/MapView'
 import { cm, inch } from '../utils/dom'
 import { getLastImage, defaultGetPreset } from '../utils/helpers'
 
