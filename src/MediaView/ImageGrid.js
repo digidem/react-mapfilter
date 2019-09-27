@@ -74,6 +74,7 @@ const ImageGrid = ({ images, onImageClick, defaultSize = 200 }: Props) => {
                 if (!image) return null
                 return (
                   <img
+                    key={rowIndex * columnsCount + columnIndex}
                     src={image.src}
                     className={classes.image}
                     style={style}
