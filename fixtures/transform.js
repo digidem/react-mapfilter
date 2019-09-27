@@ -1,5 +1,4 @@
 const fc = require('./example_fc.json')
-const omit = require('lodash/omit')
 const fs = require('fs')
 const path = require('path')
 const LoremIpsum = require('lorem-ipsum').LoremIpsum
@@ -15,22 +14,34 @@ const lorem = new LoremIpsum({
   }
 })
 
-const observations = fc.features.map(f => ({
-  id: f.id,
-  lon: f.geometry && f.geometry.coordinates[0],
-  lat: f.geometry && f.geometry.coordinates[1],
-  created_at: f.properties.start,
-  attachments: Array(randomInt(5))
-    .fill()
-    .map(() => ({
-      id: randomId() + '.jpg',
-      type: 'image/jpg'
-    })),
-  tags: {
-    ...omit(f.properties, ['id', 'picture', 'pictures']),
-    notes: lorem.generateParagraphs(1)
+const observations = fc.features.map(f => {
+  const observation = {
+    id: f.id,
+    lon: f.geometry && f.geometry.coordinates[0],
+    lat: f.geometry && f.geometry.coordinates[1],
+    created_at: f.properties.start,
+    attachments: Array(randomInt(5))
+      .fill()
+      .map(() => ({
+        id: randomId() + '.jpg',
+        type: 'image/jpg'
+      })),
+    tags: {}
   }
-}))
+  const omit = ['id', 'picture', 'pictures']
+
+  for (const key in f.properties) {
+    if (omit.includes(key)) continue
+    if (Array.isArray(f.properties[key])) continue
+    observation.tags[key] = f.properties[key]
+  }
+  observation.tags.notes = lorem.generateParagraphs(1)
+  if (f.properties.happening && f.properties.happening[0]) {
+    observation.tags.happening = f.properties.happening[0]
+  }
+
+  return observation
+})
 
 function randomInt(max) {
   return Math.ceil(Math.random() * max)

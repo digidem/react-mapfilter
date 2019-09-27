@@ -4,14 +4,14 @@ import React from 'react'
 import ReportPaper from './ReportPaper'
 import ReportPageContent from './ReportPageContent'
 import { getFields } from '../lib/data_analysis'
-import exampleFc from '../../fixtures/example_fc.json'
+import exampleObservations from '../../fixtures/observations.json'
 
 export default {
   title: 'ReportView/components/ReportPageContent'
 }
 
 export const withData = () => {
-  const tags = exampleFc.features[0].properties
+  const tags = exampleObservations[0].tags
   const fields = getFields(tags)
   return (
     <ReportPaper paperSize="a4">
