@@ -220,71 +220,49 @@ const DialogContent = ({
     <MuiPickersUtilsProvider
       utils={DateFnsUtils}
       locale={getLocaleData(locale)}>
-      <IconButton
-        className={cx.closeButton}
-        color="inherit"
-        onClick={handleRequestClose}
-        aria-label="Close">
-        <CloseIcon />
-      </IconButton>
-      {mediaItems.length > 0 && (
-        <div className={cx.mediaWrapper}>
-          <MediaCarousel
-            items={mediaItems}
-            initialIndex={initialImageIndex}
-            className={cx.media}
-          />
-        </div>
-      )}
-      <FeatureHeader
-        icon={preset.icon}
-        name={preset.name}
-        coords={coords}
-        createdAt={new Date(observation.created_at)}
-      />
-      <TextField
-        value={values[descriptionKey]}
-        onChange={newValue => handleChange(descriptionKey, newValue)}
-        multiline
-        margin="dense"
-        label="Description"
-        className={cx.descriptionField}
-      />
-      {preset.fields.length > 0 && (
-        <ExpansionPanel TransitionProps={{ unmountOnExit: true }}>
-          <ExpansionPanelSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel1a-content"
-            id="panel1a-header">
-            <Typography component="h2" className={cx.sectionHeading}>
-              <FormattedMessage {...m.detailsHeader} />
-            </Typography>
-          </ExpansionPanelSummary>
-          <ExpansionPanelDetails>
-            {preset.fields.map(field => (
-              <Field
-                key={field.id}
-                field={field}
-                value={get(values, field.key)}
-                onChange={handleChange}
-              />
-            ))}
-          </ExpansionPanelDetails>
-        </ExpansionPanel>
-      )}
-      {Array.isArray(preset.additionalFields) &&
-        preset.additionalFields.length > 0 && (
-          <ExpansionPanel>
+      <>
+        <IconButton
+          className={cx.closeButton}
+          color="inherit"
+          onClick={handleRequestClose}
+          aria-label="Close">
+          <CloseIcon />
+        </IconButton>
+        {mediaItems.length > 0 && (
+          <div className={cx.mediaWrapper}>
+            <MediaCarousel
+              items={mediaItems}
+              initialIndex={initialImageIndex}
+              className={cx.media}
+            />
+          </div>
+        )}
+        <FeatureHeader
+          icon={preset.icon}
+          name={preset.name}
+          coords={coords}
+          createdAt={new Date(observation.created_at)}
+        />
+        <TextField
+          value={values[descriptionKey]}
+          onChange={newValue => handleChange(descriptionKey, newValue)}
+          multiline
+          margin="dense"
+          label="Description"
+          className={cx.descriptionField}
+        />
+        {preset.fields.length > 0 && (
+          <ExpansionPanel TransitionProps={{ unmountOnExit: true }}>
             <ExpansionPanelSummary
               expandIcon={<ExpandMoreIcon />}
               aria-controls="panel1a-content"
               id="panel1a-header">
               <Typography component="h2" className={cx.sectionHeading}>
-                <FormattedMessage {...m.additionalHeader} />
+                <FormattedMessage {...m.detailsHeader} />
               </Typography>
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
-              {preset.additionalFields.map(field => (
+              {preset.fields.map(field => (
                 <Field
                   key={field.id}
                   field={field}
@@ -295,24 +273,48 @@ const DialogContent = ({
             </ExpansionPanelDetails>
           </ExpansionPanel>
         )}
-      <Fade in={dirty}>
-        <Collapse in={dirty} className={cx.actions}>
-          <Button
-            color="default"
-            variant="contained"
-            className={cx.button}
-            onClick={handleRequestClose}>
-            <FormattedMessage {...m.cancelEditButton} />
-          </Button>
-          <Button
-            color="primary"
-            variant="contained"
-            className={cx.button}
-            onClick={handleSave}>
-            <FormattedMessage {...m.saveEditButton} />
-          </Button>
-        </Collapse>
-      </Fade>
+        {Array.isArray(preset.additionalFields) &&
+          preset.additionalFields.length > 0 && (
+            <ExpansionPanel>
+              <ExpansionPanelSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel1a-content"
+                id="panel1a-header">
+                <Typography component="h2" className={cx.sectionHeading}>
+                  <FormattedMessage {...m.additionalHeader} />
+                </Typography>
+              </ExpansionPanelSummary>
+              <ExpansionPanelDetails>
+                {preset.additionalFields.map(field => (
+                  <Field
+                    key={field.id}
+                    field={field}
+                    value={get(values, field.key)}
+                    onChange={handleChange}
+                  />
+                ))}
+              </ExpansionPanelDetails>
+            </ExpansionPanel>
+          )}
+        <Fade in={dirty}>
+          <Collapse in={dirty} className={cx.actions}>
+            <Button
+              color="default"
+              variant="contained"
+              className={cx.button}
+              onClick={handleRequestClose}>
+              <FormattedMessage {...m.cancelEditButton} />
+            </Button>
+            <Button
+              color="primary"
+              variant="contained"
+              className={cx.button}
+              onClick={handleSave}>
+              <FormattedMessage {...m.saveEditButton} />
+            </Button>
+          </Collapse>
+        </Fade>
+      </>
     </MuiPickersUtilsProvider>
   )
 }
