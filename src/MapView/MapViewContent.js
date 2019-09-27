@@ -108,7 +108,6 @@ const MapViewContent = (
     // eslint-disable-next-line react-hooks/exhaustive-deps
     []
   )
-  console.log(initialBounds)
 
   // We don't allow the map to be a controlled component - position can only be
   // set when the map is initially mounted and after that state is internal
@@ -130,14 +129,15 @@ const MapViewContent = (
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const Map = useMemo(
+  const Mapbox = useMemo(
     () =>
       ReactMapboxGl({
         accessToken: mapboxAccessToken,
         dragRotate: false,
         pitchWithRotate: false,
         attributionControl: false,
-        logoPosition: 'bottom-right'
+        logoPosition: 'bottom-right',
+        scrollZoom: !print
       }),
     [mapboxAccessToken]
   )
@@ -197,7 +197,7 @@ const MapViewContent = (
 
   return (
     <IntlProvider>
-      <Map
+      <Mapbox
         style={mapStyle}
         className={classes.container}
         fitBounds={initialBounds}
@@ -227,7 +227,7 @@ const MapViewContent = (
             }
           />
         )}
-      </Map>
+      </Mapbox>
     </IntlProvider>
   )
 }
