@@ -1,5 +1,6 @@
 import fixture from '../../../fixtures/example_fc.json'
 import createMemoizedStats, { diffArrays, statReduce } from './statistics'
+// import fs from 'fs'
 
 test('diffArrays: added and removed', function() {
   const A = {}

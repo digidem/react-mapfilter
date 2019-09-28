@@ -105,6 +105,15 @@ export type NumberStatistic = {|
   values: Map<number, number>
 |}
 
+export type DateStatistic = {|
+  count: number,
+  min?: string,
+  max?: string,
+  variance?: number,
+  mean?: string,
+  values: Map<string, number>
+|}
+
 export type NonArrayFieldStatistic = {|
   string: StringStatistic,
   boolean: {|
@@ -112,8 +121,8 @@ export type NonArrayFieldStatistic = {|
     values: Map<boolean, number>
   |},
   number: NumberStatistic,
-  date: NumberStatistic,
-  datetime: NumberStatistic,
+  date: DateStatistic,
+  datetime: DateStatistic,
   url: number,
   image: number,
   video: number,

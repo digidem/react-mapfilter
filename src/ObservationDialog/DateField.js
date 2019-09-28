@@ -1,10 +1,11 @@
+// @flow
 import React from 'react'
 import { DatePicker } from '@material-ui/pickers'
 import { leftPad } from '../utils/helpers'
 
 const shortDateRegExp = /^(\d{4})-(\d{2})-(\d{2})$/
 
-const DateField = ({ value, onChange, ...otherProps }) => {
+const DateField = ({ value, onChange, ...otherProps }: any) => {
   const valueAsDate = parseDateString(value)
   return (
     <DatePicker
@@ -21,7 +22,7 @@ const DateField = ({ value, onChange, ...otherProps }) => {
 
 export default DateField
 
-function getDateString(date) {
+function getDateString(date: Date): string | void {
   if (!(date instanceof Date)) return
   const YYYY = date.getFullYear()
   const MM = leftPad(date.getMonth() + 1 + '', 2, '0')
@@ -34,12 +35,12 @@ function getDateString(date) {
  * will assume the timezone is UTC, so in different timezones the returned date
  * will not be what is expected.
  */
-function parseDateString(str) {
+function parseDateString(str: string): Date | void {
   if (!str) return
   const match = str.match(shortDateRegExp)
   if (!match) {
     const date = Date.parse(str)
-    return Number.isNaN(date) ? undefined : date
+    return Number.isNaN(date) ? undefined : new Date(date)
   }
-  return new Date(+match[1], match[2] - 1, +match[3])
+  return new Date(+match[1], +match[2] - 1, +match[3])
 }

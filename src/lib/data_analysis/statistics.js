@@ -1,17 +1,18 @@
 // @flow
 import cloneDeep from 'clone-deep'
-import isodate from '@segment/isodate'
 
 import { flatObjectEntries } from '../../utils/flat_object_entries'
 import { guessValueType } from './value_types'
 import * as valueTypes from '../../constants/value_types'
+import { leftPad } from '../../utils/helpers'
 
 import type {
   JSONObject,
   Statistics,
   FieldStatistic,
   StringStatistic,
-  NumberStatistic
+  NumberStatistic,
+  DateStatistic
 } from '../../types'
 
 function defaultStats(): FieldStatistic {
@@ -102,14 +103,10 @@ function addFieldStats(value: any, fieldStats: FieldStatistic) {
       addNumberStats(value, fieldStats[valueTypes.NUMBER])
       return
     case valueTypes.DATE:
-      const [year, month, day] = value.split('-').map(Number)
-      // Add 12 hours -> middle of day
-      const dateAsNumber =
-        new Date(year, month - 1, day).getTime() + 12 * 60 * 60 * 1000
-      addNumberStats(dateAsNumber, fieldStats[valueTypes.DATE])
+      addDateStats(value, fieldStats[valueTypes.DATE])
       return
     case valueTypes.DATETIME:
-      addNumberStats(isodate.parse(value), fieldStats[valueTypes.DATETIME])
+      addDateTimeStats(value, fieldStats[valueTypes.DATETIME])
       return
     case valueTypes.BOOLEAN:
       fieldStats[valueTypes.BOOLEAN].count += 1
@@ -143,6 +140,51 @@ function addNumberStats(value: number, stats: NumberStatistic) {
   stats.max = max
   stats.variance = variance
   stats.mean = mean
+  if (stats.values.has(value))
+    stats.values.set(value, stats.values.get(value) + 1)
+  else stats.values.set(value, 1)
+}
+
+function addDateTimeStats(value: string, stats: DateStatistic) {
+  const dateAsNumber = +Date.parse(value)
+  stats.count += 1
+  const { variance, mean } = statReduce(
+    {
+      mean: stats.mean !== undefined ? +Date.parse(stats.mean) : undefined,
+      variance: stats.variance
+    },
+    dateAsNumber,
+    stats.count - 1
+  )
+  stats.min =
+    stats.min === undefined ? value : value < stats.min ? value : stats.min
+  stats.max =
+    stats.max === undefined ? value : value > stats.max ? value : stats.max
+  stats.variance = variance
+  stats.mean = mean !== undefined ? new Date(mean).toISOString() : undefined
+  if (stats.values.has(value))
+    stats.values.set(value, stats.values.get(value) + 1)
+  else stats.values.set(value, 1)
+}
+
+/** This requires slightly special treatment because date does not include time */
+function addDateStats(value: string, stats: DateStatistic) {
+  const dateAsNumber = dateToNumber(value)
+  stats.count += 1
+  const { variance, mean } = statReduce(
+    {
+      mean: stats.mean !== undefined ? dateToNumber(stats.mean) : undefined,
+      variance: stats.variance
+    },
+    dateAsNumber,
+    stats.count - 1
+  )
+  stats.min =
+    stats.min === undefined ? value : value < stats.min ? value : stats.min
+  stats.max =
+    stats.max === undefined ? value : value > stats.max ? value : stats.max
+  stats.variance = variance
+  stats.mean = mean !== undefined ? numberToDate(mean) : undefined
   if (stats.values.has(value))
     stats.values.set(value, stats.values.get(value) + 1)
   else stats.values.set(value, 1)
@@ -197,7 +239,12 @@ export function diffArrays(
   return { added, removed }
 }
 
-type MathStat = { mean?: number, variance?: number, min?: number, max?: number }
+type MathStat = {
+  mean?: number,
+  variance?: number,
+  min?: number,
+  max?: number
+}
 
 /**
  * Reducer that computes running mean, variance, min and max
@@ -221,4 +268,19 @@ export function statReduce(
     max: x > max ? x : max,
     variance: i < 1 ? 0 : (variance * i + (x - mean) * (x - newMean)) / (i + 1)
   }
+}
+
+/** Convert date in the format YYYY-MM-DD to a number */
+function dateToNumber(value: string): number {
+  const [year, month, day] = value.split('-').map(Number)
+  // Add 12 hours -> middle of day
+  return new Date(year, month - 1, day).getTime() + 12 * 60 * 60 * 1000
+}
+
+function numberToDate(value: number): string {
+  const date = new Date(value)
+  const YYYY = date.getFullYear()
+  const MM = leftPad(date.getMonth() + 1 + '', 2, '0')
+  const DD = leftPad(date.getDate() + '', 2, '0')
+  return `${YYYY}-${MM}-${DD}`
 }
