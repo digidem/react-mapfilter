@@ -1,26 +1,22 @@
 // @flow
 import * as React from 'react'
 import Checkbox from '@material-ui/core/Checkbox'
-import CheckBoxIcon from '@material-ui/icons/CheckBox'
-import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank'
-import FormGroup from '@material-ui/core/FormGroup'
-import FormControlLabel from '@material-ui/core/FormControlLabel'
 import ListIcon from '@material-ui/icons/List'
 import { makeStyles } from '@material-ui/core/styles'
-// import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction'
 import ListItemText from '@material-ui/core/ListItemText'
-import IconButton from '@material-ui/core/IconButton'
-import CommentIcon from '@material-ui/icons/Comment'
 import FilterSection from './FilterSection'
 import OnlyButton from './OnlyButton'
-import type { Key, Filter } from '../types'
+
+import { getField } from '../lib/data_analysis'
+import FormattedValue from '../internal/FormattedValue'
+import type { Key, Filter, SelectOptions, SelectableFieldValue } from '../types'
 
 // import {FIELD_TYPE_BOOLEAN, FIELD_TYPE_NUMBER} from '../../constants'
 
-const FilterItem = ({ onClick, checked, label, id }) => {
+const FilterItem = ({ onClick, checked, label, id, onOnlyClick }) => {
   const cx = useStyles()
   return (
     <ListItem
@@ -41,7 +37,7 @@ const FilterItem = ({ onClick, checked, label, id }) => {
       </ListItemIcon>
       <ListItemText id={id} primary={label} />
       <ListItemSecondaryAction>
-        <OnlyButton className={cx.onlyButton} />
+        <OnlyButton className={cx.onlyButton} onClick={onOnlyClick} />
       </ListItemSecondaryAction>
     </ListItem>
   )
@@ -51,7 +47,7 @@ type Props = {
   label: React.Node,
   fieldKey: Key,
   filter?: Filter | null,
-  values: Array<{ value: any, label: React.Node }>,
+  options: SelectOptions,
   onChangeFilter: (filter: Array<any> | null) => void
 }
 
@@ -59,144 +55,82 @@ const DiscreteFilter = ({
   label,
   fieldKey,
   filter,
-  values,
+  options,
   onChangeFilter
 }: Props) => {
+  const values: Array<number | string | boolean> = options.reduce(
+    (acc, cur) => {
+      // Filter null values
+      if (cur == null) return acc
+      if (typeof cur === 'object' && cur.value != null) acc.push(cur.value)
+      else if (typeof cur !== 'object') acc.push(cur)
+      return acc
+    },
+    []
+  )
+  const shownValues = valuesFromFilter(filter, values)
+  const allValues = [...new Set([...shownValues, ...values].sort())]
+
+  const handleClick = value => e => {
+    if (shownValues.has(value)) shownValues.delete(value)
+    else shownValues.add(value)
+    const newFilter =
+      shownValues.size > 0
+        ? ['in', fieldKey, ...shownValues]
+        : ['!in', fieldKey, ...allValues]
+    onChangeFilter(newFilter)
+  }
+
+  const handleOnlyClick = value => () => {
+    onChangeFilter(['in', fieldKey, value])
+  }
+
   return (
     <FilterSection
       title={label}
       icon={<ListIcon />}
       isFiltered={true}
       onShowAllClick={() => onChangeFilter(null)}>
-      {values.map((v, i) => (
-        <FilterItem key={i} label={v.label} checked />
-      ))}
+      {allValues.map((v, i) => {
+        // TODO use FormattedValue here
+        const option = options.find(
+          o => typeof o === 'object' && o !== null && o.value === v
+        )
+        const label = option ? (
+          // $FlowFixMe - pretty sure the find above means this must have a label prop
+          option.label
+        ) : v == null ? (
+          '[No Value]'
+        ) : (
+          // This is kind of a hack just to re-use code that detects and formats dates if they are options
+          <FormattedValue value={v} field={getField([], v)} />
+        )
+        const key = JSON.stringify(v)
+        return (
+          <FilterItem
+            key={key}
+            id={key}
+            label={label}
+            checked={shownValues.has(v)}
+            onClick={handleClick(v)}
+            onOnlyClick={handleOnlyClick(v)}
+          />
+        )
+      })}
     </FilterSection>
   )
 }
 
-class DiscreteFilterOld extends React.PureComponent {
-  static defaultProps = {
-    checked: [],
-    onUpdate: x => x
+function valuesFromFilter(filter, values = []): Set<SelectableFieldValue> {
+  if (!filter || filter.length < 3) return new Set(values)
+  // $FlowFixMe - need to better define type for filter
+  if (filter[0] === 'in') return new Set(filter.slice(2))
+  if (filter[0] === '!in') {
+    const notShown = filter.slice(2)
+    const shown = values.filter(v => notShown.indexOf(v) < 0)
+    return new Set(shown)
   }
-
-  state = {}
-
-  showAll = e => {
-    e.preventDefault()
-    this.props.onUpdate({
-      exp: 'in',
-      key: this.props.fieldName,
-      val: null
-    })
-  }
-
-  handleCheck = (value, e) => {
-    const checked = this.props.checked.slice(0)
-    if (e.target.checked && checked.indexOf(value) === -1) {
-      checked.push(value)
-    } else if (!e.target.checked && checked.indexOf(value) > -1) {
-      checked.splice(checked.indexOf(value), 1)
-    }
-    this.props.onUpdate({
-      exp: 'in',
-      key: this.props.fieldName,
-      val: checked
-    })
-  }
-
-  handleOnlyClick(key, e) {
-    e.preventDefault()
-    this.props.onUpdate({
-      exp: 'in',
-      key: this.props.fieldName,
-      val: [key]
-    })
-  }
-
-  handleMouseEnter(key) {
-    this.setState({ hovered: key })
-  }
-
-  handleMouseLeave = () => {
-    this.setState({ hovered: false })
-  }
-
-  render() {
-    const {
-      fieldName,
-      checked,
-      values,
-      classes,
-      colored,
-      colorIndex,
-      intl: { formatMessage }
-    } = this.props
-    const isFiltered = checked.length < values.length
-    const title = fieldName.split('.').slice(-1)[0]
-    const subtitle =
-      fieldName.indexOf('.') > 1
-        ? fieldName
-            .split('.')
-            .slice(0, -1)
-            .join(' / ')
-        : null
-
-    return (
-      <FilterSection
-        title={formatMessage(msg('field_key')(title))}
-        subtitle={subtitle && formatMessage(msg('field_key')(subtitle))}
-        icon={<ListIcon />}
-        isFiltered={isFiltered}
-        showAll={this.showAll}>
-        <FormGroup className={classes.formGroup}>
-          {values.map((v, i) => (
-            <div
-              className={classes.checkboxItem}
-              key={v.value}
-              onMouseEnter={() => this.handleMouseEnter(v.value)}
-              onMouseLeave={this.handleMouseLeave}>
-              <FormControlLabel
-                classes={{
-                  root: classes.formControlRoot,
-                  label: classes.formControlLabel
-                }}
-                control={
-                  <Checkbox
-                    classes={{ root: classes.checkboxButton }}
-                    checked={checked.indexOf(v.value) > -1}
-                    icon={
-                      <CheckBoxOutlineBlankIcon
-                        classes={{ root: classes.checkboxIcon }}
-                      />
-                    }
-                    checkedIcon={
-                      <CheckBoxIcon classes={{ root: classes.checkboxIcon }} />
-                    }
-                    onChange={e => this.handleCheck(v.value, e)}
-                  />
-                }
-                label={
-                  <span
-                    className={colored ? classes.coloredSpan : ''}
-                    style={
-                      colored ? { backgroundColor: colorIndex[v.value] } : null
-                    }
-                    title={formatMessage(msg('field_value')(v.value))}>
-                    {formatMessage(msg('field_value')(v.value))}
-                  </span>
-                }
-              />
-              {this.state.hovered === v.value && (
-                <OnlyButton onClick={e => this.handleOnlyClick(v.value, e)} />
-              )}
-            </div>
-          ))}
-        </FormGroup>
-      </FilterSection>
-    )
-  }
+  return new Set(values)
 }
 
 export default DiscreteFilter

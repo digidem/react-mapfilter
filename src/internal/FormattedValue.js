@@ -29,8 +29,7 @@ const defaultTextField: Field = {
 
 /**
  * Format a value from a form, either by guessing the type or trying to coerce
- * the value to a type specified by `fieldType`. An optional `fieldkey` is used
- * to look up a translated value which can be passed by FieldnameTranslationProvider
+ * the value to a type specified by `fieldType`.
  */
 const FormattedValue = ({ value, field }: Props) => {
   const classes = useStyles()

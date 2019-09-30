@@ -68,7 +68,7 @@ export function getField(
   keyArray: Array<string | number>,
   value: any,
   fieldStats?: FieldStatistic
-): Field | void {
+): Field {
   const valueType = guessValueType(value)
   // Initial implementation does not try to guess from statistics
   switch (valueType) {

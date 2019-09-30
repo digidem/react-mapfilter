@@ -17,19 +17,27 @@ export default {
   ]
 }
 
-const values = [
+const options = [
   { value: 'foo', label: 'Foo' },
   { value: 'bar', label: 'Bar' },
-  { value: 'qux', label: 'Qux' }
+  { value: 'qux', label: 'Qux' },
+  { value: 10, label: 'Ten' },
+  { value: '2019-09-30T11:13:49.165Z', label: 'Today' },
+  { value: null, label: 'No Value' },
+  null,
+  true,
+  false,
+  1,
+  'helo;',
+  '2019-09-30'
 ]
 
 export const defaultStory = () => {
   const [filter, setFilter] = React.useState()
-  console.log(filter)
   return (
     <DiscreteFilter
       label="Happening"
-      values={values}
+      options={options}
       fieldKey={['foo']}
       filter={filter}
       onChangeFilter={setFilter}
