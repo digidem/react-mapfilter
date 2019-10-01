@@ -5,6 +5,7 @@ import DateFnsUtils from '@date-io/date-fns' // choose your lib
 import { MuiPickersUtilsProvider } from '@material-ui/pickers'
 import FilterPanel from './FilterPanel'
 import type { Preset } from 'mapeo-schema'
+import type { Field } from '../types'
 import fixtureObs from '../../fixtures/observations.json'
 
 export default {
@@ -64,6 +65,30 @@ export const withObservations = () => {
       observations={fixtureObs}
       onChangeFilter={setFilter}
       presets={presets}
+    />
+  )
+}
+
+const fields: Field[] = [
+  {
+    type: 'select_one',
+    id: 'myfield',
+    label: 'My Special Field',
+    key: ['myField'],
+    options: ['foo', { label: 'Custom label', value: 'bar' }, 'qux']
+  }
+]
+
+export const withFields = () => {
+  const [filter, setFilter] = React.useState(null)
+  console.log(filter)
+  return (
+    <FilterPanel
+      filter={filter}
+      observations={fixtureObs}
+      onChangeFilter={setFilter}
+      presets={presets}
+      fields={fields}
     />
   )
 }

@@ -2,13 +2,8 @@
 import React, { useMemo, useEffect } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import List from '@material-ui/core/List'
-import ListItem from '@material-ui/core/ListItem'
-import ListItemIcon from '@material-ui/core/ListItemIcon'
-import ListItemText from '@material-ui/core/ListItemText'
-import SettingsIcon from '@material-ui/icons/Settings'
 import Paper from '@material-ui/core/Paper'
-import { defineMessages, FormattedMessage, useIntl } from 'react-intl'
-import createPersistedState from 'use-persisted-state'
+import { defineMessages, useIntl } from 'react-intl'
 import isEqual from 'lodash/isEqual'
 import omit from 'lodash/omit'
 
@@ -59,9 +54,6 @@ const getTimestampStats = (observations: Observation[]): Statistics => {
   )
 }
 
-// WARNING: If you change the shape of the state, the key here should be changed
-const useVisibleFilters = createPersistedState('visibleFilters@3')
-
 const FilterPanel = ({
   filter,
   onChangeFilter,
@@ -71,10 +63,6 @@ const FilterPanel = ({
 }: Props) => {
   const cx = useStyles()
   const { formatMessage: t } = useIntl()
-  const [visibleFilters, setVisibleFilters] = useVisibleFilters<string[]>([
-    JSON.stringify(['$created']),
-    JSON.stringify(['$preset'])
-  ])
   let filterByField: { [fieldId: string]: Filter | null } = {}
   let filterError
 
@@ -85,7 +73,6 @@ const FilterPanel = ({
     console.warn(e)
     filterError = false
   }
-  console.log('filterByField', filterByField)
 
   const timestampStats = useMemo(() => getTimestampStats(observations), [
     observations
@@ -111,7 +98,6 @@ const FilterPanel = ({
   // of spelling things to makes sense).
   const filterFields = useMemo(() => {
     const $createdId = JSON.stringify(['$created'])
-    const $modifiedId = JSON.stringify(['$modified'])
     const $presetId = JSON.stringify(['$preset'])
 
     const filterFields: { [fieldId: string]: Field } = {
@@ -124,18 +110,6 @@ const FilterPanel = ({
           timestampStats[$createdId] && timestampStats[$createdId].datetime.min,
         max_value:
           timestampStats[$createdId] && timestampStats[$createdId].datetime.max
-      },
-      [$modifiedId]: {
-        id: $createdId,
-        key: ['$modified'],
-        label: t(m.modified),
-        type: 'datetime',
-        min_value:
-          timestampStats[$modifiedId] &&
-          timestampStats[$modifiedId].datetime.min,
-        max_value:
-          timestampStats[$modifiedId] &&
-          timestampStats[$modifiedId].datetime.max
       }
     }
 
@@ -185,20 +159,6 @@ const FilterPanel = ({
   }, [t, timestampStats, presets, fields, stats])
 
   useEffect(() => {
-    if (!filterByField) return
-    const filteredFields = Object.keys(filterByField).filter(fieldId =>
-      Array.isArray(filterByField[fieldId])
-    )
-    // Check if the filtered fields are already visible
-    if (filteredFields.every(id => visibleFilters.includes(id))) return
-    // Union...
-    const newVisibleFilters = [
-      ...new Set([...visibleFilters, ...Object.keys(filterByField)])
-    ]
-    setVisibleFilters(newVisibleFilters)
-  }, [filterByField, setVisibleFilters, visibleFilters])
-
-  useEffect(() => {
     if (!filterError) return
     onChangeFilter(null)
   }, [filterError, onChangeFilter])
@@ -208,7 +168,7 @@ const FilterPanel = ({
   return (
     <Paper className={cx.root} elevation={1} square>
       <List className={cx.list}>
-        {visibleFilters
+        {Object.keys(filterFields)
           .map(id => {
             const field = filterFields[id]
             if (!field) return
@@ -239,12 +199,6 @@ const FilterPanel = ({
             }
           })
           .filter(Boolean)}
-        <ListItem button dense className={cx.settingsItem}>
-          <ListItemIcon className={cx.listIcon}>
-            <SettingsIcon />
-          </ListItemIcon>
-          <ListItemText primary={<FormattedMessage {...m.editFilters} />} />
-        </ListItem>
       </List>
     </Paper>
   )
