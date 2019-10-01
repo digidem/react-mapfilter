@@ -24,7 +24,7 @@ type Props = {
 const ReportView = ({
   observations,
   onUpdateObservation,
-  getPreset,
+  presets,
   filter,
   getMediaUrl,
   ...otherProps
@@ -79,7 +79,7 @@ const ReportView = ({
     <ViewWrapper
       observations={observations}
       onUpdateObservation={onUpdateObservation}
-      getPreset={getPreset}
+      presets={presets}
       filter={filter}
       getMediaUrl={getMediaUrl}>
       {({ onClickObservation, filteredObservations, getPreset, getMedia }) => {

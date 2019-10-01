@@ -24,7 +24,7 @@ export type CommonViewProps = {
   onUpdateObservation?: (observation: Observation) => void,
   /** A function called with an observation that should return a matching preset
    * with field definitions */
-  getPreset?: Observation => PresetWithFields | void,
+  presets?: PresetWithFields[],
   getMediaUrl: GetMediaUrl,
   getIconUrl?: GetIconUrl,
   /** Filter to apply to observations */
@@ -61,7 +61,7 @@ const createFilter = (filter: Filter | void) => {
 const WrappedMapView = ({
   observations = [],
   onUpdateObservation = noop,
-  getPreset = noop,
+  presets = [],
   getMediaUrl,
   filter,
   children,
@@ -76,7 +76,8 @@ const WrappedMapView = ({
 
   const getPresetWithFallback = React.useCallback(
     (observation: Observation): PresetWithAdditionalFields => {
-      const preset = getPreset(observation)
+      console.log('presets', presets)
+      const preset = getPreset(observation, presets)
       const defaultPreset = defaultGetPreset(observation, stats)
       if (!preset) return defaultPreset
       return {
@@ -91,7 +92,7 @@ const WrappedMapView = ({
         )
       }
     },
-    [getPreset, stats]
+    [presets, stats]
   )
 
   const handleObservationClick = React.useCallback(
@@ -147,3 +148,16 @@ const WrappedMapView = ({
 }
 
 export default WrappedMapView
+
+// TODO: Update this function to match presets like ID Editor
+function getPreset(
+  observation: Observation,
+  presets: PresetWithFields[]
+): PresetWithFields | void {
+  const tags = observation.tags
+  if (!tags || !tags.categoryId) return
+  const preset = presets.find(preset => preset.id === tags.categoryId)
+  if (preset) console.log(preset)
+  else console.log(tags, presets)
+  return preset
+}

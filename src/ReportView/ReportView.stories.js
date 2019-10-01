@@ -5,6 +5,7 @@ import { action } from '@storybook/addon-actions'
 // import { linkTo } from '@storybook/addon-links'
 
 import ReportView from './ReportView'
+import type { PresetWithFields } from '../types'
 
 const exampleObservations = require('../../fixtures/observations.json')
 
@@ -29,5 +30,60 @@ export const basic = () => (
     mapboxAccessToken="pk.eyJ1IjoiZ21hY2xlbm5hbiIsImEiOiJSaWVtd2lRIn0.ASYMZE2HhwkAw4Vt7SavEg"
     observations={exampleObservations.slice(0, 10)}
     onUpdateObservation={action('update')}
+  />
+)
+
+const presets: PresetWithFields[] = [
+  {
+    name: 'Mining',
+    id: 'mining',
+    geometry: ['point'],
+    tags: {},
+    fields: [
+      {
+        type: 'text',
+        id: 'impacts',
+        key: ['impacts'],
+        label: 'What is the impact?'
+      }
+    ]
+  },
+  {
+    name: 'Logging',
+    id: 'logging',
+    geometry: ['point'],
+    tags: {},
+    fields: [
+      {
+        type: 'text',
+        id: 'impacts',
+        key: ['impacts'],
+        label: 'What is the impact?'
+      }
+    ]
+  },
+  {
+    name: 'Oil Spill',
+    id: 'oil',
+    geometry: ['point'],
+    tags: {},
+    fields: [
+      {
+        type: 'text',
+        id: 'impacts',
+        key: ['impacts'],
+        label: 'What is the impact?'
+      }
+    ]
+  }
+]
+
+export const withPresets = () => (
+  <ReportView
+    getMediaUrl={getMediaUrl}
+    mapboxAccessToken="pk.eyJ1IjoiZ21hY2xlbm5hbiIsImEiOiJSaWVtd2lRIn0.ASYMZE2HhwkAw4Vt7SavEg"
+    observations={exampleObservations.slice(0, 10)}
+    onUpdateObservation={action('update')}
+    presets={presets}
   />
 )
