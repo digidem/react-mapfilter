@@ -109,7 +109,6 @@ export type DateStatistic = {|
   count: number,
   min?: string,
   max?: string,
-  variance?: number,
   mean?: string,
   values: Map<string, number>
 |}

@@ -148,10 +148,9 @@ function addNumberStats(value: number, stats: NumberStatistic) {
 function addDateTimeStats(value: string, stats: DateStatistic) {
   const dateAsNumber = +Date.parse(value)
   stats.count += 1
-  const { variance, mean } = statReduce(
+  const { mean } = statReduce(
     {
-      mean: stats.mean !== undefined ? +Date.parse(stats.mean) : undefined,
-      variance: stats.variance
+      mean: stats.mean !== undefined ? +Date.parse(stats.mean) : undefined
     },
     dateAsNumber,
     stats.count - 1
@@ -160,7 +159,6 @@ function addDateTimeStats(value: string, stats: DateStatistic) {
     stats.min === undefined ? value : value < stats.min ? value : stats.min
   stats.max =
     stats.max === undefined ? value : value > stats.max ? value : stats.max
-  stats.variance = variance
   stats.mean = mean !== undefined ? new Date(mean).toISOString() : undefined
   if (stats.values.has(value))
     stats.values.set(value, stats.values.get(value) + 1)
@@ -171,10 +169,9 @@ function addDateTimeStats(value: string, stats: DateStatistic) {
 function addDateStats(value: string, stats: DateStatistic) {
   const dateAsNumber = dateToNumber(value)
   stats.count += 1
-  const { variance, mean } = statReduce(
+  const { mean } = statReduce(
     {
-      mean: stats.mean !== undefined ? dateToNumber(stats.mean) : undefined,
-      variance: stats.variance
+      mean: stats.mean !== undefined ? dateToNumber(stats.mean) : undefined
     },
     dateAsNumber,
     stats.count - 1
@@ -183,7 +180,6 @@ function addDateStats(value: string, stats: DateStatistic) {
     stats.min === undefined ? value : value < stats.min ? value : stats.min
   stats.max =
     stats.max === undefined ? value : value > stats.max ? value : stats.max
-  stats.variance = variance
   stats.mean = mean !== undefined ? numberToDate(mean) : undefined
   if (stats.values.has(value))
     stats.values.set(value, stats.values.get(value) + 1)
