@@ -127,5 +127,20 @@
     "round-to": "^4.0.0",
     "use-persisted-state": "^0.3.0",
     "utm": "^1.1.1"
-  }
+  },
+  "description": "These components are designed for viewing data in Mapeo. They share a common interface:",
+  "version": "3.0.0-beta.0",
+  "directories": {
+    "doc": "docs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/digidem/react-mapfilter.git"
+  },
+  "author": "Digital Democracy",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/digidem/react-mapfilter/issues"
+  },
+  "homepage": "https://github.com/digidem/react-mapfilter#readme"
 }
