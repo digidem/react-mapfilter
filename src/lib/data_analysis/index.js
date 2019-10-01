@@ -90,9 +90,15 @@ export function getField(
       )
     }
     case valueTypes.DATE:
-      return createDateField(keyArray)
+      return createDateField(keyArray, {
+        min: fieldStats && fieldStats.date.min,
+        max: fieldStats && fieldStats.date.max
+      })
     case valueTypes.DATETIME:
-      return createDateTimeField(keyArray)
+      return createDateTimeField(keyArray, {
+        min: fieldStats && fieldStats.date.min,
+        max: fieldStats && fieldStats.date.max
+      })
     case valueTypes.URL:
     case valueTypes.IMAGE_URL:
     case valueTypes.AUDIO_URL:
@@ -203,15 +209,17 @@ function createDateField(
   }: {
     readonly?: boolean,
     snakeCase?: boolean,
-    min?: number,
-    max?: number
+    min?: string,
+    max?: string
   } = {}
 ): DateField {
   return {
     id: JSON.stringify([...arguments]),
     key: keyArray,
     readonly: readonly,
-    type: 'date'
+    type: 'date',
+    min_value: min,
+    max_value: max
   }
 }
 
@@ -224,15 +232,17 @@ function createDateTimeField(
   }: {
     readonly?: boolean,
     snakeCase?: boolean,
-    min?: number,
-    max?: number
+    min?: string,
+    max?: string
   } = {}
 ): DateTimeField {
   return {
     id: JSON.stringify([...arguments]),
     key: keyArray,
     readonly: readonly,
-    type: 'datetime'
+    type: 'datetime',
+    min_value: min,
+    max_value: max
   }
 }
 

@@ -19,8 +19,8 @@ export default {
 
 const filters = {
   All: [],
-  Mining: ['==', 'happening', 'mining'],
-  Fishing: ['==', 'happening', 'fishing']
+  Mining: ['all', ['in', '$preset', 'mining']],
+  Fishing: ['all', ['in', '$preset', 'fishing']]
 }
 
 export const defaultStory = () => {

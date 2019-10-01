@@ -37,7 +37,7 @@ const observations = fc.features.map(f => {
   }
   observation.tags.notes = lorem.generateParagraphs(1)
   if (f.properties.happening && f.properties.happening[0]) {
-    observation.tags.happening = f.properties.happening[0]
+    observation.tags.categoryId = f.properties.happening[0]
   }
 
   return observation

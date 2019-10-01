@@ -102,7 +102,6 @@ function parseDateFilter(filter?: Array<any> | null) {
 
 const useStyles = makeStyles(theme => ({
   dateField: {
-    margin: 0,
     '&:not(:last-child)': {
       marginRight: theme.spacing(1)
     }

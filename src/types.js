@@ -75,7 +75,7 @@ export type FieldState = Array<{|
   hidden: boolean,
   label: React.Node
 |}>
-export type Filter = Array<string | Array<Filter>>
+export type Filter = Array<number | string | boolean | null | Array<Filter>>
 
 export type ValueTypes = { [fieldkey: string]: $Values<typeof valueTypes> }
 
@@ -229,13 +229,17 @@ export type SelectMultipleField = {
 }
 
 export type DateField = {
-  ...$Exact<NumberField>,
-  type: 'date'
+  ...BaseField,
+  type: 'date',
+  min_value?: string,
+  max_value?: string
 }
 
 export type DateTimeField = {
-  ...$Exact<NumberField>,
-  type: 'datetime'
+  ...BaseField,
+  type: 'datetime',
+  min_value?: string,
+  max_value?: string
 }
 
 export type Field =

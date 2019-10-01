@@ -1,6 +1,6 @@
 // @flow
 import * as React from 'react'
-import Checkbox from '@material-ui/core/Checkbox'
+import Checkbox from './StyledCheckbox'
 import ListIcon from '@material-ui/icons/List'
 import { makeStyles } from '@material-ui/core/styles'
 import ListItem from '@material-ui/core/ListItem'
@@ -85,11 +85,14 @@ const DiscreteFilter = ({
     onChangeFilter(['in', fieldKey, value])
   }
 
+  // Don't render the filter if there is nothing to choose from
+  if (!allValues || allValues.length === 0) return null
+
   return (
     <FilterSection
       title={label}
       icon={<ListIcon />}
-      isFiltered={true}
+      isFiltered={!!filter}
       onShowAllClick={() => onChangeFilter(null)}>
       {allValues.map((v, i) => {
         // TODO use FormattedValue here
@@ -137,6 +140,8 @@ export default DiscreteFilter
 
 const useStyles = makeStyles(theme => ({
   filterItem: {
+    paddingTop: 0,
+    paddingBottom: 0,
     '& $onlyButton': {
       display: 'none'
     },
@@ -150,7 +155,8 @@ const useStyles = makeStyles(theme => ({
     minWidth: 'auto'
   },
   checkboxIcon: {
-    minWidth: 40
+    minWidth: 36,
+    paddingLeft: 4
   },
   checkbox: {
     padding: 0,

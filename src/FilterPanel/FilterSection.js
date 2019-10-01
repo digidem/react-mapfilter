@@ -5,8 +5,6 @@ import clsx from 'clsx'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction'
-import IconButton from '@material-ui/core/IconButton'
 import Collapse from '@material-ui/core/Collapse'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 
@@ -35,7 +33,7 @@ const FilterSection = ({
   onShowAllClick
 }: Props) => {
   const cx = useStyles()
-  const [expanded, toggleExpanded] = useToggle()
+  const [expanded, toggleExpanded] = useToggle(true)
 
   const handleShowAllClick = e => {
     e.stopPropagation()
@@ -43,10 +41,10 @@ const FilterSection = ({
   }
   return (
     <div className={cx.root}>
-      <ListItem dense button={!isFiltered} onClick={toggleExpanded}>
+      <ListItem button={!isFiltered} onClick={toggleExpanded}>
         <ListItemIcon className={cx.listIcon}>{icon}</ListItemIcon>
         <ListItemText
-          classes={{ root: cx.listItemText }}
+          classes={{ primary: cx.listItemText }}
           primary={title}
           secondary={subtitle}
         />
@@ -82,8 +80,7 @@ const useStyles = makeStyles(theme => ({
     minWidth: 40
   },
   listItemText: {
-    fontSize: 14,
-    padding: 0
+    fontWeight: 500
   },
   showAll: {
     fontSize: 12,
@@ -91,7 +88,8 @@ const useStyles = makeStyles(theme => ({
     minWidth: 'auto'
   },
   collapse: {
-    position: 'relative'
+    position: 'relative',
+    paddingBottom: 8
   },
   expanded: {},
   expandIcon: {

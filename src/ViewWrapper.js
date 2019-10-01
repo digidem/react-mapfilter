@@ -1,7 +1,7 @@
 // @flow
 import * as React from 'react'
 import isEqual from 'lodash/isEqual'
-import createFilter from 'mapeo-entity-filter'
+import createFilterOrig from 'mapeo-entity-filter'
 
 import ObservationDialog from './ObservationDialog'
 import getStats from './stats'
@@ -41,7 +41,22 @@ type Props = {
   }) => React.Node
 }
 
-const noop = obs => {}
+const noop = () => {}
+
+// This is a temporary wrapper to compile a filter that defines $preset into a
+// filter that will work with our dataset, which currently uses categoryId to
+// define which preset applies. We will need to improve how this works in the
+// future once we start matching presets like we do with iD
+const createFilter = (filter: Filter | void) => {
+  if (!Array.isArray(filter) || filter[0] !== 'all' || filter.length < 2)
+    return () => true
+  const presetFilter = filter.map(subFilter => {
+    if (!Array.isArray(subFilter) || subFilter[1] !== '$preset')
+      return subFilter
+    return [subFilter[0], 'categoryId', ...subFilter.slice(2)]
+  })
+  return createFilterOrig(presetFilter)
+}
 
 const WrappedMapView = ({
   observations = [],
