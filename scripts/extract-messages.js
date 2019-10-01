@@ -7,7 +7,8 @@ const COMPONENT_NAMES = [
   'ReportView',
   'MapView',
   'MediaView',
-  'ObservationDialog'
+  'ObservationDialog',
+  'FilterPanel'
 ]
 
 const opts = {
