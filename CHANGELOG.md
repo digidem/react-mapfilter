@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-beta.5](https://github.com/digidem/react-mapfilter/compare/v3.0.0-beta.4...v3.0.0-beta.5) (2019-10-02)
+
+### Bug Fixes
+
+- Fix print view crash on print ([a35eb84](https://github.com/digidem/react-mapfilter/commit/a35eb84))
+- remove shadow on toolbar ([9c2dc1c](https://github.com/digidem/react-mapfilter/commit/9c2dc1c))
+
 ## [3.0.0-beta.4](https://github.com/digidem/react-mapfilter/compare/v3.0.0-beta.2...v3.0.0-beta.4) (2019-10-02)
 
 ### Bug Fixes
