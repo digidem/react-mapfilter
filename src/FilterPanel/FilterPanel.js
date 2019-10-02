@@ -6,6 +6,8 @@ import Paper from '@material-ui/core/Paper'
 import { defineMessages, useIntl } from 'react-intl'
 import isEqual from 'lodash/isEqual'
 import omit from 'lodash/omit'
+import DateFnsUtils from '@date-io/date-fns' // choose your lib
+import { MuiPickersUtilsProvider } from '@material-ui/pickers'
 
 import { createMemoizedStats } from '../lib/data_analysis/index'
 import DiscreteFilter from './DiscreteFilter'
@@ -166,41 +168,43 @@ const FilterPanel = ({
   if (filterError) return null
 
   return (
-    <Paper className={cx.root} elevation={1} square>
-      <List className={cx.list}>
-        {Object.keys(filterFields)
-          .map(id => {
-            const field = filterFields[id]
-            if (!field) return
-            const fieldId = JSON.stringify(field.key)
-            switch (field.type) {
-              case 'select_one':
-                return (
-                  <DiscreteFilter
-                    fieldKey={field.key}
-                    label={<FormattedFieldname field={field} />}
-                    filter={filterByField[fieldId]}
-                    options={field.options}
-                    onChangeFilter={handleChangeFilter(fieldId)}
-                  />
-                )
-              case 'date':
-              case 'datetime':
-                return (
-                  <DateFilter
-                    fieldKey={field.key}
-                    label={<FormattedFieldname field={field} />}
-                    filter={filterByField[fieldId]}
-                    min={field.min_value || '2001-01-01'}
-                    max={field.max_value || new Date().toISOString()}
-                    onChangeFilter={handleChangeFilter(fieldId)}
-                  />
-                )
-            }
-          })
-          .filter(Boolean)}
-      </List>
-    </Paper>
+    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+      <Paper className={cx.root} elevation={1} square>
+        <List className={cx.list}>
+          {Object.keys(filterFields)
+            .map(id => {
+              const field = filterFields[id]
+              if (!field) return
+              const fieldId = JSON.stringify(field.key)
+              switch (field.type) {
+                case 'select_one':
+                  return (
+                    <DiscreteFilter
+                      fieldKey={field.key}
+                      label={<FormattedFieldname field={field} />}
+                      filter={filterByField[fieldId]}
+                      options={field.options}
+                      onChangeFilter={handleChangeFilter(fieldId)}
+                    />
+                  )
+                case 'date':
+                case 'datetime':
+                  return (
+                    <DateFilter
+                      fieldKey={field.key}
+                      label={<FormattedFieldname field={field} />}
+                      filter={filterByField[fieldId]}
+                      min={field.min_value || '2001-01-01'}
+                      max={field.max_value || new Date().toISOString()}
+                      onChangeFilter={handleChangeFilter(fieldId)}
+                    />
+                  )
+              }
+            })
+            .filter(Boolean)}
+        </List>
+      </Paper>
+    </MuiPickersUtilsProvider>
   )
 }
 

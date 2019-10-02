@@ -1,8 +1,6 @@
 // @flow
 /* eslint-disable react-hooks/rules-of-hooks */
 import * as React from 'react'
-import DateFnsUtils from '@date-io/date-fns' // choose your lib
-import { MuiPickersUtilsProvider } from '@material-ui/pickers'
 import FilterPanel from './FilterPanel'
 import type { Preset } from 'mapeo-schema'
 import type { Field } from '../types'
@@ -12,11 +10,9 @@ export default {
   title: 'FilterPanel',
   decorators: [
     (storyFn: any) => (
-      <MuiPickersUtilsProvider utils={DateFnsUtils}>
-        <div style={{ maxWidth: 400, height: '100vh', display: 'flex' }}>
-          {storyFn()}
-        </div>
-      </MuiPickersUtilsProvider>
+      <div style={{ maxWidth: 400, height: '100vh', display: 'flex' }}>
+        {storyFn()}
+      </div>
     )
   ]
 }
