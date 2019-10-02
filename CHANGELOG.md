@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-beta.3](https://github.com/digidem/react-mapfilter/compare/v3.0.0-beta.2...v3.0.0-beta.3) (2019-10-02)
+
 ## [3.0.0-beta.2](https://github.com/digidem/react-mapfilter/compare/v3.0.0-beta.1...v3.0.0-beta.2) (2019-10-02)
 
 ### Bug Fixes
