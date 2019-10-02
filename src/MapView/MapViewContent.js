@@ -4,6 +4,7 @@ import React, {
   useMemo,
   useCallback,
   useRef,
+  useEffect,
   useImperativeHandle
 } from 'react'
 import { useIntl, IntlProvider } from 'react-intl'
@@ -85,6 +86,8 @@ const MapViewContent = (
   const classes = useStyles()
   const intl = useIntl()
   const [hovered, setHovered] = useState<?Observation>(null)
+  const [styleLoaded, setStyleLoaded] = useState(false)
+  console.log(observations.length)
 
   useImperativeHandle(ref, () => ({
     fitBounds: (...args: any) => {
@@ -109,6 +112,27 @@ const MapViewContent = (
     []
   )
 
+  useEffect(() => {
+    if (
+      !map.current ||
+      !observations ||
+      !observations.length ||
+      map.current.__hasMoved
+    )
+      return
+    map.current.__hasMoved = true
+    const bounds = getBounds(observations)
+    map.current.flyTo({
+      center: [
+        bounds[0][0] + (bounds[1][0] - bounds[0][0]) / 2,
+        bounds[0][1] + (bounds[1][1] - bounds[0][1]) / 2
+      ],
+      zoom: 9,
+      bearing: 0,
+      pitch: 0
+    })
+  }, [observations, styleLoaded])
+
   // We don't allow the map to be a controlled component - position can only be
   // set when the map is initially mounted and after that state is internal
   const position = useMemo(() => {
@@ -119,10 +143,10 @@ const MapViewContent = (
     // we set some default values
     return {
       center: center || [
-        (bounds[1][0] - bounds[0][0]) / 2,
-        (bounds[1][1] - bounds[0][1]) / 2
+        bounds[0][0] + (bounds[1][0] - bounds[0][0]) / 2,
+        bounds[0][1] + (bounds[1][1] - bounds[0][1]) / 2
       ],
-      zoom: zoom ? [zoom] : [12],
+      zoom: zoom ? [zoom] : [9],
       bearing: bearing ? [bearing] : [0],
       pitch: pitch ? [pitch] : [0]
     }
@@ -144,14 +168,15 @@ const MapViewContent = (
   )
 
   const handleStyleLoad = useCallback(mapInstance => {
-    mapInstance.addControl(new mapboxgl.NavigationControl({}))
-    mapInstance.addControl(new mapboxgl.ScaleControl({}))
+    mapInstance.addControl(new mapboxgl.NavigationControl())
+    mapInstance.addControl(new mapboxgl.ScaleControl())
     mapInstance.addControl(
       new mapboxgl.AttributionControl({
         compact: true
       })
     )
     map.current = mapInstance
+    setStyleLoaded(true)
   }, [])
 
   const handleMouseMove = useCallback(

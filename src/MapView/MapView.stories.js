@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 // @flow
 import React from 'react'
 import { action } from '@storybook/addon-actions'
@@ -13,12 +14,11 @@ function getMediaUrl(id, size) {
 }
 
 export default {
-  title: 'MapView',
-  decorators: [withKnobs]
+  title: 'MapView'
 }
 
 const filters = {
-  All: [],
+  All: null,
   Mining: ['all', ['in', '$preset', 'mining']],
   Fishing: ['all', ['in', '$preset', 'fishing']]
 }
@@ -34,6 +34,7 @@ export const defaultStory = () => {
   return (
     <div style={{ width: '100vw', height: '100vh', display: 'flex' }}>
       <MapView
+        value={value}
         observations={fixtureObs}
         filter={filters[value]}
         onUpdateObservation={action('update')}
@@ -45,5 +46,32 @@ export const defaultStory = () => {
 }
 
 defaultStory.story = {
-  name: 'default'
+  name: 'default',
+  decorators: [withKnobs]
+}
+
+export const delayedLoad = () => {
+  const [obs, setObs] = React.useState()
+
+  React.useEffect(() => {
+    let timeoutId = setTimeout(() => {
+      setObs(fixtureObs)
+      timeoutId = setTimeout(() => {
+        console.log('changing obs')
+        setObs(fixtureObs.slice(50))
+      }, 5000)
+    }, 200)
+    return () => clearTimeout(timeoutId)
+  }, [])
+
+  return (
+    <div style={{ width: '100vw', height: '100vh', display: 'flex' }}>
+      <MapView
+        observations={obs}
+        onUpdateObservation={action('update')}
+        getMediaUrl={getMediaUrl}
+        mapboxAccessToken="pk.eyJ1IjoiZ21hY2xlbm5hbiIsImEiOiJSaWVtd2lRIn0.ASYMZE2HhwkAw4Vt7SavEg"
+      />
+    </div>
+  )
 }

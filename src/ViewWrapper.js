@@ -76,7 +76,6 @@ const WrappedMapView = ({
 
   const getPresetWithFallback = React.useCallback(
     (observation: Observation): PresetWithAdditionalFields => {
-      console.log('presets', presets)
       const preset = getPreset(observation, presets)
       const defaultPreset = defaultGetPreset(observation, stats)
       if (!preset) return defaultPreset
@@ -157,7 +156,5 @@ function getPreset(
   const tags = observation.tags
   if (!tags || !tags.categoryId) return
   const preset = presets.find(preset => preset.id === tags.categoryId)
-  if (preset) console.log(preset)
-  else console.log(tags, presets)
   return preset
 }
