@@ -178,6 +178,7 @@ const FilterPanel = ({
               case 'select_one':
                 return (
                   <DiscreteFilter
+                    key={field.key}
                     fieldKey={field.key}
                     label={<FormattedFieldname field={field} />}
                     filter={filterByField[fieldId]}
@@ -189,6 +190,7 @@ const FilterPanel = ({
               case 'datetime':
                 return (
                   <DateFilter
+                    key={field.key}
                     fieldKey={field.key}
                     label={<FormattedFieldname field={field} />}
                     filter={filterByField[fieldId]}
