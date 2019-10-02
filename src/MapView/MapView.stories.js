@@ -20,7 +20,7 @@ export default {
 const filters = {
   All: null,
   Mining: ['all', ['in', '$preset', 'mining']],
-  Fishing: ['all', ['in', '$preset', 'fishing']]
+  Fishing: ['all', ['in', ['$preset'], 'fishing']]
 }
 
 export const defaultStory = () => {

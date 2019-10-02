@@ -51,7 +51,10 @@ const createFilter = (filter: Filter | void) => {
   if (!Array.isArray(filter) || filter[0] !== 'all' || filter.length < 2)
     return () => true
   const presetFilter = filter.map(subFilter => {
-    if (!Array.isArray(subFilter) || subFilter[1] !== '$preset')
+    if (
+      !Array.isArray(subFilter) ||
+      (subFilter[1] !== '$preset' && !isEqual(subFilter[1], ['$preset']))
+    )
       return subFilter
     return [subFilter[0], 'categoryId', ...subFilter.slice(2)]
   })

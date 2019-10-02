@@ -87,7 +87,6 @@ const MapViewContent = (
   const intl = useIntl()
   const [hovered, setHovered] = useState<?Observation>(null)
   const [styleLoaded, setStyleLoaded] = useState(false)
-  console.log(observations.length)
 
   useImperativeHandle(ref, () => ({
     fitBounds: (...args: any) => {
