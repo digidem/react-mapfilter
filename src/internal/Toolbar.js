@@ -27,7 +27,7 @@ const Toolbar = ({ children }: Props) => {
   const classes = useStyles()
   return (
     <AppBar
-      elevation={3}
+      elevation={0}
       color="default"
       className={classes.root + ' d-print-none'}>
       {children}
