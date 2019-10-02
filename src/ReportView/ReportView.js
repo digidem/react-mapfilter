@@ -51,12 +51,12 @@ const ReportView = ({
     let didCancel = false
 
     // Wait for map to render
-    // TODO: SUPER hacky
+    // TODO: SUPER hacky - we need to wait for the map to render
     const timeoutId = setTimeout(() => {
       if (didCancel) return
       window.print()
       setPrint(false)
-    }, 1000)
+    }, 3000)
     return () => {
       didCancel = true
       if (timeoutId) clearTimeout(timeoutId)
