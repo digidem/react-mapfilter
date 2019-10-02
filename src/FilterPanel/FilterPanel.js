@@ -298,7 +298,9 @@ function combineOptionsWithStats(
 
 const useStyles = makeStyles(theme => ({
   list: {
-    paddingTop: 0
+    paddingTop: 0,
+    paddingBottom: 0,
+    overflowY: 'scroll'
   },
   settingsItem: {
     paddingTop: 8,
