@@ -137,7 +137,8 @@ const MapViewContent = (
         pitchWithRotate: false,
         attributionControl: false,
         logoPosition: 'bottom-right',
-        scrollZoom: !print
+        scrollZoom: !print,
+        injectCSS: false
       }),
     [mapboxAccessToken, print]
   )
