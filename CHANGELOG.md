@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-beta.6](https://github.com/digidem/react-mapfilter/compare/v3.0.0-beta.5...v3.0.0-beta.6) (2019-10-02)
+
+### Bug Fixes
+
+- Add key to JSX ([acdb464](https://github.com/digidem/react-mapfilter/commit/acdb464))
+- Fix initial map position ([2e10386](https://github.com/digidem/react-mapfilter/commit/2e10386))
+- Fix scroll in filter panel ([1e2e804](https://github.com/digidem/react-mapfilter/commit/1e2e804))
+- remove fsevents dep ([82db532](https://github.com/digidem/react-mapfilter/commit/82db532))
+
 ## [3.0.0-beta.5](https://github.com/digidem/react-mapfilter/compare/v3.0.0-beta.4...v3.0.0-beta.5) (2019-10-02)
 
 ### Bug Fixes
