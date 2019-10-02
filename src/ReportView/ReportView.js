@@ -1,6 +1,5 @@
 // @flow
-import React, { useState, useLayoutEffect, useEffect, useMemo } from 'react'
-import imagesLoaded from 'imagesloaded'
+import React, { useState, useLayoutEffect, useMemo } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 
 import ReportViewContent, {
@@ -47,28 +46,17 @@ const ReportView = ({
     })
   })
 
-  useEffect(() => {
-    // We can't guarantee that window.print() is blocking, so we don't turn off
-    // print view until this event
-    const handleAfterPrint = () => {
-      setPrint(false)
-    }
-    window.addEventListener('afterprint', handleAfterPrint)
-    return () => window.removeEventListener('afterprint', handleAfterPrint)
-  }, [])
-
   useLayoutEffect(() => {
     if (!print) return
     let didCancel = false
-    let timeoutId
-    imagesLoaded(document.body, () => {
+
+    // Wait for map to render
+    // TODO: SUPER hacky
+    const timeoutId = setTimeout(() => {
       if (didCancel) return
-      // Wait for map to render
-      // TODO: SUPER hacky
-      timeoutId = setTimeout(() => {
-        window.print()
-      }, 1000)
-    })
+      window.print()
+      setPrint(false)
+    }, 1000)
     return () => {
       didCancel = true
       if (timeoutId) clearTimeout(timeoutId)

@@ -7,7 +7,6 @@ import {
   CellMeasurer,
   CellMeasurerCache
 } from 'react-virtualized'
-import { IntlProvider } from 'react-intl'
 import type { Observation } from 'mapeo-schema'
 
 // import ReportFeature from './ReportFeature'
@@ -191,13 +190,11 @@ const ReportViewContent = ({
   }
 
   return (
-    <IntlProvider>
-      <div className={classes.root}>
-        <div className={classes.scrollWrapper}>
-          {print ? renderPrintList() : renderVirtualList()}
-        </div>
+    <div className={classes.root}>
+      <div className={classes.scrollWrapper}>
+        {print ? renderPrintList() : renderVirtualList()}
       </div>
-    </IntlProvider>
+    </div>
   )
 }
 

@@ -1,6 +1,6 @@
 // @flow
 import React from 'react'
-
+import { withKnobs, boolean } from '@storybook/addon-knobs'
 import { action } from '@storybook/addon-actions'
 // import { linkTo } from '@storybook/addon-links'
 
@@ -18,7 +18,15 @@ const getMedia = ({ id }) => ({
 })
 
 export default {
-  title: 'ReportView/Content'
+  title: 'ReportView/Content',
+  decorators: [
+    withKnobs,
+    (storyFn: any) => (
+      <div style={{ width: '100vw', height: '100vh', display: 'flex' }}>
+        {storyFn()}
+      </div>
+    )
+  ]
 }
 
 export const withoutImages = () => (
@@ -67,6 +75,6 @@ export const printView = () => (
     observations={exampleObservations.slice(0, 50)}
     onClick={action('click')}
     getMedia={getMedia}
-    print
+    print={boolean('Print', false)}
   />
 )

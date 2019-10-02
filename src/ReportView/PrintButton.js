@@ -42,14 +42,6 @@ class PrintButton extends React.Component<Props, State> {
     dialogOpen: false
   }
 
-  componentDidMount() {
-    window.addEventListener('keydown', this.handleKeyDown)
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('keydown', this.handleKeyDown)
-  }
-
   handleKeyDown = (event: SyntheticKeyboardEvent<HTMLElement>) => {
     if (!(event.key === 'p' && event.metaKey)) return
     event.preventDefault()
