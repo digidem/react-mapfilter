@@ -1,34 +1,34 @@
 {
   "FilterPanel.DateFilter.max": {
     "description": "Title of max date field in filter",
-    "message": ""
+    "message": "A"
   },
   "FilterPanel.DateFilter.min": {
     "description": "Title of min date field in filter",
-    "message": ""
+    "message": "Desde"
   },
   "FilterPanel.FilterPanel.created": {
     "description": "Label for filter by date observation was created",
-    "message": ""
+    "message": "Creado"
   },
   "FilterPanel.FilterPanel.editFilters": {
     "description": "Button text to change which fields are shown and filterable in the filter pane",
-    "message": ""
+    "message": "Editar Filtros"
   },
   "FilterPanel.FilterPanel.modified": {
     "description": "Label for filter by date observation was modified (e.g. edited by a user)",
-    "message": ""
+    "message": "Editado"
   },
   "FilterPanel.FilterPanel.preset": {
     "description": "Label for filter by category (e.g. the preset)",
-    "message": ""
+    "message": "Categoría"
   },
   "FilterPanel.OnlyButton.only": {
     "description": "Button text to only show a particular field value in a filter",
-    "message": ""
+    "message": "Sólo"
   },
   "FilterPanel.ShowAllButton.showAll": {
     "description": "Button text to turn off filters for a field",
-    "message": ""
+    "message": "Todo"
   }
 }

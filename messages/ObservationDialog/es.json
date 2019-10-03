@@ -1,36 +1,36 @@
 {
   "ObservationDialog.ObservationDialog.additionalHeader": {
     "description": "Header for section with additional fields that are not defined in the preset",
-    "message": ""
+    "message": "Datos adicionales"
   },
   "ObservationDialog.ObservationDialog.cancelEditButton": {
     "description": "Cancel button once observation has been edited",
-    "message": ""
+    "message": "Cancelar"
   },
   "ObservationDialog.ObservationDialog.confirmButtonCancel": {
-    "message": ""
+    "message": "Cancelar"
   },
   "ObservationDialog.ObservationDialog.confirmButtonConfirm": {
-    "message": ""
+    "message": "Cerrar sin guardar"
   },
   "ObservationDialog.ObservationDialog.confirmDescription": {
-    "message": ""
+    "message": "Has editado la observación. Cerrar sin guardar borraría a los cambios."
   },
   "ObservationDialog.ObservationDialog.confirmTitle": {
-    "message": ""
+    "message": "¿Cerrar sin guardar?"
   },
   "ObservationDialog.ObservationDialog.detailsHeader": {
     "description": "Header for section that includes the additional details for an observation",
-    "message": ""
+    "message": "Detalles"
   },
   "ObservationDialog.ObservationDialog.saveEditButton": {
     "description": "Save edit button",
-    "message": ""
+    "message": "Guardar"
   },
   "ObservationDialog.Select.no": {
-    "message": ""
+    "message": "No"
   },
   "ObservationDialog.Select.yes": {
-    "message": ""
+    "message": "Sí"
   }
 }
