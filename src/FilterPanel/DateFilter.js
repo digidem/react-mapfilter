@@ -24,6 +24,7 @@ type Props = {
   filter?: Filter | null,
   min: string,
   max: string,
+  type?: 'date' | 'datetime',
   onChangeFilter: (filter: Array<any> | null) => void
 }
 
@@ -33,6 +34,7 @@ const DateFilter = ({
   filter,
   min,
   max,
+  type = 'datetime',
   onChangeFilter
 }: Props) => {
   const cx = useStyles()
@@ -46,8 +48,8 @@ const DateFilter = ({
   const handleChange = (minOrMax: 'min' | 'max') => value => {
     const newFilter =
       minOrMax === 'min'
-        ? compileFilter(fieldKey, value, filterMax)
-        : compileFilter(fieldKey, filterMin, value)
+        ? compileFilter(fieldKey, createFilterValue(value, 'min'), filterMax)
+        : compileFilter(fieldKey, filterMin, createFilterValue(value, 'max'))
     onChangeFilter(newFilter)
   }
 
@@ -107,3 +109,21 @@ const useStyles = makeStyles(theme => ({
     }
   }
 }))
+
+const shortDateRegExp = /^(\d{4})-(\d{2})-(\d{2})$/
+
+function createFilterValue(value, minOrMax) {
+  const match = value.match(shortDateRegExp)
+  if (!match) return value
+  return minOrMax === 'min'
+    ? new Date(+match[1], +match[2] - 1, +match[3]).toISOString()
+    : new Date(
+        +match[1],
+        +match[2] - 1,
+        +match[3],
+        23,
+        59,
+        59,
+        999
+      ).toISOString()
+}
