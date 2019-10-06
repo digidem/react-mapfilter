@@ -47,7 +47,6 @@ export function defaultGetPreset(
       field => {
         // Hacky - change. Hide categoryId and notes fields.
         const fieldKey = Array.isArray(field.key) ? field.key[0] : field.key
-        console.log('string key', fieldKey)
         if (hiddenTags[fieldKey]) return false
         return true
       }
