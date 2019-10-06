@@ -167,8 +167,8 @@ const MapViewContent = (
   )
 
   const handleStyleLoad = useCallback(mapInstance => {
-    mapInstance.addControl(new mapboxgl.NavigationControl())
-    mapInstance.addControl(new mapboxgl.ScaleControl())
+    mapInstance.addControl(new mapboxgl.NavigationControl({}))
+    mapInstance.addControl(new mapboxgl.ScaleControl({}))
     mapInstance.addControl(
       new mapboxgl.AttributionControl({
         compact: true

@@ -6,9 +6,9 @@ import { setIntlConfig, withIntl } from 'storybook-addon-intl'
 
 const translations = {
   ReportView: {
-    en: require('../translations/ReportView/en.json'),
-    es: require('../translations/ReportView/es.json'),
-    fr: require('../translations/ReportView/fr.json')
+    en: require('../translations/en.json'),
+    es: require('../translations/es.json'),
+    fr: require('../translations/fr.json')
   }
 }
 

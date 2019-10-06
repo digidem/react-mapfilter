@@ -25,32 +25,24 @@ async function writeJson(file, data) {
 rimraf.sync('translations/*')
 
 // "shared" strings are included in translations for all components
-glob('messages/!(shared)/*.json', async function(er, files) {
-  const allMsgs = await Promise.all(
-    files.map(async file => {
-      const msgs = await readJson(file)
-      return [file, msgs]
+glob('messages/**/*.json', async function(er, files) {
+  const allMsgs = {}
+  for (const file of files) {
+    const lang = path.basename(file)
+    const msgs = await readJson(file)
+    if (!allMsgs[lang]) allMsgs[lang] = msgs
+    else allMsgs[lang] = { ...allMsgs[lang], ...msgs }
+  }
+  for (const lang in allMsgs) {
+    const translations = {}
+    const msgs = allMsgs[lang]
+    Object.keys(msgs).forEach(key => {
+      // For production message ids are hashed, so we need to hash the ids of
+      // translations too
+      const hashedKey = murmurHash(key)
+      translations[hashedKey] = msgs[key].message
     })
-  )
-  await Promise.all(
-    allMsgs.map(async ([file, msgs]) => {
-      const sharedMsgs = await readJson(
-        'messages/shared/' + path.basename(file)
-      )
-      const translations = {}
-      Object.keys(msgs).forEach(key => {
-        // For production message ids are hashed, so we need to hash the ids of
-        // translations too
-        const hashedKey = murmurHash(key)
-        translations[hashedKey] = msgs[key].message
-      })
-      // Merge shared translations into the translations for each component
-      Object.keys(sharedMsgs).forEach(key => {
-        const hashedKey = murmurHash(key)
-        translations[hashedKey] = sharedMsgs[key].message
-      })
-      const output = file.replace(/^messages/, 'translations')
-      await writeJson(output, translations)
-    })
-  )
+    const output = path.join(__dirname, '../translations', lang)
+    await writeJson(output, translations)
+  }
 })
