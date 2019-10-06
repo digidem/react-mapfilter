@@ -7,12 +7,11 @@ import { makeStyles } from '../utils/styles'
 const useStyles = makeStyles({
   root: {
     zIndex: 10,
-    position: 'sticky',
     top: 0,
     left: 0,
     right: 0,
-    padding: 8,
-    flexDirection: 'row',
+    padding: '8px !important',
+    flexDirection: 'row !important',
     '@media only print': {
       display: 'none'
     }
@@ -29,6 +28,7 @@ const Toolbar = ({ children }: Props) => {
     <AppBar
       elevation={0}
       color="default"
+      position="fixed"
       className={classes.root + ' d-print-none'}>
       {children}
     </AppBar>
