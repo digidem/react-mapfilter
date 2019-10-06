@@ -46,10 +46,25 @@ const DateFilter = ({
     (filterMax != null && filterMax < max)
 
   const handleChange = (minOrMax: 'min' | 'max') => value => {
+    const filterValue = createFilterValue(value, minOrMax)
     const newFilter =
       minOrMax === 'min'
-        ? compileFilter(fieldKey, createFilterValue(value, 'min'), filterMax)
-        : compileFilter(fieldKey, filterMin, createFilterValue(value, 'max'))
+        ? compileFilter(
+            fieldKey,
+            filterValue,
+            filterMax &&
+              (filterMax < filterValue
+                ? createFilterValue(value, 'max')
+                : filterMax)
+          )
+        : compileFilter(
+            fieldKey,
+            filterMin &&
+              (filterMin > filterValue
+                ? createFilterValue(value, 'min')
+                : filterMin),
+            filterValue
+          )
     onChangeFilter(newFilter)
   }
 

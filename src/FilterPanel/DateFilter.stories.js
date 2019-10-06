@@ -25,8 +25,8 @@ export const defaultStory = () => {
       label="Select Date"
       fieldKey={['foo']}
       filter={filter}
-      min="2018-01-01"
-      max="2019-09-28"
+      min="2019-01-01T18:40:48.749Z"
+      max="2019-09-28T08:40:48.749Z"
       onChangeFilter={setFilter}
     />
   )
