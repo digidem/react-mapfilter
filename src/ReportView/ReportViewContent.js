@@ -1,6 +1,7 @@
 // @flow
-import React, { useState } from 'react'
+import React, { useState, useMemo } from 'react'
 import { makeStyles } from '@material-ui/styles'
+import getScrollBarWidth from 'get-scrollbar-width'
 import {
   AutoSizer,
   List,
@@ -63,6 +64,7 @@ const ReportViewContent = ({
 }: Props) => {
   const classes = useStyles()
   const [mapPosition, setMapPosition] = useState()
+  const scrollbarWidth = useMemo(() => getScrollBarWidth(), [])
 
   const cacheRef = React.useRef(
     new CellMeasurerCache({
@@ -225,17 +227,17 @@ const useStyles = makeStyles({
   },
   letter: {
     '&$reportWrapper': {
-      minWidth: 8.5 * inch()
+      // minWidth: 8.5 * inch()
     }
   },
   a4: {
     '&$reportWrapper': {
-      minWidth: 21 * cm()
+      // minWidth: 21 * cm()
     }
   },
   scrollWrapper: {
     flex: '1 1 auto',
-    overflow: 'scroll',
+    overflow: 'hidden',
     '@media only print': {
       overflow: 'auto',
       flex: 'initial',
