@@ -116,7 +116,8 @@ const MapViewContent = (
       !map.current ||
       !observations ||
       !observations.length ||
-      map.current.__hasMoved
+      map.current.__hasMoved ||
+      (initialMapPosition.center != null && initialMapPosition.zoom != null)
     )
       return
     map.current.__hasMoved = true
@@ -130,7 +131,12 @@ const MapViewContent = (
       bearing: 0,
       pitch: 0
     })
-  }, [observations, styleLoaded])
+  }, [
+    initialMapPosition.center,
+    initialMapPosition.zoom,
+    observations,
+    styleLoaded
+  ])
 
   // We don't allow the map to be a controlled component - position can only be
   // set when the map is initially mounted and after that state is internal
