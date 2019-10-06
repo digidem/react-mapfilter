@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-beta.9](https://github.com/digidem/react-mapfilter/compare/v3.0.0-beta.8...v3.0.0-beta.9) (2019-10-06)
+
+### Bug Fixes
+
+- Don't show preset fields in "additional fields" ([9170100](https://github.com/digidem/react-mapfilter/commit/9170100))
+- Report toolbar positioning ([eeb3691](https://github.com/digidem/react-mapfilter/commit/eeb3691))
+- Support textarea fields (multi-line text fields) as well as just 'text' ([7febef4](https://github.com/digidem/react-mapfilter/commit/7febef4))
+
 ## [3.0.0-beta.8](https://github.com/digidem/react-mapfilter/compare/v3.0.0-beta.7...v3.0.0-beta.8) (2019-10-06)
 
 ### Bug Fixes
