@@ -46,7 +46,6 @@ const presets: Preset[] = [
 
 export const withPresets = () => {
   const [filter, setFilter] = React.useState(null)
-  console.log(filter)
   return (
     <FilterPanel filter={filter} onChangeFilter={setFilter} presets={presets} />
   )

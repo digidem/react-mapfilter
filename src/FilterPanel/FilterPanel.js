@@ -120,6 +120,7 @@ const FilterPanel = ({
       //     stats['categoryId'] &&
       //     stats['categoryId'].string.values.has(preset.id)
       // )
+      .sort(presetCompare)
       .map(preset => ({
         value: preset.id,
         label: preset.name
@@ -312,3 +313,26 @@ const useStyles = makeStyles(theme => ({
     minWidth: 40
   }
 }))
+
+// Sort presets by sort property and then by name, then filter only point presets
+function presetCompare(a, b) {
+  if (typeof a.sort !== 'undefined' && typeof b.sort !== 'undefined') {
+    // If sort value is the same, then sort by name
+    if (a.sort === b.sort) return compareStrings(a.name, b.name)
+    // Lower sort numbers come before higher numbers
+    else return a.sort - b.sort
+  } else if (typeof a.sort !== 'undefined') {
+    // If a has a sort field but b doesn't, a comes first
+    return -1
+  } else if (typeof b.sort !== 'undefined') {
+    // if b has a sort field but a doesn't, b comes first
+    return 1
+  } else {
+    // if neither have sort defined, compare by name
+    return compareStrings(a.name, b.name)
+  }
+}
+
+function compareStrings(a = '', b = '') {
+  return a.toLowerCase().localeCompare(b.toLowerCase())
+}
