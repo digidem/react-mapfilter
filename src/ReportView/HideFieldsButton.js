@@ -29,10 +29,10 @@ const msgs = defineMessages({
 const useStyles = makeStyles(theme => {
   return {
     actions: {
-      margin: `${theme.spacing.unit}px ${theme.spacing.unit / 2}px`
+      margin: `${theme.spacing(1)}px ${theme.spacing(1) / 2}px`
     },
     button: {
-      margin: `0 ${theme.spacing.unit / 2}px`
+      margin: `0 ${theme.spacing(1) / 2}px`
     },
     listItem: {
       paddingRight: 48
