@@ -87,9 +87,15 @@ const WrappedMapView = ({
         additionalFields: defaultPreset.additionalFields.filter(
           // Any fields that are not defined in the preset we show as 'additionalFields'
           additionalField => {
-            return !preset.fields.find(field =>
-              isEqual(field.key, additionalField.key)
-            )
+            return !preset.fields.find(field => {
+              const fieldKey = Array.isArray(field.key)
+                ? field.key
+                : [field.key]
+              const additionalFieldKey = Array.isArray(additionalField.key)
+                ? additionalField.key
+                : [additionalField.key]
+              return isEqual(fieldKey, additionalFieldKey)
+            })
           }
         )
       }
