@@ -30,6 +30,7 @@ const Field = ({ field, value, onChange }: Props) => {
 
   switch (field.type) {
     case 'text':
+    case 'textarea':
       return (
         <TextField
           value={value}
