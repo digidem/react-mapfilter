@@ -15,7 +15,14 @@ const MediaViewContent = ({
 }: CommonViewContentProps) => {
   const images = useMemo(() => {
     const images = []
-    for (const obs of observations) {
+    const sortedObservations = observations.sort((a, b) => {
+      return a.created_at > b.created_at
+        ? -1
+        : a.created_at < b.created_at
+        ? 1
+        : 0
+    })
+    for (const obs of sortedObservations) {
       const attachments = obs.attachments || []
       for (let i = 0; i < attachments.length; i++) {
         // Only return attachments with images
