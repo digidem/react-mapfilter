@@ -27,6 +27,12 @@ export function getLastImage(observation: Observation): Attachment | void {
   return imageAttachments[imageAttachments.length - 1]
 }
 
+const hiddenTags = {
+  categoryId: true,
+  notes: true,
+  note: true
+}
+
 export function defaultGetPreset(
   observation: Observation,
   stats?: Statistics
@@ -37,7 +43,15 @@ export function defaultGetPreset(
     name: (observation.tags && observation.tags.name) || '',
     tags: {},
     fields: [],
-    additionalFields: getFieldsFromTags(observation.tags, stats)
+    additionalFields: getFieldsFromTags(observation.tags, stats).filter(
+      field => {
+        // Hacky - change. Hide categoryId and notes fields.
+        const fieldKey = Array.isArray(field.key) ? field.key[0] : field.key
+        console.log('string key', fieldKey)
+        if (hiddenTags[fieldKey]) return false
+        return true
+      }
+    )
   }
 }
 

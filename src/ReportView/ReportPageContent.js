@@ -1,6 +1,7 @@
 // @flow
 import React from 'react'
 import { makeStyles } from '@material-ui/styles'
+import Typography from '@material-ui/core/Typography'
 import FeatureHeader from '../internal/FeatureHeader'
 import Image from '../internal/Image'
 import DetailsTable from './DetailsTable'
@@ -12,8 +13,11 @@ const useStyles = makeStyles({
   imageWrapper: {
     width: '100%',
     height: '12cm',
-    borderTop: '1px solid rgb(224, 224, 224)',
-    borderBottom: '1px solid rgb(224, 224, 224)'
+    borderTop: '1px solid rgb(224, 224, 224)'
+  },
+  notes: {
+    borderBottom: '1px solid rgb(224, 224, 224)',
+    paddingBottom: 16
   }
 })
 
@@ -40,7 +44,8 @@ const ReportPageContent = ({
   tags,
   paperSize
 }: Props) => {
-  const classes = useStyles()
+  const cx = useStyles()
+  const notes = tags && (tags.note || tags.notes)
 
   return (
     <>
@@ -52,10 +57,11 @@ const ReportPageContent = ({
         createdAt={createdAt}
       />
       {imageSrc && (
-        <div className={classes.imageWrapper}>
+        <div className={cx.imageWrapper}>
           <Image style={{ width: '100%', height: '12cm' }} src={imageSrc} />
         </div>
       )}
+      {notes && <Typography className={cx.notes}>{notes}</Typography>}
       {tags && (
         <DetailsTable
           fields={fields}
