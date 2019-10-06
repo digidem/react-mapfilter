@@ -117,7 +117,12 @@ export default ReportView
 
 function hiddenFieldsFilter(fieldState: FieldState) {
   return function(field: Field): boolean {
-    const state = fieldState.find(fs => fs.id === JSON.stringify(field.key))
+    const state = fieldState.find(fs => {
+      const id = JSON.stringify(
+        Array.isArray(field.key) ? field.key : [field.key]
+      )
+      return fs.id === id
+    })
     return state ? !state.hidden : true
   }
 }
