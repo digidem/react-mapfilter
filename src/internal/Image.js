@@ -28,8 +28,8 @@ const ImageLoader = ({ classes, style }) => (
 )
 
 const BrokenImage = ({ classes, style }) => (
-  <div className={classes.wrapper} style={style}>
-    <BrokenImageIcon color="white" />
+  <div className={classes.wrapper} style={{ ...style, color: 'white' }}>
+    <BrokenImageIcon color="inherit" />
   </div>
 )
 
