@@ -1,6 +1,6 @@
 // @flow
 import * as React from 'react'
-import { makeStyles } from '../utils/styles'
+import { makeStyles } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
 
 const useStyles = makeStyles({

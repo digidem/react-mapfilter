@@ -1,6 +1,6 @@
 // @flow
 import React, { useState, useMemo } from 'react'
-import { makeStyles } from '@material-ui/styles'
+import { makeStyles } from '@material-ui/core/styles'
 import getScrollBarWidth from 'get-scrollbar-width'
 import {
   AutoSizer,

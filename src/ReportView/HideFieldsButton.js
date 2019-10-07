@@ -8,7 +8,7 @@ import ListItemText from '@material-ui/core/ListItemText'
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction'
 import Switch from '@material-ui/core/Switch'
 import Button from '@material-ui/core/Button'
-import { makeStyles } from '../utils/styles'
+import { makeStyles } from '@material-ui/core/styles'
 import { defineMessages, FormattedMessage } from 'react-intl'
 
 import ToolbarButton from '../internal/ToolbarButton'

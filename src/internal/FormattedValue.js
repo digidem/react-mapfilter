@@ -2,7 +2,7 @@
 import * as React from 'react'
 import { FormattedDate, FormattedTime } from 'react-intl'
 
-import { makeStyles } from '../utils/styles'
+import { makeStyles } from '@material-ui/core/styles'
 import { coerceValue } from '../lib/data_analysis/value_types'
 import * as fieldTypes from '../constants/field_types'
 import * as valueTypes from '../constants/value_types'

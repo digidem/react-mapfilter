@@ -3,7 +3,7 @@ import React from 'react'
 import Img from 'react-image'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import BrokenImageIcon from '@material-ui/icons/BrokenImage'
-import { makeStyles } from '../utils/styles'
+import { makeStyles } from '@material-ui/core/styles'
 // import * as CSS from 'csstype'
 
 const useStyles = makeStyles({

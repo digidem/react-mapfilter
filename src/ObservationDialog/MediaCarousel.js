@@ -1,6 +1,6 @@
 // @flow
 import React, { useState } from 'react'
-import { makeStyles } from '../utils/styles'
+import { makeStyles } from '@material-ui/core/styles'
 import IconButton from '@material-ui/core/IconButton'
 import NavigateNextIcon from '@material-ui/icons/NavigateNext'
 import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore'

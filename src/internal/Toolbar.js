@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import AppBar from '@material-ui/core/AppBar'
-import { makeStyles } from '../utils/styles'
+import { makeStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles({
   root: {

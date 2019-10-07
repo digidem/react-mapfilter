@@ -13,7 +13,7 @@ import mapboxgl from 'mapbox-gl'
 import type { Observation } from 'mapeo-schema'
 
 import { getLastImage } from '../utils/helpers'
-import { makeStyles } from '../utils/styles'
+import { makeStyles } from '@material-ui/core/styles'
 import ObservationLayer from './ObservationLayer'
 import Popup from './Popup'
 import type { CameraOptions, CommonViewContentProps } from '../types'

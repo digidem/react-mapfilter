@@ -4,7 +4,7 @@ import AutoSizer from 'react-virtualized-auto-sizer'
 import { FixedSizeGrid as Grid } from 'react-window'
 import getScrollBarWidth from 'get-scrollbar-width'
 
-import { makeStyles } from '../utils/styles'
+import { makeStyles } from '@material-ui/core/styles'
 import type { Observation } from 'mapeo-schema'
 
 const useStyles = makeStyles({

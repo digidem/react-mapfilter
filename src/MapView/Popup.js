@@ -11,7 +11,7 @@ import Typography from '@material-ui/core/Typography'
 import clsx from 'clsx'
 
 import Image from '../internal/Image'
-import { makeStyles } from '../utils/styles'
+import { makeStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles({
   wrapper: {

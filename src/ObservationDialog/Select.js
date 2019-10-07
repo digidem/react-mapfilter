@@ -7,7 +7,7 @@ import Paper from '@material-ui/core/Paper'
 import MenuItem from '@material-ui/core/MenuItem'
 import matchSorter from 'match-sorter'
 import { useIntl, defineMessages } from 'react-intl'
-import { makeStyles } from '../utils/styles'
+import { makeStyles } from '@material-ui/core/styles'
 
 import type { SelectableFieldValue, SelectOptions } from '../types'
 

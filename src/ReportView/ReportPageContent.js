@@ -1,6 +1,6 @@
 // @flow
 import React from 'react'
-import { makeStyles } from '@material-ui/styles'
+import { makeStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
 import FeatureHeader from '../internal/FeatureHeader'
 import Image from '../internal/Image'

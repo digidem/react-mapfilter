@@ -1,7 +1,7 @@
 // @flow
 import * as React from 'react'
 import Typography from '@material-ui/core/Typography'
-import { makeStyles } from '../utils/styles'
+import { makeStyles } from '@material-ui/core/styles'
 import Table from '@material-ui/core/Table'
 import TableBody from '@material-ui/core/TableBody'
 import TableCell from '@material-ui/core/TableCell'

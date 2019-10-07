@@ -1,7 +1,7 @@
 // @flow
 import * as React from 'react'
 import CardHeader from '@material-ui/core/CardHeader'
-import { makeStyles } from '../utils/styles'
+import { makeStyles } from '@material-ui/core/styles'
 import { FormattedTime, FormattedMessage } from 'react-intl'
 
 import PlaceIcon from '@material-ui/icons/Place'

@@ -1,7 +1,7 @@
 // @flow
 import * as React from 'react'
 import Paper from '@material-ui/core/Paper'
-import { makeStyles } from '../utils/styles'
+import { makeStyles } from '@material-ui/core/styles'
 import insertCss from 'insert-css'
 import clsx from 'clsx'
 
