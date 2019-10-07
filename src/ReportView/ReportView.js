@@ -20,6 +20,12 @@ type Props = {
   ...$Exact<ReportViewContentProps>
 }
 
+const hiddenTags = {
+  categoryId: true,
+  notes: true,
+  note: true
+}
+
 const ReportView = ({
   observations,
   onUpdateObservation,
@@ -35,15 +41,23 @@ const ReportView = ({
 
   const [fieldState, setFieldState] = useState(() => {
     // Lazy initial state to avoid this being calculated on every render
-    return Object.keys(stats).map(key => {
-      const fieldKey = JSON.parse(key)
-      const label = fieldKeyToLabel(fieldKey)
-      return {
-        id: key,
-        hidden: false,
-        label: Array.isArray(label) ? label.join('.') : label
-      }
-    })
+    return Object.keys(stats)
+      .filter(key => {
+        // Hacky: don't include categoryId and notes in options of fields you can hide
+        const fieldKey = JSON.parse(key)
+        const fieldKeyString = Array.isArray(fieldKey) ? fieldKey[0] : fieldKey
+        if (hiddenTags[fieldKeyString]) return false
+        return true
+      })
+      .map(key => {
+        const fieldKey = JSON.parse(key)
+        const label = fieldKeyToLabel(fieldKey)
+        return {
+          id: key,
+          hidden: false,
+          label: Array.isArray(label) ? label.join('.') : label
+        }
+      })
   })
 
   useLayoutEffect(() => {
