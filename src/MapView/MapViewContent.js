@@ -42,7 +42,7 @@ type Props = {
   print?: boolean
 }
 
-type Instance = {
+export type MapInstance = {
   fitBounds: () => any,
   flyTo: () => any
 }
@@ -263,7 +263,7 @@ const MapViewContent = (
   )
 }
 
-export default React.forwardRef<Props, Instance>(MapViewContent)
+export default React.forwardRef<Props, MapInstance>(MapViewContent)
 
 function getBounds(
   observations: Observation[]

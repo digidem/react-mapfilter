@@ -1,7 +1,10 @@
 // @flow
 import React from 'react'
 
-import MapViewContent, { type MapViewContentProps } from './MapViewContent'
+import MapViewContent, {
+  type MapViewContentProps,
+  type MapInstance
+} from './MapViewContent'
 import ViewWrapper, { type CommonViewProps } from '../ViewWrapper'
 
 type Props = {
@@ -9,14 +12,17 @@ type Props = {
   ...$Exact<MapViewContentProps>
 }
 
-const MapView = ({
-  observations,
-  onUpdateObservation,
-  presets,
-  filter,
-  getMediaUrl,
-  ...otherProps
-}: Props) => {
+const MapView = (
+  {
+    observations,
+    onUpdateObservation,
+    presets,
+    filter,
+    getMediaUrl,
+    ...otherProps
+  }: Props,
+  ref
+) => {
   return (
     <ViewWrapper
       observations={observations}
@@ -26,6 +32,7 @@ const MapView = ({
       getMediaUrl={getMediaUrl}>
       {({ onClickObservation, filteredObservations, getPreset, getMedia }) => (
         <MapViewContent
+          ref={ref}
           onClick={onClickObservation}
           observations={filteredObservations}
           getPreset={getPreset}
@@ -37,4 +44,4 @@ const MapView = ({
   )
 }
 
-export default MapView
+export default React.forwardRef<Props, MapInstance>(MapView)
