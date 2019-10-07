@@ -48,6 +48,7 @@ const FormattedValue = ({ value, field }: Props) => {
         const valueAsNumber = coerceValue(value, valueTypes.NUMBER)
         return valueAsNumber + ''
       case fieldTypes.TEXT:
+      case fieldTypes.TEXTAREA:
       case fieldTypes.SELECT_ONE:
         if (typeof value === 'boolean') return value ? 'yes' : 'no'
         const valueAsString = coerceValue(value, valueTypes.STRING)
