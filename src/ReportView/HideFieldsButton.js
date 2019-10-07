@@ -38,7 +38,7 @@ const useStyles = makeStyles(theme => {
       paddingRight: 48
     },
     fieldname: {
-      maxWidth: 250,
+      maxWidth: 300,
       textOverflow: 'ellipsis',
       overflow: 'hidden',
       whiteSpace: 'nowrap'

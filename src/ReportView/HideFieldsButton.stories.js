@@ -7,7 +7,7 @@ import { action } from '@storybook/addon-actions'
 import HideFieldsButton from './HideFieldsButton'
 
 const initialFieldState = [
-  { id: 'foo', hidden: false, label: 'Foo' },
+  { id: 'foo', hidden: false, label: 'Long field name that extends beyond' },
   { id: 'bar', hidden: true, label: 'Bar' },
   { id: 'qux', hidden: false, label: 'Qux' }
 ]
