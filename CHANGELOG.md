@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-beta.11](https://github.com/digidem/react-mapfilter/compare/v3.0.0-beta.10...v3.0.0-beta.11) (2019-10-08)
+
+### Bug Fixes
+
+- Hide fields button ([9659a36](https://github.com/digidem/react-mapfilter/commit/9659a36))
+
 ## [3.0.0-beta.10](https://github.com/digidem/react-mapfilter/compare/v3.0.0-beta.9...v3.0.0-beta.10) (2019-10-08)
 
 ### Bug Fixes
