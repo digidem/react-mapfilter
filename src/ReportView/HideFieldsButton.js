@@ -15,11 +15,7 @@ import ToolbarButton from '../internal/ToolbarButton'
 import type { FieldState } from '../types'
 const msgs = defineMessages({
   // Button label for hide fields menu
-  hideFieldsLabel: `{count, plural,
-    =0 {Hide Fields}
-    one {# Hidden Field}
-    other {# Hidden Fields}
-  }`,
+  hideFieldsLabel: `{count} Hidden Fields`,
   // Show all fields in report view
   showAll: 'Show All',
   // Hide all fields in report view
@@ -83,6 +79,7 @@ const HideFieldsButton = ({ fieldState, onFieldStateUpdate }: Props) => {
   const open = Boolean(anchorEl)
 
   const hiddenCount = fieldState.filter(f => f.hidden).length
+  console.log('hiddenCount', hiddenCount)
   return (
     <React.Fragment>
       <ToolbarButton onClick={handleClick}>
