@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-beta.10](https://github.com/digidem/react-mapfilter/compare/v3.0.0-beta.9...v3.0.0-beta.10) (2019-10-08)
+
+### Bug Fixes
+
+- broken image color ([85005b3](https://github.com/digidem/react-mapfilter/commit/85005b3))
+- don't move map if initialMapPosition is set ([526a5ef](https://github.com/digidem/react-mapfilter/commit/526a5ef))
+- Don't show option to hide categoryId and notes from reports ([79d1fa4](https://github.com/digidem/react-mapfilter/commit/79d1fa4))
+- Fix date filter not including max day ([dd52013](https://github.com/digidem/react-mapfilter/commit/dd52013))
+- fix hiding fields in Report view ([24e3d44](https://github.com/digidem/react-mapfilter/commit/24e3d44))
+- Fix report toolbar positioning ([0516d07](https://github.com/digidem/react-mapfilter/commit/0516d07))
+- forward map ref ([005a454](https://github.com/digidem/react-mapfilter/commit/005a454))
+- Min/max date always less than / greater than other ([1cc7a27](https://github.com/digidem/react-mapfilter/commit/1cc7a27))
+- sort media (most recent first) ([3f999c1](https://github.com/digidem/react-mapfilter/commit/3f999c1))
+- Sort presets by sort field, then by name ([d64312d](https://github.com/digidem/react-mapfilter/commit/d64312d))
+- Support textarea fields (legacy support for iD presets) ([08e86c4](https://github.com/digidem/react-mapfilter/commit/08e86c4))
+- Temp fix - allow wider field names in hidden fields dialog ([a7a6169](https://github.com/digidem/react-mapfilter/commit/a7a6169))
+- Use @material-ui/core styles - fixes styling issues e.g. report printing ([1957010](https://github.com/digidem/react-mapfilter/commit/1957010))
+
+### Features
+
+- Don't show notes or categoryId in additional detail ([dba51e7](https://github.com/digidem/react-mapfilter/commit/dba51e7))
+
 ## [3.0.0-beta.9](https://github.com/digidem/react-mapfilter/compare/v3.0.0-beta.8...v3.0.0-beta.9) (2019-10-06)
 
 ### Bug Fixes
