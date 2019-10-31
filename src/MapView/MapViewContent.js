@@ -227,39 +227,37 @@ const MapViewContent = (
   }
 
   return (
-    <IntlProvider>
-      <Mapbox
-        style={mapStyle}
-        className={classes.container}
-        fitBounds={initialBounds}
-        fitBoundsOptions={fitBoundsOptions}
-        onStyleLoad={handleStyleLoad}
-        onMove={handleMapMove}
-        {...position}>
-        <ObservationLayer
-          observations={observations}
-          onClick={onClick}
-          onMouseLeave={handleMouseLeave}
-          onMouseMove={handleMouseMove}
-          print={print}
+    <Mapbox
+      style={mapStyle}
+      className={classes.container}
+      fitBounds={initialBounds}
+      fitBoundsOptions={fitBoundsOptions}
+      onStyleLoad={handleStyleLoad}
+      onMove={handleMapMove}
+      {...position}>
+      <ObservationLayer
+        observations={observations}
+        onClick={onClick}
+        onMouseLeave={handleMouseLeave}
+        onMouseMove={handleMouseMove}
+        print={print}
+      />
+      {hovered && (
+        <Popup
+          imageUrl={getLastImageUrl(hovered)}
+          title={getName(hovered)}
+          subtitle={intl.formatTime(hovered.created_at, {
+            year: 'numeric',
+            month: 'long',
+            day: '2-digit'
+          })}
+          coordinates={
+            // $FlowFixMe - these are always non-nullish when on a map
+            [hovered.lon, hovered.lat]
+          }
         />
-        {hovered && (
-          <Popup
-            imageUrl={getLastImageUrl(hovered)}
-            title={getName(hovered)}
-            subtitle={intl.formatTime(hovered.created_at, {
-              year: 'numeric',
-              month: 'long',
-              day: '2-digit'
-            })}
-            coordinates={
-              // $FlowFixMe - these are always non-nullish when on a map
-              [hovered.lon, hovered.lat]
-            }
-          />
-        )}
-      </Mapbox>
-    </IntlProvider>
+      )}
+    </Mapbox>
   )
 }
 
