@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-beta.12](https://github.com/digidem/react-mapfilter/compare/v3.0.0-beta.11...v3.0.0-beta.12) (2019-10-31)
+
+### Features
+
+- Add delete observation action ([9688317](https://github.com/digidem/react-mapfilter/commit/9688317a1e415a70e73a2d453d4a41a5de0f9aff))
+
+### Bug Fixes
+
+- Remove unused IntlProvider in MapView ([fa5c45b](https://github.com/digidem/react-mapfilter/commit/fa5c45bc145ddb868ef8dc26dac98076bd0f1c67))
+
 ## [3.0.0-beta.11](https://github.com/digidem/react-mapfilter/compare/v3.0.0-beta.10...v3.0.0-beta.11) (2019-10-08)
 
 ### Bug Fixes
