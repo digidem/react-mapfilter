@@ -22,6 +22,10 @@ import DialogActions from '@material-ui/core/DialogActions'
 import MuiDialogContent from '@material-ui/core/DialogContent'
 import DialogContentText from '@material-ui/core/DialogContentText'
 import DialogTitle from '@material-ui/core/DialogTitle'
+import MenuIcon from '@material-ui/icons/MoreVert'
+import Menu from '@material-ui/core/Menu'
+import MenuItem from '@material-ui/core/MenuItem'
+
 import { Typography } from '@material-ui/core'
 import { useIntl, FormattedMessage, defineMessages } from 'react-intl'
 import clone from 'clone-deep'
@@ -40,11 +44,14 @@ import type {
 } from '../types'
 
 const m = defineMessages({
-  confirmTitle: 'Close without saving changes?',
-  confirmDescription:
+  confirmCloseTitle: 'Close without saving changes?',
+  confirmCloseDescription:
     'You have made some changes, closing without saving will loose the changes you make',
-  confirmButtonConfirm: 'Discard changes',
-  confirmButtonCancel: 'Cancel',
+  confirmCloseButtonConfirm: 'Discard changes',
+  confirmCloseButtonCancel: 'Cancel',
+  confirmDeleteTitle: 'Delete observation?',
+  confirmDeleteButtonConfirm: 'Yes, delete',
+  confirmDeleteButtonCancel: 'Cancel',
   // Header for section that includes the additional details for an observation
   detailsHeader: 'Details',
   // Header for section with additional fields that are not defined in the preset
@@ -63,6 +70,7 @@ type ImageMediaItem = {
 type Props = {
   open?: boolean,
   onRequestClose: () => void,
+  onDelete: (id: string) => void,
   observation: Observation,
   // The initial image to show in the media carousel
   initialImageIndex?: number,
@@ -94,33 +102,51 @@ function defaultGetMedia({ type, id }: Attachment) {
   }
 }
 
-const ConfirmDialog = ({ open, onCancel, onConfirm }) => {
-  return (
-    <Dialog
-      disableBackdropClick
-      open={open}
-      onClose={onCancel}
-      aria-labelledby="alert-dialog-title"
-      aria-describedby="alert-dialog-description">
-      <DialogTitle id="alert-dialog-title">
-        <FormattedMessage {...m.confirmTitle} />
-      </DialogTitle>
-      <MuiDialogContent>
-        <DialogContentText id="alert-dialog-description">
-          <FormattedMessage {...m.confirmDescription} />
-        </DialogContentText>
-      </MuiDialogContent>
-      <DialogActions>
-        <Button onClick={onCancel} color="primary">
-          <FormattedMessage {...m.confirmButtonCancel} />
-        </Button>
-        <Button onClick={onConfirm} color="primary" autoFocus>
-          <FormattedMessage {...m.confirmButtonConfirm} />
-        </Button>
-      </DialogActions>
-    </Dialog>
-  )
-}
+const ConfirmCloseDialog = ({ open, onCancel, onConfirm }) => (
+  <Dialog
+    disableBackdropClick
+    open={open}
+    onClose={onCancel}
+    aria-labelledby="close-dialog-title"
+    aria-describedby="close-dialog-description">
+    <DialogTitle id="close-dialog-title">
+      <FormattedMessage {...m.confirmCloseTitle} />
+    </DialogTitle>
+    <MuiDialogContent>
+      <DialogContentText id="close-dialog-description">
+        <FormattedMessage {...m.confirmCloseDescription} />
+      </DialogContentText>
+    </MuiDialogContent>
+    <DialogActions>
+      <Button onClick={onCancel} color="primary">
+        <FormattedMessage {...m.confirmCloseButtonCancel} />
+      </Button>
+      <Button onClick={onConfirm} color="primary" autoFocus>
+        <FormattedMessage {...m.confirmCloseButtonConfirm} />
+      </Button>
+    </DialogActions>
+  </Dialog>
+)
+
+const ConfirmDeleteDialog = ({ open, onCancel, onConfirm }) => (
+  <Dialog
+    disableBackdropClick
+    open={open}
+    onClose={onCancel}
+    aria-labelledby="delete-dialog-title">
+    <DialogTitle id="delete-dialog-title">
+      <FormattedMessage {...m.confirmDeleteTitle} />
+    </DialogTitle>
+    <DialogActions>
+      <Button onClick={onCancel} color="primary">
+        <FormattedMessage {...m.confirmDeleteButtonCancel} />
+      </Button>
+      <Button onClick={onConfirm} color="primary" autoFocus>
+        <FormattedMessage {...m.confirmDeleteButtonConfirm} />
+      </Button>
+    </DialogActions>
+  </Dialog>
+)
 
 const ExpansionPanel = withStyles({
   root: {
@@ -161,10 +187,59 @@ const ExpansionPanelDetails = withStyles({
   }
 })(MuiExpansionPanelDetails)
 
+const ObservationActions = ({ onDeleteClick }) => {
+  const [anchorEl, setAnchorEl] = React.useState(null)
+  const [confirm, setConfirm] = useState(null)
+
+  const handleOpenClick = event => {
+    setAnchorEl(event.currentTarget)
+  }
+
+  const handleClose = () => {
+    setAnchorEl(null)
+  }
+
+  const createHandleItemClick = (action: () => any = () => {}) => () => {
+    // Can't setState to a function
+    setConfirm(state => didConfirm => {
+      setConfirm(null)
+      if (didConfirm) action()
+      handleClose()
+    })
+  }
+
+  return (
+    <>
+      <IconButton
+        aria-controls="simple-menu"
+        aria-haspopup="true"
+        onClick={handleOpenClick}>
+        <MenuIcon />
+      </IconButton>
+      <Menu
+        id="simple-menu"
+        anchorEl={anchorEl}
+        keepMounted
+        open={Boolean(anchorEl)}
+        onClose={handleClose}>
+        <MenuItem onClick={createHandleItemClick(onDeleteClick)}>
+          Delete Observation
+        </MenuItem>
+      </Menu>
+      <ConfirmDeleteDialog
+        open={!!confirm}
+        onConfirm={() => confirm && confirm(true)}
+        onCancel={() => confirm && confirm(false)}
+      />
+    </>
+  )
+}
+
 const DialogContent = ({
   open = false,
   onRequestClose,
   onSave,
+  onDelete,
   observation,
   initialImageIndex,
   getPreset = defaultGetPreset,
@@ -188,6 +263,11 @@ const DialogContent = ({
   const handleRequestClose = () => {
     // Ask for confirmation if form is dirty
     onRequestClose(dirty)
+  }
+
+  const handleDeleteClick = () => {
+    onRequestClose(false)
+    onDelete(observation.id)
   }
 
   const handleChange = (key: Key, newValue: any) => {
@@ -242,6 +322,7 @@ const DialogContent = ({
           name={preset.name}
           coords={coords}
           createdAt={new Date(observation.created_at)}
+          action={<ObservationActions onDeleteClick={handleDeleteClick} />}
         />
         <TextField
           value={values[descriptionKey]}
@@ -346,7 +427,7 @@ const ObservationDialog = ({ open, onRequestClose, ...otherProps }: Props) => {
           <DialogContent {...otherProps} onRequestClose={handleRequestClose} />
         )}
       </Dialog>
-      <ConfirmDialog
+      <ConfirmCloseDialog
         open={!!confirm}
         onConfirm={() => confirm && confirm(true)}
         onCancel={() => confirm && confirm(false)}

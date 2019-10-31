@@ -29,6 +29,7 @@ const hiddenTags = {
 const ReportView = ({
   observations,
   onUpdateObservation,
+  onDeleteObservation,
   presets,
   filter,
   getMediaUrl,
@@ -81,6 +82,7 @@ const ReportView = ({
     <ViewWrapper
       observations={observations}
       onUpdateObservation={onUpdateObservation}
+      onDeleteObservation={onDeleteObservation}
       presets={presets}
       filter={filter}
       getMediaUrl={getMediaUrl}>

@@ -30,6 +30,7 @@ export const basic = () => (
     mapboxAccessToken="pk.eyJ1IjoiZ21hY2xlbm5hbiIsImEiOiJSaWVtd2lRIn0.ASYMZE2HhwkAw4Vt7SavEg"
     observations={exampleObservations.slice(0, 10)}
     onUpdateObservation={action('update')}
+    onDeleteObservation={action('delete')}
   />
 )
 
@@ -84,6 +85,7 @@ export const withPresets = () => (
     mapboxAccessToken="pk.eyJ1IjoiZ21hY2xlbm5hbiIsImEiOiJSaWVtd2lRIn0.ASYMZE2HhwkAw4Vt7SavEg"
     observations={exampleObservations.slice(0, 10)}
     onUpdateObservation={action('update')}
+    onDeleteObservation={action('delete')}
     presets={presets}
   />
 )

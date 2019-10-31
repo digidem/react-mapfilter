@@ -7,6 +7,7 @@ import ViewWrapper, { type CommonViewProps } from '../ViewWrapper'
 const MapView = ({
   observations,
   onUpdateObservation,
+  onDeleteObservation,
   presets,
   filter,
   getMediaUrl,
@@ -16,6 +17,7 @@ const MapView = ({
     <ViewWrapper
       observations={observations}
       onUpdateObservation={onUpdateObservation}
+      onDeleteObservation={onDeleteObservation}
       presets={presets}
       filter={filter}
       getMediaUrl={getMediaUrl}>

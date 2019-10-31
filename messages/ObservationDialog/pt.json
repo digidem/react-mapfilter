@@ -7,16 +7,25 @@
     "description": "Cancel button once observation has been edited",
     "message": ""
   },
-  "ObservationDialog.ObservationDialog.confirmButtonCancel": {
+  "ObservationDialog.ObservationDialog.confirmCloseButtonCancel": {
     "message": ""
   },
-  "ObservationDialog.ObservationDialog.confirmButtonConfirm": {
+  "ObservationDialog.ObservationDialog.confirmCloseButtonConfirm": {
     "message": ""
   },
-  "ObservationDialog.ObservationDialog.confirmDescription": {
+  "ObservationDialog.ObservationDialog.confirmCloseDescription": {
     "message": ""
   },
-  "ObservationDialog.ObservationDialog.confirmTitle": {
+  "ObservationDialog.ObservationDialog.confirmCloseTitle": {
+    "message": ""
+  },
+  "ObservationDialog.ObservationDialog.confirmDeleteButtonCancel": {
+    "message": ""
+  },
+  "ObservationDialog.ObservationDialog.confirmDeleteButtonConfirm": {
+    "message": ""
+  },
+  "ObservationDialog.ObservationDialog.confirmDeleteTitle": {
     "message": ""
   },
   "ObservationDialog.ObservationDialog.detailsHeader": {

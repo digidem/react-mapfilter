@@ -19,6 +19,7 @@ export const defaultStory = () => {
     <MediaView
       observations={fixtureObs}
       onUpdateObservation={action('update')}
+      onDeleteObservation={action('delete')}
       getMediaUrl={getMediaUrl}
       apiUrl="http://localhost:5000/"
     />

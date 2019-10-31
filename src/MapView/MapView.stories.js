@@ -38,6 +38,7 @@ export const defaultStory = () => {
         observations={fixtureObs}
         filter={filters[value]}
         onUpdateObservation={action('update')}
+        onDeleteObservation={action('delete')}
         getMediaUrl={getMediaUrl}
         mapboxAccessToken="pk.eyJ1IjoiZ21hY2xlbm5hbiIsImEiOiJSaWVtd2lRIn0.ASYMZE2HhwkAw4Vt7SavEg"
       />
@@ -69,6 +70,7 @@ export const delayedLoad = () => {
       <MapView
         observations={obs}
         onUpdateObservation={action('update')}
+        onDeleteObservation={action('delete')}
         getMediaUrl={getMediaUrl}
         mapboxAccessToken="pk.eyJ1IjoiZ21hY2xlbm5hbiIsImEiOiJSaWVtd2lRIn0.ASYMZE2HhwkAw4Vt7SavEg"
       />

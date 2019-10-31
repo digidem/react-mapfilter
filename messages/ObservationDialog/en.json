@@ -7,17 +7,26 @@
     "description": "Cancel button once observation has been edited",
     "message": "Cancel"
   },
-  "ObservationDialog.ObservationDialog.confirmButtonCancel": {
+  "ObservationDialog.ObservationDialog.confirmCloseButtonCancel": {
     "message": "Cancel"
   },
-  "ObservationDialog.ObservationDialog.confirmButtonConfirm": {
+  "ObservationDialog.ObservationDialog.confirmCloseButtonConfirm": {
     "message": "Discard changes"
   },
-  "ObservationDialog.ObservationDialog.confirmDescription": {
+  "ObservationDialog.ObservationDialog.confirmCloseDescription": {
     "message": "You have made some changes, closing without saving will loose the changes you make"
   },
-  "ObservationDialog.ObservationDialog.confirmTitle": {
+  "ObservationDialog.ObservationDialog.confirmCloseTitle": {
     "message": "Close without saving changes?"
+  },
+  "ObservationDialog.ObservationDialog.confirmDeleteButtonCancel": {
+    "message": "Cancel"
+  },
+  "ObservationDialog.ObservationDialog.confirmDeleteButtonConfirm": {
+    "message": "Yes, delete"
+  },
+  "ObservationDialog.ObservationDialog.confirmDeleteTitle": {
+    "message": "Delete observation?"
   },
   "ObservationDialog.ObservationDialog.detailsHeader": {
     "description": "Header for section that includes the additional details for an observation",

@@ -21,7 +21,8 @@ export type CommonViewProps = {
   /** Array of observations to render */
   observations?: Array<Observation>,
   /** Called when an observation is editing/updated */
-  onUpdateObservation?: (observation: Observation) => void,
+  onUpdateObservation: (observation: Observation) => void,
+  onDeleteObservation: (id: string) => void,
   /** A function called with an observation that should return a matching preset
    * with field definitions */
   presets?: PresetWithFields[],
@@ -48,14 +49,16 @@ const noop = () => {}
 // define which preset applies. We will need to improve how this works in the
 // future once we start matching presets like we do with iD
 const createFilter = (filter: Filter | void) => {
-  if (!Array.isArray(filter) || filter[0] !== 'all' || filter.length < 2)
+  if (!Array.isArray(filter) || filter[0] !== 'all' || filter.length < 2) {
     return () => true
+  }
   const presetFilter = filter.map(subFilter => {
     if (
       !Array.isArray(subFilter) ||
       (subFilter[1] !== '$preset' && !isEqual(subFilter[1], ['$preset']))
-    )
+    ) {
       return subFilter
+    }
     return [subFilter[0], 'categoryId', ...subFilter.slice(2)]
   })
   return createFilterOrig(presetFilter)
@@ -64,6 +67,7 @@ const createFilter = (filter: Filter | void) => {
 const WrappedMapView = ({
   observations = [],
   onUpdateObservation = noop,
+  onDeleteObservation = noop,
   presets = [],
   getMediaUrl,
   filter,
@@ -150,6 +154,7 @@ const WrappedMapView = ({
         getMedia={getMedia}
         onRequestClose={() => setEditingObservation(false)}
         onSave={onUpdateObservation}
+        onDelete={onDeleteObservation}
       />
     </>
   )

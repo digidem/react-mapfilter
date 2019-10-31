@@ -42,6 +42,7 @@ export const simple = () => (
     onSave={action('save')}
     observation={exampleObservations[1]}
     getMedia={getMedia}
+    onDeleteObservation={action('delete')}
   />
 )
 
@@ -59,6 +60,7 @@ export const openClose = () => {
         getPreset={getPreset}
         observation={obs}
         getMedia={getMedia}
+        onDeleteObservation={action('delete')}
       />
     </>
   )
