@@ -28,7 +28,14 @@ const getPreset = observation => {
     geometry: ['point'],
     name: (observation.tags && observation.tags.name) || '',
     tags: {},
-    fields: fields.slice(0, 5),
+    fields: fields.slice(0, 5).concat([
+      {
+        id: 'multi-field',
+        key: ['multi'],
+        options: ['one', 'two', 'three'],
+        type: 'select_multiple'
+      }
+    ]),
     additionalFields: fields.slice(5)
   }
 }
@@ -50,6 +57,7 @@ export const openClose = () => {
   const [open, setOpen] = React.useState(false)
   const obs =
     exampleObservations[Math.floor(Math.random() * exampleObservations.length)]
+  obs.tags.multi = ['one', 'two', 'three']
   return (
     <>
       <Button onClick={() => setOpen(true)}>Open Dialog</Button>

@@ -1,7 +1,7 @@
 // @flow
 import React from 'react'
 import { useIntl } from 'react-intl'
-import { SelectOne } from './Select'
+import { SelectOne, SelectMultiple } from './Select'
 import TextField from './TextField'
 import DateField from './DateField'
 import DateTimeField from './DateTimeField'
@@ -50,6 +50,8 @@ const Field = ({ field, value, onChange }: Props) => {
           placeholder={placeholder}
         />
       )
+    case 'select_multiple':
+      return <SelectMultiple value={value} label={label} />
     case 'number':
       return (
         <TextField

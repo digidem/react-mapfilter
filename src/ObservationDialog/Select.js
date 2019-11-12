@@ -264,6 +264,16 @@ export const SelectOne = ({
   )
 }
 
+export const SelectMultiple = ({ value, label }: Props) => {
+  return (
+    <TextField
+      value={Array.isArray(value) ? value.join(', ') : value}
+      label={label}
+      disabled
+    />
+  )
+}
+
 // for two values, if strings, compare lower case, otherwise strict equal
 function lowerCaseEqual(a: any, b: any) {
   if (typeof a === 'string' && typeof b === 'string') {
