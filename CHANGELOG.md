@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-beta.13](https://github.com/digidem/react-mapfilter/compare/v3.0.0-beta.12...v3.0.0-beta.13) (2019-11-12)
+
+### Features
+
+- Add read-only select_multiple field support ([0fc88e3](https://github.com/digidem/react-mapfilter/commit/0fc88e39fbd3fef1b78e62a7c367aeea18e8726c))
+
 ## [3.0.0-beta.12](https://github.com/digidem/react-mapfilter/compare/v3.0.0-beta.11...v3.0.0-beta.12) (2019-10-31)
 
 ### Features
