@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-beta.14](https://github.com/digidem/react-mapfilter/compare/v3.0.0-beta.13...v3.0.0-beta.14) (2019-11-18)
+
+### Bug Fixes
+
+- Translate Delete Observation menu item ([9faeec9](https://github.com/digidem/react-mapfilter/commit/9faeec96b682b7028c68523cd46c0bccd993d461))
+
 ## [3.0.0-beta.13](https://github.com/digidem/react-mapfilter/compare/v3.0.0-beta.12...v3.0.0-beta.13) (2019-11-12)
 
 ### Features
