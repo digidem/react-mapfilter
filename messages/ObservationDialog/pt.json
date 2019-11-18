@@ -28,6 +28,10 @@
   "ObservationDialog.ObservationDialog.confirmDeleteTitle": {
     "message": ""
   },
+  "ObservationDialog.ObservationDialog.deleteObservationMenuItem": {
+    "description": "Menu item to delete an observation",
+    "message": ""
+  },
   "ObservationDialog.ObservationDialog.detailsHeader": {
     "description": "Header for section that includes the additional details for an observation",
     "message": ""

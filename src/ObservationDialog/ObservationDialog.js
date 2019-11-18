@@ -59,7 +59,9 @@ const m = defineMessages({
   // Cancel button once observation has been edited
   cancelEditButton: 'Cancel',
   // Save edit button
-  saveEditButton: 'Save'
+  saveEditButton: 'Save',
+  // Menu item to delete an observation
+  deleteObservationMenuItem: 'Delete observation'
 })
 
 type ImageMediaItem = {
@@ -223,7 +225,7 @@ const ObservationActions = ({ onDeleteClick }) => {
         open={Boolean(anchorEl)}
         onClose={handleClose}>
         <MenuItem onClick={createHandleItemClick(onDeleteClick)}>
-          Delete Observation
+          <FormattedMessage {...m.deleteObservationMenuItem} />
         </MenuItem>
       </Menu>
       <ConfirmDeleteDialog
