@@ -75,7 +75,11 @@ const DiscreteFilter = ({
     if (shownValues.has(value)) shownValues.delete(value)
     else shownValues.add(value)
     const newFilter =
-      shownValues.size > 0
+      // If all items are selected we're implicitly including undefined and null
+      // values, so we clear the filter altogether if everything is selected
+      shownValues.size === allValues.length
+        ? null
+        : shownValues.size > 0
         ? ['in', fieldKey, ...shownValues]
         : ['!in', fieldKey, ...allValues]
     onChangeFilter(newFilter)

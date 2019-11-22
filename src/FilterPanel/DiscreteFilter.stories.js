@@ -34,6 +34,7 @@ const options = [
 
 export const defaultStory = () => {
   const [filter, setFilter] = React.useState()
+  console.log(filter)
   return (
     <DiscreteFilter
       label="Happening"
