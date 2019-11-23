@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-beta.15](https://github.com/digidem/react-mapfilter/compare/v3.0.0-beta.14...v3.0.0-beta.15) (2019-11-23)
+
+### Bug Fixes
+
+- Fix filter bug (can't return to show all) when filtering by two or more fields ([69a8aa3](https://github.com/digidem/react-mapfilter/commit/69a8aa3fa8bf206c852d7e740da7eb66c40b16c1))
+
 ## [3.0.0-beta.14](https://github.com/digidem/react-mapfilter/compare/v3.0.0-beta.13...v3.0.0-beta.14) (2019-11-18)
 
 ### Bug Fixes
