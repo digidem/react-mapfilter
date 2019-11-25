@@ -16,7 +16,7 @@
     "build": "npm run build:translations & npm run build:esm & npm run build:cjs",
     "extract-messages": "node scripts/extract-messages.js",
     "prepublish": "npm run build",
-    "storybook": "BABEL_ENV=cjs start-storybook -p 6006 --ci",
+    "storybook": "BABEL_ENV=cjs start-storybook -p 6006 --ci --static-dir static",
     "build-storybook": "build-storybook",
     "test": "jest"
   },
