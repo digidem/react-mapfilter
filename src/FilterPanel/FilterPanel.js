@@ -35,7 +35,7 @@ const m = defineMessages({
   // Button text to change which fields are shown and filterable in the filter pane
   editFilters: 'Edit Filters…',
   // Label for filter by date observation was created
-  created: 'Created',
+  created: 'Date of observation',
   // Label for filter by date observation was modified (e.g. edited by a user)
   modified: 'Modified',
   // Label for filter by category (e.g. the preset)

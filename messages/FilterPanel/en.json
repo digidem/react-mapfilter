@@ -9,7 +9,7 @@
   },
   "FilterPanel.FilterPanel.created": {
     "description": "Label for filter by date observation was created",
-    "message": "Created"
+    "message": "Date of observation"
   },
   "FilterPanel.FilterPanel.editFilters": {
     "description": "Button text to change which fields are shown and filterable in the filter pane",
