@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0](https://github.com/digidem/react-mapfilter/compare/v3.0.0-beta.15...v3.0.0) (2019-11-25)
+
+### Bug Fixes
+
+- Change label from "created" to "date of observation" ([607bcd0](https://github.com/digidem/react-mapfilter/commit/607bcd00bc1353e6d11a6989790f1c121879f91e))
+
 ## [3.0.0-beta.15](https://github.com/digidem/react-mapfilter/compare/v3.0.0-beta.14...v3.0.0-beta.15) (2019-11-23)
 
 ### Bug Fixes
