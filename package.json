@@ -118,7 +118,7 @@
     "react-image": "^2.2.0",
     "react-intl": "^3.2.3",
     "react-mapbox-gl": "^4.6.0",
-    "react-swipeable-views": "^0.13.3",
+    "react-swipeable-views": "0.13.3",
     "react-virtualized": "^9.21.1",
     "react-virtualized-auto-sizer": "^1.0.2",
     "react-window": "^1.8.5",
