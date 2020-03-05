@@ -5,6 +5,7 @@ import {
   Page,
   Text,
   View,
+  Image,
   Document,
   StyleSheet,
   Font
@@ -78,10 +79,12 @@ Font.register({
 
 const FeaturePage = ({
   observation,
-  preset = {}
+  preset = {},
+  getMedia
 }: {
   observation: Observation,
-  preset?: PresetWithAdditionalFields
+  preset?: PresetWithAdditionalFields,
+  getMedia: any
 }) => {
   const coords =
     typeof observation.lon === 'number' && typeof observation.lat === 'number'
@@ -144,16 +147,20 @@ const FeaturePage = ({
         </View>
         <View style={styles.columnRight}>
           <View style={styles.map} />
-          {new Array(4).fill(null).map((att, i) => (
-            <View
+
+          {observation.attachments.map((att, i) => {
+            const media = getMedia(att)
+            return (<Image
+              src={media.src}
               key={i}
               style={[
                 styles.image,
                 { height: Math.random() > 0.5 ? '70mm' : '50mm' }
               ]}
               wrap={false}
-            />
-          ))}
+             />
+            )}
+          )}
         </View>
       </View>
     </Page>
@@ -179,6 +186,7 @@ const ReportViewPDF = ({
               key={observation.id}
               observation={observation}
               preset={getPreset(observation)}
+              getMedia={getMedia}
             />
           ))}
         </Document>
