@@ -1,10 +1,11 @@
 // @flow
 import React, { useState, useLayoutEffect, useMemo } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
+import { PDFViewer } from '@react-pdf/renderer'
 
-import ReportViewContent, {
-  type ReportViewContentProps
-} from './ReportViewContent'
+import ReportViewPDF, {
+  type ReportViewPDFProps
+} from '../ReportViewPDF/ReportView'
 import ViewWrapper, { type CommonViewProps } from '../ViewWrapper'
 import Toolbar from '../internal/Toolbar'
 import PrintButton from './PrintButton'
@@ -17,7 +18,7 @@ import type { PresetWithAdditionalFields, FieldState, Field } from '../types'
 
 type Props = {
   ...$Exact<CommonViewProps>,
-  ...$Exact<ReportViewContentProps>
+  ...$Exact<ReportViewPDFProps>
 }
 
 const hiddenTags = {
@@ -113,15 +114,16 @@ const ReportView = ({
                 onFieldStateUpdate={setFieldState}
               />
             </Toolbar>
-            <ReportViewContent
-              onClick={onClickObservation}
-              observations={filteredObservations}
-              getPreset={getPresetWithFilteredFields}
-              getMedia={getMedia}
-              paperSize={paperSize}
-              print={print}
-              {...otherProps}
-            />
+            <PDFViewer width="100%" height="100%">
+              <ReportViewPDF
+                observations={filteredObservations}
+                getPreset={getPresetWithFilteredFields}
+                getMedia={getMedia}
+                paperSize={paperSize}
+                print={print}
+                {...otherProps}
+              />
+            </PDFViewer>
           </div>
         )
       }}
@@ -146,7 +148,8 @@ function hiddenFieldsFilter(fieldState: FieldState) {
 const useStyles = makeStyles(theme => ({
   root: {
     position: 'absolute',
-    width: '100%',
+    width: '100vh',
+    height: '100vh',
     top: 0,
     bottom: 0,
     display: 'flex',
