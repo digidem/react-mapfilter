@@ -150,7 +150,7 @@ const FeaturePage = ({
 
           {observation.attachments.map((att, i) => {
             const media = getMedia(att)
-            return (<Image
+            return media && <Image
               src={media.src}
               key={i}
               style={[
@@ -159,7 +159,7 @@ const FeaturePage = ({
               ]}
               wrap={false}
              />
-            )}
+            }
           )}
         </View>
       </View>
