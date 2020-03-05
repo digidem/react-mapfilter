@@ -146,8 +146,6 @@ const FeaturePage = ({
           })}
         </View>
         <View style={styles.columnRight}>
-          <View style={styles.map} />
-
           {observation.attachments.map((att, i) => {
             const media = getMedia(att)
             return media && <Image
