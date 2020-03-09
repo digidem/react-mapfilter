@@ -155,11 +155,9 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     flexDirection: 'column',
     '@media only print': {
-      width: 'auto',
-      height: 'auto',
-      position: 'static',
-      backgroundColor: 'inherit',
-      display: 'block'
+      width: '100%',
+      height: '100%',
+      position: 'static'
     }
   }
 }))
