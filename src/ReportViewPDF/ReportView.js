@@ -146,15 +146,12 @@ const FeaturePage = ({
           })}
         </View>
         <View style={styles.columnRight}>
-          {observation.attachments.map((att, i) => {
+          {observation.attachments.slice(0,4).map((att, i) => {
             const media = getMedia(att)
             return media && <Image
               src={media.src}
               key={i}
-              style={[
-                styles.image,
-                { height: Math.random() > 0.5 ? '70mm' : '50mm' }
-              ]}
+              style={styles.image}
               wrap={false}
              />
             }
@@ -179,7 +176,7 @@ const ReportViewPDF = ({
     <PdfContext.Provider value={true}>
       <IntlProvider>
         <Document>
-          {observations.slice(0, 1).map(observation => (
+          {observations.map(observation => (
             <FeaturePage
               key={observation.id}
               observation={observation}
@@ -244,11 +241,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#8E918B'
   },
   image: {
-    height: '50mm',
+    height: '40mm',
     borderStyle: 'solid',
     borderWidth: 1,
     borderColor: 'black',
-    marginBottom: 12,
+    marginBottom: 10,
     backgroundColor: '#C8D8E3'
   },
   description: {
