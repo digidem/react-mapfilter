@@ -43,7 +43,6 @@ const ReportView = ({
   const stats = useMemo(() => getStats(observations || []), [observations])
   const cx = useStyles()
   const [paperSize, setPaperSize] = useState('a4')
-  const [print, setPrint] = useState(false)
 
   const [fieldState, setFieldState] = useState(() => {
     // Lazy initial state to avoid this being calculated on every render
@@ -65,23 +64,6 @@ const ReportView = ({
         }
       })
   })
-
-  useLayoutEffect(() => {
-    if (!print) return
-    let didCancel = false
-
-    // Wait for map to render
-    // TODO: SUPER hacky - we need to wait for the map to render
-    const timeoutId = setTimeout(() => {
-      if (didCancel) return
-      window.print()
-      setPrint(false)
-    }, 3000)
-    return () => {
-      didCancel = true
-      if (timeoutId) clearTimeout(timeoutId)
-    }
-  }, [print])
 
   return (
     <ViewWrapper
@@ -111,7 +93,6 @@ const ReportView = ({
           getPreset={getPresetWithFilteredFields}
           getMedia={getMedia}
           paperSize={paperSize}
-          print={print}
           {...otherProps}
         />
 
@@ -161,10 +142,5 @@ const useStyles = makeStyles(theme => ({
     bottom: 0,
     display: 'flex',
     flexDirection: 'column',
-    '@media only print': {
-      width: '100%',
-      height: '100%',
-      position: 'static'
-    }
   }
 }))
