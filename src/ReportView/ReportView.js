@@ -3,6 +3,10 @@ import React, { useState, useLayoutEffect, useMemo } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import { PDFViewer } from '@react-pdf/renderer'
 
+import {
+  PDFDownloadLink
+} from '@react-pdf/renderer'
+
 import ReportViewPDF, {
   type ReportViewPDFProps
 } from '../ReportViewPDF/ReportView'
@@ -101,28 +105,31 @@ const ReportView = ({
             )
           }
         }
+
+        var PDF = () => <ReportViewPDF
+          observations={filteredObservations}
+          getPreset={getPresetWithFilteredFields}
+          getMedia={getMedia}
+          paperSize={paperSize}
+          print={print}
+          {...otherProps}
+        />
+
         return (
           <div className={cx.root}>
             <Toolbar>
-              <PrintButton
-                requestPrint={() => setPrint(true)}
-                changePaperSize={newSize => setPaperSize(newSize)}
-                paperSize={paperSize}
-              />
+              <PDFDownloadLink
+                document={<PDF />}
+                filename={Date.now() + ".pdf"}>
+                  {({ blob, url, loading, error }) =>  !loading && <PrintButton />}
+              </PDFDownloadLink>
               <HideFieldsButton
                 fieldState={fieldState}
                 onFieldStateUpdate={setFieldState}
               />
             </Toolbar>
             <PDFViewer width="100%" height="100%">
-              <ReportViewPDF
-                observations={filteredObservations}
-                getPreset={getPresetWithFilteredFields}
-                getMedia={getMedia}
-                paperSize={paperSize}
-                print={print}
-                {...otherProps}
-              />
+              <PDF />
             </PDFViewer>
           </div>
         )

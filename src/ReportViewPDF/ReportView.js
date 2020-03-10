@@ -198,7 +198,9 @@ export default ReportViewPDF
 const styles = StyleSheet.create({
   page: {
     backgroundColor: 'white',
-    padding: '15mm',
+    paddingTop: 65,
+    paddingBottom: 35,
+    paddingHorizontal: 35,
     flexDirection: 'row'
   },
   pageContent: {
@@ -269,5 +271,7 @@ const styles = StyleSheet.create({
   },
   fieldValue: {
     fontSize: 12
+  },
+  header: {
   }
 })
