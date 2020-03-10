@@ -102,6 +102,7 @@ const FeaturePage = ({
   const note = tags.note || tags.notes
   return (
     <Page size="A4" style={styles.page}>
+      <View style={styles.header} fixed></View>
       <View style={styles.pageContent}>
         <View style={styles.columnLeft}>
           <Text style={styles.presetName}>{preset.name || 'Observation'}</Text>
@@ -158,6 +159,7 @@ const FeaturePage = ({
           )}
         </View>
       </View>
+      <View style={styles.footer} fixed></View>
     </Page>
   )
 }
@@ -195,7 +197,7 @@ export default ReportViewPDF
 const styles = StyleSheet.create({
   page: {
     backgroundColor: 'white',
-    paddingTop: 65,
+    paddingTop: 120,
     paddingBottom: 35,
     paddingHorizontal: 35,
     flexDirection: 'row'
@@ -270,5 +272,8 @@ const styles = StyleSheet.create({
     fontSize: 12
   },
   header: {
+  },
+  footer: {
   }
+
 })
