@@ -5,6 +5,7 @@ import TextField from './TextField'
 import Popper from '@material-ui/core/Popper'
 import Paper from '@material-ui/core/Paper'
 import MenuItem from '@material-ui/core/MenuItem'
+import Autocomplete from '@material-ui/lab/Autocomplete'
 import matchSorter from 'match-sorter'
 import { useIntl, defineMessages } from 'react-intl'
 import { makeStyles } from '@material-ui/core/styles'
@@ -119,6 +120,7 @@ function getSuggestions(
 }
 
 type Props = {
+  id: string,
   value: SelectableFieldValue,
   placeholder?: string,
   onChange: (value: SelectableFieldValue) => any,
@@ -131,6 +133,7 @@ type Props = {
  * for each item must be unique for this to work reliably
  */
 export const SelectOne = ({
+  id,
   value,
   placeholder,
   onChange,
@@ -180,7 +183,7 @@ export const SelectOne = ({
 
   return (
     <Downshift
-      id="downshift-popper"
+      id={id}
       selectedItem={typeof displayValue === 'string' ? displayValue : ''}
       onStateChange={onStateChange}>
       {({
@@ -264,12 +267,28 @@ export const SelectOne = ({
   )
 }
 
-export const SelectMultiple = ({ value, label }: Props) => {
+export const SelectMultiple = ({
+  id,
+  value,
+  label,
+  options,
+  placeholder,
+  onChange,
+  ...props
+}: Props) => {
+  const classes = useStyles()
   return (
-    <TextField
-      value={Array.isArray(value) ? value.join(', ') : value}
-      label={label}
-      disabled
+    <Autocomplete
+      id={id}
+      multiple
+      freeSolo
+      value={value}
+      onChange={(e, v) => onChange(v)}
+      options={options.map(op => (typeof op === 'object' ? op.label : op))}
+      renderInput={params =>
+        renderInput({ ...params, classes, label, placeholder })
+      }
+      {...props}
     />
   )
 }

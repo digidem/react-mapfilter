@@ -44,11 +44,12 @@ const countries = [
 ].map(item => ({ label: item.label, value: item.value || item.label }))
 
 const StateContainer = ({
+  initialValue,
   children
 }: {
   children: (any, (any) => any) => React.Node
 }) => {
-  const [state, setState] = React.useState('')
+  const [state, setState] = React.useState(initialValue)
   return children(state, setState)
 }
 
@@ -57,7 +58,7 @@ export default {
 }
 
 export const defaultStory = () => (
-  <StateContainer>
+  <StateContainer initialValue={''}>
     {(value, setValue) => (
       <SelectOne
         label="Select Country"
@@ -74,5 +75,14 @@ defaultStory.story = {
 }
 
 export const selectMultiple = () => (
-  <SelectMultiple label="Select Country" value={['England', 'Scotland']} />
+  <StateContainer initialValue={['Botswana']}>
+    {(value, setValue) => (
+      <SelectMultiple
+        label="Select Countries"
+        options={countries}
+        value={value}
+        onChange={setValue}
+      />
+    )}
+  </StateContainer>
 )
