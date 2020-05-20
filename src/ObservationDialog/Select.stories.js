@@ -1,7 +1,7 @@
 // @flow
 import * as React from 'react'
 
-import { SelectOne, SelectMultiple } from './Select'
+import { SelectOne, SelectMultiple, SelectOnev2 } from './Select'
 
 const countries = [
   { label: 'Afghanistan', value: true },
@@ -73,6 +73,19 @@ export const defaultStory = () => (
 defaultStory.story = {
   name: 'default'
 }
+
+export const selectOnev2 = () => (
+  <StateContainer initialValue={''}>
+    {(value, setValue) => (
+      <SelectOnev2
+        label="Select Country"
+        options={countries}
+        value={value}
+        onChange={setValue}
+      />
+    )}
+  </StateContainer>
+)
 
 export const selectMultiple = () => (
   <StateContainer initialValue={['Botswana']}>

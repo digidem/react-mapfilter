@@ -267,6 +267,30 @@ export const SelectOne = ({
   )
 }
 
+export const SelectOnev2 = ({
+  id,
+  value,
+  label,
+  options,
+  placeholder,
+  onChange,
+  ...props
+}: Props) => {
+  const classes = useStyles()
+  return (
+    <Autocomplete
+      id={id}
+      value={value}
+      onChange={(e, v) => onChange(v)}
+      options={options.map(op => (typeof op === 'object' ? op.label : op))}
+      renderInput={params =>
+        renderInput({ ...params, classes, label, placeholder })
+      }
+      {...props}
+    />
+  )
+}
+
 export const SelectMultiple = ({
   id,
   value,
