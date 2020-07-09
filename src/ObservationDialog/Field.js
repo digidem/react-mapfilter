@@ -107,6 +107,7 @@ const Field = ({ field, value, onChange }: Props) => {
           multiline
           label={label}
           placeholder={placeholder}
+          handleChange={handleChange}
         />
       )
   }
