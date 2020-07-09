@@ -34,6 +34,11 @@ const getPreset = observation => {
         key: ['multi'],
         options: ['one', 'two', 'three'],
         type: 'select_multiple'
+      },
+      {
+        id: 'localized-field',
+        key: ['localized'],
+        type: 'localized'
       }
     ]),
     additionalFields: fields.slice(5)

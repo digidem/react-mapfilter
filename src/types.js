@@ -187,7 +187,7 @@ type BaseField = {|
 
 export type TextField = {
   ...BaseField,
-  type: 'text' | 'textarea',
+  type: 'text' | 'textarea' | 'localized',
   appearance?: 'singleline' | 'multiline',
   // Spaces are replaced with underscores
   snake_case?: boolean
