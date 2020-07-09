@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.2.2](https://github.com/digidem/react-mapfilter/compare/v3.2.1...v3.2.2) (2020-07-09)
+
+
+### Bug Fixes
+
+* Ensure TextField fallback has handleChange property ([801dfcd](https://github.com/digidem/react-mapfilter/commit/801dfcd6fc3bec3e5efa5919fac425695de3c2f1))
+* SelectMultiple should not throw errors in console ([f5a219d](https://github.com/digidem/react-mapfilter/commit/f5a219d4ca7a74fb7608928f7564e9d8e982c1e7))
+
 ### [3.2.1](https://github.com/digidem/react-mapfilter/compare/v3.2.0...v3.2.1) (2020-07-09)
 
 
