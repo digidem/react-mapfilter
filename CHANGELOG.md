@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.1.0](https://github.com/digidem/react-mapfilter/compare/v3.0.0...v3.1.0) (2020-07-09)
+
+### Features
+
+- Support `localized` type fields ([9dba6f1](https://github.com/digidem/react-mapfilter/commit/9dba6f1d6b9a219d8ccaee04e348e6e615b61aca))
+- Support `singleline` text fields ([67295b1](https://github.com/digidem/react-mapfilter/commit/67295b1422a0485de5072a274c8238d2f167df02))
+
 ## [3.0.0](https://github.com/digidem/react-mapfilter/compare/v3.0.0-beta.15...v3.0.0) (2019-11-25)
 
 ### Bug Fixes
