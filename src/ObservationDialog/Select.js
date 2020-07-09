@@ -106,7 +106,7 @@ export const SelectMultiple = ({
       id={id}
       multiple
       freeSolo
-      value={value}
+      value={value || []}
       onChange={(e, v) => onChange(v)}
       options={options.map(op => (typeof op === 'object' ? op.label : op))}
       renderInput={params =>

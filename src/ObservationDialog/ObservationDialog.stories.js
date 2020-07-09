@@ -47,16 +47,20 @@ const getPreset = observation => {
 
 const exampleObservations = require('../../fixtures/observations.json')
 
-export const simple = () => (
-  <ObservationDialog
-    open
-    onRequestClose={action('close')}
-    onSave={action('save')}
-    observation={exampleObservations[1]}
-    getMedia={getMedia}
-    onDeleteObservation={action('delete')}
-  />
-)
+export const simple = () => {
+  const obs = exampleObservations[1]
+  return (
+    <ObservationDialog
+      open
+      getPreset={getPreset}
+      onRequestClose={action('close')}
+      onSave={action('save')}
+      observation={obs}
+      getMedia={getMedia}
+      onDeleteObservation={action('delete')}
+    />
+  )
+}
 
 export const openClose = () => {
   const [open, setOpen] = React.useState(false)

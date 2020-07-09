@@ -64,7 +64,13 @@ const Field = ({ field, value, onChange }: Props) => {
         />
       )
     case 'select_multiple':
-      return <SelectMultiple value={value} label={label} />
+      return <SelectMultiple
+          value={value}
+          label={label}
+          options={field.options}
+          placeholder={placeholder}
+          onChange={handleChange}
+        />
     case 'number':
       return (
         <TextField
