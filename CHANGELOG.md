@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.2.1](https://github.com/digidem/react-mapfilter/compare/v3.2.0...v3.2.1) (2020-07-09)
+
+
+### Bug Fixes
+
+* Don't automatically expand filters by default ([162722b](https://github.com/digidem/react-mapfilter/commit/162722bf2d77255d7a5eba6455d6e968dc4d3a9e))
+
 ## [3.2.0](https://github.com/digidem/react-mapfilter/compare/v3.1.0...v3.2.0) (2020-07-09)
 
 
