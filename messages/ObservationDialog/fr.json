@@ -39,11 +39,5 @@
   "ObservationDialog.ObservationDialog.saveEditButton": {
     "description": "Save edit button",
     "message": ""
-  },
-  "ObservationDialog.Select.no": {
-    "message": ""
-  },
-  "ObservationDialog.Select.yes": {
-    "message": ""
   }
 }
