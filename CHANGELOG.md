@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.2.0](https://github.com/digidem/react-mapfilter/compare/v3.1.0...v3.2.0) (2020-07-09)
+
+
+### Features
+
+* use @material-ui/lab/Autocomplete for SelectMultiple ([aced10d](https://github.com/digidem/react-mapfilter/commit/aced10da2724aaa5ea0d04122ccd7d8343fc3148))
+
 ## [3.1.0](https://github.com/digidem/react-mapfilter/compare/v3.0.0...v3.1.0) (2020-07-09)
 
 ### Features
