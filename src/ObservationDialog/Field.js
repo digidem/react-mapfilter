@@ -29,12 +29,18 @@ const Field = ({ field, value, onChange }: Props) => {
   }
 
   switch (field.type) {
-    case 'text':
+    // `textarea` is for legacy support of presets that use the iD presets
+    // schema. mapeo-schema uses type `text` with `appearance=multiline` for
+    // text areas (the default) and `appearance=singleline` for forcing fields
+    // to a single line. eslint-disable-next-line no-fallthrough
     case 'textarea':
+    case 'text':
+      // In mapeo-schema, text fields default to multiline appearance.
+      const isMultiline = field.appearance !== 'singleline'
       return (
         <TextField
           value={value}
-          multiline
+          multiline={isMultiline}
           onChange={handleChange}
           label={label}
           placeholder={placeholder}
