@@ -32,7 +32,7 @@ const getPreset = observation => {
       {
         id: 'multi-field',
         key: ['multi'],
-        options: ['one', 'two', 'three'],
+        options: [{label: 'one', value: 1}, {label: 'two', value: 2}, {label: 'three', value: 3}],
         type: 'select_multiple'
       },
       {
@@ -66,7 +66,7 @@ export const openClose = () => {
   const [open, setOpen] = React.useState(false)
   const obs =
     exampleObservations[Math.floor(Math.random() * exampleObservations.length)]
-  obs.tags.multi = ['one', 'two', 'three']
+  obs.tags.multi = [1, 2, 3]
   return (
     <>
       <Button onClick={() => setOpen(true)}>Open Dialog</Button>

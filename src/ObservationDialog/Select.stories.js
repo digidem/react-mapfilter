@@ -36,7 +36,7 @@ const countries = [
   },
   { label: 'Bonaire, Sint Eustatius and Saba' },
   { label: 'Bosnia and Herzegovina' },
-  { label: 'Botswana' },
+  { label: 'Botswana' , value: 'botsy' },
   { label: 'Bouvet Island' },
   { label: 'Brazil' },
   { label: 'British Indian Ocean Territory' },
@@ -75,7 +75,7 @@ defaultStory.story = {
 }
 
 export const selectMultiple = () => (
-  <StateContainer initialValue={['Botswana']}>
+  <StateContainer initialValue={['botsy']}>
     {(value, setValue) => (
       <SelectMultiple
         label="Select Countries"

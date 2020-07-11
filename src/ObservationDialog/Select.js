@@ -62,6 +62,19 @@ type Props = {
   options: SelectOptions
 }
 
+function Encoder (options) {
+  return {
+    toValue: (v) => {
+      var opts = options.find((ops) => ops.label === v)
+      return opts && opts.value || v
+    },
+    toLabel: (v) => {
+      var opts = options.find((ops) => ops.value === v)
+      return opts && opts.label || v
+    }
+  }
+}
+
 /**
  * A multi-select field that allows the user to enter a value that is not on the
  * list. Allows the selection of non-string values from a list, but the labels
@@ -77,11 +90,13 @@ export const SelectOne = ({
   ...props
 }: Props) => {
   const classes = useStyles()
+  const encoder = Encoder(options)
+
   return (
     <Autocomplete
       id={id}
-      value={value}
-      onChange={(e, v) => onChange(v)}
+      value={encoder.toLabel(value)}
+      onChange={(e, v) => onChange(encoder.toValue(v))}
       options={options.map(op => (typeof op === 'object' ? op.label : op))}
       renderInput={params =>
         renderInput({ ...params, classes, label, placeholder })
@@ -101,13 +116,14 @@ export const SelectMultiple = ({
   ...props
 }: Props) => {
   const classes = useStyles()
+  const encoder = Encoder(options)
   return (
     <Autocomplete
       id={id}
       multiple
       freeSolo
-      value={value || []}
-      onChange={(e, v) => onChange(v)}
+      value={(value || []).map(encoder.toLabel)}
+      onChange={(e, v) => onChange(v.map(encoder.toValue))}
       options={options.map(op => (typeof op === 'object' ? op.label : op))}
       renderInput={params =>
         renderInput({ ...params, classes, label, placeholder })
