@@ -65,12 +65,12 @@ type Props = {
 function Encoder (options) {
   return {
     toValue: (v) => {
-      var opts = options.find((ops) => ops.label === v)
+      var opts = options.find((ops) => ops.label === v.toString())
       return opts && opts.value || v
     },
     toLabel: (v) => {
       var opts = options.find((ops) => ops.value === v)
-      return opts && opts.label || v
+      return opts && opts.label || v.toString()
     }
   }
 }

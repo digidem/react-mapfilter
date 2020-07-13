@@ -12,7 +12,7 @@ const countries = [
   { label: 'Andorra' },
   { label: 'Angola' },
   { label: 'Anguilla' },
-  { label: 'Antarctica' },
+  { label: 'Antarctica', value: 1 },
   { label: 'Antigua and Barbuda' },
   { label: 'Argentina' },
   { label: 'Armenia' },
@@ -76,6 +76,19 @@ defaultStory.story = {
 
 export const selectMultiple = () => (
   <StateContainer initialValue={['botsy']}>
+    {(value, setValue) => (
+      <SelectMultiple
+        label="Select Countries"
+        options={countries}
+        value={value}
+        onChange={setValue}
+      />
+    )}
+  </StateContainer>
+)
+
+export const selectMultipleNonStringValue= () => (
+  <StateContainer initialValue={[true, 1]}>
     {(value, setValue) => (
       <SelectMultiple
         label="Select Countries"
