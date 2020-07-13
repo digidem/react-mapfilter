@@ -97,7 +97,7 @@ export const SelectOne = ({
       id={id}
       value={encoder.toLabel(value)}
       onChange={(e, v) => onChange(encoder.toValue(v))}
-      options={options.map(op => (typeof op === 'object' ? op.label : op))}
+      options={options.map(op => (op && typeof op.label === 'string' ? op.label : op))}
       renderInput={params =>
         renderInput({ ...params, classes, label, placeholder })
       }
