@@ -124,7 +124,7 @@ export const SelectMultiple = ({
       freeSolo
       value={(value || []).map(encoder.toLabel)}
       onChange={(e, v) => onChange(v.map(encoder.toValue))}
-      options={options.map(op => (typeof op === 'object' ? op.label : op))}
+      options={options.map(op => (op && typeof op.label === 'string' ? op.label : op))}
       renderInput={params =>
         renderInput({ ...params, classes, label, placeholder })
       }
