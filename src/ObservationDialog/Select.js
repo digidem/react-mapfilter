@@ -1,10 +1,15 @@
 // @flow
-import React from 'react'
+import * as React from 'react'
 import TextField from './TextField'
 import Autocomplete from '@material-ui/lab/Autocomplete'
 import { makeStyles } from '@material-ui/core/styles'
 
-import type { SelectableFieldValue, SelectOptions } from '../types'
+import { primitiveToString } from '../utils/strings'
+import type {
+  SelectableFieldValue,
+  LabeledSelectOption,
+  SelectOptions
+} from '../types'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -54,12 +59,53 @@ function renderInput(inputProps) {
   )
 }
 
-type Props = {
-  id: string,
+type SelectOneProps = {
+  id?: string,
+  label: string | React.Element<any>,
   value: SelectableFieldValue,
   placeholder?: string,
-  onChange: (value: SelectableFieldValue) => any,
+  onChange: (value: SelectableFieldValue | void) => any,
   options: SelectOptions
+}
+
+type SelectMultipleProps = {
+  ...$Exact<SelectOneProps>,
+  value: Array<SelectableFieldValue>
+}
+
+function Encoder(options: Array<LabeledSelectOption>) {
+  return {
+    toValue: (label: string | null): SelectableFieldValue | void => {
+      if (label === null) return
+      var opts = options.find(ops => ops.label === label)
+      return opts && typeof opts.value !== 'undefined' ? opts.value : label
+    },
+    toLabel: (value: SelectableFieldValue): string => {
+      var opts = options.find(ops => ops.value === value)
+      return (opts && opts.label) || primitiveToString(value)
+    }
+  }
+}
+
+function isSelectableFieldValue(
+  v: SelectableFieldValue | LabeledSelectOption
+): boolean %checks {
+  return (
+    typeof v === 'string' ||
+    typeof v === 'boolean' ||
+    typeof v === 'number' ||
+    v === null
+  )
+}
+
+function getLabeledSelectOptions(
+  options: SelectOptions
+): Array<LabeledSelectOption> {
+  return options.map(opt =>
+    isSelectableFieldValue(opt)
+      ? { label: primitiveToString(opt), value: opt }
+      : opt
+  )
 }
 
 /**
@@ -75,14 +121,17 @@ export const SelectOne = ({
   placeholder,
   onChange,
   ...props
-}: Props) => {
+}: SelectOneProps) => {
   const classes = useStyles()
+  const labeledOptions = getLabeledSelectOptions(options)
+  const encoder = Encoder(labeledOptions)
+
   return (
     <Autocomplete
       id={id}
-      value={value}
-      onChange={(e, v) => onChange(v)}
-      options={options.map(op => (typeof op === 'object' ? op.label : op))}
+      value={encoder.toLabel(value)}
+      onChange={(e, v: string) => onChange(encoder.toValue(v))}
+      options={labeledOptions.map(opt => opt.label)}
       renderInput={params =>
         renderInput({ ...params, classes, label, placeholder })
       }
@@ -99,16 +148,18 @@ export const SelectMultiple = ({
   placeholder,
   onChange,
   ...props
-}: Props) => {
+}: SelectMultipleProps) => {
   const classes = useStyles()
+  const labeledOptions = getLabeledSelectOptions(options)
+  const encoder = Encoder(labeledOptions)
   return (
     <Autocomplete
       id={id}
       multiple
       freeSolo
-      value={value || []}
-      onChange={(e, v) => onChange(v)}
-      options={options.map(op => (typeof op === 'object' ? op.label : op))}
+      value={(value || []).map(encoder.toLabel)}
+      onChange={(e, v) => onChange(v.map(encoder.toValue))}
+      options={labeledOptions.map(opt => opt.label)}
       renderInput={params =>
         renderInput({ ...params, classes, label, placeholder })
       }

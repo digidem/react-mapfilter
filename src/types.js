@@ -207,9 +207,12 @@ export type NumberField = {
 
 export type SelectableFieldValue = number | string | boolean | null
 
-export type SelectOptions = Array<
-  SelectableFieldValue | {| value: SelectableFieldValue, label: string |}
->
+export type LabeledSelectOption = {|
+  value: SelectableFieldValue,
+  label: string
+|}
+
+export type SelectOptions = Array<SelectableFieldValue | LabeledSelectOption>
 
 export type SelectOneField = {
   ...BaseField,
