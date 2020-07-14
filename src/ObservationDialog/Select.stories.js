@@ -1,5 +1,6 @@
 // @flow
 import * as React from 'react'
+import { action } from '@storybook/addon-actions'
 
 import { SelectOne, SelectMultiple } from './Select'
 
@@ -36,20 +37,27 @@ const countries = [
   },
   { label: 'Bonaire, Sint Eustatius and Saba' },
   { label: 'Bosnia and Herzegovina' },
-  { label: 'Botswana' , value: 'botsy' },
+  { label: 'Botswana', value: 'botsy' },
   { label: 'Bouvet Island' },
   { label: 'Brazil' },
   { label: 'British Indian Ocean Territory' },
   { label: 'Brunei Darussalam' }
-].map(item => ({ label: item.label, value: item.value || item.label }))
+]
+  .map(item => ({
+    label: item.label,
+    value: item.value || item.label.toLowerCase().replace(' ', '_')
+  }))
+  .concat(['Other', false, 3, null])
 
 const StateContainer = ({
   initialValue,
   children
 }: {
+  initialValue: any,
   children: (any, (any) => any) => React.Node
 }) => {
   const [state, setState] = React.useState(initialValue)
+  action('onChange')(state)
   return children(state, setState)
 }
 
@@ -87,7 +95,7 @@ export const selectMultiple = () => (
   </StateContainer>
 )
 
-export const selectMultipleNonStringValue= () => (
+export const selectMultipleNonStringValue = () => (
   <StateContainer initialValue={[true, 1]}>
     {(value, setValue) => (
       <SelectMultiple
