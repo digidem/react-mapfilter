@@ -39,6 +39,11 @@ const getPreset = observation => {
         id: 'localized-field',
         key: ['localized'],
         type: 'localized'
+      },
+      {
+        id: 'number-field',
+        key: ['num'],
+        type: 'number'
       }
     ]),
     additionalFields: fields.slice(5)

@@ -3,6 +3,7 @@ import React from 'react'
 import { useIntl } from 'react-intl'
 import { SelectOne, SelectMultiple } from './Select'
 import TextField from './TextField'
+import NumberField from './NumberField'
 import DateField from './DateField'
 import DateTimeField from './DateTimeField'
 
@@ -64,20 +65,21 @@ const Field = ({ field, value, onChange }: Props) => {
         />
       )
     case 'select_multiple':
-      return <SelectMultiple
+      return (
+        <SelectMultiple
           value={value}
           label={label}
           options={field.options}
           placeholder={placeholder}
           onChange={handleChange}
         />
+      )
     case 'number':
       return (
-        <TextField
+        <NumberField
           value={value}
           onChange={handleChange}
           label={label}
-          type="number"
           placeholder={placeholder}
         />
       )
