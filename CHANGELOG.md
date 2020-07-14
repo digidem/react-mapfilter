@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.2.3](https://github.com/digidem/react-mapfilter/compare/v3.2.2...v3.2.3) (2020-07-14)
+
+
+### Bug Fixes
+
+* fix failing test for converting btween non-string values and labels ([79561db](https://github.com/digidem/react-mapfilter/commit/79561db2dc220e47d33ef2e6108720a51d93bdff))
+* Fix number fields to always return number not string ([01968ca](https://github.com/digidem/react-mapfilter/commit/01968caffa58d9623d40a7a472a80e1a4044ea4a))
+* Select should properly respect value/label objects for options ([60aeb28](https://github.com/digidem/react-mapfilter/commit/60aeb28ed73ab32653d8a3a60857d5ece2ad9af7))
+
 ### [3.2.2](https://github.com/digidem/react-mapfilter/compare/v3.2.1...v3.2.2) (2020-07-09)
 
 
