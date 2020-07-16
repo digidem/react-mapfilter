@@ -89,7 +89,7 @@ function Encoder(options: Array<LabeledSelectOption>) {
 
 function isSelectableFieldValue(
   v: SelectableFieldValue | LabeledSelectOption
-): boolean %checks {
+): boolean {
   return (
     typeof v === 'string' ||
     typeof v === 'boolean' ||
@@ -103,8 +103,10 @@ function getLabeledSelectOptions(
 ): Array<LabeledSelectOption> {
   return options.map(opt =>
     isSelectableFieldValue(opt)
-      ? { label: primitiveToString(opt), value: opt }
-      : opt
+      ? // $FlowFixMe
+        { label: primitiveToString(opt), value: opt }
+      : // $FlowFixMe
+        opt
   )
 }
 
