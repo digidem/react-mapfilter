@@ -2,36 +2,38 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-### [3.2.3](https://github.com/digidem/react-mapfilter/compare/v3.2.2...v3.2.3) (2020-07-14)
-
+### [3.2.4](https://github.com/digidem/react-mapfilter/compare/v3.2.3...v3.2.4) (2020-07-16)
 
 ### Bug Fixes
 
-* fix failing test for converting btween non-string values and labels ([79561db](https://github.com/digidem/react-mapfilter/commit/79561db2dc220e47d33ef2e6108720a51d93bdff))
-* Fix number fields to always return number not string ([01968ca](https://github.com/digidem/react-mapfilter/commit/01968caffa58d9623d40a7a472a80e1a4044ea4a))
-* Select should properly respect value/label objects for options ([60aeb28](https://github.com/digidem/react-mapfilter/commit/60aeb28ed73ab32653d8a3a60857d5ece2ad9af7))
+- Fix flow types not being correctly removed from compiled code ([cc2cfb5](https://github.com/digidem/react-mapfilter/commit/cc2cfb597e625dd922ca8dd5ef0e7ac5d176a480))
+
+### [3.2.3](https://github.com/digidem/react-mapfilter/compare/v3.2.2...v3.2.3) (2020-07-14)
+
+### Bug Fixes
+
+- fix failing test for converting btween non-string values and labels ([79561db](https://github.com/digidem/react-mapfilter/commit/79561db2dc220e47d33ef2e6108720a51d93bdff))
+- Fix number fields to always return number not string ([01968ca](https://github.com/digidem/react-mapfilter/commit/01968caffa58d9623d40a7a472a80e1a4044ea4a))
+- Select should properly respect value/label objects for options ([60aeb28](https://github.com/digidem/react-mapfilter/commit/60aeb28ed73ab32653d8a3a60857d5ece2ad9af7))
 
 ### [3.2.2](https://github.com/digidem/react-mapfilter/compare/v3.2.1...v3.2.2) (2020-07-09)
 
-
 ### Bug Fixes
 
-* Ensure TextField fallback has handleChange property ([801dfcd](https://github.com/digidem/react-mapfilter/commit/801dfcd6fc3bec3e5efa5919fac425695de3c2f1))
-* SelectMultiple should not throw errors in console ([f5a219d](https://github.com/digidem/react-mapfilter/commit/f5a219d4ca7a74fb7608928f7564e9d8e982c1e7))
+- Ensure TextField fallback has handleChange property ([801dfcd](https://github.com/digidem/react-mapfilter/commit/801dfcd6fc3bec3e5efa5919fac425695de3c2f1))
+- SelectMultiple should not throw errors in console ([f5a219d](https://github.com/digidem/react-mapfilter/commit/f5a219d4ca7a74fb7608928f7564e9d8e982c1e7))
 
 ### [3.2.1](https://github.com/digidem/react-mapfilter/compare/v3.2.0...v3.2.1) (2020-07-09)
 
-
 ### Bug Fixes
 
-* Don't automatically expand filters by default ([162722b](https://github.com/digidem/react-mapfilter/commit/162722bf2d77255d7a5eba6455d6e968dc4d3a9e))
+- Don't automatically expand filters by default ([162722b](https://github.com/digidem/react-mapfilter/commit/162722bf2d77255d7a5eba6455d6e968dc4d3a9e))
 
 ## [3.2.0](https://github.com/digidem/react-mapfilter/compare/v3.1.0...v3.2.0) (2020-07-09)
 
-
 ### Features
 
-* use @material-ui/lab/Autocomplete for SelectMultiple ([aced10d](https://github.com/digidem/react-mapfilter/commit/aced10da2724aaa5ea0d04122ccd7d8343fc3148))
+- use @material-ui/lab/Autocomplete for SelectMultiple ([aced10d](https://github.com/digidem/react-mapfilter/commit/aced10da2724aaa5ea0d04122ccd7d8343fc3148))
 
 ## [3.1.0](https://github.com/digidem/react-mapfilter/compare/v3.0.0...v3.1.0) (2020-07-09)
 
