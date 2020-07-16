@@ -33,7 +33,7 @@
     '@babel/plugin-transform-flow-comments',
     // Allows directly declaring props and methods on a class instead of
     // binding them to `this` in the constructor
-    ['@babel/plugin-proposal-class-properties', { loose: true }],
+    '@babel/plugin-proposal-class-properties',
     // Allows short hand of Object.assign({}, a) as {...a}
     // useBuiltIns should be fine for our use-case, but could cause un-expected
     // results if trying to spread objects with a prototype chains. See
