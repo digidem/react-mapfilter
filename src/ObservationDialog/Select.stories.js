@@ -107,3 +107,16 @@ export const selectMultipleNonStringValue = () => (
     )}
   </StateContainer>
 )
+
+export const selectMultipleOldSelectOneValue= () => (
+  <StateContainer initialValue={true}>
+    {(value, setValue) => (
+      <SelectMultiple
+        label="Select Countries"
+        options={countries}
+        value={value}
+        onChange={setValue}
+      />
+    )}
+  </StateContainer>
+)

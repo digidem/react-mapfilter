@@ -154,12 +154,16 @@ export const SelectMultiple = ({
   const classes = useStyles()
   const labeledOptions = getLabeledSelectOptions(options)
   const encoder = Encoder(labeledOptions)
+  let arrayValue = []
+  if (!Array.isArray(value)) arrayValue = [value]
+  else if (value) arrayValue = value
+
   return (
     <Autocomplete
       id={id}
       multiple
       freeSolo
-      value={(value || []).map(encoder.toLabel)}
+      value={arrayValue.map(encoder.toLabel)}
       onChange={(e, v) => onChange(v.map(encoder.toValue))}
       options={labeledOptions.map(opt => opt.label)}
       renderInput={params =>
