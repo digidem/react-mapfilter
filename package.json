@@ -127,7 +127,7 @@
     "utm": "^1.1.1"
   },
   "description": "These components are designed for viewing data in Mapeo. They share a common interface:",
-  "version": "3.2.4",
+  "version": "3.2.5",
   "directories": {
     "doc": "docs"
   },

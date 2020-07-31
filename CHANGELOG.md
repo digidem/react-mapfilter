@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.2.5](https://github.com/digidem/react-mapfilter/compare/v3.2.3...v3.2.5) (2020-07-31)
+
+
+### Bug Fixes
+
+* Editing multiselect fields with single values shouldn't cause ([85c4dbc](https://github.com/digidem/react-mapfilter/commit/85c4dbcfd6c29e88cace5644874f7fcd4e81b1ee))
+* Fix flow types not being correctly removed from compiled code ([cc2cfb5](https://github.com/digidem/react-mapfilter/commit/cc2cfb597e625dd922ca8dd5ef0e7ac5d176a480))
+
 ### [3.2.4](https://github.com/digidem/react-mapfilter/compare/v3.2.3...v3.2.4) (2020-07-16)
 
 ### Bug Fixes
